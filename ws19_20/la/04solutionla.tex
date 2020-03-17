@@ -1,0 +1,31 @@
+\documentclass{article}
+\usepackage{josuamathheader}
+\usepackage{amsmath}
+\begin{document}
+	\lalayout{4}
+	\section*{Aufgabe 1}
+	Die Kontraposition von Satz~1.42(ii) lautet: Ist $\operatorname{char}(K_1) \neq  \operatorname{char}(K_2)$, dann gibt es keinen Körperhomomorphismus von $K_1$ nach $K_2$. Da $\operatorname{char}(\Z/3\Z) = 3 \neq 5 = \operatorname{char}(\Z/5\Z)$ gibt es keinen Körperhomomorphismus von $\Z/3\Z$ nach $\Z/5\Z$.
+	
+	Es gilt $\Z/3\Z^\times = (\{\overline{1},\overline{2}\}, \cdot, \overline{1})$ und $\Z/5\Z^\times = (\{\overline{1},\overline{2},\overline{3},\overline{4}\}, \cdot, \overline{1})$. Bei einem Gruppenhomomorphismus wird das neutrale Element auf das neutrale Element abgebildet: $f(\overline{1}) = \overline{1}$. Ferner ist $f(\overline{2}) \cdot f(\overline{2}) = f(\overline{2} \cdot \overline{2}) = f(\overline{1}) = \overline{1}$.\\
+	\begin{enumerate}[a)]
+		\item Annahme: $f(\overline{2}) = \overline{1} \implies f(\overline{2})\cdot f(\overline{2}) = \overline{1}\cdot \overline{1}= \overline{1}\checkmark$
+		\item Annahme: $f(\overline{2}) = \overline{2} \implies f(\overline{2})\cdot f(\overline{2}) = \overline{2}\cdot \overline{2}= \overline{4}\lightning$
+		\item Annahme: $f(\overline{2}) = \overline{3} \implies f(\overline{2})\cdot f(\overline{2}) = \overline{3}\cdot \overline{3}= \overline{4}\lightning$
+		\item Annahme: $f(\overline{2}) = \overline{4} \implies f(\overline{2})\cdot f(\overline{2}) = \overline{4}\cdot \overline{4}= \overline{1}\checkmark$
+	\end{enumerate}
+	Für Annahme a) erhalten wir also $f: \Z/3\Z\to \Z/5\Z, a\mapsto \overline{1} = e_{\Z/5\Z}$. Das ist der triviale Homomorphismus (siehe Bsp. 1.25) und damit ein Gruppenhomomorphismus. Für Annahme d) erhalten wir  $f: \Z/3\Z\to \Z/5\Z, \overline{1} \mapsto \overline{1}, \overline{2} \mapsto \overline{4}$.
+	Es ist also $f(1\cdot 1) = f(1) = 1 = 1\cdot 1 = f(1)\cdot f(1)$, $f(1\cdot 2) = f(2) = 4 = 1\cdot 4 = f(1)\cdot f(2)$ (analog für $f(2\cdot 1)$) und $f(2\cdot 2) = f(4)  = f(1) = 1 = 16 = 4\cdot 4 = f(2)\cdot f(2)$. Also ist $\forall a,b\in \Z/3\Z: f(a\cdot b) = f(a)\cdot f(b)$ $\implies f$ ist ein Gruppenhomomorphismus. 
+	\section*{Aufgabe 2}
+	Sei $x = \begin{pmatrix}
+	x_1\\x_2\\x_3
+	\end{pmatrix}$. Dann erhalten wir folgendes Gleichungssystem.
+	\begin{align}
+		x_2\cdot (-2) -x_3\cdot 0 = 2\\
+		x_3\cdot (5) -x_1 \cdot (-2) = -1\\
+		x_1\cdot 0 - x_2\cdot 5 = 5
+	\end{align}
+	Aus (1) folgt unmittelbar $x_2 = -1$.
+	\section*{Aufgabe 3}
+	
+	\section*{Aufgabe 4}
+\end{document}

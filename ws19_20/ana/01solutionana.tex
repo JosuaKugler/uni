@@ -1,0 +1,130 @@
+\documentclass{article}
+\usepackage{josuamathheader}
+
+\begin{document}
+	\analayout{1}
+	\section{Aufgabe}
+	Die $n$-te Zahl der Fibonacci-Folge wird rekursiv durch
+	\[F_n = F_{n-1} + F_{n-2},\quad \text{für $n\geq 3$}\]
+	mit den Anfangswerten 
+	\[F_1 = F_2 = 1\]
+	definiert. Beweisen Sie mit Hilfe vollständiger Induktion
+	\begin{enumerate}[(a)]
+		\item $1 + \displaystyle \sum_{k=1}^{n-1} F_k = F_{n+1},\quad n\in \mathbb{N}, n\geq 2$
+		\induktion{$n=2$: $1 + \sum_{k=1}^{1} F_k = 1 + F_1 = F_2$}
+		{Für ein beliebiges, aber festes $n\in \mathbb{N}$ mit $n\geq 2$ gelte $1 + \displaystyle \sum_{k=1}^{n-1} F_k = F_{n+1}$}
+		{$n\to n+1$:\quad $1 + \sum_{k=1}^{n}F_k = 1 + \sum_{k=1}^{n-1}F_k + F_n = F_{n+1} + F_n = F_{n+2}$}
+		\item $\displaystyle F_{n-1}F_{n+1} = F_n^2+1,\quad n\in \mathbb{N}, n \text{ gerade}$
+		\induktion{$n=2$:\quad $F_1F_3 = 1\cdot 2 = 1^2 + 1 = F_2^2+1$}
+		{Für ein beliebiges, aber festes $n\in \mathbb{N}$, $n\text{ gerade}$, gelte $\displaystyle F_{n-1}F_{n+1} = F_n^2+1$}
+		{$n \to n+2$:\begin{align*}
+				F_{n+1}F_{n+3} &= (F_{n+2} - F_n)(F_{n+2}+F_{n+1})\\
+				&= F_{n+2}^2+F_{n+2}F_{n+1} - F_{n+2}F_n - F_{n+1}F_n\\
+				&= F_{n+2}^2+F_{n+1}^2 + F_{n+1}F_n - F_{n+2}F_n - F_{n+1}F_n\\
+				&= F_{n+2}^2+F_{n+1}F_n + F_{n+1}F_{n-1} - F_{n+2}F_n\\
+				&\overset{I.A.}{=} F_{n+2}^2+F_{n+1}F_n + F_nF_n + 1 - F_{n+2}F_n\\
+				&= F_{n+2}^2 + 1 + F_n(F_{n+1} + F_n - F_{n+2})\\
+				&= F_{n+2}^2 + 1
+			\end{align*}}
+		\item $\displaystyle F_{2n+1} = F_{n+1}^2 + F_n^2, \quad n\in \mathbb{N}$
+		\induktion{	$n=1$:\quad $F_{3} = 2 = 1^2+1 ^2 = F_2^2+ F_1^2$\\
+					$F_{5} = 5 = 2^2+ 1^2= F_3^2+F_2^2$}
+		{Für ein beliebiges, aber festes $n\in \mathbb{N}$, gelte $\displaystyle F_{2n+1} = F_{n+1}^2+F_{n}^2$ und $\displaystyle F_{2n+3} = F_{n+2}^2+F_{n+1}^2$}
+		{$n\to n+1$: $F_{2n+3} = F_{n+2}^2 + F_{n+1}^2$ folgt direkt aus der Induktionsannahme.
+			\begin{align*}
+			F_{2n+5} &= F_{2n+4} + F_{2n+3}\\
+			&= F_{2n+3} + F_{2n+3} + F_{2n+2}\\
+			&= F_{2n+3} + F_{2n+3} + F_{2n+3} - F_{2n+1}\\
+			&\overset{I.A.}{=} 3(F_{n+2}^2 + F_{n+1}^2) - F_{n+1}^2-F_n^2\\
+			&=2F_{n+2}^2 + (F_{n+1} +F_n)^2 + 2F_{n+1}^2 - F_n^2\\
+			&=2F_{n+2}^2 + F_{n+1}^2 + 2F_{n+1}F_{n} + 2 F_{n+1}^2 + F_{n}^2 - F_n^2\\
+			&=2F_{n+2}^2 + F_{n+1}^2 + 2F_{n+1}(F_{n} + F_{n+1})\\
+			&=F_{n+2}^2 + F_{n+2}^2 + 2F_{n+2}F_{n+1} + F_{n+1}^2\\
+			&=F_{n+2}^2 + F_{n+3}^2
+		\end{align*}}
+	\end{enumerate}
+	\section{Aufgabe}
+	Zeigen Sie:
+	\begin{enumerate}[(a)]
+		\item $\displaystyle \sum_{k=1}^{n}(2k-1) = n^2,\quad \forall n\in \mathbb{N}$ (Achtung, geht nicht ab $k=0$)
+		\induktion{$n=1$:\quad $\sum_{k=1}^{1} (2k-1) = 1 = 1^2$}
+		{Für ein beliebiges, aber festes $n\in \mathbb{N}$, gelte $\displaystyle \sum_{k=1}^{n}(2k-1) = n^2$}
+		{$n\to n+1$: \[\sum_{k=1}^{n+1} (2k-1)= \sum_{k=1}^{n} + (2(n+1)-1 \overset{I.A.}{=} n^2 + 2n + 1 = (n+1)^2 \]}
+		\item $\displaystyle\sum_{k=0}^{n}\binom{n}{k} = 2^n,\quad \forall n\in \mathbb{N}$
+		\begin{proof}
+			Laut dem binomischen Lehrsatz gilt:
+			$(1+1)^n = \sum_{k=0}^{n}\binom{n}{k} 1 ^k \cdot 1 ^{n-k} = \sum_{k=0}^{n}\binom{n}{k}$
+		\end{proof}
+		\item $\displaystyle\sum_{k=1}^{n}\frac{1}{k(k+1)} = 1-\frac{1}{n+1},\quad \forall n\in \mathbb{N}$
+		\begin{proof}
+			\begin{align*}
+				\sum_{k=1}^{n}\frac{1}{k(k+1)}
+				&= \sum_{k=1}^{n}\frac{k+1-k}{k(k+1)} \\
+				&=\sum_{k=1}^{n}\left(\frac{k+1}{k(k+1)} -
+				\frac{k}{k(k+1)}\right) \\
+				&= \sum_{k=1}^{n} \left(\frac{1}{k} - \frac{1}{k+1}\right)
+				\intertext{Dies ist eine Teleskopsumme und daher}
+				&= 1 - \frac{1}{n+1}
+			\end{align*}
+		\end{proof}
+		\item $\displaystyle\binom{l+1}{k+1} = \sum_{m=k}^{l}\binom{m}{k}\quad \forall k,l \in \mathbb{N}: k\leq l$
+		\induktion{$l=1$: $$\binom{2}{k+1} =\binom{2}{2} = 1 =  \binom{1}{1} = \sum_{m=k}^{1}\binom{m}{k}$$}
+		{Für ein beliebiges, aber festes $l \in \mathbb{N}$ gilt $$\displaystyle\binom{l+1}{k+1} = \sum_{m=k}^{l}\binom{m}{k}\quad \forall k \in \mathbb{N}: k\leq l$$}
+		{$l\to l+1$: \begin{align*}
+				\binom{l+2}{k+1} &= 
+				\begin{cases}
+					1 = \binom{l+1}{l+1} = \sum_{m=k}^{l+1}\binom{m}{k}&k= l+1\quad \checkmark\\
+					\binom{l+1}{k} + \binom{l+1}{k+1} &k \leq l
+				\end{cases}\\
+				&\overset{I.A.}{=} \binom{l+1}{k} + \sum_{m=k}^{l}\binom{m}{k}\\
+				&=\sum_{m=k}^{l+1}\binom{m}{k}
+		\end{align*}}
+\end{enumerate}
+\section{Aufgabe}
+	Gegeben die Buchstaben $a,b$ formen wir \glqq Worte\grqq\ $W$ wie folgt:
+	\[W_1\coloneqq a, \quad W_2\coloneqq b,\quad W_{n+1} \coloneqq W_nW_{n-1}, \quad n\in \mathbb{N}, n\geq 2\]
+	Das heißt es gilt beispielsweise
+	\[W_3 = ba, \quad W_4 = bab\]
+	Zeigen Sie mit Hilfe von vollständiger Induktion:
+	\begin{enumerate}[(a)]
+		\item $W_n$ besteht aus $F_n$ Buchstaben, $n\in \mathbb{N}$. ($F_n = n$-te Fibonacci-Zahl)
+		\begin{definition}
+			Wir bezeichnen mit $L(W_n)$ die Länge des Wortes $W_n$.
+		\end{definition}
+		\induktion{$n=2$:\quad $L(W_1) = L(a) = 1  = F_1$. $L(W_2) = L(b) = 1 = F_2$}{Für ein beliebiges, aber festes $n\in N$ sei $L(W_{n-1}) = F_{n-1}$ und  $L(W_n) = F_n$.}
+		{$n\to n+1$: Aus der Induktionsannahme folgt unmittelbar $L(W_n) = F_n$. $L(W_{n+1}) = L(W_{n+1}) = L(W_{n}W_{n-1}) = L(W_n) + L(W_{n -1}) \overset{I.A.}{=} F_n + F_{n-1} = F_{n+1}$}
+		\item Die Buchstabenkombination $aa$ ist kein Bestandteil des Wortes $W_n$ für alle $n\in \mathbb{N}$.
+		\begin{definition}
+			$*$ bezeichne eine Abfolge von $a$s und $b$s beliebiger Reihenfolge und Länge (auch Länge 0 ist zugelassen).
+		\end{definition}
+		\begin{lemma}
+			Alle $W_{2n}$ beginnen und enden mit $b$.
+		\end{lemma}
+		\induktion{$n=1$:\quad $W_{2} = b$}{Für ein beliebiges, aber festes $n\in \mathbb{N}$ sei $W_{2n} = b*b$.}
+		{$n\to n+1$. $W_{2n+2} = W_{2n+1}W_{2n} = W_{2n}W{2n-1}W_{2n} = b*bW_{2n-1}b*b = b*b$.}
+		Nun zeigen wir die eigentliche Behauptung.
+		\induktion{$n=2$:\quad $aa$ ist offensichtlich weder in $W_1$ noch in $W_2$ enthalten}{Für ein beliebiges, aber festes $n\in \mathbb{N}$ gelte, dass $aa$ weder in $W_{n-1}$ noch in $W_n$ enthalten ist.}{$n\to n+1$:\quad Dass $aa$ nicht in $W_n$ enthalten ist, folgt sofort aus der Induktionsannahme. $W_{n+1} = W_{n}W_{n-1}$. Weder $W_n$ noch $W_{n-1}$ enthalten $aa$. Die einzige Möglichkeit, so dass $aa$ in $W_nW_{n-1}$ vorkommen kann, ist dass der letzte Buchstabe von $W_n$ und der erste Buchstabe von $W_{n-1}$ gleich $a$ sind. Entweder $n$ oder $n-1$ sind aber gerade und fangen nicht nur mit $b$ an, sondern hören auch auf $b$ auf. Also folgt, dass entweder der letzte Buchstabe von $W_n$ oder der erste Buchstabe von $W_{n-1}$ gleich $b$ sind, $W_{n+1}$ enthält $aa$ daher nicht. }
+	\end{enumerate}
+\section{Aufgabe}
+Seien $n, k\in \mathbb{N}$. Zeigen Sie, dass die Anzahl $A(n)$ aller $k-$Tupel $(a_1,\dots, a_k)\in \mathbb{N}^k$ mit\\
+$(*)\quad 1\leq a_1\leq a_2\leq \dots \leq a_k\leq n$\\
+gegeben ist durch
+\[A(n) = \binom{n+k-1}{k}.\]
+Formal ausgedrückt, ist also zu zeigen, dass
+\[\binom{n+k-1}{k} = \Bigg|\Bigg\{(a_1,\dots, a_k)\in \mathbb{N}^k\Bigg|1\leq a_1\leq a_2\leq\dots\leq a_k\leq n\Bigg\}\Bigg|\]
+\begin{definition}
+	$B(n,k) \coloneqq \Bigg|\Bigg\{(a_1,\dots, a_k)\in \mathbb{N}^k\Bigg|1\leq a_1\leq a_2\leq\dots\leq a_k\leq n\Bigg\}\Bigg|$
+\end{definition}
+\begin{lemma}
+	\[\sum_{l=1}^{l=n}\binom{l+k-1}{k} =\binom{n+k}{k+1} \]
+\end{lemma}
+\induktion{$n=1$: $\sum_{l=1}^{l=1}\binom{l+k-1}{k} = \binom{k}{k} = \binom{1+k}{k+1} = \binom{n+k}{k+1}$}
+{Für ein beliebiges, aber festes $n \in \mathbb{N}$ gelte $\sum_{l=1}^{l=n}\binom{l+k-1}{k} =\binom{n+k}{k+1}$}
+{$n\to n+1$: $$\sum_{l=1}^{l=n+1}\binom{l+k-1}{k} = \sum_{l=1}^{l=n}\binom{l+k-1}{k} + \binom{n+k}{k} \overset{I.A.}{=}\binom{n+k}{k+1} +  \binom{n+k}{k} = \binom{n+k+1}{k+1}$$}
+\noindent Z.Z.: $B(n,k) = \binom{n+k-1}{k}$
+\induktion{$k=1$: Es gibt nur ein Element in unserem Tupel, dieses kann folglich $n = \binom{n}{1} = \binom{n+k-1}{k}$ Werte annehmen.}
+{Für ein beliebiges, aber festes $k\in \mathbb{N}$ sei $\forall n\in \mathbb{N}: B(n,k) = \binom{n+k-1}{k}$}
+{$k\to k+1$:\quad Setzt man $a_{k+1} = n$, so gibt es $A(n,k)$ Möglichkeiten, die restlichen $a_i$ ($1\leq i\leq k$) zu wählen. Setzt man $a_{k+1} = n-1$, so gibt es $B(n-1,k)$ Möglichkeiten, die restlichen $a_i$ ($1\leq i\leq k$) zu wählen. Allgemein gilt: Setzt man $a_{k+1} = l\in \mathbb{N}$ mit $l\leq n$, so gibt es $B(l, k)$ Möglichkeiten, die restlichen $a_i$ ($1\leq i\leq k$) zu wählen. Da für zwei verschiedene $l$ $a_k$ ebenfalls verschieden ist, überschneiden sich keine dieser Möglichkeiten, es gilt:
+\[B(n,k+1) = B(n,k) + B(n-1, k) + \dots + B(1,k) = \sum_{l=1}^{l=n}B(l, k) = \sum_{l=1}^{l=n}\binom{l+k-1}{k}\overset{Lemma}{=} \binom{n+k}{k+1}\]
+}
+\end{document}

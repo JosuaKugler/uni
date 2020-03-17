@@ -1,0 +1,401 @@
+\documentclass{article}
+\setlength{\headheight}{25pt}
+\usepackage{josuamathheader}
+\usepackage{gauss}
+\newcommand{\Lin}{\operatorname{Lin}}
+
+\begin{document}
+\begin{tabular}{l|c|r|l|c|r}\hline\hline
+	Aufgabe &  1 & 2 & 3 &4 & $\sum$ \\
+	\hline 
+	Punkte &  & & &   &\\
+	\cline{2-2}
+	\hline \end{tabular}
+    \lalayout{11}
+    \section*{Aufgabe 1}
+    	Sei $A$ gegeben.\\
+    	Die Einträge der adjungierten Matrix $\widetilde{A}$ von A sind nach Vorlesung gegeben durch
+    	$$ \widetilde{A} = (\widetilde{a}_{ij}) \text{ mit } \widetilde{a}_{ij} = (-1)^{j+i}|A_{ij}|.$$
+    	Daraus folgt 
+    	$$\widetilde{A} =\begin{gmatrix}[p]
+    	{ \widetilde{a}_{11} }&{ \widetilde{a}_{12} }&{ \widetilde{a}_{13}}&{ \widetilde{a}_{14}}\\
+    	{ \widetilde{a}_{21} }&{\widetilde{a}_{22} }&{ \widetilde{a}_{23} }&{\widetilde{a}_{24}  }\\
+    	{ \widetilde{a}_{31} }&{ \widetilde{a}_{32} }&{ \widetilde{a}_{33} }&{ \widetilde{a}_{34} }\\
+    	{ \widetilde{a}_{41} }&{ \widetilde{a}_{42} }&{ \widetilde{a}_{43} }&{ \widetilde{a}_{44}}
+    	\end{gmatrix}$$
+    	
+    	$$=\begin{gmatrix}[p]
+    	{ \operatorname{det}\left(\begin{matrix}
+    		{ 0 }&{ 11 }&{-1}\\
+    		{ -1 }&{  3}&{  0}\\
+    		{3  }&{  -1}&{  0}
+
+    	\end{matrix}\right)
+     }&{-\operatorname{det}\left(\begin{matrix}
+     	{-1}&{ 0 }&{1 }\\
+     	{ -1 }&{ 3 }&{ 0 }\\
+     	{ 3 }&{  -1}&{  0}
+     \end{matrix}\right)
+ }&{ \operatorname{det}\left(\begin{matrix}
+     		{ -1 }&{ 0 }&{ 1}\\
+     		{ 0 }&{11  }&{ -1 }\\
+     		{ 3 }&{ -1 }&{ 0 }
+     	\end{matrix}\right)
+      }&{-\operatorname{det}\left(\begin{matrix}
+      	{-1}&{ 0 }&{1 }\\
+      	{ 0 }&{11  }&{ -1 }\\
+      	{-1  }&{3  }&{ 0 }
+      \end{matrix}\right)
+   }\\
+    	{ -\operatorname{det}\left(\begin{matrix}
+    			{ -2 }&{11  }&{-1 }\\
+    			{ 0 }&{ -3 }&{ 0 }\\
+    			{-1  }&{-1  }&{ 0 }
+    		\end{matrix}\right)
+    	 }&{ \operatorname{det}\left(\begin{matrix}
+    	 	{1}&{0  }&{ 1}\\
+    	 	{ 0 }&{ 3 }&{ 0 }\\
+    	 	{ -1 }&{ -1 }&{0  }
+    	 \end{matrix}\right)
+     }&{ -\operatorname{det}\left(\begin{matrix}
+     	{1}&{0  }&{1}\\
+     	{ -2 }&{ 11 }&{ -1 }\\
+     	{ -1 }&{ -1 }&{ 0 }
+     \end{matrix}\right)
+  }&{ \operatorname{det}\left(\begin{matrix}
+  	{1}&{ 0 }&{ 1}\\
+  	{  -2}&{ 11 }&{ -1 }\\
+  	{ 0 }&{ 3 }&{ 0 }
+  \end{matrix}\right)
+ }\\
+    	{ \operatorname{det}\left(\begin{matrix}
+    			{ 2 }&{ 0 }&{ -1}\\
+    			{ 0 }&{ -1 }&{ 0 }\\
+    			{ -1 }&{ 3 }&{ 0 }
+    		\end{matrix}\right)
+    	 }&{-\operatorname{det}\left(\begin{matrix}
+    	 	{ 1 }&{ -1}&{ 1}\\
+    	 	{ 0  }&{ -1 }&{ 0 }\\
+    	 	{ -1 }&{ 3 }&{ 0 }
+    	 \end{matrix}\right)
+       }&{ \operatorname{det}\left(\begin{matrix}
+       	{ 1 }&{ -1 }&{1 }\\
+       	{-2  }&{ 0 }&{ -1 }\\
+       	{ -1 }&{ 3 }&{ 0 }
+       \end{matrix}\right)
+    }&{ \operatorname{det}\left(\begin{matrix}
+    	{1  }&{  -1}&{1 }\\
+    	{ -2 }&{ 0 }&{ -1 }\\
+    	{ 0 }&{ -1 }&{ 0 }
+    \end{matrix}\right)
+ }\\
+    	{ -\operatorname{det}\left(\begin{matrix}
+    			{-2}&{  0}&{11 }\\
+    			{ 0 }&{ -1 }&{ 3 }\\
+    			{ -1 }&{3  }&{ -1 }
+    		\end{matrix}\right)
+    	 }&{ \operatorname{det}\left(\begin{matrix}
+    	 	{1}&{ -1}&{0 }\\
+    	 	{ 0 }&{ -1 }&{ 3}\\
+    	 	{ -1 }&{ 3}&{ -1}
+    	 \end{matrix}\right)
+     }&{- \operatorname{det}\left(\begin{matrix}
+     	{ 1 }&{ -1 }&{ 0}\\
+     	{-2  }&{ 0 }&{ 11 }\\
+     	{ -1 }&{ 3 }&{ -1 }
+     \end{matrix}\right)
+  }&{ \operatorname{det}\left(\begin{matrix}
+  	{1}&{-1  }&{0 }\\
+  	{ -2 }&{ 0 }&{ 11 }\\
+  	{ 0 }&{ -1 }&{ 3 }
+  \end{matrix}\right)
+ }
+    	\rowops
+    	\end{gmatrix}$$
+    	$$=
+    	\begin{gmatrix}[p]
+    		{8  }&{ 8 }&{-32 }&{-8 }\\
+    		{ 3 }&{ 3 }&{ -12 }&{-3  }\\
+    		{ 1 }&{1  }&{ -4 }&{ -1 }\\
+    		{ -5 }&{-5  }&{ 20 }&{ 5 }
+    		\rowops
+    	\end{gmatrix}.$$
+    Nun ist $$\begin{gmatrix}[p]{8}&{8}&{-32}&{-8} \end{gmatrix} \cdot \begin{gmatrix}[p]{1}&{-2}&{0}&{-1} \end{gmatrix}^T = (0),$$
+    Das bedeutet, dass der Eintrag in der ersten Zeile und ersten Spalte des Produktes von $\widetilde{A}$ und $A$ gleich null ist.  Nach der ersten Cramerschen Regel gilt $\widetilde{A} \cdot A = |A| \cdot E,$ weshalb folglich alle Einträge des Produktes null sind und die Determinante von A null sein muss. Dementsprechend ist A insbesondere nicht invertierbar.
+    \section*{Aufgabe 2}
+    \begin{enumerate}[(a)]
+    \item 
+    
+		\begin{enumerate}[(i)]
+			\item  Es gilt $$\begin{gmatrix}[p]
+				{ 1 }&{ 2 }&{3}&{4 }&{ 5 }\\
+				{ 4 }&{ 3 }&{ 2}&{ 1 }&{ 5 }
+			\end{gmatrix} = \left(\begin{matrix}
+			{ 1 }&{ 4 }
+
+		\end{matrix}\right)
+		\circ \left(\begin{matrix}
+			{ 2 }&{ 3 }
+		
+		\end{matrix}\right)$$
+	Für die Spaltenvektoren der Permutationsmatrix gilt nach Vorlesung $\varphi(\sigma)(e_i) = e_{\sigma(i)}$ und somit 
+	$$\varphi(\sigma)(e_1) = e_{\sigma(1)}= e_4$$
+	$$\varphi(\sigma)(e_2) = e_{\sigma(2)}= e_3$$
+	$$\varphi(\sigma)(e_3) = e_{\sigma(3)}= e_2$$
+	$$\varphi(\sigma)(e_4) = e_{\sigma(4)}= e_1$$
+	$$\varphi(\sigma)(e_5) = e_{\sigma(5)}= e_5$$
+		Daher hat die Permutationsmatrix die Form 
+		$$ \varphi(\sigma)=\begin{gmatrix}[p]
+			{ 0 }&{ 0 }&{ 0}&{1 }&{ 0 }\\
+			{ 0 }&{ 0 }&{  1}&{ 0 }&{ 0 }\\
+			{ 0 }&{ 1 }&{  0}&{ 0 }&{ 0 }\\
+			{ 1 }&{ 0 }&{  0}&{0  }&{ 0 }\\
+			{ 0 }&{  0}&{  0}&{0  }&{ 1 }
+		\end{gmatrix}$$
+	
+		\item Es gilt 
+			$$\begin{gmatrix}[p]
+				{ 1 }&{ 2 }&{3}&{4 }&{ 5 }\\
+				{ 2 }&{ 4 }&{ 5}&{ 1 }&{ 3 }
+				\end{gmatrix} = \left(\begin{matrix}
+				{ 1 }&{ 2 }
+			\end{matrix}\right)
+			\circ \left(\begin{matrix}
+				{ 4}&{ 1}
+			\end{matrix}\right)
+		\circ \left(\begin{matrix}
+			{ 3}&{5}
+		\end{matrix}\right)$$
+	$$\varphi(\sigma)(e_1) = e_{\sigma(1)}= e_2$$
+	$$\varphi(\sigma)(e_2) = e_{\sigma(2)}= e_4$$
+	$$\varphi(\sigma)(e_3) = e_{\sigma(3)}= e_5$$
+	$$\varphi(\sigma)(e_4) = e_{\sigma(4)}= e_1$$
+	$$\varphi(\sigma)(e_5) = e_{\sigma(5)}= e_3$$
+		Daher hat die Permutaionsmatrix die Form 
+		$$	\varphi(\sigma)=\begin{gmatrix}[p]
+			{ 0 }&{ 0 }&{ 0}&{1 }&{ 0 }\\
+			{ 1 }&{ 0 }&{  0}&{ 0 }&{ 0 }\\
+			{ 0 }&{ 0 }&{  0}&{ 0 }&{ 1}\\
+			{ 0 }&{ 1 }&{  0}&{0  }&{ 0 }\\
+			{ 0 }&{  0}&{  1}&{0  }&{ 0 }
+		\end{gmatrix}$$
+	\end{enumerate}
+	\item \textbf{ZZ:} Für $\sigma \in S_n$ und $K$ Körper ist die Spur der zugehörigen Permutationsmatrix $\varphi(\sigma) \in \operatorname{GL}_n(K)$ die Anzahl der Fixpunkte von $\sigma$.
+	\begin{proof}
+	Sei $\sigma \in S_n$, $K$ ein Körper und $\varphi(\sigma) \in \operatorname{GL}_n(K)$ die zugehörige Permutaionsmatrix. Es gilt 
+	$$\sigma(i) = i \Longleftrightarrow \varphi(\sigma)_{ii} = 1_K ,$$
+	d.h., dass der i-te Einheitsvektor in der i-ten Spalte stehen bleibt. \\
+	Weiter gilt 
+	$$ \sigma(i) \neq i \Longleftrightarrow \varphi(\sigma)_{ii} = 0_K.$$
+	Somit stehen insbesondere auf der Hauptdiagonalen von $ \varphi(\sigma)$ dort eine $1_K$, wo $\sigma(i) = i$, also $\sigma$ einen Fixpunkt hat und $0_K$, wo $\sigma(i) \neq i. $
+	Insgesamt erhalten wir 
+	$$ \operatorname{Sp}(\varphi(\sigma)) = \sum_{i \in \{1,...,n\}: \sigma(i) =i}1_K = N_K$$
+	\end{proof}
+	\end{enumerate}
+
+    \section*{Aufgabe 3}
+    Wir berechnen zunächst die Eigenwerte von $M \coloneqq \lambda \cdot E_3 - A$. Diese sind laut Vorlesung die Nullstellen des charakteristischen Polynoms.
+    \begin{align*}
+        &\det(\lambda \cdot E_3 - A)\\
+        =&\det \begin{pmatrix}
+            \lambda - 4 & -5 & -6\\
+            0 & \lambda -3 & 0\\
+            3 & 5 & \lambda + 5
+        \end{pmatrix}
+        =&(\lambda - 4)(\lambda - 3)(\lambda + 5) - 3 (\lambda - 3)(-6)\\
+        =&(\lambda - 3)\cdot ((\lambda-4)(\lambda + 5) + 18)\\
+        =&(\lambda - 3)\cdot (\lambda^2 + \lambda - 2)\\
+        =&(\lambda - 3)(\lambda - 1)(\lambda + 2)
+    \end{align*}
+    Als Nullstellen des Polynoms und damit Eigenwerte von $M$ erhalten wir also $\lambda = 3, 1, -2$.
+    Da $M$ eine lineare Abbildung ist, gilt: $0 \in \ker(M)$.
+    Ist $\lambda$ nun kein Eigenwert von $M$, so gilt nach Vorlesung:
+    $\forall v \in V \text{ mit } v \neq 0: A\cdot v \neq \lambda \cdot v \equals \lambda \cdot E_3 \cdot v - A \cdot v \neq 0 \equals \ker(\lambda \cdot E_3 - A) = \{0\}$.
+    Nun betrachten wir die drei Eigenwerte.
+    \begin{itemize}
+        \item[$\lambda = 3$] 
+        \begin{align*}
+            \begin{pmatrix}
+                3 - 4 & -5 & -6\\
+                0 & 3 -3 & 0\\
+                3 & 5 & 3+ 5
+            \end{pmatrix}
+            =
+            \begin{gmatrix}[p]
+                -1 & -5 & -6\\
+                0 & 0 & 0\\
+                3 & 5 & 8
+            \rowops
+            \mult{2}{\text{III} + 3\cdot \text{I}}
+            \end{gmatrix}
+            &\longrightarrow 
+            \begin{gmatrix}[p]
+                -1 & -5 & -6\\
+                0 & 0 & 0\\
+                0 & -10 & -10
+            \rowops
+            \mult{0}{\text{I} - 0.5 \cdot \text{III}}
+            \swap{1}{2}
+            \end{gmatrix}\\
+            \longrightarrow
+            \begin{gmatrix}[p]
+                -1 & 0 & -1\\
+                0 & -10 & -10\\
+                0 & 0 & 0
+            \rowops
+            \mult{0}{\cdot -1}
+            \mult{1}{\cdot - 0.1}
+            \end{gmatrix}
+            &\longrightarrow
+            \begin{gmatrix}[p]
+                1 & 0 & 1\\
+                0 & 1 & 1\\
+                0 & 0 & 0
+            \end{gmatrix}
+        \intertext{Es gilt nach dem im Tutorium besprochenen Verfahren}
+        \ker\left(3 \cdot E_3 - A\right) = \Lin \left(\begin{pmatrix}
+            1\\
+            1\\
+            -1
+        \end{pmatrix}\right)
+        \end{align*}
+        \item[$\lambda = 1$] 
+        \begin{align*}
+            \begin{pmatrix}
+                1 - 4 & -5 & -6\\
+                0 & 1 -3 & 0\\
+                3 & 5 & 1+ 5
+            \end{pmatrix}
+            =
+            \begin{gmatrix}[p]
+                -3 & -5 & -6\\
+                0 & -2 & 0\\
+                3 & 5 & 6
+            \rowops
+            \mult{2}{\text{III} + \text{I}}
+            \mult{1}{\cdot -0.5}
+            \mult{0}{\cdot -1}
+            \end{gmatrix}
+            &\longrightarrow 
+            \begin{gmatrix}[p]
+                3 & 5 & 6\\
+                0 & 1 & 0\\
+                0 & 0 & 0
+            \rowops
+            \mult{0}{\text{I} - 5 \cdot \text{II}}
+            \end{gmatrix}\\
+            \longrightarrow
+            \begin{gmatrix}[p]
+                3 & 0 & 6\\
+                0 & 1 & 0\\
+                0 & 0 & 0
+            \rowops
+            \mult{0}{\cdot 0.5}
+            \end{gmatrix}
+            &\longrightarrow
+            \begin{gmatrix}[p]
+                1 & 0 & 2\\
+                0 & 1 & 0\\
+                0 & 0 & 0
+            \end{gmatrix}
+        \intertext{Es gilt nach dem im Tutorium besprochenen Verfahren}
+        \ker\left(1 \cdot E_3 - A\right) = \Lin \left(\begin{pmatrix}
+            2\\
+            0\\
+            -1
+        \end{pmatrix}\right)
+        \end{align*}
+        \item[$\lambda = -2$] 
+        \begin{align*}
+            \begin{gmatrix}[p]
+                -2 - 4 & -5 & -6\\
+                0 & -2 -3 & 0\\
+                3 & 5 & -2 + 5
+            \end{gmatrix}
+            &=
+            \begin{gmatrix}[p]
+                -6 & -5 & -6\\
+                0 & -5 & 0\\
+                3 & 5 & 3
+            \rowops
+            \mult{2}{\text{III} + \text{II}}
+            \mult{1}{\cdot -0.2}
+            \mult{0}{\text{I} - \text{II}}
+            \end{gmatrix}\\
+            \longrightarrow 
+            \begin{gmatrix}[p]
+                -6 & 0 & -6\\
+                0 & 1 & 0\\
+                3 & 0 & 3
+            \rowops
+            \mult{2}{\text{III} + 0.5 \cdot \text{I}}
+            \mult{0}{\cdot -\frac{1}{6}}
+            \end{gmatrix}
+            &\longrightarrow
+            \begin{gmatrix}[p]
+                1 & 0 & 1\\
+                0 & 1 & 0\\
+                0 & 0 & 0
+            \end{gmatrix}
+        \intertext{Es gilt nach dem im Tutorium besprochenen Verfahren}
+        \ker\left(-2 \cdot E_3 - A\right) = \Lin \left(\begin{pmatrix}
+            1\\
+            0\\
+            -1
+        \end{pmatrix}\right)
+        \end{align*}
+    \end{itemize}
+    Insgesamt erhalten wir also folgendes Ergebnis:
+    $$\ker(\lambda E_3 - A) = \begin{cases}
+        \{0\} &| \lambda \notin \{-2, 1, 3\}\\
+        \Lin \left(\begin{pmatrix}
+            1\\
+            0\\
+            -1
+        \end{pmatrix}\right) &| \lambda = -2\\
+        \Lin \left(\begin{pmatrix}
+            2\\
+            0\\
+            -1
+        \end{pmatrix}\right) &| \lambda = 1\\
+        \Lin \left(\begin{pmatrix}
+            1\\
+            1\\
+            -1
+        \end{pmatrix}\right) &| \lambda = 3
+    \end{cases}$$
+    \section*{Aufgabe 4}
+    \begin{enumerate}[(a)]
+        \item Sei $\lambda \in \Q$ und $A, B \in M_{n,n} (\Q)$. Dann gilt $(\lambda A + B)^t = (\lambda A)^t + B^t = \lambda A^t + B^t$.
+        \item Da $\lambda \cdot \operatorname{id}_{M_{n,n}(\Q)} - (-)^t$ eine lineare Abbildung ist, gilt $0 \in \Q \forall \lambda \in \Q$. Für $\lambda = 0$ ist das offensichtlich auch das einzige Element des Kerns. Sei nun $A \neq 0\in \ker(\lambda \cdot \operatorname{id}_{M_{n,n}(\Q)} - (-)^t)$ und $0 \neq \lambda \in \Q$. Dann gilt
+        \begin{align}
+            \lambda A - A^t &= 0\nonumber\\
+            \equals \lambda A &= A^t\label{importantequation}
+            \intertext{Durch Transponieren erhalten wir}
+            \equals \lambda A^t &= A\nonumber
+            \intertext{Da $\lambda \neq 0$ existiert ein eindeutig bestimmtes Inverses $\lambda^{-1}$}
+            \equals A^t &= \lambda^{-1} A\nonumber
+            \intertext{Gleichsetzen mit \eqref{importantequation} ergibt}
+            \equals \lambda A &= \lambda^{-1} A\nonumber
+            \intertext{Wegen $A \neq 0$ gibt es mindestens einen Eintrag $\neq 0$. Komponentenweise Vergleichen liefert als einzig mögliche Lösung}
+            \equals \lambda &= \lambda^{-1}\nonumber\\
+            \equals \lambda &= 1\nonumber\\
+            \equals A &= A^t\label{result}
+            \intertext{oder}
+            \lambda &= -1\nonumber\\
+            \equals A &= - A^t\label{result2}\\
+        \end{align}
+        Für eine Matrix, die \autoref{result} genügt, gilt folgende Einschränkung: $a_{ij} = a_{ji}$. Insgesamt kann man also alle Diagonaleinträge sowie \obda alle Einträge mit $i > j$ frei wählen, dann sind alle anderen Einträge durch \autoref{result} bereits festgelegt. Die Anzahl der frei wählbaren Einträge ist also
+        $$\sum_{i = 1}^{n} i = \frac{n(n+1)}{2}.$$
+        Daher besteht eine Basis über $\Q$ aus exakt $\frac{n(n+1)}{2}$ Vektoren.
+        Für eine Matrix, die \autoref{result} genügt, gilt folgende Einschränkung: $a_{ij} = - a_{ji}$. Insgesamt muss man also alle Diagonaleinträge gleich 0 wählen. Allerdings sind \obda alle Einträge mit $i > j$ frei wählbar, dann sind alle anderen Einträge durch \autoref{result} bereits festgelegt. Die Anzahl der frei wählbaren Einträge ist also
+        $$\sum_{i = 1}^{n-1} i = \frac{n(n-1)}{2}.$$
+        Daher besteht eine Basis über $\Q$ aus exakt $\frac{n(n+1)}{2}$ Vektoren.
+        Insgesamt erhalten wir also folgendes Ergebnis
+        $$\dim_\Q \left(\ker\left(\lambda \cdot \operatorname{id}_{M_{n,n}(\Q)} - (-)^t\right)\right) = \begin{cases}
+            \frac{n(n+1)}{2} &| \lambda = 1\\
+            \frac{n(n-1)}{2} &| \lambda = -1\\
+            0 &|\text{sonst}
+        \end{cases}$$
+    \end{enumerate}
+\end{document}

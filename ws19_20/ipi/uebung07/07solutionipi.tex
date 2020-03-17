@@ -1,0 +1,32 @@
+\documentclass{article}
+\usepackage{josuamathheader}
+
+\begin{document}
+\section*{Aufgabe 1}
+    \begin{enumerate}
+        \item FIFO
+        \item LIFO
+        \item FIFO
+        \item FIFO
+        \item FIFO
+        \item FIFO
+        \item LIFO
+    \end{enumerate}
+\section*{Aufgabe 2}
+\begin{enumerate}[(a)]
+    \item Setze Hase und Igel auf Element 0 der Liste. Sitzen sie irgendwann nach Verlassen des 0-ten Elements wieder auf dem gleichen Feld, so enthält die Liste einen Zyklus. Sofern die Liste einen Zyklus enthält, treffen sich die beiden nach dieser Begegnung noch einmal. Behauptung: Sie treffen sich nach $n$ Zügen wieder. 
+    \begin{proof}
+        Der Vorsprung des Hasen wir pro Zug um 1 erhöht. Nach $n$ Zügen wurde der Vorsprung des Hasen also um $n$ erhöht. Da der Zyklus die Länge $n$ hat, sitzen Hase und Igel nun also wieder auf dem gleichen Feld.
+    \end{proof}
+    \item \lstinputlisting[language=C++, caption={haseigel.cc}]{haseigel.cc}
+\end{enumerate}
+\section*{Aufgabe}
+\begin{enumerate}[(a)]
+    \item Einfach verkettete Liste: \lstinputlisting[language=C++, caption={queuea.cc}]{queuea.cc}
+    \item Doppelt verkettete Liste: \lstinputlisting[language=C++, caption={queueb.cc}]{queueb.cc}
+    \item Für die einfach verkettete Liste erhalten wir bei 100000 zufällig generierten Zahlen eine Laufzeit von 23.616 Sekunden, für eine doppelt verkettete Liste erhalten wir bei 100000 zufällig generierten Zahlen eine Laufzeit von 0.448 Sekungen. Bei der einfach verketteten Liste muss nämlich jedes Mal die gesamte Liste durchsucht werden, bis man das letze Element findet, um daran ein weiteres Element anzuhängen. Bei einer doppelt verketteten Liste hingegen kann man einfach direkt über den Pointer \lstinline{list->last} auf das letze Element zugreifen.
+    Die \lstinline{getfirst}-Funktion benötigt stets die gleiche Zeit, unabhängig von der Anzahl der Elemente. Der Unterschied liegt in der \lstinline{appendelement}-Funktion. Diese hat bei einer einfach verketteten Liste eine lineare Komplexität, bei einer doppelt verketteten Liste benötigt sie hingegen stets die selbe Laufzeit.
+    Beim Hinzufügen und Wegnehmen von $n$ Elementen hat also die einfach verkettete Liste eine quadratische Komplexität, die doppelt verkettete Liste hingegen eine lineare Komplexität.
+\end{enumerate}
+
+\end{document}

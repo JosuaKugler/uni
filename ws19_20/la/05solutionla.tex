@@ -1,0 +1,149 @@
+\documentclass{article}
+\usepackage{josuamathheader}
+\usepackage{amsmath, amssymb}
+\begin{document}
+	\lalayout{5}
+	\section*{Aufgabe 1}
+	\begin{enumerate}[(a)]
+		\item Z.Z.: $(i) - (iii)$: $U$ ist Untergruppe von $(V,+,0_v)$. $(iv)$: $f \in U\implies a\cdot f\in U$.
+		\begin{enumerate}[(i)]
+			\item $0_v(m) = 0\forall m \in M\implies 0_v(m_0) = 0\implies 0_v \in U$
+			\item Seien $f, f'\in U$. Dann ist $\forall m\in M$
+			\[(f+f')(m_0) = f(m_0) + f'(m_0) = 0_K+0_K = 0_K\]
+			Daher ist $f + f'\in U$.
+			\item  Sei $f\in U$. Dann $\exists f^-: M\to K, m\mapsto -f(m)$. 
+			Es gilt $\forall m \in M: (f^- + f)(m) = f^-(m) + f(m) = -f(m) + f(m) = 0_K$ und daher $f^- + f = 0_v$. Insbesondere ist auch $f^-(m_0) = -f(m_0) = 0_K$ und folglich $f^- \in U$.
+			\item Sei $f\in U$ und $a\in K$. Dann ist $a\cdot f(m_0) = a\cdot 0_K = 0_K \implies a\cdot f \in U$.
+		\end{enumerate}
+		Z.Z.: $(i) - (iii)$: $W$ ist Untergruppe von $(V,+,0_v)$. $(iv)$: $f \in W\implies a\cdot f\in W$.
+		\begin{enumerate}[(i)]
+			\item Seien $x,y \in M$. Dann folgt aus $0_v(m) = 0\forall m \in M$ sofort $0_v(x) = 0_K = 0_v(y)\implies 0_v \in U$.
+			\item Seien $f, f'\in W$. Dann ist $\forall x,y\in M$
+			\[(f+f')(x) = f(x) + f'(x) = f(y) + f'(y) = (f + f')(y)\]
+			Daher ist $f + f'\in W$.
+			\item  Sei $f\in W$. Dann $\exists f^-: M\to K, m\mapsto -f(m)$.
+			Es gilt $\forall m \in M: (f^- + f)(m) = f^-(m) + f(m) = -f(m) + f(m) = 0_K$ und daher $f^- + f = 0_v$.
+			Ferner gilt $\forall x,y\in M$: $f^-(x) = -f(x) = -f(y) = f^-(y) \implies f^- \in U$.
+			\item Sei $f\in W$ und $a\in K$. Dann ist $\forall x,y \in M$: $(a\cdot f)(x) = a\cdot f(x) = a\cdot f(y) = (a\cdot f)(y) \implies a\cdot f \in W$.
+		\end{enumerate}
+	\item $v_0(m_0) = 0 \implies v_0 \in U$. Zudem ist $\forall x,y \in M: v_0(x) = 0 = v_0(y)\implies v_0 \in W$. Folglich ist $v_0 \in U\cap W$.\\
+	Sei nun $f\in U$ und $f\in W$. Dann ist $f(m_0) = 0_K$, da $f\in U$. Aus $f\in W$ folgt außerdem: $\forall m\in M: f(m) = f(m_0) = 0_K$.
+	Daher ist $f = 0_V$.
+	\item \begin{enumerate}[i)]
+		\item Z.Z.: $V\subset U+W \equals \forall v\in V: \exists u\in U$ und $w\in W$ mit $v = u + w$.
+		\[\forall m\in M: w(m)\coloneqq v(m_0).\hspace*{7cm} (\text{$w$ ist offensichtlich in $W$})\]
+		Sei ferner 
+		\[u\coloneqq v-w\]
+		Aus $(v-w)(m_0) = v(m_0)- w(m_0) \overset{\text{Definition von $w$}}{=} v(m_0) - v(m_0) = 0_K$ folgt $u = v-w \in U$.
+		Insgesamt ist also $\forall v\in V:\ v = v-w + w = u + w$ mit $u\in U$ und $w\in W$.
+		\item Z.Z.: $U+W \subset V \equals \forall u\in U:\forall w\in W: u+w\in V$.\\
+		$\forall u\in U:$
+		\[u: M\to K\]
+		$\forall w\in W:$
+		\[w: M\to K\]
+		$\implies$
+		\[w+u: M\to K\]
+		$\implies$
+		\[w+u \in V\]
+	\end{enumerate}
+	\end{enumerate}
+	\section*{Aufgabe 2}
+	\begin{enumerate}[(a)]
+		\item \begin{itemize}
+			\item[$\psi$:] Seien $f, g\in V$. Dann ist
+			\begin{align*}
+				\psi(f+g) &= (f(0) + g(0), f(1) + g(1), \dots, f(n+1)+g(n+1))\\
+				&= (f(0), f(1), \dots, f(n+1)) + (g(0), g(1), \dots g(n+1))\\
+				&=\psi(f) + \psi(g)
+			\end{align*}
+			Sei ferner $a\in K$. Dann ist
+			\begin{align*}
+				\psi(a\cdot f) &= (a\cdot f(0), a\cdot f(1), \dots, a\cdot f(n+1))\\
+				&= a\cdot (f(0), f(1), \dots, f(n+1))\\
+				&= a\cdot \psi(f)
+			\end{align*}
+			\item[$\partial$:] Seien $f, g\in V$. Dann ist
+			\begin{align*}
+			\partial(f+g) &= (i\mapsto (i+1)\cdot (f+g)(i+1))\\
+			&= (i\mapsto (i+1)\cdot (f(i+1) + g(i+1))\\
+			&= (i\mapsto (i+1) \cdot f(i+1) + (i+1) \cdot g(i+1))\\
+			&= (i\mapsto (i+1)\cdot f(i+1)) + (i\mapsto (i+1) \cdot g(i+1))\\
+			&=\partial(f) + \partial(g)
+			\end{align*}
+			Sei ferner $a\in K$. Dann ist
+			\begin{align*}
+			\partial(a\cdot f) &= (i\mapsto (i+1)\cdot (a\cdot f)(i+1))\\
+			&= (i\mapsto a\cdot (i+1)\cdot f(i+1))\\
+			&= a\cdot (i\mapsto a\cdot (i+1)\cdot f(i+1))\\
+			&= a\cdot \partial(f)
+			\end{align*}
+		\end{itemize}
+		\item $\psi$ entspricht der natürlichen Bijektion $\Phi$ aus Lemma 0.44. Da $\psi$ zudem linear ist, muss $\psi$ ein Isomorphismus sein.
+		\item Z.Z.: Genau dann, wenn $\operatorname{char} K \notin \{2,\dots, n+1\}$ ist, gilt $\forall u\in U:\ \exists f\in V$ mit 
+		\begin{align*}
+		&\partial(f)  = u\\
+		\equals&\forall i \in \{0,1,\dots, n\}: (i+1) \cdot f(i+1) = u(i)\\
+		\equals&\forall i \in \{0,1,\dots, n\}: \underbrace{f(i+1) + f(i+1) + \dots + f(i+1)}_{i+1 \text{ mal}} = u(i)\\
+		\equals&\forall i \in \{0,1,\dots, n\}: \underbrace{f(i+1)\cdot 1_K + f(i+1)\cdot 1_K + \dots + f(i+1)\cdot 1_K}_{i+1 \text{ mal}} = u(i)\\
+		\equals&\forall i \in \{0,1,\dots, n\}: (i+1)\cdot 1_K \cdot f(i+1) = u(i)\\
+		\equals&\forall i \in \{0,1,\dots, n\}: f(i+1) = \frac{u(i)}{(i+1)\cdot 1_K}\\
+		\end{align*}
+		Fallunterscheidung:
+		\begin{enumerate}[1.]
+			\item Ist nun $\operatorname{char} K \notin \{2,\dots, n+1\}$, dann ist $\forall i\in \{0,1,\dots, n\}:\ (i+1) \cdot 1_K \neq 0$. Daher ist $f(i+1) = \frac{u(i)}{(i+1)\cdot 1_k}$ für alle $i\in \{0,1,\dots, n\}$ wohldefiniert. Daher gilt:\\
+			Wenn $\operatorname{char} K \notin \{2,\dots, n+1\}$ ist, gilt $\forall u\in U:\ \exists f\in V$ mit $\partial(f)  = u$.
+			\item Ist nun stattdessen $\operatorname{char} K \in \{2,\dots, n+1\}$, dann ist also $\operatorname{char} K \cdot 1_K = 0$.
+			Wir betrachten ein $u$ mit $u((\operatorname{char} K)-1) k\neq 0_K$. Angenommen, $u$ läge im Bild von $\partial$. Dann wäre nämlich $u((\operatorname{char} K)-1) = ((\operatorname{char} K)-1+1)\cdot 1_K \cdot f((\operatorname{char} K)-1+1) = \operatorname{char} K \cdot 1_K \cdot f(\operatorname{char} K) = 0_K$. Dies ist ein Widerspruch und damit kann $\partial$ unter dieser Voraussetzung nicht surjektiv sein.
+		\end{enumerate}
+		\item
+		\begin{align*}
+		&\psi(\operatorname{Kern}(\partial))\\
+		=&\psi(\{f\in V| \partial (f) = 0_U\})\\
+		=&\psi(\{f\in V| (i\mapsto (i+1) \cdot f(i+1)) = 0_U\})\\
+		\intertext{Definition der Nullabbildung}
+		=&\psi(\{f\in V| (i+1) \cdot f(i+1) = 0_K\})\\
+		=&\psi(\{f\in V| (i+1) \cdot 1_K \cdot f(i+1) = 0_K\})
+		\intertext{Nach dem Satz vom Nullprodukt ist $f(i+1) = 0$ für alle $(i+1) \neq 0$}
+		=&\psi(\{f\in V| f(i+1) = 0_K\ \forall (i+1) \neq 0\})\\
+		=&\psi(\{f\in V| f(i+1) = 0_K\ \forall (i+1) \neq \operatorname{char} K\})\\
+		\end{align*}
+		Wir können also $f(0)$ beliebig wählen. Abgesehen von $f(0)$ kann höchstens ein Funktionswert ungleich 0 sein, nämlich der an $\operatorname{char} K$-ter Stelle (wenn $\operatorname{char} K \neq 0$).
+		Fall 1: $\operatorname{char} K = 0$: 
+		\[\psi(\operatorname{Kern}(\partial)) = (f(0), 0_K, \dots, 0_K) = K\times \{0_K\}^{n+1}\]
+		Fall 2: $\operatorname{char} K \neq 0$: 
+		\[\psi(\operatorname{Kern}(\partial)) = (f(0), 0_K, \dots, 0_K, f(\operatorname{char} K), 0_K, \dots, 0_K) = K\times \{0_K\}^{\operatorname{char}K - 1} \times K\times \{0_K\}^{n + 1 - \operatorname{char} K}\]
+	\end{enumerate}
+	\section*{Aufgabe 3}
+	%Mit Einsetzen wird es noch schöner
+	\begin{enumerate}
+		\item Seien $\varphi, \varphi' \in V^*$. Dann ist
+		\[f^*(\varphi + \varphi') = (\varphi + \varphi') \circ f = \varphi \circ f + \varphi'\circ f = f^*(\varphi) + f^*(\varphi')\]
+		Sei ferner $a\in K$. Dann ist
+		\[f^*(a\cdot \varphi) = (a\cdot \varphi)\circ f = a \cdot (\varphi \circ f) = a \cdot f^*(\varphi)\]
+		\item Seien $u, u'\in U$. Dann ist
+		\[\operatorname{ev}(u + u') = (f \mapsto f(u+u'))\]
+		Da $f\in U^*$ ist $f$ linear. Somit ist
+		\[(f \mapsto f(u+u')) = (f \mapsto f(u) + f(u')) = (f \mapsto f(u)) + (f\mapsto f(u')) = \operatorname{ev}(u) + \operatorname{ev}(u')\]
+		Sei ferner $a\in K$. Dann ist
+		\[\operatorname{ev}(a \cdot u) = (f\mapsto f(a\cdot u)) \overset{f \text{ linear}}{=} (f\mapsto a \cdot f(u)) = a \cdot (f \mapsto f(u)) = a \cdot \operatorname{ev}(u)\]
+	\end{enumerate}
+	\section*{Aufgabe 4}
+	\begin{enumerate}[(a)]
+		\item Seien $f, f' \in \operatorname{Hom}_K(U,V)$ und $\varphi \in V^*$. Dann ist
+		\[(*(f + f'))(\varphi) = (f + f')^* (\varphi) = \varphi \circ (f + f') = \varphi \circ f + \varphi \circ f' = f^*(\varphi) + f'^*(\varphi) = (f^* + f'^*)(\varphi) = (*(f) + *(f'))(\varphi)\]
+		Da $\varphi$ beliebig gewählt war, folgt $*(f + f') = *(f) + *(f')$.
+		Sei ferner $a\in K$. Dann ist
+		\[*(a\cdot f)(\varphi) = (a\cdot f)^*(\varphi) = \varphi \circ (a\cdot f)\]
+		Da $\varphi \in V^*$, muss $\varphi$ linear sein.
+		\[\varphi \circ (a\cdot f) = a \cdot \varphi \circ f = a\cdot f^*(\varphi) = a \cdot *(f)(\varphi) = (a\cdot *(f))(\varphi)\]
+		Da $\varphi$ beliebig gewählt war, folgt $*(a\cdot f) = a\cdot *(f)$
+		\item Wir betrachten nun $x,y\in V^*$ mit $x\neq y$. Daher $\exists v\in V$ mit $x(v) \neq y(v)$. Da $f$ surjektiv ist, $\exists u$ mit $f(u) = v$. Wir erhalten: $\exists u\in U$ mit
+		\begin{align*}
+			x(f(u)) &\neq y(f(u))\\
+			(x\circ f)(u) &\neq (x\circ f)(u)\\
+			f^*(x)(u) &\neq f^*(y)(u)
+			\implies f^*(x) \neq f^*(y)
+		\end{align*}
+		Wir haben also unter der Annahme, dass $f$ surjektiv ist, gezeigt dass für zwei verschiedene $x, y\in V^*$ auch $f^*(x) \neq f^*(y)$ verschieden sind. $f^*$ ist also injektiv.
+	\end{enumerate}
+\end{document}

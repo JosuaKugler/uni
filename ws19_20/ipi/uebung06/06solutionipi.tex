@@ -1,0 +1,22 @@
+\documentclass{article}
+\usepackage{josuamathheader}
+\usepackage{listings}
+\newcommand{\Fib}{\operatorname{Fib}}
+
+\begin{document}
+	\ipilayout{6}
+	\section*{Aufgabe 1}
+	siehe .odg Datei.
+	\section*{Aufgabe 2}
+	\begin{enumerate}[(a)]
+		\item \lstinputlisting[language=C++, caption={primfaktor.cc}]{primfaktor.cc}
+		\item Zu Beginn gibt es einen konstanten Initialisierungsaufwand.
+		Ist $n$ prim, so wird die Schleife \lstinline{sqrt(n)} mal durchlaufen.
+		Die Schleifenbedingung der \lstinline{while}-Schleife ist allerdings nie erfüllt.
+		Pro Schleifendurchlauf wird also genau einmal die \lstinline{teilt}-Funktion aufgerufen.
+		Die Komplexität der \lstinline{teilt}-Funktion sei $C(n)$. 
+		Dann ist die Gesamtkomplexität des Programm $\Omega(C(n)\cdot \sqrt{n})$
+	\end{enumerate}
+	\section*{Aufgabe 3}
+	\lstinputlisting[language=C++, caption={taschenrechner.cc}]{taschenrechner.cc}
+\end{document}

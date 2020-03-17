@@ -1,0 +1,86 @@
+\documentclass{article}
+\setlength{\headheight}{25pt}
+\newcommand{\mylim}{\lim\limits_{n\to \infty}}
+\usepackage{josuamathheader}
+\renewcommand{\epsilon}{\varepsilon}
+
+\begin{document}
+    \analayout{8}
+    \section*{Aufgabe 1}
+    \begin{enumerate}[(a)]
+        \item $\rho = \frac{1}{\limsup\limits_{n\to \infty} \sqrt[n]{a_n}} = \frac{1}{\limsup\limits_{n\to \infty} \sqrt[n]{n^{-\frac{1}{2}}}} = \frac{1} {\limsup\limits_{n\to \infty} n^{-\frac{1}{2n}}} = 1.$ Die Reihe konvergiert also für alle $|x| < 1$.
+        \item $\limsup\limits_{n\to \infty} \sqrt[n]{a_n} = \limsup\limits_{n\to \infty} \sqrt[n]{\left|\frac{(-1)^{n!}}{ne^n}\right|} = \limsup\limits_{n\to \infty} \frac{1}{\sqrt[n]{n}e} = \frac{1}{e}$. Folglich kovergiert die Reihe für alle $|x+1| < \rho = \frac{1}{\limsup\limits_{n\to \infty} \sqrt[n]{a_n}} = \frac{1}{\frac{1}{e}} = e$.
+        \item $\limsup\limits_{n\to \infty} \sqrt[n]{a_n} = \limsup\limits_{n\to \infty} \sqrt[n]{\left|\frac{(-2)^{n+1}}{nx_0}\right|} = \limsup\limits_{n\to \infty} 2 \cdot \sqrt[n]{\frac{2}{nx_0}} = 2$. Folglich ist $\rho = \frac{1}{\limsup\limits_{n\to \infty} \sqrt[n]{a_n}} = \frac{1}{2}$.
+        Die Reihe konvergiert also für alle $(x-x_0)^2 < \frac{1}{2}$ und somit für alle $|x-x_0| < \frac{1}{\sqrt{2}}$.
+    \end{enumerate}
+    \section*{Aufgabe 2}
+    \begin{enumerate}[(a)]
+        \item Nach Vorlesung sind konstante Funktionen sowie die Identität auf ganz $\R$ stetig. Also ist auch die Funktion $\min\{1, x\}$ für alle $x\in (-\infty, 1) \cup (1, \infty)$ stetig.
+        An der Stelle $x = 1$ gilt $\forall \epsilon > 0$ mit $\delta = \epsilon$ $$\forall x\in \R \text{ mit } |x-1| < \delta = \epsilon: |f(x) - f(1)| = |\min\{1,x\} - 1| = 
+        \begin{cases} 
+            |1 - 1| = 0 < \epsilon&| x \geq 1\\
+            |x-1| < \delta = \epsilon&| x < 1
+        \end{cases}$$
+        Also ist die Funktion $\forall x \in \R$ stetig.
+        \item $$f(x) = \begin{cases}
+            \frac{x^2-x}{x^2-5x + 4} = \frac{(x-1)x}{(x-4)(x-1)} = \frac{x}{x-4} &x \in \R \setminus \N\\
+            2x - 5 & x \in \N
+        \end{cases}$$
+        Behauptung: $2n - 5 \neq \frac{n}{n-4} \forall n\in \N{2,4,5}$.
+        \begin{proof}
+            Annahme: 
+            \begin{align*}
+                2n - 5 &= \frac{n}{n-4}\\
+                (2n -5)(n-4) &= n\\
+                2n^2 -5 n - 8 n + 20 - n &= 0\\
+                2n^2 - 14n + 20 &= 0\\
+                n^2 - 7n + 10 &= 0\\
+                (n - 5)(n - 2) &= 0
+                \intertext{Satz vom Nullprodukt}
+                n = 5 &\lor n = 2
+            \end{align*}
+            Das steht allerdings im Widerspruch zu $n\in \N\setminus \{2,4,5\}$.
+        \end{proof}
+        Behauptung: Die Funktion ist für alle $x\in \N\setminus\{2,5\}$ unstetig und ansonsten überall stetig.
+        \begin{proof}
+            $\forall n \in \N$ ist $f$ für alle $x \in I_n \coloneqq (n, n+1)$ durch $f(x) = \frac{x}{x-4}$ definiert. Außerdem gilt $x \neq 4$. Für alle $0 > x \in \R$ ist $f$ ebenfalls durch $f(x) = \frac{x}{x-4}$ definiert und es gilt auch $x \neq 4$. Somit ist $f$ $\forall x\in \R\setminus \N$ stetig.
+            Es gilt $\frac{2}{2-4} = -1 = 2\cdot 2 - 5$. Daher ist $f$ im Intervall $(1,3)$ durch die rationale Funktion $\frac{x}{x-4}$ definiert. Da $x \neq 4$ ist $f$ in diesem Intervall, also insbesonder an der Stelle $x = 2$ ebenfalls stetig.
+            Außerdem gilt $\frac{5}{5-4} = 5 = 2\cdot 5 - 5$ und daher muss nach analoger Argumentation $f$ an der Stelle $x = 5$ stetig sein. 
+            An der Stelle $x = 4$ gibt es eine wesentliche Unstetigkeitsstelle. Für alle $n \in \N\setminus\{2,4,5\}$ definiere die Folge $(a_{n, k})_{k \in \N}$ durch $a_{n, k} = n - \frac{\sqrt{2}}{k}$. Dann gilt $\lim\limits_{k \to \infty} a_{n, k} = n$ und $\lim\limits_{k\to \infty} f(a_{n,k}) = \frac{n}{n-4}$. Allerdings ist $\forall n \in \N\setminus\{2,4,5\} \frac{4}{n-4} \neq 2n - 5$. Folglich ist $f$ $\forall n \in \N\setminus\{2,4,5\}$ unstetig. 
+        \end{proof}
+        \item Sei $x\in \Q$ und damit $f(x) \neq 0$. Dann gilt $\mylim a_n = x - \frac{\sqrt{2}}{n} = x$, aber $\mylim f(a_n) \overset{\sqrt{2} \text{ irrational }}{=} 0\neq f(x)$ und folglich ist $a_n$ unstetig für alle $x\in \Q$.
+        Sei andererseits $x_0\in \R\setminus \Q$. Behauptung: Dann existiert $\forall \epsilon > 0$ ein $\delta > 0$, sodass $\forall |x -x_0| < \delta:\quad |f(x) - f(x_0)| < \epsilon$.
+        \begin{proof}
+            Es gibt offensichtlich in jeder $\delta$-Umgebung von $x_0$ rationale Zahlen. Da die natürlichen Zahlen nach unten beschränkt sind, gibt es mindestens eine rationale Zahl $q = \frac{r}{s}$ mit dem kleinsten Nenner $s$. Gibt es mehrere solcher Zahlen, so wähle die mit geringstem Abstand zu $x_0$. Ist nun $\frac{1}{s} > \epsilon$, so wähle $\delta = \frac{|x_0 - q|}{2}$. Nun gibt es erneut mindestens eine rationale Zahl $q' = \frac{r'}{s'}$ mit dem kleinsten Nenner $s'$ aller rationalen Zahlen in $U_\delta(x_0)$, allerdings ist nun $s'>s$. Da es nach dem archimedischen Axiom ein $n\in \N$ gibt, sodass $\frac{1}{n} < \epsilon$, findet man durch diesen Prozess nach endlich vielen Schritten ein $\delta$, sodass der kleinste Nenner $s > n$ ist. Also ist für alle rationalen Zahlen $x\in \Q$ in $U_\delta(x_0): f(x) = |f(x)| < \overset{x_0\text{ irrational}}{=} |f(x) - f(x_0)| < \epsilon$.
+        \end{proof}
+        \item Annahme: $\exists x_0 \in \R: f(x_0)\neq g(x_0)$.
+        Per Definition ist jedes $x_0 \in \R$ Grenzwert einer Folge von rationalen Zahlen. Sei also $x_0 = \mylim a_n$ mit $a_n \in \Q \forall n\in \N$. Da $f$ stetig ist, gilt $f(x_0) = \mylim f(a_n) = g(x_0)$. Damit haben wir unsere Annahme ad absurdum geführt.
+    \end{enumerate}
+    \section*{Aufgabe 3}
+    Behauptung 1: $f(x) = \frac{x^{42} + 42}{x-a} + \frac{x^6 + 42}{x-b}$ ist stetig im Intervall $(a,b)$ und $g(x) \coloneqq (x^{42} + 42)\cdot (x - b) + (x^6 + 42)\cdot (x-a)$ ist stetig im kompakten Intervall $[a,b]$.
+    \begin{proof}
+        Rationale Funktion $\frac{f(x)}{g(x)}$ sind nach Vorlesung $\forall x\in \R$ mit $g(x) \neq 0$ für Polynome $f, g$ wieder stetig. Im Intervall $(a,b)$ ist $x - a \neq 0 \neq x-b$ und $x^{42} + 42$, $x-a$, $x^{6} + 42$ und $x-b$ sind Polynome, sodass $\frac{x^{42} + 42}{x-a}$ und  $\frac{x^6 + 42}{x-b}$ sowie deren Summe wieder stetig sind.
+        Analoge Argumentation liefert, dass $g$ im Intervall $[a,b]$ stetig sein muss.
+    \end{proof}
+    \noindent Es gilt $g(a) = \underbrace{(a^{42} + 42)}_{> 0}\cdot \underbrace{(a - b)}_{< 0} + \underbrace{(a^6 + 42)\cdot 0}_{=0}  < 0$ und $g(b) = (b^{42} + 42)\cdot 0 + \underbrace{(b^6 + 42)}_{> 0}\cdot \underbrace{(b-a)}_{>0} > 0$. Die Funktion $g(x)$ hat also im Intervall $[a,b]$ nach Mittelwertsatz eine Nullstelle an der Stelle $x_0$. Da $g(a) < 0$ und $g(b) > 0$, liegt $x_0$ im Intervall $(a,b)$. Da $a \neq x_0 \neq b$, gilt  $(x_0-a) \neq 0 \neq (x_0-b)$. Folglich ist auch $f(x_0) = \frac{x_0^{42} + 42}{x_0-a} + \frac{x_0^6 + 42}{x_0-b} = 0$. Daher ist $x_0$ eine L 
+
+    \section*{Aufgabe 4}
+    \begin{enumerate}
+        \item Z.Z.: Es gibt keine hebbaren Unstetigkeiten.
+        \begin{proof}
+            Annahme: $\lim\limits_{x \searrow x_0} = y_0 = \lim\limits_{x \nearrow x_0}$, aber $f(x_0) \neq y_0$. Ist $f(x_0) > y_0$, so existiert nach Definition des Limes ein $x > x_0$ mit $f(x) < f(x_0)$. Dies widerspricht dem monotonen Wachstum von $f$. Also muss $f(x_0) < y_0$ sein. Dann existiert aber analog ein $x < x_0$ mit $f(x) > f(x_0)$, was ebenfalls dem monotonen Wachstum von $f$ widerspricht. Daher ist unsere Annahme falsch und es gibt keine hebbaren Unstetigkeiten.
+        \end{proof}
+        \item Z.Z.: Es gibt keine wesentlichen Unstetigkeiten.
+        \begin{proof}
+            Sei $\mylim x_n = x_0$ mit $x_n < x_0$ und $\mylim f(x_n)$ nicht existent. Da die Funktion monoton wachsend ist, muss $f(x_n)$ ebenfalls monoton wachsen. Wäre die Folge auch beschränkt, so würde sie konvergieren. Also muss sie unbeschränkt sein. Sei $x_1 > x_0$. Aufgrund der Unbeschränktheit von $f(x_n)$ existiert ein $x_n$ mit $f(x_n) > f(x_1)$, was aber dem monotonen Wachstum von $f$ widerspricht.
+            Sei andererseits $\mylim x_n = x_0$ mit $x_n > x_0$ und $\mylim f(x_n)$ nicht existent. Da die Funktion monoton wachsend ist, muss $f(x_n)$ monoton fallen. Wäre die Folge auch beschränkt, so würde sie konvergieren. Also muss sie unbeschränkt sein. Sei $x_1 < x_0$. Aufgrund der Unbeschränktheit von $f(x_n)$ existiert ein $x_n$ mit $f(x_n) < f(x_1)$, was aber dem monotonen Wachstum von $f$ widerspricht.
+        \end{proof}
+        \item Z.Z.: Es gibt für jedes $n\in \N$ nur endlich viele $a\in ]0, 1[$ mit
+        $$|f(a^+) - f(a^-)| \coloneqq \left|\lim\limits_{x \searrow a}f(x) - \lim\limits_{x \nearrow a}f(x)\right| > \frac{1}{n}$$ 
+        \begin{proof}
+            Annahme: Es gibt unendlich viele Sprungunstetigkeiten im Intervall $]0,1[$ für ein beliebiges $n_0 \in \N$.
+            Sei $]0, b[$ das Intervall mit dem kleinsten $b$, in dem noch alle Unstetigkeiten liegen. Die $k$-te Sprungunstetigkeit sei an der Stelle $a_k$. Es gilt $\lim\limits_{k \to \infty} a_k = b$. Da $f$ streng monoton wächst, gilt aber $\lim\limits_{k \to \infty} f(a_k) \geq \lim\limits_{k\to \infty}\sum_{l=0}^{k} |f(a_l^+) - f(a_l^-)| > \sum_{k = 0}^{\infty} \frac{1}{n}$. Diese Reihe divergiert aber, also erhalten wir eine wesentliche Unstetigkeit an der Stelle $b \lightning$.
+        \end{proof}
+        Wir erhalten also abzählbar viele Mengen mit jeweils endlich vielen Unstetigkeitsstellen. Die Vereinigung dieser Mengen ist also wieder abzählbar.
+    \end{enumerate}
+\end{document}

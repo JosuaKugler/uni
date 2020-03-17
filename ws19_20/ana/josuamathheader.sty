@@ -1,0 +1,93 @@
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amsfonts, amsthm, mathtools, amssymb}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\usepackage{cases}
+\usepackage{fancyhdr}
+\usepackage[left = 3cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{satz}{Satz}
+\newtheorem{lemma}[satz]{Lemma}
+\newtheorem{korollar}[satz]{Korollar}
+\newtheorem{proposition}[satz]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}{Def.}
+\newtheorem{axiom}[definition]{Axiom}
+\newtheorem{bsp}[definition]{Bsp.}
+\newtheorem{bemerkung}[definition]{Bem}
+\newtheorem{notatio}[definition]{Notation}
+\newcommand{\obda}{O.B.d.A. }
+\newcommand{\equals}{\Longleftrightarrow}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\intd}{\mathrm{d}}
+\newcommand{\Pot}{\operatorname{Pot}}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{cases}
+\usepackage{listings}
+\newcommand{\induktion}[3]
+{\begin{proof}\ \\
+	\noindent\textbf{Induktionsanfang:}\ #1\\
+	\noindent\textbf{Induktionsannahme:}\ #2\\
+	\noindent\textbf{Induktionsschluss:}\ #3
+\end{proof}}
+
+
+\newcommand{\ipilayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Einführung in die praktische Informatik, Blatt #1}
+	\fancyhead[R]{Josua Kugler, Jan Metzger, David Wesner}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Peter Bastian\\
+			Tutor: Frederick Schenk}
+		\rhead{Einführung in die praktische Informatik, Übungsblatt #1\\ David, Jan, Josua}
+		\cfoot{\thepage}
+	}
+\thispagestyle{firstpage}
+}
+
+\newcommand{\analayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Analysis 1, Blatt #1}
+	\fancyhead[R]{Alexander Bryant, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Ekaterina Kostina\\
+			Tutor: Philipp Elja Müller}
+		\rhead{Analysis 1, Übungsblatt #1\\ Alexander Bryant, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+\newcommand{\lalayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Lineare Algebra 1, Blatt #1}
+	\fancyhead[R]{Dominik Daniel, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Alexander Schmidt\\
+			Tutor: Daniel Kliemann}
+		\rhead{Lineare Algebra 1, Übungsblatt #1\\ Dominik Daniel, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+
+\lstset{
+    frame=tb, % draw a frame at the top and bottom of the code block
+    tabsize=4, % tab space width
+    showstringspaces=false, % don't mark spaces in strings
+    numbers=left, % display line numbers on the left
+    commentstyle=\color{green}, % comment color
+    keywordstyle=\color{blue}, % keyword color
+    stringstyle=\color{red} % string color
+}

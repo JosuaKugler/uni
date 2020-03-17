@@ -1,0 +1,18 @@
+- Verständnisfragen:
+
+- Komplexität von Potenzberechnung abschätzen:
+	worst case, best case, wann worst case, wann best case, vllst. Induktion
+
+- Fehlersuchen:
+	method(Function function, int n, int k) statt method(Function& function, int n, int k) 
+	%fehler: beim slicing wird statt der virtual method in function die default methode gecallt
+	private member double& _a; funktion method(double& a){_a = a;} 
+	%fehler: der double soll per reference übergeben werden. Man ann aber double& a macht aber kein sinn, stattdessen iwie double* _a schreiben und entsprechend methoden anpassen.
+
+- Objektorientierung programmieren:
+	Rechteck
+	3 Konstruktoren: Rechteck::Rechteck(a,b,c,d), Rechteck::Rechteck(a, b, len), Rechteck::Rechteck()
+	bool empty(), gibt zurück, ob das rechteck nicht leer ist
+	trage private members ein
+	Programmiere Schnitt und Vereinigung zweier Rechtecke ohne die Rechtecke zu verändern, sondern gib das Resultat als neues REchteclk zurück
+	

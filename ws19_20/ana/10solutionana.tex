@@ -1,0 +1,111 @@
+\documentclass{article}
+\setlength{\headheight}{25pt}
+\usepackage{josuamathheader}
+\begin{document}
+    \analayout{10}
+    \section*{Aufgabe 1}
+    \begin{enumerate}[(a)]
+        \item Diese Aussage ist falsch, betrachte $f(x) = b+ 42 -x$. Es gilt $f(x) \neq 42$ für $x \neq b$ und $f(b) = b-b + 42 = 42$.
+        \item Diese Aussage ist wahr.
+        \begin{proof}
+            Annahme: Es gilt $f(42) > g(42)$, und $f(x_0) < g(x_0)$ für ein $x_0\in \R$.
+            Dann betrachte $h(x) = f(x) - g(x)$. Es gilt $h(42) = f(42) - g(42) > 0$, aber $h(x_0) = f(x_0) - g(x_0) < 0$. Betrachte $h(x)$ über dem kompakten Intervall $I = [42, x_0]$. Nach Zwischenwertsatz ist also $h(x) = 0$ für ein $x_1\in I$. Dort gilt dann auch $0 = h(x_1) = f(x_1)- g(x_1)\implies f(x_1) = g(x_1)$. Das ist allerdings ein Widerspruch zur Voraussetzung $f(x) \neq g(x) \forall x \in \R$.
+            \end{proof}
+    \end{enumerate}
+    \section*{Aufgabe 2}
+    \begin{enumerate}[(a)]
+        \item Sei $f$ Lipschitz-stetig. Dann gilt $\forall x_1, x_2 \in \R: | f(x_1) - f(x_2) \leq L\cdot | x_1 - x_2|$. Behauptung: $f$ ist gleichmäßig stetig.
+        \begin{proof}
+            Sei $\epsilon > 0$. Dann wähle $\delta = \frac{\epsilon}{L}$. Dann gilt $\forall x_1, x_2 \in \R: | x_1 - x_2| < \delta \implies | f(x_1) - f(x_2)| < L \cdot | x_1 - x_2| \leq L \cdot \delta = L \cdot \frac{\epsilon}{L} = \epsilon$.
+        \end{proof}
+        \item Behauptung: Die Funktion $f(x) = \sqrt{x}$ ist 1. gleichmäßig stetig, aber 2. nicht Lipschitz-stetig auf $D = [0, \infty)$.
+        \begin{proof}
+            1. Sei $\epsilon > 0$. Dann wähle $\delta = \frac{\epsilon^2}{4}$. Seien $x_1, x_2\in D$ mit $|x_1 - x_2| < \delta$. Die Wurzelfunktion ist monoton steigend. Daher gilt (wegen $x_1, x_2 \geq 0$) die Ungleichung $\sqrt{x_1} + \sqrt{x_2} \geq \sqrt{|x_2+x_1|} \geq \sqrt{|x_2-x_1}$ Dann gilt $|f(x_1) - f(x_2)| = |\sqrt{x_1} - \sqrt{x_2}| = \frac{|x_1-x_2|}{\sqrt{x_1} + \sqrt{x_2}} \leq \frac{|x_1-x_2|}{\sqrt{|x_1-x_2|}} = \sqrt{|x_1-x_2|} = \sqrt{\delta} < \epsilon$.\\
+            2. Angenommen $f$ ist Lipschitz-stetig. Dann gilt 
+            \begin{align*}
+                |f(x)-f(y)| &\leq L|x-y|\\
+                |\sqrt{x}-\sqrt{y}| &\leq L|x-y|\\
+                \frac{|x-y|}{\sqrt{x}+\sqrt{y}} &\leq L|x-y|\\
+                \frac{1}{L} &\leq \sqrt{x}+\sqrt{y}
+                \intertext{Wähle nun $x = \frac{1}{16L^2}$ und $y = \frac{1}{4L^2}$}
+                \frac{1}{L} &\leq \frac{1}{4L} + \frac{1}{2L} = \frac{3}{4} \cdot \frac{1}{L}\\
+                1 &\leq \frac{3}{4}
+            \end{align*}
+            Die Annahme führt zu einem Widerspruch, also kann $f$ nicht Lipschitz-stetig sein.
+        \end{proof}
+        \item Sei $f$ gleichmäßig stetig. Dann gilt $$\forall \epsilon > 0: \exists \delta > 0: \forall x_1, x_2 \in \R: |x_1 -x_2| < \delta: |f(x_1) - f(x_2)| <  \epsilon$$
+        Das ist äquivalent zu $$\forall x_2 \in \R: \forall \epsilon > 0: \exists \delta > 0: \forall x_1 \in \R: |x_1 - x_2| < \delta: | f(x_1) - f(x_2)| < \epsilon$$
+        Also $f$ ist stetig auf $\R$.
+        \item Siehe Skript 4.4 Bemerkung 3. Alternativ:
+        Die Funktion $f(x) = e^x$ ist stetig auf $\R$, aber nicht gleichmäßig stetig auf $\R$.
+        \begin{proof}
+            Stetigkeit folgt sofort aus der Vorlesung. Angenommen, $e^x$ ist gleichmäßig stetig. Dann gilt $\forall \epsilon > 0: \exists \delta >0: \forall x_1, x_2 \in \R \text{ mit }|x_1-x_2| < \delta: |e^{x_1} - e^{x_2}| < \epsilon$. Wähle $\epsilon = 1$. Es gibt also ein $\delta > 0$, das die geforderte Eigenschaft erfüllt. Betrachte also $x_1 = \ln(\frac{\epsilon}{| 1 - e^{\frac{\delta}{2}}|})$ und $x_2 = x_1 + \frac{\delta}{2}$. Es gilt $|x_1-x_2| < \delta$ und $|f(x_1) - f(x_2)| = | e^{x_1} - e^{x_1} \cdot e^{\frac{\delta}{2}} | = \frac{2\epsilon}{| 1 - e^{\frac{\delta}{2}}|} \cdot | 1 - e^{\frac{\delta}{2}}| = 2\epsilon$. Das ist aber größer als $\epsilon$. Das ist ein Widerspruch.
+        \end{proof}
+        
+    \end{enumerate}
+    \section*{Aufgabe 3}
+    \begin{enumerate}[(a)]
+        \item \begin{itemize}
+            \item $\sin(0) = 0$ folgt sofort aus $\Im(e^{i\cdot 0}) = \Im(1) = 0$. Analog $\cos(0) = \Re(1) = 1$.
+            \item Es gilt $\sin^2(x) + \cos^2(x) = 1$. Daher erhalten wir $\sin(\frac{\pi}{2}) = \sqrt{1 - \cos^2(\frac{\pi }{2})} = 1$.
+            \item Wir benutzen die Additionstheoreme und erhalten: 
+            $\sin(\pi) = \sin\left(\frac{\pi}{2} + \frac{\pi }{2}\right) = \sin\left(\frac{\pi }{2}\right)\cdot \cos\left(\frac{\pi }{2}\right) + \sin\left(\frac{\pi }{2}\right) \cdot \cos\left(\frac{\pi }{2}\right) = 0$
+            \item $\cos(\pi) = \cos\left(\frac{\pi}{2} + \frac{\pi }{2}\right) = \cos^2\left(\frac{\pi }{2}\right) - \sin^2\left(\frac{\pi }{2}\right) = 0 -1 = -1$
+            \item $\sin\left(\pi + \frac{\pi}{2}\right) = \sin(\pi)\cdot \cos\left(\frac{\pi}{2}\right) + \cos(\pi) \cdot \sin\left(\frac{\pi}{2}\right) = 0 - 1 = -1$
+            \item $\cos\left(\pi + \frac{\pi}{2}\right) = \cos(\pi) \cdot \cos\left(\frac{\pi}{2}\right) - \sin(\pi)\cdot \sin\left(\frac{\pi}{2}\right) = 0$.
+            \item $\sin(2\pi) = \sin(\pi + \pi) = \sin(\pi) \cos(\pi) + \cos(\pi)\sin(\pi) = 0$.
+            \item $\cos(2\pi) = \cos^2(\pi) - \sin^2(\pi) = 1$
+        \end{itemize}
+        \item \begin{itemize} 
+    		\item Es gilt mit (a) $e^{i\frac{\pi}{2}}= \cos(\frac{\pi}{2})+i\sin(\frac{\pi}{2})= 0 + i\cdot 1 = i $
+    		\item Es gilt $e^{i\pi}= e^{i\frac{\pi}{2}} \cdot e^{i\frac{\pi}{2}} = i^2 = -1$
+    		\item Es gilt $e^{\frac{i3\pi}{2}} = e^{i\pi} \cdot e^{i\frac{\pi}{2}} = -1 \cdot i = -i$
+    		\item Es gilt $ e^{i2\pi} = e^{i\pi} \cdot e^{i\pi} = (-1)^2 = 1$
+    	\end{itemize}
+    \end{enumerate}
+    \section*{Aufgabe 4}
+    Der Logarithmus ist als Umkehrfunktion der Exponentialfunktion stetig differenzierbar.
+    \begin{enumerate}[(a)]
+        \item $f(x) = (x^x)^x = (e^{\ln(x)\cdot x})^x = e^{\ln(x) \cdot x^2}$. Nach Vorlesung ist die Exponentialfunktion stetig differenzierbar, also gilt $f'(x) = (x + \ln(x) \cdot 2x) \cdot e^{\ln(x) \cdot x^2} = x \cdot (1 + 2 \ln(x)) \cdot (x^x)^x$.
+        \item $f(x) = \ln(x)^x = e^{\ln(\ln(x))\cdot x}$. Nach Vorlesung ist die Exponentialfunktion stetig differenzierbar, also ist $f'(x) = \left(\frac{1}{x} \cdot \frac{1}{\ln(x)} \cdot x + \ln(\ln(x))\right) \cdot e^{\ln(\ln(x))\cdot x} = \left(\frac{1}{\ln(x)} + \ln(\ln(x))\right) \cdot \ln(x)^x$
+        \item Nach Vorlesung sind Ganzrationale Funktionen ohne Polstellen stetig differenzierbar. Daher ist $f'(x) = \frac{(4x^3 + 6x^2 -1)(x^3 + 1) - (x^4 + 2x^3 -x)(3x^2)}{(x^3 + 1)^2}$.
+        \item $f(x) = (\sqrt{x} + 1)\left(\frac{1}{\sqrt{x}}-1\right) = \frac{1}{\sqrt{x}} - \sqrt{x}$ Die Wurzelfunktion ist stetig differenzierbar. Also gilt $f'(x) = -\frac{1}{2}x^{-\frac{3}{2}} - \frac{1}{2} x^{-\frac{1}{2}}$.
+        \item $f(x) = \frac{\ln(x)}{1+x^2}$. Nach Vorlesung ist $\ln(x)$ stetig differenzierbar, außerdem Quotienten von stetig differenzierbaren Funktionen. Also gilt $f'(x) = \frac{\frac{1}{x} \cdot (1 + x^2) - (\ln(x) \cdot 2x)}{(1 + x^2)^2}$
+        \item $f(x) = (\sin(x))^{\cos(x)} = e^{\ln(\sin(x)) \cdot \cos(x)}$. Die Exponentialfunktion, $\ln(x)$ für $x > 0$, sowie trigonometrische Funktionen sind stetig differenzierbar. Daher gilt 
+        \begin{align*}
+            f'(x) &= \left(\cos(x) \cdot \frac{1}{\sin(x)} \cdot \cos(x) + \ln(\sin(x)) \cdot -\sin(x)\right) \cdot e^{\ln(\sin(x)) \cdot \cos(x)}\\
+            &=\left(\cot(x) \cdot \cos(x) - \ln(\sin(x)) \cdot \sin(x)\right) \cdot \sin(x)^{\cos(x)}
+        \end{align*}
+        \item $f(x) = \ln(\tan(x)) - \frac{\cos(2x)}{\sin^2(2x)}$. Nach Vorlesung ist $\ln(x)$ stetig differenzierbar für $x > 0$ und alle trigonometrischen Funktionen sowie Quotienten von stetig differenzierbaren Funktionen solange der Nenner $\neq 0$ ist. Daher gilt 
+        \begin{align*}
+            f'(x) &= \frac{1}{\cos^2(x)} \cdot \frac{1}{\tan(x)} - \frac{2 \cdot (-\sin(2x)) \cdot \sin^2(2x) - \cos(2x) \cdot 2 \cdot \sin(2x) \cdot 2 \cdot \cos(2x)}{\sin^4(2x)}\\
+            &= \frac{\cot(x)}{\cos^2(x)} + \frac{2 \cdot \sin^2(2x) + 4 \cos^2(2x)}{\sin^3(2x)}
+        \end{align*}
+    \end{enumerate}
+    \section*{Bonusaufgabe}
+    \begin{enumerate}[(a)]
+        \item \textbf{Punktweise Konvergenz:}\\
+            Behauptung: Die Folge $f_n(x)$ konvergiert punktweise gegen $\begin{cases}
+                1 | x \in \{0, \pi\}\\
+                0 | \text{sonst}
+            \end{cases}$.
+            \begin{proof}
+                Fallunterscheidung:
+                \begin{itemize}
+                    \item[Fall 1:] $x = 0$. Dann ist $|\cos(x)| = 1$ und dementsprechend $f_n(x) = |\cos^n(x)| = 1$.
+                    \item[Fall 2:] $x = \pi$. Dann ist $|\cos(x)| = |-1| = 1$ und analog zu Fall 1 $f_n(x) = 1$.
+                    \item[Fall 2:] $0 < x < \pi$. Dann ist $|\cos(x)| < 1$ und daher $\lim\limits_{n\to\infty} f_n(x) = |\cos^n(x)| = 0$.
+                \end{itemize}
+            \end{proof}
+            \textbf{Gleichmäßige Konvergenz}
+            Behauptung: Die Folge $f_n(x)$ ist nicht gleichmäßig konvergent.
+            \begin{proof}
+                Ist die Folge gleichmäßig konvergent, so konvergiert sie gegen die Funktion, gegen die sie auch punktweise konvergiert. Wir wählen $\epsilon = \frac{2}{3}$. Dann gilt $\forall n \in \N: \exists x = \arccos\left(\sqrt[n]{\frac{1}{2}}\right): |f_n(x) - f(x)| \overset{0 < \sqrt[n]{\frac{1}{2}} < 1}{=} |f_n(x) - 0| = |\cos(x)|^n = \sqrt[n]{\frac{1}{2}}^n = \frac{1}{2} < \frac{2}{3} = \epsilon$.
+            \end{proof}
+        \item Diese Funktion konvergiert gleichmäßig gegen $f(x) = 0$.
+            \begin{proof}
+                Sei $1 > \epsilon > 0$. Dann wähle $n_\epsilon = \arccos(\sqrt[n]{\frac{\epsilon}{2}})$. Es gilt: $\forall n > n_\epsilon: \forall x \in D: |f_n(x) - f(x)| = |\cos(x)|^n = |\frac{\epsilon}{2}| < \epsilon$. 
+            \end{proof}
+            Folglich ist $f_n \in \tilde{D}$ gleichmäßig konvergent und folglich auch punktweise konvergent. 
+    \end{enumerate}
+\end{document}

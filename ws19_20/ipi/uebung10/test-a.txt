@@ -1,0 +1,14 @@
+1: zeile 1
+2: was geht ab
+3: ich bi
+4: n
+5: eine
+6: text
+7: datei
+8: mit
+9: vielen Zeilen
+10: 
+11: hi
+12: 
+13: hi
+14: end of file

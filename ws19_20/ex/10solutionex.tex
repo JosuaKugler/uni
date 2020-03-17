@@ -1,0 +1,22 @@
+\documentclass{article}
+\usepackage{josuamathheader}
+
+\begin{document}
+\section{Aufgabe 1}
+\begin{enumerate}[(a)]
+\item Es gilt $-k_D \cdot \varphi = M = I \cdot \ddot{\varphi}$. Daraus erhalten wir analog zu Blatt 3 die Gleichung $\varphi = \varphi_0 \cdot \sin\left(\sqrt{\frac{k_D}{I}} \cdot t + t_0\right)$. Als Schwingungsdauer ergibt sich daher $T = 2\pi \sqrt{\frac{I}{k_D}}$.
+\item Wir formen dieses Ergebnis um:
+\begin{align*}
+T &= 2\pi \sqrt{\frac{I}{k_D}} &&\left| \cdot \frac{1}{2\pi}\right.\ ^2\\
+\frac{T^2}{4\pi^2} &= \frac{I}{k_D} &&\left| \cdot \frac{4\pi^2 k_D}{T^2}\right.\\
+k_D &= \frac{4\pi^2 I}{T^2}&&\left|\text{Einsetzen von $k_D$ und Umformen}\right.\\
+\frac{\pi G \left(\frac{d}{2}\right)^4}{2l} &= \frac{4\pi^2 I}{T^2}\\
+G &= \frac{128 \pi Il}{T^2d^4}&&\left|I = \frac{1}{8} m D^2\text{ (Zylinder)}\right.\\
+G &= \frac{128 \pi \frac{1}{8} m D^2l}{T^2d^4}&&\left|m = \rho \cdot \pi \left(\frac{D}{2}\right)^2 \cdot h\right.\\
+G &= \frac{16 \pi \frac{1}{4} D^2 \pi \cdot h \cdot \rho \cdot D^2l}{T^2d^4}\\
+G &= 4 h l\rho \frac{D^4}{d^4} \frac{\pi^2}{T^2} = 7,84 * 10^{10} \frac{\operatorname{N}}{\mathrm{m}^2}
+\end{align*}
+\item Allgemein gilt $P = \frac{\intd E}{\intd t} = I \cdot \dot\omega \cdot \omega = M \cdot \omega \implies M = \frac{P}{\omega}$. In unserem Fall ist das entgegengerichtete Drehmoment $M = -K \cdot \psi = -\frac{\pi G \left(\frac{D}{2}\right)^4}{2L} \cdot \psi$.
+Gleichsetzen ergibt $\psi = \frac{P}{\omega} \cdot \frac{2L}{\pi G \left(\frac{D}{2}\right)^4} = 2.43 = 139.32 ^\circ$.
+\end{enumerate}
+\end{document}

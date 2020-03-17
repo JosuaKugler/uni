@@ -1,0 +1,67 @@
+\documentclass{article}
+\usepackage{../josuamathheader}
+\newcommand{\p}{\operatorname{potenz}}
+\newcommand{\q}{\operatorname{quadrat}}
+\newcommand{\cond}{\operatorname{cond}}
+\newcommand{\quadrat}[1]{#1 * #1}
+\newcommand{\potenz}[2]{\cond (#2 == 1, #1, \cond( #2 \% 2 == 0, \q(\p(#1, #2/2)), #1 \cdot \p(#1, #2 - 1)))}
+\newcommand{\syntax}[3]{\textbf{Syntax:} (#1)\begin{center}#2\ ::=\ #3\end{center}}
+
+\begin{document}
+\ipilayout{1}
+\section*{Aufgabe 1}
+\begin{enumerate}[(a)]
+    \item 
+    \hspace*{2cm}\begin{itemize}
+        \item[Preorder] $+(*(:(8,3),7),-(4,*(+(1,5),2)))$
+        \item[Inorder] $(((8:3)*7)+(4-((1+5)*2)))$    
+        \item[Postorder] $(((8,3):, 7)*, (4, ((1, 5)+, 2)*)-)+$
+    \end{itemize}
+    \item Preorder und Postorder sind auch ohne Klammerung und Operator-Rangfolge eindeutig
+    \item Ja, das ist einfach Postorder rückwärts gelesen
+\end{enumerate}
+\section*{Aufgabe 2}
+\syntax{Zahl}{<zahl>}{[$+$|$-$]$\{0|1|2|3|4|5|6|7|8|9\}^{+}$}
+\syntax{Index}{<index>}{$\{_0|_1|_2|_3|_4|_5|_6|_7|_8|_9\}^+$}
+\syntax{Unterterm}{<unterterm>}{<zahl>\underline{x}<index>}
+\syntax{Term}{<term>}{$\{\text{unterterm}\}^+$}
+\syntax{Gleichung}{<gleichung>}{<term>\underline{=}<zahl>}
+\syntax{Gleichungssystem}{<gleichungssystem>}{$\{\text{<gleichung>}\underline{\backslash n}\}^+$}
+Nein, in der ersten Zeile des Gleichungssystems können beliebig viele Variablen $x_n$ vorkommen. Es gibt keine Möglichkeit, zu kontrollieren, dass höchstens $n$ Gleichungen darunter vorkommen.
+\section*{Aufgabe 3}
+\lstinputlisting[language=C++, caption={potenz.cc}]{potenz.cc}
+applikativ
+\begin{align*}
+    &\p(2,4)\\
+    &=\potenz{2}{4}\\
+    &=\cond(0==0, \q(\p(2,2)), 2\cdot \p(2,3))\\
+    &=\q(\p(2,2))\\
+    &=\q(\potenz{2}{2})\\
+    &=\q(\cond(0==0, \q(\p(2,1)), 2\cdot \p(2,1)))\\
+    &=\q(\q(\p(2,1)))\\
+    &=\q(\q(\potenz{2}{1}))\\
+    &=\q(\q(2))
+    =\q(\quadrat{2})
+    =\q(4)
+    =\quadrat{4}
+    =16
+\end{align*}
+normal
+\begin{align*}
+    &\p(2,4)\\
+    &=\potenz{2}{4}\\
+    &=\cond(0==0, \q(\p(2,(4/2))), 2\cdot \p(2,4-1))\\
+    &=\q(\p(2,(4/2)))\\
+    &=\quadrat{\p(2,(4/2))}\\
+    &=\quadrat{\potenz{2}{(4/2)}\\&}
+     =\quadrat{\cond(0==0, \q(\p(2,(4/2)/2), 2\cdot\p(2,(4/2)-1)\\&}
+     =\quadrat{\q(\p(2,(4/2)/2))}\\
+    &=\quadrat{\quadrat{\p(2,(4/2)/2)}}\\
+    &=\quadrat{\quadrat{\potenz{2}{(4/2)/2)}\\&}}
+     =\quadrat{\quadrat{2}} =16 
+\end{align*}
+Wird der Code normal ausgewertet, so erhöht sich die Effizienz durch unseren Algorithmus überhaupt nicht. Wird der Code stattdessen applikativ ausgewertet, so erhält man die gewünschte Effizienzsteigerung.
+\newpage
+\section*{Aufgabe 4}
+\lstinputlisting[language=C++, caption={vollkommenezahlen.cc}]{vollkommenezahlen.cc}
+\end{document}

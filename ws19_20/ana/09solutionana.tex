@@ -1,0 +1,90 @@
+\documentclass{article}
+\usepackage{josuamathheader}
+\setlength{\headheight}{25pt}
+\begin{document}
+\analayout{9}
+    \section*{Aufgabe 1}
+    \begin{enumerate}[(a)]
+        \item \induktion{$n=1$: $\sum_{k = 1}^{1} k^2 = 1 = \frac{1}{6}1(1+1)(2\cdot 1 + 1)$}{Für ein beliebiges, aber festes $n-1$ gelte $\sum_{k = 1}^{n-1} k^2 = \frac{1}{6}(n-1)(n)(2\cdot n - 1)$}{$\sum_{k = 1}^{n} k^2 = (n)^2 + \frac{1}{6}n(n+1)(2\cdot n + 1) = \frac{1}{6}n(6n + (n-1)(2n-1)) = \frac{1}{6}n(2n^2 + 3n + 1) = \frac{1}{6}n(n+1)(2n+1)$.}
+        \item $\sum_{k = 1}^{n}(3k+2)^2 = \sum_{k = 1}^{n} 9k^2 + 12 k + 4 = 9 \cdot \sum_{k = 1}^{n}k^2 + 12 \sum_{k = 1}^{n}k + \sum_{k = 1}^{n}4 \overset{a}{=} \frac{9}{6}n(n+1)(2n+1) + 6 n(n+1) + 4n$.
+    \end{enumerate}
+    \section*{Aufgabe 2}
+    \begin{enumerate}[(a)]
+        \item $a_n = \sqrt[n]{nF^n} = \sqrt[n]{n} F$ und daher $\lim\limits_{n\to\infty} a_n \overset{\text{Lemma 2.5}}{=} F$.
+        \item Die Reihe ist nach Wurzelkriterium offensichtlich konvergent. Für den Grenzwert gilt nach geometrischer Summenformel $\lim\limits_{n\to\infty} \sum_{k = 0}^{n}\left(\frac{\rho-1}{\rho}\right)^n = \frac{1}{1-\left(\frac{\rho-1}{\rho}\right)} = \rho$.
+        \item Mit Quotientenkriterium erhalten wir $\lim\limits_{k\to\infty} \left|\frac{S^{k+1}}{(k+1)!}\frac{k!}{S^k}\right| = \lim\limits_{k\to\infty} \frac{S}{k+1} = 0 < 1$ und folglich ist die Reihe konvergent.
+        \item Der Grenzwert dieser Reihe ist nach Skript $e^S$.
+        \item $\lim\limits_{n\to\infty}d_n = \lim\limits_{n\to\infty} \frac{3-Fn^5}{\frac{n^5}{E}+n}\cdot \frac{R-GSTn}{\frac{U}{n}+Gn} = \lim\limits_{n\to\infty} \frac{\frac{3}{n^5}-F}{\frac{1}{E}+\frac{1}{n^4}}\cdot \frac{\frac{R}{n}-GST}{\frac{U}{n^2}+G} \overset{\text{Lemma 2.5}}{=} \frac{-F}{\frac{1}{E}}\cdot \frac{-GST}{G} = FEST$ :)
+    \end{enumerate}
+    \section*{Aufgabe 3}
+    \begin{enumerate}[(a)]
+        \item \begin{enumerate}[(i)]
+            \item \begin{enumerate}[(1)]
+                \item $\sum_{k = 0}^{n} k = \frac{n(n+1)}{2}$
+                \item $\sum_{m = 1}^{n} \frac{1}{m(m+1)} = \frac{n}{n+1}$
+                \induktion{$n=1:$ $\sum_{m = 1}^{1} = \frac{1}{1+1} = \frac{1}{2}$}{Für ein beliebiges, aber festes $n \in \N$ gelte die Behauptung}{$n = n+1:$ $\sum_{k = 0}^{n+1}\frac{1}{m(m+1)} = \frac{1}{(n+1)(n+2)} + \frac{n}{n+1} = \frac{1 + n(n+2)}{(n+1)(n+2)} = \frac{n^2 + 2n + 1}{(n+1)(n+2)} = \frac{(n+1)^2}{(n+1)(n+2)} = \frac{n+1}{n+2}$}
+            \end{enumerate}
+            \item $\lim\limits_{n\to\infty}\frac{n(n+1)}{2} = \infty$ und $\lim\limits_{n\to\infty}\frac{n}{n+1} = 1$.
+        \end{enumerate}
+        \item \begin{enumerate}[(i)]
+            \item $\sum_{k = 2}^{\infty}\frac{4\cdot 2^{k+1}}{3^k} = \sum_{k = 0}^{\infty}\frac{4\cdot 2^{k+3}}{3^{k+2}} = \frac{32}{9}\cdot \sum_{k = 0}^{\infty}\left(\frac{2}{3}\right)^k \overset{\text{geometrische Summe}}{=} \frac{32}{9}\cdot 3 = \frac{32}{3}$.
+            \item Es gilt $(-1)^k \cdot \frac{1}{\sqrt{3^{k+1}} - \sqrt{3^k}} = (-1)^k \cdot \frac{\sqrt{3^{k+1}} + \sqrt{3^k}}{3^{k+1}-3^{k}} = (-1)^k \cdot \frac{3^{\frac{k+1}{2}} + 3^{\frac{k}{2}}}{3^{k}(3-1)} = \frac{1}{2} (-1)^k \cdot \left(\frac{3^{\frac{k+1}{2}}}{3^k} + \frac{3^{\frac{k}{2}}}{3^k}\right) = \frac{1}{2} \cdot (-1)^{k} \cdot \left(3^{-\frac{k-1}{2}} + 3^{-\frac{k}{2}}\right)$. 
+            Folglich handelt es sich bei der Reihe um eine Teleskopsumme und es gilt $\sum_{k = 0}^{\infty} \frac{1}{2} \cdot (-1)^{k} \cdot \left(3^{-\frac{k-1}{2}} + 3^{-\frac{k}{2}}\right) = \frac{\sqrt{3} + 1}{2}$
+        \end{enumerate}
+        \item \begin{enumerate}[(i)]
+            \item Diese Reihe ist nach Leibniz-Kriterium konvergent.
+            \item Nach Vorlesung konvergiert diese Reihe gegen $e^2$.
+        \end{enumerate}
+    \end{enumerate}
+    \section*{Aufgabe 4}
+    \begin{enumerate}[(a)]
+        \item Da $h(x)$ beschränkt ist, existiert ein $C \in \R$ mit $x\cdot -C \leq x \cdot h(x) \leq x \cdot C \forall x \in \R$. Es gilt also $\lim\limits_{x\searrow0} x \cdot -C = \lim\limits_{x\searrow0} x \cdot C = 0$ und damit nach Sandwichlemma auch $\lim\limits_{x\searrow0} x \cdot h(x) = 0$. Analog für $x \nearrow 0$.
+        \item $f(x) = \begin{cases}
+            1 & x \in \Q\\
+            -1 & x \notin \Q
+        \end{cases}$ ist $\forall x \in \R$ unstetig (gleiches Argument wie Dirichlet-Funktion). Allerdings ist $|f(x)| = 1 \forall x \in \R$ und daher ist $|f(x)|$ stetig.
+        \item $g(x) = x \cdot f(x)$ mit $f(x)$ wie in Aufgabe (b) ist nach Aufgabe (a) an der Stelle 0 stetig, da $f(x)$ beschränkt ist. Allerdings ist die Funktion überall sonst unstetig (siehe Dirichlet-Funktion).
+    \end{enumerate}
+    
+    \section*{Aufgabe 5}
+    \begin{enumerate}[(a)]
+        \item \begin{enumerate}[(i)]
+            \item Es gilt $\lim\limits_{n\to\infty}\frac{a_{n+1}}{a_n} = a \implies \liminf\limits_{n\to \infty}\frac{a_{n+1}}{a_n} = \limsup\limits_{n\to \infty} \frac{a_{n+1}}{a_n}= a \xRightarrow{\text{Aufgabe 7.2c}} \liminf\limits_{n\to \infty}\sqrt[n]{a_n} = \limsup\limits_{n\to \infty} \sqrt[n]{a_n} = a \implies \lim\limits_{n\to\infty}\sqrt[n]{a_n} = a$
+            \item Außerdem ist $\lim\limits_{n\to\infty}\frac{a_{n+1}}{a_n} = \infty \implies \liminf\limits_{n\to \infty}\frac{a_{n+1}}{a_n} = a \xRightarrow{\text{Aufgabe 7.2c}} \liminf\limits_{n\to \infty}\sqrt[n]{a_n} = \infty \implies \lim\limits_{n\to\infty}\sqrt[n]{a_n} = \infty$.
+        \end{enumerate}
+        \item \begin{enumerate}[(i)]
+            \item $\lim\limits_{n\to\infty}\frac{a_n+1}{a_n} =  \lim\limits_{n\to\infty}\frac{(n+1)!}{n!} = \lim\limits_{n\to\infty} n+1 = \infty$ und daher $\lim\limits_{n\to\infty} \sqrt[n]{n!} = \infty$.
+            \item $\lim\limits_{n\to\infty}\frac{a_n+1}{a_n} = \lim\limits_{n\to\infty} \frac{(n+1)^{n+1}}{n^n} \cdot \frac{n!}{(n+1)!} = \lim\limits_{n\to\infty} \left(\frac{n+1}{n}\right)^n = \infty$ und daher $\lim\limits_{n\to\infty} \sqrt[n]{\frac{n^n}{n!}} = \infty$.
+            \item Sei $a_n = \left(\frac{n^n}{n!}\right)^n$. Dann ist $$\frac{a_{n+1}}{a_n} = \frac{\left(\frac{(n+1)^{n+1}}{(n+1)!}\right)^{n+1}}{\left(\frac{n^n}{n!}\right)^n} = \left(\frac{(n+1)^{n+1}}{n^n\cdot (n+1)}\right)^n\cdot \left(\frac{(n+1)^{n+1}}{(n+1)!}\right) = \left(\left(\frac{n+1}{n}\right)^n\cdot \frac{(n+1)^n}{n!}\right)^n$$
+            Offensichtlich ist also $\lim\limits_{n\to\infty} \frac{a_{n+1}}{a_n} = \infty$ und damit auch $$\lim\limits_{n\to\infty}\sqrt[n]{a_n} = \lim\limits_{n\to\infty} \left(\frac{n^n}{n!}\right) = \lim\limits_{n\to\infty} c_n = \infty$$
+\begin{flushright}
+	
+\end{flushright}        \end{enumerate}
+    \end{enumerate}
+    \section*{Aufgabe 6}
+    \begin{tabular}{c|l|l|l|l}
+        Aufg.&Beschränkt (unten)?& Beschränkt (oben)?&Monoton? & Konvergent?\\
+        \hline
+        (a) & $\frac{1}{2}$ & 10& ja& ja\\
+        (b) & 1&2&nein& ja
+    \end{tabular}
+    \section*{Aufgabe 7}
+    \begin{enumerate}[(a)]
+        \item \begin{enumerate}[(i)]
+            \item Diese Reihe ist nach Leibniz-Kriterium konvergent, da $\frac{1}{\ln(k)}$ eine monoton fallende Nullfolge ist.
+            \item $\frac{(k+1)^k-k^k}{(k+1)^k} = 1 - \left(\frac{k}{k+1}\right)^k$ ist eine monoton fallende Nullfolge, da  $\left(\frac{k}{k+1}\right)^k$ monoton gegen $1$ konvergiert. Folglich ist die Reihe nach Leibnizkriterium konvergent.
+            \item Die Reihe $\sum_{n = 0}^{\infty}\frac{2^k}{2^k\cdot (\ln(2^k)^2)} = \sum_{n = 0}^{\infty}\frac{1}{k^2\cdot (\ln(2))^2} = \frac{1}{(\ln(2))^2} \cdot \sum_{n = 0}^{\infty}\frac{1}{k^2}$ ist konvergent.
+            Da $\frac{1}{n\cdot (\ln(n)^2)}$ eine monoton fallende Nullfolge ist, folgt daraus mit Cauchychem Verdichtungskriterium die Konvergenz der Reihe.
+        \end{enumerate}
+        \item Der erste Fall in der Klammer ist betragsmäßig stets kleiner als der zweite und daher irrelevant für den $\limsup$. Wegen $\sqrt[k]{k} = 1$, Lemma 2.5 und Cauchy-Hadamard ist also $\rho = \frac{1}{1^2\cdot 4} = \frac{1}{4}$.
+    \end{enumerate}
+    \section*{Aufgabe 8}
+    \begin{enumerate}[(a)]
+        \item $\frac{2}{5}$
+        \item Die Folge ist nach unten unbeschränkt und daher nicht konvergent.
+        \item $0$
+        \item $1$
+        \item $\frac{1}{2}$
+        \item Die Folge divergiert, da der Kehrwert $\frac{x^2-1}{x^2+x} = \frac{(x+1)(x-1)}{x(x+1)} = \frac{x-1}{x}$ für $x \searrow 1$ gegen 0 geht.
+    \end{enumerate}
+\end{document}

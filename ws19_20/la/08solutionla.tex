@@ -1,0 +1,556 @@
+\documentclass{article}
+\usepackage{josuamathheader}
+\allowdisplaybreaks
+\newcommand{\id}{\operatorname{id}}
+\newcommand{\lin}{\operatorname{Lin}}
+\setlength{\headheight}{25pt}
+\begin{document}
+\lalayout{8}
+
+\section*{Aufgabe 1}
+\begin{enumerate}[(a)]
+    \item \textbf{Z.Z.:} $\underline{w}$ ist linear unabhängig.
+    \begin{proof}
+        Sei $aX^0 + b(X^0 + X^1) + c(X^1 - X^2 + X^3) + d(X^3 + X^0) = 0$. Mit Koeffizientenvergleich erhalten wir das folgende Gleichungssystem:
+        \begin{align}
+            a + b + c &= 0\hspace*{2cm} \xRightarrow{(2), (4)} && a= 0\\
+            b + c &= 0\hspace*{2cm} \xRightarrow{(3)} && b= 0\\
+            -c &= 0 \hspace*{2cm} \xRightarrow{} && c= 0\\
+            c + d &= 0 \hspace*{2cm} \xRightarrow{(3)} && d= 0
+        \end{align}
+    \end{proof}
+    \textbf{Z.Z.:} $\underline{w}$ ist ein Erzeugendensystem von $W$.
+    \begin{proof}
+        Sei $w = a X^0 + b X^1 + b X^2 + d X^3 \in W$ beliebig. Dann ist $w$ durch
+        $(a-b-2c-d) X^0 + (b+c)(X^0 + X^1) -c(X^1 - X^2 + X^3) + (d+c) (X^3 + X^0) = (a - b - 2c - d + b + c  + d + c) X^0 + (b + c - c) X^1 + c X^2 + (-c + d + c)X^3 = a X^0 + b X^1 + c X^2 + d X^3 = w$ als Linearkombination von Vektoren aus $\underline{w}$ darstellen.
+    \end{proof}
+    \item Sei $\phi_{\underline{v}}: K^4 \xrightarrow{\sim} V$ und $\phi_{\underline{w}}: K^4 \xrightarrow{\sim} W$.
+    \begin{enumerate}[1.)]
+        \item Behauptung: $M_{\underline{v}}^{\underline{v}} (\partial) = 
+        \begin{pmatrix}
+            0 & 1 & 0 & 0\\
+            0 & 0 & 2 & 0\\
+            0 & 0 & 0 & 3\\
+            0 & 0 & 0 & 0
+        \end{pmatrix}$
+        \begin{proof}
+            Wir betrachten zunächst $X^0$.
+            \begin{align*}
+                &\phi_{\underline{v}}(M_{\underline{v}}^{\underline{v}} (\partial) \cdot \phi_{\underline{v}}^{-1}(X^0))\\
+                =&\phi_{\underline{v}}
+                    \left[
+                    \begin{pmatrix}
+                        0 & 1 & 0 & 0\\
+                        0 & 0 & 2 & 0\\
+                        0 & 0 & 0 & 3\\
+                        0 & 0 & 0 & 0
+                    \end{pmatrix} \cdot 
+                    \begin{pmatrix}1 \\ 0 \\ 0 \\ 0\end{pmatrix}
+                    \right]\\
+                =&\phi_{\underline{v}}
+                    \left[\begin{pmatrix}0 \\ 0 \\ 0 \\ 0\end{pmatrix}\right]
+                    = 0 = \partial(X^0)
+            \end{align*}
+            Für $X^1$ erhalten wir
+            \begin{align*}
+                &\phi_{\underline{v}}(M_{\underline{v}}^{\underline{v}} (\partial) \cdot \phi_{\underline{v}}^{-1}(X^1))\\
+                =&\phi_{\underline{v}}
+                    \left[
+                    \begin{pmatrix}
+                        0 & 1 & 0 & 0\\
+                        0 & 0 & 2 & 0\\
+                        0 & 0 & 0 & 3\\
+                        0 & 0 & 0 & 0
+                    \end{pmatrix} \cdot 
+                    \begin{pmatrix}0 \\ 1 \\ 0 \\ 0\end{pmatrix}
+                    \right]\\
+                =&\phi_{\underline{v}}
+                    \left[\begin{pmatrix}1 \\ 0 \\ 0 \\ 0\end{pmatrix}\right]
+                    = X^0 = \partial(X^1)
+            \end{align*}
+            Bei $X^2$ ergibt sich
+            \begin{align*}
+                &\phi_{\underline{v}}(M_{\underline{v}}^{\underline{v}} (\partial) \cdot \phi_{\underline{v}}^{-1}(X^2))\\
+                =&\phi_{\underline{v}}
+                    \left[
+                    \begin{pmatrix}
+                        0 & 1 & 0 & 0\\
+                        0 & 0 & 2 & 0\\
+                        0 & 0 & 0 & 3\\
+                        0 & 0 & 0 & 0
+                    \end{pmatrix} \cdot 
+                    \begin{pmatrix}0 \\ 0 \\ 1 \\ 0\end{pmatrix}
+                    \right]\\
+                =&\phi_{\underline{v}}
+                    \left[\begin{pmatrix}0 \\ 2 \\ 0 \\ 0\end{pmatrix}\right]
+                    = 2X^1 = \partial(X^2)
+            \end{align*}
+            Auch für $X^3$ erhalten wir das gewünschte Ergebnis
+            \begin{align*}
+                &\phi_{\underline{v}}(M_{\underline{v}}^{\underline{v}} (\partial) \cdot \phi_{\underline{v}}^{-1}(X^3))\\
+                =&\phi_{\underline{v}}
+                    \left[
+                    \begin{pmatrix}
+                        0 & 1 & 0 & 0\\
+                        0 & 0 & 2 & 0\\
+                        0 & 0 & 0 & 3\\
+                        0 & 0 & 0 & 0
+                    \end{pmatrix} \cdot 
+                    \begin{pmatrix}0 \\ 0 \\ 0 \\ 1\end{pmatrix}
+                    \right]\\
+                =&\phi_{\underline{v}}
+                    \left[\begin{pmatrix}0 \\ 0 \\ 3 \\ 0\end{pmatrix}\right]
+                    = 3X^2 = \partial(X^3)
+            \end{align*} 
+        \end{proof}
+        \item Behauptung: $M_{\underline{w}}^{\underline{w}} (\partial) = 
+        \begin{pmatrix}
+            0 & 1 & -3 & -6\\
+            0 & 0 & 1 & 3\\
+            0 & 0 & -3 & -3\\
+            0 & 0 & 3 & 3
+        \end{pmatrix}$
+        \begin{proof}
+            Wir betrachten zunächst $X^0$.
+            \begin{align*}
+                &\phi_{\underline{w}}(M_{\underline{w}}^{\underline{w}} (\partial) \cdot \phi_{\underline{w}}^{-1}(X^0))\\
+                =&\phi_{\underline{w}}
+                    \left[
+                    \begin{pmatrix}
+                        0 & 1 & -3 & -6\\
+                        0 & 0 & 1 & 3\\
+                        0 & 0 & -3 & -3\\
+                        0 & 0 & 3 & 3
+                    \end{pmatrix} \cdot 
+                    \begin{pmatrix}1 \\ 0 \\ 0 \\ 0\end{pmatrix}
+                    \right]\\
+                =&\phi_{\underline{w}}
+                    \left[\begin{pmatrix}0 \\ 0 \\ 0 \\ 0\end{pmatrix}\right]
+                    = 0 = \partial(X^0)
+            \end{align*}
+            Für $X^0 + X^1$ erhalten wir
+            \begin{align*}
+                &\phi_{\underline{w}}(M_{\underline{w}}^{\underline{w}} (\partial) \cdot \phi_{\underline{w}}^{-1}(X^0 + X^1))\\
+                =&\phi_{\underline{w}}
+                    \left[
+                    \begin{pmatrix}
+                        0 & 1 & -3 & -6\\
+                        0 & 0 & 1 & 3\\
+                        0 & 0 & -3 & -3\\
+                        0 & 0 & 3 & 3
+                    \end{pmatrix} \cdot 
+                    \begin{pmatrix}0 \\ 1 \\ 0 \\ 0\end{pmatrix}
+                    \right]\\
+                =&\phi_{\underline{w}}
+                    \left[\begin{pmatrix}1 \\ 0 \\ 0 \\ 0\end{pmatrix}\right]
+                    = X^0 = \partial(X^0 + X^1)
+            \end{align*}
+            Bei $X^1 - X^2 + X^3$ ergibt sich
+            \begin{align*}
+                &\phi_{\underline{w}}(M_{\underline{w}}^{\underline{w}} (\partial) \cdot \phi_{\underline{w}}^{-1}(X^1-X^2+X^3))\\
+                =&\phi_{\underline{w}}
+                    \left[
+                    \begin{pmatrix}
+                        0 & 1 & -3 & -6\\
+                        0 & 0 & 1 & 3\\
+                        0 & 0 & -3 & -3\\
+                        0 & 0 & 3 & 3
+                    \end{pmatrix} \cdot 
+                    \begin{pmatrix}0 \\ 0 \\ 1 \\ 0\end{pmatrix}
+                    \right]\\
+                =&\phi_{\underline{w}}
+                    \left[\begin{pmatrix}-3\\ 1\\ -3\\ 3\end{pmatrix}\right]\\
+                =& -3 X^0 + 1 (X^0 + X^1) -3(X^1 - X^2 + X^3) + 3(X^3 + X^0)\\
+                =& X^0 - 2 X^1 + 3 X^2 = \partial(X^1 - X^2 + X^3)
+            \end{align*}
+            Auch für $X^3 + X^0$ erhalten wir das gewünschte Ergebnis
+            \begin{align*}
+                &\phi_{\underline{w}}(M_{\underline{w}}^{\underline{w}} (\partial) \cdot \phi_{\underline{w}}^{-1}(X^3 + X^0))\\
+                =&\phi_{\underline{w}}
+                    \left[
+                    \begin{pmatrix}
+                        0 & 1 & -3 & -6\\
+                        0 & 0 & 1 & 3\\
+                        0 & 0 & -3 & -3\\
+                        0 & 0 & 3 & 3
+                    \end{pmatrix} \cdot 
+                    \begin{pmatrix}0 \\ 0 \\ 0 \\ 1\end{pmatrix}
+                    \right]\\
+                =&\phi_{\underline{w}}
+                    \left[\begin{pmatrix}-6\\ 3\\ -3\\ 3\end{pmatrix}\right]\\
+                =& -6 X^0 + 3 (X^0 + X^1) -3(X^1 - X^2 + X^3) + 3(X^3 + X^0)\\
+                =& 3X^2 = \partial(X^3 + X^0)
+            \end{align*} 
+        \end{proof}
+        \item Behauptung: $M_{\underline{w}}^{\underline{v}} (\id_W) = 
+        \begin{pmatrix}
+            1 & -1 & -2 & -1\\
+            0 & 1 & 1 & 0\\
+            0 & 0 & -1 & 0\\
+            0 & 0 & 1 & 1
+        \end{pmatrix}$
+        \begin{proof}
+            Wir betrachten zunächst $X^0$.
+            \begin{align*}
+                &\phi_{\underline{w}}(M_{\underline{w}}^{\underline{v}} (\id_W) \cdot \phi_{\underline{v}}^{-1}(X^0))\\
+                =&\phi_{\underline{w}}
+                    \left[
+                    \begin{pmatrix}
+                        1 & -1 & -2 & -1\\
+                        0 & 1 & 1 & 0\\
+                        0 & 0 & -1 & 0\\
+                        0 & 0 & 1 & 1
+                    \end{pmatrix} \cdot 
+                    \begin{pmatrix}1 \\ 0 \\ 0 \\ 0\end{pmatrix}
+                    \right]\\
+                =&\phi_{\underline{w}}
+                    \left[\begin{pmatrix}1 \\ 0 \\ 0 \\ 0\end{pmatrix}\right]
+                    = X_0
+            \end{align*}
+            Für $X^1$ erhalten wir
+            \begin{align*}
+                &\phi_{\underline{w}}(M_{\underline{w}}^{\underline{v}} (\id_W) \cdot \phi_{\underline{v}}^{-1}(X^1))\\
+                =&\phi_{\underline{w}}
+                    \left[
+                    \begin{pmatrix}
+                        1 & -1 & -2 & -1\\
+                        0 & 1 & 1 & 0\\
+                        0 & 0 & -1 & 0\\
+                        0 & 0 & 1 & 1
+                    \end{pmatrix} \cdot 
+                    \begin{pmatrix}0 \\ 1 \\ 0 \\ 0\end{pmatrix}
+                    \right]\\
+                =&\phi_{\underline{w}}
+                    \left[\begin{pmatrix}-1 \\ 1 \\ 0 \\ 0\end{pmatrix}\right]
+                    = -X^0 + X^0 + X^1 = X^1
+            \end{align*}
+            Bei $X^2$ ergibt sich
+            \begin{align*}
+                &\phi_{\underline{w}}(M_{\underline{w}}^{\underline{v}} (\id_W) \cdot \phi_{\underline{v}}^{-1}(X^2))\\
+                =&\phi_{\underline{w}}
+                    \left[
+                    \begin{pmatrix}
+                        1 & -1 & -2 & -1\\
+                        0 & 1 & 1 & 0\\
+                        0 & 0 & -1 & 0\\
+                        0 & 0 & 1 & 1
+                    \end{pmatrix} \cdot 
+                    \begin{pmatrix}0 \\ 0 \\ 1 \\ 0\end{pmatrix}
+                    \right]\\
+                =&\phi_{\underline{w}}
+                    \left[\begin{pmatrix}-2 \\ 1 \\ -1 \\ 1\end{pmatrix}\right]\\
+                &= -2X^0 + X^0 + X^1 - X^1 + X^2 - X^3 + X^3 + X^0\\
+                &= X^2
+            \end{align*}
+            Auch für $X^3$ erhalten wir das gewünschte Ergebnis
+            \begin{align*}
+                &\phi_{\underline{v}}(M_{\underline{v}}^{\underline{v}} (\partial) \cdot \phi_{\underline{v}}^{-1}(X^3))\\
+                =&\phi_{\underline{v}}
+                    \left[
+                    \begin{pmatrix}
+                        1 & -1 & -2 & -1\\
+                        0 & 1 & 1 & 0\\
+                        0 & 0 & -1 & 0\\
+                        0 & 0 & 1 & 1
+                    \end{pmatrix} \cdot 
+                    \begin{pmatrix}0 \\ 0 \\ 0 \\ 1\end{pmatrix}
+                    \right]\\
+                =&\phi_{\underline{v}}
+                    \left[\begin{pmatrix}-1 \\ 0 \\ 0 \\ 1\end{pmatrix}\right]
+                    = -X^0 + X^3 + X^0 = X^3
+            \end{align*} 
+        \end{proof}
+        \item Behauptung: $M_{\underline{v}}^{\underline{w}} (\id_W) = 
+        \begin{pmatrix}
+            1 & 1 & 0 & 1\\
+            0 & 1 & 1 & 0\\
+            0 & 0 & -1 & 0\\
+            0 & 0 & 1 & 1
+        \end{pmatrix}$
+        \begin{proof}
+            Wir betrachten zunächst $X^0$.
+            \begin{align*}
+                &\phi_{\underline{v}}(M_{\underline{v}}^{\underline{w}} (\id_W) \cdot \phi_{\underline{w}}^{-1}(X^0))\\
+                =&\phi_{\underline{w}}
+                    \left[
+                        \begin{pmatrix}
+                            1 & 1 & 0 & 1\\
+                            0 & 1 & 1 & 0\\
+                            0 & 0 & -1 & 0\\
+                            0 & 0 & 1 & 1
+                        \end{pmatrix} \cdot 
+                    \begin{pmatrix}1 \\ 0 \\ 0 \\ 0\end{pmatrix}
+                    \right]\\
+                =&\phi_{\underline{v}}
+                    \left[\begin{pmatrix}1 \\ 0 \\ 0 \\ 0\end{pmatrix}\right]
+                    = X_0
+            \end{align*}
+            Für $X^0 + X^1$ erhalten wir
+            \begin{align*}
+                &\phi_{\underline{v}}(M_{\underline{v}}^{\underline{w}} (\id_W) \cdot \phi_{\underline{w}}^{-1}(X^0 + X^1))\\
+                =&\phi_{\underline{w}}
+                    \left[
+                    \begin{pmatrix}
+                        1 & 1 & 0 & 1\\
+                        0 & 1 & 1 & 0\\
+                        0 & 0 & -1 & 0\\
+                        0 & 0 & 1 & 1
+                    \end{pmatrix} \cdot 
+                    \begin{pmatrix}0 \\ 1 \\ 0 \\ 0\end{pmatrix}
+                    \right]\\
+                =&\phi_{\underline{v}}
+                    \left[\begin{pmatrix}1\\ 1\\ 0\\ 0\end{pmatrix}\right]
+                    = X_0 + X_1
+            \end{align*}
+            Bei $X^1 - X^2 + X^3$ ergibt sich
+            \begin{align*}
+                &\phi_{\underline{v}}(M_{\underline{v}}^{\underline{w}} (\id_W) \cdot \phi_{\underline{w}}^{-1}(X^1 - X^2 + X^3))\\
+                =&\phi_{\underline{w}}
+                    \left[
+                    \begin{pmatrix}
+                        1 & 1 & 0 & 1\\
+                        0 & 1 & 1 & 0\\
+                        0 & 0 & -1 & 0\\
+                        0 & 0 & 1 & 1
+                    \end{pmatrix} \cdot 
+                    \begin{pmatrix}0 \\ 0 \\ 1 \\ 0\end{pmatrix}
+                    \right]\\
+                =&\phi_{\underline{v}}
+                    \left[\begin{pmatrix}0\\ 1\\ -1\\ 1\end{pmatrix}\right]
+                    = X_1 - X^2 + X^3
+            \end{align*}
+            Auch für $X^3 + X^0$ erhalten wir das gewünschte Ergebnis
+            \begin{align*}
+                &\phi_{\underline{v}}(M_{\underline{v}}^{\underline{w}} (\id_W) \cdot \phi_{\underline{w}}^{-1}(X^3 + X^0))\\
+                =&\phi_{\underline{w}}
+                    \left[
+                    \begin{pmatrix}
+                        1 & 1 & 0 & 1\\
+                        0 & 1 & 1 & 0\\
+                        0 & 0 & -1 & 0\\
+                        0 & 0 & 1 & 1
+                    \end{pmatrix} \cdot 
+                    \begin{pmatrix}0 \\ 0 \\ 0 \\ 1\end{pmatrix}
+                    \right]\\
+                =&\phi_{\underline{v}}
+                    \left[\begin{pmatrix}1\\ 0\\ 0\\ 1\end{pmatrix}\right]
+                    = X_3 + X^0
+            \end{align*}
+        \end{proof}
+        \item Behauptung: $M_{\underline{w}}^{\underline{v}} (\partial) = 
+        \begin{pmatrix}
+            0 & 1 & -2 & -6\\
+            0 & 0 & 2 & 3\\
+            0 & 0 & 0 & -3\\
+            0 & 0 & 0 & 3
+        \end{pmatrix}$
+        \begin{proof}
+            Es gilt $M_{\underline{w}}^{\underline{v}} (\partial) = M_{\underline{w}}^{\underline{v}} (\id_W) \cdot M_{\underline{v}}^{\underline{v}} (\partial)$. Daher ist 
+            $$M_{\underline{w}}^{\underline{v}} (\partial) = 
+            \begin{pmatrix}
+                1 & -1 & -2 & -1\\
+                0 & 1 & 1 & 0\\
+                0 & 0 & -1 & 0\\
+                0 & 0 & 1 & 1
+            \end{pmatrix}
+            \cdot
+            \begin{pmatrix}
+                0 & 1 & 0 & 0\\
+                0 & 0 & 2 & 0\\
+                0 & 0 & 0 & 3\\
+                0 & 0 & 0 & 0
+            \end{pmatrix}
+            =
+            \begin{pmatrix}
+                0 & 1 & -2 & -6\\
+                0 & 0 & 2 & 3\\
+                0 & 0 & 0 & -3\\
+                0 & 0 & 0 & 3
+            \end{pmatrix}
+            $$
+        \end{proof}
+        \item Behauptung: $M_{\underline{v}}^{\underline{w}} (\partial) = 
+        \begin{pmatrix}
+            0 & 1 & 1 & 0\\
+            0 & 0 & -2 & 0\\
+            0 & 0 & 3 & 3\\
+            0 & 0 & 0 & 0
+        \end{pmatrix}$
+        \begin{proof}
+            Es gilt $M_{\underline{v}}^{\underline{w}} (\partial) = M_{\underline{v}}^{\underline{v}} (\partial) \cdot M_{\underline{v}}^{\underline{w}} (\id_W)$. Daher ist 
+            $$M_{\underline{w}}^{\underline{v}} (\partial) = 
+            \begin{pmatrix}
+                0 & 1 & 0 & 0\\
+                0 & 0 & 2 & 0\\
+                0 & 0 & 0 & 3\\
+                0 & 0 & 0 & 0
+            \end{pmatrix}
+            \cdot
+            \begin{pmatrix}
+                1 & 1 & 0 & 1\\
+                0 & 1 & 1 & 0\\
+                0 & 0 & -1 & 0\\
+                0 & 0 & 1 & 1
+            \end{pmatrix}
+            =
+            \begin{pmatrix}
+                0 & 1 & 1 & 0\\
+                0 & 0 & -2 & 0\\
+                0 & 0 & 3 & 3\\
+                0 & 0 & 0 & 0
+            \end{pmatrix}
+            $$
+        \end{proof}
+    \end{enumerate}
+\end{enumerate}
+
+\section*{Aufgabe 2}
+\begin{enumerate}[(a)]
+    \item Definiere $g': \im(f) \to W, v \mapsto g(v)$. Dann gilt $g' \circ f = g\circ f$. 
+    \begin{align*}
+        &\dim \ker (g\circ f)\\
+        =& \dim \ker (g'\circ f)
+        \intertext{Satz 2.64}
+        =& \dim U - \dim \im(g'\circ f)\\
+        =& \dim U - \dim \im(g')\\
+        =& \dim U - \rg (g')\\
+        =& \rg(f) - \rg(g') + \dim U - \rg(f)\\
+        =& \dim \im(f) - \dim \im(g') + \dim U - \dim \im (f)\\
+        \intertext{Satz 2.64}
+        =& \dim \ker(g') + \dim \ker(f)
+        \intertext{$g'$ ist einfach nur $g$ eingeschränkt auf eine kleinere Urmenge. Da $g$ linear ist, muss $\ker g'$ ein Untervektorraum von $\ker g$ sein}
+        \leq& \dim \ker(g) + \dim \ker(f)
+    \end{align*}
+    \item Es gilt
+    \begin{align*}
+        \dim \ker(g\circ f) &\leq \dim \ker(g) + \dim \ker(f)
+        \intertext{Homomorphiesatz}
+        \dim U - \dim \im(g\circ f) &\leq \dim V - \dim \im(g) + \dim U - \dim(f)&&| - \dim U + \dim \im (f)\\
+        \dim \im(f) - \dim \im (g\circ f) &\leq \dim V - \dim \im (g)\\
+        \rg (f) - \rg (g\circ f) &\leq \dim V - \rg (g)
+    \end{align*}
+    \item Es gilt
+    \begin{align*}
+        \rg (f) - \rg (g\circ f) &\leq \dim V - \rg (g)
+        \intertext{Setze $V = K^n$, $f = F_{n,m}(A)$ und $g = F_{l,n}(B)$}
+        \rg (F_{n,m}(A)) - \rg (F_{l,n}(B)\circ F_{n,m}(A)) &\leq \dim K^n - \rg (F_{l,n}(B))
+        \intertext{Mit Satz 3.6 wird daraus}
+        \rg (F_{n,m}(A)) - \rg (F_{l,m}(B\cdot A)) &\leq \dim K^n - \rg (F_{l,n}(B))\\
+        \intertext{Mit Lemma 3.21 (i) erhalten wir}
+        S\rg(A) - S\rg(B\cdot A) &\leq n - S\rg(B)
+    \end{align*}
+\end{enumerate}
+
+\section*{Aufgabe 3}
+\begin{enumerate}[(a)]
+    \item Sei $(u_i)_{i\in I}$ eine Basis von $U$. Wir ergänzen diese zu einer Basis $(u_i)_{i\in I\dot{\cup}J}$ von $V$. Dann setze
+    $$\pi(u_i) = \begin{cases}
+        u_i &|\ i\in I\\
+        0 &|\ i\in J\\
+    \end{cases}$$
+    Da $0$ nicht in der Basis liegt und $I\cap J = \emptyset$ ist diese Abbildung für alle Basisvektoren definiert und aufgrund der Linearität auch wohldefiniert und eindeutig.\\
+    Sei $u \in U$. Dann lässt sich $u$ darstellen durch $\sum_{i\in I} \alpha_iu_i$ mit $(\alpha_i)_{i\in I}\in K^{(I)}$ und es gilt
+    $$ \pi(u) = \pi(\sum_{i\in I} \alpha_iu_i) \overset{\pi \text{ linear}}{=} \sum_{i\in I} \alpha_i \pi(u_i) = \sum_{i\in I} \alpha_i u_i = u.$$
+    Sei nun $w\in W$. Dann lässt sich $w$ darstellen durch $\sum_{i\in J} \alpha_iu_i$ mit $(\alpha_i)_{i\in J}\in K^{(J)}$ und es gilt 
+    $$\pi(w) = \pi(\sum_{i\in J})\alpha_iu_i \overset{\pi \text{ linear}}{=} \sum_{i\in J} \alpha_i \pi(u_i) = \sum_{i\in J} \alpha_i 0 = 0.$$
+    \item Sei $v\in V$. Fallunterscheidung:
+    \subitem Ist $v\in U$, so gilt $\pi(u) = u$ und folglich $\pi(\pi(u)) = \pi(u)$.
+    \subitem Ist  $v\in W$, so gilt $\pi(v) = 0$ und folglich $\pi(\pi(v)) = \pi(0) \overset{\pi \text{ linear}}{=} 0 = \pi(v)$.
+    \item Offensichtlich ist $0\in \im \pi'$ und $0 \in \ker \pi'$.
+    Sei nun $v\in \im \pi'$ und $v\neq 0$. Dann folgt aus $\pi' \circ \pi' = \pi'$ sofort $\pi'(v) = v \neq 0$ und daher $v \notin \ker \pi'$. Also ist $\ker \pi' \cap \im \pi' = \{0\}$.\\
+    Außerdem gilt $\pi'(v-\pi'(v)) \overset{\pi'\text{ linear}}{=} \pi'(v) - \pi'(\pi'(v)) = \pi'(v) - \pi'(v) = 0$ und daher $v - \pi'(v) \in \ker \pi'\forall v\in V$. Daher ist $\forall v\in V:\ v = \pi'(v) + v - \pi'(v)$ mit $\pi'(v) \in \im \pi'$ und $v - \pi'(v) \in \ker \pi'$. 
+    Daher ist $V = \im \pi' + \ker \pi'$ und folglich ist $\im \pi'$ das Komplement zu $\ker \pi'$. Nach Lemma 2.62 ist $\im \pi' \oplus \ker \pi' \to V$ ein Isomorphismus und daher $V \overset{\sim}{=} \im \pi' \oplus \ker \pi' = \pi'(V) \oplus \ker \pi'$.
+    \end{enumerate}
+
+    \section*{Aufgabe 4}
+    \begin{enumerate}
+    \item Wähle in der 3a $V = \Q^2$, $W = \{0,0\}$ und daher $U = V = \Q^2$. $(1,1)$ liegt also in $U$. Dann ist $\pi(u_i) = u_i$ und folglich $\pi = \id$. Die zugehörige Matrix berechnet sich durch $$M^{\{(1,0), (0,1)\}}_{\{(1,0), (0,1)\}} (\id) = \begin{pmatrix}1&0\\0&1\end{pmatrix}$$.
+    \item Wähle in der 3a $V = \Q^2$, $W = \lin((1,1))$ und $U = \lin((1,0))$. $\{(1,1), (1,0)\}$ ist eine Basis von $V$. Daher ist
+    \begin{align*}
+        \pi: \Q^2 &\to \Q^2\\
+        (1,1)^t &\mapsto (1,1)^t\\
+        (1,0)^t &\mapsto (0,0)^t\\
+    \end{align*} wohldefiniert und erfüllt die Forderungen der 3a.
+    Die zugehörige Matrix ist $A_2 = M^{(1,1), (1,0)}_{(1,0), (0,1)}(\pi) = \begin{pmatrix}1&0\\1&0\end{pmatrix}$.
+    \item Wähle in der 3a $V = \Q^2$, $W = \lin((1,1))$ und daher $U = \lin((0,1))$.
+    Daher ist 
+    \begin{align*}
+        \pi: \Q^2 &\to \Q^2\\
+        (1,1)^t &\mapsto (1,1)^t\\
+        (0,1)^t &\mapsto (0,0)^t\\
+    \end{align*}
+    Es gilt $A_3\cdot \begin{pmatrix}1 \\ 0\end{pmatrix} = \phi_k^{-1} \circ \phi_v\left(\begin{pmatrix}1 \\ 0\end{pmatrix}\right)$
+    Die zugehörige Matrix ist $A_3 = M^{(1,1), (0,1)}_{(1,0), (0,1)}(\pi) = \begin{pmatrix}0&1\\0&1\end{pmatrix}$.
+    \end{enumerate}
+    \section*{Aufgabe 4}
+    \textbf{Z.Z.:} $A_1 = \begin{pmatrix}1&0\\0&1\end{pmatrix}$, 
+        $A_2 = \begin{pmatrix}1&0\\1&0\end{pmatrix}$ und
+        $A_3 = \begin{pmatrix}0&1\\0&1\end{pmatrix}$ erfüllen die Bedingungen.
+    \begin{proof}\ 
+        \begin{enumerate}
+            \item $A_1 \cdot A_1 = \begin{pmatrix}1&0\\0&1\end{pmatrix} \cdot \begin{pmatrix}1&0\\0&1\end{pmatrix} = \begin{pmatrix}1&0\\0&1\end{pmatrix} = A_1$.\\
+            $A_1 \cdot \begin{pmatrix} 1\\1\end{pmatrix} = \begin{pmatrix}1&0\\0&1\end{pmatrix} \cdot \begin{pmatrix}1\\1\end{pmatrix} = \begin{pmatrix}1\\1\end{pmatrix}$.
+            \item $A_2 \cdot A_2 = \begin{pmatrix}1&0\\1&0\end{pmatrix} \cdot \begin{pmatrix}1&0\\1&0\end{pmatrix} = \begin{pmatrix}1&0\\1&0\end{pmatrix} = A_2$.\\
+            $A_2 \cdot \begin{pmatrix} 1\\1\end{pmatrix} = \begin{pmatrix}1&0\\1&0\end{pmatrix} \cdot \begin{pmatrix}1\\1\end{pmatrix} = \begin{pmatrix}1\\1\end{pmatrix}$.
+            \item $A_3 \cdot A_3 = \begin{pmatrix}0&1\\0&1\end{pmatrix} \cdot \begin{pmatrix}0&1\\0&1\end{pmatrix} = \begin{pmatrix}0&1\\0&1\end{pmatrix} = A_3$.\\
+            $A_3 \cdot \begin{pmatrix} 1\\1\end{pmatrix} = \begin{pmatrix}0&1\\0&1\end{pmatrix} \cdot \begin{pmatrix}1\\1\end{pmatrix} = \begin{pmatrix}1\\1\end{pmatrix}$.
+        \end{enumerate}
+    \end{proof}
+    \section*{Aufgabe 4}
+    \[
+    A_1 := \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}, \quad
+    A_2 := \begin{pmatrix} 0 & 1 \\ 0 & 1 \end{pmatrix}, \quad
+    A_3 := \begin{pmatrix} 1 & 0 \\ 1 & 0 \end{pmatrix} 
+.\] 
+\begin{proof}
+Sei $\underline{e}$ die kanonische Basis des $V := \Q^{2}$.
+\begin{enumerate}
+    \item Wähle $U = V$ und
+        $W = \{0\} $ und wähle $\pi = id$ in der kanonischen Basis, damit
+        gilt
+        \[
+        A_1 := M(\pi) = \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix} 
+        .\] 
+
+        Die Eigenschaften sind für die Einheitsmatrix offensichtlich
+        erfüllt.
+    \item Wähle die Basis  $\underline{v} =\{(1, 1), (1, 0)\}$ und damit
+        $U = \text{Lin}((1,1))$ und $W = \text{Lin}((1,0))$.
+
+        Nun definiere $\pi: V \to V$ mit $\pi((1,1)) = (1,1)$ und
+        $\pi((1,0)) = (0,0)$. Die Darstellungsmatrix von $\underline{v}$
+        nach  $\underline{e}$ ergibt sich damit durch:
+         \[
+             A_2 := M_{\underline{e}}^{\underline{v}} = \begin{pmatrix} 1 & 0 \\ 1 & 0 \end{pmatrix}
+        .\]
+        \[
+            A_2 \cdot A_2 = \begin{pmatrix} 1 & 0 \\ 1 & 0 \end{pmatrix} 
+            \cdot \begin{pmatrix}  1 & 0 \\ 1 & 0\end{pmatrix} 
+            = \begin{pmatrix} 1 & 0 \\ 1 & 0 \end{pmatrix}  = A_2
+        .\] \[
+        A_2 \cdot (1,1)^{t} = \begin{pmatrix} 1 & 0 \\ 1 & 0 \end{pmatrix} 
+        \cdot \begin{pmatrix} 1 \\ 1 \end{pmatrix} 
+        = \begin{pmatrix} 1 \\ 1 \end{pmatrix}  = (1,1)^{t}
+        .\]  
+    \item Wähle die Basis  $\underline{v} =\{(0, 1), (1, 1)\}$ und damit
+        $U = \text{Lin}((1,1))$ und $W = \text{Lin}((0,1))$.
+
+        Nun definiere $\pi: V \to V$ mit $\pi((1,1)) = (1,1)$ und
+        $\pi((0,1)) = (0,0)$. Die Darstellungsmatrix von $\underline{v}$
+        nach  $\underline{e}$ ergibt sich damit durch:
+         \[
+             A_3 := M_{\underline{e}}^{\underline{v}} = \begin{pmatrix} 0 & 1 \\ 0 & 1 \end{pmatrix}
+        \]
+        \[
+            A_3 \cdot A_3 = \begin{pmatrix} 0 & 1 \\ 0 & 1 \end{pmatrix} 
+            \cdot \begin{pmatrix}  0 & 1 \\ 0 & 1\end{pmatrix} 
+            = \begin{pmatrix} 0 & 1 \\ 0 & 1 \end{pmatrix}  = A_3
+        .\]
+        \[
+        A_3 \cdot (1,1)^{t} = \begin{pmatrix} 0 & 1 \\ 0 & 1 \end{pmatrix} 
+        \cdot \begin{pmatrix} 1 \\ 1 \end{pmatrix} 
+        = \begin{pmatrix} 1 \\ 1 \end{pmatrix}  = (1,1)^{t}
+        .\] 
+\end{enumerate}
+\end{proof}
+\end{document}

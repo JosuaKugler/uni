@@ -1,0 +1,163 @@
+\documentclass{article}
+\usepackage{josuamathheader}
+\usepackage{amsmath,amsthm}
+
+\begin{document}
+	\section*{Aufgabe 1}
+	\begin{enumerate}[(a)]
+		\item \textbf{Z.Z.:} $W$ ist ein Untervektorraum von $V$.
+		\begin{proof}Zunächst ist $0_v(n) + 0_v(n+1) + 0_v(n+2) = 0\forall n\in \N$ und daher $0_v\in W$.
+			Seien nun $f,g\in W$. Es gilt:
+			\[(f+g)(n) + (f+g)(n+1) + (f+g)(n+2) = f(n) + g(n) + f(n+1) + g(n+1) + f(n+1) + g(n+1) \]
+			\[= f(n) + f(n+1) + f(n+2) + g(n) + g(n+1) + g(n+2) = 0 + 0 = 0\]
+			Daher ist $f+g\in W$
+			Sei außerdem $a\in K$. Dann gilt:
+			\[a\cdot f(n) + a\cdot f(n+1) + a\cdot f(n+1) = a\cdot (f(n) + f(n+1) + f(n+2)) = a\cdot 0 = 0\]
+			Daher ist auch $a\cdot f\in W$.
+			Da das neutrale Element von $V$ in $W$ liegt, $W$ additiv und unter Skalarmultiplikation abgeschlossen ist, muss $W$ ein Untervektorraum von $V$ sein.
+		\end{proof}
+		\item \textbf{Z.Z.:} Seien $g,f\in W$ mit $f(1) = g(1)$ und $f(2) = g(2)$. Dann ist $f=g$, also $\forall i\in \N: f(i) = g(i)$.
+		\induktion{$n=1,2$: Es gilt $f(1) = g(1)$ und $f(2) = g(2)$}{Sei $n\in N$ mit $n > 1$ beliebig , aber fest. Dann gilt $f(n-1) = g(n-1)$ und $f(n) = g(n)$}{$n\to n+1:$ Mit der Induktionsvoraussetzung folgt direkt $f(n) = g(n)$.
+		\begin{align*}
+			f(n-1) + f(n) + f(n+1) &= g(n-1) + g(n) + g(n+1)\\
+			\intertext{Nach Induktionsvoraussetzung gilt}
+			\equals g(n-1) + g(n) + f(n+1) &= g(n-1) + g(n) + g(n+1)\\
+			\equals f(n+1) &= g(n+1)
+	\end{align*}}
+	\item Definiere
+	\begin{align*}
+		f: \N &\to K\\
+		i &\mapsto 1&&|\exists k\in\N: i = 3\cdot k - 2\\
+		i &\mapsto 0&&|\exists k\in\N: i = 3\cdot k - 1\\
+		i &\mapsto -1&&|\exists k\in \N: i = 3\cdot k\\
+	\end{align*}
+	und 
+	\begin{align*}
+		g: \N &\to K\\
+		i &\mapsto 0&&|\exists k\in\N: i = 3\cdot k - 2\\
+		i &\mapsto 1&&|\exists k\in\N: i = 3\cdot k - 1\\
+		i &\mapsto -1&&|\exists k\in \N: i = 3\cdot k\\
+	\end{align*}
+	\textbf{Z.Z.:} $f\in W:$
+	\begin{proof}
+		$$
+		f(n) + f(n+1) + f(n+2) =
+		\begin{cases}
+			1 + 0 -1 = 0 & \exists k\in \N: n = 3\cdot k-2\\
+			0 + -1 + 1 = 0 & \exists k\in\N: n = 3\cdot k - 1\\
+			-1 + 1 + 0 = 0 & \exists k\in \N: n = 3\cdot k
+		\end{cases}
+		$$
+	\end{proof}
+	\textbf{Z.Z.:} $g\in W:$
+	\begin{proof}
+		$$
+		g(n) + g(n+1) + g(n+2) = 
+		\begin{cases}
+		0 + 1 + -1 = 0 & \exists k\in \N: n = 3\cdot k-2\\
+		1 + -1 + 0 = 0 & \exists k\in\N: n = 3\cdot k - 1\\
+		-1 + 0 + 1 = 0 & \exists k\in \N: n = 3\cdot k
+		\end{cases}
+		$$
+	\end{proof}
+	\textbf{Z.Z.:} $(f,g)$ ist ein Erzeugendensystem von $W$.
+	\begin{proof}
+		Sei $h\in W$ beliebig mit $h(1) = \alpha_1$ und $h(2) = \alpha_2$. Behauptung: Dann ist $h = \alpha_1 \cdot f + \alpha_2 \cdot g$.\\
+		Beweis der Behauptung: Aus $(\alpha_1 \cdot f + \alpha_2 \cdot g)(1) = \alpha_1\cdot f(1) + \alpha_2 \cdot g(1) = \alpha_1 = h(1)$ und 
+		$(\alpha_1 \cdot f + \alpha_2 \cdot g)(2) = \alpha_1\cdot f(2) + \alpha_2 \cdot g(2) = \alpha_2 = h(2)$ folgt mit Teilaufgabe $(b)$ die Behauptung.
+	\end{proof}
+	\item \textbf{Z.Z.:} $(f,g)$ ist linear unabhängig.
+	\begin{proof}
+		Gelte $\alpha_1 f + \alpha_2 g = 0_v$.
+		Dann ist auch $(\alpha_1 f + \alpha_2 g)(1) = \alpha_1\cdot f(1) + \alpha_2 \cdot g(1) = \alpha_1 = 0$
+		und $(\alpha_1 f + \alpha_2 g)(1) = \alpha_1\cdot f(2) + \alpha_2 \cdot g(2) = \alpha_2 = 0$.
+		Nach Aufgabe $(c)$ ist $(f,g)$ auch ein Erzeugendensystem von $W$ und folglich eine Basis. Die Dimension des Vektorraums ist daher 2.
+	\end{proof}
+	\end{enumerate}
+	\section*{Aufgabe 2}
+	\begin{enumerate}[(a)]
+		\item $(u,w)$ ist wegen $(c)$ linear unabhängig. Da dieses System nur aus zwei Elementen besteht, ist es kleiner als die kanonische Basis des $\R^3$. Daher kann es kein Erzeugendensystem und insbesondere keine Basis sein.
+		\item $$w = \begin{pmatrix}1\\1\\1\end{pmatrix} = \frac{1}{2} \begin{pmatrix}0\\1\\2\end{pmatrix} + \frac{1}{2} \begin{pmatrix}2\\1\\0\end{pmatrix} = \frac{1}{2} u + \frac{1}{2} v$$
+		Folglich ist $S = (u,v,w)$ linear abhängig. Es gilt $\operatorname{Lin}(u,v,w) = \operatorname{Lin}(u,v)$. $\operatorname{Lin}(u,v)$ ist allerdings kleiner als die kanonische Basis des $\R^3$ und daher kein Erzeugendensystem. Folglich ist $S$ keine Basis.
+		\item Seien $a,b,c\in \R$. Es gelte: $a u + b v + c x = 0$. Daraus folgt
+		\begin{align}
+			a \cdot 0 + b\cdot 2 + c \cdot 1 &= 0\\
+			a \cdot 1 + b\cdot 1 + c \cdot 0 &= 0\\
+			a \cdot 2 + b\cdot 0 + c \cdot 0 &= 0\\
+		\end{align}
+		Aus $(3)$ folgt sofort $a = 0$. Setzt man in $(2)$ $a=0$, so erhält man $b = 0$. Setzt man in $(1)$ $b=0$, so erhält man $c = 0$. Insgesamt gilt also $a = b = c = 0$ und das System $S = (u,v,x)$ ist linear unabhängig. Da der $\R^3$ die Dimension 3 hat, ist $S$ ein maximales linear unabhängiges System und daher eine Basis.
+		\item Nach $(b)$ ist $S = (u,v,w,x)$ linear abhängig und daher keine Basis. Nach $(c)$ ist $S$ ein Erzeugendensystem.
+	\end{enumerate}
+	\section*{Aufgabe 3}
+	\begin{enumerate}
+		\item Wird $g$ nach $f$ ausgeführt, so wird die Urmenge von $g$ auf die Bildmenge von $f$ eingeschränkt. Definiere $g': \im(f) \to W, x\mapsto g(x)$. Es gilt für die Bildmenge von $g\circ f$ $$\im(g\circ f) = \im(g') \subset \im(g).$$ Daraus folgt
+		\[\rg(g \circ f) = \dim(\im(g\circ f)) \leq \dim(\im(g)) = \rg(g)\]
+		Definiere nun $g'': \im(f) \to \im(g'), x\mapsto g'(x)$. Da $g$ linear ist, sind $g'$ und $g''$ ebenfalls linear. Nach Konstruktion ist $g''$ außerdem surjektiv. Mit Lemma~2.55(ii) folgt: $\dim(\im(f)) \geq \dim(\im(g'))$.
+		\[\rg(g \circ f) = \dim(\im(g\circ f)) = \dim(\im(g'))\leq \dim(\im(f)) = \rg(f)\]
+		Also ist $\rg(g \circ f) \leq \rg(g) \land \rg(g \circ f) \leq \rg(f) \implies \rg(g \circ f) \leq \min(\rg(f), \rg(g))$.
+		\item Definiere \begin{align*}
+			f: \R^3 &\to \R^3\\
+			\begin{pmatrix}x_1\\x_2\\x_3\end{pmatrix} &\mapsto \begin{pmatrix}x_1\\x_2\\0\end{pmatrix}
+		\end{align*}
+		und
+		\begin{align*}
+		g: \R^3 &\to \R^3\\
+		\begin{pmatrix}x_1\\x_2\\x_3\end{pmatrix} &\mapsto \begin{pmatrix}x_1\\0\\x_3\end{pmatrix}
+		\end{align*}
+		Durch Komposition erhält man
+		\begin{align*}
+			g\circ f: \R^3 &\to \R^3\\
+			\begin{pmatrix}x_1\\x_2\\x_3\end{pmatrix} &\mapsto \begin{pmatrix}x_1\\0\\0\end{pmatrix}
+		\end{align*}
+		Es gilt also $\rg(g) = 2, \rg(f) = 2$ und $\rg(g\circ f) = 1$.
+		\item Definiere $f: \R \to \R, x\mapsto x$ und $g: \R \to \R, x\mapsto x$. Durch Komposition erhält man $g\circ f: \R \to \R, x\to x$. Es gilt also $\rg(g) = 1, \rg(f) = 1, \rg(g\circ g) = 1$.
+	\end{enumerate}
+	\section*{Aufgabe 4}
+	\begin{enumerate}[(a)]
+		\item \textbf{Z.Z.}(Kontraposition): $f$ nicht surjektiv $\implies$ $f^*$ nicht injektiv.
+		\begin{proof}
+			Sei $(v_i)_{i\in I}$ eine Basis von $V$. 
+			Sei $f$ nicht surjektiv. Dann enthält $(v_i)$ einen Basisvektor $v_k\in V: \forall u\in U: f(u) \neq v_k$. Gäbe es keinen solchen Basisvektor, dann ließe sich aufgrund der Linearität von $f$ zu jedem $v\in V$ ein Urbild konstruieren. 
+			Lineare Abbildungen sind vollständig definiert, wenn sie für alle Basisvektoren definiert sind. Daher sind
+			\begin{align*}
+				\varphi_1: V&\to K \\
+				v_i&\mapsto 0&&\forall i\in I
+				\intertext{und}
+				\varphi_2: V&\to K\\
+				v_k&\mapsto 1\\
+				v_i&\mapsto 0 &&|\forall i \in I\setminus \{0\}
+			\end{align*}
+			Offensichtlich ist $\varphi_1 \neq \varphi_2$, aber  $\forall u\in U: f^*(\varphi_1)(u) = \varphi_1\circ f (u) = 0 = \varphi_2\circ f (u) = f^*(\varphi_2)(u)$ und daher $f^*(\varphi_1) = f^*(\varphi_2)$. Folglich ist $f^*$ nicht injektiv.
+		\end{proof}
+	\item 
+	\textbf{Z.Z.:} $f^*$  surjektiv $\implies f$ injektiv, also 
+	$f$ nicht injektiv $\implies f^*$ nicht surjektiv.
+	\begin{proof}
+		Sei $f$ nicht injektiv. Dann ist $\forall \varphi \in V^*: \varphi \circ f$ nicht injektiv. Sei nun $u^* \in U^*$ eine injektive Abbildung. Dann ist $\forall \varphi \in V^*: f^*(\varphi) = \varphi \circ f \neq u^*$, da $u^*$ injektiv ist, $\varphi \circ f$ aber nicht. $u^*$ besitzt also kein Urbild unter $f^*$, $f^*$ ist also nicht surjektiv.
+	\end{proof}
+	\textbf{Z.Z.:} $f$ injektiv $\implies f^*$ surjektiv.
+	\begin{proof}
+		Sei nun $f$ injektiv. Dann ist $f': U\to \im (f)$ bijektiv und es existiert eine lineare Umkehrabbildung $f'^{-1}: \im(f) \to U$ sodass $\forall u\in U: f^{-1}(f(u)) = u$.
+		Da $f$ linear ist, ist $\im(f)$ ein Untervektorraum von $V$. Sei nun $(v_i)_{i\in I}$ eine Basis von $V$. Dann existiert nach Basisergänzungssatz eine Teilmenge $J\subset I$, sodass $(v_i)_{i\in J}$ eine Basis von $\im(f)$ ist.
+		Sei nun $u^*\in U^*$. Dann existiert ein $\varphi \in V^*$ mit folgender Vorschrift:
+		\begin{align*}
+			\varphi: V&\to K\\
+			v_i &\mapsto u^*(f'^{-1}(v_i)) &&\forall i\in J\\
+			v_i &\mapsto k \in K &&\forall i\notin J
+		\end{align*}
+		Aufgrund der Linearität von $\varphi$ ist die Abbildung durch die Vorschrift für die Basisvektoren bereits vollständig definiert. Es gilt $\forall i\in J: v_i\in\im(f)$. Da $f(u) \in V$ liegt, gibt es ein endliches System $(\alpha_i)\in K^{(J)}$ mit $f(u) = \sum_{i\in J} \alpha_i v_i$.
+		Daher gilt $\forall u\in U:$
+		\begin{align*}
+			f^*(\varphi)(u) &= \varphi(f(u)) \\
+			&= \varphi(\sum_{i\in J} \alpha_i v_i)\\
+			&= \sum_{i\in J}\alpha_i \varphi(v_i)\\
+			&= \sum_{i\in J}\alpha_i u^*(f'^{-1}(v_i)) \\
+			&= u^*(f'^{-1}(\sum_{i\in J} \alpha_i v_i)) \\
+			&= u^*(f'^{-1}(f(u))) \\
+			&= u^*(u)
+		\end{align*}
+		Folglich ist $\varphi$ ein Urbild von $u^*$ unter $f^*$ und $f^*$ ist surjektiv.
+	\end{proof}
+	Aus den beiden Implikationen folgt ($f^*$ surjektiv $\equals f$ injektiv).
+	\end{enumerate}
+\end{document}

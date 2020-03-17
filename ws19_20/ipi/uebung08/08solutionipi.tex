@@ -1,0 +1,23 @@
+\documentclass{article}
+\setlength{\headheight}{25pt}
+\usepackage{josuamathheader}
+
+\begin{document}
+    \ipilayout{8}
+    \section*{Aufgabe 1}
+    \begin{tabular}{r|l}
+        Zeile&Konstruktoren, Zuweisungen, Destruktoren\\
+        \hline
+        37 & a int-Konstruktor, b int-Konstruktor\\
+        38 & c Copy-Konstruktor, d Konstruktor, e Konstruktor\\
+        39 & d int-Zuweisung\\
+        40 & A Copy-Konstruktor, A Addition, T int-Konstruktor,\\ 
+        &U Copy-Konstruktor, T Destruktor, V Copy-Konstruktor,\\
+        &A Destruktor, d Zuweisung, U Destruktor, V Destruktor\\
+        41 & d Addition, T int-Konstruktor, U Copy-Konstruktor, \\
+        &T Destruktor, U Addition, V int-Konstruktor\\
+        & W Copy-Konstruktor, V Destruktor, e Zuweisung, W Destruktor, U Destruktor\\
+        42 & a Destruktor, b Destruktor, c Destruktor, d Destruktor, e Destruktor\\
+    \end{tabular} 
+    \lstinputlisting[language=C++, caption={aufgabe2.cc}]{aufgabe2.cc}
+\end{document}

@@ -1,0 +1,126 @@
+\documentclass{article}
+\usepackage{josuamathheader}
+\begin{document}
+	\lalayout{1}
+\section{Aufgabe}
+\begin{enumerate}[a)]
+	\item Z.Z. $f(A\cap f^{-1}(C)) = f(A) \cap B$
+	\begin{proof} Wir zeigen zunächst, dass $f(A\cap f^{-1}(C)) \subset f(A)\cap C$.\\
+		Sei $y\in f(A\cap f^{-1}(C))$ beliebig. Dann $\exists x \in A\cap f^{-1}(C)$ mit $f(x) = y$ sodass
+		\begin{align*}
+		x \in A &\land x \in f^{-1}(C)\\
+		\Leftrightarrow f(x) \in f(A) &\land x\in \{a|f(a) \in C\}\\
+		\Leftrightarrow f(x)\in f(A) &\land f(x) \in C\\
+		\Leftrightarrow f(x) \in f(A)&\cap C\\
+		\Leftrightarrow y \in f(A)&\cap C
+		\end{align*}
+	Nun zeigen wir $f(A)\cap C\subset f(A\cap f^{-1}(C))$.\\
+	Sei $y\in f(A)\cap C$ beliebig. Dann $\exists x \in X$ mit $f(x) \in f(A)\cap C$. Gemäß den obigen Äquivalenzumformungen ist also $x \in (A\cap f^{-1}(C))$ und $f(x) \in f(A\cap f^{-1}(C))$.
+	\end{proof}
+	\item Z.Z. $f^{-1}(Y\setminus C) = X\setminus f^{-1}(C)$.
+	\begin{proof} $\forall x \in f^{-1}(Y\setminus C)$
+		\begin{align*}
+						&x \in f^{-1}(Y\setminus C)\\
+		\Leftrightarrow &f(x) \in Y\setminus C\\
+		\Leftrightarrow	&f(x) \in Y \land f(x)\notin C\\
+		\Leftrightarrow	&x \in X \land x \in \{a|f(a)\notin C\}\\
+		\Leftrightarrow	&x \in X \land x \notin \{a|f(a)\in C\}\\
+		\Leftrightarrow	&x \in X \land x f^{-1}(C)\\
+		\Leftrightarrow	&x \in X\cap f^{-1}(C)\\
+		\end{align*}
+		Daraus resultiert $f^{-1}(Y\setminus C) = X\setminus f^{-1}(C)$.
+	\end{proof}
+	\item Z.Z. $f(A\cap B) \subset f(A)\cap f(B)$
+	\begin{proof}
+		Sei $y \in f(A\cap B)$ beliebig. Dann $\exists x \in A\cap B$ mit $f(x) = y$. Es gilt
+		\[(x \in A \land x \in B)\implies (f(x) \in f(A) \land f(x) \in f(B))\implies (f(x) \in f(A) \cap f(B))	\implies (y \in f(A) \cap f(B))\].
+	\end{proof}
+	\item Z.Z. $f(f^{-1}(C)) \subset C$
+	\begin{proof} Sei $y \in f(f^{-1}(C))$ beliebig. Dann $\exists x \in f^{-1}(C)$ mit $f(x) = y$. Es gilt
+		\[(x\in f^{-1}(C)) \implies (x \in \{a| f(a) \in C\}) \implies f(x) \in C \implies y \in C\].
+	\end{proof}
+\end{enumerate}
+\newpage
+\section{Aufgabe}
+\begin{enumerate}[a)]
+	\item Z.Z. $f$ ist genau dann injektiv, wenn für alle Teilmengen $A, B \subset X$ die Gleichheit $f (A \cap B) = f (A) \cap f (B)$ gilt.
+	\begin{proof}
+		Wir zeigen zunächst, dass $f (A \cap B) = f (A) \cap f (B)$ gilt, wenn $f$ injektiv ist. Wir wissen bereits, dass $f(A\cap B) \subset f(A)\cap f(B)$.\\
+		Z.Z.: $f$ injektiv $\implies f(A)\cap f(B)\subset f(A\cap B)$. Wir beweisen einfach die Kontraposition $f(A)\cap f(B)\not \subset f(A\cap B) \implies f$ ist nicht injektiv.\\
+		Es gibt also stets ein $y \in f(A)\cap f(B)$ mit $y \notin f(A\cap B)$. Daher $\exists x \in A$ und $\exists x'\in B$ mit $f(x) = f(x') = y$, wobei weder $x$ noch $x'$ in $A\cap B$ liegen, da ansonsten $y = f(x) \in f(A\cap B)$ wäre. Das impliziert $x\notin B$ und $x'\notin A$ $\implies x \neq x'$, $f$ ist also nicht injektiv.\\\ \\
+		Im zweiten Teil des Beweises zeigen wir, dass $f$ injektiv ist, wenn $f (A \cap B) = f (A) \cap f (B) \forall A,B\subset X$.\\
+		Auch hier zeigen wir die Kontraposition: $f$ nicht injektiv $\implies \exists A, B \subset X$ mit $f (A \cap B) \neq f (A) \cap f (B)$.\\
+		Wir betrachten eine nicht injektive Abbildung $f$ und wählen $A = \{x\}$ und $B = \{x'\}$ mit $f(x) = f(x') = y$.
+		Dann ist $y = f(x) \in f(A) \land y= f(x) \in f(B) \implies y \in f(A)\cap f(B)$.
+		Allerdings ist weder $x$ noch $x'$ Element von $A\cap B$. Daher ist sowohl $f(x) \notin f(A\cap B)$  als auch $f(x')\notin f(A\cap B)$ und damit auch $y \notin f(A\cap B)$.
+	\end{proof}
+	\item Z.Z. $f$ ist genau dann surjektiv, wenn für alle Teilmengen $C \subset Y$ die Gleichheit $f(f^{-1}(C)) = C$ gilt.
+	\begin{proof}
+		Wir zeigen zunächst, dass $f(f^{-1}(C)) = C$ gilt, wenn $f$ surjektiv ist. Wir wissen bereits, dass $f(f^{-1}(C)) \subset C$.\\
+		Z.Z.: $f$ surjektiv $\implies C \subset f(f^{-1}(C))$. 
+		Sei $y$ aus $C$ beliebig. Dann folgt aus der Surjektivität von $f$, dass es ein $x$ mit $f(x) = y$ geben muss. Es gilt
+		\[f(x)\in C\implies x \in \{c|f(c)\in C\} \implies x \in f^{-1}(C)\implies f(x) \in f(f^{-1}(C)) \implies y \in f(f^{-1}(C))\].\\
+		Im zweiten Teil des Beweises zeigen wir, dass $f$ surjektiv ist, wenn $\forall C\subset X: f(f^{-1}(C)) = C$.\\
+		Wir zeigen die Kontraposition: $f$ nicht surjektiv $\implies \exists C \subset X: f(f^{-1}(C)) \neq C$.\\
+		Wir betrachten eine nicht surjektive Abbildung $f$, sodass $\exists y \in C$ mit $f^{-1}(\{y\}) = \emptyset$. Da $y$ kein Urbild hat, ist auch $y\notin f(M) \forall M \subset X$, insbesondere also auch $y\notin f(f^{-1}(C))$.
+	\end{proof}
+	\end{enumerate}
+\newpage
+\section{Aufgabe}
+Sei $A$ eine Menge und $X, Y \subset A$. Wir betrachten die Abbildung $f_{X,Y} : P(A) \to P(A)$, welche für $M \subset A$ definiert ist durch
+\[f_{X,Y}(M) = (X \cap M ) \cup (Y \cap (A \setminus M))\]
+Wann gibt es eine Teilmenge $M \subset A$ mit $f_{X,Y}(M) = \emptyset$?
+\begin{lemma}
+	$Y \cap (A \setminus M) = \emptyset$ gilt genau dann, wenn $M\subset Y$.
+\end{lemma}
+\begin{proof}
+	Wir zeigen zunächst: $(Y \cap (A \setminus M) = \emptyset) \implies (Y\subset M)$.\\
+	Beweis durch Widerspruch: Annahme: $(Y \cap (A \setminus M) =  \emptyset)$ und $(\exists x \in Y \land x\notin M)$. 
+	Es gilt $x \in A$ und $x\notin M$, also $x\in A\setminus M$. Daher ist auch $x\in (Y \cap (A \setminus M)$. $\lightning$\\
+	Im zweiten Teil des Beweises zeigen wir: $(Y\subset M) \implies (Y \cap (A \setminus M) = \emptyset)$.\\
+	Beweis durch Kontraposition: $(Y \cap (A \setminus M) \neq \emptyset) \implies (Y\not \subset M)$.\\
+	$(\exists x \in Y \cap (A \setminus M)) \implies (\exists x \in Y \land x\notin M) \implies (Y\not \subset M)$
+\end{proof}
+\begin{satz}
+	Es gibt genau dann eine Teilmenge $M \subset A$ mit $f_{X,Y}(M) = \emptyset$, wenn $X\cap Y = \emptyset$.
+\end{satz}
+\begin{proof}
+	Wir zeigen zunächst, dass es eine Teilmenge $M \subset A$ mit $f_{X,Y}(M) = \emptyset$ gibt, wenn $X\cap Y = \emptyset$.
+	Wir wählen $M$ einfach gleich $Y$. Dann gilt \[f_{X,Y}(M) = (X \cap M ) \cup (Y \cap (A \setminus M)) =  (X \cap Y) \cup (Y \cap (A \setminus Y)) = Y \cap (A \setminus Y)\]Mit $Y\subset Y$ folgt aus dem Lemma: $f_{X,Y}(M) = Y \cap (A \setminus Y) = \emptyset$.\\\ \\
+	Im zweiten Teil des Beweises zeigen wir, dass $X\cap Y = \emptyset$ gilt, wenn es eine Teilmenge $M \subset A$ mit $f_{X,Y}(M) = \emptyset$ gibt.\\
+	\[((X \cap M ) \cup (Y \cap (A \setminus M)) = \emptyset) \implies (X \cap M = \emptyset) \land (Y \cap (A \setminus M) = \emptyset)\]
+	Mit dem Lemma erhalten wir \[(X \cap M = \emptyset) \land (Y\subset M) \implies (X \cap Y) = \emptyset\].
+\end{proof}
+\newpage
+\section{Aufgabe}
+Seien $A$ und $B$ endliche Mengen, welche jeweils genau $n$ verschiedene Elemente enthalten.
+\begin{enumerate}[a)]
+	\item In der Vorlesung wurde skizziert, wieso die Potenzmenge $P(A)$ genau $2^n$ Elemente enthält.
+	Führen Sie einen Beweis dieser Behauptung mit vollständiger Induktion.
+	\begin{definition}
+		$\#M$ sei die Anzahl der Elemente von $M$.
+	\end{definition}
+	\begin{proof}
+		Offensichtlich ist $\#A = n$.\\
+		\textbf{Induktionsanfang: $n= 0$:} \hspace*{3mm}$P(\emptyset)$ enthält $1 = 2^0 = 2^n$ mit $n = \#A = 0$\\
+		\textbf{Induktionsschritt $n \to n+1$:}\hspace*{3mm} Induktionsannahme: Jede Menge $P(A)$ mit $\#A = n$ enthält $2^n$ Elemente.\\
+		Wir betrachten eine Menge $C$ mit $\#C = n+1$.\\
+		Sei $c\in C$ beliebig, $D \coloneqq \{M \in P(C)|c \notin M\}$ und $E \coloneqq \{M \in P(C)|c \in M\}$. Offensichtlich ist $C = D \dot{\cup} E$.\\\ \\
+		$D$ gleicht der Potenzmenge von $C\setminus \{c\}$, da alle Teilmengen von $C$, die $c$ nicht enthalten, auch Teilmengen von $C\setminus \{c\}$ sind, aber gleichzeitig $P(C\setminus \{c\}) \subset P(C)$.\\
+		Damit ist $\#D = \#P(C\setminus \{c\}) = 2^{\#C\setminus \{c\}} = 2 ^{\#C-1} = 2^n$.\\
+		Da man aus jedem Element von $D$ durch Hinzufügen von $c$ ein Element von $E$ erzeugen kann, ist $\# E \geq \# D$. Analog kann man aber durch Entfernen von $c$ aus einem beliebigen Element von $E$ ein Element von $D$ erzeugen, sodass $\# D \geq \# E$. \\
+		Insgesamt ist $\# C = \# D + \# E = 2 \# D = 2\cdot 2^n = 2 ^{n+1}$.
+	\end{proof}
+	\item Zeigen Sie mit vollständiger Induktion, dass es genau $n! = n \cdot (n - 1)\cdot \dots \cdot 3 \cdot 2 \cdot 1$ bijektive
+	Abbildungen $f : A \to B$ gibt. Hierbei definieren wir $0! = 1$.
+	\begin{proof}
+		Bei einer bijektiven Abbildung $f : A \to B$ gibt es zu jedem $a\in A$ genau ein $b\in B$.
+		\textbf{Induktionsanfang: $n = 1$:} \hspace*{3mm} Da es genau ein $a\in A$ und genau ein $b\in B$ gibt, ist die bijektive Abbildung 
+		$f: A\to B, a\mapsto b$ eindeutig.\\
+		\textbf{Induktionsschritt $n \to n+1$:}\hspace*{3mm} Induktionsannahme: Zu zwei beliebigen Mengen $A, B$ mit $\# A = \# B = n$ gibt es genau $n!$ bijektive Abbildungen $f : A \to B$.\\
+		Wir betrachten zwei beliebige Mengen $C, D$ mit $\#C = \#D = n+1$.\\
+		Jedes Element von $C$ muss auf genau ein Element von $D$ abgebildet werden. Wir wählen $c\in C$ beliebig. Es gibt offensichtlich $n+1$ Möglichkeiten, auf welches $d\in D$ $c$ abgebildet wird.\\
+		Nun verbleiben noch $n$ Elemente aus $C$, die bijektiv auf $n$ Elemente aus $D$ abgebildet werden müssen. Dafür gibt es laut Induktionsannahme $n!$ verschiedene bijektive Abbildungen $f': C\setminus\{c\} \to D\setminus\{d\}$. Insgesamt erhalten wir also $(n+1) \cdot n! = (n+1)!$ mögliche $f: C \to D$.
+	\end{proof}
+\end{enumerate}
+\end{document}

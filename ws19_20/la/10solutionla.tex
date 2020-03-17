@@ -1,0 +1,372 @@
+\documentclass{article}
+\setlength{\headheight}{25pt}
+\usepackage{josuamathheader}
+\usepackage{gauss}
+
+\begin{document}
+\lalayout{10}
+\section*{Aufgabe 1}
+\begin{itemize}
+	\item Es gilt
+	      $$\begin{gmatrix}[p]
+			      {0}&{6  }&{-2 }&{-1 }&{2  }\\
+			      { -1 }&{-1  }&{0  }&{ -1 }&{11  }\\
+			      { -2 }&{3  }&{-1  }&{-2  }&{15  }\\
+			      { 1 }&{0  }&{0  }&{1  }&{-10  }
+			      \rowops
+			      \swap{3}{0}
+		      \end{gmatrix}
+		      \longrightarrow
+		      \begin{gmatrix}[p]
+			      {1}&{0  }&{0 }&{1 }&{-10  }\\
+			      {-1  }&{-1  }&{0  }&{-1  }&{11}\\
+			      { -2 }&{3  }&{-1  }&{-2  }&{15}\\
+			      {0  }&{6  }&{-2  }&{-1  }&{2  }
+			      \rowops
+			      \mult{1}{\cdot (-1)}
+		      \end{gmatrix}$$
+
+	      $$\longrightarrow
+		      \begin{gmatrix}[p]
+			      { 1 }&{0  }&{0 }&{1 }&{ -10 }\\
+			      { 1}&{ 1 }&{0  }&{ 1 }&{  -11}\\
+			      { -2 }&{ 3 }&{ -1 }&{-2  }&{15}\\
+			      { 0 }&{ 6 }&{ -2 }&{ -1 }&{ 2 }
+			      \rowops
+			      \mult{2}{\text{III} + 2\cdot \text{II}}
+		      \end{gmatrix}
+		      \longrightarrow
+		      \begin{gmatrix}[p]
+			      { 1 }&{0  }&{0 }&{1 }&{ -10 }\\
+			      { 1}&{ 1 }&{0  }&{ 1 }&{  -11}\\
+			      { 0 }&{ 5 }&{ -1 }&{0  }&{-7}\\
+			      { 0 }&{ 6 }&{ -2 }&{ -1 }&{ 2 }
+			      \rowops
+			      \mult{1}{\text{II}-\text{I}}
+		      \end{gmatrix}$$
+
+	      $$\longrightarrow
+		      \begin{gmatrix}[p]
+			      { 1 }&{0  }&{0 }&{1 }&{ -10 }\\
+			      { 0}&{ 1 }&{0  }&{ 0 }&{  -1}\\
+			      { 0 }&{ 5 }&{ -1 }&{0  }&{-7}\\
+			      { 0 }&{ 6 }&{ -2 }&{ -1 }&{ 2 }
+			      \rowops
+			      \mult{2}{\text{III}-5\cdot \text{II}}
+		      \end{gmatrix}
+		      \longrightarrow
+		      \begin{gmatrix}[p]
+			      { 1 }&{0  }&{0 }&{1 }&{ -10 }\\
+			      { 0}&{ 1 }&{0  }&{ 0 }&{  -1}\\
+			      { 0 }&{ 0 }&{ -1 }&{0  }&{-2}\\
+			      { 0 }&{ 6 }&{ -2 }&{ -1 }&{ 2 }
+			      \rowops
+			      \mult{3}{\text{IV}-6\cdot \text{II}}
+		      \end{gmatrix}$$
+
+	      $$\longrightarrow
+		      \begin{gmatrix}[p]
+			      { 1 }&{0  }&{0 }&{1 }&{ -10 }\\
+			      { 0}&{ 1 }&{0  }&{ 0 }&{  -1}\\
+			      { 0 }&{ 0 }&{ -1 }&{0  }&{-2}\\
+			      { 0}&{ 0 }&{ -2 }&{ -1}&{8}
+			      \rowops
+			      \mult{2}{\cdot (-1)}
+			      \mult{3}{\text{IV}-2\cdot \text{III}}
+		      \end{gmatrix}
+		      \longrightarrow
+		      \begin{gmatrix}[p]
+			      { 1 }&{0  }&{0 }&{1 }&{ -10 }\\
+			      { 0}&{ 1 }&{0  }&{ 0 }&{  -1}\\
+			      { 0 }&{ 0 }&{ 1 }&{0  }&{2}\\
+			      { 0}&{ 0 }&{ 0 }&{ -1}&{12}
+			      \rowops
+			      \mult{0}{\text{I} + \text{IV}}
+			      \mult{3}{\cdot -1}
+		      \end{gmatrix}
+	      $$
+	      $$
+		      \longrightarrow \begin{gmatrix}[p]
+			      { 1 }&{0  }&{0 }&{0}&{ 2 }\\
+			      { 0}&{ 1 }&{0  }&{ 0 }&{  -1}\\
+			      { 0 }&{ 0 }&{ 1 }&{0  }&{2}\\
+			      { 0}&{ 0 }&{ 0 }&{ 1}&{-12}
+			      \rowops
+		      \end{gmatrix}
+	      $$
+	      Da der Rang der Matrix 4 ist, hat das LGS die Lösungsmenge L $=
+		      \left\{\begin{gmatrix}[p]
+			      {2} \\
+			      {-1} \\
+			      {2} \\
+			      {-12}
+		      \end{gmatrix}\right\}$
+	      . \\
+	\item Es gilt
+	      $$\begin{gmatrix}[p]
+			      {2}&{ 2 }&{1 }&{2 }&{ 4 }\\
+			      { 1 }&{ 0 }&{ 1 }&{ 1}&{  4}\\
+			      {  1}&{ 1 }&{  1}&{  2}&{4 }\\
+			      { 2 }&{1  }&{ 1 }&{  1}&{ 4 }
+			      \rowops
+			      \swap{0}{1}
+		      \end{gmatrix}
+		      \longrightarrow
+		      \begin{gmatrix}[p]
+			      { 1 }&{ 0 }&{ 1 }&{ 1}&{  4}\\
+			      {2}&{ 2 }&{1 }&{2 }&{ 4 }\\
+			      {  1}&{ 1 }&{  1}&{  2}&{4 }\\
+			      { 2 }&{1  }&{ 1 }&{  1}&{ 4 }
+			      \rowops
+			      \mult{1}{\text{II}-\text{III}}
+		      \end{gmatrix}$$
+
+	      $$\longrightarrow
+		      \begin{gmatrix}[p]
+			      { 1 }&{ 0 }&{ 1 }&{ 1}&{  4}\\
+			      {1}&{ 1 }&{0 }&{0 }&{ 0 }\\
+			      {  1}&{ 1 }&{  1}&{  2}&{4 }\\
+			      { 2 }&{1  }&{ 1 }&{  1}&{ 4 }
+			      \rowops
+			      \mult{3}{\text{IV}-\text{I}}
+		      \end{gmatrix}
+		      \longrightarrow
+		      \begin{gmatrix}[p]
+			      { 1 }&{ 0 }&{ 1 }&{ 1}&{  4}\\
+			      {1}&{ 1 }&{0 }&{0 }&{ 0 }\\
+			      {  1}&{ 1 }&{  1}&{  2}&{4 }\\
+			      { 1 }&{1  }&{ 0 }&{  0}&{ 0 }
+			      \rowops
+			      \mult{2}{\text{III}-\text{I}}
+			      \mult{3}{\text{IV}-\text{II}}
+			      \mult{1}{\text{II}-\text{I}}
+		      \end{gmatrix}$$
+
+	      $$\longrightarrow
+		      \begin{gmatrix}[p]
+			      { 1 }&{ 0 }&{ 1 }&{ 1}&{  4}\\
+			      {0}&{ 1 }&{-1 }&{-1 }&{ -4 }\\
+			      {  0}&{ 1 }&{  0}&{  1}&{0 }\\
+			      { 0 }&{0  }&{ 0 }&{  0}&{ 0 }
+			      \rowops
+			      \mult{1}{\text{II}-\text{III}}
+			      \swap{1}{2}
+		      \end{gmatrix}
+		      \longrightarrow
+		      \begin{gmatrix}[p]
+			      {1}&{0}&{ 1 }&{ 1}&{  4}\\
+			      {0}&{1}&{0 }&{1 }&{ 0 }\\
+			      {0}&{0}&{ -1}&{ -2}&{-4 }\\
+			      {0}&{0}&{ 0 }&{  0}&{ 0 }
+			      \rowops
+			      \mult{0}{\text{I} + \text{III}}
+			      \mult{2}{\cdot -1}
+		      \end{gmatrix}
+	      $$\\
+	      $$ \longrightarrow
+		      \begin{gmatrix}[p]
+			      {1}&{0}&{ 0 }&{ -1}&{  0}\\
+			      {0}&{1}&{0 }&{1 }&{ 0 }\\
+			      {0}&{0}&{ 1}&{ 2}&{ 4 }\\
+			      {0}&{0}&{ 0 }&{  0}&{ 0 }
+			      \rowops
+		      \end{gmatrix}
+	      $$
+	      Die Matrix hat also den Rang 3. Daher hat die Lösungsmenge Dimension 1. Als Partikulärlösung erhalten wir $$\begin{gmatrix}[p]
+			      {0}\\
+			      {0}\\
+			      {4}\\
+			      {0}
+		      \end{gmatrix}.$$ Außerdem ist $$\operatorname{Lin}\left(\begin{gmatrix}[p]
+				      {1}\\
+				      {-1}\\
+				      {-2}\\
+				      {1}
+			      \end{gmatrix}\right)$$ die Lösungsmenge des homogenen Systems.\\
+	      Also lautet die Lösungsmenge des inhomogenen Systems $L =
+		      \left\{ \begin{gmatrix}[p]
+			      {0}\\
+			      {0}\\
+			      {4}\\
+			      {0}
+		      \end{gmatrix} + \operatorname{Lin}\left(\begin{gmatrix}[p]
+				      {1}\\
+				      {-1}\\
+				      {-2}\\
+				      {1}
+			      \end{gmatrix}\right)\right\}$.
+	\item Es gilt
+	      $$\begin{gmatrix}[p]
+			      {1}&{ 0 }&{ 1}&{ 1}&{ 1 }\\
+			      {  2}&{ 2 }&{1  }&{ 2 }&{ 2 }\\
+			      { 1 }&{  1}&{1 }&{ 2 }&{ 3 }\\
+			      { 2 }&{1  }&{ 1 }&{ 1 }&{ 4 }
+			      \rowops
+			      \mult{2}{\text{III}-\text{I}}
+			      \swap{1}{2}
+		      \end{gmatrix}
+		      \longrightarrow
+		      \begin{gmatrix}[p]
+			      {1}&{ 0 }&{ 1}&{ 1}&{ 1 }\\
+			      {  0}&{ 1 }&{0  }&{ 1 }&{ 2 }\\
+			      {  2}&{ 2 }&{1  }&{ 2 }&{ 2 }\\
+			      { 2 }&{1  }&{ 1 }&{ 1 }&{ 4 }
+			      \rowops
+			      \mult{2}{\text{III}-\text{IV}}
+		      \end{gmatrix}$$
+
+	      $$\longrightarrow
+		      \begin{gmatrix}[p]
+			      {1}&{ 0 }&{ 1}&{ 1}&{ 1 }\\
+			      {  0}&{ 1 }&{0  }&{ 1 }&{ 2 }\\
+			      {  0}&{ 1 }&{0  }&{ 1 }&{ -2 }\\
+			      { 2 }&{1  }&{ 1 }&{ 1 }&{ 4 }
+		      \end{gmatrix}$$
+	      Offensichtlich liefern Zeile II und III einen Widerspruch.\\
+	      Somit gilt L $= \emptyset$
+\end{itemize}
+\section*{Aufgabe 2}
+\begin{enumerate}[(a)]
+	\item Euklidischer Algorithmus:
+	      \begin{align*}
+		      \underbrace{x^2 + x + 1}_{f_1} & = 1 \cdot \underbrace{(x^2 + 1)}_{f_2} &  & + \underbrace{x}_{f_3} \\
+		      x^2 + 1                        & = x \cdot x                            &  & + \underbrace{1}_{f_4} \\
+		      x                              & = x \cdot 1                            &  & + 0
+	      \end{align*}
+	      Es ist also $f_4 = 1 = \operatorname{ggT}(f_1, f_2))$. Folglich sind die beiden teilerfremd.
+	\item Vorgehensweise laut Vorlesung:
+	      \begin{align*}
+		      f_3 & = 1 \cdot f_1 - 1 \cdot f_2      \\
+		      f_4 & = 1 \cdot f_2 - x \cdot f_3      \\
+		      f_4 & = f_2 - x \cdot (f_1 - f_2)      \\
+		      1   & = -1 \cdot f_1 + (1+x) \cdot f_2
+	      \end{align*}
+	\item Sei $h = f\cdot g \in f\cdot K[x]$. Dann ist auch $-h = - f \cdot g = f \cdot -g \in f\cdot K[x]$. Sei außerdem $e = f\cdot d \in f\cdot K[x]$. Dann ist auch die Summe $h + e = f\cdot g + f\cdot d = f \cdot (g + d) \in f\cdot K[x]$.
+	      Sei zusätzlich $\lambda \in K$. Dann ist $\lambda \cdot h = \lambda \cdot f\cdot g = f \cdot \lambda \cdot g \in f\cdot K[x]$.
+	\item Es bezeichne $p: K[x] \to K[x]/fK[x]$ die kanonische Projektion. Dann existiert nach Satz 4.6 zu jedem $g \in K[x]$ ein eindeutig bestimmtes $r \in \{s\in K[x] | \deg(s) < \deg(f)\}$ mit $g = r + f \cdot q$, $q\in K[x]$. Daher ist $p(g) = r + fK[x]$. Offensichtlich ist also $K[x]/fK[x]$ isomorph zu $S \coloneqq \{s\in K[x] | \deg(s) < \deg(f)\} = \operatorname{Lin}(x^0, x^1, \dots, x^{\deg(f)-1})$. Diese $\deg(f)$ Vektoren sind linear unabhängig und daher eine Basis von $S$. Folglich ist $\deg(f) = \dim_K(S) = \dim_K(K[x]/fK[x])$.
+\end{enumerate}
+\section*{Aufgabe 3}
+Sei $K$ ein K ein Körper, $A \in M_{n,n}\left(K\right)$ und $\lambda \in K$.
+\begin{enumerate}[(a)]
+	\item \textbf{ZZ:} $\operatorname{det}\left(\lambda A\right) = \lambda^n \operatorname{det}\left(A\right).$
+	      \begin{proof}
+		      DIe Abbildung
+		      $$\operatorname{det}: M_{n,n}\left(K\right) \longrightarrow K , \text{ wobei }  M_{n,n}\left(K\right) \Longleftrightarrow \left(K^n\right)^n$$ ist nach VL eine alternierende n-Form, weshalb sie insbesondere multilinear, also in jeder Komponente linear ist.\\
+		      Für die i-te Zeile von $\lambda A\in M_{n,n}\left(K\right)$ gilt: $$\left(\lambda a_{i,1}, \cdots , \lambda a_{i,n}\right) = \lambda  \left(a_{i,1}, \cdots , a_{i,n}\right).$$
+		      Es gilt also
+		      \begin{align*}
+			      \operatorname{det} \left(\lambda A\right) & = \operatorname{det}\left(\lambda  \left(a_{1,1}, \cdots , a_{1,n}\right), \cdots , \lambda  \left(a_{n,1}, \cdots , a_{n,n}\right)\right) \\  &\overset{\text{det ist multilinear}}{=} \lambda \cdot ... \cdot \lambda \operatorname{det}\left( \left(a_{1,1}, \cdots , a_{1,n}\right), \cdots , \left(a_{n,1}, \cdots , a_{n,n}\right)\right)\\ &= \lambda^n\operatorname{det}\left( A\right)
+		      \end{align*}
+	      \end{proof}
+	\item  \textbf{ZZ:} Ist $K = \R, n=3$ und $A$ antisymmetrisch, so ist $A$ nicht invertierbar.
+	      \begin{proof}
+		      Nach Probeklausur haben alle antisymmetrischen $3\times3$-Matrizen die Form
+		      $$A =\begin{gmatrix}[p]
+				      {0  }&{ a }&{ b}\\
+				      { -a }&{ 0 }&{ c }\\
+				      {-b }&{ -c}&{ 0 }
+			      \end{gmatrix}
+			      \left( a,b,c \in K\right)$$
+		      Nach Korollar 3.26 gilt für $A  \in M_{n,n}\left(K\right)$:\\
+		      $A$ invertierbar $\Longleftrightarrow$ Spalten von $A$ bilden eine Basis des $K^n$.
+		      \\
+		      Es genügt also zu zeigen, dass die Spalten von $A$ linear abhängig sind.
+		      Es gilt
+		      $$\begin{gmatrix}[p]
+				      {b}\\
+				      {c}\\
+				      {0}
+			      \end{gmatrix}
+			      =
+			      -\frac{c}{a}\cdot\begin{gmatrix}[p]
+				      {0}\\
+				      {-a}\\
+				      {-b}
+			      \end{gmatrix}
+			      +
+			      \frac{b}{a}\cdot\begin{gmatrix}[p]
+				      {a}\\
+				      {0}\\
+				      {-c}
+			      \end{gmatrix}
+		      $$
+		      Somit sind die Spalten von $A$ linear abhängig und insbesondere ist $A$ nicht invertierbar.
+	      \end{proof}
+	\item \textbf{Behauptung:} Es existiert eine invertierbare reelle $2\times2$-Matrix.
+	      \begin{proof}
+		      Betrachte
+		      $$ A = \begin{gmatrix}[p]
+				      {0}&{1}\\
+				      {-1}&{0}
+			      \end{gmatrix} $$
+		      $A$ ist antisymmetrisch und es gilt
+		      $$A^{-1}\cdot A=\begin{gmatrix}[p]
+				      {0}&{-1}\\
+				      {1}&{0}
+			      \end{gmatrix}\cdot
+			      \begin{gmatrix}[p]
+				      {0}&{1}\\
+				      {-1}&{0}
+			      \end{gmatrix} = \begin{gmatrix}[p]
+				      {1}&{0}\\
+				      {0}&{1}
+			      \end{gmatrix}$$
+	      \end{proof}
+	\item \textbf{Behauptung:} Es existiert keine invertierbare $3\times3$-Matrix über einem anderen Körper als $\R$. 
+		  \begin{proof}
+			Betrachte eine Matrix der Form $$A =\begin{gmatrix}[p]
+				{0  }&{ a }&{ b}\\
+				{ -a }&{ 0 }&{ c }\\
+				{-b }&{ -c}&{ 0 }
+			\end{gmatrix}
+			\left( a,b,c \in K\right).$$ Dann gibt es folgende Fälle:
+			\begin{itemize}
+				\item[Fall 1:] $a \neq \operatorname{char} K$. Dann lässt sich der Beweis aus 3b übernehmen.
+				\item[Fall 2:] $a = \operatorname{char} K$. Dann ist 
+				$$ A = \begin{gmatrix}[p]
+					{0  }&{ 0 }&{ b}\\
+					{ 0 }&{ 0 }&{ c }\\
+					{-b }&{ -c}&{ 0 }
+				\end{gmatrix} $$
+				Dann sind $$\begin{gmatrix}[p]
+					{0}\\
+					{0}\\
+					{-c}
+				\end{gmatrix}$$ und $$\begin{gmatrix}[p]
+					{0}\\
+					{0}\\
+					{-b}
+				\end{gmatrix}$$ linear abhängig.
+			\end{itemize}
+			Insgesamt ist eine antisymmetrische $3 \times 3$-Matrix also nicht invertierbar.
+	      \end{proof}
+\end{enumerate}
+\section*{Aufgabe 4}
+\begin{enumerate}[(a)]
+	\item Man zieht zunächst Zeile 1 einmal von jeder anderen Zeile ab. Dadurch erhält man die Einträge $a_{ij}'\begin{cases}
+			      x   & i=j=1           \\
+			      x-y & i = j \neq 1    \\
+			      y   & i = 1, j \neq 1 \\
+			      y-x & i \neq 1, j = 1 \\
+			      0   & \text{sonst}
+		      \end{cases}$.
+	      Nun addiert man die zweite, dritte, $\dots$, n-te Spalte auf die erste. Wegen $y-x + x-y = 0$ erhält man $a_{i1}'' = 0 | i > 1$. Für $a_{11}$ erhält man $x + (n-1) \cdot y$. Nun ist die Matrix in oberer Dreiecksform, sodass die Determinante gleich dem Produkt der Diagonaleinträge ist und daher gleich $(x + (n-1)y) (x-y)^{n-1}$.
+	\item Wir bezeichnen eine Matrix der Größe $2n \times 2n$ aus der Aufgabenstellung mit $M_n$. \\
+	      \textbf{Behauptung:} \(\det(M_n) = (x^2 -y^2)^n\)
+	      \begin{proof}
+		      \textbf{Induktionsanfang:} \(n = 1: \det(\begin{pmatrix}
+			      x & y \\
+			      y & x \\
+		      \end{pmatrix} = (x^2-y^2)^1\)\\
+		      \textbf{Induktionsbehauptung:} Für ein beliebiges, aber festes \(n\in \N\) gelte die Behauptung.\\
+		      \textbf{Induktionsschritt:} \(n \to n+1\):
+		      Sei $B \coloneqq M_{n+1}$, $B' \coloneqq B_{0,0}$ und $B'' \coloneqq B_{2n+2,0}$.
+		      Es gilt $b_{1,1} = x, b_{1,2n+2} = y$ und sonst $b_{1,j} = 0$. Daher ist $\det(B) = x \cdot \det B' - y \cdot B''$.
+		      Wegen $b'_{2n+1,2n+1} = x$ und $b'_{2n+1,j} = 0$ sonst ist $\det B' = x \cdot \det B'_{2n+1, 2n+1}$.
+		      Wegen $b''_{2n+1,1} = y$ und $b''_{2n+1,j} = 0$ sonst ist $\det B'' = y \cdot \det B''_{1, 2n+1}$.
+		      Da bei $B'_{2n+1, 2n+1}$ und $B''_{1, 2n+1}$ jeweils die obere und untere Zeile sowie die rechte und linke Spalte entfernt wurden, ist $B'_{2n+1, 2n+1} = B''_{1, 2n+1} = M_n$.
+		      Folglich ist $\det M_{n+1} = x \cdot x \cdot \det M_n - y\cdot y \cdot \det M_n \overset{IB}{=} (x^2 - y^2) \cdot (x^2 - y^2)^n = (x^2 - y^2)^{n+1}$.
+	      \end{proof}
+
+\end{enumerate}
+\end{document}

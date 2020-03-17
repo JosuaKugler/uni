@@ -1,0 +1,81 @@
+\documentclass{article}
+\usepackage{josuamathheader}
+\begin{document}
+	\analayout{2}
+	\section*{Aufgabe 1}
+	\begin{enumerate}[a)]
+		\item Wir zeigen $p$ gerade  $\implies p^3$ gerade und $p$ ungerade $\implies p^3$ ungerade. Daraus folgt dann per Kontraposition $p^3$ gerade $\implies p$ gerade und zusammengenommen $p$ gerade $\equals p^3$ gerade.
+		\begin{proof}
+		$p$ gerade $\implies p=2k$ mit $k\in \N \implies p^3 = 8k^3$ und das ist auf jeden Fall gerade.\\
+		$p$ ungerade $\implies p=2k+1$ mit $k\in \N\implies p^3 = (2k+1)^3 = 8k^3 + 12 k^2 + 12 k + 1 = 2l + 1$ mit $l\in \N$ und dass ist sicher ungerade.
+		\end{proof}
+		\item \begin{proof}[Beweis durch Widerspruch.]
+			Annahme $\sqrt[3]{2} \in \Q$. \obda ist $\sqrt[3]{2} = \frac{p}{q}$ mit teilerfremden $p$ und $q$. Umformen der Gleichung führt zu $p^3 = 2q^3 \implies p^3$ gerade $\implies p$ gerade $\implies p = 2k$ mit $k\in \N$. Das benutzen wir nun wieder in der oberen Gleichung. $2q^3 = p^3 = (2k)^3 = 8k^3 \implies q^3 = 4k^3 \implies q^3$ gerade $\implies q$ gerade. $p$ und $q$ sind nach Voraussetzung teilerfremd, nun aber beide gerade.$\lightning$
+		\end{proof}
+	\end{enumerate}
+	\section*{Aufgabe 2}
+	\begin{enumerate}[(a)]
+		\item $$\prod_{k=1}^{n} (1+x_k)= 1 + x_1 \cdot 1\cdot \dots\cdot1 + 1\cdot x_2\cdot 1\cdot \dots\cdot 1 +\dots + 1 \cdot\dots \cdot x_k\cdot \dots\cdot 1 + 1\cdot \dots \cdot x_n + \dots = 1 + \sum_{k=1}^{n}x_k + \dots \geq 1 + \sum_{k=1}^{n}x_k$$
+		\item \begin{align}
+			x&\leq y&&|\cdot x\nonumber\\
+			x\cdot x&\leq y\cdot x&&|+ xy\nonumber\\
+			x^2 + xy&\leq 2xy\nonumber\\
+			x(x+y) &\leq 2xy&&|\cdot (x+y)^{-1}\nonumber\\
+			x &\leq \frac{2xy}{x+y}\nonumber\\
+			x^2 &\leq \left(\frac{2xy}{x+y}\right)^2
+		\end{align}
+		\begin{align}
+			0&\leq (x-y)^2\nonumber\\
+			0&\leq x^2 -2xy + y^2&&|+4xy\nonumber\\
+			4xy &\leq x^2 + 2xy + y^2&&|\cdot xy\nonumber\\
+			4x^2y^2 &\leq xy(x^2 + 2xy + y^2)\nonumber\\
+			(2xy)^2 &\leq xy(x+y)^2&&|\cdot (x+y)^{-2}\nonumber\\
+			\left(\frac{2xy}{x+y}\right)^2&\leq xy
+		\end{align}
+		\begin{align}
+			0&\leq (x-y)^2\nonumber\\
+			0&\leq x^2 -2xy + y^2&&|+4xy\nonumber\\
+			4xy &\leq x^2 + 2xy + y^2&&|\cdot \frac{1}{4}\nonumber\\
+			xy &\leq \frac{(x+y)^2}{4}\nonumber\\
+			xy &\leq \left(\frac{x+y}{2}\right)^2
+		\end{align}
+		\begin{align}
+		x&\leq y&&|+ y\nonumber\\
+		x + y&\leq 2y&&|\cdot\frac{1}{2}\nonumber\\
+		\frac{x+y}{2} &\leq y\nonumber\\
+		\left(\frac{x+y}{2}\right)^2 &\leq y^2
+		\end{align}
+		Aus $(1), (2), (3)$ und $(4)$ folgt die Aussage.
+		\item \induktion{$n=2:$ $$\prod_{k=1}^{2-1}\left(1+\frac{1}{k}\right)^k= \left(1+\frac{1}{1}\right)^1= 2 = \frac{4}{2} = \frac{2^2}{2!}$$}
+		{Für ein beliebiges, aber festes $2\leq n\in \N$ gelte $$\prod_{k=1}^{n-1}\left(1+\frac{1}{k}\right)^k = \frac{n^n}{n!}$$}
+		{$n\to n+1:$ \begin{align*}
+			&\quad \prod_{k=1}^{n+1-1}\left(1+\frac{1}{k}\right)^k\\
+			=&\quad \prod_{k=1}^{n-1}\left(1+\frac{1}{k}\right)^k \cdot \left(1+\frac{1}{n}\right)^n\\
+			\overset{I.A.}{=}&\quad \frac{n^n}{n!} \cdot \left(1+\frac{1}{n}\right)^n\\
+			=&\quad \frac{1}{n!} \left(n \cdot \left(1+\frac{1}{n}\right)\right)^n\\
+			=&\quad \frac{\left(n+1\right)^n}{n!}\\
+			=&\quad \frac{\left(n+1\right)^{n+1}}{n!(n+1)}\\
+			=&\quad \frac{\left(n+1\right)^{n+1}}{(n+1)!}\\
+		\end{align*}
+		}
+		\item \induktion{$n=4:$ $$2^4 = 16 < 24 = 4!$$}{Für ein beliebiges, aber festes $n\in \N$ gilt $2^n< n!$}{$n\to n+1$: $2^{n+1} = 2\cdot 2^n \overset{I.A.}{<} 2\cdot n! < (n+1)\cdot n! = (n+1)!$}
+	\end{enumerate}
+	\section*{Aufgabe 3}
+	\begin{enumerate}[(a)]
+		\item Aus $\lim\limits_{n\to \infty} a_n = a$ folgt aus der Definition: $\forall \varepsilon > 0: \exists N\in \N: \forall n\geq N: |a_n-a| < \varepsilon$.\\
+		Z.Z.: $\forall \varepsilon > 0: \exists N\in \N: \forall n\geq N: |a_n-a| < \varepsilon \implies \exists N\in \N\forall n\geq N: a_n>0$
+		\begin{proof}
+			Wir zeigen die Kontraposition: $\neg(\exists N\in \N\forall n\geq N: a_n>0) \implies \neg(\forall \varepsilon > 0: \exists N\in \N: \forall n\geq N: |a_n-a| < \varepsilon)$\\
+			$\forall N\in \N\exists n\geq N: a_n<0 \implies \exists \varepsilon > 0: \forall N\in \N: \exists n\geq N: |a_n-a| > \varepsilon$\\
+			\begin{align*}
+				\forall N\in \N\exists n\geq N:& a_n<0\\
+				& -a_n>0\\ 
+				& a-a_n>a\\
+				& |a-a_n|>a\\
+				\implies \exists \varepsilon > 0: \forall N\in \N: \exists n\geq N:& |a_n-a| > \varepsilon
+			\end{align*}
+			
+		\end{proof}
+	\end{enumerate}
+	\section*{Aufgabe 4}
+\end{document}

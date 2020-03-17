@@ -1,0 +1,31 @@
+\documentclass{article}
+\usepackage{josuamathheader}
+\usepackage{listings}
+\newcommand{\Fib}{\operatorname{Fib}}
+
+\begin{document}
+	\ipilayout{5}
+	\section*{Aufgabe 1}
+	\begin{enumerate}
+		\item \lstinline|while (i < n ) { int t = a + b; a = b; b = t; i = i+1;}|
+		\item Behauptung: INV($v$): b = Fib(n+1) $\land$ a = Fib(n)$\land$ $i-1 < n$
+		\begin{proof}
+			\begin{enumerate}
+				\item INV($v^0$): Aus der Vorbedingung $P(n)$ folgt sofort $b^0 = 1 = \Fib(1)\land a^0 = 0 = \Fib(0) \land i-1 = -1 < n$
+				\item Es gelte nun: INV($v^j$) $\land$ B($v^j$)
+				$\equals b^j = \Fib(j+1) \land a^j = \Fib(j) \land j-1< n$
+				Daher ist $b^{j+1} = t^{j+1} = a^j + b^j = \Fib(j) + \Fib(j+1) = \Fib(j+2)$.
+				Außerdem ist $a^{j+1} = b^{j} = \Fib(j+1)$ und nach Schleifenbedingung $j <n \equals j + 1-1 < n$.
+				\item Am Schleifenende gilt $\neg (i < n)$ und es gilt die Schleifeninvariante.
+				\begin{align*}
+					&INV(v^i) \land \neg (i < n)\\
+					\equals&b = \Fib(i+1)\land a = \Fib(i) \land i-1 < n \land \neg (i < n)\\
+					\equals&b = \Fib(i+1)\land a = \Fib(i) \land i = n\\
+					\equals&b = \Fib(n+1)\land a = \Fib(n)\\
+					\implies&Q(n)
+				\end{align*}
+			\end{enumerate}
+		\end{proof}
+	\end{enumerate}
+	\section*{Aufgabe 2}
+\end{document}

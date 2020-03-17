@@ -1,0 +1,67 @@
+\documentclass{article}
+\usepackage{josuamathheader}
+\newcommand{\mylim}{\lim\limits_{n\to \infty}}
+\renewcommand{\epsilon}{\varepsilon}
+\usepackage{graphicx}
+\setlength{\headheight}{25pt}
+
+\begin{document}
+	\analayout{7}
+	\section*{Aufgabe 1}
+	\begin{enumerate}[(a)]
+		\item $(a_k)_{k\in \N_0}$ mit $a_{k} = \frac{5}{3^{k+1}}$ ist offensichtlich eine Nullfolge. Daher ist die Reihe $\displaystyle \sum_{k = 0}^{\infty} (-1)^k \frac{5}{3^{k+1}}$ nach Leibniz-Kriterium konvergent. Daher ist $\displaystyle \sum_{k = 0}^{\infty} (-1)^k \frac{5}{3^{k+1}} = \frac{5}{3} \cdot \sum_{k=0}^{\infty} \left(\frac{-1}{3}\right)^k$. Mit der geometrischen Summenformel erhalten wir als Grenzwert der Reihe $\frac{5}{3}\cdot \frac{1}{1-\frac{-1}{3}} = \frac{5}{3} \cdot \frac{1}{\frac{4}{3}} = \frac{5}{4}$.
+		\item Diese Folge lässt sich abschätzen durch $$\sum_{k=0}^{\infty} \frac{k^k}{(k+1)^k} = \sum_{k=0}^{\infty} \left(\frac{k}{(k+1)}\right)^k = \sum_{k=0}^{\infty} \left(1 + \frac{1}{k+1}\right)^k > \sum_{k=0}^{\infty} 1$$ und divergiert daher.
+		\item Es gilt $$\sum_{k=1}^{\infty} \frac{1}{k(k+1)} = \sum_{k=1}^{\infty} \frac{k+1}{k(k+1)} - \frac{k}{k(k+1)} = \sum_{k=1}^{\infty} \frac{1}{k} - \frac{1}{k+1} \overset{\text{Teleskopsumme}}{=} 1$$
+		\item Es gilt $a_n = \frac{3^{2k-2} \cdot 5^{1-k}}{2^{k-2}} = \frac{9^{k-1}}{5^{k-1} \cdot 2^{k-2}} = \frac{20}{9}\cdot \left(\frac{9}{10}\right)^{k}$. Folglich ist $\frac{|a_{n+1}|}{a_n} = \frac{|\frac{20}{9}\cdot \left(\frac{9}{10}\right)^{k+1}|}{|\frac{20}{9}\cdot \left(\frac{9}{10}\right)^{k}|} = \frac{9}{10} \leq 1$. Also ist die Reihe konvergent. Gemäß der geometrischen Summenformel ist der Grenzwert der Reihe $$\mylim \sum_{k=0}^{k = n} \frac{3^{2k-2} \cdot 5^{1-k}}{2^{k-2}} = \frac{20}{9}\cdot \sum_{k=0}^{k = n} \left(\frac{9}{10}\right)^{k} = \frac{20}{9} \mylim \cdot \frac{1-\left(\frac{9}{10}\right)^n}{1 - \frac{9}{10}} = \frac{20}{9} \cdot \frac{1}{\frac{1}{10}} = \frac{200}{9}$$
+	\end{enumerate}
+	\section*{Aufgabe 2}
+	\begin{enumerate}[(a)]
+		\item Annahme: $\mylim a_n \neq 0$, also $\mylim a_n \cdot n \geq k > 0$. Dann gilt $\forall \epsilon > 0: \exists N \in \N: \forall n > N:$
+		\begin{align*}
+			|a_n \cdot n -k| &< \epsilon\\
+			|k-a_n\cdot n| &< \epsilon
+			\intertext{Ist $k - a_n\cdot n$ positiv, so spielt der Betrag keine Rolle, ansonsten gilt die Ungleichung sowieso}
+			k - a_n\cdot n &< \epsilon\\
+			- a_n \cdot n &< \epsilon - k\\
+			a_n \cdot n &< k - \epsilon\\
+			a_n &< \frac{k - \epsilon}{n}
+		\end{align*} 
+		Es gilt also $\forall \epsilon > 0: \displaystyle \sum_{n= 0}^{\infty} a_n = \sum_{n = 0}^{N} a_n + \sum_{N+1}^{\infty} a_n > \sum_{n = 0}^{N} a_n + \sum_{N+1}^{\infty} \frac{k - \epsilon}{n}$
+		Wähle $\epsilon < k$ und setze $k - \epsilon \coloneqq \alpha > 0$. Dann erhalten wir 
+		$$\sum_{n= 0}^{\infty} a_n > \sum_{n = 0}^{N} a_n + \sum_{N+1}^{\infty} \frac{\alpha}{n}$$
+		Die Reihe auf der rechten Seite der Ungleichung divergiert. Folglich divergiert auch $a_n$ und unsere Annahme kann nicht stimmen. Insgesamt folgt also $\mylim a_n\cdot n = 0$.
+		\item Es gilt $$\sum_{n = 1}^{\infty} a_n = \sum_{n = 1}^{\infty} \sum_{k = 2^{n-1}}^{2^n-1}a_k.$$ Aufgrund der Monotonie ist $\sum_{k = 2^{n-1}}^{2^n-1}a_k \geq 2^{n-1} \cdot a_{2^n}$. Konvergiert also $\sum_{n = 1}^{\infty} a_n$, so auch $\sum_{n = 1}^{\infty} 2^{n-1} \cdot a_{2^n}$ und folglich auch $2 \cdot \sum_{n = 1}^{\infty} 2^{n-1} \cdot a_{2^n} = \sum_{n = 1}^{\infty} 2^n \cdot a_{2^n}$ und, da sich durch addieren endlich vieler Elemente nichts ändert, auch $\sum_{n = 0}^{\infty} 2^n \cdot a_{2^n}$. Ist hingegen $\sum_{n = 1}^{\infty} a_n$ divergent, so können wir mithilfe von $$\sum_{n = 1}^{\infty} a_n = \sum_{n = 1}^{\infty} \sum_{k = 2^{n-1}}^{2^n-1}a_k \overset{\text{Monotonie}}{\leq} \sum_{n = 1}^{\infty} 2^{n-1} \cdot a_{2^{n-1}} = \sum_{n = 0}^{\infty} 2^{n} \cdot a_{2^{n}}.$$ auf die Divergenz von $\sum_{n = 0}^{\infty} 2^{n} \cdot a_{2^{n}}$ schließen.
+		\item Betrachte zunächst den Fall $\liminf\limits_{n\to \infty} a_n = k$.
+		Sei $\epsilon_1 > 0$. Dann existiert ein $n_1\in \N$ mit $\forall n > n_1: \frac{a_{n+1}}{a_n} > k -\epsilon_1$.
+		Folglich gilt $\forall n > n_1: a_n \geq (k-\epsilon_1)^{n - n_1}\cdot a_{n_1} = (k-\epsilon_1)^{n - n_1}\cdot a_{n_1} \cdot\frac{(k-\epsilon_1)^{n-n_1}}{(k-\epsilon_1)^{n-n_1}} = (k-\epsilon_1)^n \cdot \underbrace{\frac{a_{n_1}}{(k-\epsilon_1)^{n_1}}}_{C}$.
+		Also ist $\sqrt[n]{a_n} \geq (k-\epsilon_1)\cdot \sqrt[n]{C}$ und mit $\mylim (k-\epsilon_1)\cdot \sqrt[n]{C} = (k-\epsilon_1)$ erhalten wir $\mylim \sqrt[n]{a_n} \geq (k-\epsilon_1)$.
+		Sei nun außerdem $\epsilon_2 > 0$. Dann $\exists n_2 \in \N: \forall n > n_2: \sqrt[n]{a_n} \geq (k-\epsilon_1)-\epsilon_2$ und daher $\liminf\limits_{n\to \infty} \sqrt[n]{a_n} \geq k = \liminf\limits_{n\to \infty} \frac{a_{n+1}}{a_n}$. Im Fall $\liminf\limits_{n\to \infty} a_n = -\infty$ ist die Ungleichung offensichtlich. Gilt $\liminf\limits_{n\to \infty} \frac{a_{n+1}}{a_n}= \infty$, so wächst die Folge $\frac{a_{n+1}}{a_n}$ und damit auch $\sqrt[n]{a_n}$ unbeschränkt. Folglich ist $\liminf\limits_{n\to \infty} \sqrt[n]{a_n} = \infty$ und die Ungleichung ist auch in diesem Fall erfüllt.
+		Der Beweis für $\limsup\limits_{n\to \infty} \sqrt[n]{a_n} \leq \limsup\limits_{n\to \infty} \frac{a_{n+1}}{a_n}$ erfolgt völlig analog. $\liminf\limits_{n\to \infty} \sqrt[n]{a_n} \leq \limsup\limits_{n\to \infty} \sqrt[n]{a_n}$ ist nach Konstruktion klar.
+		Das Wurzelkriterium ist daher stärker als das Quotientenkriterium, d.h. es kann Reihen geben, für die man durch das Quotientenkriterium nichts über das Konvergenzverhalten aussagen kann, mit dem Wurzelkriterium aber schon.
+	\end{enumerate}
+
+	\section*{Aufgabe 3}
+	\begin{enumerate}[(a)]
+		\item $\sum_{k= 1}^{\infty} \frac{1}{\sqrt{k(k+1)}} > \sum_{k= 1}^{\infty} \frac{1}{\sqrt{(k+1)\cdot (k+1)}} = \sum_{k = 1}^{\infty} \frac{1}{k+1} = -\frac{1}{k} + \sum_{k = 1}^{\infty} \frac{1}{k}$. Diese Reihe ist divergent, da $\sum_{k = 1}^{\infty} \frac{1}{k}$ divergent ist. Offensichtlich ist sie daher auch absolut divergent.
+		\item Es gilt $$\frac{|a_{n+1}|}{|a_n|} = \left|\frac{\frac{k}{2^{k+1}}}{\frac{k-1}{2^k}}\right| = \frac{k}{2(k-1)}.$$ Für $k > 3$ ist $\frac{k}{2(k-1)} \leq \frac{3}{4} < 1$. Daher ist die Reihe absolut konvergent.
+		\item Es gilt $\mylim \left|\sqrt[n]{n\cdot \left(\frac{n-3}{7n}\right)}\right| = \mylim \sqrt[n]{n}\cdot \left|\frac{1}{7} - \frac{3}{7n}\right| \overset{Lemma 2.5}{=} \frac{1}{7}$. Also existiert ein $n_0\in \N: \forall n > n_0: \left|\sqrt[n]{n\cdot \left(\frac{n-3}{7n}\right)}\right| < \frac{1}{2} < 1$ und die Folge ist nach Wurzelkriterium absolut konvergent.
+		\item Es gilt $\left|\frac{(k!)^2}{(k+1!)^2}\right| = \frac{1}{(k+1)^2} \overset{k > 0}{<} \frac{1}{2}$. Also gilt nach Quotientenkriterium, dass die Folge absolut konvergiert.
+		\item Es gilt $$\sum_{k= 1}^{\infty}\left| (-1)^k \left(\sqrt[k]{k} - 1\right) \right| = \sum_{k= 1}^{\infty} k^{\frac{1}{k}} -1 = \sum_{k = 1}^{\infty} e^{\ln(k) \cdot \frac{1}{k}} - 1 \geq \sum_{k = 1}^{\infty} 1 + \frac{1}{k}\ln\left(k\right) - 1 = \sum_{k = 1}^{\infty} \frac{1}{k}\ln\left(k\right)$$ Die Folge $\frac{1}{k} \cdot \ln\left(\frac{1}{k}\right)$ ist monoton fallend und, da $k\cdot \frac{1}{k}\ln(k) = \ln(k)$ keine Nullfolge ist, muss die Reihe laut Aufgabe 2.1 divergieren.
+	\end{enumerate}
+
+	\section*{Aufgabe 4}
+	Sei $\displaystyle a_0 + \sum_{k=1}^{\infty} a_k - a_{k-1}$ nicht konvergent, aber absolut konvergent: $\displaystyle a_0 + \sum_{k=1}^{\infty} |a_k - a_{k-1}|$.
+	Zunächst ist die Folge der Partialsummen $(a_n)_{n\in \N_0}$ nicht konvergent.
+	Z.Z.: $\displaystyle  \forall \epsilon > 0: \exists N\in \N:\sum_{k=N}^{\infty} |a_k -a_{k-1}| < \epsilon$.
+	\begin{proof}
+		Sei $S\in \R$ eine obere Schranke für die Reihe. Wähle $n_S = \lceil\frac{S}{\epsilon}\rceil + 1$.
+		Angenommen, die zu zeigende Aussage ist falsch. Dann $\exists \epsilon > 0: \forall N\in \N: \sum_{k=N}^{\infty} |a_k -a_{k-1}| > \epsilon$. Insbesondere ist also $\sum_{k=0}^{\infty} |a_k -a_{k-1}| > \epsilon$. Betrachte nun den kleinsten Index $N_1\in \N: \sum_{k=0}^{N_1} |a_k -a_{k-1}| > \epsilon$. Nun ist aber auch $\sum_{k=N_1+1}^{\infty} |a_k -a_{k-1}| > \epsilon$. Wähle also analog $N_2\in \N: \sum_{k=N_1 + 1}^{N_2} |a_k -a_{k-1}| > \epsilon$.
+		Verfahre so weiter bis $N_{n_S}$. Dann ist $\sum_{k=0}^{N_{n_S}} |a_k -a_{k-1}| > n_S \cdot \epsilon > S$. Das ist aber ein Widerspruch zur Schrankeneigenschaft von $S$. Folglich ist unsere Annahme falsch und die Aussage ist wahr. 
+	\end{proof}
+	Z.Z.: $(a_n)_{n\in \N_0}$ ist eine Cauchy-Folge.
+	\begin{proof}
+		Sei $\epsilon > 0$. Dann existiert gemäß unserer Aussage oben ein $N\in \N$ sodass $\displaystyle \sum_{k=N}^{\infty} |a_k -a_{k-1}| < \epsilon$. 
+		Insbesondere gilt für alle $n, m > N$, o.B.d.A. $n > m:$ gemäß Dreiecksungleichung $|a_n-a_m| < \sum_{k = m-1}^n|a_k - a_{k-1}| < \sum_{m-1}^{\infty} |a_k - a_{k-1}| < \sum_{N}^{\infty} |a_k - a_{k-1}| < \epsilon$.
+	\end{proof}
+	Folglich ist, wenn 
+\end{document}

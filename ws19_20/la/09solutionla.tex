@@ -1,0 +1,74 @@
+\documentclass{article}
+\usepackage{comment}
+\newcommand{\id}{\operatorname{id}}
+\usepackage{josuamathheader}
+
+\begin{document}
+    \section*{Aufgabe 1}
+    \begin{enumerate}[(a)]
+        \item Sei $v\in V \setminus \{0\}$ mit $(g\circ f)(v) = v$ und $f(v) = w$. Außerdem ist $f(v) \neq 0$, da ansonsten $g(f(v)) = 0 \neq v$ wäre. Dann ist $(f\circ g)(w) = f(g(f(v))) = f(v) = w$. Sei andererseits $w\in W \setminus \{0\}$ mit $f(\circ g)(w) = w$ und $g(w) = v$. Außerdem ist $g(w) \neq 0$, da ansonsten $f(g(w)) = 0 \neq w$ wäre. Dann ist $(g\circ f)(v) = g(f(g(w))) = g(w) = v$.
+        \item Es gilt $\ker(E_n - AB) = \{v \in K^n|(E_n - AB)(v) = 0\} = \{v \in K^n|v - ABv = 0\} = \{v \in K^n| v = ABv\}$.
+        Außerdem ist $\ker(E_m - BA) = \{w\in K^m|(E_m - BA)(w) = 0\} = \{w \in K^m|w - BAw = 0\} = \{w\in K^m| w = BAw\}$.
+        Mit Aufgabe $(a)$ folgt: Es gibt genau dann ein $v\in K^n\setminus\{0\}$ mit $ABv = v$, wenn es ein $w\in K^m\setminus\{0\}$ mit $BAw = w$ gibt. Daher ist $\ker(E_n - AB) = \{0\}$ genau dann wenn $\ker(E_m - BA) = \{0\}$ ist. Folglich ist $(E_n - AB)$ genau dann injektiv, wenn $(E_m - BA)$ injektiv ist. Da es sich bei beiden Abbildungen um Endomorphismen handelt, folgt aus Injektivität sofort, dass die Abbildungen ein Automorphismus und damit invertierbar sein muss. Genau dann, wenn $(E_n - AB)$ invertierbar ist, ist $(E_m - BA)$ ebenfalls invertierbar.
+    \end{enumerate}
+    \section*{Aufgabe 2}
+    \begin{enumerate}[(a)]
+        \item Es gilt:
+        $$\forall x \in K^m: A(x - BAx) = Ax - ABAx = Ax - Ax = 0 \implies (x - BAx) \in \ker A$$
+        Sei nun $z \in \ker A$. Wähle $x = z$. Dann ist $z = z - 0 \overset{z\in \ker A}{=} z - Az = z - BAz  =x - BAx$.
+        Folglich ist $\ker A = \{x - BAx | x \in K^m\}$.
+        \item Gelte $ABb = b$. Dann ist $x = Bb$ offensichtlich eine Lösung des Gleichungssystems.
+        Sei nun andererseits $x$ eine Lösung des Gleichungssystems. Dann gilt $b = Ax$ und somit $ABb = ABAx = Ax = b$. Nach Teilaufgabe wissen wir, dass $\ker A = \{x - BAx | x \in K^m\}$ der Lösungsraum des zugehörigen homogenen Systems $Ax = 0$ darstellt.
+        Existiert also eine Lösung $Bb$ für $Ax = b$, so gilt für die Lösungsmenge $L$ nach Satz 3.42(ii) $$L = \{Bb + x' - BAx'|x' \in K^m\}.$$
+    \end{enumerate}
+    \section*{Aufgabe 3}
+    \begin{enumerate}
+        \item $$\begin{pmatrix}1 & 1 & 0\\ 0 & 1 & 1 \\ 1 & 1 & 0\end{pmatrix} \to \begin{pmatrix}1 & 1 & 0\\ 0 & 1 & 1 \\ 0 & 0 & 0\end{pmatrix} \to \begin{pmatrix}1 & 0 & -1\\ 0 & 1 & 1 \\ 0 & 0 & 0\end{pmatrix}$$ Diese Matrix hat also den Rang 2.
+        \item $$\begin{pmatrix}1 & 1 & 0\\ 2 & 1 & 1 \\ 1 & 1 & 1\end{pmatrix} \to \begin{pmatrix}1 & 1 & 0\\ 0 & -1 & 1 \\ 0 & 0 & 1\end{pmatrix} \to \begin{pmatrix}1 & 1 & 0\\ 0 & 1 & -1 \\ 0 & 0 & 1\end{pmatrix}\to \begin{pmatrix}1 & 0 & 1\\ 0 & 1 & -1 \\ 0 & 0 & 1\end{pmatrix} \to \begin{pmatrix}1 & 0 & 0\\ 0 & 1 & 0 \\ 0 & 0 & 1\end{pmatrix}$$ Diese Matrix hat den Rang 3.
+        \item $$\begin{pmatrix}1 & 0 & 2\\ 1 & 1 & 4\end{pmatrix} \to\begin{pmatrix}1 & 0 & 2\\ 0 & 1 & 2\end{pmatrix}$$ Diese Matrix hat den Rang 2.
+        \item $$\begin{pmatrix}1 & 2 & 1\\ 2 & 4 & 2\end{pmatrix} \to\begin{pmatrix}1 & 2 & 1\\ 0 & 0 & 0\end{pmatrix}$$ Diese Matrix hat den Rang 1.
+        \item Fallunterscheidung: 
+            \subitem $\mychar K \neq 1 - a^2$: $$\begin{pmatrix}a & 1 & a\\ 1 & a & 1 \\ a & 1 & a\end{pmatrix} \to \begin{pmatrix}1 & a & 1\\ a & 1 & a \\ a & 1 & a\end{pmatrix} \to \begin{pmatrix}1 & a & 1\\ 0 & 1-a^2 & 0 \\ 0 & 1-a^2 & 0\end{pmatrix}\to \begin{pmatrix}1 & a & 1\\ 0 & 1 & 0 \\ 0 & 1-a^2 & 0\end{pmatrix} \to \begin{pmatrix}1 & 0 & 1\\ 0 & 1 & 0 \\ 0 & 0 & 0\end{pmatrix}$$ Diese Matrix hat den Rang 2.
+            \subitem $\mychar K = 1 - a^2$: $$\begin{pmatrix}a & 1 & a\\ 1 & a & 1 \\ a & 1 & a\end{pmatrix} \to \begin{pmatrix}1 & a & 1\\ a & 1 & a \\ a & 1 & a\end{pmatrix} \to \begin{pmatrix}1 & a & 1\\ 0 & 1-a^2 & 0 \\ 0 & 1-a^2 & 0\end{pmatrix} = \begin{pmatrix}1 & a & 1\\ 0 & 0 & 0 \\ 0 & 0 & 0\end{pmatrix}$$ Diese Matrix hat den Rang 1.
+    \end{enumerate}
+    \section*{Aufgabe 4}
+    \begin{enumerate}[(a)]
+        \item $\underline{v}$ ist linear unabhängig:
+        \begin{align}
+            a \cdot 1 + b \cdot 0  &= 0 &&\implies a = 0\\
+            a \cdot 2 + b \cdot -1 &= 0 &&\xRightarrow{(1)} b = 0
+        \end{align}
+        Da $\underline{v}$ 2 Vektoren enthält, ist es ein maximal linear unabhängiges System und daher eine Basis.
+        $\underline{w}$ ist linear unabhängig:
+        \begin{align}
+            a \cdot 1 + b \cdot 3  &= 0 &&\implies a = -3b\\
+            a \cdot 1 + b \cdot 2 &= 0 &&\xRightarrow{(1)} b = 0
+        \end{align}
+        Aus $(2)$ folgt schließlich $a = 0$. 
+        Da $\underline{w}$ 2 Vektoren enthält, ist es ein maximal linear unabhängiges System und daher eine Basis.
+        Es gilt $T = \begin{pmatrix} 1 & 0 \\ 2 & -1\end{pmatrix}$ und $S = \begin{pmatrix} 1 & 3 \\ 1 & 2\end{pmatrix}$.
+        \item \ \\\begin{itemize}
+            \item $T^{-1} = M^{\underline{e}}_{\underline{v}}(\id_w) = \begin{pmatrix} 1 & 0 \\ 2 & -1\end{pmatrix}$
+                \begin{align*}
+                \begin{pmatrix} 1 & 0 \\ 2 & -1\end{pmatrix}&\Bigg|\begin{pmatrix} 1 & 0 \\ 0 & 1\end{pmatrix}\\
+                \begin{pmatrix} 1 & 0 \\ 0 & -1\end{pmatrix}&\Bigg|\begin{pmatrix} 1 & 0 \\ -2 & 1\end{pmatrix}\\
+                \begin{pmatrix} 1 & 0 \\ 0 & 1\end{pmatrix}&\Bigg|\begin{pmatrix} 1 & 0 \\ 2 & -1\end{pmatrix}
+                \end{align*}
+            \item $S^{-1} = M^{\underline{e}}_{\underline{w}}(\id_w) = \begin{pmatrix} -2 & 3 \\ 1 & -1\end{pmatrix}$ 
+                \begin{align*}
+                \begin{pmatrix} 1 & 3 \\ 1 & 2\end{pmatrix}&\Bigg|\begin{pmatrix} 1 & 0 \\ 0 & 1\end{pmatrix}\\
+                \begin{pmatrix} 1 & 3 \\ 0 & -1\end{pmatrix}&\Bigg|\begin{pmatrix} 1 & 0 \\ -1 & 1\end{pmatrix}\\
+                \begin{pmatrix} 1 & 3 \\ 0 & 1\end{pmatrix}&\Bigg|\begin{pmatrix} 1 & 0 \\ 1& -1\end{pmatrix}\\
+                \begin{pmatrix} 1 & 0 \\ 0 & 1\end{pmatrix}&\Bigg|\begin{pmatrix} -2 & 3 \\ 1 & -1\end{pmatrix}
+                \end{align*}
+        \end{itemize}
+    \item
+            \begin{itemize}
+                \item $M^{\underline{e}}_{\underline{e}}(f) = \begin{pmatrix} 1 & 2 \\ -1 & -1\end{pmatrix}$
+                \item $A = M^{\underline{v}}_{\underline{v}}(f) = M^{\underline{e}}_{\underline{v}}(\id)\cdot M^{\underline{e}}_{\underline{e}}(f) \cdot M^{\underline{v}}_{\underline{e}}(\id)= \begin{pmatrix} 1 & 0 \\ 2 & -1\end{pmatrix} \cdot \begin{pmatrix} 1 & 2 \\ -1 & -1\end{pmatrix} \cdot \begin{pmatrix} 1 & 0 \\ 2 & -1\end{pmatrix} = \begin{pmatrix} 5 & -2 \\ 13 & -5\end{pmatrix}$
+                \item $B = M^{\underline{w}}_{\underline{w}}(f) = M^{\underline{e}}_{\underline{w}}(\id)\cdot M^{\underline{e}}_{\underline{e}}(f) \cdot M^{\underline{w}}_{\underline{e}}(\id)= \begin{pmatrix} -2 & 3 \\ 1 & -1\end{pmatrix} \cdot \begin{pmatrix} 1 & 2 \\ -1 & -1\end{pmatrix} \cdot \begin{pmatrix} 1 & 3 \\ 1 & 2\end{pmatrix} = \begin{pmatrix} -12 & -29 \\ 5 & 12\end{pmatrix}$
+                \item $C = M^{\underline{w}}_{\underline{v}}(\id_V) = M^{\underline{e}}_{\underline{v}}(\id)\cdot  M^{\underline{w}}_{\underline{e}}(\id)= \begin{pmatrix} 1 & 0 \\ 2 & -1\end{pmatrix} \cdot \begin{pmatrix} 1 & 3 \\ 1 & 2\end{pmatrix} = \begin{pmatrix} 1 & 3 \\ 1 & 4\end{pmatrix}$
+                \item $AC - CB = M^{\underline{v}}_{\underline{v}}(f) \cdot M^{\underline{w}}_{\underline{v}}(\id_V) - M^{\underline{w}}_{\underline{v}}(\id_V) \cdot M^{\underline{w}}_{\underline{w}}(f) = M^{\underline{w}}_{\underline{v}}(f) - M^{\underline{w}}_{\underline{v}}(f) = 0$
+            \end{itemize}
+    \end{enumerate}
+\end{document}

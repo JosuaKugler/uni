@@ -1,0 +1,325 @@
+\documentclass{article}
+\setlength{\headheight}{25pt}
+\usepackage{josuamathheader}
+\usepackage{gauss}
+\usepackage{tabulary}
+\newcommand{\malg}[1]{\mu_{\operatorname{alg}} \left( {#1} \right)}
+\newcommand{\mgeo}[1]{\mu_{\operatorname{geo}} \left( {#1} \right)}
+\newcommand{\id}{\operatorname{id}}
+\newcommand{\im}{\operatorname{im}}
+\begin{document}
+    \lalayout{12}
+    \begin{tabular}{|c|m{1cm}|m{1cm}|m{1cm}|m{1cm}|m{1cm}|@{}m{0cm}@{}}
+    	\hline
+    	Aufgabe & \centering A1 & \centering A2 & \centering A3 & \centering A4 & \centering $\sum$ & \\[5mm] \hline
+    	Punkte & & & & & & \\[5mm] \hline
+    \end{tabular}
+    \section*{Aufgabe 1}
+    Ist eine Matrix diagonalisierbar, so zerfällt ihr charakteristisches Polynom in Linearfaktoren. Das charakteristische Polynom von $A$ ist 
+    \begin{align*}
+        \det
+        \begin{pmatrix}
+            \lambda - 4 & 5 & 4\\
+            -6 & \lambda + 7 &4\\
+            3 & -4 & \lambda - 3
+        \end{pmatrix} &= (\lambda - 4)\cdot (\lambda + 7)\cdot (\lambda - 3) + 156- 12 \cdot (\lambda + 7) + 30 \cdot (\lambda - 3) + 16 (\lambda - 4)\\
+        &= (\lambda ^2 + 3 \lambda - 28) \cdot (\lambda - 3) + 156 - 12 \lambda - 84 + 30 \lambda - 90 + 16 \lambda - 64\\
+        &= \lambda^3 + 3 \lambda ^2 - 3 \lambda^2  - 28 \lambda - 12 \lambda + 30 \lambda - 9 \lambda + 16 \lambda + 156  - 90 - 64\\
+        &= \lambda ^ 3 -3 \lambda + 2\\
+        &= (\lambda - 1) \cdot (\lambda^2 + \lambda - 2)\\
+        &= (\lambda - 1) \cdot (\lambda - 1) \cdot (\lambda + 2)\\
+        &= (\lambda - 1)^2 \cdot (\lambda + 2)
+    \end{align*}
+    Folglich sind die Eigenwerte der Matrix durch $1$ und $-2$ gegeben.
+    Daraus sehen wir sofort, dass die Matrix trigonalisierbar ist, da 
+    $\malg{1} = 2$, $\malg{-2} = 1$ und die Summe der algebraischen Vielfachheiten damit gleich 3 ist.
+    Nun untersuchen wir die geometrische Vielfachheit von $1$.
+    Dazu müssen wir die Dimension des Kerns der zugehörigen Matrix bestimmen.
+    \begin{alignat*}{2}
+        \begin{gmatrix}[p]
+            1 - 4 & 5 & 4\\
+            -6 & 1 + 7 &4\\
+            3 & -4 & 1 - 3
+        \end{gmatrix}
+        &= \begin{gmatrix}[p]
+            -3 & 5 & 4\\
+            -6 & 8 &4\\
+            3 & -4 & -2
+            \rowops
+            \mult{1}{\text{II} + 2 \cdot \text{III}}
+            \swap{1}{2}
+        \end{gmatrix}
+        &&= \begin{gmatrix}[p]
+            -3 & 5 & 4\\
+            3 & -4 & -2\\
+            0 & 0 & 0
+            \rowops
+            \mult{0}{\text{I} + \text{II}}
+        \end{gmatrix}\\
+        &= \begin{gmatrix}[p]
+            0 & 1 & 2\\
+            3 & -4 & -2\\
+            0 & 0 & 0
+            \rowops
+            \mult{1}{\text{II} + \text{I}}
+            \swap{0}{1}
+        \end{gmatrix}
+        &&= \begin{gmatrix}[p]
+            3 & -3 & 0\\
+            0 & 1 & 2\\
+            0 & 0 & 0
+            \rowops
+            \mult{0}{\text{I} \cdot -\frac{1}{3}}
+        \end{gmatrix}\\
+        &=\begin{gmatrix}[p]
+            1 & -1 & 0\\
+            0 & 1 & 2\\
+            0 & 0 & 0
+            \rowops
+            \mult{0}{\text{I} + \text{II}}
+        \end{gmatrix} 
+        &&= \begin{gmatrix}[p]
+            1 & 0 & 2\\
+            0 & 1 & 2\\
+            0 & 0 & 0
+        \end{gmatrix}
+    \end{alignat*}
+    Der Kern dieser Matrix, also der Eigenraum zu $\lambda = 1$ ist also gegeben durch $\operatorname{Lin}\left(\begin{pmatrix}
+        2\\2\\-1
+    \end{pmatrix}\right)$.
+    Die Summe der geometrischen Vielfachheiten ist folglich gleich $\mgeo{-2} + \mgeo{1} = 1 + 1 = 2 < 3$ und somit ist die Matrix nicht diagonalisierbar.
+    Die Matrix $S = \begin{pmatrix}
+        0 & 0 & -1\\
+        1 & 0 & 2\\
+        0 & 1 & 2
+    \end{pmatrix}$ erfüllt die Aufgabenstellung. Es gilt $S^{-1} = \begin{pmatrix}
+        2 & 1 & 0\\
+        2 & 0 & 1\\
+        -1 & 0 & 0\\
+    \end{pmatrix}$, da
+    \begin{align*}
+        \begin{pmatrix}
+            0 & 0 & -1\\
+            1 & 0 & 2\\
+            0 & 1 & 2
+        \end{pmatrix} \cdot
+        \begin{pmatrix}
+            2 & 1 & 0\\
+            2 & 0 & 1\\
+            -1 & 0 & 0\\
+        \end{pmatrix} =
+        \begin{pmatrix}
+            1 & 0 & 0\\
+            0 & 1 & 0\\
+            0 & 0 & 1\\
+        \end{pmatrix}
+    \end{align*}
+    Damit erhalten wir
+    \begin{align*}
+        S \cdot A \cdot S^{-1} = \begin{pmatrix}
+            0 & 0 & -1\\
+            1 & 0 & 2\\
+            0 & 1 & 2
+        \end{pmatrix} \cdot
+        \begin{pmatrix}
+            4 & -5 & -4\\
+            6 & -7 & -4\\
+            -3 & 4 & 3\\
+        \end{pmatrix} \cdot
+        \begin{pmatrix}
+            2 & 1 & 0\\
+            2 & 0 & 1\\
+            -1 & 0 & 0\\
+        \end{pmatrix} =
+        \begin{pmatrix}
+            1 & 3 & -4\\
+            0 & -2 & 3\\
+            0 & 0 & 1\\
+        \end{pmatrix}
+    \end{align*}
+    \section*{Aufgabe 2}
+   \begin{enumerate}[(a)]
+   	\item 
+    \textbf{ZZ:} Es existiert eine eindeutige Matrix $A\in M_{2,2}(\R)$, sodass für alle $n\in \N$ und $f\in U$ gilt: 
+  \begin{align*}
+  \begin{pmatrix}
+  	f(n+2)\\
+  	f(n+1)
+  	\end{pmatrix} &= A \cdot 
+  	\begin{pmatrix}
+  	f(n+1)\\
+  	f(n)
+  	\end{pmatrix}
+  	\intertext{\textbf{Behauptung:} Die Matrix}  A &=\begin{gmatrix}[p]
+  	2 & 3 \\
+  	1 & 0 
+  	\end{gmatrix} \\
+  	\end{align*}
+  	 löst die Gleichung. 
+  	\begin{proof}
+  		Es gilt
+  		$$
+  		 A \cdot \begin{pmatrix}
+  		f(n+1)\\
+  		f(n)
+  		\end{pmatrix} =  \begin{pmatrix}
+  		2 & 3 \\
+  		1 & 0 
+  		\end{pmatrix} 
+  		\cdot 
+  		\begin{pmatrix}
+  		f(n+1)\\
+  		f(n)
+  		\end{pmatrix} = 
+  		\begin{pmatrix}
+  		2f(n+1) + 3f(n)\\
+  		f(n+1) 
+  		\end{pmatrix} = \begin{pmatrix}
+  		f(n+2)\\
+  		f(n+1)
+  		\end{pmatrix}$$
+  		\end{proof}
+\noindent \textbf{Behauptung:}
+    $A$ ist eindeutig.
+    \begin{proof}
+    	 Die Darstellung von $f(n+2)$ ist durch $f(n+2)= 2f(n+1)+3f(n)$ eindeutig und die Darstellung von$f(n+1)$ in Abhängigkeit von $f(n+1)$ und $f(n) $ ist durch $f(n+1) = f(n+1) + 0 \cdot f(n)$ eindeutig. Somit gibt es nur eine Lösung für das inhomogene lineare Gleichungssystem 
+    \begin{align*}
+     	f(n+2) &= a_{1,1}f(n+1)+a_{1,2}f(n)\\
+     	f(n+1) &= a_{2,1}f(n+1) + a_{2,2}f(n)
+     \end{align*}
+     Diese ist offensichtlich durch $A$ gegeben.
+    	 \end{proof}
+     \item \textbf{Behauptung:} Die Eigenräume von $A$ sind $\text{Lin} \left( \begin{matrix} 1 \\ -1 \end{matrix}\right)$ und $\text{Lin}\left(\begin{matrix} -3 \\  -1 \end{matrix}\right)$.
+    	\begin{proof}
+    		Wir betrachten das charakteristische Polynom der Matrix $A$. Es gilt $$\chi_{A}(\lambda) = (\lambda -2) \cdot \lambda -3 = \lambda^2 -2\lambda -3 = (\lambda-3) \cdot (\lambda +1) \Longrightarrow \lambda \in \{-1,3\} $$
+    		Nun ist 
+    		\begin{align*}
+    		\text{ker}(3E - A) &= \text{ker}\left(\begin{matrix} 1 & -3 \\ -1 & 3 \end{matrix}\right) = \left(\begin{matrix} 1 & -3 \\ 0 & 0 \end{matrix}\right)\\ &\Longrightarrow \text{Lin}\left(\begin{matrix} -3 \\  -1 \end{matrix}\right)
+    		\end{align*}
+    		und 
+    		\begin{align*}
+    		\text{ker}\left(-E-A\right) = \ker\left(\begin{matrix} -3 & -3 \\ -1 & -1 \end{matrix}\right) \Longrightarrow \begin{gmatrix}[p] 1 & 1 \\ 0 & 0 \end{gmatrix} \Longrightarrow \text{Lin}\left( \begin{matrix} 1 \\ -1 \end{matrix}\right). 
+    		\end{align*}
+    	\end{proof}
+\item \textbf{Behauptung:} Die Matrix $S =\begin{pmatrix}\frac{1}{4} & -\frac{3}{4}\\[0.5em] \frac{1}{4} & \frac{1}{4} \end{pmatrix} $ erfüllt die Eigenschaft $S^{-1}AS.$
+\begin{proof} 
+	Es gilt  	
+	\begin{align*}
+	S^{-1}S & =  \begin{pmatrix}\frac{1}{4} & -\frac{3}{4}\\[0.5em] \frac{1}{4} & \frac{1}{4} \end{pmatrix} \cdot  \begin{pmatrix} 1 & 3 \\[0.5em] -1 & 1 \end{pmatrix} = \begin{pmatrix} 1 & 0 \\[0.5em] 0 & 1 \end{pmatrix}\\
+	\intertext{und} 
+	S^{-1}AS &= \begin{pmatrix}\frac{1}{4} & -\frac{3}{4}\\[0.5em] \frac{1}{4} & \frac{1}{4} \end{pmatrix} \cdot \begin{pmatrix}
+	2 & 3 \\[0.5em]
+	1 & 0 
+	\end{pmatrix} \cdot \begin{pmatrix} 1 & 3 \\[0.5em] -1 & 1 \end{pmatrix} = \begin{pmatrix} -1 & 0 \\[0.5em] 0 & 3 \end{pmatrix}\\
+	\end{align*} 
+	\end{proof}
+\item \textbf{Behauptung:} Die Formel $S \cdot \left (\begin{matrix} (-1)^{n-2} & 0 \\ 0 & 3^{n-2} \end{matrix}\right ) \cdot S^{-1} \cdot \left (\begin{matrix} f(1) \\ f(2) \end{matrix}\right )$  berechnet $f(n)$ aus $f(1)$ und $f(2)$.
+\begin{proof} Es gilt
+	\begin{align*} 
+ \left(\begin{matrix} f(n) \\ f(n+1) \end{matrix}\right) &= A^{n-2} \left(\begin{matrix} f(1) \\ f(2) \end{matrix}\right)  \\
+			&= S \cdot (S^{-1} \cdot A \cdot S)^{n-2} \cdot S^{-1} \cdot \left(\begin{matrix} f(1) \\ f(2) \end{matrix}\right) \\
+			&= S \cdot \left(\begin{matrix} -1 & 0 \\ 0 & 3 \end{matrix}\right)^{n-2} \cdot S^{-1} \cdot \left(\begin{matrix} f(1) \\ f(2) \end{matrix}\right) \\
+			&= S \cdot \left(\begin{matrix} (-1)^{n-2} & 0 \\ 0 & 3^{n-2} \end{matrix}\right)
+	\end{align*}
+\end{proof}
+		    	 \end{enumerate}
+    	    \section*{Aufgabe 3}
+    \begin{enumerate}[(a)]
+        \item Es gilt für $\alpha \in K$, $f, g, h\in K[x]_{\leq n}$
+        \begin{align*}
+            \gamma(\alpha \cdot f + g, h) &= \left(\int((\alpha \cdot f + g) \cdot h)\intd x\right) (1_K)\\
+            &= \left(\int(\alpha \cdot f\cdot h + g \cdot h)\intd x\right) (1_K)\\
+            &= \alpha \cdot \left(\int(f \cdot h)\right)(1_K) + \left(\int(g \cdot h)\right)(1_K)\\
+            &= \alpha \cdot \gamma(f, h) + \gamma(g, h)
+        \end{align*}
+        $\gamma$ ist sußerdem symmetrisch, da die Multiplikation von Polynomen kommutativ ist. Also ist $\gamma$ nicht nur im ersten, sondern auch im zweiten Argument linear.
+        Es gilt $$\ker (\Gamma) = \{f \in K[x]_{\leq n}| \gamma(f, g) = 0 \forall g \in K[x]_{\leq n}\}.$$
+        \textbf{ZZ:} $\ker (\Gamma) = \{0\}$.
+        \begin{proof}
+            Sei also $f \in K[x]_{\leq n}$. 
+            \begin{itemize}
+                \item[Fall 1:] $\left(\int(f)\right) \neq 0$. Wähle dann $g = 1$. Dann erhalten wir 
+                $$\gamma(f, 1) = \left(\int(f\cdot 1)\intd x\right)(1_K) = \left(\int f \intd x\right)(1_K) \neq 0.$$ Folglich ist $f\notin \ker (\Gamma).$
+                \item[Fall 2:] 
+            \end{itemize}
+        \end{proof}
+        \item Sei $v_1 = 1, v_2 = x, v_3 = x^2$ und $v_4 = x^3$. Dann ist 
+        \begin{align*}
+            g_{ij} &= \gamma(v_i, v_j)\\  
+            &= \left(\int ( v_i \cdot v_j) \intd x\right)(1_K)\\
+            &= \left(\int (x^{i + j -2})\intd x\right)(1_K)\\
+            &= \left(\frac{x^{i+j-1}}{i+j-1}\right)(1_K)\\
+            &= \frac{1}{i+j-1}
+            \intertext{Damit erhalten wir}
+            G &= \begin{pmatrix}
+                1 & \frac{1}{2} & \frac{1}{3} & \frac{1}{4}\\[0.5em]
+                \frac{1}{2} & \frac{1}{3} & \frac{1}{4} & \frac{1}{5}\\[0.5em]
+                \frac{1}{3} & \frac{1}{4} & \frac{1}{5} & \frac{1}{6}\\[0.5em]
+                \frac{1}{4} & \frac{1}{5} & \frac{1}{6} & \frac{1}{7}
+            \end{pmatrix}
+        \end{align*}
+        \item Behauptung: Die Polynome $\underline{v} = \{1, 1-2x, -1+6x - 6x^2, -\frac{1}{2} + 6x - 15x^2 + 10 x^3\}$ bilden eine Orthogonalbasis von $Q[x]_{\leq 3}$.
+        \begin{proof}
+        Wir erhalten die Transformationsmatrix 
+        $$M_{\underline{v}}^{e} = \begin{pmatrix}
+            1 & 0 & 0 & 0\\[0.5em]
+            1 & -2 & 0 & 0\\[0.5em]
+            1 & -6 & -6 & 0\\[0.5em]
+            -\frac{1}{2} & 6 &-15 &10
+        \end{pmatrix}$$
+        Folglich erhalten wir für die Fundamentalmatrix $F$ bezüglich unserer neuen Basis $\underline{v}$
+        $$F = \begin{pmatrix}
+            1 & 0 & 0 & 0\\[0.5em]
+            1 & -2 & 0 & 0\\[0.5em]
+            1 & -6 & -6 & 0\\[0.5em]
+            -\frac{1}{2} & 6 &-15 &10
+        \end{pmatrix} 
+        \cdot 
+        \begin{pmatrix}
+            1 & \frac{1}{2} & \frac{1}{3} & \frac{1}{4}\\[0.5em]
+            \frac{1}{2} & \frac{1}{3} & \frac{1}{4} & \frac{1}{5}\\[0.5em]
+            \frac{1}{3} & \frac{1}{4} & \frac{1}{5} & \frac{1}{6}\\[0.5em]
+            \frac{1}{4} & \frac{1}{5} & \frac{1}{6} & \frac{1}{7}
+        \end{pmatrix} 
+        \cdot 
+        \begin{pmatrix}
+            1 & 1 & 1 & -\frac{1}{2}\\[0.5em]
+            0 & -2 & -6 & 6\\[0.5em]
+            0 & 0 & -6 & -10\\[0.5em]
+            0 & 0 & 0 &15
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+            1 & 0 & 0 & 0\\[0.5em]
+            0 & \frac{1}{3} & 0 & 0\\[0.5em]
+            0 & 0 & \frac{1}{5} & 0\\[0.5em]
+            0 & 0 & 0 & \frac{1}{28}
+        \end{pmatrix}
+        $$
+        \end{proof}
+    \end{enumerate}
+    \section*{Aufgabe 4}
+    Ist $\lambda$ ein Eigenwert von $f$, so gilt
+    \begin{align*}
+        &\chi_f(\lambda) = 0\\
+        \equals& \det ( \lambda \cdot \id - f) = 0\\
+        \equals& \det ( \lambda \cdot E - M_{\underline{v}}^{\underline{v}}(f)) = 0\\
+        \equals& \det (( \lambda \cdot E - M_{\underline{v}}^{\underline{v}}(f))^t) = 0
+        \intertext{Die Determinante ist invariant unter Transposition}
+        \equals& \det (\lambda \cdot E - (M_{\underline{v}}^{\underline{v}}(f))^t) = 0
+        \intertext{Lemma 3.25}
+        \equals& \det (\lambda \cdot E - M_{\underline{v^*}}^{\underline{v^*}}(f^*)) = 0\\
+        \equals& \det ( \lambda \cdot \id - f^*) = 0\\
+        \equals& \chi_{f^*}(\lambda) = 0
+    \end{align*}
+    Folglich ist also $\lambda$ ein Eigenwert der dualen Abbildung.
+    Außerdem ist 
+    \begin{align*}
+        &\dim \ker (\lambda E - M_{\underline{v}}^{\underline{v}}(f))\\
+        =&\dim V - \dim \im (\lambda E - M _{\underline{v}}^{\underline{v}}(f))\\
+        \intertext{Zeilenrang gleich Spaltenrang, $\dim V = \dim V^*$ }
+        =&\dim V^* - \dim \im ((\lambda E - M _{\underline{v}}^{\underline{v}}(f))^t)\\
+        =&\dim V^* - \dim \im (\lambda E - M _{\underline{v^*}}^{\underline{v^*}}(f^*))\\
+        =&\dim \ker (\lambda E - M _{\underline{v^*}}^{\underline{v^*}}(f^*))
+    \end{align*}
+    Folglich ist die Dimension des Eigenraums von $f$ zu $\lambda$ gleich der Dimension des Eigenraums von $f^*$ zu $\lambda$.    \end{document}

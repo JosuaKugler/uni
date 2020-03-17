@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{../josuamathheader}
+\usepackage{amsmath}
+
+\begin{document}
+	\ipilayout{4}
+	\section*{Aufgabe 1}
+	\begin{enumerate}[a)]
+		\item Der Datentyp float hat eine Genauigkeit von 6 Stellen. Daher wird 10000.0001 auf 10000 gerundet.
+		Verwendet man den Datentyp double, so erhält man eine Genauigkeit von 15 Stellen. Daher stimmt nun das Ergebnis.
+		\lstinputlisting[language=C++, caption={determinante.cc}]{determinante.cc}
+		\item Ab $n=3$ treten Unterschiede innerhalb der ersten 6 Stellen der Zahl auf, Ungenauigkeiten bei $n\leq 2$ lassen sich direkt auf die Ungenauigkeit von floats zurückführen. Für $n=3$ muss bei der Rechnung $a + (b+c)$ in $(b+c)$ die Zahl $10^3 + 10^{-3}$ gespeichert werden. Diese hat insgesamt 7 Stellen, ein float hat aber nur eine Genauigkeit von 6 Stellen.
+		\lstinputlisting[language=C++, caption={addition.cc}]{addition.cc}
+	\end{enumerate}
+	\section*{Aufgabe 2}
+	Welche Ergebnisse wären bei exakter Rechnung zu erwarten, und in welchen Punkten weichen
+	die von Ihnen erhaltenen davon ab? Können Sie mögliche Ursachen eingeben?
+	Bei exakter Rechnung müssten die Ergebnisse für float und double gleich sein. Das ist aber nicht der Fall, da ein float nur eine Genauigkeit von 6 Stellen hat, ein double hat stattdessen eine Genauigkeit von 15 Stellen.
+	\lstinputlisting[language=C++, caption={zinssatz.cc}]{zinssatz.cc}
+	\section*{Aufgabe 3}
+	Fallunterscheidung
+	\begin{enumerate}[1.)]
+		\item $a,b \geq 0$:
+		\begin{align*}
+			&s_n(d_n(a)\cdot d_n(b))\\
+			=&s_n(a\cdot b)\\
+			=&a\cdot b\\
+			=&d_n(a\cdot b)
+		\end{align*}
+		\item $a\geq 0, b < 0$
+		\begin{align*}
+			&s_n(d_n(a)\cdot d_n(b))\\
+			=&s_n(a \cdot (2^n - |b|))\\
+			=&s_n(a \cdot 2^n - a\cdot |b|)\\
+			=&-a\cdot |b|\\
+			=&d_n(-a\cdot |b|)
+		\end{align*}
+		\item $a< 0, b< 0$
+		\begin{align*}
+			&s_n(d_n(a)\cdot d_n(b))\\
+			=&s_n((2^n - |a|) \cdot (2^n - |b|))\\
+			=&s_n(2^{2n} -2^n\cdot |a| - 2^n \cdot |b| + |a|\cdot |b|)\\
+			=&|a|\cdot |b|\\
+			=&d_n(|a|\cdot |b|)
+		\end{align*}
+	\end{enumerate}
+\end{document}

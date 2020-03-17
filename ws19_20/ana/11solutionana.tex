@@ -1,0 +1,196 @@
+\documentclass{article}
+\usepackage{josuamathheader}
+\setlength{\headheight}{25pt}
+\usepackage{comment}
+\analayout{10}
+\begin{document}
+		\begin{tabular}{l|c|r|l|c|r|l}\hline\hline
+		Aufgabe &  1 & 2 & 3 &4 & Bonus&$\sum$ \\
+		\hline 
+		Punkte &  & & & &  &\\
+		\cline{2-2}
+		\hline \end{tabular}
+	\section*{Aufgabe 1}
+		Betrachte für $k \in \N$ die Funktion $f_k: \R \longrightarrow \R$ definiert durch
+		$$f_{k}(x):= \begin{cases} 
+							x^k\operatorname{sin}(\frac{1}{x}), & x \neq 0,\\
+							0, & x=0.
+							\end{cases}
+							$$
+		\begin{enumerate}[(a)]
+			\item 
+				\textbf{ZZ:}  $f_1$ ist für $x_0=0$ stetig, aber nicht differenzierbar.
+				\begin{proof}
+					\begin{enumerate}[1.] 
+						\item Stetigkeit:  Es gilt $\lim\limits_{x \nearrow 0}x\operatorname{sin}(1/x) = \lim\limits_{x \searrow 0}x \operatorname{sin}(1/x) = 0$ nach Aufgabe 9.3.
+						\item Differenzierbarkeit: Es gilt für $x_0=0$ 
+						\begin{align*}
+							\lim\limits_{h \rightarrow 0}\frac{f(x_0+h)+f(x_0)}{h} &= \lim\limits_{h \rightarrow 0}\frac{(x_0+h)\sin(\frac{1}{x_0+h})+x_0\sin(\frac{1}{x_0})}{h}\\ &= \lim\limits_{h \rightarrow 0}\frac{h\cdot\sin(\frac{1}{h})+0}{h}\\
+						&=\lim\limits_{h \rightarrow 0}\sin\left(\frac{1}{h}\right)\\ &=\sin\left(\lim\limits_{h \rightarrow 0}\left(\frac{1}{h}\right)\right)\\ &= \sin(0)\\ &= 0
+						\end{align*}
+					\end{enumerate}
+				\end{proof}
+			\item \textbf{ZZ:} $f_2$ ist für $x_0=0$ differenzierbar, aber $f_{2}^{'}$ ist an der Stelle nicht stetig.
+			\begin{proof}
+				\begin{enumerate}[1.]
+					\item Differenzierbarkeit: Es gilt für $x_0=0$
+					\begin{align*}	\lim\limits_{h \rightarrow 0}\frac{f(x_0+h)+f(x_0)}{h} &= \lim\limits_{h \rightarrow 0}\frac{(x_0+h)^2\sin(\frac{1}{x_0+h})+x_{0}^{2}\sin(\frac{1}{x_0})}{h}\\ &= \lim\limits_{h \rightarrow 0}\frac{h^2\cdot\sin(\frac{1}{h})+0}{h}\\
+						&= \lim\limits_{h \rightarrow 0} h\cdot\sin(1/h)\\
+						&= 0			
+					\end{align*}
+				\item Stetigkeit: Es gilt 
+				$
+					f_{2}^{''}= 2x\sin(1/x)-\frac{x^2\cos(1/x)}{x^2} = 2x\sin(1/x)-\cos(1/x)  \Longrightarrow \lim\limits_{x \rightarrow 0} (2x\sin(1/x)-\cos(1/x))\text{ ist nicht definiert.}$ Somit ist $f_{2}^{'}$ insbesondere nicht stetig in $x_0=0$.
+				\end{enumerate}
+			\end{proof}
+		\item \textbf{ZZ:} $f_3$ ist nicht in $x_0=0$ zweimal differenzierbar:
+		\begin{proof} 
+			Es gilt für $x_0=0$ 
+			\begin{align*}	\lim\limits_{h \rightarrow 0}\frac{f(x_0+h)+f(x_0)}{h} &= \lim\limits_{h \rightarrow 0}\frac{(x_0+h)^3\sin(\frac{1}{x_0+h})+x_{0}^{3}\sin(\frac{1}{x_0})}{h}\\ &= \lim\limits_{h \rightarrow 0}\frac{h^3\cdot\sin(\frac{1}{h})+0}{h}\\
+				&= \lim\limits_{h \rightarrow 0} h^2\cdot\sin(1/h)\\
+				&= 0			
+			\end{align*}
+		Nach Kettenregel gilt jedoch 
+		$f_{3}^{'} = 3x^2\sin(1/x)-x\cos(1/x)$ und somit insbesondere 
+		\begin{align*}
+		\lim\limits_{h \rightarrow 0}\frac{f(x_0+h)+f(x_0)}{h} &= \lim\limits_{h \rightarrow 0}\frac{(x_0+h)^3\sin(\frac{1}{x_0+h})-(x_0+h)\cos(\frac{1}{x_0+h})+x_{0}^{3}\sin(\frac{1}{x_0})+x_0\cos(\frac{1}{x_0})}{h}\\ 
+		 &= \lim\limits_{h \rightarrow 0}\frac{h^3\sin(\frac{1}{h})+h\cos(\frac{1}{h})}{h}\\
+		 &= \lim\limits_{h \rightarrow 0}\frac{h\cdot (h^2\sin(\frac{1}{h})-\cos(\frac{1}{h}))}{h}\\
+		 &= \lim\limits_{h \rightarrow 0}h^2\sin(\frac{1}{h})-\cos(\frac{1}{h}) \text{   }
+		 \lightning
+		 	\end{align*}
+	 	Der Grenzwert  $\lim\limits_{h \rightarrow 0}\cos(\frac{1}{h}) $ ist nicht definiert. Somit ist $f_3$ für $x_0=0$ nicht zweimal differenzierbar.
+ 			\end{proof}
+		\end{enumerate}
+    \section*{Aufgabe 2}
+    \begin{enumerate}[(a)]
+        \item \textbf{Behauptung:} \(f^{(k)}(x) = \left(-\frac{1}{2}\right)^k\cdot \prod_{n=1}^{k-1}(2n-1) \cdot x^{-\frac{2k-1}{2}}\)
+        \begin{proof}
+        \textbf{Induktionsanfang:} \(k = 1: f^{(1)}(x) = \left(-\frac{1}{2}\right)^1\cdot \prod_{n=1}^{0}(2-1) \cdot x^{-\frac{2-1}{2}} = -\frac{1}{2}\cdot x^{-\frac{1}{2}}\)\\
+        \textbf{Induktionsbehauptung:} Für ein beliebiges, aber festes \(k\in \N\) gelte die Behauptung.\\
+		\textbf{Induktionsschritt:} \(k \to k+1\): 
+		\begin{align*}
+            f^{(k+1)}(x) &= \frac{\intd}{\intd x}\left(-\frac{1}{2}\right)^k\cdot \prod_{n=1}^{k-1}(2n-1) \cdot x^{-\frac{2k-1}{2}}\\
+            &= \left(-\frac{1}{2}\right)^k\cdot \prod_{n=1}^{k-1}(2n-1) \cdot -\frac{1}{2} \cdot (2k-1) \cdot x^{-\frac{2k-1}{2}-1}\\
+            &= \left(-\frac{1}{2}\right)^{k+1}\cdot \prod_{n=1}^k(2n-1)\cdot x^{-\frac{2k+1}{2}}
+        \end{align*}
+        \end{proof}
+        \item \(f^{(k)}(x) = \left(-\frac{1}{2}\right)^k\cdot \prod_{n=1}^{k-1}(2n-1) \cdot x^{-\frac{2k-1}{2}} = \frac{\sqrt{\pi}}{2\Gamma\left(\frac{3}{2}-k\right)}\cdot x^{-\frac{2k-1}{2}}\)
+		\item 
+		\begin{align*}
+            T_\infty(x, x_0) &= \sum_{k = 0}^{\infty}\frac{f^{(k)}(x_0)}{k!}\cdot (x-x_0)^k\\
+            &= \sum_{k = 0}^{\infty} \frac{\frac{\sqrt{\pi}}{2\Gamma\left(\frac{3}{2}-k\right)} \cdot x_0^{-\frac{2k-1}{2}}}{k!}\cdot (x-x_0)^k\\
+            &= \frac{\sqrt{\pi}}{2}\sum_{k = 0}^{\infty}\frac{x_0^{\frac{1}{2}-k}}{\Gamma\left(\frac{3}{2}-k\right)k!}\cdot (x-x_0)^k
+        \end{align*}
+		\item Zunächst formen wir Aussage (ii) zu (ii') um.
+		\begin{align*}
+			\Gamma(\varepsilon - k) &= (-1)^{k-1}\frac{\Gamma(-\varepsilon)\Gamma(1 + \epsilon)}{\Gamma(k+1-\epsilon)}\\
+			(-1)^{k-1} \frac{\Gamma(k+1-\varepsilon)}{\Gamma(-\varepsilon)\Gamma(1 + \varepsilon)} &= \frac{1}{\Gamma(\varepsilon - k)}
+		\end{align*}
+		Es gilt
+        \begin{align*}
+			\left(-\frac{1}{2}\right)^k\cdot \prod_{n=1}^{k-1}(2n-1) &= \frac{1}{2} \cdot (-1)^{k-1}\cdot -\frac{1}{2^{k-1}}\cdot \prod_{n=1}^{k-1}(2n-1)\\
+			\intertext{Mit (i) folgt}
+			&= \frac{1}{2} \cdot (-1)^{k-1} \cdot \frac{\Gamma\left(k - \frac{1}{2}\right)}{\sqrt{\pi}}
+			\intertext{Mit Aussage (iii) folgt sofort}
+			&=  \frac{1}{2} \cdot (-1)^{k-1} \cdot \frac{\Gamma\left(k - \frac{1}{2}\right)\cdot \sqrt{\pi}}{\Gamma\left(-\frac{3}{2}\right)\cdot \Gamma\left(\frac{5}{2}\right)}
+			\intertext{Mit Aussage (ii') folgt für $\varepsilon = \frac{3}{2}$}
+			&= \frac{1}{2} \cdot \sqrt{\pi} \cdot \frac{1}{\Gamma\left(\frac{3}{2}-k\right)}\\
+			&= \frac{\sqrt{\pi}}{2\cdot \Gamma\left(\frac{3}{2} - k\right)}
+		\end{align*}
+    \end{enumerate}
+	\section*{Aufgabe 3}
+	\begin{enumerate}[(a)]
+		\item Es gilt
+		\begin{align*}
+			 \lim\limits_{x \rightarrow 0} \left(e^{3x}-5x\right)^{1/x} &= \lim\limits_{x \rightarrow 0}e^{\ln(e^{3x}-5x)\cdot\frac{1}{x}} \Longrightarrow \lim\limits_{x \rightarrow 0}\frac{(\ln(e^{3x}-5x))^{'}}{(x)^{'}}=\lim\limits_{x \rightarrow 0} \frac{3e^{3x}-5}{e^{3x}-5x} = -2\\ 
+			 &\Longrightarrow \lim\limits_{x \rightarrow 0} \left(e^{3x}-5x\right)^{1/x} = e^{-2}
+		\end{align*}
+		\item Es gilt 
+		\begin{align*}
+			\lim\limits_{x \rightarrow \infty}\left(e^{3x}-5x\right)^{1/x}&= \lim\limits_{x \rightarrow \infty}e^{\ln(e^{3x}-5x)\cdot\frac{1}{x}} \Longrightarrow \lim\limits_{x \rightarrow 0}\frac{(\ln(e^{3x}-5x))^{'}}{(x)^{'}}=\lim\limits_{x \rightarrow 0} \frac{3e^{3x}-5}{e^{3x}-5x}\\
+			&= \lim\limits_{x \rightarrow \infty}\frac{3-\frac{5}{e^{3x}}}{1-\frac{5x}{e^{3x}}}= 3 \Longrightarrow \lim\limits_{x \rightarrow \infty}\left(e^{3x}-5x\right)^{1/x} = e^3
+		\end{align*}
+		\item Es gilt 
+		\begin{align*}
+			\lim\limits_{x \rightarrow 0} \frac{5^x-2^x}{x} & \Longrightarrow (5^x-2^x)^{'}
+			=(e^{\ln(5)\cdot x}- e^{\ln(2)\cdot x})^{'}= \ln(5)e^{\ln(5)\cdot x}-\ln(2)e^{\ln(2)\cdot x}\\ &\Longrightarrow \lim\limits_{x \rightarrow 0} \frac{5^x-2^x}{x} = \lim\limits_{x \rightarrow 0}\ln(5)e^{\ln(5)\cdot x}-\ln(2)e^{\ln(2)\cdot x}= \ln(5)-\ln(2)=\ln(\frac{5}{2})
+		\end{align*}
+	\item Es gilt
+	\begin{align*}
+		\lim\limits_{x \rightarrow 0}\left(\frac{1}{x}-\frac{\sin(x)}{x^2}\right) &= \lim\limits_{x \rightarrow 0}\frac{x-\sin(x)}{x^2}\Longrightarrow \left(\frac{x-\sin(x)}{x^2}\right)^{'}= \frac{1-\cos(x)}{2x}\\ &\Longrightarrow \left(\frac{1-\cos(x)}{2x}\right)^{'}= \frac{\sin(x)}{2} \Longrightarrow \lim\limits_{x \rightarrow 0}\left(\frac{1}{x}-\frac{\sin(x)}{x^2}\right) = \lim\limits_{x \rightarrow 0} \frac{\sin(x)}{2}=0
+	\end{align*}
+	\item Es gilt
+	\begin{align*}
+		\lim\limits_{x \rightarrow 0}\frac{\ln(1+x)-\sin(x)}{x^2} &\Longrightarrow \left(\frac{\ln(1+x)-\sin(x)}{x^2}\right)^{'} = \frac{\frac{1}{1+x}-\cos(x)}{2x}\\ &\Longrightarrow
+		\left(\frac{\frac{1}{1+x}-\cos(x)}{2x}\right)^{'}=
+		\frac{\frac{-1}{(1+x)^2}+\sin(x)}{2}\\
+		&\Longrightarrow	\lim\limits_{x \rightarrow 0}\frac{\ln(1+x)-\sin(x)}{x^2} = \lim\limits_{x \rightarrow 0}\frac{\frac{-1}{(1+x)^2}+\sin(x)}{2} = -\frac{1}{2} 
+	\end{align*}
+	\item Es gilt
+	\begin{align*} \lim\limits_{x \rightarrow 0}((1+x^{-1})^{x}-e)\cdot x = \lim\limits_{y \rightarrow \infty}\frac{((1+y)^{\frac{1}{y}}-e)}{y}=0\end{align*}
+	\item Es gilt
+	\begin{align*}
+		&\lim\limits_{x\to\infty} ((1+x^{-1})^x - e)\cdot x\\
+		\intertext{Substitution: $y = \frac{1}{x}$}
+		=&\lim\limits_{y\to 0} ((1+y)^\frac{1}{y} - e)\cdot \frac{1}{y}\\
+		=&\lim\limits_{y\to 0} \frac{\left(e^{\ln(1+y)\cdot \frac{1}{y}} - e\right)}{y}\\
+		\intertext{l'Hospital}
+		=&\lim\limits_{y\to 0} \left(\frac{1}{y(1+y)} - \frac{\ln(1+y)}{y^2}\right)\cdot (1+y)^\frac{1}{y}\\
+		=&e \cdot \lim\limits_{y\to 0} \frac{1}{y(1+y)} - \frac{\ln(1+y)}{y^2}\\
+		&e \cdot \lim\limits_{y\to 0} \frac{\frac{y}{(1+y)} - \ln(1+y)}{y^2}\\
+		\intertext{l'Hospital}
+		=&e \cdot \lim\limits_{y\to 0} \frac{\frac{1}{1+y} - \frac{y}{(1+y)^2} - \frac{1}{1+y}}{2y}\\
+		=&e \cdot \lim\limits_{y\to 0} -\frac{1}{2(1+y)^2}\\
+		=&e \cdot -\frac{1}{2} = -\frac{e}{2}\\
+	\end{align*}
+	\end{enumerate}
+    \section*{Aufgabe 4}
+    \begin{enumerate}[(a)]
+        \item Folgende Funktion muss minimiert werden:
+        \[
+            \frac{1}{2}\sum_{i = 1}^{N}(y_i - m\cdot x_i - \overline{y} + m \cdot \overline{x})^2 
+            = 
+            \frac{1}{2}\sum_{i = 1}^{N}(m \cdot (\overline{x}-x_i)+y_i-\overline{y})^2
+        \]
+        Daher setzen wir ihre Ableitung gleich 0.
+        \begin{align*}
+            0  = r'(m^*) &= \frac{1}{2} \cdot \sum_{i = 1}^{N} (\overline{x}-x_i) \cdot 2 \cdot (m^* \cdot (\overline{x}-x_i)+y_i-\overline{y})\\
+            &= m^* \cdot \sum_{i = 1}^{N} (\overline{x}-x_i)^2 + \sum_{i = 1}^{N} (\overline{x}-x_i) \cdot (y_i-\overline{y})\\
+            \intertext{Umstellen nach $m*$ ergibt}
+            m^* &= \frac{\sum_{i = 1}^{N} (\overline{x}-x_i) \cdot (\overline{y}- y_i)}{\sum_{i = 1}^{N} (\overline{x}-x_i)^2}
+            \intertext{Um zu zeigen, dass $m^*$ wirklich ein Minimum von $r$ ist, müssen wir überprüfen, dass $r''(m^*) > 0$ ist}
+            r''(m^*) &= \sum_{i = 1}^{N} (\overline{x}-x_i)^2 \geq 0
+        \end{align*}
+        \item Wir möchten die Nullstelle der Gleichung $m^* \cdot x + b^*$ herausfinden. Umstellen ergibt: $x = -\frac{b^*}{m^*}$.
+        Einsetzen der Werte liefert $m^* = - 15.0\overline{6}$ und $b^* = 473.1\overline{6}$ und daher $x \approx 31.43$. Folglich wird nach diesem Modell ab dem 32. Zettel niemand mehr abgeben.
+    \end{enumerate}
+    \section*{Bonusaufgabe}
+    \begin{enumerate}[(a)]
+        \item Es gilt $\lim\limits_{n\to\infty}\sin\left(\frac{1}{n}x\right) \overset{\text{Stetigkeit}}{=} \sin\left(\lim\limits_{n\to\infty}\frac{1}{n}x\right) = \sin(0) = 0$ für ein beliebiges $x \in [-\pi, \pi]$. Da $f_n(x) -0$ stetig differenzierbar ist, $|\sin\left(\frac{1}{n}\pi\right)| = |\sin\left(\frac{1}{n}-\pi\right)|$ und es sich bei $[-\pi, \pi]$ um ein kompaktes Intervall handelt, folgt mit dem Mittelwertsatz, dass es ein $x_0\in [-\pi, \pi]$ geben muss, sodass $|\sin(\frac{1}{n} \cdot x) - 0|$ extremal wird. Da nur bei $x = 0$ die Ableitung gleich 0 ist, sich dort aber ein Minimum des Betrags befindet, sind die globalen Maxima an den Rändern.
+        Wegen $\lim\limits_{n\to\infty}\sin\left(\frac{1}{n}\cdot \pm\pi\right) = 0$, 
+        gilt $\forall \epsilon > 0 \exists n_\epsilon \in \N \forall n \geq n_\epsilon: |f_n(\pm\pi) - 0| < \epsilon$, wegen der Maximalität von $f(\pm \pi)$ gilt diese Aussage für alle $x\in [-\pi, \pi]$ und folglich ist die Funktionenfolge gleichmäßig konvergent.
+        \item Fallunterscheidung:
+        \begin{itemize}
+            \item $x = 1:$ $\lim\limits_{n\to\infty} f_n(1) = 0$
+            \item $x = 0:$ $\lim\limits_{n\to\infty} f_n(0) = 0$
+            \item $0 < x < 1:$ Es gilt $\lim\limits_{n\to\infty} \frac{f_{n+1}(x)}{f_n(x)} =\lim\limits_{n\to\infty} \frac{(n+1)x(1-x)^{n+1}}{nx(1-x)^n}\\
+            = \lim\limits_{n\to\infty}\frac{n+1}{n}\cdot (1-x) = \lim\limits_{n\to\infty} (1-x) + \frac{1}{n}(1-x) = 1-x < 1$. Diese Folge ist also monoton fallend und $\exists N \in \N:\forall n > N: \frac{f_{n+1}(x)}{f_n(x)} < 1$. Außerdem ist stets $f_n(x) > 0$. Endlich viele Folgenglieder ändern nichts am Konvergenzverhalten, sodass $f_n(x)$ $\forall n > N$ monoton fällt und durch 0 unten beschränkt ist. Für alle $n > N$ gilt also, da die Folge der Quotienten monoton fallend ist: $f_n(x) \leq f_N(x) \cdot \left(\frac{f_{N+1}(x)}{f_{N}(x)}\right)^{n-N}$. Nun ist $\left(\frac{f_{N+1}(x)}{f_{N}(x)}\right)$ nach Definition von $N$ kleiner als 1. Es gilt also $\lim\limits_{n\to\infty} f_n(x) = 0$ für ein beliebiges $x\in [0,1]$.
+            Gleichmäßige Konvergenz: Ableiten der Funktion führt zu $f_n'(x) = n(1-x)^n - n^2 x (1-x)^{n-1}$. Die Nullstelle dieser Funktion erhält man folgendermaßen.
+            \begin{align*}
+                0 = f_n'(x_0) &= -n(1-x_0)^{n-1}(nx_0 + x_0-1)\\
+                &= nx_0 + x_0-1\\
+                (1+n) x_0 &= 1\\
+                x_0 &= \frac{1}{1+n}
+            \end{align*}
+            \begin{align*}
+                f''(x) &= n^2 (1 - x)^{n - 2} (n x + x - 2)\\
+                f''(x_0) &= n^2 (1 - \frac{1}{1+n})^{n - 2} (n \frac{1}{1+n} + \frac{1}{1+n} - 2)\\
+                &= n^2 (\frac{n}{1+n})^{n - 2} ( \frac{n+1}{1+n}- 2)\\
+                &= - n^2 (\frac{n}{1+n})^{n - 2}
+            \end{align*}
+            Wegen $n \in \N$ ist dieser Ausdruck kleiner 0. Daher hat $f_n(x)$ an der Stelle $x_0$ ein Maximum.
+            Nun ist $\lim\limits_{n\to\infty}f_n(x_0) = \lim\limits_{n\to\infty} \frac{n}{n+1}\cdot \left(1 - \frac{1}{n+1}\right)^n = \lim\limits_{n\to\infty} \left(1 + \frac{-1}{n+1}\right)^{n+1} = e^{-1}$. Folglich gibt es ein $N_1 \in \N$, sodass $\forall n\in \N: n > N_1: \left|f_n(x_0) - \frac{1}{e}\right| < \frac{1}{2e}$ und daher $f_n(x_0) > \frac{1}{e}$. Angenommen, die Funktionenfolge würde gleichmäßig konvergieren, dann gäbe es ein $N_\epsilon \in \N: \forall n \in \N: n > N_2: \forall x \in [0,1]: |f_n(x) - 0| = f_n(x) < \epsilon$. Diese Aussage gilt insbesondere auch für $x = x_0$. Wähle nun $\epsilon = \frac{1}{2e}$. Dann ist $\forall n\in \N: n > \max(N_0, N_\epsilon): \frac{1}{2e} < f_n(x_0) < \frac{1}{2e}$. Das ist allerdings ein Widerspruch.
+            \end{itemize} 
+    \end{enumerate}
+\end{document}

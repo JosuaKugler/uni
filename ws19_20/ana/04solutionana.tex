@@ -1,0 +1,86 @@
+\documentclass{article}
+\usepackage{josuamathheader}
+\usepackage{amsmath, amsthm}
+\newcommand{\mysqrt}[1]{\left|\sqrt{#1}\right|}
+\newcommand{\mylimes}{\lim\limits_{n\to\infty}}
+\usepackage{comment}
+\begin{document}
+	\analayout{4}
+	\section*{Aufgabe 1}
+	\begin{enumerate}[a)]
+		\item $a_n = n^2, b_n = \frac{1}{n}$
+		\item $a_n = n^2, b_n = -\frac{1}{n}$
+		\item $a_n = n, b_n = \frac{1}{n^2}$
+		\item $a_n = n, b_n = \frac{1}{n}$
+		\item $a_n = n, b_n = (-1)^n \cdot \frac{1}{n}$
+	\end{enumerate}
+	\section*{Aufgabe 2}
+	\begin{enumerate}[(a)]
+		\item 
+		\begin{enumerate}[A)]
+			\item Offensichtlich ist $2^{-m_0} > 2^{-m_1}$ für $m_0 < m_1\quad (m_0, m_1 \in \N)$ \\und zudem $n_0^{-1} > n_1^{-1}$ für $n_0 < n_1\quad (n_0, n_1 \in \N)$.
+			Daher wird $2^{-m} + n^{-1}$ maximal, wenn $m$ und $n$ minimal werden. Da $m, n \in \N$ ist dies der Fall für $m = n = 1$. Dann ist $2^{-m} + n^{-1} = 2^{-1} + 1^{-1} = \frac{1}{2} + 1 = \frac{3}{2}$. Folglich ist $\max A = \frac{3}{2} = \sup A$.\\
+			Zudem ist aus der Vorlesung bekannt, dass $\lim\limits_{n \to \infty}\frac{1}{n} = 0$.
+			Ferner ist $0 < \frac{1}{2^m} < \frac{1}{m} \forall m\in \N$. Daraus folgt sofort, dass $\lim\limits_{m \to \infty} 2^{-m} = 0$.
+			Mit Lemma~2.5 erhalten wir schließlich $\lim\limits_{n, m \to \infty} 2^{-m} + n^{-1} = 0$. Allerdings ist $2^{-m} + n^{-1} > 0\forall n, m\in \N$. Daher ist $0$ eine untere Schranke für $A$. Gäbe es nun eine größere untere Schranke $s$ von $A$, so gilt nach Definition der Konvergenz: $\forall s\in \R: \exists n, m \in \N: 2^{-m} + n^{-1}< s$, was im Widerspruch dazu steht, dass $s$ eine untere Schranke sein soll. Also ist $\inf A = 0$. Da $0\notin A$ besitzt $A$ kein Minimum.
+			\item 
+			\begin{align*}
+				B &= \{x\in \R| x^2 -10 x\leq 24\}\\
+				\equals B&= \{x\in \R| x^2 -10 -24 \leq 0\}\\
+				\equals B&= \{x\in \R| (x-12)(x+2) \leq 0\}
+			\end{align*}
+			Ist einer der beiden Faktoren $\leq 0$, so muss der andere $\geq 0$ sein, damit das Produkt $\leq 0$ ist.
+			\begin{itemize}
+				\item[Fall 1:] $(x-12) \leq 0 \implies x \leq 12$. Außerdem muss $(x+2) \geq 0$ sein, also $x \geq -2$.
+				Alle $x$ mit $-2 \leq x\leq 12$ erfüllen also die Ungleichung.
+				\item[Fall 2:] $(x-12) > 0 \implies x > 12$. Außerdem muss $(x+2) \leq 0$ sein, also $x \leq -2$. $x>12$ und $x\leq -2$ widersprechen sich allerdings. 
+			\end{itemize}
+			Insgesamt erhalten wir
+			\[B = \{x\in \R| -2\leq x\leq 12\} = [-2, 12]\]
+			Es gilt also $\min B = -2 = \inf B$ und $\max B = 12 = \sup B$.
+		\end{enumerate}
+	\item 
+	\begin{enumerate}[(i)]
+		\item Sei $\alpha = \sup A$ und $\beta = \sup B$. Dann ist $\forall a\in A: a\leq \alpha$ und $\forall b\in B: b\leq \beta$. In der Summe ist also $\forall a+b \in A+B: a + b \leq \alpha + \beta$. Sei $\epsilon > 0$. Da $\alpha$ und $\beta$ jeweils die kleinste obere Schranke darstellen,  gilt $\forall \gamma \in \R$ mit $\gamma = \alpha - \frac{\epsilon}{2}: \exists a \in A: a > \gamma$ und analog $\forall \delta \in \R$ mit $\delta = \beta - \frac{\epsilon}{2}: \exists b \in B: b > \delta$.
+		Sei nun $\xi = \alpha + \beta - \epsilon$. Dann $\exists a\in A: a > \alpha - \frac{\epsilon}{2}$, $\exists b\in B: b > \beta - \frac{\epsilon}{2}$ und somit $\exists a + b \in A+B: a + b > \alpha + \beta - \frac{\epsilon}{2} - \frac{\epsilon}{2} = \alpha + \beta - \epsilon$. Also ist $\alpha + \beta$ bereits die kleinste obere Schranke: $\sup A+ B = \sup A + \sup B$.
+		\item Sei $A = \{-1\}$ und $B = \{1,-1\}$. Dann ist $A\cdot B = \{-1\cdot 1, -1\cdot -1\} = \{-1, 1\}$. Damit erhalten wir $\inf A\cdot B = -1$. Allerdings ist $\inf A = \inf B = -1$ und somit $\inf A \cdot \inf B = -1\cdot -1 = 1\neq -1$. Die Aussage ist also falsch.
+	\end{enumerate}
+	\end{enumerate}
+	\section*{Aufgabe 3}
+	Sei $A = \{x\in \R| \exists m \in M: x\leq m\}$ und $B = \R\setminus A$. Dann ist nach Konstruktion $A \cup B = \R$ und $A\cap B= \emptyset$. \\
+	Ferner gilt 
+	\begin{align*}
+		B &= \{x\in \R| x\notin A\}\\
+		\equals B&= \{x\in \R| \neg (\exists m \in M: b\leq m)\}\\
+		\equals B&= \{x\in \R| \forall m \in M: b>m)\}\\
+	\end{align*}
+	Da $\forall a\in A: \exists m: m\geq a$ folgt aus dieser Aussage  $\forall b\in B: \forall a\in A: b> a$.
+	Nach $(i)$ existiert also ein $c\in \R$, sodass $a\leq c\leq b$ für alle $a\in A$ und $b\in B$. Offensichtlich ist $c$ eine obere Schranke von $a$. 
+	Behauptung: $c = \sup A$.\\
+	Beweis:\\
+	Fallunterscheidung: 
+	\begin{enumerate}[1)]
+		\item $A = (-\infty, c]$. Dann ist $c = \max A = \sup A$.
+		\item $A = (-\infty, c)$. Sei nun $S$ eine obere Schranke von $A$. Dann ist $S\geq a\forall a\in A$. Da $A$ kein größtes Element enthält, ist also sofort $S > a\forall a\in A$. Daher ist also für jede Schranke $S$ von $A$ $S\in B$.
+	Es gilt: $c \leq b\forall b\in B$. Daher ist $c$ die kleinste obere Schranke von $A$, $c = \sup A$.
+	Wir wissen außerdem, dass $M\subset A$ und $m\geq a\forall a\in A$. Daher ist $\sup M = \sup A$.
+	\end{enumerate}
+	Zunächst ist $c$ eine obere Schranke für $A$ und damit auch für $M$.
+	Da $\forall a \in A: c \geq a$ ist $c \in B$. Da allerdings $\forall b\in B: c\leq b$ ist $b$ das kleinste Element von $B$ und folglich die kleinste obere Schranke von $M$, $\sup M = c$.	
+	\section*{Aufgabe 4}
+	\begin{lemma}
+		Enthält eine Cauchy-Folge $(a_n)_{n\in \N}$ eine konvergente Teilfolge $(a_{n_k})_{n\in \N, k \in \tilde{\N}}$ mit $\lim\limits_{k \to \infty} a_{n_k} = a$, so ist die Cauchy-Folge konvergent mit $\lim\limits_{n \to \infty} a_n = a$.
+	\end{lemma}
+	\begin{proof}
+		Aus $\lim\limits_{k \to \infty} a_{n_k} = a$ folgt sofort:
+		\[\forall \frac{\e	psilon}{2} > 0: \exists k_0\in \N: \forall n_k \text{ mit } k\geq k_0: |a_{n_k} - a| < \frac{\epsilon}{2}\]
+		Da $(a_n)_{n\in \N}$ eine Cauchy-Folge ist, gilt außerdem:
+		\[\forall \frac{\epsilon}{2} > 0: \exists n_\epsilon\in \N: \forall n, m\geq n_\epsilon: |a_n-a_m|<\frac{\epsilon}{2}\]
+		Sei nun $n_0 = \max(n_{k_0}, n_\epsilon)$. Dann ist
+		\[\forall \epsilon > 0: \forall n, n_k > n_0: |a_n - a| = |a_n - a_{n_k} + a_{n_k} -a| \leq |a_n - a_{n_k}| + |a_{n_k} -a| < \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon\]
+		Also ist $\lim\limits_{n \to \infty} a_n = a$.
+	\end{proof}
+	\noindent Wenn jede beschränkte Folge in $\R$ eine konvergente Teilfolge besitzt, so besitzt insbesondere jede Cauchy-Folge in $\R$ eine konvergente Teilfolge (da alle Cauchy-Folgen beschränkt sind). Mit unserem Lemma erhalten wir, dass jede Cauchy-Folge in $\R$ konvergiert. Das wiederum impliziert die Vollständigkeit von $\R$.
+	\section*{Aufgabe 5}
+	
+\end{document}

@@ -1,0 +1,29 @@
+\documentclass{article}
+\setlength{\headheight}{25pt}
+\usepackage{josuamathheader}
+\begin{document}
+    \ipilayout{10}
+    \section*{Aufgabe 1}
+    \lstinputlisting[language=C++, caption={aufgabe1.cc}]{aufgabe1.cc}
+    \section*{Aufgabe 2}
+    \begin{itemize}
+        \item In Zeile 41 \lstinline{aq = ap;} ist ein Fehler, da \lstinline{aq} private ist.
+        \item In Zeile 52 \lstinline{aX();} ist ein Fehler, da \lstinline{aX()} private ist.
+        \item In Zeile 60 \lstinline{b.bY();} ist ein Fehler, da \lstinline{bY();} private ist.
+        \item In Zeile 64 \lstinline{c.aq = 5;} ist ein Fehler, da \lstinline{aq} private ist.
+    \end{itemize}
+    \section*{Aufgabe 3}
+    \begin{itemize}
+        \item \lstinline{A a;} ist ein Fehler, da \lstinline{A} eine abstrakte Klasse ist.
+        \item \lstinline{pa->c();} ist ein Fehler, da \lstinline{A::c} private ist.
+        \item \lstinline{pa->b();} ist ein Fehler, da \lstinline{b()} eine Methode in \lstinline{B} ist.
+        \item \lstinline{pa->vb();} ist ein Fehler, da \lstinline{vb()} eine Methode in \lstinline{B} ist.
+        \item \lstinline{pa->a(x);} wird für float überladen und liefert daher keinen Fehler, obwohl keine Methode explizit dafür definiert ist
+        \item \lstinline{pb->a();} ist ein Fehler, da in \lstinline{B} die Methode \lstinline{void a()} durch \lstinline{void a(int/double a)} überschrieben wird
+        \item \lstinline{pb->c();} ist ein Fehler, da \lstinline{c} nicht in \lstinline{B} implementiert ist
+        \item \lstinline{pb->a(x);} ist kein Fehler, da in \lstinline{B} einfach double überladen wird
+        \item \lstinline{pa->c();} ist ein Fehler, da \lstinline{A::c} private ist, darf es nicht benutzt werden
+        \item \lstinline{pa->b();} ist ein Fehler, da \lstinline{b} nur in \lstinline{B} und \lstinline{C} sichtbar ist
+        \item \lstinline{pa->vb();} ist ein Fehler, da \lstinline{vb()} nur in \lstinline{B} und \lstinline{C} sichtbar ist
+    \end{itemize}
+\end{document}

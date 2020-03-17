@@ -1,0 +1,105 @@
+\documentclass{article}
+\usepackage{josuamathheader}
+\usepackage{amsmath, amsthm}
+\newcommand{\mysqrt}[1]{\left|\sqrt{#1}\right|}
+\newcommand{\mylimes}{\lim\limits_{n\to\infty}}
+\begin{document}
+	\analayout{3}
+	\section*{Aufgabe 1}
+	\begin{enumerate}[a)]
+		\item $(\mysqrt{n+1} + \mysqrt{n}) \cdot (\mysqrt{n+1} - \mysqrt{n}) = n+1 - n = 1 \implies (\mysqrt{n+1} - \mysqrt{n}) = \frac{1}{(\mysqrt{n+1} + \mysqrt{n})} > 0$
+		\item Sei $S$ eine obere Schranke für $(\mysqrt{n})_{n\in \N}$. Wähle nun $n = \lceil B^2\rceil + 1$. Dann ist $\mysqrt{n} = \mysqrt{\lceil B^2\rceil +1} > \mysqrt{B^2} = B\lightning$.
+		\item $\mysqrt{n+1}-\mysqrt{n} = \frac{(\mysqrt{n+1}-\mysqrt{n})(\mysqrt{n+1}+\mysqrt{n})}{\mysqrt{n+1}+\mysqrt{n}} = \frac{n+1-n}{\mysqrt{n+1}+\mysqrt{n}} = \frac{1}{\mysqrt{n+1}+\mysqrt{n}} < \frac{1}{\mysqrt{n}}$.\vspace*{5mm}\\
+		Da $\mysqrt{n}_{n\in \N}$ strikt divergent ist, muss $\frac{1}{\mysqrt{n}}_{n\in\N}$ und damit auch $\mysqrt{n+1}-\mysqrt{n}_{n\in \N}$ eine Nullfolge sein: $\lim\limits_{n\to \infty} \mysqrt{n+1}-\mysqrt{n} = 0$.  Nach Lemma 2.4 ist sie also auch eine Cauchy-Folge. 
+		\item Da $\mysqrt{1 + \frac{1}{n}} + 1 -2 > \mysqrt{1} + 1 -2 = 0$, ist $\left|\mysqrt{1 + \frac{1}{n}} + 1 - 2\right| = \mysqrt{1 + \frac{1}{n}} + 1 - 2$.
+		\[=\mysqrt{1+\frac{1}{n}} -1 = \frac{\left(\mysqrt{1+\frac{1}{n}} -1\right)\left(\mysqrt{1+\frac{1}{n}} +1\right)}{\mysqrt{1+\frac{1}{n}} +1} = \frac{1 + \frac{1}{n} -1}{\mysqrt{1+\frac{1}{n}} +1}\]
+		\[= \frac{\frac{1}{n}}{\mysqrt{1+\frac{1}{n}} +1} = \frac{1}{n\mysqrt{1+\frac{1}{n}} +n} < \frac{1}{n\mysqrt{1+\frac{1}{n}}}< \frac{1}{n\mysqrt{1}}= \frac{1}{n}.\]
+		Da $\frac{1}{n}_{n\in \N}$ eine Nullfolge ist, muss $\left|\mysqrt{1 + \frac{1}{n}} + 1 - 2\right|_{n\in \N} = \left(\mysqrt{1 + \frac{1}{n}} + 1 - 2\right)_{n\in \N}$ erst recht eine Nullfolge sein. Daher gilt $\lim\limits_{n\to \infty} \left|\mysqrt{1 + \frac{1}{n}} + 1\right| = 2$. 
+		Es ist \[\mysqrt{n}\left(\mysqrt{n+1}-\mysqrt{n}\right) = \mysqrt{n(n+1)} -\mysqrt{n\cdot n} = \mysqrt{n^2 + n} - n = \frac{\left(\mysqrt{n^2 + n} - n \right)\left(\mysqrt{n^2 + n} +n\right)}{\mysqrt{n^2 + n} + n}\]
+		\[ = \frac{n^2 + n -n^2}{\mysqrt{n^2 + n} + n} = \frac{n}{\mysqrt{n^2 + n} + n} = \frac{1}{\frac{\mysqrt{n^2 + n} + n}{n}} = \frac{1}{\mysqrt{\frac{n^2 + n}{n^2}} + 1} = \frac{1}{\mysqrt{1 + \frac{1}{n}} + 1}\]
+		Da $\lim\limits_{n\to \infty} 1 = 1$ und $\lim\limits_{n\to \infty} \left(\mysqrt{1 + \frac{1}{n}} + 1 - 2\right) = 2$, ist nach Lemma 2.5 
+		\[\lim\limits_{n\to\infty} \mysqrt{n}\left(\mysqrt{n+1}-\mysqrt{n}\right) = \lim\limits_{n\to\infty} \frac{1}{\mysqrt{1 + \frac{1}{n}} + 1} = \frac{1}{2}\] 
+	\end{enumerate}
+	\section*{Aufgabe 2}
+	Z.Z.: Für fast alle $n\in \N$ ist $\gamma c_n + \delta d_n \neq 0$, wenn $\gamma c + \delta d \neq 0$, also \[\gamma c + \delta d \neq 0 \implies \exists N\in \N: \forall n> N: \gamma c_n + \delta d_n \neq 0\]
+	\begin{proof}
+		Wir fassen $\gamma$ und $\delta$ als Folgen $\gamma_{n\in \N}$ und $\delta{n\in \N}$ auf mit $\mylimes \gamma = \gamma$, $\mylimes \delta = \delta$. Daraus folgt mit Lemma 2.5 $\mylimes \gamma c_n = \gamma c$, $\mylimes \gamma d_n = \gamma d$ und schließlich $\mylimes \gamma c_n + \delta d_n = \gamma c + \delta d$.\\
+		Daraus folgt: $\exists N\in \N: \forall {n_1} > N: \left|\gamma c_{n_1} + \delta d_{n_1} - (\gamma c + \delta d)\right| < \gamma c + \delta d$.
+		Es gibt nun 4 Fälle:
+		\begin{enumerate}
+			\item $\gamma c + \delta d > 0$ und $\gamma c_{n_1} + \delta d_{n_1} \geq \gamma c + \delta d$
+			\item $\gamma c + \delta d > 0$ und $\gamma c_{n_1} + \delta d_{n_1} < \gamma c + \delta d$
+			\item $\gamma c + \delta d < 0$ und $\gamma c_{n_1} + \delta d_{n_1} > \gamma c + \delta d$
+			\item $\gamma c + \delta d < 0$ und $\gamma c_{n_1} + \delta d_{n_1} \leq \gamma c + \delta d$ 
+		\end{enumerate}
+	In Fall 1 und Fall 4 ist offensichtlich, dass $\gamma c_{n_1} + \delta d_{n_1} \neq 0$, also bleiben noch Fall 2 und 3.
+	Wir betrachten weiterhin Folgenglieder mit $n_1> N$, also ist $\left|\gamma c_{n_1} + \delta d_{n_1} - (\gamma c + \delta d)\right| < \gamma c + \delta d$\\
+	Fall 2:\begin{align*}
+		\gamma c + \delta d &> \left|\gamma c_{n_1} + \delta d_{n_1} - (\gamma c + \delta d)\right|\\
+		\gamma c + \delta d &> -\left(\gamma c_{n_1} + \delta d_{n_1} - (\gamma c + \delta d)\right)\\
+		0 &> -(\gamma c_{n_1} + \delta d_{n_1})\\
+		\gamma c_{n_1} + \delta d_{n_1} &> 0\\
+		\implies \gamma c_{n_1} + \delta d_{n_1} &\neq 0
+	\end{align*}
+	
+	Fall 3:\begin{align*}
+	\gamma c + \delta d &> \left|\gamma c_{n_1} + \delta d_{n_1} - (\gamma c + \delta d)\right|\\
+	\gamma c + \delta d &> \left(\gamma c_{n_1} + \delta d_{n_1} - (\gamma c + \delta d)\right)\\
+	2 (\gamma c + \delta d ) &> \gamma c_{n_1} + \delta d_{n_1}\\
+	\gamma c_{n_1} + \delta d_{n_1} &< 2 (\gamma c + \delta d ) < 0\\
+	\implies \gamma c_{n_1} + \delta d_{n_1} &\neq 0
+	\end{align*} 
+\end{proof}
+Z.Z.: $\gamma c + \delta d \neq 0 \implies \frac{\alpha a_n + \beta b_n}{\gamma c_n + \delta d_n}\overset{n\to \infty}{\to} \frac{\alpha a + \beta b}{\gamma c + \delta d}$.
+\begin{proof}
+	Wir betrachten die Folge $\frac{\alpha a_{n_1} + \beta b_{m}}{\gamma c_{m} + \delta d_{m}}_{m>N, m\in \N}$ mit $\forall m > N: \gamma c_{m} + \delta d_{m} \neq 0$. (ein solches $N$ existiert nach dem ersten Teil der Aufgabe).
+	 $\frac{\alpha a_{m} + \beta b_{m}}{\gamma c_{m} + \delta d_{m}}$ ist also stets wohldefiniert, da der Nenner ungleich 0 ist. 
+ 	Daher können wir Lemma 2.5 anwenden und erhalten analog zum ersten Teil der Aufgabe $\mylimes \alpha a_n + \beta b_n = \alpha a + \beta b$,  $\mylimes \gamma c_n + \delta d_n = \gamma c + \delta d$ und schließlich $$\frac{\alpha a_n + \beta b_n}{\gamma c_n + \delta d_n}\overset{n\to \infty}{\to} \frac{\alpha a + \beta b}{\gamma c + \delta d}.$$
+\end{proof}
+	\section*{Aufgabe 3}
+	\begin{enumerate}[(a)]
+		\item \begin{align*}
+			(\varepsilon |a| - |b|)^2 &\geq 0\\
+			\varepsilon^2 |a|^2 - 2|a||b| + |b|^2 \geq 0&&\left|\cdot \frac{1}{2\varepsilon}\right.\\
+			\frac{\varepsilon a^2}{2} - 2|ab| +\frac{b^2}{2\varepsilon} \geq 0&&\left|+2|ab|\right.\\
+			\frac{\varepsilon a^2}{2} +\frac{b^2}{2\varepsilon} \geq 2|ab|
+		\end{align*}
+		\item \begin{enumerate}
+			\item \begin{align*}
+				x^2 + xy + y^2 &= 0\\
+				x^2 + 2xy + y^2 &= xy\\
+				xy = (x + y)^2  &\geq 0
+			\end{align*}
+			Es gilt also $x^2 \geq 0, y^2 \geq 0, xy \geq 0$, aber $x^2 + xy + y^2 = 0$. Daraus folgt direkt $x^2 = 0, y^2 = 0, xy = 0$. Mit dem Satz vom Nullprodukt erhalten wir $x=y=0$.
+			\item Es ist $0 = x^3 + y ^3 = (x+y) (x^2 - xy + y^2)$. Mit dem Satz vom Nullprodukt folgt: 1. $(x+y) = 0$ oder 2. $(x^2 - xy + y^2) = 0$.
+			\begin{align*}
+				x^2 - xy + y^2 &= 0\\
+				x^2 - 2xy + y^2 &= -xy\\
+				-xy = (x - y)^2  &\geq 0
+			\end{align*}
+			Es gilt also $x^2 \geq 0, y^2 \geq 0, -xy \geq 0$, aber $x^2 + (-xy) + y^2 = 0$. Daraus folgt direkt $x^2 = 0, y^2 = 0, -xy = 0$. Mit dem Satz vom Nullprodukt erhalten wir $x=y=0$ und damit $x + y=0$.
+			Sowohl aus 1., als auch aus 2. folgt also $(x+y) = 0$.
+		\end{enumerate}
+	\end{enumerate}
+	\section*{Aufgabe 4}
+	\begin{enumerate}[(a)]
+	\item \begin{align*}
+			(1+x)^n &= \sum_{k=0}^{n} \binom{n}{k}x^k \\
+			&> \binom{n}{2} x^2\\
+			&= \frac{n(n+1)}{2} x^2 \\
+			&= \frac{2n^2 + 2n}{4} x^2\\
+			&= \frac{n^2 + (n^2-2n)}{4} x^2\\
+			&= \frac{n^2 + n(n-2)}{4} x^2&&|n\geq 2 \implies (n(n-2)) \geq 0\\
+			&\geq \frac{n^2}{4}x^2
+		\end{align*}
+	\item Sei $x= b-1$. Sei $n_0 = \frac{4}{x^2}$ 
+	\begin{align*}
+		b^n &= (1+x)^n\\
+		&\overset{(a)}{>} \frac{n^2}{4}x^2\\
+		&= n\frac{nx^2}{4}\\
+		&\overset{n>n_0}{>} n\frac{n_0x^2}{4}\\
+		&= n\frac{4\cdot x^2}{x^2\cdot4}\\
+		&= n
+	\end{align*}
+\end{enumerate}
+\end{document}

@@ -1,0 +1,118 @@
+\documentclass{article}
+\usepackage{../josuamathheader}
+\newcommand{\ld}{\operatorname{ld}}
+\usepackage{amsmath, amsthm}
+\usepackage{comment}
+\begin{document}
+\ipilayout{3}
+\begin{lemma}
+	\[\frac{\log_a(n)}{\log_b(n)} = log_a(b)\]
+\end{lemma}
+\begin{proof}
+	Es gilt $a^{\log_a(n)} = n$ und $b^{\log_b(n)} = n$, also $a^{\log_a(n)} = b^{\log_b(n)}$. Daraus folgt durch beidseitiges Anwenden von $\log_a()$ direkt $\log_a(n) = \log_a(b^{\log_b(n)}) = \log_b(n) \cdot \log_a(b)$. Daraus folgt unmittelbar $\frac{\log_a(n)}{\log_b(n)} = log_a(b)$.
+\end{proof}
+\section*{Aufgabe 1}
+\begin{enumerate}[a)]
+	\item Die Zeit $t(x)$ ist proportional zur Komplexität $f(x)$, $t(x) = k\cdot f(x)$.
+	\begin{enumerate}[i)]
+		\begin{comment}
+		\item $t(x) = k\cdot \ld x$. Es ist $4s = t(n) = k\cdot \ld n \implies k = \frac{4s}{\ld n}$. Somit erhalten wir $t(x) = \frac{4s}{\ld n} \cdot \ld x$.
+		Für $x = 2n$ ergibt sich $t(2n) = \frac{4s}{\ld n} \cdot \ld(2n) = \frac{4s}{\ld n} \cdot (ld 2 + \ld(n)) = 4s + \frac{4s}{\ld n}$.
+		Bei nochmaliger Verdopplung $t(4n) = \frac{4s}{\ld n} \cdot \ld(4n) = \frac{4s}{\ld n} \cdot (ld 4 + \ld(n)) = 4s + 2 \cdot \frac{4s}{\ld n}$ kommt nochmals derselbe Term hinzu. Die Laufzeit nimmt also bei Verdopplung stets um einen konstanten Term zu.
+		\end{comment}
+		\item $f(2n) = \ld 2 + \ld n = f(n) + 1$
+		\subitem $t(n) = 4s \implies t(2n) = 5s$
+		\subitem $t(n) = 10s \implies t(2n) = 11s$
+		\subitem $t(n) = 100s \implies t(2n) = 101s$
+		\item $f(2n) = 2n = 2f(n)$
+		\subitem $t(n) = 4s \implies t(2n) = 8s$
+		\subitem $t(n) = 10s \implies t(2n) = 20s$
+		\subitem $t(n) = 100s \implies t(2n) = 200s$
+		\item Näherungsweise Lösung ergibt
+		\subitem $t(n) = 4s \implies t(2n) = 13.49 s$
+		\subitem $t(n) = 10s \implies t(2n) = 29.13 s$
+		\subitem $t(n) = 100s \implies t(2n) = 244.64 s$
+		\item $f(2n) = \frac{f(2n)}{f(n)} f(n) = \frac{(2n)^3}{n^3} f(n) = 8 f(n)$\\
+		\subitem $t(n) = 4s \implies t(2n) = 32 s$
+		\subitem $t(n) = 10s \implies t(2n) = 80 s$
+		\subitem $t(n) = 100s \implies t(2n) = 800 s$
+		\item $f(2n) = 2^{2n} = (2^n)^2 = f(n)^2$
+		\subitem $t(n) = 4s \implies t(2n) = 16 s$
+		\subitem $t(n) = 10s \implies t(2n) = 100 s$
+		\subitem $t(n) = 100s \implies t(2n) = 400 s$
+	\end{enumerate}
+	\item  $1, \log \log n, \log n, n^\epsilon, n^c, n^{\log n}, c^n, c^{c^n}, n^n$
+	\item \begin{enumerate}[1.]
+		\item $\exists c, n_0$ mit $n^a \leq c\cdot n^b \quad \quad \forall n\geq n_0$ genau dann, wenn $a-b\leq 0$.
+		Annahme: $a-b\leq 0$. Sei nun $c = n_0^{a-b}$. Da $n \geq n_0$ und $a-b\leq 0$ ist $n^{a-b}\leq n_0^{a-b} = c \implies n^a\leq c\cdot n^b$.
+		Nun zeigen wir die Kontraposition der Rückrichtung:\\
+		Z.Z.: $a-b\geq 0 \implies \quad \quad \forall c, n_0: \exists n > n_0: n^a \geq c\cdot n^b \equals n^{a-b} \geq c \xLeftrightarrow{a-b > 0} n \geq \sqrt[a-b]{c}$. Nach dem archimedischen Axiom gibt es stets ein solches $n$.
+		\item \begin{enumerate}
+			\item Z.Z.: $\log_a(x) = O(\log_b(x))$.\\
+			Das ist äquivalent zu: $\exists c,n_0$ mit $\log_a(n) \leq c\cdot \log_b(n) \quad \quad \forall n> n_0 $.\\
+			Umgeformt erhalten wir: $\exists c,n_0$ mit $\frac{\log_a(n)}{\log_b(n)} \leq c \quad \quad \forall n> n_0$.\\
+			Nach Lemma 1 entspricht das: $\exists c,n_0$ mit $\log_a(b) \leq c \quad \quad \forall n> n_0$.\\
+			Für $c \geq \log_a(b)$ ist diese Aussage offensichtlich wahr.
+			\item Z.Z.: $\log_a(x) = \Omega(\log_b(x))$.\\
+			Das ist äquivalent zu: $\exists c,n_0$ mit $\log_a(n) \geq c\cdot \log_b(n) \quad \quad \forall n> n_0 $.\\
+			Umgeformt erhalten wir: $\exists c,n_0$ mit $\frac{\log_a(n)}{\log_b(n)} \geq c \quad \quad \forall n> n_0$.\\
+			Nach Lemma 1 entspricht das: $\exists c,n_0$ mit $\log_a(b) \geq c \quad \quad \forall n> n_0$.\\
+			Für $c \leq \log_a(b)$ ist diese Aussage offensichtlich wahr.
+		\end{enumerate}
+		Aus (i) und (ii) folgt die Behauptung.
+		\item 
+		\begin{enumerate}[i)]
+			\item Z.Z.: $0\leq a\leq b \implies a^x = O(b^x)$.
+			Das ist äquivalent zu $\exists c, n_0$ mit $a^n \leq c\cdot b^n \quad \quad \forall n> n_0$.\\
+			Es gilt: $c> 1 \implies \sqrt[n]{c} \geq 1$. Für $a\leq b$ und $c\geq 1$ folgt unmittelbar $a \leq b = 1\cdot b \leq  \sqrt[n]{c} \cdot b$. Wählt man also $c> 1$, so erhält man durch Potenzierung mit $n$ direkt $\exists n_0$ mit $a^n\leq c\cdot b^n \quad \quad \forall n> n_0$.
+			\item Z.Z:: $a^x = O(b^x) \implies 0\leq a\leq b$.\\
+			Das ist äquivalent zu $\exists c, n_0$ mit $a^n \leq c\cdot b^n \quad \quad \forall n> n_0 \implies 0 \leq a\leq b$.
+			Umformung ergibt: $\exists c, n_0$ mit $1 \leq c\cdot \left(\frac{a}{b}\right)^n \quad \quad \forall n> n_0 \implies 0 \leq a\leq b$.
+			Wäre einer der Werte $a$, $b$ negativ und der andere positiv, so wäre $\frac{a}{b}$ negativ und damit $\left(\frac{a}{b}\right)^n$ für gerade $x$ positiv und für ungerade $x$ negativ. Unabhängig von $c$ gäbe es also stets $x$ mit $ c\cdot \left(\frac{a}{b}\right)^n \leq 0 < 1$.\\
+			Annahme: Sowohl $a$ als auch $b$ sind negativ und es gilt $\exists c, n_0$ mit $a^n \leq c\cdot b^n \quad \quad \forall n> n_0$. Für ein gerades $n$ gilt: $a^n \leq c\cdot b^n \equals (-|a|)^n \leq c\cdot (-|b|)^n \equals - |a|^n \leq c\cdot -|b|^n$.\\
+			Für ungerades $n$ erhält man allerdings $a^n \leq c\cdot b^n \equals (-|a|)^n \leq c\cdot (-|b|)^n \equals - |a|^n \leq c\cdot -|b|^n\equals |a|^n \geq c \cdot |b|^n$. Das ist ein Widerspruch.\\
+			Folglich ist $a\geq 0, b\geq 0$.\\
+			Annahme: $a > b$.\\
+			$\forall n> n_0$ gilt $a^n \leq c\cdot b^n \equals |a|^n \leq c\cdot |b|^n \equals |a|^n \leq c\cdot |b|^n$.
+			Durch Ziehen der $n$-ten Wurzel erhalten wir $|a| \leq |\sqrt[n]{c}| \cdot |b| \equals a\leq |\sqrt[n]{c}| \cdot b$.
+			Da $a> b$ muss es ein $d>0$ geben, sodass $a = (1+d) b$.
+			Ferner gilt: $\forall d > 0: \exists n > n_0: |\sqrt[n]{c}| < 1 + d$.
+			Damit können wir folgern: $\exists n < n_0: a\leq |\sqrt[n]{c}| \cdot b <  (1 + d)b = a$. Das ist allerdings ein Widerspruch und folglich ist $a\leq b$.\qed
+		\end{enumerate}
+	\end{enumerate}
+\end{enumerate}
+\section*{Aufgabe 2}
+\begin{enumerate}
+	\item Für $a\geq b> 0$ gilt nach Definition $\operatorname{ggT}(a,b) = \operatorname{ggT}(a-b, b)$ \qed
+	\item Ausgehend von der Eingabe $a_0 = a$, $b_0 = b$, $a, b \in N_0$ , $a + b > 0$, erzeugt der
+	Euklidische Algorithmus eine Folge von Paaren
+	\[(a_i, b_i)\qquad i\in \N_0\]
+	Aus der Konstruktion ist sofort offensichtlich, dass $a_i + b_i \geq a_{i+1} + b_{i+1}$.
+	Wir zeigen, dass $(a_i > 0 \land b_i > 0) \implies (a_i + b_i > a_{i+2} + b_{i+2})$.
+	\begin{proof}
+		Fall 1: $a_i \geq b_i$. Dann ist $a_{i+1} = a_i-b_i$, $b_{i+1} = b_i$ und somit $a_{i+1} + b_{i+1} = a_i - b_i + b_i = a_i < a_i + b_i$. Mit $a_{i+1} + b_{i+1}\geq a_{i+2} + b_{i+2}$ folgt sofort $a_i + b_i > a_{i+2} + b_{i+2}$.\\
+		Fall 2: $a_i < b_i$. Dann ist $a_{i+1} = b_i$ und $b_{i+1} = a_i$. Da nun $a_{i+1} \geq b_{i+1}$ erhalten wir $a_{i+2} = a_{i+1} - b_{i+1}$, $b_{i+2} = a_{i+1}$ und somit $a_{i+2} + b_{i+2} = a_{i+1} - b_{i+1} + b_{i+1} = a_{i+1} = b_i < a_i + b_i$.\\
+	\end{proof}
+\end{enumerate}
+\newpage
+\section*{Aufgabe 3}
+\begin{enumerate}[a)]
+	\item 
+	Für $n= 43$ und $k=10$ benötigt das Programm 11.610 s. Für $n= 34$ und $k=18$ gibt das Programm -2091005866 zurück.
+	\lstinputlisting[language=C++, caption={binomial.cc}]{binomial.cc}
+	\item Der Gesamtaufwand $A_{n,k}$ zur Auswertung von $B_{n,k}$ ist größer gleich einer Konstanten $c_1$ multipliziert mit der Zahl $Bb_{n, k}$ der Blätter im Berechnungsbaum:
+	\[A_{n,k} \geq c_1 \cdot Bb_{n,k}.\]
+	Dann ist $Bb_{n,n} = 1$ und $Bb_{n,k} = Bb_{n-1,k-1} + Bb_{n-1, k}$. Daraus kann man $Bb_{n,k} = B_{n,k}$ folgern. Daraus folgt $A_{n,k} = \Omega(n^k)$.
+	Der Gesamtaufwand $A_{n,k}$ zur Auswertung von $B_{n,k}$ ist kleiner gleich einer Konstanten $c_2$ multipliziert mit der Zahl $Bk_{n, k}$ der Knoten im Berechnungsbaum:
+	\[A_{n,k} \leq c_2 \cdot Bk_{n,k}.\]
+	Dann ist $Bk_{n,n} = 1$ und $Bk_{n,k} = Bk_{n-1,k-1} + Bk_{n-1, k} + 1$. Daraus folgt $Bk_{n,k}= \binom{n}{k} + \sum_{i=0}^{n} \sum_{j=0}^{i} \binom{i}{j} = \binom{n}{k} + \sum_{i=0}^{n} 2^i = \binom{n}{k} + 2^{n+1}-1$.\\
+	Es lässt sich aber leider mit diesem Ansatz keine eindeutige Komplexität bestimmen, da die Anzahl der Knoten bei der Erzeugung sehr viel größer ist als die Anzahl der Blätter.
+	\newpage
+	\item Das Programm hat eine asymptotische Komplexität von $\Theta(n)$.
+	Für höhere Werte ist das zweite Programm deutlich schneller. Ja, das liegt daran, dass die asymptotische Komplexität deutlich geringer ist.
+	Die berechneten Ergebnisse unterscheiden sich stark, da bereits 13! zu groß für den Datentyp int ist und es daher zu overflow Fehlern kommt.
+	\lstinputlisting[language=C++, caption={binomial\_fast.cc}]{binomial_fast.cc}
+	\item Ein effizienter Algorithmus hat den Aufwand $\Theta(n)$, wenn er die berechneten Binomialkoeffizienten abspeichert und im Verlauf der Berechnung wieder darauf zugreifen kann. Das ist natürlich um Längen effizienter als der Algorithmus in a). Im Algorithmus aus a) werden einfach sehr viele gleiche Berechnungen sehr oft ausgeführt.
+	Das ist in diesem Algorithmus nicht der Fall. Jede Berechnung, die man durchführen muss, wird genau einmal durchgeführt. Das erklärt die sehr viel größere Effizienz.
+\end{enumerate}
+\end{document}

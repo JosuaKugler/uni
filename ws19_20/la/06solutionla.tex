@@ -1,0 +1,241 @@
+\documentclass{article}
+\usepackage{josuamathheader}
+\usepackage{amsmath, amsthm}
+\usepackage{comment}
+
+\begin{document}
+	\lalayout{6}
+	\section*{Aufgabe 1}
+	\begin{enumerate}[(a)]
+		\item \textbf{Behauptung:} $B = ((1,1))$ ist eine Basis von $S = \{(x_1,x_2)\in \Q^2|x_1-x_2 = 0\}$.\\
+			\textbf{Z.Z.:} $B$ ist linear unabhängig
+			\[\alpha \cdot (1,1) = (0,0) \implies \alpha \cdot 1 = 0\implies \alpha = 0\]
+			\textbf{Z.Z.:} $B$ ist ein Erzeugendensystem von $S$
+			Sei $(x_1,x_2)\in S$. Dann ist $x_1-x_2 = 0\implies x_1 = x_2$
+			\[(x_1, x_2) = (x_1, x_1) = x_1\cdot (1,1)\]
+		\item Wir bezeichnen mit $e_i^n$ einen Vektor $(0,\dots,0,1,0,\dots,0)$
+			der aus $n-1$ Nullen und einer Eins besteht, wobei die Eins an $i$-ter Stelle steht.\\
+			\textbf{Behauptung:} $B = ((1,-2,0,\dots,0), e_3^n, e_4^n, \dots, e_n^n)$
+			ist eine Basis von $S = \{(x_1 , x_2 , \dots , x_n ) \in \Q^n | 2x_1 + x_2 = 0\}$.\\ 
+			\textbf{Z.Z.:} $B$ ist linear unabhängig\\
+			\textbf{Beweis:}
+			\[\alpha_1 \cdot  (1,-2,0,\dots,0) + \sum_{i=2}^{n}\alpha_i\cdot e_{i+1}^n =  (0,0,\dots, 0)\] 
+			Da die $i$-te Komponente des resultierenden Vektors mit Ausnahme von $i=1,2$ nur vom $i$-ten Vektor $e_i^n$  und $\alpha_i$ abhängt, gilt:
+			\[\alpha_i \cdot 1 = 0\forall i\in \{2,3,\dots, n\} \implies \forall i\in \{2,3,\dots, n\}:\alpha_i = 0\]
+			Aus der ersten Komponente des resultierenden Vektors folgt außerdem $\alpha_1 \cdot 1 = 0 \implies \alpha_1 = 0$.
+			Insgesamt erhalten wir $\forall i\in \{1,2,\dots, n\}: \alpha_i = 0$.\\ 
+			\textbf{Z.Z.:} $B$ ist ein Erzeugendensystem von $S$\\
+			\textbf{Beweis:}
+			Sei $(x_1, x_2, \dots, x_n)\in \Q^n$. Mit $2x_1 + x_2= 0$ folgt: $x_2 = -2x_1$.
+			\[\begin{pmatrix}x_1\\x_2\\\vdots\\x_n\end{pmatrix} \overset{x_2 = -2x_1}{=} \begin{pmatrix}x_1\\-2\cdot x_1\\\vdots\\x_n\end{pmatrix}= x_1\cdot\begin{pmatrix}1\\-2\\\vdots\\0\end{pmatrix} + \sum_{i=3}^n x_i e_{i}^n\]
+		\begin{comment}
+		\item Fallunterscheidung:
+		\begin{enumerate}[1)]
+			\item $\mychar K \notin \{2,\dots, n+1\}$:\\
+				Dann ist 
+				$\myker \partial = \{ f\in V| f(0) \in K, f(i) = 0\ \forall i\in \{1,\dots, n+1,n+2\}\}$\\
+				Wir wählen unsere Basis $B= (f)$ mit 
+				\begin{align*}
+					f:\{0,1,\dots, n+1\} &\to K\\
+					0&\mapsto 1\\
+					i&\mapsto 0\quad\forall i \in\{0,1,\dots, n+1\}\text{ mit } i\neq 0
+				\end{align*}
+				\textbf{Z.Z.:} $B$ ist linear unabhängig.\\
+				\textbf{Beweis:} $\alpha \cdot f = 0_v \implies \alpha \cdot f(0) = 0 \equals \alpha\cdot 1 = 0 \implies \alpha = 0$\\
+				\textbf{Z.Z.:} $B$ ist ein Erzeugendensystem von $\myker \partial$.\\
+				\textbf{Beweis:} Sei $g\in \myker \partial$. Dann ist
+				\begin{align*}
+					g:\{0,1,\dots, n+1\}&\to K\\
+					0&\mapsto k\in K\\
+					i&\mapsto 0\quad\forall i \in\{0,1,\dots, n+1\}\text{ mit } i\neq 0
+				\end{align*}
+				Daher ist $g = k\cdot f$.
+			\item $\mychar K \in \{2,\dots, n+1\}$:\\
+				Dann ist $\myker \partial = \{ f\in V| f(0) \in K, f(i) = 0\ \forall i\in \{1,\dots, n+1, n+2\}\text{ mit } \mychar K \not | i, f(i)\in K \forall i\in \{0,1,\dots, n+1\} \text{ mit }\mychar K| i\}$\\
+				Wir wählen unsere Basis $B= \{f_0, f_1, f_2, \dots, f_k\}$ mit 
+				$\forall i\in \{0,1,\dots, k\}$, wobei $k = \lfloor \frac{n+1}{\mychar K}\rfloor$:
+				\begin{align*}
+					f_i:\{0,1,\dots, n+1\} &\to K\\
+					i\cdot \mychar K&\mapsto 1\\
+					j&\mapsto 0\quad\forall j \in\{0,1,\dots, n+1\}\text{ mit } j\neq i\cdot \mychar K
+				\end{align*}
+				\textbf{Z.Z.:} $B$ ist linear unabhängig.\\
+				\textbf{Beweis:} $\sum_{i=0}^{k} \alpha_if_i = 0_v$\\
+				\begin{align*}
+					\sum_{i=0}^{k} \alpha_if_i &= 0_v
+					\intertext{Für alle $j \in \{0,1,\dots, n+1\}$ muss also der Funktionswert der Nullabbildung $0$ sein}
+					\sum_{i=0}^{k} \alpha_if_i(j) &= 0&&\forall j\in \{0,1,\dots, n+1\}
+					\intertext{Insbesondere muss der Funktionswert von $j\cdot \mychar K\quad \forall j\in \{0,1,\dots, k\}$ $0$ sein.}
+					\sum_{i=0}^{k} \alpha_if_i(j\cdot \mychar K) &= 0&&\forall j\in \{0,1,\dots, k\}
+					\intertext{$f_i(j\cdot \mychar K) = 0 \forall i\neq j$ und $f_i(j\cdot \mychar K) = 1$ für $i=j$.}
+					\alpha_if_i(j\cdot \mychar K) &= 0 &&\forall j\in \{0,1,\dots, k\}\\
+					\alpha_j &= 0 &&\forall j\in \{0,1,\dots, k\}
+ 				\end{align*}
+				\textbf{Z.Z.:} $B$ ist ein Erzeugendensystem von $\myker \partial$.\\
+				\textbf{Beweis:} Sei $g\in \myker \partial$. Dann ist
+				\begin{align*}
+					g:\{0,1,\dots, n+1\}&\to K\\
+					0\cdot \mychar K&\mapsto l_0\in K\\
+					1\cdot \mychar K&\mapsto l_1\in K\\
+					&\vdots\\
+					k\cdot \mychar K&\mapsto l_k\in K\\
+					i&\mapsto 0\quad\forall i \in\{0,1,\dots, n+1\}\text{ mit } \mychar K\not |i
+				\end{align*}
+				Daher ist $g= \sum_{i=0}^{k}l_if_i$.
+		\end{enumerate}
+		\end{comment}
+	\item Beachte: 0 teilt nur 0.
+	$$\myker \partial = \{ f\in V|f(0) \in K\text{ beliebig}, f(i) = 0\ \forall i\in \{1,\dots, n+1\}\text{ mit } \mychar K \not | i, f(i)\in K \text{ sonst}\}$$
+	Wir wählen unsere Basis $B = (f_0, f_1, f_2, \dots, f_k)$, wobei $k = \lfloor \frac{n+1}{\mychar K}\rfloor$ für $\mychar K\neq 0$ und $k = 0$ sonst. 
+	Dabei sei $\forall i\in \{0,1,\dots k\}$
+	\begin{align*}
+	f_i:\{0,1,\dots, n+1\} &\to K\\
+	i\cdot \mychar K&\mapsto 1\\
+	j&\mapsto 0\quad\forall j \in\{0,1,\dots, n+1\}\text{ mit } j\neq i\cdot \mychar K
+	\end{align*}
+	\textbf{Z.Z.:} $B$ ist linear unabhängig.\\
+	\textbf{Beweis:}
+	\begin{align*}
+	\sum_{i=0}^{k} \alpha_if_i &= 0_v
+	\intertext{Für alle $j \in \{0,1,\dots, n+1\}$ muss also der Funktionswert der Nullabbildung $0$ sein}
+	\sum_{i=0}^{k} \alpha_if_i(j) &= 0&&\forall j\in \{0,1,\dots, n+1\}
+	\intertext{Insbesondere muss der Funktionswert von $j\cdot \mychar K\quad \forall j\in \{0,1,\dots, k\}$ $0$ sein.}
+	\sum_{i=0}^{k} \alpha_if_i(j\cdot \mychar K) &= 0&&\forall j\in \{0,1,\dots, k\}
+	\intertext{$f_i(j\cdot \mychar K) = 0 \forall i\neq j$ und $f_i(j\cdot \mychar K) = 1$ für $i=j$.}
+	\alpha_if_i(j\cdot \mychar K) &= 0 &&\forall j\in \{0,1,\dots, k\}\\
+	\alpha_j &= 0 &&\forall j\in \{0,1,\dots, k\}
+	\end{align*}
+	\textbf{Z.Z.:} $B$ ist ein Erzeugendensystem von $\myker \partial$.\\
+	\textbf{Beweis:} Sei $g\in \myker \partial$. Dann ist
+	\begin{align*}
+	g:\{0,1,\dots, n+1\}&\to K\\
+	0\cdot \mychar K&\mapsto l_0\in K\\
+	1\cdot \mychar K&\mapsto l_1\in K\\
+	&\vdots\\
+	k\cdot \mychar K&\mapsto l_k\in K\\
+	i&\mapsto 0\quad\forall i \in\{0,1,\dots, n+1\}\text{ mit } \mychar K\not |i
+	\end{align*}
+	Daher ist $g= \sum_{i=0}^{k}l_if_i$.
+	\end{enumerate}
+	\section*{Aufgabe 2}
+	\begin{enumerate}[(a)]
+		\item
+			Da $V_2$ ein Untervektorraum von $V_1 + V_2$ ist, wird nach Skript S.38 2.3 Abschnitt 3) $(V_1 + V_2)/V_2$ zum Vektorraum.\\
+			Seien $v_1, v_1' \in V_1$. Dann ist
+			\[\varphi(v_1 + v_1') = (v_1+v_1') + V_2  = v_1 + V_2 + v_1' + V_2 = \varphi(v_1) + \varphi(v_1')\]
+			Sei nun außerdem $a\in K$ und $v_1\in V_1$. 
+			Die Operation, die $V_1/V_2$ zum Vektorraum über $K$ macht, ist gerade $a\cdot (v_1 + V_2) = (a\cdot v_1) + V_2$. Daher ist
+			\[\varphi(a\cdot v_1) = (a\cdot v_1) + V_2 = a \cdot (v_1 + V_2) = a\cdot \varphi(v_1)\]
+		\item Sei $v\in (V_1 + V_2)/V_2$. Dann $\exists v_1\in V_1$ und $\exists v_2 \in V_2$ mit $v = v_1 + v_2 + V_2$. 
+		Nun ist $\varphi(v_1) = v_1 + V_2$. Da $v_2 \in V_2$, können wir das schreiben als $v_1 + v_2 + V_2$. Es existiert also 
+			$\varphi(v_1) = v_1 + V_2 = v$. Daher ist $\varphi$ surjektiv.
+		\item $\ker \varphi = \{v_1\in V_1: v_1 + V_2 = 0_v + V_2\}$. 
+			Gemäß 2.3 Abschnitt 3 folgt aus $v_1 + V_2 = 0_v + V_2$ sofort $v_1-0_v \in V_2 \equals v_1 \in V_2$.
+			Daher ist $\ker \varphi = \{v_1\in V_1: v_1\in V_2\} = V_1\cap V_2$.
+		\item $\varphi: V_1 \to V_1/(V_1 + V_2)$ ist eine lineare Abbildung. Nach Satz 2.28 gibt es einen natürlichen Vektorraumisomorphismus
+		\[F: V_1/\myker \varphi \overset{\sim}{\to} \operatorname{im} \varphi\]
+		Da $\varphi$ surjektiv ist, gilt $\operatorname{im} \varphi = (V_1 + V_2)/V_2$. Außerdem ist $\myker \varphi = V_1\cap V_2$.
+		Eingesetzt erhalten wir also 
+		\[F: V_1/(V_1\cap V_2) \overset{\sim}{\to} (V_1 + V_2)/V_2\]
+		Daher gilt $V_1/(V_1\cap V_2) \overset{\sim}{=} (V_1 + V_2)/V_2$.
+	\end{enumerate}		
+	\section*{Aufgabe 3}
+	Bemerkung: $(v_i)_{i\in I}$ muss ein endliches Erzeugendensystem sein, damit sämtliche Summen im Beweis wohldefiniert sind.
+	\begin{enumerate}[(a)]
+		\item 
+		\begin{itemize}
+			\item Z.Z.: $U + W \subset V$.\\
+				Beweis: Sei $u\in U$ und $w\in W$. Dann existieren $\alpha_i\in K^{(J)}$ mit $i\in J$ und $\alpha_i\in K^{(I\setminus J)}$ mit $i\in I\setminus J$.
+				\[u + w = \sum_{i\in J} \alpha_iv_i + \sum_{i\in I\setminus J} \alpha_iv_i = \sum_{i\in I}\alpha_iv_i \in V\]
+			\item Z.Z.: $V \subset U+W$.\\
+				Beweis: Sei $v\in V$. Dann ist \[v = \sum_{i\in I} \alpha_iv_i = \sum_{i\in I\setminus J} \alpha_iv_i + \sum_{i\in J} \alpha_iv_i\]
+				Es gilt $\sum_{i\in I\setminus J} \alpha_iv_i \in W$ und $\sum_{i\in J} \alpha_iv_i \in U$. 
+				Also ist $v = u+w$ mit $u\in U$ und $w\in W$.
+		\end{itemize}
+		\item 
+		\begin{itemize}
+			\item Z.Z.: $0\in U$\\
+				Beweis: $\sum_{i\in J} \alpha_iv_i \in U$. Wähle nun $\alpha_i = 0\forall i\in J$. 
+				Dann ist $\sum_{i\in J} \alpha_iv_i = \sum_{i\in J} 0\cdot v_i = 0\in U$.
+			\item Z.Z.: $0\in W$\\
+				Beweis: $\sum_{i\in I\setminus J} \alpha_iv_i \in W$. Wähle nun $\alpha_i = 0\forall i\in I\setminus J$. 
+				Dann ist $\sum_{i\in I\setminus J} \alpha_iv_i = \sum_{i\in I\setminus J} 0\cdot v_i = 0\in W$.
+			\item Sei $v \in V$ mit $v\in U\cap W$. Z.Z.: $v = 0$.\\
+				Beweis: Dann ist $v = \sum_{i\in J} \alpha_iv_i$ und $v = \sum_{i\in I\setminus J} \alpha_iv_i$.
+				\[\sum_{i\in J} \alpha_iv_i - \sum_{i\in I\setminus J} \alpha_iv_i = 0\]
+				Wähle $\beta_i = \begin{cases} \alpha_i &|i\in J\\ -\alpha_i &| i\in I\setminus J\end{cases}$.
+				Dann ist\[\sum_{i\in J} \beta_iv_i - \sum_{i\in I\setminus J} -\beta_iv_i = 0\]
+				\[\implies \sum_{i\in I} \beta_iv_i = 0\]
+				Da $(v_i)_{i\in I}$ eine Basis ist, folgt daraus $\beta_i = 0\forall i\in I$. 
+				Nach unserer Definition von $\beta_i$ folgt daraus $\alpha_i = 0\forall i\in I$. 
+		\end{itemize}
+		\item 
+		\begin{itemize}
+			\item \textbf{Z.Z.:} $(v_i + U)_{i\in I\setminus J}$ ist linear unabhängig.\\
+				\textbf{Beweis:} 
+				\begin{align*}
+					\sum_{i\in I\setminus J} \alpha_i(v_i + U) &= 0_{V/U}\\
+					\equals \sum_{i\in I\setminus j} (\alpha_iv_i + U) &= 0_{V/U}\\
+					\equals \left(\sum_{i\in I\setminus J} \alpha_iv_i\right) + U &= 0_{V/U}\\
+					\intertext{Das neutrale Element von $V/U$ ist einfach $0_v + U = U$}
+					\equals \left(\sum_{i\in I\setminus J} \alpha_nv_n\right) + U &= U
+				\end{align*}
+				Diese Gleichung ist genau dann erfüllt, wenn $\left(\sum_{i\in I\setminus J} \alpha_iv_i\right)\in U$.
+				Wir wissen: $\left(\sum_{i\in I\setminus J} \alpha_iv_i\right) \in W$. In Teilaufgabe $(b)$ haben wir aber gezeigt, dass $W\cap U= \{0\}$. Daher muss $\sum_{i\in I\setminus J} \alpha_iv_i = 0$ gelten. Da $(v_i)_{i\in I}$ eine Basis ist, folgt daraus sofort: $\alpha_i = 0\quad \forall i\in I\setminus J$.
+			\item \textbf{Z.Z.:} $(v_i + U)_{i\in I\setminus J}$ ist ein Erzeugendensystem.\\
+			\textbf{Beweis:}
+			Sei $v + U \in V/U$. Dann ist $v = \sum_{i\in I}\alpha_iv_i = \sum_{i\in I\setminus J}\alpha_iv_i + \sum_{i\in J} \alpha_iv_i$.
+			Da $\sum_{i\in J} \alpha_iv_i \in U$ ist, lässt sich $v + U = \sum_{i\in I\setminus J}\alpha_iv_i + \sum_{i\in J} \alpha_iv_i + U$ umformen zu $\sum_{i\in I\setminus J} \alpha_iv_i + U$. Das ist äquivalent zu
+			$$v + U = \sum_{i\in I\setminus J}\left(\alpha_iv_i + U\right).$$ Mit der im Vektorraum $V/U$ definierte Multiplikation können wir dies umformen zu 
+			$$\sum_{i\in I\setminus J} \alpha_i(v_i + U).$$
+			$v + U$ lässt sich also darstellen als Linearkombination von $(v_i + U)_{i\in I\setminus J}$ und daher ist $(v_i + U)_{i\in I\setminus J}$ ein Erzeugendensystem.
+		\end{itemize}
+	$(v_i + U)_{i\in I\setminus J}$ ist also ein linear unabhängiges Erzeugendensystem und daher eine Basis.
+	\end{enumerate}
+	\section*{Aufgabe 4}
+	\begin{enumerate}[(a)]
+		\item \textbf{Z.Z.:} $\forall i\in I: \exists v_i^*$ mit 
+		\begin{align*}
+			v_i^*: V &\to K\\
+			v_j &\mapsto 1 \text{ falls }j=i\\
+			v_j &\mapsto 0 \text{ sonst}
+		\end{align*}
+		\textbf{Beweis:} Wir zeigen, dass die obenstehende Abbildung wohldefiniert ist. Sei dafür $v\in V$. Mithilfe der Basis lässt sich $v$ schreiben als $v = \sum_{i\in I}\alpha_iv_i$.
+		Nun ist 
+		\[v_i^*\left(\sum_{i\in I}\alpha_iv_i\right) \overset{v_i^* \text{ linear}}{=} \sum_{i\in I}\alpha_i v_i^*(v_j) = \alpha_i\]
+		Jedem Element aus $v$ wird also genau ein Element aus $K$ zugeordnet. Daher ist $v_i^*$ wohldefiniert und eindeutig.
+		\item \textbf{Z.Z.:} $(v_i)_{i\in I}$ ist linear unabhängig.\\
+		\textbf{Beweis:} 
+		\begin{align*}
+			\sum_{i\in I} \alpha_iv_i^* &= 0_v\\
+			\intertext{Für alle $j \in I$ muss also der Funktionswert der Nullabbildung $0$ sein}
+			\left(\sum_{i\in I} \alpha_iv_i^*\right)(v_j) &= 0 &&\forall j\in I\\
+			\sum_{i\in I} \alpha_iv_i^*(v_j) &= 0&&\forall j \in I
+			\intertext{$v_i^*(v_j)$ ist $0$ für alle $j$, außer für $i=j$.}
+			\alpha_jv_j^*(v_j) &= 0&&\forall j\in I
+			\intertext{ $v_j^*(v_j) = 1$.}
+			\alpha_j &= 0&&\forall j\in I
+		\end{align*}
+		\item \textbf{Z.Z.:} Ist $I$ nicht endlich, so ist $(v_i^*)_{i\in I}$ keine Basis von $V^*$.\\
+		\textbf{Beweis:} Annahme: $I$ ist nicht endlich und $(v_i^*)_{i\in I}$ eine Basis.
+		%dann muss $(\alpha_i)_{i\in I}$ muss ein endliches Erzeugendensystem sein. Daher ist $\alpha_i = 0$ für fast alle $i\in I$. 
+		Wir betrachten nun die Abbildung
+		\begin{align*}
+			f: V &\to K\\
+			v_i &\mapsto 1&&\forall i\in I
+		\end{align*}
+		Diese Abbildung ist linear und geht von $V$ nach $K$. Daher ist $f\in V^*$.
+		Da $(v_i^*)_{i\in I}$ eine Basis ist, muss sich $f$ als Linearkombination darstellen lassen:
+		\begin{align*}
+			f &= \sum_{i\in I} \alpha_i v_i && \alpha_i \in K^{(I)}
+			\intertext{Damit die Summe wohldefiniert ist, muss für fast alle $i\in I$ $\alpha_i = 0$ sein.
+			Sei $i_0\in I$ mit $\alpha_{i_0} = 0$. Dann ist}
+			f(v_{i_0}) &= \sum_{i\in I} \alpha_i v_i^*(v_{i_0})
+			\intertext{$v_i(v_j)$ ist stets 0, außer für $i=j$.}
+			f(v_{i_0}) &= \alpha_{i_0} \cdot v_{i_0}^*(v_{i_0})
+			\intertext{$\alpha_{i_0} = 0$}
+			f(v_{i_0}) &= 0
+		\end{align*}
+		Das steht allerdings im Widerspruch zur Definition von $f$. Daher ist die Annahme ad absurdum geführt und $(v_i^*)_{i\in I}$ kann keine Basis sein, wenn $I$ nicht endlich ist.
+	\end{enumerate}
+\end{document}

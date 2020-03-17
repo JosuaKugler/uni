@@ -1,0 +1,169 @@
+\documentclass{article}
+\usepackage{josuamathheader}
+\usepackage{amsmath, amsthm}
+\newcommand{\mysqrt}[1]{\left|\sqrt{#1}\right|}
+\newcommand{\mylimes}{\lim\limits_{n\to\infty}}
+\newcommand{\real}{\operatorname{Re}}
+\newcommand{\img}{\operatorname{Im}}
+\usepackage{comment}
+\begin{document}
+	\analayout{3}
+\section*{Aufgabe 1}
+\begin{enumerate}[(a)]
+	\item 
+	\underline{Voraussetzungen:}\\
+	Sei $(a_n)_{n\in\N}$ Folge mit $ \exists q{\in\R}$ mit $0 < q < 1$ $\forall n \in\N , n \geq 2 $ : 
+	$$|a_{n+1} - a_n| \leq q|a_n - a_{n-1}|.$$
+	
+	\textbf{Z.Z.:} $\forall \varepsilon > 0 \exists n_\varepsilon \in\N : |a_n-a_m| < \varepsilon$  $ (\forall n,m \in\N$ mit $ n,m\geq n_\varepsilon$ und o.B.d.A. $ n>m)$.
+	\begin{proof}\ \\
+		Dafür zeigen wir zunächst die folgenden Aussagen:\\
+		\textbf{Z.Z.:}  $\forall n,m \in\N$: $|a_{m+n}-a_{m+n-1}|\leq q^n|a_{m+1}-a_m|$   $(n\geq 2,$ $ 0<q<1)$
+		\begin{proof}\ \\
+			Induktionsanfang $(n=2)$: $$|a_{m+2}-a_{m+1}|\leq q|a_{m+1}-a_m|$$
+			Induktionsvoraussetzung: Gelte $$|a_{m+n}-a_{m+n-1}|\leq q^n|a_{m+1}-a_m|$$	für ein beliebiges, aber festes $n\in\N$\\
+			Induktionsschluss $(n\to n+1)$:$$ |a_{m+n+1}-a_{m+n}|\leq q|a_{m+n}-a_{m+n-1}|\overset{I.V.}{\leq} q\cdot q^n|a_{m+1}-a_m|\leq |q^{n+1} |a_{m+1}-a_m|$$
+		\end{proof}
+		\textbf{Z.Z.:}$\forall k \in\N$$\forall n\in\N$: $ |a_{n+k} -a_n| \leq  (\sum_{i =0}^kq^{i}) |a_n - a_{n-1}|$
+		\begin{proof}\ \\
+			Induktionsanfang $(k=1)$: $$|a_{n+1}-a_n| \leq q|a_n-a_{n-1}|$$
+			Induktionsvoraussetzung: Gelte $|a_{n+k}-a_n|\leq \left(\sum_{i=0}^kq^i\right)|a_n-a_{n-1}| $ für ein beliebiges, aber festes $k\in\N$.\\
+			Induktionsschluss $(k\to k+1)$: 
+			\begin{align*}
+			|a_{n+k+1}-a_n|&=|a_{n+k+1}-a_{n+k}+a_{n+k}-a_n|\\
+			&\leq |a_{n+k+1}-a_{n+k}|+|a_{n+k}-a_n|\\
+			&\overset{\text{I.V.}}{\leq} |a_{n+k+1}-a_{n+k}|+ \left(\sum_{i=0}^kq^i\right)|a_n-a_{n-1}|\\
+			&\leq q^{k+1}|a_n-a_{n-1}| + \left(\sum_{i=0}^kq^i\right)|a_n-a_{n-1}|\\
+			&= \sum_{i=0}^{k+1}|a_n-a_{n-1}|
+			\end{align*}
+		\end{proof}
+		
+		\begin{comment}
+		Definiere nun $ m \coloneqq n+l $ und $ z \coloneqq n + k\  (n\in\N)$\\
+		
+		Sei $ \varepsilon > 0 $. Wähle $n_{\varepsilon} = \lceil \log_q\left(\frac{(1-q)\varepsilon}{|a_0-a_1|}\right)\rceil$
+		Dann gilt $\forall n\in\N, n>n_\varepsilon$:
+		\begin{align*}
+		|a_z -a_m| &\leq  \left(\sum_{i =0}^kq^{i}\right) |a_{z-k} - a_{z-k-1}|\\&=\left(\frac{1-q^{n+1}}{{1-q}}\right)|a_n-a_{n-1}|\\&< \left(\frac{1}{1-q}\right)|a_n-a_{n-1}|\\&\leq\left(\frac{1}{1-q}\right)q^n|a_1-a_0|\\&<\left(\frac{1}{1-q}\right)q^{n_\varepsilon}|a_1-a_0|=\varepsilon
+		\end{align*}
+		\end{comment}
+		Sei $ \varepsilon > 0 $. Wähle $n_{\varepsilon} = \lceil \log_q\left(\frac{(1-q)\varepsilon}{|a_0-a_1|}\right)\rceil$
+		Dann gilt $\forall n, m\in\N, n, m>n_\varepsilon$, o.B.d.A. $n > m$:
+		\begin{align*}
+		|a_n -a_m| &= |a_{n_\epsilon + k} - a_{n_\epsilon + l}| = |a_{n_\epsilon + l + k-l} - a_{n_\epsilon + l}|\\
+		&\leq  \left(\sum_{i =0}^{k-l}q^{i}\right) |a_{n_\epsilon + l} - a_{n_\epsilon + l -1}|\\
+		&=\left(\frac{1-q^{k-l}}{{1-q}}\right)|a_{n_\epsilon + l} - a_{n_\epsilon + l -1}|\\
+		&<\left(\frac{1}{1-q}\right)|a_{n_\epsilon + l} - a_{n_\epsilon + l -1}|\\
+		&\leq\left(\frac{1}{1-q}\right)q^{n_\epsilon + l -1}|a_1-a_0|\\
+		&\leq\left(\frac{1}{1-q}\right)q^{n_\varepsilon}|a_1-a_0|=\varepsilon
+		\end{align*}
+		
+	\end{proof}
+	\item Behauptung: Es genügt nicht zu fordern, dass $\forall n\in\N, n\geq 2$:
+	$$ |a_{n+1}-a_n|\leq |a_n-a_{n-1}|$$ sodass $(a_n)_{n\in\N} $ konvergiert.
+	
+	\begin{proof}
+		Wähle $a_n = \sqrt{n}$, $ n\in\N$. Aus $\sqrt{n}<\sqrt{n+1} $ folgt $$ |\sqrt{n+1}-\sqrt{n}| =\left|\frac{1}{\sqrt{n+1}+\sqrt{n}}\right|<\left|\frac{1}{\sqrt{n}+\sqrt{n-1}}\right|=|\sqrt{n}-\sqrt{n-1}|$$\\
+		Nach Aufgabe 3.1 gilt jedoch $(a_n)_{n\in\N} \to \infty $ für $(n \to \infty)$
+		
+	\end{proof}
+\end{enumerate}
+\section*{Aufgabe 2}
+Sei $A > 0$ und $0 < b < a$ mit $ab = A$.\\
+Sei $(a_n)_{n\in \N_0}$ eine Folge mit der Rekursionsvorschrift $a_{n+1} =\frac{1}{2}\left(a_n + \frac{A}{a_n}\right)$ und Anfangswert $a_0 = a$.
+Sei außerdem $(b_n)_{n\in \N}$ eine Folge mit der Vorschrift $b_n = \frac{A}{a_n}$. Dabei ist $b_0 = \frac{A}{a_0} = \frac{A}{a}  =b$.
+\begin{enumerate}[(a)]
+	\item \textbf{Z.Z.:} $a_n > \sqrt{A}\quad \forall n \in \N_0$.
+	\begin{proof}
+		$$a_{n+1}^2 = \frac{1}{2}\left(a_{n}^2 + \frac{A}{a_{n}}\right) = \left(\frac{a_n + \frac{A}{a_n}}{2}\right)^2 \overset{\text{2.2b}}{\geq} a_n \cdot \frac{A}{a_n} = A$$
+		Da $a_{n+1} \geq 0\quad \forall n\in \N$ und $A > 0$ folgt mit der in der Aufgabenstellung gegeben Identität:
+		$$ a_{n+1} \geq \sqrt{A} \quad \forall n\in \N.$$
+	\end{proof}
+	\item \textbf{Z.Z.:} $a_{n+1} - a_n \leq 0\quad  \forall n\in \N$.
+	\begin{proof}
+		Nach $a)$ gilt $\forall n\in \N$: 
+		$$a_{n+1} \geq \sqrt{A}\equals \frac{A}{b_{n+1}} \geq \sqrt{A} \equals a \geq \sqrt{A} \cdot b_{n+1} \equals \sqrt{A} \geq b_{n+1}$$
+		Wir erhalten also $a_{n+1} \geq b_{n+1} \forall n\in \N$.
+		Daraus folgt: $$a_{n+1} -a_n= \frac{1}{2}\left(a_n + \frac{A}{a_n}\right) -a_n= \frac{a_n + b_n}{2} -a_m \leq \frac{2a_n}{2} - a_n = 0$$
+	\end{proof}
+	\item \textbf{Z.Z.:} $\lim\limits_{n\to \infty} a_n = \sqrt{A}$.
+	\begin{proof}
+		Wir dürfen voraussetzen, dass $(a_n)_{n\in \N}$ konvergiert. Sei also $\lim\limits_{n\to \infty} a_n = a$. Dann ist nach Lemma 2.5 $\lim\limits_{n\to \infty} a_{n+1} = \lim\limits_{n\to \infty} \frac{1}{2}\left(a_n + \frac{A}{a_n}\right) = \frac{1}{2}\left(a + \frac{A}{a}\right)$. Es gilt zudem: $\lim\limits_{n\to \infty} a_n = \lim\limits_{n\to \infty} a_{n+1}$\\
+		Eingesetzt erhalten wir 
+		\begin{align*}
+		\frac{1}{2}\left(a + \frac{A}{a}\right) &= a\\
+		a + \frac{A}{a} &= 2a&&|-a\\
+		\frac{A}{a} &= a&&|\cdot a\\
+		A &= a^2\\
+		\implies a &= \sqrt{A}
+		\end{align*}
+	\end{proof}
+\end{enumerate}
+
+\section*{Aufgabe 3}
+Nach Definition der komplexen Zahlen existieren $a,b,c,d,e,f\in \R$ mit $z = a + b\cdot i$, $z_1 = c+d\cdot i$ und $z_2 = e+f\cdot i$.
+\begin{enumerate}[(a)]
+	\item $\overline{z_1+z_2} = \overline{c + d\cdot i + e + f\cdot i} = \overline{c + e + (d + f)\cdot i} = c + e - (d+f) \cdot i = c - d\cdot i + e-f\cdot i = \overline{z_1} + \overline{z_2}$
+	\item $\real(z) = \real(a + b\cdot i) = a = \frac{1}{2}(a + a) = \frac{1}{2}(a + b\cdot i + a -b\cdot i) = \frac{1}{2}(z + \overline{z})$\\
+	$\img(z) = \img(a + b\cdot i) = b = -\frac{i^2}{2}(b + b) = -\frac{i}{2}(b\cdot i + b\cdot i) = -\frac{i}{2} (a + b\cdot i  - (a - b\cdot i)) = -\frac{i}{2}(z - \overline{z})$
+	\item $|z| = |a + b\cdot i| = \sqrt{a^2 + b^2} \geq 0$. Sei $|z| = 0$. Dann ist $0 = |z| = \sqrt{a^2 + b^2}$. Nach Quadrieren ergibt sich $a^2 + b^2 = 0$. Da sowohl $a^2\geq 0$ als auch $b^2 \geq 0$ erhalten wir $a = b= 0$ und damit $z = 0 + 0 \cdot i = 0$.
+	\item $|\overline{z}| = |a - b\cdot i| = \sqrt{a^2 + (-b)^2} = \sqrt{a^2 + b^2} = |a + b\cdot i| = |z|$. $z \cdot \overline{z} = (a + b\cdot i) \cdot (a -b\cdot i) = a^2 - (b\cdot i)^2 = a^2 - i^2 \cdot b^2 = a^2 + b^2 = \sqrt{a^2 + b^2}^2 = |a + b\cdot i| ^2 = |z|^2$.
+	\item $|z_1 \cdot z_2| = |(c + d\cdot i) \cdot (e + f\cdot i) = |ce - df + (cf + de)\cdot i| = \sqrt{(ce - df)^2 + (cf + de)^2} = \sqrt{c^2e^2 - 2cdef + d^2f^2 + c^2f^2 + 2cdef + d^2e^2} = \sqrt{c^2e^2 + d^2f^2 + c^2f^2 + d^2e^2} = \sqrt{(c^2 + d^2) \cdot e^2 + (c^2 + d^2) \cdot f^2}=  \sqrt{c^2 + d^2} \cdot \sqrt{e^2 + f^2} = |c + d\cdot i| \cdot | e + f\cdot i| = |z_1|\cdot |z_2|$
+	\item \begin{align*}
+	0 &\leq (cf - de)^2\\
+	0 &\leq (cf)^2 - 2(cf)(de) + de^2\\
+	2cdef &\leq c^2f^2 + d^2e^2\\
+	c^2e^2 + 2cdef + d^2f^2 &\leq c^2e^2 + c^2f^2 + d^2e^2 + d^2f^2\\
+	(ce + df)^2 &\leq c^2e^2 + c^2f^2 + d^2e^2 + d^2f^2\\
+	2 \cdot (ce + df) &\leq 2\sqrt{c^2e^2 + c^2f^2 + d^2e^2 + d^2f^2}\\
+	ce + df + (de -cf)\cdot i + ce + df + (cf -de)\cdot i &\leq 2\sqrt{(c^2 + d^2)(e^2 + f^2)}\\
+	(c + di) \cdot (e -fi) + (e + fi)\cdot (c -di)&\leq 2\sqrt{c^2 + d^2}\sqrt{e^2 + f^2}\\
+	z_1\overline{z_2} + z_2\overline{z_1} &\leq 2|z_1||z_2|&&|+|z_1|^2 + |z_2|^2\\
+	|z_1|^2 + z_1\overline{z_2} + z_2\overline{z_1} + |z_2|^2 &\leq |z_1|^2 + 2|z_1||z_2| + |z_2|^2\\
+	z_1 \cdot \overline{z_1} + z_1\overline{z_2} + z_2\overline{z_1} + z_2\overline{z_2} &\leq (|z_1| + |z_2|)^2\\
+	z_1 \cdot (\overline{z_1} + \overline{z_2}) + z_2 \cdot (\overline{z_1} + \overline{z_2}) &\leq (|z_1| + |z_2|)^2\\
+	(z_1 + z_2) \cdot (\overline{z_1} + \overline{z_2}) &\leq (|z_1| + |z_2|)^2\\
+	(z_1 + z_2) \cdot (\overline{z_1+z_2}) &\leq (|z_1| + |z_2|)^2\\
+	|z_1 + z_2|^2 &\leq (|z_1| + |z_2|)^2\\
+	|z_1 + z_2| &\leq |z_1| + |z_2|\\
+	\end{align*}
+	Es gilt $|z_1| = |z_1 - z_2 + z_2| \leq |z_1-z_2| + |z_2|$. Durch Subtrahieren von $|z_2|$ erhalten wir $|z_1|-|z_2| \leq |z_1-z_2|$. Vertauschen wir nun $z_1$ und $z_2$, so erhalten wir $|z_2|-|z_1| \leq |z_2-z_1| = |z_1-z_2|$. Ist die linke Seite nun positiv, so gilt $||z_1|-|z_2|| = |z_1|-|z_2|\leq |z_1-z_2|$. Ist sie hingegen negativ, so gilt $||z_1|-|z_2|| = |z_2|-|z_1| \leq |z_1-z_2|$. Die umgekehrte Dreiecksungleichung gilt also stets.
+\end{enumerate}
+\section*{Aufgabe 4}
+\begin{enumerate}[(a)]
+	\item \textbf{Z.Z.:} Durch $z = e^{i\frac{\pi}{4}}$ und $z = e^{i\frac{5\pi}{4}}$ sind alle komplexen Lösungen der Gleichung $z^2 = i$ gegeben.
+	\textbf{Beweis:} Es gilt $i = e^{i\frac{\pi}{2}}$. Damit können wir die Gleichung umschreiben zu $z^2 = e^{i\frac{\pi}{2}}$. Nach der obigen Formel ist die $k$-te Lösung der Gleichung gegeben durch $z_k = e^{i\left(\frac{\pi}{4} + k \cdot \frac{2\pi}{2}\right)}$. 
+	Für $k=0$ erhalten wir $z_0 = e^{i\frac{\pi}{4}}$. Quadriert erhält man $z_0^2 = e^{2\cdot i\frac{\pi}{4}} = e^{i\frac{\pi}{2}} = i$.
+	Für $k=1$ ergibt sich $z_1 = e^{i\left(\frac{\pi}{4} + \pi\right)} = e^{i\frac{5\pi}{4}}$. Durch Quadrieren erhalten wir $e^{2\cdot i\frac{5\pi}{4}} = e^{i\frac{10\pi}{4}} = e^{i\left(\frac{\pi}{2} + 2\pi\right)}$. Nach Berücksichtigung der Periodizität mit zwei $\pi$ ist das äquivalent zu $e^{i\frac{\pi}{2}} = i$
+	\item \textbf{Z.Z.:} Durch $z = e^{i\frac{\pi}{4}}$, $z = e^{i\frac{3\pi}{4}}$, $z = e^{i\frac{5\pi}{4}}$ und $z = e^{i\frac{7\pi}{4}}$ sind alle komplexen Lösungen der Gleichung $z^4 = -1$ gegeben.
+	\textbf{Beweis:} Es gilt $-1 = e^{i\pi}$. Damit können wir die Gleichung umschreiben zu $z^2 = e^{i\pi}$. Nach der obigen Formel ist die $k$-te Lösung der Gleichung gegeben durch $z_k = e^{i\left(\frac{\pi}{4} + k \cdot \frac{2\pi}{4}\right)}$.\\
+	Für $k=0$ erhalten wir $z_0 = e^{i\frac{\pi}{4}}$. Mit 4 potenziert erhält man $z_0^4 = e^{4\cdot i\frac{\pi}{4}} = e^{i\pi} = -1$.\\
+	Für $k=1$ ergibt sich $z_1 = e^{i\left(\frac{\pi}{4} + \frac{\pi}{2}\right)} = e^{i\frac{3\pi}{4}}$. Durch Potenzieren mit 4 erhalten wir $e^{4\cdot i\frac{3\pi}{4}} = e^{i\frac{12\pi}{4}} = e^{i\left(\pi + 2\pi\right)}$. Nach Berücksichtigung der Periodizität mit zwei $\pi$ ist das äquivalent zu $e^{i\pi} = -1$.\\
+	Für $k=2$ ergibt sich $z_2 = e^{i\left(\frac{\pi}{4} + \pi\right)} = e^{i\frac{5\pi}{4}}$. 
+	Durch Potenzieren mit 4 erhalten wir $e^{4\cdot i\frac{5\pi}{4}} = e^{i\frac{20\pi}{4}} = e^{i\left(\pi + 2\pi + 2\pi\right)}$. Nach Berücksichtigung der Periodizität mit zwei $\pi$ ist das äquivalent zu $e^{i\pi} = -1$.\\
+	Für $k=3$ ergibt sich $z_2 = e^{i\left(\frac{\pi}{4} + \frac{3\pi}{2}\right)} = e^{i\frac{7\pi}{4}}$. Durch Potenzieren mit 4 erhalten wir $e^{4\cdot i\frac{7\pi}{4}} = e^{i\frac{28\pi}{4}} = e^{i\left(\pi + 2\pi + 2\pi + 2\pi\right)}$. Nach Berücksichtigung der Periodizität mit zwei $\pi$ ist das äquivalent zu $e^{i\pi} = -1$.
+	\item \textbf{Z.Z.:} Durch $z = e^{i\frac{\pi}{4}}$, $z = e^{i\frac{\pi}{2}}$, $z = e^{i\frac{3\pi}{4}}$, $z = e^{i\pi}$ $z = e^{i\frac{5\pi}{4}}$, $z = e^{i\frac{3\pi}{2}}$, $z = e^{i\frac{7\pi}{4}}$ und $z = e^{i2\pi}$ sind alle komplexen Lösungen der Gleichung $z^8 = 1$ gegeben.
+	\textbf{Beweis:} Es gilt $1 = e^{i \cdot 0}$. Damit können wir die Gleichung umschreiben zu $z^2 = e^{i\cdot 0}$. Nach der obigen Formel ist die $k$-te Lösung der Gleichung gegeben durch $z_k = e^{i\left(k \cdot \frac{2\pi}{8}\right)}$.\\
+	Für $k=0$ erhalten wir $z_0 = e^{i\cdot 0}$. Mit 8 potenziert erhält man $z_0^8 = e^{8\cdot i\cdot 0} = e^{i\cdot 0} = 1$.\\
+	Für $k=1$ ergibt sich $z_1 = e^{i\frac{1\cdot \pi}{4}} = e^{i\frac{\pi}{4}}$. Durch Potenzieren mit 8 erhalten wir $e^{8\cdot i\frac{\pi}{4}} = e^{i\cdot 2\pi}$. Nach Berücksichtigung der Periodizität mit zwei $\pi$ ist das äquivalent zu $e^{i\cdot 0} = 1$.\\
+	Für $k=2$ ergibt sich $z_2 = e^{i\frac{2\cdot \pi}{4}} = e^{i\frac{\pi}{2}}$. Durch Potenzieren mit 8 erhalten wir $e^{8\cdot i\frac{\pi}{2}} = e^{i\cdot 4\pi}$. Nach Berücksichtigung der Periodizität mit zwei $\pi$ ist das äquivalent zu $e^{i\cdot 0} = 1$.\\
+	Für $k=3$ ergibt sich $z_3 = e^{i\frac{3\cdot \pi}{4}} = e^{i\frac{3\pi}{4}}$. Durch Potenzieren mit 8 erhalten wir $e^{8\cdot i\frac{3\pi}{4}} = e^{i\cdot 6\pi}$. Nach Berücksichtigung der Periodizität mit zwei $\pi$ ist das äquivalent zu $e^{i\cdot 0} = 1$.\\
+	Für $k=4$ ergibt sich $z_4 = e^{i\frac{4\cdot \pi}{4}} = e^{i\pi}$. Durch Potenzieren mit 8 erhalten wir $e^{8\cdot i\pi} = e^{i\cdot 8\pi}$. Nach Berücksichtigung der Periodizität mit zwei $\pi$ ist das äquivalent zu $e^{i\cdot 0} = 1$.\\
+	Für $k=5$ ergibt sich $z_5 = e^{i\frac{5\cdot \pi}{4}} = e^{i\frac{5\pi}{4}}$. Durch Potenzieren mit 8 erhalten wir $e^{8\cdot i\frac{5\pi}{4}} = e^{i\cdot 10\pi}$. Nach Berücksichtigung der Periodizität mit zwei $\pi$ ist das äquivalent zu $e^{i\cdot 0} = 1$.\\
+	Für $k=6$ ergibt sich $z_6 = e^{i\frac{6\cdot \pi}{4}} = e^{i\frac{3\pi}{2}}$. Durch Potenzieren mit 8 erhalten wir $e^{8\cdot i\frac{3\pi}{2}} = e^{i\cdot 12\pi}$. Nach Berücksichtigung der Periodizität mit zwei $\pi$ ist das äquivalent zu $e^{i\cdot 0} = 1$.\\
+	Für $k=7$ ergibt sich $z_7 = e^{i\frac{7\cdot \pi}{4}} = e^{i\frac{7\pi}{4}}$. Durch Potenzieren mit 8 erhalten wir $e^{8\cdot i\frac{7\pi}{4}} = e^{i\cdot 14\pi}$. Nach Berücksichtigung der Periodizität mit zwei $\pi$ ist das äquivalent zu $e^{i\cdot 0} = 1$.
+	\item \textbf{Z.Z.:} Durch $z = e^{i\frac{\pi}{4}}$ und $z = e^{i\frac{\pi}{2}}$ sind alle komplexen Lösungen der Gleichung $z^2 -2z = i - 1$ gegeben.
+	\textbf{Beweis:} Wir schreiben zunächst die Gleichung um:
+	\begin{align*}
+	z^2 - 2z &= i-1\\
+	z^2 - 2z + 1 &=i\\
+	(z-1)^2 &= i\\
+	\end{align*}
+	Dank Teilaufgabe $(a)$ wissen wir, dass es folgende zwei Möglichkeiten für $(z-1)$ gibt.
+	\begin{itemize}
+		\item $z-1 = e^{i\frac{\pi}{4}}$. Daher ist $z = e^{i\frac{\pi}{4}} +1 = 1 + \sqrt{2} + i\cdot \sqrt{2}$.
+		\item $z-1 = e^{i\frac{5\pi}{4}}$. Daher ist $z = e^{i\frac{5\pi}{4}} + 1 = 1 - \sqrt{2} - i\cdot \sqrt{2}$.
+	\end{itemize}
+\end{enumerate}
+\end{document}
+
