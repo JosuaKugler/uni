@@ -1,0 +1,100 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath,amssymb,amstext,amsthm}
+\title{Experimentieren und Auswerten}
+\author{Josua Kugler}
+\begin{document}
+	\tableofcontents
+	\section{Gültige Ziffern}
+	Alle angegebenen Ziffern, abzüglich führender Nullen werden als gültige Ziffern bezeichnet.
+	\paragraph{Bsp.:} Sie zählen 7 Umdrehungen eines Rades in 11 Sekunden.\\
+	Mathematiker:$\dfrac{7}{11}$\\
+	Taschenrechner: $0.63636364$\\
+	Physiker: ?
+	Anzahl der geltenden Ziffern: eine$\to\ 0.6$
+	\section{Fehlerquellen}
+	An der Genauigkeit da arbeiten, wo der Fehler am meisten ausmacht.
+	\subsection{Fehlerquellen}
+	\begin{itemize}
+		\item Instrument
+		\subitem Auflösungsgenauigkeit
+		\subitem Genauigkeit der genutzten Bauteile (ist bei Waagen angegeben)
+		\subitem falsche Eichung oder Tarierung
+		\item Experimentator(z.B. Reaktionszeit)
+		\subitem Ablesefehler
+		\subitem menschliche Unzulänglichkeiten
+		\subitem Gewöhnungseffekt bei häufiger Wiederholung
+		\item Modell (z.B. Vernachlässigung der Reibung)
+		\subitem Vernachlässigung von Kräften
+		\subitem andere Näherungen
+		$\to$ alle drei Fehlerquellen bedenken!
+	\end{itemize}
+	\section{Fehlerarten}
+	\subsection{systematische Fehler}
+	\paragraph{systematische Fehler: Offset}
+	\begin{itemize}
+		\item wert-und zeitunabhängig
+		\item z.B. Reaktionszeit beim Stoppen
+		\item durch geschicktes Messen eliminieren
+		\item oder Formeln anpassen
+		\item ansonsten angeben!
+	\end{itemize}
+	\paragraph{systematische Fehler: Drift}
+	\begin{itemize}
+		\item zeitabhängig bzw. nutzungsabhängig (Messwerte verschieben sich mit der Zeit)
+		\subitem z.B. sich erhitzender Innenwiderstand eines Amperemeters
+		\item meist nur schwer kompensierbar(Kalibrationskurve)
+	\end{itemize}
+	\paragraph{systematischer Fehler: Restfehler}
+	\begin{itemize}
+		\item nicht korrigierbar
+		\item in der Regel am Messgerät oder dessen Dokumentation zu finden
+	\end{itemize}
+	\subsection{Statistische Fehler}
+	\begin{itemize}
+		\item zufällig oder unbeeinflussbar
+		\item treten immer auf $\to$ immer angeben!
+		\item Messwerte oft annähernd gaußverteilt($e^{-\frac{(x-\overline{x})^2}{2\sigma^2}}$)
+		\item Standardabweichung $\sigma$ durch mehrere Messungen ermitteln
+	\end{itemize}
+	\begin{itemize}
+		\item Mittelwert der Messwerte:
+		\[\overline{x}=\dfrac{1}{n}\sum_{i=1}^{n}x_i\]
+		\item Empirische Standardabweichung der Verteilung 
+		\[\sigma_{x,n-1} =\sqrt{\dfrac{1}{n-1}\ast \sum_{i=1}^{n}(x_i-\overline{x})^2}\]
+		\item Empirische Standardabweichung des Mittelwerts
+		\[s_x=\dfrac{1}{\sqrt{n}\ast \sigma_{x,n-1}}\]
+	\end{itemize}
+	\section{Fehlerfortpflanzung}
+	\subsection{Gaußsches Fehlerfortpflanzungsgesetz}
+	Ist $G(x,y,...)$ eine Funktion der unabhängigen Messgrößen $x,y,...$ mit den Fehlern $\delta x,\delta y,...$, so erhält man den statistischen Fehler $\delta G$ nach Gauß:
+	\[\delta G_{Gauss} = \sqrt{\left(\dfrac{\delta G}{\delta x}\left|_{x_0,y_0,\dots}\delta x\right.\right)^2 +\left(\dfrac{\delta G}{\delta y}\left|_{x_0,y_0,\dots}\delta x\right.\right)^2+\dots}\]
+	\subsection{Spezialfälle}
+	\begin{itemize}
+		\item Eine fehlerbehaftete Messgröße $G(x)$ \[\delta G_{Gauss} = \dfrac{\partial G}{\partial x}\ast \delta x\]
+		\item Summe oder Differenz $G(x,y,z...)=x\pm y\pm...$ fehlerbehafteter Messgrößen \[\delta G_{Gauss},\pm =\sqrt{(\delta x)^2+(\delta y)^2+\dots}\]
+		\item Produkt und Quotienten $G(x,y,\dots)=\dfrac{x^r\ast y^s}{z^t\ast \dots}\ast \dots$ \[\dfrac{\delta G}{G}=\sqrt{\left(r\frac{\delta x}{\delta x}\right)^2+\left(s\frac{\delta y}{y}\right)^2+\dots}\]
+	\end{itemize}
+	\section{Graphische Auswertung}
+	\begin{itemize}
+		\item Ein Graph sagt mehr als 1000 Werte
+		\item Achsenbeschriftung
+		\item Einfach immer Linearisieren!
+	\paragraph{\glqq Geraden werden geraten\grqq}
+		\item nur Geraden lassen sich nach Augenmaß fitten
+		\item Achsen transformieren, damit sich eine Gerade ergibt
+		\item Steigung und Achsenabschnitt der Geraden lassen sich oft nutzen (z.B. Federhärte,...)
+		\item Durch drei Messpunkte legt man keine Gerade...
+	\paragraph{logarithmische Achsen}
+		\item einfache logarithmische Abszisse ($x$-Achse)
+		\subitem Logarithmen werden zu Geraden
+		\item einfache logarithmische Ordinate
+		\subitem Exponentialfunktionen werden zu Geraden
+		\item doppelt logarithmische Graphen
+		\subitem Potenzfunktionen werden Geraden
+		\subitem Steigung entspricht Exponenten
+	\end{itemize}
+
+\end{document}
