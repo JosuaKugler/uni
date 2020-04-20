@@ -1,0 +1,54 @@
+\documentclass[a4paper,10pt]{report}
+
+% Definitions
+\usepackage{lscape}
+\usepackage[height=25cm]{geometry}
+\usepackage{timetable}
+
+\begin{document}
+\thispagestyle{empty}
+\begin{landscape}
+\noindent\printheading{Studenplan von Josua Kugler - 2. Semester}
+
+% Define the layout of your time tables
+\setslotsize{2.8cm}{0.3cm}
+\setslotcount {5} {40}
+\settopheight{3}
+\settextframe{0.8mm}
+
+% Retro
+\setframetype[t]{1}
+\seteventcornerradius{0pt}
+
+% Print timestamps into event blocks
+%\setprinttimestamps{2}
+
+% Define event types
+\defineevent{lecture}			{0.0} 	{0.28}	{1.0} 	{1.0}	{1.0}	{1.0}
+\defineevent{exercise-course} 	{1.0} 	{0.4} 	{0.2} 	{1.0}	{1.0}	{1.0}
+\defineevent{tutorial}   		{0.6} 	{0.8} 	{1.0} 	{1.0}	{1.0}	{1.0}
+\defineevent{langcourse} 		{1.0} 	{0.4} 	{0.2} 	{1.0}	{1.0}	{1.0}
+\defineevent{work}       		{0.21}	{0.5} 	{0.16}	{1.0}	{1.0}	{1.0}
+
+% Start the time table
+\begin{timetable}
+  \hours{9}{15}{2}
+  \germandays{1}
+  \event 2 {0930} {1100} {Lineare Algebra II}             {Vogel}      	  {INF 252 gHS} 		{lecture}
+  \event 2 {1115} {1300} {Theoretische Physik II}         {Bartelmann}    {INF 308 HS1}     {lecture}
+  \event 2 {1415} {1600} {Einführung in die Numerik}      {Bastian}      	{INF 252 gHS}    	{lecture}
+  \event 3 {0930} {1100} {Analysis II}     							  {Kostina}     	{INF 252 gHS}     {lecture}
+  \event 4 {0930} {1100} {Lineare Algebra II}             {Vogel}         {INF 252 gHS} 		{lecture}
+  \event 4 {1115} {1300} {Theoretische Physik II} 		    {Bartelmann}   	{INF 308 HS1}    	{lecture}
+  \event 4 {1415} {1600} {Einführung in die Numerik}      {Bastian}       {INF 252 gHS}    	{lecture}
+  \event 5 {1115} {1245} {Analysis II}      		   				{Kostina}       {INF 252 gHS}    	{lecture}
+  \event 5 {1615} {1745} {Einführung in die Mengenlehre}  {Hauser}        {INF 205 SRA}     {lecture}        
+  %Übungsgruppen
+  %\event 1 {1615} {1800} {Theoretische Physik}						{Nr.13 Kokron}	{INF 227 SR3.402}	{exercise-course}
+  %\event 5 {0915} {1100} {Experimentellle Physik}					{Nr.08 Butz}	{INF 501 R.102}		{exercise-course}
+  %\event 1 {0930} {1100} {Lineare Algebra}							{Kliemann}		{M	kon SR2}	{exercise-course}
+  %\event 5 {1415} {1600} {Analysis}									{Müller}		{Mkon SR4}	{exercise-course}
+  %\event 3 {1415} {1600} {Einführung in die praktische Informatik}	{Schenk}		{Mkon SR6}	{exercise-course}
+\end{timetable}
+\end{landscape}
+\end{document}

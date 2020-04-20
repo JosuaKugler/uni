@@ -1,5 +1,11 @@
 #my stuff
 la/skript.pdf
+*.mp4
+passwords.py
+
+## Python files
+*__pycache__/*
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
