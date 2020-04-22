@@ -18,7 +18,7 @@ r = s.post(url, data=payload)
 cookie = {'PHPSESSID': requests.utils.dict_from_cookiejar(s.cookies)['PHPSESSID']}
 
 #else use this cookie:
-#cookie = {'PHPSESSID': 'd2jrecj4g5fhshv4pd542b6vd6'}
+#cookie = {'PHPSESSID': 'vqlb7608ubtl16pugalc210827'}
 print(cookie)
 
 theo1 = s.get(scrapeurl, cookies = cookie)

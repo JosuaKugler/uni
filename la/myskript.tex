@@ -1,0 +1,284 @@
+\documentclass{article}
+\usepackage{josuamathheader}
+
+\title{Lineare Algebra 2}
+\author{Josua Kugler}
+\setcounter{section}{-1}
+\begin{document}
+    \section{Unitäre Räume}
+    \textbf{Ziel:} Entwicklung einer analogen Theorie zur reellen Theorie der euklidischen Vektorräume für $\C$-Vektorräume.\\
+    \textbf{Vorwissen:} Kenntnis der Theorie der euklidischen Räume (viele Beweise analog)
+    \subsection{Unitäre Räume und der Spektralsatz}
+    \begin{notatio}
+        In diesem Abschnitt sei $V$ stets ein endlicher $\C$-Vektorraum.
+    \end{notatio}
+    \begin{definition}
+        $h: V\times V \to \C$ heißt eine Sesquilinearform auf $V$, falls
+        \begin{itemize}
+            \item[(S1)] $h$ ist linear im ersten Argument, d.h.
+            $$h(v_1 + v_2, w) = h(v_1, w) + h(v_2, w), h(\lambda v, w) = \lambda h(v,w)$$ für alle $v_1, v_2, w \in V, \lambda \in \C$
+            \item[(S2)] $h$ ist semilinear im zweiten Argument, d.h.
+            $$ h(v, w_1 + w_2) = h(v, w_1) + h(v, w_2),\qquad
+            h(v, \lambda w) = \overline{\lambda} h(v, w)$$ für alle $v, w_1, w_2\in V, \lambda \in \C.$
+        \end{itemize}
+    \end{definition}
+    \begin{anmerkung}
+        \begin{itemize}
+            \item \textit{sesqui} heißt 1.5
+            \item In der Literatur gelegentlich auch Semilinearität im ersten Argument und Linearität im zweiten Argument.
+        \end{itemize}
+    \end{anmerkung} 
+    \begin{bsp}
+        \label{examplesesqui}
+        $h: \C^n \to \C ^n, h(x, y) = x^t \overline{y}$ ist eine Sesquilinearform auf $\C^n$:
+        \begin{align*}
+            (x_1 + x_2)^t y &= x_1^t y+ x_2^t y\\
+            x^t(\overline{y_1 + y_2}) &= x^t \overline{y_1} + x^t\overline{y_2}\\
+            x^t\overline{\lambda y} &= \overline{\lambda} x^t \overline{y}
+        \end{align*}
+        für $x_1, x_2, y, y_1, y_2 \in \C^n$.\\
+        $h$ ist für $n>0$ keine Bilinearform:
+        $$h\left(\begin{pmatrix}
+            1 \\ 0 \\ \vdots \\ 0
+        \end{pmatrix}, i \begin{pmatrix}
+            1 \\ 0 \\ \vdots \\ 0
+        \end{pmatrix}\right) = (1,0, \dots, 0)\begin{pmatrix}
+            -i \\ 0 \\ \ddots \\ 0
+        \end{pmatrix}
+        = -i \neq i h\left(\begin{pmatrix}
+            1 \\ 0 \\ \vdots \\ 0
+        \end{pmatrix}, i \begin{pmatrix}
+            1 \\ 0 \\ \vdots \\ 0
+        \end{pmatrix}\right) = i$$
+    \end{bsp}
+    \begin{definition}  
+        $V\ \C$-Vektorraum, $h$ Sesquilinearform auf $V$.
+        $h$ heißt \textbf{hermitesch} $\equals$ $h(v,w) = \overline{h(v,w)}$ für alle $v, w\in V$.
+    \end{definition}
+    \begin{anmerkung}
+        In diesem Fall ist $h(v,v) = \overline{h(v,v)}$ für alle $v \in V$, d.h. $h(v,v) \in \R$ für alle $v\in V$.
+    \end{anmerkung}
+    \begin{bsp}
+        $h(x,y) \coloneqq x^t\overline{y}$ aus Bsp. \ref{examplesesqui} ist hermitesch:
+        Für $x, y\in \C^n$ ist $h(y,x) = y^t\overline{x} = (y^t\overline{x})^t = \overline{x}^t (y^t)^t = \overline{x}^t y = \overline{x^t\overline{y}} = \overline{h(x,y)}$.
+        Hier ist $h(x,x) = x^t\overline{x} = (x_1, \dots, x_n) \cdot \begin{pmatrix}
+            \overline{x_1}, \ddots, \overline{x_n}
+        \end{pmatrix} = x_1\overline{x_1} + \dots + x_n\overline{x_n} = |x_1|^2 + \dots + |x_n|^2 \in \R$
+    \end{bsp}
+    \begin{definition}
+        $h: V\times V \to \C$ Sesquilinearform, $B = (v_1, \dots, v_n)$ Basis von $V$.
+        $$M_B = (h(v_i, v_j))_{1\leq i, j\leq n} \in M_{n,n}(\C)$$
+        heißt die Fundamentalmatrix von $h$ bzgl. $B$. (Darstellungsmatrix).
+    \end{definition}
+    \begin{bsp}
+        Für $h = x^t\overline{y}$ , $B = (e_1, \dots, e_n)$ (kanonische Basis) ist $$M_B (h) = \begin{pmatrix}
+            1 & & 0\\
+             & \ddots & \\
+             0 && 1
+        \end{pmatrix} = E_n$$ 
+    \end{bsp}
+    \begin{definition}
+        \label{def:adjungiert}
+        $M \in M_{n,n} (\C)$.
+        $M^* \coloneqq \overline{M}^t$ heißt die zu $M$ adjungierte Matrix.\\
+        $M$ heißt \textbf{hermitesch} $\equals$ $M = M^*$
+    \end{definition}
+    \begin{anmerkung}
+        Achtung: Nicht verwechseln mit der adjunkten Matrix.
+    \end{anmerkung}
+    \begin{satz}
+        $\operatorname{Sesq} (V) \coloneqq \{h : V \times V \to \C\ |\ h \text{ ist Sesquilinearform}\}$ ist ein $\C$-Vektorraum. (Untervektorraum von $\C$-Vektorraum $\operatorname{Abb} (V\times V, \C)$).
+        Die Abbildung:
+        $$M_B: \operatorname{Sesq} (V) \to M_{n,n}(\C),\quad h \mapsto M_B(h)$$ ist ein Isomorphismus von $\C$-Vektorräumen mit Umkehrabbildung
+        $$h_B : M_{n,n}(\C) \to \operatorname{Sesq}(V), \quad A\mapsto h_B(A)$$ mit $$h_B(A): V\times V \to \C, (\sum_{i = 1}^{n}x_iv_i, \sum_{j = 1}^{n} y_jv_j) \mapsto x^t A \overline{y} \text{ mit } x = \begin{pmatrix}
+            x_1\\\vdots\\x_n
+        \end{pmatrix}, 
+        y = \begin{pmatrix}
+            y_1\\\vdots\\y_n
+        \end{pmatrix}$$
+        Es gilt $h$ hermitesch $\equals$ $M_B(h)$ hermitesch.
+    \end{satz}
+    \begin{proof}\ 
+        \begin{itemize}
+            \item $h_B$ ist wohldef: $h_B(A)$ ist Sesquilinearform analog zu Rechnung in Bsp. \ref{examplesesqui}
+            \item $M_B, h_B$ sind $C$-linear: klar
+            \item $M_B \circ h_B = \mathrm{id}$, denn: 
+            Sei $A = (a_{ij})\in M_{n,n} (\C) \implies h_B(A) (v_i, v_j) = e_i^t A\overline{e_j} = a_{ij}$ (d.h. Darstellungsmatrix von $h_B(A)$ bzgl. $B$ ist $A$).
+            \item $h_B\circ M_B = \mathrm{id}$, denn: Sei $h\in \operatorname{Sesq}(V)\implies h_B(M_B(h))(v_i, v_j) = e_i^t M_B(h) \overline{e_j} = h(v_i, v_j) \implies h_B(M_B(h)) = h$
+            \item Für $h \in \operatorname{Sesq}(V)$ ist 
+            \begin{align*}
+                h \text{ hermitesch} &\equals h(w,v) = \overline{h(v,w)} \text{ für alle } v,w \in V\\
+                &\equals h(v_j, v_i) = \overline{h(v_i, v_j)} \text{ für alle $i, j=1,\dots, n$}\\
+                &\equals M_B(h)^t = \overline{M_B(h)}\\
+                &\equals M_B(h) = \overline{M_B(h)}^t = M_B(h)^*
+            \end{align*}
+        \end{itemize}
+    \end{proof} 
+    \begin{satz}
+        $\mathcal{A}, \mathcal{B}$ Basen von $V$, $h$ Sesquilinearform auf $V$.\\
+        Dann gilt $$M_\mathcal{B}(h) = \left(\overline{T_\mathcal{A}^\mathcal{B}}\right)^t M_\mathcal{A}(h)\ \ \overline{T^\mathcal{B}_\mathcal{A}} ,$$ wobei $T^\mathcal{B}_\mathcal{A} = M^\mathcal{B}_\mathcal{A}(\mathrm{id}_V)$.
+    \end{satz}
+    \begin{definition}
+        $h$ hermitesche Form.\\
+        $h$ heißt \textbf{positiv definit} $\equals$ $h(v,v) > 0$ für alle $v\in V, v > 0$.
+        Eine positiv definite hermitesche Sesquilinearform nennt man auch ein (komplexes) \textbf{Skalarprodukt}.
+    \end{definition}
+    \begin{bsp}
+        $V = \C^n, \langle \dot, \dot \rangle: \C^n \times C^n, \langle x, y\rangle \coloneqq x^t\overline{y}$ ist ein Skalarprodukt (Standardskalarprodukt auf $\C^n$), denn
+        $\langle x, x \rangle = |x_1|^2 + \dots + |x_n| ^2 > 0$ für alle $x = \begin{pmatrix}
+            x_1\\\vdots\\x_n
+        \end{pmatrix} \in \C^n, x \neq 0$
+    \end{bsp}
+    \begin{definition}
+        Ein unitärer Raum ist ein Paar $(V, h)$ bestehend aus einem endlichdimensionalen $\C$-Vektorraum $V$ und einem Skalarprodukt $h$ auf $V$.
+    \end{definition}
+    \begin{definition}
+        $(V, h)$ unitärer Raum, $v\in V$\\
+        $$||v||\coloneqq \sqrt{\langle v, v\rangle}$$
+        heißt die \textbf{Norm} von $V$
+    \end{definition}
+    \begin{satz}
+        $(V,h)$ sei ein unitärer Raum. Dann gilt:
+        \begin{enumerate}[(a)]
+            \item $||x + y || \leq ||x|| + ||y||$ (Dreiecksungleichung)
+            \item $|h(x,y)| \leq ||x||\cdot ||y||$ für alle $x, y\in V$ (Cauchy-Schwarz-Ungleichung)
+        \end{enumerate}
+    \end{satz}
+    \begin{proof}
+        (b) Seien $x, y\in V$.\\
+        Falls $x = 0$, dann $h(x,y) = h(0, y) = 0 = ||0||\cdot ||y||$.
+        Im Folgenden sei also $x\neq 0$.\\
+        Setze $\alpha \coloneqq \frac{h(y,x)}{||x||^2}, w \coloneqq y - \alpha x$.\\
+        $\implies h(w,x) = h(y - \alpha x, x) = h(y - \frac{h(y,x)}{||x||^2} x , x) = h(y,x) - \frac{h(y,x)}{||x^2||} h(x,x) = 0$\\
+        $\implies ||y^2|| = || w + \alpha x||^2 = h(w + \alpha x, w + \alpha x) = ||w||^2 + \alpha\overline{\alpha}h(x,x) = \underbrace{||w||^2}_{\geq 0} + ||\alpha||^2 ||x||^2$\\
+        $\implies ||y|| \geq ||\alpha||\cdot ||x|| = \frac{|h(y,x)|}{||x||^2} ||x|| = \frac{|h(x,y)|}{||x||}$\\
+        (a) $||x+y|| = h(x+y, x+y) = ||x||^2 + ||y||^2 + h(x,y) +  \underbrace{h(y,x)}_{= \overline{h(x,y)}} = ||x||^2 + ||y||^2 + 2 \operatorname{Re}(H(x,y)) \leq ||x||^2 + ||y||^2 + 2 |h(x,y)| \overset{\text{C.S.}}||x||^2 + ||y||^2 + 2||x|| \cdot ||y|| = (||x|| + ||y||)^2$
+    \end{proof}
+    \begin{definition}
+        $(v_1, \dots, v_n)$ Basis von $V$\\
+        $(v_1, \dots, v_n)$ heißt eine \textbf{Orthogonalbasis} (OB) von $V$ $\overset{\text{Def}}{\equals} h(v_i, v_j) = 0$ für $i\neq j$ und \textbf{Orthonormalbasis} (ONB) von $V$ $\overset{\text{Def}}{\equals} h(v_i, v_j) = \delta_{ij}$.
+    \end{definition}
+    \begin{satz}
+        \label{existenz_onb}
+        $(V, h)$ unitärer Raum. Dann hat $V$ eine ONB
+    \end{satz}
+    \begin{proof}
+        \textbf{g.z.z.:} $(V,h)$ hat eine OB (normieren der Basisvektoren liefert dann ONB).
+        Beweis per Induktion nach $n = \dim V$.\\
+        $n = 0, 1:$ trivial.\\
+        $n \geq 2$. Wähle $v_1 \in V, v_1 \neq 0$\\
+        Setze $H \coloneqq \{w \in V | h(w, v_1) = 0\}$\\
+        Die Abbildung $\varphi : V \to \C, w\mapsto h(w, v_1)$ ist Linearform mit $\ker \varphi = H$.\\
+        $\implies \dim H = \dim \ker \varphi = \dim V - \dim \im \varphi \in \{n, n-1\}$\\
+        Wegen $h(v_1, v_1) > 0$ ist $v_1 \notin H$, somit $\dim H = n-1$.\\
+        $\implies (H, h|_{H\times H})$ ist ein unitärer Raum der Dimension $n-1$.\\
+        $\implies H$ hat ONB $(v_2, \dots, v_n)$
+        $\implies (v_1, v_2, \dots, v_n)$ ist OB von $V$.
+    \end{proof}
+    \begin{anmerkung}
+        Gram-Schmidt-Verfahren (wie über $\R$) liefert Algorithmus zur Bestimmung einer Orthonormalbasis.
+    \end{anmerkung}
+    \begin{definition}
+        $(V, h)$ unitärer Raum, $U\subseteq V$ Untervektorraum\\
+        $U^\perp = \{v\in V\ |\ h(v,u) = 0\}$ für alle $u\in U$ heißt das \textbf{othogonale Komplement} zu $U$.
+        $U, W$ Untervektorräume von V mit $V = U \oplus W$ und $h(u, w) = 0$ für alle $u\in U, w \in W$.
+        Dann heißt $V$ die \textbf{orthogonale direkte Summe} von $U$ und $W$.
+        \begin{notatio}
+            $V = U\hat{\oplus} W$
+        \end{notatio}
+    \end{definition}
+    \begin{satz}
+        $(V,h)$ unitärer Raum, $U\subseteq V$ Untervektorraum. Dann gilt:
+        $$V = U\hat{\oplus} U^\perp$$
+    \end{satz}
+    \begin{proof}
+        \begin{enumerate}[(1)]
+            \item Behauptung: $V = U + U^\perp$, denn:
+            Sei $(u_1, \dots, u_n)$ ONB von $U$ ($\exists$ nach \ref{existenz_onb})\\
+            Sei $v\in V$. Setze $v' \coloneqq v - \sum_{j = 1}^{m} h(v, u_j) u_j$.
+            Für $i = 1,\dots, m$ ist $$h(v', u_i) = h(v, u_i) - \sum_{j = 1}^{m}h(v, u_j)\underbrace{h(u_j, u_i)}_{\delta_{ij}} = h(v, u_i) - h(v, u_i) = 0.$$
+            $\implies v'\in U^\perp$\\
+            $\implies v = \underbrace{v'}_{\in U^\perp} + \underbrace{\sum_{j = 1}^{m}h(v, u_j)u_j}_{\in U} \in U + U^\perp$
+            \item $U\cap U^\perp = \{0\}$, denn $u \in U\cap U^\perp \implies h(u,u) = 0 \implies u = 0$
+            \item Wegen (1) und (2) ist $V = U \oplus U^\perp$.
+        \end{enumerate}
+    \end{proof}
+    \begin{definition}
+        $(V, h_V), (W, h_W)$ unitäre Räume, $\varphi: V \to W$ lin. Abb.\\
+        $\varphi$ heißt \textbf{unitär} $\equals h_W(\varphi(v_1), \varphi(v_2)) = h_V(v_1, v_2)$ für alle $v_1, v_2\in V$. 
+    \end{definition}
+    \begin{anmerkung}
+        Ist $\varphi\in \operatorname{End}(V)$ ein unitärer Endomorphismus, dann ist $\varphi$ ein Isomorphismus, denn: $\varphi$ ist injektiv wegen $\varphi(v) = 0 \implies 0 = h(\varphi(v), \varphi(v)) = h(v,v) \implies v = 0$. Wegen $\dim V < \infty$ folgt $\varphi$ surjektiv.
+    \end{anmerkung}
+    \begin{bemerkung}
+        $(V,h)$ unitärer Raum, $B = (v_1, \dots, v_n)$ ONB von $(V,h)$\\
+        Dann ist die Abbildung $(\C^n, \langle \cdot, \cdot\rangle) \to (V, h), e_i \mapsto v_i$ ein unitärer Isomorphismus, d.h. $(V,h)$ ist unitär isomorph zu $(\C^n, \langle \cdot, \cdot \rangle)$
+    \end{bemerkung}
+    \begin{proof}
+        $h(\varphi(e_i), \varphi(e_j)) = h(v_i, v_j) = \delta_{ij} = \langle e_i, e_j\rangle$
+    \end{proof}
+    \begin{definition}
+        Sei $A \in M_{n,n}$. Dann heißt $A$ \textbf{unitär} $\overset{\text{Def}}{\equals} A^*\cdot A = E_n$. Außerdem definieren wir
+        $U(n) = \{A \in M_{n,n}(\C)| A \text{ ist unitär}\}$. 
+        $U(n)$ ist eine Gruppe bzgl. \glqq $\cdot$ \grqq, die \textbf{unitäre Gruppe} vom Rang $n$. Schließlich ist
+        $SU(n)\coloneqq \{A \in U(n) | \det(A) = 1\}$ eine Untergruppe von $U(n)$, die \textbf{spezielle unitäre Gruppe}.
+    \end{definition}
+    \begin{bemerkung}
+        $A\in M_{n,n} (\C)$. Dann sind äquivalent.:
+        \begin{enumerate}[(i)]
+            \item $A$ ist unitär
+            \item Die Abbildung $(C^n, \langle \cdot, \cdot\rangle) \to (\C^n, \langle \cdot, \cdot\rangle), x\mapsto Ax$ ist unitär. Hierbei ist $\langle\cdot,\cdot\rangle$ das Standardskalarprodukt.
+        \end{enumerate}
+    \end{bemerkung}
+    \begin{proof}
+        $\langle Ax, Ay\rangle = (Ax)^t\overline{Ay} = x^t A^t \overline{A}\overline{y}$\\
+        Es gilt: Die Abbildung aus $(ii)$ unitär
+        \begin{align*}
+            &\equals x^tA^t\overline{A}\overline{y} = \langle x, y \rangle = x^t\overline{y} \text{ für alle } x, y \in \C^n\\
+            &\equals h_{(e_1, \dots, e_n)}(A^t\overline{A}) = h_{(e_1, \dots, e_n)}(E_n)\hspace*{2cm}&&\text{(vgl. Definition \ref{def:adjungiert})}\\
+            &\overset{0.7}{\equals} A^t\overline{A} = E_n\\
+            &\equals \overline{A}^t(A^t)^t = E_n\\
+            &\equals \overline{A}^tA = E_n\\
+            &\equals A^* A = E_n\\
+            &\equals A \text{ ist unitär}
+        \end{align*}
+    \end{proof}
+    \begin{bemerkung}
+        $(V,h)$ unitärer Raum, $f \in \operatorname{End}(V)$.
+        Dann existiert genau ein $f^* \in \operatorname{End}(V)$ mit 
+        $$h(f(x), y) = h(x, f^*(y))\hspace{2cm} \text{für alle $x, y\in V$}$$
+        $f^*$ heißt die \textbf{zu $f$ adjungierte Abbildung}. Ist $B$ eine ONB von $(V,h)$, dann ist $M_B(f^*) = M_B(f)^*$
+    \end{bemerkung}
+    \begin{proof}
+        Analog zu LA1, 19/20, Def. + Lemma 5.48
+    \end{proof}
+    \begin{definition}
+        $(v,h)$ unitärer Raum, $f\in \operatorname{End}(V), A\in M_{n,n}(\C)$.\\
+        $f$ heißt \textbf{selbstadjungiert} $\overset{\text{Def.}}{\equals} f^* = f$\\
+        $f$ heißt \textbf{normal} $\overset{\text{Def.}}{\equals} f^*\circ f = f \circ f^*$\\
+        $A$ heißt \textbf{selbstadjungiert} $\overset{\text{Def.}}{\equals} A^* = A$\\
+        $A$ heißt \textbf{normal} $\overset{\text{Def.}}{\equals} A^*A = AA^*$\\
+    \end{definition}
+    \begin{anmerkung}
+        $A$ selbstadjungiert $\equals A$ hermitesch
+    \end{anmerkung}
+    \begin{bemerkung}
+        $(V,h)$ unitärer Raum, $f\in \operatorname{End}(V)$.\\
+        Dann gilt:
+        \begin{enumerate}[(a)]
+            \item $f$ unitär $\implies f$ normal
+            \item $f$ selbstadjungiert $\implies f$ normal 
+        \end{enumerate} 
+        Für $A\in M_{n,n} (\C)$ gilt: $A$ unitär $\implies A$ normal, $A$ selbstadjungiert $\implies A$ normal.
+    \end{bemerkung}
+    \begin{proof}
+        \begin{enumerate}[(a)]
+            \item Seien $v,w\in V$\\
+            \begin{align*}
+                &\overset{f \text{ Iso.(da unitär)}}{\implies} h(v, f^{-1}(w)) \overset{\text{$f$ unitär}} h(f(v), f(f^{-1}(w))) = h(f(v), w)\\
+                &\overset{\text{0.23 Eind.}} f^* = f^{-1} \implies f^* \circ f = f^{-1} \circ f = \operatorname{id}_V = f \circ f^{-1} = f \circ f^*\\
+            \end{align*}
+            \item $f$ selbstadjungiert $\implies f^* = f \implies f^* \circ f = f\circ f = f\circ f^*$
+        \end{enumerate}
+    \end{proof}
+\end{document}

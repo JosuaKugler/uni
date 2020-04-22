@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage{josuamathheader}
+\title{wichtige Begriffe im Zusammenhang mit Matrizen}
+\begin{document}
+Im Folgenden sei $M$ stets eine Matrix $\in M_{n, n}(K)$ und $V$ ein $K$-VR.
+    \section{invertierbar}
+    \begin{itemize}
+        \item $\operatorname{rg}(M) = n$
+        \item $\det M \neq 0$
+        \item $M\in \operatorname{GL}_n(K)$
+        \item $\det M = 1 \implies M \in \operatorname{SL}_n(K)$
+    \end{itemize}
+    \section{diagonalisierbar}
+    \begin{itemize}
+        \item Es gibt eine Basis von $V$ aus Eigenvektoren von $M$.
+        \item $\exists S \in \operatorname{GL}_n(K): S^{-1} M S$ hat Diagonalgestalt
+        \item notwendig: $\chi_\text{char} (M)$ zerfällt in Linearfaktoren $\Leftrightarrow$ trigonalisierbar
+        \item hinreichend: $\chi_\text{char} (M)$ zerfällt in paarweise verschiedene Linearfaktoren
+        \item $\displaystyle \sum_{\lambda\text{ EW von } M}\mu_\text{geo} = n$
+    \end{itemize}
+    \section{symmetrisch}
+    \begin{itemize}
+        \item symmetrisch $\Leftrightarrow M = M^t$ (antisymmetrisch $\Leftrightarrow M = -M^t$)
+        \item $\exists S \in \operatorname{GL}_n(K)$ mit $S^t M S$ hat Diagonalgestalt
+        \item $K = \C$: $\exists S \in \operatorname{GL}_n(K)$ mit $S^t M S = \operatorname{diag}(\underbrace{1,\dots,1}_{r},0,\dots, 0)$
+        \item $K = \R$: $\exists S \in \operatorname{GL}_n(K)$ mit $S^t M S = \operatorname{diag}(\underbrace{1,\dots,1}_{r_+},\underbrace{-1,\dots, -1}_{r_-},0,\dots, 0)$
+    \end{itemize}
+    \section{positiv definit}
+        \begin{itemize}
+            \item Die dazugehörige Bilinearform ist positiv definit.
+            \item $\exists$ obere Dreiecksmatrix  $T \in \operatorname{GL}_n(K)$ mit $G = T^tT$
+            \item $\exists T \in \operatorname{GL}_n(K)$ mit $G = T^tT$
+            \item $\exists T \in \operatorname{GL}_n(K)$ mit $(T^{-1})^tG(T^{-1}) = E_n$, dabei ist $T$ die Transformationsmatrix von der Standardbasis zu einer Orthogonalbasis bezüglich der von $M$ induzierten Bilinearform.
+            \item Die $k$-ten Hauptminoren sind positiv.
+        \end{itemize}
+    \section{orthogonal}
+    \begin{itemize}
+        \item $M^tM = E_n$
+        \item Die assoziierte lineare Abbildung ist eine Isometrie
+        \item $M \in O(n)$
+        \item $\det M = 1\implies M \in \operatorname{SO}(n)$
+    \end{itemize}
+    \section{adjungiert}
+    \begin{itemize}
+        \item Ist $M^*$ die Adjungierte von $M$, so gilt für die assoziierten linearen Abbildungen $f$ und $f^*$: $h(x, f(y)) = h(f^*(x), y)$, wobei
+        \begin{itemize}
+            \item $K = \R$: $V$ euklidisch ($h$ positiv definit und symmetrisch), $h$ bilinear, $M^* = M^t \implies h(x, f(y)) = x^t M y = (M ^t x)^t y = h(f^*(x), y)$
+            \item $K = \C$: $V$ unitär ($h$ positiv definit, hermitesch), $h$ sesquilinear, $M^* = \overline{M}^t \implies h(x, f(y)) = x^t \overline{My} = (\overline{M}^tx)^ty = h(f^*(M), y)$
+        \end{itemize}
+        \item offensichtlich ist (in Bezug auf die Matrix) $K = \R$ ein Spezialfall von $K = \C$, da $\overline{M} = M$ für $K = \R$.
+    \end{itemize}
+    \section{hermitesch (selbstadjungiert)}
+    \begin{itemize}
+        \item $M = M^*$
+        \item für $K = \R$ äquivalent zu symmetrisch
+        \item interessant: hermitesche Sesquilinearform: $h(v,w) = \overline{h(w,v)} \implies $ Fundamentalmatrix ist hermitesch.
+    \end{itemize}
+    \section{unitär}
+    \begin{itemize}
+        \item $M M^* = E_n$
+        \item für $K = \R$ äquivalent zu orthogonal
+        \item $h(Mx, My) = x^tM^t\overline{M}y = \overline{\overline{x}^tM^* M \overline{y}} = x^ty = h(x,y)$
+    \end{itemize}
+    \section{normal}
+    \begin{itemize}
+        \item $M M^* = M^*M$
+    \end{itemize}
+\end{document}
