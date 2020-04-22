@@ -48,6 +48,10 @@
 
 \newcommand{\rg}{\operatorname{rg}}
 \newcommand{\im}{\operatorname{im}}
+\newcommand{\End}{\operatorname{End}}
+
+
+
 
 \newcommand{\ipilayout}[1]
 {	
@@ -110,7 +114,30 @@
 \section{Aufgabe 2}
 
 \section{Aufgabe 3} 
-	
+Sei $(V,h)$ ein unitärer Raum. Für $f\in \End(V)$ bezeichne wie in der Vorlesung 
+$f^{*}\in \End(V)$ die zu $f$ adjungierte Abbildung. 
+\begin{enumerate}[(a)]
+	\item \textbf{Z.Z.:} Für alle $f,g\in \End(V)$ gilt: $(f\circ g)^{*} = g^{*} \circ f^{*}$.
+		\begin{proof}
+			Es gilt für $x,y \in V$: $$h((f\circ g)^{*}(x),y)=h(x,f(g(y)))=h(f^{*}(x),g(y))=h(g^{*}(f^{*}(x)),y)=h((g^{*}\circ f^{*})(x),y)$$
+		\end{proof}
+	\item \textbf{Z.Z.:} Für alle $f\in\End(V),\lambda \in \C$ gilt: $(\lambda f)^{*} = \overline{\lambda}f^{*}$.
+		\begin{proof}
+			Es gilt für $x,y\in V$: $$h((\lambda f)^{*}(x),y) = h(x,(\lambda f(y))) \overset{\text{h semilinear}}{=} \overline{\lambda} h(x,f(y))= \overline{\lambda}=h(f^{*}(x),y)$$
+		\end{proof}
+	\item \textbf{Z.Z.:} Für alle $f\in \End(V)$ gilt: $f\circ f^{*}$ und $f^{*}\circ f$ sind selbstadjungiert.
+		\begin{proof} Es gilt für $x,y\in V$: 
+			\begin{align*}
+			h((f\circ f^{*})^{*}(x),y)&=h((f(f^{*}(x)))^{*},y)=h(x,f(f^{*}(y)))=h(f^{*}(x),f^{*}(y))\\
+			&=h(f(f^{*}(x)),y)=h((f\circ f^{*})(x),y)\\
+			\end{align*}
+			und
+			\begin{align*}
+			h((f^{*}\circ f)^{*}(x),y)&=h((f^{*}(f(x)))^{*},y)=h(x,f^{*}(f(y)))=h(f(x),f(y))\\
+			&=h(f^{*}(f(x)),y)=h((f^{*}\circ f)(x),y)
+			\end{align*}
+		\end{proof}
+\end{enumerate}
 		
 
 \end{document}
