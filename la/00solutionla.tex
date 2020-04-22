@@ -49,7 +49,9 @@
 \newcommand{\rg}{\operatorname{rg}}
 \newcommand{\im}{\operatorname{im}}
 \newcommand{\End}{\operatorname{End}}
-
+\newcommand{\abb}{\operatorname{Abb}}
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\Ima}{\operatorname{Im}}
 
 
 
@@ -110,7 +112,19 @@
 \begin{document}
 \lalayout{0}
 \section{Aufgabe 1}
-
+	Es bezeichne $\abb(\R,\C)$ den $\C$-Vektorraum aller Abbildungen von $\R$ nach $\C$.
+	Sei $$V := \{f\in\abb(\R,\C)| \text{ es gibt }a,b,c \in\C \text{ sodass }f(x)=a+bx+cx^2 \text{ für alle }x\in \R\}$$
+	\begin{enumerate}[(a)]
+		\item \textbf{Z.Z.:} $V$ ist ein endlich-dimensionaler Untervektorraum von $\abb(\R,\C)$
+			\begin{proof}
+			\end{proof}
+		\item \textbf{Z.Z.:} $h: V \times V \longrightarrow \C$ gegeben durch 
+		$$h(f,g)=\int_0^1\!f(x)\overline{g(x)}\,dx:= \int_0^1\! \re(f(x)\overline{g(x)}) \,dx+i\int_0^1\! \Ima(f(x)\overline{g(x)}) \,dx\in\C$$
+		ist ein Skalarprodukt auf $V$. $(V,h)$ ist ein unitärer Raum.
+			\begin{proof}
+			\end{proof}
+	\end{enumerate}
+ 
 \section{Aufgabe 2}
 
 \section{Aufgabe 3} 
