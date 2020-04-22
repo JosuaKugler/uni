@@ -18,8 +18,8 @@ print(hA(w2tilde, w2tilde))
 w2 = 1/sqrt(2) * w2tilde
 
 w3tilde = v3 - hA(v3, w1)[0] * w1 - hA(v3, w2)[0] * w2
-print(hA(w3tilde, w3tilde))
-w3 = 1/sqrt(2) * w3tilde
+#print(hA(w3tilde, w3tilde))
+w3 = 1/sqrt(hA(w3tilde, w3tilde)[0]) * w3tilde
 
 #test:
 print("should be 1: ", hA(w1, w1))
@@ -27,4 +27,6 @@ print("should be 1: ", hA(w2, w2))
 print("should be 1: ", hA(w3, w3))
 print("should be 0: ", hA(w1, w2))
 print("should be 0: ", hA(w1, w3))
-print("should be 0: ", hA(w1, w1))
+print("should be 0: ", hA(w2, w3))
+
+print(w1, w2, w3)
