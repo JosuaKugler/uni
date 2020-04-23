@@ -49,7 +49,12 @@
 
 \newcommand{\rg}{\operatorname{rg}}
 \newcommand{\im}{\operatorname{im}}
-\newcommand{\re}{\operatorname{re}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\abb}{\operatorname{Abb}}
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\Ima}{\operatorname{Im}}
+
+
 
 \newcommand{\ipilayout}[1]
 {	
@@ -108,7 +113,19 @@
 \begin{document}
 \lalayout{0}
 \section{Aufgabe 1}
-
+	Es bezeichne $\abb(\R,\C)$ den $\C$-Vektorraum aller Abbildungen von $\R$ nach $\C$.
+	Sei $$V := \{f\in\abb(\R,\C)| \text{ es gibt }a,b,c \in\C \text{ sodass }f(x)=a+bx+cx^2 \text{ für alle }x\in \R\}$$
+	\begin{enumerate}[(a)]
+		\item \textbf{Z.Z.:} $V$ ist ein endlich-dimensionaler Untervektorraum von $\abb(\R,\C)$
+			\begin{proof}
+			\end{proof}
+		\item \textbf{Z.Z.:} $h: V \times V \longrightarrow \C$ gegeben durch 
+		$$h(f,g)=\int_0^1\!f(x)\overline{g(x)}\,dx:= \int_0^1\! \re(f(x)\overline{g(x)}) \,dx+i\int_0^1\! \Ima(f(x)\overline{g(x)}) \,dx\in\C$$
+		ist ein Skalarprodukt auf $V$. $(V,h)$ ist ein unitärer Raum.
+			\begin{proof}
+			\end{proof}
+	\end{enumerate}
+ 
 \section{Aufgabe 2}
 \begin{enumerate}[(a)]
 	\item Jede Matrix $A$ induziert durch $(x,y) \mapsto x^tA\overline{y}$ eine Sesquilinearform. Offensichtlich ist außerdem $A = \overline{A}^t$, daher muss die Sesquilinearform hermitesch sein, $$\overline{h_A(y,x)} = \overline{h_A(y,x)}^t = \overline{y^tA\overline{x}}^t = (\overline{y}^t \overline{A} x)^t = x^t\overline{A}^ty = x^tAy = h_A(x,y).$$ Zudem gilt 
@@ -134,10 +151,10 @@
 		=& |x_1|^2 - i \overline{x_1}x_2 + 3|x_2|^2 + i \overline{x_2}(x_1-x_3) + |x_3|^2 + i x_2\overline{x_3}\\
 		=& |x_1|^2 + 3|x_2|^2 + |x_3|^2 + i \cdot (-\overline{x_1}x_2 + \overline{x_2}x_1 - \overline{x_2}x_3 + \overline{x_3}x_2)\\
 		=& |x_1|^2 + 3|x_2|^2 + |x_3|^2 + i \cdot ((\overline{x_2}x_1) - \overline{(\overline{x_2}x_1)} + (\overline{x_3}x_2) - \overline{(\overline{x_3}x_2)})\\
-		=& |x_1|^2 + 3|x_2|^2 + |x_3|^2 + i \cdot (2i \cdot \im(\overline{x_2}x_1) + 2i \cdot \im(\overline{x_3}x_2))\\
-		=& \re(x_1)^2 + \im(x_1)^2 + 3\re(x_2)^2 + 3\im(x_2)^2 + \re(x_3)^2 + \im(x_3)^2\\
-		 &- 2(\re(x_2)\im(x_1) - \im(x_2)\re(x_1) + \re(x_3)\im(x_2) -\im(x_3)\re(x_2))\\
-		=& (\re(x_2) - \im(x_1))^2 + (\im(x_2) + \re(x_1))^2 + (\re(x_3) - \im(x_2))^2 + (\im(x_3) + \re(x_2))^2 + |x_2|^2\\
+		=& |x_1|^2 + 3|x_2|^2 + |x_3|^2 + i \cdot (2i \cdot \Ima(\overline{x_2}x_1) + 2i \cdot \Ima(\overline{x_3}x_2))\\
+		=& \re(x_1)^2 + \Ima(x_1)^2 + 3\re(x_2)^2 + 3\Ima(x_2)^2 + \re(x_3)^2 + \Ima(x_3)^2\\
+		 &- 2(\re(x_2)\Ima(x_1) - \Ima(x_2)\re(x_1) + \re(x_3)\Ima(x_2) -\Ima(x_3)\re(x_2))\\
+		=& (\re(x_2) - \Ima(x_1))^2 + (\Ima(x_2) + \re(x_1))^2 + (\re(x_3) - \Ima(x_2))^2 + (\Ima(x_3) + \re(x_2))^2 + |x_2|^2\\
 		\geq&0
 	\end{align*} woraus die positive Definitheit folgt.
 	\item Als Ausgangsbasis für die Gram-Schmidt-Orthogonalisierung nehmen wir die kanonische Basis des $\C^3$, $$\{v_1, v_2, v_3\} \left\{\begin{pmatrix}
@@ -311,5 +328,30 @@
 	\end{pmatrix}, $$ folglich ist $B\cdot $ nicht selbstadjungiert.
 \end{enumerate}
 \section{Aufgabe 3} 
+Sei $(V,h)$ ein unitärer Raum. Für $f\in \End(V)$ bezeichne wie in der Vorlesung 
+$f^{*}\in \End(V)$ die zu $f$ adjungierte Abbildung. 
+\begin{enumerate}[(a)]
+	\item \textbf{Z.Z.:} Für alle $f,g\in \End(V)$ gilt: $(f\circ g)^{*} = g^{*} \circ f^{*}$.
+		\begin{proof}
+			Es gilt für $x,y \in V$: $$h((f\circ g)^{*}(x),y)=h(x,f(g(y)))=h(f^{*}(x),g(y))=h(g^{*}(f^{*}(x)),y)=h((g^{*}\circ f^{*})(x),y)$$
+		\end{proof}
+	\item \textbf{Z.Z.:} Für alle $f\in\End(V),\lambda \in \C$ gilt: $(\lambda f)^{*} = \overline{\lambda}f^{*}$.
+		\begin{proof}
+			Es gilt für $x,y\in V$: $$h((\lambda f)^{*}(x),y) = h(x,(\lambda f(y))) \overset{\text{h semilinear}}{=} \overline{\lambda} h(x,f(y))= \overline{\lambda}=h(f^{*}(x),y)$$
+		\end{proof}
+	\item \textbf{Z.Z.:} Für alle $f\in \End(V)$ gilt: $f\circ f^{*}$ und $f^{*}\circ f$ sind selbstadjungiert.
+		\begin{proof} Es gilt für $x,y\in V$: 
+			\begin{align*}
+			h((f\circ f^{*})^{*}(x),y)&=h((f(f^{*}(x)))^{*},y)=h(x,f(f^{*}(y)))=h(f^{*}(x),f^{*}(y))\\
+			&=h(f(f^{*}(x)),y)=h((f\circ f^{*})(x),y)\\
+			\end{align*}
+			und
+			\begin{align*}
+			h((f^{*}\circ f)^{*}(x),y)&=h((f^{*}(f(x)))^{*},y)=h(x,f^{*}(f(y)))=h(f(x),f(y))\\
+			&=h(f^{*}(f(x)),y)=h((f^{*}\circ f)(x),y)
+			\end{align*}
+		\end{proof}
+\end{enumerate}
+		
 
 \end{document}
