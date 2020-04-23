@@ -17,6 +17,7 @@
 \usepackage[left = 3cm]{geometry}
 \usepackage[hidelinks]{hyperref}
 \usepackage{subcaption}
+\usepackage{gauss}
 \newtheorem{satz}{Satz}[section]
 \newtheorem{lemma}[satz]{Lemma}
 \newtheorem{korollar}[satz]{Korollar}
@@ -48,6 +49,7 @@
 
 \newcommand{\rg}{\operatorname{rg}}
 \newcommand{\im}{\operatorname{im}}
+\newcommand{\re}{\operatorname{re}}
 
 \newcommand{\ipilayout}[1]
 {	
@@ -108,7 +110,206 @@
 \section{Aufgabe 1}
 
 \section{Aufgabe 2}
-
+\begin{enumerate}[(a)]
+	\item Jede Matrix $A$ induziert durch $(x,y) \mapsto x^tA\overline{y}$ eine Sesquilinearform. Offensichtlich ist außerdem $A = \overline{A}^t$, daher muss die Sesquilinearform hermitesch sein, $$\overline{h_A(y,x)} = \overline{h_A(y,x)}^t = \overline{y^tA\overline{x}}^t = (\overline{y}^t \overline{A} x)^t = x^t\overline{A}^ty = x^tAy = h_A(x,y).$$ Zudem gilt 
+	\begin{align*}
+		&\begin{pmatrix}
+			x_1 & x_2 & x_3
+		\end{pmatrix} \cdot \begin{pmatrix}
+			1 & i & 0\\
+			-i & 3 & i\\
+			0 & -i & 1
+		\end{pmatrix} \cdot \begin{pmatrix}
+			\overline{x_1}\\
+			\overline{x_2}\\
+			\overline{x_3}
+		\end{pmatrix}\\
+		=& \begin{pmatrix}
+			x_1 - i x_2 & 3 x_2 + i (x_1 - x_3) & x_3 + i x_2
+		\end{pmatrix} \cdot \begin{pmatrix}
+			\overline{x_1}\\
+			\overline{x_2}\\
+			\overline{x_3}
+		\end{pmatrix}\\
+		=& |x_1|^2 - i \overline{x_1}x_2 + 3|x_2|^2 + i \overline{x_2}(x_1-x_3) + |x_3|^2 + i x_2\overline{x_3}\\
+		=& |x_1|^2 + 3|x_2|^2 + |x_3|^2 + i \cdot (-\overline{x_1}x_2 + \overline{x_2}x_1 - \overline{x_2}x_3 + \overline{x_3}x_2)\\
+		=& |x_1|^2 + 3|x_2|^2 + |x_3|^2 + i \cdot ((\overline{x_2}x_1) - \overline{(\overline{x_2}x_1)} + (\overline{x_3}x_2) - \overline{(\overline{x_3}x_2)})\\
+		=& |x_1|^2 + 3|x_2|^2 + |x_3|^2 + i \cdot (2i \cdot \im(\overline{x_2}x_1) + 2i \cdot \im(\overline{x_3}x_2))\\
+		=& \re(x_1)^2 + \im(x_1)^2 + 3\re(x_2)^2 + 3\im(x_2)^2 + \re(x_3)^2 + \im(x_3)^2\\
+		 &- 2(\re(x_2)\im(x_1) - \im(x_2)\re(x_1) + \re(x_3)\im(x_2) -\im(x_3)\re(x_2))\\
+		=& (\re(x_2) - \im(x_1))^2 + (\im(x_2) + \re(x_1))^2 + (\re(x_3) - \im(x_2))^2 + (\im(x_3) + \re(x_2))^2 + |x_2|^2\\
+		\geq&0
+	\end{align*} woraus die positive Definitheit folgt.
+	\item Als Ausgangsbasis für die Gram-Schmidt-Orthogonalisierung nehmen wir die kanonische Basis des $\C^3$, $$\{v_1, v_2, v_3\} \left\{\begin{pmatrix}
+		1\\0\\0
+	\end{pmatrix}, \begin{pmatrix}
+		0\\1\\0
+	\end{pmatrix}, \begin{pmatrix}
+		0\\0\\1
+	\end{pmatrix}\right\}.$$ Wegen $h_A(v_1, v_1) = 1$ ist sofort $w_1 = v_1$. Dann berechnen wir $$w_2' = v_2 - h_A(v_2, w_1)w_1 = v_2 + i\cdot v_1 = \begin{pmatrix}
+		i\\
+		1\\
+		0
+	\end{pmatrix}$$
+	und $$w_2 = \frac{w_2'}{\sqrt{h_A(w_2', w_2')}} = \frac{w_2'}{\sqrt{2}} = \frac{\sqrt{2}}{2}\cdot \begin{pmatrix}
+		i\\
+		1\\
+		0
+	\end{pmatrix}$$
+	Damit kommt man auf $$w_3' = v_3 - h_A(v_3, w_1)w_1 - h_A(v_3, w_2)w_2 = v_3 - 0\cdot w_1 + \frac{\sqrt{2}}{2}\cdot i \cdot w_2 = \begin{pmatrix}
+		-\frac{1}{2}\\
+		\frac{i}{2}\\
+		1
+	\end{pmatrix}$$
+	und schließlich ist $$w_3 = \frac{w_3'}{\sqrt{h_A(w_3', w_3')}} = \frac{w_2'}{\sqrt{\frac{1}{2}}} = \frac{\sqrt{2}}{2}\cdot \begin{pmatrix}
+		-1\\
+		i\\
+		2
+	\end{pmatrix}$$
+	Folglich ist $$\underline{w} = \{w_1, w_2, w_3\} = \left\{\begin{pmatrix}
+		1\\0\\0
+	\end{pmatrix}, \frac{\sqrt{2}}{2}\cdot \begin{pmatrix}
+		i\\
+		1\\
+		0
+	\end{pmatrix}, \frac{\sqrt{2}}{2}\cdot \begin{pmatrix}
+		-1\\
+		i\\
+		2
+	\end{pmatrix}\right\}$$ eine Orthonormalbasis von $(\C^3, h_A)$
+	\item Dafür bestimmen wir zunächst die Darstellungsmatrix von $B$ bzgl. einer Orthonormalbasis von $(\C^3, h_A)$ und wählen dafür $\underline{w}$. Es gilt $$T = \begin{pmatrix}
+		1 & \frac{\sqrt{2}}{2} i & -\frac{\sqrt{2}}{2}\\[0.5em]
+		0 & \frac{\sqrt{2}}{2} & \frac{\sqrt{2}}{2} i\\[0.5em]
+		0 & 0 & \sqrt{2}
+	\end{pmatrix}.$$ Nun berechnen wir noch $T^{-1}$.
+	\begin{align*}
+		\begin{gmatrix}[p]
+			1 & \frac{\sqrt{2}}{2} i & -\frac{\sqrt{2}}{2}\\
+			0 & \frac{\sqrt{2}}{2} & \frac{\sqrt{2}}{2} i\\
+			0 & 0 & \sqrt{2}
+			\rowops
+			\add[-i]{1}{0}
+		\end{gmatrix} &\left|
+		\begin{gmatrix}[p]
+			1 & 0 & 0\\
+			0 & 1 & 0\\
+			0 & 0 & 1
+			\rowops
+			\add[-i]{1}{0}
+		\end{gmatrix}\right.\\
+		\begin{gmatrix}[p]
+			1 & 0 & 0\\
+			0 & \frac{\sqrt{2}}{2} & \frac{\sqrt{2}}{2} i\\
+			0 & 0 & \sqrt{2}
+			\rowops
+			\mult{1}{\cdot \frac{2}{\sqrt{2}}}
+			\mult{2}{\cdot \frac{1}{\sqrt{2}}}
+		\end{gmatrix} &\left|
+		\begin{gmatrix}[p]
+			1 & -i & 0\\
+			0 & 1 & 0\\
+			0 & 0 & 1
+			\rowops
+			\mult{1}{\cdot \frac{2}{\sqrt{2}}}
+			\mult{2}{\cdot \frac{1}{\sqrt{2}}}
+		\end{gmatrix}\right.\\
+		\begin{gmatrix}[p]
+			1 & 0 & 0\\
+			0 & 1 & i\\
+			0 & 0 & 1
+			\rowops
+			\add[-i]{2}{1}
+		\end{gmatrix} &\left|
+		\begin{gmatrix}[p]
+			1 & -i & 0\\
+			0 & \sqrt{2}& 0\\
+			0 & 0 & \frac{\sqrt{2}}{2}
+			\rowops
+			\add[-i]{2}{1}
+		\end{gmatrix}\right.\\
+		\begin{gmatrix}[p]
+			1 & 0 & 0\\
+			0 & 1 & 0\\
+			0 & 0 & 1
+		\end{gmatrix} &\left|
+		\begin{gmatrix}[p]
+			1 & -i & 0\\
+			0 & \sqrt{2}& -i \frac{\sqrt{2}}{2}\\
+			0 & 0 & \frac{\sqrt{2}}{2}
+		\end{gmatrix}\right.\\
+	\end{align*}
+	Folglich ist die Darstellungsmatrix von $B$ bzgl. $\underline{w}$
+	$$T^{-1} \cdot B \cdot T = \begin{pmatrix}
+		1 & -i & 0\\[0.5em]
+		0 & \sqrt{2}& -i \frac{\sqrt{2}}{2}\\[0.5em]
+		0 & 0 & \frac{\sqrt{2}}{2}
+	\end{pmatrix} \cdot \begin{pmatrix}
+		2 & -2i & -i\\[0.5em]
+		0 & 0 & -1\\[0.5em]
+		0 & 0 & 2i
+	\end{pmatrix} \cdot \begin{pmatrix}
+		1 & \frac{\sqrt{2}}{2} i & -\frac{\sqrt{2}}{2}\\[0.5em]
+		0 & \frac{\sqrt{2}}{2} & \frac{\sqrt{2}}{2} i\\[0.5em]
+		0 & 0 & \sqrt{2}
+	\end{pmatrix} = \begin{pmatrix}
+		2 & 0 & 0\\[0.5em]
+		0 & 0 & 0\\[0.5em]
+		0 & 0 & 2i
+	\end{pmatrix}$$
+	Die dazu adjungierte Matrix ist also die Darstellungsmatrix der adjungierten Abbildung zu $B\cdot$.
+	Es gilt
+	$$\begin{pmatrix}
+		2 & 0 & 0\\
+		0 & 0 & 0\\
+		0 & 0 & 2i
+	\end{pmatrix} \cdot \begin{pmatrix}
+		2 & 0 & 0\\
+		0 & 0 & 0\\
+		0 & 0 & -2i
+	\end{pmatrix} = \begin{pmatrix}
+		4 & 0 & 0\\
+		0 & 0 & 0\\
+		0 & 0 & 4
+	\end{pmatrix} = \begin{pmatrix}
+		2 & 0 & 0\\
+		0 & 0 & 0\\
+		0 & 0 & -2i
+	\end{pmatrix} \cdot \begin{pmatrix}
+		2 & 0 & 0\\
+		0 & 0 & 0\\
+		0 & 0 & 2i
+	\end{pmatrix}$$ und folglich ist $B\cdot $ normal bezüglich $(V, h_A)$.
+	Mit dem Standardskalarprodukt ist $B \cdot$ nicht normal, da die Standardbasis eine Orthonormalbasis darstellt und $$B \cdot B^* \neq B^* \cdot B$$
+	\item $\chi_\text{char} = (\lambda - 2)\cdot \lambda \cdot (\lambda - 2i) \implies \{2, 0, 2i\}$ sind Eigenwerte von $B$. Der Eigenraum zu $\lambda = 2$ ist $$\operatorname{Lin} \begin{pmatrix}
+		1\\ 0 \\ 0
+	\end{pmatrix},$$ zu $\lambda = 0$ $$\operatorname{Lin} \begin{pmatrix}
+		i\\1\\0
+	\end{pmatrix}$$ und zu $\lambda = 2i$ $$\operatorname{Lin} \begin{pmatrix}
+		1\\ -i\\ -2
+	\end{pmatrix}.$$ Da die Eigenräume alle nur eindimensional sind genügt es, $$h_A(\begin{pmatrix}
+		1\\ 0 \\ 0
+	\end{pmatrix}, \begin{pmatrix}
+		i\\1\\0
+	\end{pmatrix}) = 0,$$ $$h_A(\begin{pmatrix}
+		1\\ -i\\ -2
+	\end{pmatrix}, \begin{pmatrix}
+		i\\1\\0
+	\end{pmatrix}) = 0$$ und $$h_A(\begin{pmatrix}
+		1\\ 0 \\ 0
+	\end{pmatrix}, \begin{pmatrix}
+		1\\ -i\\ -2
+	\end{pmatrix}) = 0$$ nachzurechnen.
+	\item Wir rechnen es wieder analog zur (c) in einer Orthonormalbasis von $(V, h_A)$ nach und sehen
+	$$\begin{pmatrix}
+		2 & 0 & 0\\
+		0 & 0 & 0\\
+		0 & 0 & 2i
+	\end{pmatrix} \neq \begin{pmatrix}
+		2 & 0 & 0\\
+		0 & 0 & 0\\
+		0 & 0 & -2i
+	\end{pmatrix}, $$ folglich ist $B\cdot $ nicht selbstadjungiert.
+\end{enumerate}
 \section{Aufgabe 3} 
 
 \end{document}
