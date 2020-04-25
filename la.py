@@ -1,15 +1,17 @@
+#!/usr/bin/env python3
 import requests
 from lxml import html
 from pprint import pprint
 from bs4 import BeautifulSoup
 import sys
 import passwords
+import counterwrapper
 
 
 url = 'https://mampf.mathi.uni-heidelberg.de/users/sign_in?locale=de'
 payload = passwords.mampfpayload()
 
-scrapeurl = 'https://mampf.mathi.uni-heidelberg.de/courses/2/food?lecture_id=2&page=1&per=48&project=nuesse&reverse=false'
+scrapeurl = 'https://mampf.mathi.uni-heidelberg.de/courses/2/food?lecture_id=28&page=1&per=48&project=nuesse&reverse=false'
 
 
 s = requests.session()
@@ -44,11 +46,11 @@ for a in alist:
 def getZettel(number):
     exists = False
     for download in downloads:
-        if "Blatt " + str(number) + ".pdf" in download['name']:
-            if number < 10:
+        if number < 10:
                 numberstring = "0" + str(number)
-            else:
-                numberstring = str(number)
+        else:
+            numberstring = str(number)
+        if "Blatt" + numberstring + ".pdf" in download['name']:
             exists = True
             zettelurl = download['href']
             basepath = "/home/josua/repos/uni/la/"
@@ -57,7 +59,10 @@ def getZettel(number):
             print(zettelurl, " -> ", basepath + filename)
             with open(basepath + filename, "wb") as f:
                 f.write(response.content)
+            counterwrapper.increaseLa()
     if not exists:
         print("not yet uploaded") 
          
-getZettel(int(sys.argv[1]))
+counter = counterwrapper.getLa()
+
+getZettel(counter + 1)

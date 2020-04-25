@@ -6,51 +6,43 @@ from bs4 import BeautifulSoup
 import sys
 import passwords
 
-baseurl  = 'https://moodle.uni-heidelberg.de'
-scrapeurl = 'https://heibox.uni-heidelberg.de/d/0583bd9e56af4b5ab9db/?p=%2F%C3%9Cbungsbl%C3%A4tter&mode=list'
+baseurl = 'https://moodle.uni-heidelberg.de'
+scrapeurl = 'https://moodle.uni-heidelberg.de/course/view.php?id=1948'
 url = 'https://moodle.uni-heidelberg.de/login/index.php'
-payload = passwords.heiboxpayload()
+
+payload = passwords.funktheopayload()
 
 s = HTMLSession()
 
 result = s.get(url)
 tree = html.fromstring(result.text)
-authenticity_token = list(set(tree.xpath("//input[@name='csrfmiddlewaretoken']/@value")))[0]
-payload['csrfmiddlewaretoken'] = authenticity_token
+authenticity_token = list(set(tree.xpath("//input[@name='logintoken']/@value")))[0]
+payload['logintoken'] = authenticity_token
 result = s.post(
 	url,
 	data = payload, 
 	headers = dict(referer=url)
 )
-r = s.post(url, data=payload)
 
-r.html.render(send_cookies_session=True)
+def verify(result):
+    if "athanael" in result.html.html:
+        print("success") 
 
-soup = BeautifulSoup(r.html.html, "html.parser")
+def write(result):
+    with open("temp.html", "w") as f:
+        f.write(result.html.html)
 
-content = soup.find("tbody")
-alist = content.find_all("a")
-useful = {}
+r = s.get(scrapeurl)
+verify(r)
+write(r)
+
+soup = BeautifulSoup(r.html.html, "lxml")
+alist = soup.find_all("a")
+
 for a in alist:
-    if a["href"] != '#':
-        useful[a.text] = a["href"]
-
-zettel = s.get(url + useful["Übungsblätter"])
-zettel.html.render(send_cookies_session=True)
-
-zettelsoup = BeautifulSoup(zettel.html.html, "html.parser")
-content = zettelsoup.find("tbody")
-alist = content.find_all("a")
-
-downloads = {}
-for a in alist:
-    try:
-        if a["title"] == "Download":
-            link = a["href"]
-            numberstring = link.split("Blatt")[1][:2]
-            downloads[int(numberstring)] = [numberstring, baseurl + link]
-    except:
-        pass
+    if "Skript" in a.text:
+        skriptlink = a["href"]
+        break
 
 def getZettel(number):
     try:
