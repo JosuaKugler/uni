@@ -1,0 +1,177 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amsfonts, amsthm, mathtools, amssymb}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\usepackage{cases}
+\usepackage{fancyhdr}
+\usepackage{comment}
+%\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{cases}
+\usepackage{listings}
+\usepackage{siunitx}
+\usepackage[left = 3cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{subcaption}
+\usepackage{gauss}
+\newtheorem{satz}{Satz}[section]
+\newtheorem{lemma}[satz]{Lemma}
+\newtheorem{korollar}[satz]{Korollar}
+\newtheorem{proposition}[satz]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[satz]{Def.}
+\newtheorem{axiom}[satz]{Axiom}
+\newtheorem{bsp}[satz]{Bsp.}
+\newtheorem*{anmerkung}{Anm}
+\newtheorem{bemerkung}[satz]{Bem}
+\newtheorem*{notatio}{Notation}
+\newcommand{\obda}{O.B.d.A. }
+\newcommand{\equals}{\Longleftrightarrow}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\intd}{\mathrm{d}}
+\newcommand{\Pot}{\operatorname{Pot}}
+\newcommand{\mychar}{\operatorname{char}}
+\newcommand{\myker}{\operatorname{ker}}
+\newcommand{\induktion}[3]
+{\begin{proof}\ \\
+	\noindent\textbf{Induktionsanfang:}\ #1\\
+	\noindent\textbf{Induktionsvoraussetzung:}\ #2\\
+	\noindent\textbf{Induktionsschluss:}\ #3
+\end{proof}}
+
+\newcommand{\rg}{\operatorname{rg}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\abb}{\operatorname{Abb}}
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\Ima}{\operatorname{Im}}
+\newcommand{\Lagrange}[1]{\frac{\d }{\d t}\frac{\partial L }{\partial \dot #1} - \frac{\partial L}{\partial #1}}
+\let\oldstackrel\stackrel
+\renewcommand{\stackrel}[2]{%
+    \oldstackrel{\mathclap{#1}}{#2}
+}%
+
+
+\newcommand{\ipilayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Einführung in die praktische Informatik, Blatt #1}
+	\fancyhead[R]{Josua Kugler, Jan Metzger, David Wesner}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Peter Bastian\\
+			Tutor: Frederick Schenk}
+		\rhead{Einführung in die praktische Informatik, Übungsblatt #1\\ David, Jan, Josua}
+		\cfoot{\thepage}
+	}
+\thispagestyle{firstpage}
+}
+
+% integral d sign
+\makeatletter \renewcommand\d[1]{\ensuremath{%
+		\;\mathrm{d}#1\@ifnextchar\d{\!}{}}}
+\makeatother
+
+\newcommand{\analayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Analysis 1, Blatt #1}
+	\fancyhead[R]{Alexander Bryant, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Ekaterina Kostina\\
+			Tutor: Philipp Elja Müller}
+		\rhead{Analysis 1, Übungsblatt #1\\ Alexander Bryant, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+\newcommand{\lalayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Lineare Algebra 1, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Denis Vogel\\
+			Tutor: Marina Savarino}
+		\rhead{Lineare Algebra 2, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+
+\lstset{
+    frame=tb, % draw a frame at the top and bottom of the code block
+    tabsize=4, % tab space width
+    showstringspaces=false, % don't mark spaces in strings
+    numbers=left, % display line numbers on the left
+    commentstyle=\color{green}, % comment color
+    keywordstyle=\color{blue}, % keyword color
+    stringstyle=\color{red} % string color
+}
+\setlength{\headheight}{25pt}
+\begin{document}
+\section*{Aufgabe 1}
+\begin{enumerate}[(a)]
+    \item Für die potentielle Energie $V$ erhalten wir
+    $$V  = -s M \cos(\alpha) - m (L \cos(\alpha) + d\cos(\beta)) = -(sM + Lm)\cos(\alpha) - dm\cos(\beta)$$
+    Die kinetische Energie ist
+    $$T = \frac{M}{2}s^2\dot \alpha^2 + \frac{m}{2}\left(L^2\dot \alpha^2 + d^2\dot \beta^2 + 2Ld\dot \alpha\dot \beta (\cos(\alpha)\cos(\beta) + \sin(\alpha)\sin(\beta))\right)$$
+    $$= \frac{M}{2}s^2\dot \alpha^2 + \frac{m}{2}L^2 \dot \alpha^2 + \frac{m}{2}d^2 \dot \beta^2 + mLd\dot \alpha\dot \beta \cos(\alpha - \beta)$$
+    Wir erhalten daher folgende Lagrange-Gleichung:
+    $$L = \frac{M}{2}s^2\dot \alpha^2 + \frac{m}{2}L^2 \dot \alpha^2 + \frac{m}{2}d^2 \dot \beta^2 + mLd\dot \alpha\dot \beta \cos(\alpha - \beta)+(sM + Lm)\cos(\alpha) + dm\cos(\beta)$$
+    \item Für die Bewegungsgleichungen folgt also
+    \begin{align*}
+        0 &= \frac{\d }{\d t}\frac{\partial L }{\partial \dot \alpha} - \frac{\partial L}{\partial \alpha}\\
+        &= \frac{\d }{\d t} \left(Ms^2 \dot \alpha + mL^2 \dot \alpha + mLd\dot \beta \cos(\alpha - \beta)\right) - mLd\dot \alpha\dot \beta \sin(\alpha - \beta)+ (sM + Lm)\sin(\alpha)\\
+        &= (Ms^2 + mL^2)\ddot \alpha + mLd\left(\ddot \beta\cos(\alpha - \beta) + (- \dot \beta \dot \alpha + \dot \beta^2+ \dot\alpha \dot \beta) \sin(\alpha - \beta)\right)+ (sM + Lm)\sin(\alpha)\\
+        &= (Ms^2 + mL^2)\ddot \alpha + mLd\left(\ddot \beta\cos(\alpha - \beta) + \dot \beta^2 \sin(\alpha - \beta)\right)+ (sM + Lm)\sin(\alpha)\\
+        0 &= \frac{\d }{\d t}\frac{\partial L }{\partial \dot \beta} - \frac{\partial L}{\partial \beta}\\
+        &= \frac{\d }{\d t} \left(md^2\dot \beta + mLd\dot \alpha \cos(\alpha - \beta)\right) - mLd\dot \alpha\dot \beta \sin(\alpha - \beta) + dm\sin(\alpha)\\
+        &= md^2 \ddot \beta + mLd\left(\ddot \alpha \cos(\alpha - \beta) - \dot \alpha (\dot \alpha - \dot \beta)\sin(\alpha - \beta) - \dot \alpha \dot \beta \sin(\alpha - \beta)\right)+ dm\sin(\alpha)\\
+        &= md^2 \ddot \beta + mLd\left(\ddot \alpha \cos(\alpha - \beta) - \dot \alpha^2 \sin(\alpha - \beta)\right)+ dm\sin(\alpha)\\
+    \end{align*}
+    \item Zeigen Sie, dass es eine Lösung gibt, bei der der zeitliche Verlauf von $\alpha$ und $\beta$ übereinstimmt.
+    Was bedeutet die Lösung anschaulich? Benutzen Sie, dass die Determinante der Koeffizientenmatrix der beiden Differentialgleichungen für den Winkel $\alpha$ für eine nicht-triviale Lösung verschwindet.
+\end{enumerate}
+\section*{Aufgabe 2}
+\begin{enumerate}[(a)]
+    \item $x$ sei die Länge, die über die Tischkante hängt.
+    \begin{enumerate}[(i)]
+        \item $V(x) = -mgx,\; T(x) = m\dot x^2\implies L = m\dot x^2 + mgx$
+        \item $V(x) = -mgx - \int_0^x\frac{M}{L}gx'\d x' = -mgx - \frac{M}{2}gx^2,\; T = m\dot x^2 + \frac{M}{2}\dot x^2\implies L=\left(m + \frac{M}{2}\right)\dot x^2 + mgx + \frac{1}{2}\frac{M}{L}gx^2$
+    \end{enumerate}
+    \item \begin{enumerate}[(i)]
+        \item $\displaystyle 0 = \Lagrange{x} = 2m\ddot x - mg \xRightarrow{v_0 = 0} \dot x = \frac{g}{2}t\xRightarrow{x_0 = l_0} x = \frac{g}{4}t^2 + l_0$
+        \item $\displaystyle 0 \Lagrange{x} = (2m + M)\ddot x - mg - \frac{M}{L}gx$
+        Eine Lösung der inhomogenen Gleichung ist $x_{\text{inh}} = - \frac{m}{M}L$.
+        Die allgemeine Lösung ist also $$x(t) = A\cdot e^{\sqrt{\frac{Mg}{L(2m + M)}}\cdot t} + B \cdot e^{-\sqrt{\frac{Mg}{L(2m + M)}}\cdot t} - \frac{m}{M}L$$
+        Mit den Anfangsbedingungen $\dot x(0) = 0$ und $x(0) = l_0$ erhalten wir als Lösung der Bewegungsgleichung
+        $$\left(l_0 + \frac{m}{M}L\right)\cosh\left(\sqrt{\frac{Mg}{L(M+ 2m)}\cdot t}\right)$$
+    \end{enumerate}
+    \item \begin{enumerate}[(i)]
+        \item $\frac{\d E}{\d t} = \frac{\d T + \d V}{\d t} = \frac{\d m\dot x^2 - \d m gx}{\d t} = 2m\dot x\ddot x - mg\dot x \overset{\ddot x = \frac{g}{2}}{=} m g\dot x - m g\dot x = 0$
+        \item \begin{align*}
+            \frac{\d E}{\d t} &= \frac{\d T + \d V}{\d t}\\
+            &= \frac{\d \ \left(\left(m + \frac{M}{2}\right)\dot x^2 - mgx - \frac{1}{2} \frac{M}{L}gx^2\right)}{\d t}\\
+            &= (2m + M)\dot x\ddot x - mg\dot x - \frac{M}{L}gx\dot x\\
+            &\stackrel{(2m + M)\ddot x = mg + \frac{M}{L}gx}{=}\qquad \qquad m g\dot x + \frac{M}{L}gx\dot x - mg\dot x - \frac{M}{L}gx\dot x\\
+            &= 0
+        \end{align*}
+    \end{enumerate}
+\end{enumerate}
+\section*{Aufgabe 3}
+\begin{enumerate}[(a)]
+    \item keine Lust zu te$\chi$en
+    \item Erhaltungsgrößen sind $p_\varphi,\; p_\psi$ und die Energie.
+\end{enumerate}
+\end{document}

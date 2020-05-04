@@ -112,25 +112,12 @@
 \setlength{\headheight}{25pt}
 \begin{document}
 
-\section*{Aufgabe 2}
+\section*{Aufgabe 7}
 \begin{enumerate}[(a)]
-	\item 
+	\item Da die Determinante ein Polynom mit reellen Koeffizienten ist und $\overline{a} + \overline{b} = \overline{a+b}$ sowie $\overline{a}\overline{b} = \overline{ab}$ gilt, muss $\det \overline{H} = \overline{\det H}$ sein. Für eine hermitesche Matrix $H$ gilt also $\det H = \det H' = \det \overline{H} = \overline{\det H}$. Daraus folgt, dass $\det H \in \R$ sein muss.
+	\item Gilt $H_2 = \mu H_1$ und $\overline{v}'H_1v = 0$, so ist auch $\overline{v}'H_2v = \mu 0 = 0$.
+	Definieren nun $H_1$ und $H_2$ denselben Kreis, so gibt es eine Möbiustransformation, die $H_1$ auf $H_2$ abbildet, da die Möbiustransformationen transitiv auf den Kreisen in $\hat{C}$ operieren. Da $H_1$ und $H_2$ denselben Kreis definieren. ist diese Möbiustransformation eindeutig gegeben durch das Einselement der Gruppe der Möbiustransformationen, die zu $\nu \cdot \begin{pmatrix}
+		1 & 0 \\ 0 & 1
+	\end{pmatrix},\; \nu \in \C^*$ assoziierte Möbiustransformation. Diese bildet $H_1$ auf $M\langle H\rangle = \overline{M}'\cdot H \cdot M = \overline{\nu}\nu H = |\nu|^2 H = \mu H_2$ mit $\mu\in\R^\times$ ab.
 \end{enumerate}
-\section*{Aufgabe 3}
-Die Lösungen sind $2 \cdot e\left(\frac{\pi}{3}\right), 2 \cdot e\left(\pi\right)$ und $2 \cdot e\left(\frac{5\pi}{3}\right)$, da $\left(2 \cdot e\left(\frac{\pi}{3}\right)\right)^3 = 8 \cdot(e(\pi)) = -8, \left(2 \cdot e\left(\pi\right)\right)^3 = 8 \cdot e(3\pi) = -8$ und schließlich $\left(2 \cdot e\left(\frac{5\pi}{3}\right)\right)^3 = 8 \cdot(e(5\pi)) = -8$. Mehr Lösungen gibt es nicht, da es sich um ein Polynom 3. Grades handelt.
-\section*{Aufgabe 4}
-\begin{align*}
-	(ad - bc) \cdot \Ima(z) &= \Ima(ad\cdot z - bc \cdot z)\\
-	 \det(M) \cdot \Ima(z) &= \Ima(ac\cdot z\overline{z} + ad\cdot z + bc \cdot \overline{z} + b\cdot d)&&\Leftrightarrow\\
-	 \det(M) \cdot \Ima(z) &= \Ima((az + b) \cdot \overline{cz + d})&&\Leftrightarrow\\
-	 \det(M) \cdot \Ima(z) &= \Ima\left(\frac{az + b}{cz + d}\cdot (cz + d) \overline{(cz + d)}\right)&&\Leftrightarrow\\
-	 \det(M) \cdot \Ima(z) &= |cz + d|^2 \cdot \Ima\left(\frac{az + b}{cz + d}\right)&&\Leftrightarrow\\
-	 \frac{\det(M)}{|cz + d|^2} \cdot \Ima(z) &=  \Ima(M\langle z\rangle)&&\Leftrightarrow
-\end{align*}
-
-\section*{Aufgabe 5}
-Sei $B'$ der Punkt des Baums. Wähle $W$ als den Ursprung des Koordinatensystems.
-Es gilt $A = -i \cdot F$ und $B = B' + i \cdot (F - B')$. Damit erhalten wir für den Schatz
-$$\frac{A + B}{2} = \frac{-i \cdot F + B' + i \cdot (F-B')}{2} = \frac{B' - i \cdot B'}{2}.$$
-Dieser Ausdruck ist offensichtlich unabhängig von $F$.
 \end{document}

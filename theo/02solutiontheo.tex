@@ -1,0 +1,199 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amsfonts, amsthm, mathtools, amssymb}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\usepackage{cases}
+\usepackage{fancyhdr}
+\usepackage{comment}
+%\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{cases}
+\usepackage{listings}
+\usepackage{siunitx}
+\usepackage[left = 3cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{subcaption}
+\usepackage{gauss}
+\newtheorem{satz}{Satz}[section]
+\newtheorem{lemma}[satz]{Lemma}
+\newtheorem{korollar}[satz]{Korollar}
+\newtheorem{proposition}[satz]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[satz]{Def.}
+\newtheorem{axiom}[satz]{Axiom}
+\newtheorem{bsp}[satz]{Bsp.}
+\newtheorem*{anmerkung}{Anm}
+\newtheorem{bemerkung}[satz]{Bem}
+\newtheorem*{notatio}{Notation}
+\newcommand{\obda}{O.B.d.A. }
+\newcommand{\equals}{\Longleftrightarrow}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\intd}{\mathrm{d}}
+\newcommand{\Pot}{\operatorname{Pot}}
+\newcommand{\mychar}{\operatorname{char}}
+\newcommand{\myker}{\operatorname{ker}}
+\newcommand{\induktion}[3]
+{\begin{proof}\ \\
+	\noindent\textbf{Induktionsanfang:}\ #1\\
+	\noindent\textbf{Induktionsvoraussetzung:}\ #2\\
+	\noindent\textbf{Induktionsschluss:}\ #3
+\end{proof}}
+
+\newcommand{\rg}{\operatorname{rg}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\abb}{\operatorname{Abb}}
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\Ima}{\operatorname{Im}}
+
+
+
+\newcommand{\ipilayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Einführung in die praktische Informatik, Blatt #1}
+	\fancyhead[R]{Josua Kugler, Jan Metzger, David Wesner}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Peter Bastian\\
+			Tutor: Frederick Schenk}
+		\rhead{Einführung in die praktische Informatik, Übungsblatt #1\\ David, Jan, Josua}
+		\cfoot{\thepage}
+	}
+\thispagestyle{firstpage}
+}
+
+% integral d sign
+\makeatletter \renewcommand\d[1]{\ensuremath{%
+		\;\mathrm{d}#1\@ifnextchar\d{\!}{}}}
+\makeatother
+
+\newcommand{\analayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Analysis 1, Blatt #1}
+	\fancyhead[R]{Alexander Bryant, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Ekaterina Kostina\\
+			Tutor: Philipp Elja Müller}
+		\rhead{Analysis 1, Übungsblatt #1\\ Alexander Bryant, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+\newcommand{\lalayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Lineare Algebra 1, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Denis Vogel\\
+			Tutor: Marina Savarino}
+		\rhead{Lineare Algebra 2, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+
+\lstset{
+    frame=tb, % draw a frame at the top and bottom of the code block
+    tabsize=4, % tab space width
+    showstringspaces=false, % don't mark spaces in strings
+    numbers=left, % display line numbers on the left
+    commentstyle=\color{green}, % comment color
+    keywordstyle=\color{blue}, % keyword color
+    stringstyle=\color{red} % string color
+}
+\setlength{\headheight}{25pt}
+\begin{document}
+\section*{Aufgabe 1}
+\begin{align*}
+    \vec \nabla E + \lambda \vec \nabla V &= 0\\
+    -2 \cdot \frac{h^2}{8m} \begin{pmatrix}
+        \frac{1}{a^3}\\[0.5em]
+        \frac{1}{b^3}\\[0.5em]
+        \frac{1}{c^3}\\[0.5em]
+    \end{pmatrix}
+    + \lambda \cdot \begin{pmatrix}
+        bc\\[0.5em]
+        ac\\[0.5em]
+        ab\\[0.5em]
+    \end{pmatrix} &= 0\\
+    \begin{pmatrix}
+        \lambda bc\\[0.5em]
+        \lambda ac\\[0.5em]
+        \lambda ab\\[0.5em]
+    \end{pmatrix} &= 
+    \begin{pmatrix}
+        \frac{h^2}{4m}\frac{1}{a^3}\\[0.5em]
+        \frac{h^2}{4m}\frac{1}{b^3}\\[0.5em]
+        \frac{h^2}{4m}\frac{1}{c^3}\\[0.5em]
+    \end{pmatrix}
+    \intertext{Aus der ersten Zeile erhalten wir}
+    \lambda &=  \frac{h^2}{4m} \frac{1}{abc} \frac{1}{a^2}\\
+    \intertext{In die zweite Zeile eingesetzt folgt}
+    \frac{h^2}{4m} \frac{1}{abc} \frac{1}{a^2} ac &= \frac{h^2}{4m}\frac{1}{b^3}\\
+    b^2 &= a^2
+    \intertext{Analog kann man schlussfolgern}
+    c^2 &= a^2
+\end{align*}
+Da negative Seitenlängen wenig Sinn ergeben, muss es sich bei dem Quader um einen Würfel handeln.
+\section*{Aufgabe 2}
+Da die Masse sich nur auf der schiefen Ebene aufhält, muss folgende Zwangsbedingung gelten:
+$$f = z \cdot \cos (\alpha) - (x-\xi) \sin(\alpha) = 0$$
+Da wir dies später noch benötigen werden, bilden wir gleich auch noch die zweite Ableitung:
+$$\ddot f = \ddot z \cdot \cos (\alpha) - (\ddot x - \ddot \xi) \sin(\alpha) = 0$$
+Die Lagrange-Gleichungen lauten:
+\begin{align*}
+    0 &= F_x -m\ddot x + \lambda \frac{\partial f}{\partial x} = -m\ddot x - \lambda \sin(\alpha)\\
+    0 &= F_z -m\ddot z + \lambda \frac{\partial f}{\partial z} = -m g_z -m\ddot z + \lambda \cos(\alpha)\\
+\end{align*}
+Wir stellen die erste Gleichung nach $\lambda$ um und erhalten:
+$$\lambda = -\frac{m\ddot x}{\sin(\alpha)}.$$ Eingesetzt in die zweite Gleichung kann man sofort $m$ kürzen und erhält:
+$$\ddot z = -\frac{\ddot x\cos(\alpha)}{\sin(\alpha)} - g_z$$
+Nun stellen wir die zweite Ableitung der Zwangsbedingung nach $\ddot z$ um:
+$$\ddot z = (\ddot x - \ddot \xi)\cdot \tan(\alpha).$$
+Eingesetzt in unser obiges Ergebnis erhalten wir nun eine Gleichung für $\ddot x$.
+\begin{align*}
+    -\frac{\ddot x\cos(\alpha)}{\sin(\alpha)} - g_z &= (\ddot x - \ddot \xi)\cdot \tan(\alpha)\\
+    \ddot \xi \cdot \tan(\alpha) -g_z &= \ddot x\left(\frac{\cos(\alpha)}{\sin(\alpha)} + \frac{\sin(\alpha)}{\cos(\alpha)}\right)\\
+    \ddot \xi \cdot \sin^2(\alpha) - g_z \sin(\alpha)\cos(\alpha) &= \ddot x \left(\cos^2(\alpha)+ \sin^2(\alpha)\right)\\
+    \ddot x &= \ddot \xi \cdot \sin^2(\alpha) - g_z \sin(\alpha)\cos(\alpha)
+    \intertext{Wegen $\dot x(0) = 0$ führt Integration auf}
+    \dot x &= \dot \xi \cdot \sin^2(\alpha) - g_z \sin(\alpha)\cos(\alpha)\cdot t
+    \intertext{Wegen $x(0) = 0$ führt Integration auf}
+    x &= \xi \cdot \sin^2(\alpha) - \frac{1}{2} g_z \sin(\alpha)\cos(\alpha)\cdot t^2
+    \intertext{Mithilfe der Zwangsbedingung folgt umittelbar}
+    z &= \left(\xi \cdot \sin^2(\alpha) - \frac{1}{2} g_z \sin(\alpha)\cos(\alpha)\cdot t^2 - \xi\right) \cdot \tan(\alpha)
+\end{align*}
+\section*{Aufgabe 3}
+\begin{enumerate}[(a)]
+    \item 
+    Es gilt der Energiesatz:
+    \begin{align*}
+        \frac{m}{2}(\dot{\vec{x}}^2) - mgf(x) &= E\\
+        \dot x ^2 + \dot z^2 &= \frac{2}{m} (E + mgf(x))\\
+        \left(\frac{\d x}{\d t}\right)^2 + \left(\frac{\d f(x)}{\d x}\frac{\d x}{\d t}\right)^2 &= \frac{2}{m} (E + mgf(x))\\
+        \left(1 + \left(\frac{\d f(x)}{\d x}\right)^2\right) \cdot \left(\frac{\d x}{\d t}\right)^2 &= \frac{2}{m} (E + mgf(x))\\
+        \left(\frac{\d x}{\d t}\right) &= \sqrt{\frac{\frac{2}{m} (E + mgf(x))}{1 + \left(\frac{\d f(x)}{\d x}\right)^2}}\\
+    \end{align*}
+    Analog zu letztem Semester erhalten wir
+    $$\Delta t = \int_{x_0}^{x_E} \frac{\d x}{\sqrt{\frac{\frac{2}{m} (E + mgf(x))}{1 + \left(\frac{\d f(x)}{\d x}\right)^2}}}$$
+    \item Hier ist nun $f(x) = x$, $E = 0$, $x_0 = 0$ und $x_E = 1$. Also erhalten wir
+    \begin{align*}
+        \Delta t &= \int_{x_0}^{x_E} \frac{\d x}{\sqrt{gf(x)}}\\
+        &= \frac{2}{\sqrt{g}} \sqrt{x} \Big|^1_0\\
+        &= \frac{2}{\sqrt{g}}
+    \end{align*}
+\end{enumerate}
+\end{document}
