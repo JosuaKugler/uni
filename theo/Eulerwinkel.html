@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Theo Kreisel</title>
+    <style>
+        .triangle {
+            position: absolute;
+            transform-origin: bottom;
+            fill: rgba(255, 0, 0, 0.7);
+            stroke: black;
+            stroke-width: 2px;
+        }
+        
+        body {
+            margin: 50px 10%;
+            font-family: "Times New Roman";
+        }
+        
+        td p {
+            margin: 0;
+            width: 100%;
+            text-align: right;
+        }
+        
+        #kreisel {
+            margin: 50px 0;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: 0.1s;
+            width: 300px;
+            height: 300px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10% 0;
+            animation: build 5s;
+        }
+        
+        @keyframes build {
+            15% {
+                transform: rotate3d(-0.2,1,-0.2,60deg);
+            } 80% {
+                transform: rotate3d(-0.2,1,-0.2,60deg);
+            } 100% {
+                transform: none;
+            }
+        }
+        
+        #back {
+            animation: build-back 5s;
+            animation-fill-mode: forwards;
+        }
+        @keyframes build-back {
+            15% {
+                transform: none;
+            } 30% {
+                transform: rotateX(23.578178478201835deg);
+            } 100% {
+                transform: rotateX(23.578178478201835deg);
+            }
+        }
+        
+        #front {
+            animation: build-front 5s;
+            animation-fill-mode: forwards;
+        }
+        @keyframes build-front {
+            30% {
+                transform: none;
+            } 45% {
+                transform: rotateX(-23.578178478201835deg);
+            } 100% {
+                transform: rotateX(-23.578178478201835deg);
+            }
+        }
+        
+        #right {
+            animation: build-right 5s;
+            animation-fill-mode: forwards;
+        }
+        @keyframes build-right {
+            45% {
+                transform: none;
+            } 60% {
+                transform: rotateY(90deg) rotateX(-23.578178478201835deg);
+            } 100% {
+                transform: rotateY(90deg) rotateX(-23.578178478201835deg);
+            }
+        }
+        
+        #left {
+            animation: build-left 5s;
+            animation-fill-mode: forwards;
+        }
+        @keyframes build-left {
+            60% {
+                transform: none;
+            } 67%{
+                transform: rotateY(90deg);
+            } 75% {
+                transform: rotateY(90deg) rotateX(23.578178478201835deg);
+            } 100% {
+                transform: rotateY(90deg) rotateX(23.578178478201835deg);
+            }
+        }
+        
+        @media screen and (min-width: 800px) {
+            body {
+                margin: 100px 30%;
+            }
+        }
+        
+    </style>
+</head>
+
+<body>
+    <h1>Eulerwinkel</h1>
+    <table><tr>
+        <td>φ</td>
+        <td><input type="range" min="0" max="360" value="0" class="slider" id="phi"></td>
+        <td><p id="phivalue">0</p></td>
+    </tr><tr>
+        <td>θ</td>
+        <td><input type="range" min="0" max="360" value="0" class="slider" id="theta"></td>
+        <td><p id="thetavalue">0</p></td>
+    </tr><tr>
+        <td>ψ</td>
+        <td><input type="range" min="0" max="360" value="0" class="slider" id="psi"></td>
+        <td><p id="psivalue">0</p></td>
+    </tr></table>
+    
+    <div id="kreisel">        
+        
+        <svg id="front" class="triangle" width="200px" height="250px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none">
+            <path d="M 0,0 L 200,0 100,250 Z"></path>
+        </svg>
+        
+        <svg id="back" class="triangle" width="200px" height="250px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none">
+            <path d="M 0,0 L 200,0 100,250 Z"></path>
+        </svg>
+        
+        <svg id="left" class="triangle" width="200px" height="250px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none">
+            <path d="M 0,0 L 200,0 100,250 Z"></path>
+        </svg>
+        
+        <svg id="right" class="triangle" width="200px" height="250px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none">
+            <path d="M 0,0 L 200,0 100,250 Z"></path>
+        </svg>
+    </div>
+    
+    <script>
+        var phi_slider = document.getElementById("phi");
+        var theta_slider = document.getElementById("theta");
+        var psi_slider = document.getElementById("psi");
+        
+        var phi_value = document.getElementById("phivalue");
+        var theta_value = document.getElementById("thetavalue");
+        var psi_value = document.getElementById("psivalue");
+        
+        var kreisel = document.getElementById("kreisel");
+        
+        
+        var phi = phi_slider.value;
+        var theta = theta_slider.value;
+        var psi = psi_slider.value;
+        
+        phi_value.innerHTML = phi + "°"
+        theta_value.innerHTML = theta + "°"
+        psi_value.innerHTML = psi + "°"
+        
+        
+        phi_slider.oninput = function () {
+            phi = phi_slider.value;
+            kreisel.style.transform = "rotateY(" + phi + "deg) rotateZ(" + (-theta) + "deg) rotateY(" + psi + "deg)";
+            phi_value.innerHTML = phi + "°";
+        };
+        
+        theta_slider.oninput = function () {
+            theta = theta_slider.value;
+            kreisel.style.transform = "rotateY(" + phi + "deg) rotateZ(" + (-theta) + "deg) rotateY(" + psi + "deg)";
+            theta_value.innerHTML = theta + "°";
+        };
+        
+        psi_slider.oninput = function () {
+            psi = psi_slider.value;
+            kreisel.style.transform = "rotateY(" + phi + "deg) rotateZ(" + (-theta) + "deg) rotateY(" + psi + "deg)";
+            psi_value.innerHTML = psi + "°";
+        };
+    </script>
+    
+</body>
+
+</html>

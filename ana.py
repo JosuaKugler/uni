@@ -10,7 +10,7 @@ baseurl = 'https://moodle.uni-heidelberg.de'
 scrapeurl = 'https://moodle.uni-heidelberg.de/course/view.php?id=1948'
 url = 'https://moodle.uni-heidelberg.de/login/index.php'
 
-payload = passwords.funktheopayload()
+payload = passwords.funktheopayload() #moodle login
 
 s = HTMLSession()
 
@@ -39,23 +39,33 @@ write(r)
 soup = BeautifulSoup(r.html.html, "lxml")
 alist = soup.find_all("a")
 
-for a in alist:
-    if "Skript" in a.text:
-        skriptlink = a["href"]
-        break
-
 def getZettel(number):
-    try:
-        zettel = downloads[number]
-        numberstring = zettel[0]
-        zettelurl = zettel[1]
+    global alist
+    if number < 10:
+        numberstring = "0" + str(number)
+    else:
+        numberstring = str(number)
+    blattlink = ""
+
+    for a in alist:
+        if "Übungsblatt " + numberstring in a.text and "Lösungen" not in a.text:
+            blattlink = a["href"]
+    
+    if blattlink != "":
+        finalpage = s.get(blattlink)
+        soup = BeautifulSoup(finalpage.html.html, "lxml")
+        alist = soup.find_all("a")
+
+        for a in alist:
+            if "Blatt" + numberstring in a.text:
+                zettelurl = a["href"]
         basepath = "/home/josua/repos/uni/ana/"
         filename = numberstring + "ana.pdf"
         response = s.get(zettelurl)
         print(zettelurl, " -> ", basepath + filename)
         with open(basepath + filename, "wb") as f:
             f.write(response.content)
-    except:
+    else:
         print("not yet uploaded")
 
-getZettel(int(sys.argv[1]))
+getZettel(1)
