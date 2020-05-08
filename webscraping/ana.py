@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import requests
 from requests_html import HTMLSession
 from lxml import html
@@ -5,6 +6,7 @@ from pprint import pprint
 from bs4 import BeautifulSoup
 import sys
 import passwords
+import counterwrapper
 
 baseurl = 'https://moodle.uni-heidelberg.de'
 scrapeurl = 'https://moodle.uni-heidelberg.de/course/view.php?id=1948'
@@ -24,17 +26,7 @@ result = s.post(
 	headers = dict(referer=url)
 )
 
-def verify(result):
-    if "athanael" in result.html.html:
-        print("success") 
-
-def write(result):
-    with open("temp.html", "w") as f:
-        f.write(result.html.html)
-
 r = s.get(scrapeurl)
-verify(r)
-write(r)
 
 soup = BeautifulSoup(r.html.html, "lxml")
 alist = soup.find_all("a")
@@ -65,7 +57,10 @@ def getZettel(number):
         print(zettelurl, " -> ", basepath + filename)
         with open(basepath + filename, "wb") as f:
             f.write(response.content)
+            counterwrapper.increaseAna()
     else:
-        print("not yet uploaded")
+        print("ana {} not yet uploaded".format(number))
 
-getZettel(1)
+counter = counterwrapper.getAna()
+
+getZettel(counter+1)

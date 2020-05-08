@@ -61,7 +61,7 @@ def getZettel(number):
                 f.write(response.content)
             counterwrapper.increaseLa()
     if not exists:
-        print("not yet uploaded") 
+        print("la {} not yet uploaded".format(number)) 
          
 counter = counterwrapper.getLa()
 
