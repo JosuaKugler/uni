@@ -1,0 +1,207 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amsfonts, amsthm, mathtools, amssymb}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\usepackage{cases}
+\usepackage{fancyhdr}
+\usepackage{comment}
+%\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{cases}
+\usepackage{listings}
+\usepackage{siunitx}
+\usepackage[left = 3cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{subcaption}
+\usepackage{gauss}
+\newtheorem{satz}{Satz}[section]
+\newtheorem{lemma}[satz]{Lemma}
+\newtheorem{korollar}[satz]{Korollar}
+\newtheorem{proposition}[satz]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[satz]{Def.}
+\newtheorem{axiom}[satz]{Axiom}
+\newtheorem{bsp}[satz]{Bsp.}
+\newtheorem*{anmerkung}{Anm}
+\newtheorem{bemerkung}[satz]{Bem}
+\newtheorem*{notatio}{Notation}
+\newcommand{\obda}{O.B.d.A. }
+\newcommand{\equals}{\Longleftrightarrow}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\intd}{\mathrm{d}}
+\newcommand{\Pot}{\operatorname{Pot}}
+\newcommand{\mychar}{\operatorname{char}}
+\newcommand{\myker}{\operatorname{ker}}
+\newcommand{\induktion}[3]
+{\begin{proof}\ \\
+	\noindent\textbf{Induktionsanfang:}\ #1\\
+	\noindent\textbf{Induktionsvoraussetzung:}\ #2\\
+	\noindent\textbf{Induktionsschluss:}\ #3
+\end{proof}}
+
+\newcommand{\rg}{\operatorname{rg}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\abb}{\operatorname{Abb}}
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\Ima}{\operatorname{Im}}
+\newcommand{\Lagrange}[1]{\frac{\d }{\d t}\frac{\partial L }{\partial \dot #1} - \frac{\partial L}{\partial #1}}
+\let\oldstackrel\stackrel
+\renewcommand{\stackrel}[2]{%
+    \oldstackrel{\mathclap{#1}}{#2}
+}%
+
+
+\newcommand{\ipilayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Einführung in die praktische Informatik, Blatt #1}
+	\fancyhead[R]{Josua Kugler, Jan Metzger, David Wesner}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Peter Bastian\\
+			Tutor: Frederick Schenk}
+		\rhead{Einführung in die praktische Informatik, Übungsblatt #1\\ David, Jan, Josua}
+		\cfoot{\thepage}
+	}
+\thispagestyle{firstpage}
+}
+
+% integral d sign
+\makeatletter \renewcommand\d[1]{\ensuremath{%
+		\;\mathrm{d}#1\@ifnextchar\d{\!}{}}}
+\makeatother
+
+\newcommand{\analayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Analysis 1, Blatt #1}
+	\fancyhead[R]{Alexander Bryant, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Ekaterina Kostina\\
+			Tutor: Philipp Elja Müller}
+		\rhead{Analysis 1, Übungsblatt #1\\ Alexander Bryant, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+\newcommand{\lalayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Lineare Algebra 1, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Denis Vogel\\
+			Tutor: Marina Savarino}
+		\rhead{Lineare Algebra 2, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+
+\lstset{
+    frame=tb, % draw a frame at the top and bottom of the code block
+    tabsize=4, % tab space width
+    showstringspaces=false, % don't mark spaces in strings
+    numbers=left, % display line numbers on the left
+    commentstyle=\color{green}, % comment color
+    keywordstyle=\color{blue}, % keyword color
+    stringstyle=\color{red} % string color
+}
+\setlength{\headheight}{25pt}
+
+\renewcommand{\phi}{\varphi}
+\renewcommand{\theta}{\vartheta}
+\begin{document}
+\section*{Aufgabe 1}
+\begin{enumerate}[(a)]
+    \item Bekanntlich ist in Kugelkoordinaten 
+    $$\vec x = R \begin{pmatrix}
+        \sin(\theta)\cos(\phi)\\
+        \sin(\theta)\sin(\phi)\\
+        \cos(\theta)
+    \end{pmatrix}$$ und daher bei konstantem Radius $$\dot \vec x = \begin{pmatrix}
+        R \begin{pmatrix}
+            \dot \theta \cos(\theta)\cos(\phi) - \dot \phi \sin(\theta)\sin(\phi)\\
+            \dot \theta \cos(\theta)\sin(\phi) + \dot \phi \sin(\theta)\cos(\phi)\\
+            - \dot \theta \sin(\theta)
+        \end{pmatrix}
+    \end{pmatrix},$$ woraus wir 
+    \begin{align*}
+        \dot{\vec{x}}^2 &= R^2\left[\dot \theta^2 \cos^2(\theta)\cos^2(\phi) + \dot \phi^2 \sin^2(\theta)\sin^2(\phi) + \dot \theta^2 \cos^2(\theta)\sin^2(\phi) + \dot \phi^2 \sin^2(\theta)\cos^2(\phi) + \dot \theta^2 \sin^2(\theta)\right]\\
+        &= R^2\left[\dot \theta^2 \cos^2(\theta) + \dot \phi^2 \sin^2(\theta) + \dot \theta^2 \sin^2(\theta)\right]\\
+        &= R^2 \left(\dot \theta^2 + \dot \phi^2 \sin^2(\theta)\right)
+        \intertext{Laut Aufgabenstellung ist $\dot \phi = \omega$}
+        &= R^2 \left(\dot \theta^2 + \omega^2 \sin^2(\theta)\right)
+    \end{align*}
+    Nun gilt 
+    $$L = T - V = \frac{1}{2}m \dot{\vec{x}}^2 - m \cdot g \cdot x_3 = \frac{1}{2}m R^2 \left(\dot \theta^2 + \omega^2 \sin^2(\theta)\right) - mgR\cos(\theta)$$
+    \item Da es sich hier um ein konservatives System mit holonom-skleronomen Zwangsbedingungen handelt, ist $$H = E = T+ V = \frac{1}{2}m R^2 \left(\dot \theta^2 + \omega^2 \sin^2(\theta)\right) + mgR\cos(\theta).$$
+    \item Aus b sieht man sofort, dass $H$ der Gesamtenergie entspricht und da $\frac{\partial H}{\partial t} = 0$, folgt daraus sofort die Energieerhaltung.
+    \item Der kanonisch konjugierte Impuls ist 
+    $$p_\theta = \frac{\partial L }{\partial \dot \theta} = mR^2 \dot \theta.$$ Die kanonischen Gleichungen lauten
+    $$\dot \theta = \frac{\partial H}{\partial p_\theta}$$ und $$-\dot p_\theta = \frac{\partial H}{\partial \theta} = \frac{1}{2}mR^2\sin(\theta)\cos(\theta) - mgR \sin(\theta)$$
+    \item Setzt man den kanonisch konjugierten Impuls in die zweite der kanonischen Gleichungen ein, so erhält man
+    $$- \frac{\d}{\d t}mR^2 \dot \theta = \frac{\partial H}{\partial \theta} = \frac{1}{2}mR^2\sin(\theta)\cos(\theta) - mgR \sin(\theta).$$ Mit $\dot \theta = 0$ folgt daraus
+    $$\frac{1}{2}mR^2\sin(\theta)\cos(\theta) - mgR \sin(\theta) = 0.$$
+    Für $\theta = k\cdot \pi, k \in \Z$ ist diese Bedingung erfüllt. Sonst teilen wir durch $mR\sin(\theta)$ und erhalten
+    $$R\cos(\theta) = 2g.$$
+\end{enumerate}
+\section*{Aufgabe 2}
+\begin{enumerate}[(a)]
+    \item $L = T - V = \frac{m}{2}\dot{q}^2 - \frac{m}{2}\omega^2 q^2$, $H = T + V = \frac{m}{2}\dot{q}^2 + \frac{m}{2}\omega^2 q^2$.
+    \item Die kanonischen Gleichungen sind
+    $$\dot q = \frac{\partial H}{\partial p}$$ und $$-\dot p = \frac{\partial H}{\partial q},$$ wobei $p$ durch $$p = \frac{\partial L}{\partial \dot q} = m \dot q$$ gegeben ist. Wir können $H$ damit auch schreiben als $H = \frac{p^2}{2m} + \frac{m}{2}\omega^2 q^2$. 
+    Nun gilt:
+    $$\dot y = \begin{pmatrix}
+        \dot q\\ \dot p 
+    \end{pmatrix} = \begin{pmatrix}
+        \frac{\partial H}{\partial p}\\ -\frac{\partial H}{\partial q}
+    \end{pmatrix} = \begin{pmatrix}
+        \frac{p}{m} \\ -m \omega^2 q
+    \end{pmatrix} = \begin{pmatrix}
+        0 & \frac{1}{m}\\
+        -m \omega^2 & 0
+    \end{pmatrix}\cdot \begin{pmatrix}
+        q\\ p
+    \end{pmatrix} = \begin{pmatrix}
+        0 & \frac{1}{m}\\
+        -m \omega^2 & 0
+    \end{pmatrix}\cdot y$$
+    Diese Gleichung wird gelöst durch $\vec y(t) = e^{At}\vec y_0$ mit $A = m\begin{pmatrix}
+        0 & \frac{1}{m^2}\\
+        -\omega^2 & 0
+    \end{pmatrix}$. Wir stellen fest 
+    $$A^2 = m\begin{pmatrix}
+        0 & \frac{1}{m^2}\\
+        -\omega^2 & 0
+    \end{pmatrix} \cdot m\begin{pmatrix}
+        0 & \frac{1}{m^2}\\
+        -\omega^2 & 0
+    \end{pmatrix} = m^2 \cdot \begin{pmatrix}
+        -\frac{\omega^2}{m^2} & 0\\ 0 & -\frac{\omega^2}{m^2}
+    \end{pmatrix} = - \omega^2 \cdot E_2.$$
+    Es gilt also 
+    \begin{align*}
+        e^{At} &= \sum_{n = 0}^{\infty}\frac{(At)^n}{n!}\\
+        &= \sum_{n = 0}^{\infty} \frac{(At)^{2n+1}}{(2n+1)!} + \sum_{n = 0}^{\infty} \frac{(At)^{2n}}{(2n)!}\\
+        &= A \cdot \sum_{n = 0}^{\infty}  (- \omega^2 \cdot E_2)^n \frac{t^{2n+1}}{(2n+1)!} + \sum_{n = 0}^{\infty} (- \omega^2 \cdot E_2)^n \frac{t^{2n}}{(2n)!}\\
+        &= \frac{1}{\omega} A \cdot \sum_{n = 0}^{\infty}  (-1)^n  \frac{(\omega t)^{2n+1}}{(2n+1)!} + E_2 \cdot \sum_{n = 0}^{\infty} (- 1)^n \frac{(\omega t)^{2n}}{(2n)!}\\
+        &= \frac{1}{\omega} A \cdot \sin(\omega t) + E_2 \cos(\omega t)\\
+        &= \begin{pmatrix}
+            \cos(\omega t) & \frac{1}{m\omega} \sin(\omega t)\\
+            m \omega \cos(\omega t) & \cos(\omega t)
+        \end{pmatrix}
+    \end{align*}
+\end{enumerate}
+\end{document}

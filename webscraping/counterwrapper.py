@@ -1,10 +1,10 @@
 import json
 
-with open("/home/josua/repos/uni/counters", "r") as f:
+with open("/home/josua/repos/uni/webscraping/counters", "r") as f:
     counterdict = json.loads(f.read())
 
 def write(counterdict):
-    with open("/home/josua/repos/uni/counters", "w") as f:
+    with open("/home/josua/repos/uni/webscraping/counters", "w") as f:
         f.write(json.dumps(counterdict))
 
 def getTheo():

@@ -123,26 +123,38 @@
 \section*{Aufgabe 1}
 \begin{enumerate}[(a)]
     \item Für die potentielle Energie $V$ erhalten wir
-    $$V  = -s M \cos(\alpha) - m (L \cos(\alpha) + d\cos(\beta)) = -(sM + Lm)\cos(\alpha) - dm\cos(\beta)$$
+    $$V  = -s g M \cos(\alpha) - m g (L \cos(\alpha) + d\cos(\beta)) = -g(sM + Lm)\cos(\alpha) - dmg\cos(\beta)$$
     Die kinetische Energie ist
     $$T = \frac{M}{2}s^2\dot \alpha^2 + \frac{m}{2}\left(L^2\dot \alpha^2 + d^2\dot \beta^2 + 2Ld\dot \alpha\dot \beta (\cos(\alpha)\cos(\beta) + \sin(\alpha)\sin(\beta))\right)$$
     $$= \frac{M}{2}s^2\dot \alpha^2 + \frac{m}{2}L^2 \dot \alpha^2 + \frac{m}{2}d^2 \dot \beta^2 + mLd\dot \alpha\dot \beta \cos(\alpha - \beta)$$
     Wir erhalten daher folgende Lagrange-Gleichung:
-    $$L = \frac{M}{2}s^2\dot \alpha^2 + \frac{m}{2}L^2 \dot \alpha^2 + \frac{m}{2}d^2 \dot \beta^2 + mLd\dot \alpha\dot \beta \cos(\alpha - \beta)+(sM + Lm)\cos(\alpha) + dm\cos(\beta)$$
+    $$L = \frac{M}{2}s^2\dot \alpha^2 + \frac{m}{2}L^2 \dot \alpha^2 + \frac{m}{2}d^2 \dot \beta^2 + mLd\dot \alpha\dot \beta \cos(\alpha - \beta)+g(sM + Lm)\cos(\alpha) + gdm\cos(\beta)$$
     \item Für die Bewegungsgleichungen folgt also
     \begin{align*}
         0 &= \frac{\d }{\d t}\frac{\partial L }{\partial \dot \alpha} - \frac{\partial L}{\partial \alpha}\\
-        &= \frac{\d }{\d t} \left(Ms^2 \dot \alpha + mL^2 \dot \alpha + mLd\dot \beta \cos(\alpha - \beta)\right) - mLd\dot \alpha\dot \beta \sin(\alpha - \beta)+ (sM + Lm)\sin(\alpha)\\
-        &= (Ms^2 + mL^2)\ddot \alpha + mLd\left(\ddot \beta\cos(\alpha - \beta) + (- \dot \beta \dot \alpha + \dot \beta^2+ \dot\alpha \dot \beta) \sin(\alpha - \beta)\right)+ (sM + Lm)\sin(\alpha)\\
-        &= (Ms^2 + mL^2)\ddot \alpha + mLd\left(\ddot \beta\cos(\alpha - \beta) + \dot \beta^2 \sin(\alpha - \beta)\right)+ (sM + Lm)\sin(\alpha)\\
+        &= \frac{\d }{\d t} \left(Ms^2 \dot \alpha + mL^2 \dot \alpha + mLd\dot \beta \cos(\alpha - \beta)\right) - mLd\dot \alpha\dot \beta \sin(\alpha - \beta)+ g(sM + Lm)\sin(\alpha)\\
+        &= (Ms^2 + mL^2)\ddot \alpha + mLd\left(\ddot \beta\cos(\alpha - \beta) + (- \dot \beta \dot \alpha + \dot \beta^2+ \dot\alpha \dot \beta) \sin(\alpha - \beta)\right)+ g(sM + Lm)\sin(\alpha)\\
+        &= (Ms^2 + mL^2)\ddot \alpha + mLd\left(\ddot \beta\cos(\alpha - \beta) + \dot \beta^2 \sin(\alpha - \beta)\right)+ g(sM + Lm)\sin(\alpha)\\
         0 &= \frac{\d }{\d t}\frac{\partial L }{\partial \dot \beta} - \frac{\partial L}{\partial \beta}\\
-        &= \frac{\d }{\d t} \left(md^2\dot \beta + mLd\dot \alpha \cos(\alpha - \beta)\right) - mLd\dot \alpha\dot \beta \sin(\alpha - \beta) + dm\sin(\alpha)\\
-        &= md^2 \ddot \beta + mLd\left(\ddot \alpha \cos(\alpha - \beta) - \dot \alpha (\dot \alpha - \dot \beta)\sin(\alpha - \beta) - \dot \alpha \dot \beta \sin(\alpha - \beta)\right)+ dm\sin(\alpha)\\
-        &= md^2 \ddot \beta + mLd\left(\ddot \alpha \cos(\alpha - \beta) - \dot \alpha^2 \sin(\alpha - \beta)\right)+ dm\sin(\alpha)\\
+        &= \frac{\d }{\d t} \left(md^2\dot \beta + mLd\dot \alpha \cos(\alpha - \beta)\right) - mLd\dot \alpha\dot \beta \sin(\alpha - \beta) + gdm\sin(\alpha)\\
+        &= md^2 \ddot \beta + mLd\left(\ddot \alpha \cos(\alpha - \beta) - \dot \alpha (\dot \alpha - \dot \beta)\sin(\alpha - \beta) - \dot \alpha \dot \beta \sin(\alpha - \beta)\right)+ gdm\sin(\alpha)\\
+        &= md^2 \ddot \beta + mLd\left(\ddot \alpha \cos(\alpha - \beta) - \dot \alpha^2 \sin(\alpha - \beta)\right)+ gdm\sin(\alpha)\\
     \end{align*}
     \item Zeigen Sie, dass es eine Lösung gibt, bei der der zeitliche Verlauf von $\alpha$ und $\beta$ übereinstimmt.
     Was bedeutet die Lösung anschaulich? Benutzen Sie, dass die Determinante der Koeffizientenmatrix der beiden Differentialgleichungen für den Winkel $\alpha$ für eine nicht-triviale Lösung verschwindet.
-    
+    Wir setzen also $\alpha = \beta$. Dann gilt
+    \begin{align*}
+        0 &= (Ms^2 + mL^2)\ddot \alpha + mLd\left(\ddot \alpha\cos(\alpha - \alpha) + \dot \beta^2 \sin(\alpha - \alpha)\right)+ g(sM + Lm)\sin(\alpha)\\
+        0 &= (Ms^2 + mL^2)\ddot \alpha + mLd\ddot \alpha + g(sM + Lm)\sin(\alpha)
+        \intertext{Wir multiplizieren diese Gleichung mit $-\frac{dm}{sM + Lm}$}
+        0 &= -\frac{dm(Ms^2 + mL^2)}{sM + Lm} \ddot{\alpha} -\frac{d^2m^2L}{sM + Lm} \ddot \alpha - gdm \sin(\alpha)
+        \intertext{Die andere Bewegungsgleichung wird zu}
+        &= md^2 \ddot \alpha + mLd\left(\ddot \alpha \cos(\alpha - \alpha) - \dot \alpha^2 \sin(\alpha - \alpha)\right)+ gdm\sin(\alpha)\\
+        &= md^2 \ddot \alpha + mLd\ddot \alpha+ gdm\sin(\alpha)\\
+        \intertext{Addieren wir nun die beiden Bewegungsgleichungen, so erhalten wir}
+        0 &= \left(md^2 + mLd - \frac{dm(Ms^2 + mL^2)}{sM + Lm} -\frac{d^2m^2L}{sM + Lm} \right) \ddot \alpha\\
+        &= dmMs \frac{d  + L - s}{sM + Lm} \ddot \alpha\\
+    \end{align*}
 \end{enumerate}
 \section*{Aufgabe 2}
 \begin{enumerate}[(a)]

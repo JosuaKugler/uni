@@ -1,0 +1,186 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amsfonts, amsthm, mathtools, amssymb}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\usepackage{cases}
+\usepackage{fancyhdr}
+\usepackage{comment}
+%\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{cases}
+\usepackage{listings}
+\usepackage{siunitx}
+\usepackage[left = 3cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{subcaption}
+\usepackage{gauss}
+\newtheorem{satz}{Satz}[section]
+\newtheorem{lemma}[satz]{Lemma}
+\newtheorem{korollar}[satz]{Korollar}
+\newtheorem{proposition}[satz]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[satz]{Def.}
+\newtheorem{axiom}[satz]{Axiom}
+\newtheorem{bsp}[satz]{Bsp.}
+\newtheorem*{anmerkung}{Anm}
+\newtheorem{bemerkung}[satz]{Bem}
+\newtheorem*{notatio}{Notation}
+\newcommand{\obda}{O.B.d.A. }
+\newcommand{\equals}{\Longleftrightarrow}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\intd}{\mathrm{d}}
+\newcommand{\Pot}{\operatorname{Pot}}
+\newcommand{\mychar}{\operatorname{char}}
+\newcommand{\myker}{\operatorname{ker}}
+\newcommand{\induktion}[3]
+{\begin{proof}\ \\
+	\noindent\textbf{Induktionsanfang:}\ #1\\
+	\noindent\textbf{Induktionsvoraussetzung:}\ #2\\
+	\noindent\textbf{Induktionsschluss:}\ #3
+\end{proof}}
+
+\newcommand{\rg}{\operatorname{rg}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\abb}{\operatorname{Abb}}
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\Ima}{\operatorname{Im}}
+\newcommand{\Lagrange}[1]{\frac{\d }{\d t}\frac{\partial L }{\partial \dot #1} - \frac{\partial L}{\partial #1}}
+\let\oldstackrel\stackrel
+\renewcommand{\stackrel}[2]{%
+    \oldstackrel{\mathclap{#1}}{#2}
+}%
+
+
+\newcommand{\ipilayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Einführung in die praktische Informatik, Blatt #1}
+	\fancyhead[R]{Josua Kugler, Jan Metzger, David Wesner}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Peter Bastian\\
+			Tutor: Frederick Schenk}
+		\rhead{Einführung in die praktische Informatik, Übungsblatt #1\\ David, Jan, Josua}
+		\cfoot{\thepage}
+	}
+\thispagestyle{firstpage}
+}
+
+% integral d sign
+\makeatletter \renewcommand\d[1]{\ensuremath{%
+		\;\mathrm{d}#1\@ifnextchar\d{\!}{}}}
+\makeatother
+
+\newcommand{\analayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Analysis 1, Blatt #1}
+	\fancyhead[R]{Alexander Bryant, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Ekaterina Kostina\\
+			Tutor: Philipp Elja Müller}
+		\rhead{Analysis 1, Übungsblatt #1\\ Alexander Bryant, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+\newcommand{\lalayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Lineare Algebra 1, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Denis Vogel\\
+			Tutor: Marina Savarino}
+		\rhead{Lineare Algebra 2, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+
+\lstset{
+    frame=tb, % draw a frame at the top and bottom of the code block
+    tabsize=4, % tab space width
+    showstringspaces=false, % don't mark spaces in strings
+    numbers=left, % display line numbers on the left
+    commentstyle=\color{green}, % comment color
+    keywordstyle=\color{blue}, % keyword color
+    stringstyle=\color{red} % string color
+}
+\setlength{\headheight}{25pt}
+\begin{document}
+\section*{Aufgabe 1}
+\begin{enumerate}[(a)]
+    \item \begin{align*}
+        L' &= L - \frac{\d f}{\d t}\\
+        &= \frac{m}{2}\vec x^2 - m \Phi(x) - \frac{\d\ \left(\frac{m}{2}a\dot a\vec q^{\;2}\right)}{\d t}\\
+        &= \frac{m}{2}(\dot a \vec q + a \dot \vec q) - \frac{m}{2}(\dot a^2\vec q^{\;2} + a\ddot a\vec q^{\;2} + 2 a\dot a\vec{q} \dot{\vec{q}}) - m \Phi(x)\\
+        &= \frac{m}{2}(a^2 \dot \vec{q}^{\; 2}) + \frac{m}{2} \left(\dot a^2 \vec q^{\;2} + 2a\dot a \vec{q} \dot{\vec{q}} - \dot a^2 \vec q^{\;2} - 2a\dot a \vec{q} \dot{\vec{q}} - a\ddot a\vec q^{\;2} - \Phi(a \vec q)\right)\\
+        &= \frac{m}{2}(a^2 \dot \vec{q}^{\; 2}) - m\left(\frac{a\ddot a\vec q^{\;2}}{2} + \Phi(a \vec q)\right)
+    \end{align*}
+    \item Es gilt $$p_q = \frac{\partial L}{\partial \dot q} = m a^2 \dot{\vec{q}}.$$ Damit erhalten wir
+    \begin{align*}
+        H &= \dot \vec q \cdot p_q - L'\\
+        &= m a^2 a^2 \dot \vec{q}^{\; 2} - \frac{m}{2}(a^2 \dot \vec{q}^{\; 2}) + m \phi(\vec q)\\
+        &= \frac{m}{2}(a^2 \dot \vec{q}^{\; 2}) + m \phi(\vec q)\\
+    \end{align*}
+    Da $H$ nicht explizit von der Zeit abhängt, ist die Energie eine Erhaltungsgröße.
+    Ist $\phi \equiv 0$, so ist auch $p_q = m a^2 \dot{\vec{q}}$ eine Erhaltungsgröße.
+    \item Es gilt also $\dot{\vec{q}} = \frac{p_q}{ma^2}$. Durch Integration erhalten wir
+    $$\vec q(t) - \vec q(t_0) = \frac{p_q}{m} \int_ {t_0}^t a^{-2}(t') \d t'.$$ Per Definition ist $a^{-2} = \frac{\dot a}{H_0a^{\frac{3}{2}}}$. Nutzen wir dies, so erhalten wir
+    $$\vec q(t) - \vec q(t_0) = \frac{p_q}{mH_0} \int_{a_0}^{a(t)} a^{-\frac{3}{2}} \d a = - \frac{p_q}{2mH_0}a^{-\frac{1}{2}} + \frac{p_q}{2mH_0}a_0^{-\frac{1}{2}}.$$
+    Für $x$ erhalten wir so 
+    $$\vec x = - \frac{p_q}{2mH_0}a^{\frac{1}{2}} + \frac{p_q\cdot a}{2mH_0}a_0^{-\frac{1}{2}} + a\vec q(t_0)$$
+    Löst man die Differentialgleichung, die $a$ definiert so erhält man 
+    $$\int_0^t\sqrt{a}\d a = H_0 t \implies \frac{2}{3}a^{\frac{3}{2}(t)} = H_0 t \implies a(t) = \left(\frac{3}{2}H_0t\right)^{\frac{2}{3}}.$$
+    Einsetzen ergibt $$\vec q(t) = - \frac{p_q}{2mH_0}\left(\frac{3}{2}H_0t\right)^{-\frac{1}{3}} + \frac{p_q}{2mH_0}a_0^{-\frac{1}{2}} + \vec q(t_0)$$ bzw.
+    $$\vec x = - \frac{p_q}{2mH_0}\left(\frac{3}{2}H_0t\right)^\frac{1}{3} + \frac{p_q\cdot \left(\frac{3}{2}H_0t\right)^\frac{2}{3}}{2mH_0}a_0^{-\frac{1}{2}} + \left(\frac{3}{2}H_0t\right)^{\frac{2}{3}}\vec q(t_0)$$
+    Es gilt also $$\lim\limits_{t\to\infty}\vec q(t) = \frac{p_q}{2mH_0}a_0^{-\frac{1}{2}} + \vec q(t_0)$$ und $$\lim\limits_{t\to\infty} \vec x(t) = \infty$$
+\end{enumerate}
+\section*{Aufgabe 2}
+In Zylinderkoordinaten ist
+$$\frac{\d\  \vec x}{\d t}^2 = \left(\frac{\d \ }{\d\  t} \begin{pmatrix}
+    \rho \sin(\phi)\\
+    \rho \cos(\phi)\\
+    z
+\end{pmatrix}\right)^2 = \left(\begin{pmatrix}
+    \dot \rho \sin(\phi) + \rho \dot \phi \cos(\phi)\\
+    \dot \rho \cos(\phi) - \rho \dot \phi \sin(\phi)\\
+    \dot z
+\end{pmatrix}\right)^2 = \dot \rho^2 + \rho^2 \dot \phi^2 + \dot z^2$$
+Also ist $T = \frac{m}{2} \left(\dot \rho^2 + \rho^2 \dot \phi^2 + \dot z^2\right)$. Da es sich hier um ein konservatives System ohne Nebenbedingungen handelt, erhalten wir $L = T - V = \frac{m}{2} \left(\dot \rho^2 + \rho^2 \dot \phi^2 + \dot z^2\right) - V(\rho)$ und $L = T + V = \frac{m}{2} \left(\dot \rho^2 + \rho^2 \dot \phi^2 + \dot z^2\right) + V(\rho)$. Da $H$ nicht explizit von $t$ abhängt, ist die Energie eine Erhaltungsgröße. Außerdem sind $p_\phi = \frac{\partial L}{\partial \dot \phi} = m \rho^2 \dot \phi$ und $p_z =  \frac{\partial L}{\partial \dot z} = m\dot z$ erhalten.
+\section*{Aufgabe 3}
+\begin{enumerate}[(a)]
+    \item 
+    Es gilt $S = \int_{t_0}^{t_E} L \d t$ Also erhalten wir, wenn wir $T[f]$ als Wirkung auffassen, die Lagrange-Funktion $L = \frac{1}{\sqrt{2g}} \sqrt{\frac{1 + [f'(x)]^2}{f(x)}}$. Es gilt $p_f = \frac{\partial L}{\partial f'} = \frac{1}{\sqrt{2gf(x)}} \cdot \frac{f'(x)}{\sqrt{1 + [f'(x)]^2}}$ und daher 
+    
+    \begin{align*}
+        H &= p_f \cdot f'(x) - L\\
+        &= \frac{1}{\sqrt{2gf(x)}} \cdot \frac{[f'(x)]^2}{\sqrt{1 + [f'(x)]^2}} - \frac{1}{\sqrt{2g}} \sqrt{\frac{1 + [f'(x)]^2}{f(x)}}\\
+        &= \frac{1}{\sqrt{2gf(x)}} \left(\frac{[f'(x)]^2}{\sqrt{1 + [f'(x)]^2}} - \sqrt{1 + [f'(x)]^2}\right)\\
+        &= \frac{1}{\sqrt{2gf(x)}}\frac{[f'(x)]^2 - (1 + [f'(x)]^2)}{\sqrt{1 + [f'(x)]^2}}\\
+        &= - \frac{1}{\sqrt{2gf(x) (1 + [f'(x)]^2)}}
+        \intertext{Dieser Ausdruck hängt nicht explizit von $x$ ab, daher ist $H$ erhalten.}
+        \frac{1}{2gH^2} &= f(x) (1 + [f'(x)]^2)\\
+        f(x) &= \frac{1}{2gH^2(1 + [f'(x)]^2)}
+    \end{align*}
+    \item Es gilt $\frac{\d f}{\d x} = \frac{\d f}{\d \phi} \cdot \frac{1}{\frac{\d x}{\d \phi}} = \frac{\sin(\phi)}{4gE^2} \cdot \frac{4gE^2}{1-\cos(\phi)} = \frac{\sin(\phi)}{1-\cos(\phi)}$. Setzen wir dies nun in die Differentialgleichung ein, so erhalten wir
+    \begin{align*}
+        \frac{1 - \cos(\phi)}{4gE^2} &= \frac{1}{2gE^2\left(1 + \left[\frac{\sin(\phi)}{1-\cos(\phi)}\right]^2\right)}\\
+        \left(1 + \left[\frac{\sin(\phi)}{1-\cos(\phi)}\right]^2\right) (1 - \cos(\phi)) &= 2\\
+        \frac{\sin^2(\phi)}{1-\cos(\phi)} &= 1 + \cos(\phi)\\
+        \sin^2(\phi) &= 1 - \cos^2(\phi)
+    \end{align*}
+\end{enumerate}
+\end{document}

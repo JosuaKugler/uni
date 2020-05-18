@@ -49,7 +49,7 @@ def getZettel(number):
         alist = soup.find_all("a")
 
         for a in alist:
-            if "Blatt" + numberstring in a.text:
+            if "Blatt" in a.text:
                 zettelurl = a["href"]
         basepath = "/home/josua/repos/uni/funktheo/"
         filename = numberstring + "funktheo.pdf"
