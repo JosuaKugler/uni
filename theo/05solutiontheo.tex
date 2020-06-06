@@ -136,7 +136,7 @@
             \dot \theta \cos(\theta)\sin(\phi) + \dot \phi \sin(\theta)\cos(\phi)\\
             - \dot \theta \sin(\theta)
         \end{pmatrix}
-    \end{pmatrix},$$ woraus wir 
+    \end{pmatrix},$$ woraus wir folgern, dass
     \begin{align*}
         \dot{\vec{x}}^2 &= R^2\left[\dot \theta^2 \cos^2(\theta)\cos^2(\phi) + \dot \phi^2 \sin^2(\theta)\sin^2(\phi) + \dot \theta^2 \cos^2(\theta)\sin^2(\phi) + \dot \phi^2 \sin^2(\theta)\cos^2(\phi) + \dot \theta^2 \sin^2(\theta)\right]\\
         &= R^2\left[\dot \theta^2 \cos^2(\theta) + \dot \phi^2 \sin^2(\theta) + \dot \theta^2 \sin^2(\theta)\right]\\
@@ -147,15 +147,22 @@
     Nun gilt 
     $$L = T - V = \frac{1}{2}m \dot{\vec{x}}^2 - m \cdot g \cdot x_3 = \frac{1}{2}m R^2 \left(\dot \theta^2 + \omega^2 \sin^2(\theta)\right) - mgR\cos(\theta)$$
     \item Der kanonisch konjugierte Impuls ist 
-    $$p_\theta = \frac{\partial L }{\partial \dot \theta} = mR^2 \dot \theta.$$ Da es sich hier um ein konservatives System mit holonom-skleronomen Zwangsbedingungen handelt, ist $$H = E = T+ V = \frac{1}{2}m R^2 \left(\dot \theta^2 + \omega^2 \sin^2(\theta)\right) + mgR\cos(\theta) = \frac{p_\theta^2}{2mR^2} + \frac{m R^2}{2}\omega^2 \sin^2(\theta) + mgR\cos(\theta)$$
-    \item Aus b sieht man sofort, dass $H$ der Gesamtenergie entspricht und da $\frac{\partial H}{\partial t} = 0$, folgt daraus sofort die Energieerhaltung.
+    $$p_\theta = \frac{\partial L }{\partial \dot \theta} = mR^2 \dot \theta.$$ Es gilt $$E = T+ V = \frac{1}{2}m R^2 \left(\dot \theta^2 + \omega^2 \sin^2(\theta)\right) + mgR\cos(\theta)$$ und 
+    \begin{align*}
+        H &= p_\theta \dot \theta - L\\
+        &= mR^2 \dot \theta^2 - \frac{m R^2}{2} \left(\dot \theta^2 + \omega^2 \sin^2(\theta)\right) + mgR\cos(\theta)\\
+        &= \frac{mR^2}{2} \left(\dot \theta^2 - \omega^2 \sin^2(\theta)\right) + mgR\cos(\theta)\\
+        &= \frac{p_\theta}{2} - \frac{mR^2}{2} \omega^2 \sin^2(\theta) + mgR\cos(\theta)
+    \end{align*}
+    Also ist $H\neq E$.
+    \item Die Energie ist nicht erhalten, da die Zeitableitung von $E$ nicht 0 ist.
     \item Die kanonischen Gleichungen lauten
-    $$\dot \theta = \frac{\partial H}{\partial p_\theta}$$ und $$-\dot p_\theta = \frac{\partial H}{\partial \theta} = mR^2\omega^2\sin(\theta)\cos(\theta) - mgR \sin(\theta)$$
+    $$\dot \theta = \frac{\partial H}{\partial p_\theta}$$ und $$-\dot p_\theta = \frac{\partial H}{\partial \theta} = -mR^2\omega^2\sin(\theta)\cos(\theta) - mgR \sin(\theta)$$
     \item Setzt man den kanonisch konjugierten Impuls in die zweite der kanonischen Gleichungen ein, so erhält man
-    $$- \frac{\d}{\d t}mR^2 \dot \theta = \frac{\partial H}{\partial \theta} = mR^2\omega^2\sin(\theta)\cos(\theta) - mgR \sin(\theta).$$ Mit $\dot \theta = 0$ folgt daraus
-    $$m\omega^2R^2\sin(\theta)\cos(\theta) - mgR \sin(\theta) = 0.$$
+    $$- \frac{\d}{\d t}mR^2 \dot \theta = \frac{\partial H}{\partial \theta} = - mR^2\omega^2\sin(\theta)\cos(\theta) - mgR \sin(\theta).$$ Mit $\dot \theta = 0$ folgt daraus
+    $$m\omega^2R^2\sin(\theta)\cos(\theta) + mgR \sin(\theta) = 0.$$
     Für $\theta = k\cdot \pi, k \in \Z$ ist diese Bedingung erfüllt. Sonst teilen wir durch $mR\sin(\theta)$ und erhalten
-    $$R\omega^2\cos(\theta) = g.$$
+    $$R\omega^2\cos(\theta) = -g.$$
 \end{enumerate}
 \section*{Aufgabe 2}
 \begin{enumerate}[(a)]
@@ -238,7 +245,7 @@
         v^2r\frac{\partial^2}{\partial r^2}R(r) + 2v^2\frac{\partial}{\partial r}R(r) + crR(r) &= 0\\
         \frac{\partial^2}{\partial r^2} \tilde{R}(r) + \frac{c}{v^2}\tilde{R}(r) &= 0
     \end{align*}
-    Das führt auf die Lösung
-    $$R(r) = \frac{A}{r}\sin(\frac{\sqrt{c}}{v} r) + \frac{B}{r}\cos(\frac{\sqrt{c}}{v} r)$$ und $$T(t) = C \sin(\sqrt{c} t) + D \cos(\sqrt{c} t)$$
+    Das führt auf die Lösung (unter Berücksichtigung der Stetigkeit an der Stelle $r = 0$)
+    $$R(r) = \frac{A}{r}\sin(\frac{\sqrt{c}}{v} r)$$ und $$T(t) = C \sin(\sqrt{c} t) + D \cos(\sqrt{c} t)$$
 \end{enumerate}
 \end{document}
