@@ -115,36 +115,11 @@
 \setlength{\headheight}{25pt}
 \begin{document}
 
-\section*{Aufgabe 15}
+\section*{Aufgabe 24}
 \begin{enumerate}[(a)]
-	\item \begin{itemize}
-		\item Die Stetigkeit von $\alpha$ folgt unmittelbar aus der Stetigkeit der komplexen Exponentialfunktion. Außerdem ist $\alpha(1) = e^{2\pi i 1} = 1 = e^{2\pi i 0} = \alpha(0)$. Daher ist $\alpha$ auch geschlossen.
-		\item Da lineare Funktionen stetig sind, genügt es, die Stetigkeit von $\gamma$ an den Stellen $\frac{1}{3}$ und $\frac{2}{3}$ nachzuweisen.
-		\begin{itemize}
-			\item[$\frac{1}{3}$:] $\gamma\left(\frac{1}{3}\right) = 1$. Außerdem ist $\lim\limits_{x\nearrow\frac{1}{3}} \gamma(t) = 1 = \lim\limits_{x\searrow \frac{1}{3}}$.
-			\item[$\frac{2}{3}$:] $\gamma\left(\frac{2}{3}\right) = i$.  Außerdem ist $\lim\limits_{x\nearrow\frac{2}{3}} \gamma(t) = i = \lim\limits_{x\searrow \frac{2}{3}}$.
-		\end{itemize}
-		Wegen $\gamma(1) = 0 = \gamma(0)$ ist $\gamma$ außerdem geschlossen.
-	\end{itemize}
-	\item Es gilt $$\oint_\alpha \frac{1}{z} \d z = \int_0^1 e^{-2\pi i t}\cdot 2\pi e^{2\pi i t} \d t = 2\pi i$$ und
-	\begin{align*}
-		\oint_\gamma z^2 \d z &= \sum_{\nu = 0}^{2} \int_{\frac{1}{3} \nu}^{\frac{1}{3}(\nu +1)} f(\gamma(t)) \frac{\d \gamma}{\d t}\d t\\
-		&= \int_0^\frac{1}{3} (3t)^2 \cdot 3 \d t + \int_\frac{1}{3}^\frac{2}{3} (3 (i-1)t - (i-2))^2 \cdot 3(i-1) \d t + \int_\frac{2}{3}^1 (3 i (t-1))^2 \cdot - 3i \d t\\
-		&= 9 t^3\bigg|_0^\frac{1}{3}\!\!\!+ 3(i-1)\! \int_\frac{1}{3}^\frac{2}{3}\! 9 (i-1)^2 t^2 - 6(i-1)(i-2)t + (i-2)^2 \d t + 27i\! \int_\frac{2}{3}^1 (t^2 - 2t + 1) \d t\\
-		&= \frac{1}{3} + 3(i-1) \int_\frac{1}{3}^\frac{2}{3} 9 (1^2 + i^2 -2i)t^2 - 6(1-3i)t + (4 +i^2-4i) \d t + 27i  \bigg[\frac{1}{3}t^3 - t^2 + t\bigg]_\frac{2}{3}^1\\
-		&= \frac{1}{3} + 3(i-1) \int_\frac{1}{3}^\frac{2}{3} -18it^2 - 6(1-3i)t + (3-4i) \d t + 27i  \bigg[\frac{1}{3} - 1 + 1-\left(\frac{8}{3^4} - \frac{4}{9} + \frac{2}{3}\right)\bigg]\\
-		&= \frac{1}{3} + i \left(9 -\frac{8}{3} + 12 - 18\right)+ 3(i-1)  \bigg[-6it^3 - 3(1-3i)t^2 + (3-4i)t\bigg]_\frac{1}{3}^\frac{2}{3}\\
-		&= \frac{1}{3}(i+1) + (i-1) \left[-i \frac{16}{3} -(1-3i)4 + (3-4i)2 - \left(-i \frac{2}{3} -(1-3i) + (3-4i)\right) \right]\\
-		&= \frac{1}{3}(i+1) + (i-1) \left[-i \frac{14}{3} -(1-3i)3 + (3-4i)\right]\\
-		&= \frac{1}{3}(i+1) + (i-1) \left[-i \frac{14}{3}+5i\right]\\
-		&= \frac{1}{3}(i+1) -1\frac{1}{3} - i \frac{1}{3}\\
-		&= 0
-	\end{align*}
+	\item Angenommen, es gäbe ein $z \in \C$, sodass $\forall \epsilon > 0: |z - f(\epsilon)| > \epsilon$. Dies können wir umformen zu $$\frac{1}{\epsilon} > \underbrace{\frac{1}{|z - f(\zeta)|}}_{\text{holomorph, da }z\neq f(\zeta)}.$$ Wegen des Satzes von Liouville muss $ \frac{1}{|z - f(\zeta)|} = \text{const}$ sein. Also ist auch $\text{const} = |z - f(\zeta)| = |f(\zeta) - z| \geq |f(\zeta)| - |z|$ und daher $|f(\zeta)| < \text{const}$, also ist $f$ beschränkt und daher nach Liouville konstant. Die Kontraposition war zu zeigen.
+	\item Sei $z = x + iy\in \C$. Dann gilt $z = k + i\cdot l + q + i \cdot s$ mit $k, l \in \Z$ und $0 \leq q, s \leq 1$. Aufgrund der in der Aufgabenstellung beschriebenen Eigenschaft, ist also $f(z) = f(k + i\cdot l + q + i \cdot s) = f(q + s\cdot i)$. Aus Holomorphie folgt Stetigkeit, also ist $f(M)$ kompakt für $M = \{q + s \cdot i|0\leq q,s \leq 1\}$. Daher gibt es ein $C \in \C$, sodass $\sup\limits_{\zeta \in M} \zeta < C$. Es gilt folglich $f(z) = f(q + s\cdot i) < C$. Also ist $f$ beschränkt und nach dem Satz von Liouville konstant.
 \end{enumerate}
+\item Wir betrachten die Funktion $h(z) \coloneqq \frac{f(z)}{g(z)}$. Hat $g$ eine Nullstelle, so nennen wir diese $\zeta$. $h(z)$ ist also wohldefiniert für alle $z \in \C \setminus\{\zeta\}$. In dieser Menge ist auch stets $|h(z)| \leq 1$, da $|f(z)| \leq |g(z)|\; \forall z \in \C$. Soll $h$ holomorph sein, so muss die Cauchy'sche Integralformel gelten: $h(\zeta) = \frac{1}{2\pi i} \oint_\varphi \frac{h(z)}{z - \zeta} \d z$
 
-\section*{Aufgabe 18}
-Es gilt $$\frac{\partial v}{\partial y} = \frac{\partial u}{\partial x} = 2x + 2ay.$$ Daraus folgt $$v(x + iy) = 2xy + ay^2 + C(x),$$ wobei $C(x)$ nur von $x$ abhängen darf. Außerdem erhalten wir $$\frac{\partial v}{\partial x} = - \frac{\partial u}{\partial y} = - 2ax - 2by.$$
-Also muss gelten $$v(x + iy) = -ax^2 - 2bxy + D(y),$$ wobei $D(y)$ nur von $y$ abhängen darf. 
-Gleichsetzen ergibt also $$-ax^2 - 2bxy + D(y) = 2xy + ay^2 + C(x) \equals -2bxy = 2xy \equals b = -1.$$
-Für alle $a, b$ mit $b = -1$ ist $x^2 + 2axy + by^2$ der Realteil einer holomorphen Funktion.
 \end{document}
