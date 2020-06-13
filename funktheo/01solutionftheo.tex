@@ -115,11 +115,31 @@
 \setlength{\headheight}{25pt}
 \begin{document}
 
-\section*{Aufgabe 24}
-\begin{enumerate}[(a)]
-	\item Angenommen, es gäbe ein $z \in \C$, sodass $\forall \epsilon > 0: |z - f(\epsilon)| > \epsilon$. Dies können wir umformen zu $$\frac{1}{\epsilon} > \underbrace{\frac{1}{|z - f(\zeta)|}}_{\text{holomorph, da }z\neq f(\zeta)}.$$ Wegen des Satzes von Liouville muss $ \frac{1}{|z - f(\zeta)|} = \text{const}$ sein. Also ist auch $\text{const} = |z - f(\zeta)| = |f(\zeta) - z| \geq |f(\zeta)| - |z|$ und daher $|f(\zeta)| < \text{const}$, also ist $f$ beschränkt und daher nach Liouville konstant. Die Kontraposition war zu zeigen.
-	\item Sei $z = x + iy\in \C$. Dann gilt $z = k + i\cdot l + q + i \cdot s$ mit $k, l \in \Z$ und $0 \leq q, s \leq 1$. Aufgrund der in der Aufgabenstellung beschriebenen Eigenschaft, ist also $f(z) = f(k + i\cdot l + q + i \cdot s) = f(q + s\cdot i)$. Aus Holomorphie folgt Stetigkeit, also ist $f(M)$ kompakt für $M = \{q + s \cdot i|0\leq q,s \leq 1\}$. Daher gibt es ein $C \in \C$, sodass $\sup\limits_{\zeta \in M} \zeta < C$. Es gilt folglich $f(z) = f(q + s\cdot i) < C$. Also ist $f$ beschränkt und nach dem Satz von Liouville konstant.
-\end{enumerate}
-\item Wir betrachten die Funktion $h(z) \coloneqq \frac{f(z)}{g(z)}$. Hat $g$ eine Nullstelle, so nennen wir diese $\zeta$. $h(z)$ ist also wohldefiniert für alle $z \in \C \setminus\{\zeta\}$. In dieser Menge ist auch stets $|h(z)| \leq 1$, da $|f(z)| \leq |g(z)|\; \forall z \in \C$. Soll $h$ holomorph sein, so muss die Cauchy'sche Integralformel gelten: $h(\zeta) = \frac{1}{2\pi i} \oint_\varphi \frac{h(z)}{z - \zeta} \d z$
+\section*{Aufgabe 23}
+Sei $F(z) = f(z)g(z)$. Dann ist $F'(z) = f'(z)g(z) + f(z)g'(z)$. Also ist $\oint_\gamma f'(z)g(z) + f(z)g'(z) \d z = \oint_\gamma F'(z) \d z = 0$. Aufgrund der Linearität des Integrals folgt \[\oint_\gamma f(z)g'(z)\d z + \oint_\gamma f'(z)g(z) \d z= 0 \Leftrightarrow \oint_\gamma f(z)g'(z) \d z= - \oint_\gamma f'(z)g(z)\d z.\]
 
+\section*{Aufgabe 26}
+Wir wenden die Cauchysche Integralformel an mit $z_0 = a$, da alle Bedingungen nach Aufgabenstellung erfüllt sind und erhalten für $\varphi\colon [0,1] \to D, t \mapsto a + re^{2\pi i t}$ folgende Gleichung
+\[f(a) = \frac{1}{2\pi i}\int_\varphi \frac{f(z)}{z-a}\d z = \frac{1}{2\pi i}\int_0^1 \frac{f(a + re^{2\pi i t})}{a + re^{2\pi i t} -a} \cdot 2\pi i\cdot re^{2\pi i t} \d t = \int_0^1 f(a + re^{2\pi i t}) \d t.\]
+
+\section*{Aufgabe 27}
+Sei $z_0$ ein Sternmittelpunkt von $E$. Es gilt $b'(z) \neq 0\forall z \in \C$, da eine holomorphe Funktion mit Ableitung 0 lokalkonstant ist. Da aber $b$ insbesondere injektiv ist, erhielten wir daraus einen Widerspruch. Wir definieren $F(z)\coloneqq \frac{1}{b'(z)}\int_{z_0}^{b(z)} f(b^{-1}((\xi))\d \xi$. Nun berechnen wir $F'(z)$. Es gilt 
+\begin{align*}
+	F'(z) &= \lim\limits_{\epsilon\to 0} \frac{1}{\epsilon}\frac{1}{b'(z)}\left(\int_{z_0}^{b(z + \epsilon)} f(b^{-1}(\xi)) \d \xi - \int_{z_0}^{b(z)} f(b^{-1}(\xi))\d \xi\right)
+	\intertext{Nach Eigenschaft E2, und da $E$ sternförmig ist, können wir analog zum Beweis von E3 schreiben}
+	&= \lim\limits_{\epsilon\to 0} \frac{1}{\epsilon}\frac{1}{b'(z)}\left(\int_{b(z)}^{b(z+\epsilon)} f(b^{-1}(\xi)) \d \xi \right)
+	\intertext{Den Weg $\gamma : [0,1] \to E$ von $b(z)$ nach $b(z + \epsilon)$ parametrisieren wir durch $\gamma(t) = b(z) + t \cdot (b(z+ \epsilon) - b(z))$}
+	&= \lim\limits_{\epsilon\to 0} \frac{1}{\epsilon}\frac{1}{b'(z)}\left(\int_{0}^{1} f(b^{-1}(\gamma(t))) \gamma'(t) \d t \right)\\
+	&= \lim\limits_{\epsilon\to 0} \frac{(b(z+ \epsilon) - b(z))}{\epsilon}\frac{1}{b'(z)} \int_{0}^{1}  f(b^{-1}(b(z) + t \cdot (b(z+ \epsilon) - b(z)))) \d t\\
+	&= \lim\limits_{\epsilon\to 0} \frac{b'(z)}{b'(z)}\cdot \int_{0}^{1}  f(b^{-1}(b(z) + t \cdot (b(z+ \epsilon) - b(z)))) \d t
+	\intertext{Aufgrund der Stetigkeit von $f$ gilt}
+	&= \int_{0}^{1}  f\left(\lim\limits_{\epsilon\to 0} b^{-1}(b(z) + t \cdot (b(z+ \epsilon) - b(z)))\right) \d t\\
+	\intertext{Da $b$ und $b^{-1}$ ebenfalls stetig sind, folgt schließlich}
+	&= \int_{0}^{1} f\left(b^{-1}(b(z) + t \cdot (b(\lim\limits_{\epsilon\to 0} z+ \epsilon) - b(z)))\right) \d t\\
+	&= \int_{0}^{1} f\left(b^{-1}(b(z) + t \cdot (b(z) - b(z)))\right) \d t\\
+	&= \int_{0}^{1} f\left(b^{-1}(b(z))\right) \d t\\
+	&= \int_{0}^{1} f\left(z\right) \d t\\
+	&= f(z)
+\end{align*}
+Also ist $F$ eine Stammfunktion von $f$ auf $D$.
 \end{document}

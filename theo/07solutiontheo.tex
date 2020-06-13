@@ -1,0 +1,178 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amsfonts, amsthm, mathtools, amssymb}
+\usepackage[arrowdel]{physics} % derivatives
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\usepackage{cases}
+\usepackage{fancyhdr}
+\usepackage{comment}
+%\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{pgf}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.16}
+\usepackage{cases}
+\usepackage{listings}
+\usepackage{siunitx}
+\usepackage[left = 3cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{subcaption}
+\usepackage{gauss}
+\newtheorem{satz}{Satz}[section]
+\newtheorem{lemma}[satz]{Lemma}
+\newtheorem{korollar}[satz]{Korollar}
+\newtheorem{proposition}[satz]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[satz]{Def.}
+\newtheorem{axiom}[satz]{Axiom}
+\newtheorem{bsp}[satz]{Bsp.}
+\newtheorem*{anmerkung}{Anm}
+\newtheorem{bemerkung}[satz]{Bem}
+\newtheorem*{notatio}{Notation}
+\newcommand{\obda}{O.B.d.A. }
+\newcommand{\equals}{\Longleftrightarrow}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\intd}{\mathrm{d}}
+\newcommand{\Pot}{\operatorname{Pot}}
+\newcommand{\mychar}{\operatorname{char}}
+\newcommand{\myker}{\operatorname{ker}}
+\newcommand{\induktion}[3]
+{\begin{proof}\ \\
+	\noindent\textbf{Induktionsanfang:}\ #1\\
+	\noindent\textbf{Induktionsvoraussetzung:}\ #2\\
+	\noindent\textbf{Induktionsschluss:}\ #3
+\end{proof}}
+
+\newcommand{\rg}{\operatorname{rg}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\abb}{\operatorname{Abb}}
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\Ima}{\operatorname{Im}}
+\newcommand{\Lagrange}[1]{\frac{\d }{\d t}\frac{\partial L }{\partial \dot #1} - \frac{\partial L}{\partial #1}}
+\let\oldstackrel\stackrel
+\renewcommand{\stackrel}[2]{%
+    \oldstackrel{\mathclap{#1}}{#2}
+}%
+
+
+\newcommand{\ipilayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Einführung in die praktische Informatik, Blatt #1}
+	\fancyhead[R]{Josua Kugler, Jan Metzger, David Wesner}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Peter Bastian\\
+			Tutor: Frederick Schenk}
+		\rhead{Einführung in die praktische Informatik, Übungsblatt #1\\ David, Jan, Josua}
+		\cfoot{\thepage}
+	}
+\thispagestyle{firstpage}
+}
+
+% integral d sign
+\makeatletter \renewcommand\d[1]{\ensuremath{%
+		\;\mathrm{d}#1\@ifnextchar\d{\!}{}}}
+\makeatother
+
+\newcommand{\analayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Analysis 1, Blatt #1}
+	\fancyhead[R]{Alexander Bryant, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Ekaterina Kostina\\
+			Tutor: Philipp Elja Müller}
+		\rhead{Analysis 1, Übungsblatt #1\\ Alexander Bryant, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+\newcommand{\lalayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Lineare Algebra 1, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Denis Vogel\\
+			Tutor: Marina Savarino}
+		\rhead{Lineare Algebra 2, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+
+\lstset{
+    frame=tb, % draw a frame at the top and bottom of the code block
+    tabsize=4, % tab space width
+    showstringspaces=false, % don't mark spaces in strings
+    numbers=left, % display line numbers on the left
+    commentstyle=\color{green}, % comment color
+    keywordstyle=\color{blue}, % keyword color
+    stringstyle=\color{red} % string color
+}
+\setlength{\headheight}{25pt}
+
+\renewcommand{\phi}{\varphi}
+\renewcommand{\theta}{\vartheta}
+\begin{document}
+\section*{Aufgabe 1}
+\begin{enumerate}[(a)]
+    \item Es gilt für eine Kugel mit Radius $R$ \[V_n = \int_V \d V_n = \int \int_0^R r^{n-1} \d r \d \Omega_n = \int \frac{R^n}{n} \d \Omega_n = \frac{\Omega_nR^n}{n}\]
+	\item Es gilt 
+	\begin{align*}
+		\Omega_n \int_0^\infty \d{r}\;  e^{-r^2}r^{n-1} &= \int_0^\infty e^{-r^2} r^{n-1}\d r\d \Omega_n\\
+		&= \int_0^\infty e^{-r^2} \d V_n\\
+		&= \int_0^\infty e^{-\sum_{i = 1}^{n}x_i^2} \prod_{i=1}^n \d x_i\\
+		&= \prod_{i=1}^n \int_0^\infty e^{-x_i^2}\d x_i\\
+		&= \left(\int_0^\infty e^{-x^2} \d x\right)^n
+		\intertext{Aus dieser Identität erhalten wir für $n = 2$}
+		\left(\int_0^\infty e^{-x^2} \d x\right)^2 &= \Omega_2 \int_0^\infty  e^{-r^2}r^{n-1}\d{r}\\
+		&= \int_0^{2\pi} \int_0^\infty  e^{-r^2}r\d{r} \d \varphi\\
+		&= 2\pi \left[-\frac{1}{2}e^{-r^2}\right]_0^\infty\\
+		&= 2\pi \frac{1}{2} = \pi
+		\intertext{Wurzelziehen ergibt nun}
+		\int_0^\infty e^{-x^2} \d x = \sqrt{\pi}
+	\end{align*}
+	Damit ist die Identität insgesamt bewiesen.
+    \item Wir substituieren $t = r^2$. Dann gilt \[\pi^{\frac{n}{2}} = \Omega_n \frac{1}{2}\cdot \int_0^\infty e^{-r^2}r^{n-2}\cdot 2\cdot r\d r  = \frac{1}{2}\Omega_n\int_0^\infty e^{-t}t^{\frac{n}{2}-1}\d t = \frac{1}{2}\Omega_n \Gamma(\frac{n}{2})\]
+    \item Wir formen um \[V_n = \frac{\Omega_nr^n}{n} = \frac{\pi^{\frac{n}{2}}}{\frac{1}{2}\Gamma(\frac{n}{2})} \frac{r^n}{n} = \frac{\pi^\frac{n}{2}r^n}{\Gamma(\flatfrac{n}{2} +1)}\]
+    \item Wir setzen zunächst $n = 2$. Dann gilt \[V_2 = \frac{\pi r^2}{\Gamma(1 +1)} = \frac{\pi r^2}{1!} = \pi r^2.\] Für $n = 3$ erhalten wir \[V_3 = \frac{\pi^\frac{3}{2} r^3}{\Gamma(2 + \flatfrac{1}{2})} = \pi r^3 \cdot \frac{\sqrt{\pi}}{\frac{4!}{2!4^2}\sqrt{\pi}} = \frac{4}{3}\pi r^3\]
+\end{enumerate}
+\section*{Aufgabe 2}
+\begin{enumerate}[(a)]
+    \item \begin{enumerate}[(i)]
+        \item $x_i,\; y_i \leadsto \rho_i, \varphi_i$ mit $\rho_i^2 = x_i^2 + y_i^2$.
+        \item $p_{x,i} \leadsto \sqrt{2m} \xi_{4i-3},\; p_{y,i} \leadsto \sqrt{2m} \xi_{4i-2},\; p_{z,i} \leadsto \sqrt{2m} \xi_{4i-1},\; z_i \leadsto \sqrt{\frac{2}{m\omega^2}} \xi_{4i}$. Dann gilt nämlich \[\overline{H} = \sum_{i = 1}^{N} \left[\frac{\vec{p_i}^2}{2m} + \frac{m\omega^2}{2}z_i^2\right] = \sum_{i = 1}^{N}\left[\xi_{4i-3}^2 + \xi_{4i-2}^2 + \xi_{4i-1}^2 + \xi_{4i}^2\right] = \sum_{j = 1}^{4N}\xi_j^2.\] Außerdem gilt auch $\d z_i\d p_{x,i}\d p_{y,i}\d p_{z,i} = \sqrt{(2m)^3\frac{2}{m\omega^2}} \d \xi_{4i-3}\d \xi_{4i-2}\d \xi_{4i-1}\d \xi_{4i} = 4\frac{m}{\omega} \d \xi_{4i-3}\d \xi_{4i-2}\d \xi_{4i-1}\d \xi_{4i}$.
+        \item Wir formen zunächst die Bedingung unter dem Integral um. Es gilt \[0 \le H \le E \equals 0 \le \overline{H} + V(x_i,y_i)\le E \equals 0 \le \overline{H} \le E \land \rho_i = x_i^2 + y_i^2\leq R\]
+        \begin{align*}
+            \Phi(E) &= \frac{1}{h_0^{3N}} \int_{0\le H \le E}\prod_{i=1}^N\d x_i\d y_i\d z_i\d p_{x,i}\d p_{y,i}\d p_{z,i}\\
+            &= \frac{1}{h_0^{3N}} \int_{0\le H \le E} \prod_{i=1}^N\rho_i 4\frac{m}{\omega}\d \rho_i\d \varphi_i  \d \xi_{4i-3}\d \xi_{4i-2}\d \xi_{4i-1}\d \xi_{4i}\\
+            &= \frac{1}{h_0^{3N}} \int_{0\le H \le E} \left(4\frac{m}{\omega}\right)^N \prod_{i=1}^N\rho_i \d \rho_i\d \varphi_i  \d \xi_{4i-3}\d \xi_{4i-2}\d \xi_{4i-1}\d \xi_{4i}\\
+            &= \frac{1}{h_0^{3N}} \int_{0\le H \le E}\left(4\frac{m}{\omega}\right)^N\prod_{j=1}^{4N}\d \xi_j \prod_{i=1}^N\rho_i \d \rho_i\d \varphi_i\\
+            &= \left(\frac{4m}{\omega h_0^{3}}\right)^N \int_{0\le \overline{H} \le \sqrt{E} \land \rho_i \le R}\prod_{j=1}^{4N}\d \xi_j \prod_{i=1}^N\rho_i \d \rho_i\d \varphi_i\\
+            &= \left(\frac{4m}{\omega h_0^{3}}\right)^N \underbrace{\int_{0\le \overline{H} \le \sqrt{E}}\prod_{j=1}^{4N}\d \xi_j}_{V_{4N}} \cdot \prod_{i=1}^N \int_{0\le \rho_i \le R} \rho_i \d \rho_i\d \varphi_i\\
+            &= \left(\frac{4m}{\omega h_0^{3}}\right)^N \cdot \frac{\pi^{2N} E^{2N}}{\Gamma(2N + 1)} \cdot \left(\pi R^2\right)^N\\
+            &= \frac{1}{(2N)!} \left(\frac{4m}{\omega h_0^3 \pi^2 E^2\cdot \pi R^2}\right)^N\\
+            &= \frac{1}{(2N)!} \left(\frac{4m\pi^3E^2R^2}{\omega h_0^3}\right)^N
+        \end{align*}
+    \end{enumerate}
+    \item \[\Omega(E) = \pdv{\Phi(E)}{E} = \frac{N}{(2N)!} \left(\frac{4m\pi^3R^2}{\omega h_0^3}\right)^{N-1}\cdot E^{2(N-1)} \cdot 2\left(\frac{4m\pi^3R^2}{\omega h_0^3}\right)\cdot E = \left(\frac{4m\pi^3R^2}{\omega h_0^3}\right)^N \frac{E^{2N-1}}{(2N-1)!}\]
+\end{enumerate}
+\section*{Aufgabe 3}
+\begin{enumerate}[(a)]
+    \item Es gilt \[\d (PV-Pb) + \left(\frac{a}{V} - \frac{ab}{V^2} - RT\right) = (V-b)\d P + \left(P -\frac{a}{V^2} + \frac{2ab}{V^3}\right)\d V - R \d T,\] also liegt hier ein vollständiges Differential vor.
+    \item Hier liegt kein vollständiges Differential vor. Betrachtet man den $\d P$-Term, so erkennt man, dass gilt $F(P,V,T) = PV + g(V,T)$. Analog ergibt sich aus dem $\d T$-Term $F(P,V,T) = \frac{cP}{T} + RT + h(P,V)$. Diese Gleichungen sind offenbar widersprüchlich, da $\frac{cP}{T}$ nicht in $g$ vorkommen kann.
+\end{enumerate}
+\end{document}
