@@ -4,6 +4,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[ngerman]{babel}
 \usepackage{amsmath, amsfonts, amsthm, mathtools, amssymb}
+\usepackage[arrowdel]{physics} % derivatives
 \usepackage{stmaryrd}
 \usepackage{enumerate}
 \usepackage{cases}
@@ -11,6 +12,9 @@
 \usepackage{comment}
 %\usepackage{xcolor}
 \usepackage{tikz}
+\usepackage{pgf}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.16}
 \usepackage{cases}
 \usepackage{listings}
 \usepackage{siunitx}
@@ -53,11 +57,12 @@
 \newcommand{\abb}{\operatorname{Abb}}
 \newcommand{\re}{\operatorname{Re}}
 \newcommand{\Ima}{\operatorname{Im}}
+\newcommand{\Lagrange}[1]{\frac{\d }{\d t}\frac{\partial L }{\partial \dot #1} - \frac{\partial L}{\partial #1}}
+\let\oldstackrel\stackrel
+\renewcommand{\stackrel}[2]{%
+    \oldstackrel{\mathclap{#1}}{#2}
+}%
 
-
-\makeatletter \renewcommand\d[2][]{\ensuremath{%
-		\,\mathrm{d}^{#1}#2\@ifnextchar^{}{\@ifnextchar\d{}{\,}}}}
-\makeatother
 
 \newcommand{\ipilayout}[1]
 {	
@@ -73,6 +78,11 @@
 	}
 \thispagestyle{firstpage}
 }
+
+% integral d sign
+\makeatletter \renewcommand\d[1]{\ensuremath{%
+		\;\mathrm{d}#1\@ifnextchar\d{\!}{}}}
+\makeatother
 
 \newcommand{\analayout}[1]
 {	
@@ -113,10 +123,40 @@
     stringstyle=\color{red} % string color
 }
 \setlength{\headheight}{25pt}
-\begin{document}
 
-\section*{Aufgabe 35}
-$g = 1 - e^{2\pi i\frac{1}{x}}$ ist holomorph auf $\C^\times$ als Komposition holomorpher Funktionen. Es gilt \[1 - e^{2\pi i \frac{1}{\frac{1}{n}}} = 1 - e^{2\pi i n} = 1 - e^0 = 0 \qquad \forall n \in \N.\] Das ist allerdings kein Widerspruch zum Identitätssatz, da $\C^\times$ kein Gebiet ist.
-\section*{Aufgabe 36}
-Sei zunächst $N = \{z\in \C| f(z) = 0\}$. Wir betrachten nun die Funktion $h(z) = \frac{|g(z)|}{|f(z)|}$. $h$ ist also holomorph und beschränkt (wegen $|g(z)| \le |f(z)|$) für alle $z\in \C\setminus N$. Besitzt $N$ einen Häufungspunkt, so ist nach Identitätssatz $f \equiv 0$ und daher $g \equiv 0 = 0 \cdot f$. Hat $N$ hingegen keinen Häufungspunkt, so gibt es zu jedem Punkt $z_0 \in N$ eine offene Kreisscheibe $K_r(z_0)$ mit Radius $r$, in der kein anderer Punkt aus $N$ liegt. Auf $K_r(z_0)$ ist nun $h$ beschränkt und holomorph, sodass sich $h$ analog zu Aufgabe 24c auf $K_r(z_0)$ holomorph und insbesondere stetig fortsetzen lässt. Damit ist $h(z_0)$ ebenfalls $\leq 1$. Dies lässt sich für alle $z_0 \in N$ durchführen und somit erhalten wir, dass $h$ sich auf ganz $\C$ holomorph fortsetzen lässt und dabei immer noch durch 1 beschränkt bleibt. Nach dem Satz von Liouville ist also $h\equiv c$ konstant. Also ist $\forall z \in \C \setminus N: g = c \cdot f$. Für alle $z \in N$ gilt $g(z) = 0 = c \cdot 0 = c \cdot f(z)$, da $g(z)\leq f(z) = 0$.
+\renewcommand{\phi}{\varphi}
+\renewcommand{\theta}{\vartheta}
+\begin{document}
+\section*{Aufgabe 2}
+\begin{enumerate}[(a)]
+	\item Es gibt $N!$ Permutationen, allerdings ist die Reihenfolge der ersten $N_2$ Teilchen egal, genauso wie die Reihenfolge der letzten $N_1$ Teilchen.
+	\item \begin{align*}
+		\frac{1}{k_B}S &= \ln(\Omega)\\
+		&= \ln N! - \ln N_2! - \ln N_1 !\\
+		&\approx N\ln N - N - N_2\ln N_2 + N_2 - N_1\ln N_1 + N_1\\
+		&= N\ln N - (N- N_1) \ln N_2 - N_1\ln N_1\\
+		&= N\ln\left(\frac{N}{N_2}\right) - N_1\ln\left(\frac{N_1}{N_2}\right)
+	\end{align*}
+	Für die Temperatur gilt
+	\begin{align*}
+		\beta &= \pdv{\ln \Omega}{E}\\
+		&= \pdv{N\ln\left(\frac{N}{N_2}\right) - N_1\ln\left(\frac{N_1}{N_2}\right)}{E}\\
+		&= N \frac{N_2}{N} \pdv{\frac{N(\epsilon_2-\epsilon_1)}{E-N\epsilon_1}}{E}- \pdv{N_1}{E}\ln\left(\frac{N_1}{N_2}\right) + N_1\frac{N_2}{N_1}\pdv{\frac{N\epsilon_2-E}{E-N\epsilon_1}}{E}\\
+		&= -N_2N\frac{\epsilon_2-\epsilon_1}{(E-N\epsilon_1)^2} +\frac{1}{\epsilon_2-\epsilon_1}\ln\left(\frac{N_1}{N_2}\right) + N_2 \frac{-(E - N\epsilon_1) - (N\epsilon_2 - E)}{(E-N\epsilon_1)^2}\\
+		&= \frac{1}{\epsilon_2-\epsilon_1}\ln\left(\frac{N_1}{N_2}\right)
+	\end{align*}
+	Nun berechnen wir daraus \[T = \frac{1}{k_B \beta} = \frac{\epsilon_2-\epsilon_1}{k_B\ln\left(\frac{N_1}{N_2}\right)}.\] 
+	\item Sowohl für $N_2 \to 0$ als auch für $N_2 \to \infty$ geht die Temperatur also gegen 0. Für $N_2 > \flatfrac{N}{2}$ wird der Logarithmus und damit auch die Temperatur negativ.
+	\item Es gilt
+	\[
+		\frac{1}{k_B} S = \ln(\Omega) = (2N-1)\ln(E) + \ln(\delta E) - \ln((2N-1)!) + N\ln\left(\frac{4\pi^3R^2m}{h_0^3\omega}\right)
+	\]
+	Daraus berechnen wir
+	\[
+		\beta = \pdv{\ln\Omega}{E}= \frac{2N-1}{E}
+	\] und 
+	\[
+		T = \frac{1}{k_B\beta} = \frac{E}{k_B(2N-1)}	
+	\]
+\end{enumerate}
 \end{document}
