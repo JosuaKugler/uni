@@ -1,5 +1,4 @@
 \documentclass{article}
-
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[ngerman]{babel}
@@ -18,6 +17,8 @@
 \usepackage[hidelinks]{hyperref}
 \usepackage{subcaption}
 \usepackage{gauss}
+\usepackage{environ}
+\usepackage{url}
 \newtheorem{satz}{Satz}[section]
 \newtheorem{lemma}[satz]{Lemma}
 \newtheorem{korollar}[satz]{Korollar}
@@ -36,6 +37,7 @@
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}}
 \newcommand{\intd}{\mathrm{d}}
 \newcommand{\Pot}{\operatorname{Pot}}
 \newcommand{\mychar}{\operatorname{char}}
@@ -53,11 +55,95 @@
 \newcommand{\abb}{\operatorname{Abb}}
 \newcommand{\re}{\operatorname{Re}}
 \newcommand{\Ima}{\operatorname{Im}}
+\newcommand{\norm}[1]{\left\Vert #1 \right\Vert}
 
-
-\makeatletter \renewcommand\d[2][]{\ensuremath{%
-		\,\mathrm{d}^{#1}#2\@ifnextchar^{}{\@ifnextchar\d{}{\,}}}}
+\makeatletter \renewcommand\d{\ensuremath{%
+		\;\mathrm{d}\@ifnextchar\d{\!}{}}}
 \makeatother
+
+\let\oldstackrel\stackrel
+\renewcommand{\stackrel}[2]{%
+    \oldstackrel{\mathclap{#1}}{#2}
+}%
+
+% maximum norm
+\newcommand{\maxnorm}[1]{\left|\left|#1\right|\right|_\infty}
+\renewcommand{\epsilon}{\varepsilon}
+
+\newcommand{\dv}[2]{\frac{\d #1 }{\d #2 }}
+\newcommand{\pdv}[2]{\frac{\partial #1}{\partial #2}}
+
+
+\ExplSyntaxOn
+
+% S-tackrelcompatible ALIGN environment
+% some might also call it the S-uper ALIGN environment
+% uses regular expressions to calculate the widest stackrel
+% to put additional padding on both sides of relation symbols
+\NewEnviron{salign}
+{
+    \begin{align}
+        \lec_insert_padding:V \BODY
+    \end{align}
+}
+% starred version that does no equation numbering
+\NewEnviron{salign*}
+{
+    \begin{align*}
+        \lec_insert_padding:V \BODY
+    \end{align*}
+}
+
+% some helper variables
+\tl_new:N \l__lec_text_tl
+\seq_new:N \l_lec_stackrels_seq
+\int_new:N \l_stackrel_count_int
+\int_new:N \l_idx_int
+\box_new:N \l_tmp_box
+\dim_new:N \l_tmp_dim_a
+\dim_new:N \l_tmp_dim_b
+\dim_new:N \l_tmp_dim_needed
+
+% function to insert padding according to widest stackrel
+\cs_new_protected:Nn \lec_insert_padding:n
+ {
+  \tl_set:Nn \l__lec_text_tl { #1 }
+  % get all stackrels in this align environment
+  \regex_extract_all:nnN { \c{stackrel}{(.*?)}{(.*?)} } { #1 } \l_lec_stackrels_seq
+  % get number of stackrels
+  \int_set:Nn \l_stackrel_count_int { \seq_count:N \l_lec_stackrels_seq }
+  \int_set:Nn \l_idx_int { 1 }
+  \dim_set:Nn \l_tmp_dim_needed { 0pt }
+  % iterate over stackrels
+  \int_while_do:nn { \l_idx_int <= \l_stackrel_count_int }
+  {
+      % calculate width of text
+      \hbox_set:Nn \l_tmp_box {$\seq_item:Nn \l_lec_stackrels_seq { \l_idx_int + 1 }$}
+      \dim_set:Nn \l_tmp_dim_a {\box_wd:N \l_tmp_box}
+      % calculate width of relation symbol
+      \hbox_set:Nn \l_tmp_box {$\seq_item:Nn \l_lec_stackrels_seq { \l_idx_int + 2 }$}
+      \dim_set:Nn \l_tmp_dim_b {\box_wd:N \l_tmp_box}
+      % check if 0.5*(a-b) > minimum padding, if yes updated minimum padding
+      \dim_compare:nNnTF
+        { 1pt * \dim_ratio:nn { \l_tmp_dim_a - \l_tmp_dim_b } { 2pt } } > { \l_tmp_dim_needed }
+        { \dim_set:Nn \l_tmp_dim_needed { 1pt * \dim_ratio:nn { \l_tmp_dim_a - \l_tmp_dim_b } { 2pt } } }
+        { }
+      \quad
+      % increment list index by three, as every stackrel produces three list entries
+      \int_incr:N \l_idx_int
+      \int_incr:N \l_idx_int
+      \int_incr:N \l_idx_int
+  }
+  % replace all relations with align characters (&) and add the needed padding
+  \regex_replace_all:nnN
+      { (\c{iff}&|&\c{iff}|\c{impliedby}&|&\c{impliedby}|\c{implies}&|&\c{implies}|\c{approx}&|&\c{approx}|\c{equiv}&|&\c{equiv}|=&|&=|\c{le}&|&\c{le}|\c{ge}&|&\c{ge}|&\c{stackrel}{.*?}{.*?}|\c{stackrel}{.*?}{.*?}&|&\c{neq}|\c{neq}&) }
+      { \c{kern} \u{l_tmp_dim_needed} \1 \c{kern} \u{l_tmp_dim_needed} }
+      \l__lec_text_tl
+  \l__lec_text_tl
+ }
+\cs_generate_variant:Nn \lec_insert_padding:n { V }
+\ExplSyntaxOff
+
 
 \newcommand{\ipilayout}[1]
 {	
@@ -77,13 +163,13 @@
 \newcommand{\analayout}[1]
 {	
 	\pagestyle{fancy}
-	\fancyhead[L]{Analysis 1, Blatt #1}
-	\fancyhead[R]{Alexander Bryant, Josua Kugler}
+	\fancyhead[L]{Analysis 2, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
 	\fancypagestyle{firstpage}{%
 		\fancyhf{}
 		\lhead{Professor: Ekaterina Kostina\\
-			Tutor: Philipp Elja Müller}
-		\rhead{Analysis 1, Übungsblatt #1\\ Alexander Bryant, Josua Kugler}
+			Tutor: Julian Matthes}
+		\rhead{Analysis 1, Übungsblatt #1\\ David Wesner, Josua Kugler}
 		\cfoot{\thepage}
 	}
 	\thispagestyle{firstpage}
@@ -91,7 +177,7 @@
 \newcommand{\lalayout}[1]
 {	
 	\pagestyle{fancy}
-	\fancyhead[L]{Lineare Algebra 1, Blatt #1}
+	\fancyhead[L]{Lineare Algebra 2, Blatt #1}
 	\fancyhead[R]{David Wesner, Josua Kugler}
 	\fancypagestyle{firstpage}{%
 		\fancyhf{}
@@ -113,10 +199,50 @@
     stringstyle=\color{red} % string color
 }
 \setlength{\headheight}{25pt}
+
+
+
 \begin{document}
 
-\section*{Aufgabe 35}
-$g = 1 - e^{2\pi i\frac{1}{x}}$ ist holomorph auf $\C^\times$ als Komposition holomorpher Funktionen. Es gilt \[1 - e^{2\pi i \frac{1}{\frac{1}{n}}} = 1 - e^{2\pi i n} = 1 - e^0 = 0 \qquad \forall n \in \N.\] Das ist allerdings kein Widerspruch zum Identitätssatz, da $\C^\times$ kein Gebiet ist.
-\section*{Aufgabe 36}
-Sei zunächst $N = \{z\in \C| f(z) = 0\}$. Wir betrachten nun die Funktion $h(z) = \frac{|g(z)|}{|f(z)|}$. $h$ ist also holomorph und beschränkt (wegen $|g(z)| \le |f(z)|$) für alle $z\in \C\setminus N$. Besitzt $N$ einen Häufungspunkt, so ist nach Identitätssatz $f \equiv 0$ und daher $g \equiv 0 = 0 \cdot f$. Hat $N$ hingegen keinen Häufungspunkt, so gibt es zu jedem Punkt $z_0 \in N$ eine offene Kreisscheibe $K_r(z_0)$ mit Radius $r$, in der kein anderer Punkt aus $N$ liegt. Auf $K_r(z_0)$ ist nun $h$ beschränkt und holomorph, sodass sich $h$ analog zu Aufgabe 24c auf $K_r(z_0)$ holomorph und insbesondere stetig fortsetzen lässt. Damit ist $h(z_0)$ ebenfalls $\leq 1$. Dies lässt sich für alle $z_0 \in N$ durchführen und somit erhalten wir, dass $h$ sich auf ganz $\C$ holomorph fortsetzen lässt und dabei immer noch durch 1 beschränkt bleibt. Nach dem Satz von Liouville ist also $h\equiv c$ konstant. Also ist $\forall z \in \C \setminus N: g = c \cdot f$. Für alle $z \in N$ gilt $g(z) = 0 = c \cdot 0 = c \cdot f(z)$, da $g(z)\leq f(z) = 0$.
+\section*{Aufgabe 49}
+\begin{enumerate}[(a)]
+	\item Sei ein Kompaktum $K$ gegeben, sodass $\forall z \in K\colon |z|<R,\; R\in \R_ {>0}$. Für $n > 2R$ gilt dann 
+	\[
+		|z^2-n^2| = |z-n||z+n| > \frac{1}{2}n\cdot \frac{1}{2}n = \frac{1}{4}n^2,
+	\] also
+	\[
+		\frac{2z}{z^2 -n^2} < \frac{2R}{\frac{1}{4}n^2} < \frac{8R}{n^2}.
+	\]
+	Sei nun $r\coloneqq \min_{z\in K} |z|$ (das Minimum existiert, da $K$ kompakt und $|\cdot|$ stetig ist). Dann ist $\left|\frac{1}{z}\right| < \frac{1}{r}$. Damit können wir den gesamten Ausdruck unabhängig von $z$ durch eine konvergente Majorante abschätzen.
+	\item Die Ableitung der linken Seite ist gegeben durch
+	\[
+		-\frac{\pi^2}{\sin^2(z)} \overset{*}{=} \sum_{n \in \Z}	\frac{1}{(z-n)^2}.
+	\]
+	Wir können die rechte Seite aufgrund der kompakten Konvergenz gliedweise differenzieren und erhalten daher für die Ableitung der rechten Seite
+	\[
+		-\frac{1}{z^2} - \sum_{n = 1}^{\infty}\frac{2(n^2+z^2)}{(z-n)^2(z+n)^2} = -\frac{1}{z^2} - \sum_{n = 1}^{\infty}\frac{1}{(z-n)^2} + \frac{1}{(z+n)^2} = -\sum_{n\in \N} \frac{1}{(z-n)^2}.	
+	\]
+	Offensichtlich ist also die Differenz zwischen beiden Ableitungen gleich 0.
+	\item Wir berechnen $h\left(\frac{1}{2}\right)$. Wegen $\cot\left(\frac{\pi}{2}\right) = 0$, lassen wir den ersten Teil sofort weg und sehen
+	\begin{salign*}
+		h\left(\frac{1}{2}\right) &= -\frac{1}{\frac{1}{2}} + \sum_{n = 1}^{\infty}\frac{1}{\frac{1}{4}-n^2}\\
+		&= -2 + \sum_{n = 1}^{\infty}\frac{1}{\left(\frac{1}{2}-n\right)\left(\frac{1}{2}+n\right)}\\
+		&= -2 + \sum_{n = 1}^{\infty}\frac{1}{n-\frac{1}{2}} + \frac{1}{n + \frac{1}{2}}\\
+		&\stackrel{\text{Teleskop}}{=} -2 + \frac{1}{\frac{1}{2}}\\
+		&= 0.
+	\end{salign*}
+\end{enumerate}
+
+\section*{Aufgabe 50}
+Wir ermitteln zunächst die ersten 4 Terme der Taylorentwicklung von $\sin^2(\pi z)$, um dann durch Polynomdivision die ersten drei Terme der Laurententwicklung auszurechnen.
+Es gilt
+\[
+	\sin^2(\pi z) = \pi^2z^2 - \frac{1}{3} \pi^4z^4 + \mathcal{O}(z^5).
+\]
+Mittels endlicher Polynomdivision erhalten wir für die Laurententwicklung daraus
+\[
+	\frac{1}{\sin^2(\pi z)} = \frac{1}{\pi^2z^2 - \frac{1}{3} \pi^4z^4 + \mathcal{O}(z^5)} = \frac{1}{\pi^2}z^{-2} + \frac{1}{3} + \mathcal{O}(z).	
+\]
+Multiplikation mit $\pi^2$ ergibt $\frac{\pi^2}{\sin^2(\pi z)} = z^{-2} + \frac{\pi^2}{3} + \mathcal{O}(z)$.
+Nun berechnen wir noch die entsprechenden Koeffizienten für die rechte Seite von $(*)$. Da die Reihe kompakt kovergiert und alle Summanden bis auf $\frac{1}{z^2}$ holomorph auf $D_{0,1}(0)$ sind, ist $H(z) = \frac{1}{z^2}$, also $a_{-2} = 1$ und $a_{-1} = 0$. Für $a_0$ können wir den holomorphen Anteil der rechten Seite an der Stelle $z = 0$ auswerten und erhalten $a_0 = \sum_{n \in \Z^*} = 2\cdot \sum_{n = 1}^{\infty}\frac{1}{n^2}$. Vergleich der Laurent-Koeffizienten ergibt schließlich \[\frac{\pi^2}{3} = 2 \cdot \sum_{n = 1}^{\infty}\frac{1}{n^2} \implies \frac{\pi^2}{6} = \sum_{n = 1}^{\infty}\frac{1}{n^2}.\]
 \end{document}
