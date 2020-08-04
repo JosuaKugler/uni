@@ -203,46 +203,26 @@
 
 
 \begin{document}
-
-\section*{Aufgabe 49}
+\newcommand{\Res}[2][]{\operatorname{Res}_{#1}\!\left(#2\right)}
+\section*{Aufgabe 51}
 \begin{enumerate}[(a)]
-	\item Sei ein Kompaktum $K$ gegeben, sodass $\forall z \in K\colon |z|<R,\; R\in \R_ {>0}$. Für $n > 2R$ gilt dann 
-	\[
-		|z^2-n^2| = |z-n||z+n| > \frac{1}{2}n\cdot \frac{1}{2}n = \frac{1}{4}n^2,
-	\] also
-	\[
-		\frac{2z}{z^2 -n^2} < \frac{2R}{\frac{1}{4}n^2} < \frac{8R}{n^2}.
-	\]
-	Sei nun $r\coloneqq \min_{z\in K} |z|$ (das Minimum existiert, da $K$ kompakt und $|\cdot|$ stetig ist). Dann ist $\left|\frac{1}{z}\right| < \frac{1}{r}$. Damit können wir den gesamten Ausdruck unabhängig von $z$ durch eine konvergente Majorante abschätzen.
-	\item Die Ableitung der linken Seite ist gegeben durch
-	\[
-		-\frac{\pi^2}{\sin^2(z)} \overset{*}{=} \sum_{n \in \Z}	\frac{1}{(z-n)^2}.
-	\]
-	Wir können die rechte Seite aufgrund der kompakten Konvergenz gliedweise differenzieren und erhalten daher für die Ableitung der rechten Seite
-	\[
-		-\frac{1}{z^2} - \sum_{n = 1}^{\infty}\frac{2(n^2+z^2)}{(z-n)^2(z+n)^2} = -\frac{1}{z^2} - \sum_{n = 1}^{\infty}\frac{1}{(z-n)^2} + \frac{1}{(z+n)^2} = -\sum_{n\in \N} \frac{1}{(z-n)^2}.	
-	\]
-	Offensichtlich ist also die Differenz zwischen beiden Ableitungen gleich 0.
-	\item Wir berechnen $h\left(\frac{1}{2}\right)$. Wegen $\cot\left(\frac{\pi}{2}\right) = 0$, lassen wir den ersten Teil sofort weg und sehen
-	\begin{salign*}
-		h\left(\frac{1}{2}\right) &= -\frac{1}{\frac{1}{2}} + \sum_{n = 1}^{\infty}\frac{1}{\frac{1}{4}-n^2}\\
-		&= -2 + \sum_{n = 1}^{\infty}\frac{1}{\left(\frac{1}{2}-n\right)\left(\frac{1}{2}+n\right)}\\
-		&= -2 + \sum_{n = 1}^{\infty}\frac{1}{n-\frac{1}{2}} + \frac{1}{n + \frac{1}{2}}\\
-		&\stackrel{\text{Teleskop}}{=} -2 + \frac{1}{\frac{1}{2}}\\
-		&= 0.
-	\end{salign*}
+    \item Offensichtlich ist $z^2 \cdot f(z)$ holomorph, sodass höchstens ein Pol 2-ter Ordnung vorliegt. Daher können wir Aufgabe 50 benutzen und erhalten $\Res[0]{f} = \frac{1}{1} \lim\limits_{z\to 0} \dv{}{z}z^2f(z) = \lim\limits_{z\to 0} \dv{}{z} e^{z+1} - e^{2z + 1} = \lim\limits_{z\to 0} e^{z+1} - 2e^{2z+1}  = e - 2e = -e$.
+    \item Die Taylorentwicklung von $\cos^2(\frac{z}{2})$ ist $\cos^2(\frac{z}{2}) = \frac{(x-\pi)^2}{4} - \frac{(x-\pi)^4}{48} + \mathcal{O}((x-\pi)^5)$. Daraus erhalten wir mit Polynomdivision
+    \[
+        \frac{1}{\cos^2(\frac{z}{2})} = 4(x-\pi)^{-2} + \frac{1}{3} + \mathcal{O}((x-\pi)).
+    \]
+    Also ist $\Res[\pi]{g} = 0$. 
 \end{enumerate}
-
-\section*{Aufgabe 50}
-Wir ermitteln zunächst die ersten 4 Terme der Taylorentwicklung von $\sin^2(\pi z)$, um dann durch Polynomdivision die ersten drei Terme der Laurententwicklung auszurechnen.
-Es gilt
-\[
-	\sin^2(\pi z) = \pi^2z^2 - \frac{1}{3} \pi^4z^4 + \mathcal{O}(z^5).
-\]
-Mittels endlicher Polynomdivision erhalten wir für die Laurententwicklung daraus
-\[
-	\frac{1}{\sin^2(\pi z)} = \frac{1}{\pi^2z^2 - \frac{1}{3} \pi^4z^4 + \mathcal{O}(z^5)} = \frac{1}{\pi^2}z^{-2} + \frac{1}{3} + \mathcal{O}(z).	
-\]
-Multiplikation mit $\pi^2$ ergibt $\frac{\pi^2}{\sin^2(\pi z)} = z^{-2} + \frac{\pi^2}{3} + \mathcal{O}(z)$.
-Nun berechnen wir noch die entsprechenden Koeffizienten für die rechte Seite von $(*)$. Da die Reihe kompakt kovergiert und alle Summanden bis auf $\frac{1}{z^2}$ holomorph auf $D_{0,1}(0)$ sind, ist $H(z) = \frac{1}{z^2}$, also $a_{-2} = 1$ und $a_{-1} = 0$. Für $a_0$ können wir den holomorphen Anteil der rechten Seite an der Stelle $z = 0$ auswerten und erhalten $a_0 = \sum_{n \in \Z^*} = 2\cdot \sum_{n = 1}^{\infty}\frac{1}{n^2}$. Vergleich der Laurent-Koeffizienten ergibt schließlich \[\frac{\pi^2}{3} = 2 \cdot \sum_{n = 1}^{\infty}\frac{1}{n^2} \implies \frac{\pi^2}{6} = \sum_{n = 1}^{\infty}\frac{1}{n^2}.\]
+\section*{Aufgabe 52}
+\begin{enumerate}[(a)]  
+    \item Völlig analog zum Beweis des Satzes von der Gebietstreue betrachten wir nur die Stelle $z = f(z) = 0$ und schließen, dass es eine holomorphe Funktion $h(z)$ mit $f(z) = z^\nu h(z)^\nu$ und $h(0)\neq 0$ auf einer kleinen offenen Kreisscheibe $D_\epsilon$ um $0$ gibt. Die Funktion $zh(z)$ bildet nach dem Satz von der Gebietstreue $D_\epsilon$ auf eine andere offene Kreisscheibe $D_\delta$ um $0$ ab, die dann durch die $\nu$-te Potenz auf eine dritte Kreisscheibe $D'$ um 0 abgebildet wird. Wir wählen dann ein $\zeta \in \C$ so groß, dass $\frac{1}{|\zeta|} < \delta$ und $\frac{1}{\zeta^\nu}\in D$ liegt. Die Gleichung $z^\nu = \frac{1}{\zeta^\nu}$ besitzt dann die $\nu$ verschiedenen Lösungen $\frac{z_1}{\zeta}, \dots, \frac{z_n}{\zeta}$, wobei $z_i$ die $i$-te Einheitswurzel bezeichne. Alle diese Lösungen liegen wegen $\left|\frac{z_i}{\zeta}\right| = \frac{1}{|\zeta|} < \delta$ in $D_\delta$. Da $f$ injektiv ist, muss auch $zg(z)$ injektiv sein, sonst wäre $(zg(z))^\nu$ nicht injektiv. Also gibt es $\nu$ verschiedene Elemente $\zeta_1,\dots, \zeta_\nu\in D_\epsilon$ mit $f(\zeta_i) = \frac{1}{\zeta^\nu}$. Aus der Injektivität von $f$ folgt aber, dass dann $\nu = 1$ sein muss und damit $a_1 \neq 0$ in der Laurent-Entwicklung von $f$. Die Ableitung an der Stelle 0 ist also $\dv{}{z}|_{z=0} \sum_{n = 1}^{\infty}a_nz^n = a_1 \neq 0$.
+    \item Nach dem Satz über die Umkehrfunktion aus der reellen Analysis folgt, dass die Jacobimatrix von $f^{-1}$ gegeben ist durch $\left(D_xf(x)\right)^{-1}$. Aufgrund der Cauchy-Riemannschen Differentialgleichungen existieren $a,b$, sodass $D_xf(x) = \begin{pmatrix}
+        a & b\\
+        -b & a
+    \end{pmatrix}$. Daraus erhalten wir $D_xf^{-1}(x) = \frac{1}{a^2+b^2}\begin{pmatrix}
+        a & -b\\
+        b & a
+    \end{pmatrix}$. Offensichtlich erfüllt also $f^{-1}$ ebenfalls die Cauchy-Riemannschen Differentialgleichungen und ist daher auch holomorph.
+    \item Nach Aufgabe 44 folgt sofort die Aussage.
+\end{enumerate}
 \end{document}
