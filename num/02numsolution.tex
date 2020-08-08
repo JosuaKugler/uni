@@ -1,0 +1,242 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amsfonts, amsthm, mathtools, amssymb}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\usepackage{cases}
+\usepackage{fancyhdr}
+\usepackage{comment}
+%\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{pgf}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.16}
+\usepackage{cases}
+\usepackage{listings}
+\usepackage{siunitx}
+\usepackage[left = 3cm, bottom =3cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{subcaption}
+\usepackage{gauss}
+\newtheorem{satz}{Satz}[section]
+\newtheorem{lemma}[satz]{Lemma}
+\newtheorem{korollar}[satz]{Korollar}
+\newtheorem{proposition}[satz]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[satz]{Def.}
+\newtheorem{axiom}[satz]{Axiom}
+\newtheorem{bsp}[satz]{Bsp.}
+\newtheorem*{anmerkung}{Anm}
+\newtheorem{bemerkung}[satz]{Bem}
+\newtheorem*{notatio}{Notation}
+\newcommand{\obda}{O.B.d.A. }
+\newcommand{\equals}{\Longleftrightarrow}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\intd}{\mathrm{d}}
+\newcommand{\Pot}{\operatorname{Pot}}
+\newcommand{\mychar}{\operatorname{char}}
+\newcommand{\myker}{\operatorname{ker}}
+\newcommand{\induktion}[3]
+{\begin{proof}\ \\
+	\noindent\textbf{Induktionsanfang:}\ #1\\
+	\noindent\textbf{Induktionsvoraussetzung:}\ #2\\
+	\noindent\textbf{Induktionsschluss:}\ #3
+\end{proof}}
+
+\newcommand{\rg}{\operatorname{rg}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\abb}{\operatorname{Abb}}
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\Ima}{\operatorname{Im}}
+
+
+
+\newcommand{\numlayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Einführung in die Numerik, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Peter Bastian\\
+			Tutor: Ernestine Großmann}
+		\rhead{Einführung in die Numerik, Übungsblatt #1\\ David, Josua}
+		\cfoot{\thepage}
+	}
+\thispagestyle{firstpage}
+}
+
+\newcommand{\analayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Analysis 2, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Ekaterina Kostina\\
+			Tutor: Julian Matthes}
+		\rhead{Analysis 1, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+\newcommand{\lalayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Lineare Algebra 2, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Denis Vogel\\
+			Tutor: Marina Savarino}
+		\rhead{Lineare Algebra 2, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+
+\lstset{
+    frame=tb, % draw a frame at the top and bottom of the code block
+    tabsize=4, % tab space width
+    showstringspaces=false, % don't mark spaces in strings
+    numbers=left, % display line numbers on the left
+    commentstyle=\color{green}, % comment color
+    keywordstyle=\color{blue}, % keyword color
+    stringstyle=\color{red} % string color
+}
+\setlength{\headheight}{25pt}
+
+\makeatletter \renewcommand\d[1]{\ensuremath{%
+		\;\mathrm{d}#1\@ifnextchar\d{\!}{}}}
+\makeatother
+
+% maximum norm
+\newcommand{\maxnorm}[1]{\left|\left|#1\right|\right|_\infty}
+\renewcommand{\epsilon}{\varepsilon}
+
+\begin{document}
+\numlayout{2}
+\section*{Aufgabe 1}
+\begin{itemize}
+	\item $F(x,y)=x\cdot y$. Die partiellen Ableitungen lauten: $\frac{\partial F}{\partial x}=y$ und $\frac{\partial F}{\partial y}=x$. Somit gilt   
+		$$\frac{F(x+\triangle x, y + \triangle y)-F(x,y)}{F(x,y)}=\underbrace{\left(\frac{yx}{xy}\right)}_{ k_x= 1}\cdot\frac{\triangle x}{x}+\underbrace{\left(\frac{xy}{xy}\right)}_{k_y=1}\frac{\triangle y}{y}.$$
+		$F(x,y)$ ist deswegen gut konditioniert. 
+	\item $F(x,y)=\frac{x}{y}$. Die partiellen Ableitungen lauten: $\frac{\partial F}{\partial x}=\frac{1}{y}$ und $\frac{\partial F}{\partial y}=-\frac{x}{y^2}$. Somit gilt:
+		$$\frac{F(x+\triangle x, y + \triangle y)-F(x,y)}{F(x,y)}=\underbrace{\left(\frac{xy}{xy}\right)}_{ k_x= 1}\cdot\frac{\triangle x}{x}+\underbrace{\left(\frac{-xy^2}{xy^2}\right)}_{|k_y|=1}\frac{\triangle y}{y}.$$
+		$F(x,y)$ ist deswegen gut konditioniert.
+	\item $F(x,y)=\sqrt{x}$. Es ist $F'(x)= \frac{1}{2\sqrt{x}}$. Somit gilt:
+	$$\frac{F(x+\triangle x)-F(x)}{F(x)}=\underbrace{\left(\frac{1\cdot x}{2\sqrt{x}\sqrt{x}}\right)}_{k_x=\frac{1}{2}}\cdot\frac{\triangle x}{x}.$$
+		$F(x,y)$ ist deswegen gut konditioniert.
+		
+\end{itemize}
+\section*{Aufgabe 2}
+\begin{figure}
+	\begin{tikzpicture}
+		\begin{axis}[
+			xmin=0.001,
+			xmax=0.5,
+			ymin=0,
+			ymax=0.6,
+			smooth,
+			samples=200,
+			domain=0.001:0.5,
+			legend pos=north west,
+			width = \textwidth,
+			height = 0.6\textwidth,
+		]
+		\addplot[color=red]{2*1*x^3 +x^2};
+		\addlegendentry{$f_a(h) = 2ph^3 + h^2$}
+		\addplot[color=orange]{2*x^2};
+		\addlegendentry{$c\cdot h^2$ mit $c = \frac{1}{2p}$}
+		\addplot[color=blue]{-(x^2)/(ln(x))};
+		\addlegendentry{$f_b(h) = -\frac{h^2}{\ln(h)}$\hspace*{4mm}}
+		\addplot[color=green]{x^2};
+		\addlegendentry{$c\cdot h^2$ mit $c = 1$}
+		\end{axis}
+	\end{tikzpicture}
+	\caption{Wir wählen hier $p = 1$. Für $h < \frac{1}{2p} = 0.5$ lässt sich $f_a(h)$ also wie erwartet durch $\frac{1}{2p}h^2= 0.5h^2$ abschätzen (bei $h=0.5$ schneiden sich die Funktionen). Da $f_b(h)$ sogar $o(h^2)$ ist, genügt ein beliebig kleines $c$, um die Funktion für $h\to 0$ nach oben abzuschätzen, hier ist $c = 1$}
+\end{figure}
+Wir behandeln die Funktionen $f(h) = (ph^2 + h)^2 - p^2h^4$ in (a), $f(h) = -\frac{h^2}{\ln(h)}$ in (b) und $f(h) = \frac{\sin(x+h) - 2\sin(x) + \sin(x-h)}{h^2} + \sin(x)$ in (c).
+\begin{enumerate}[(a)]
+	\item Es gilt $f(h) = p^2h^4 + 2ph^3 + h^2 - p^2 h^4 = h^2(2ph +1)$. Für $h \leq \frac{1}{2p}$ gilt $f(h) \leq 2h^2$, also $f(h) = O(h^2)$. Die Aussage $f(h) \leq c\cdot h^3$ lässt sich umformen zu
+	$$h^2(2ph+1) \leq ch^3 \equals 2ph +1\leq ch \equals 1 \leq (c-2p)h \equals \frac{1}{c-2p} \leq h$$ und ist daher für $h\to 0$ nicht mehr wahr, folglich ist $f(h) = O(h^2)$ die höchste Potenz, die wir finden können.
+	\item Es gilt $\lim\limits_{h\to 0}-\frac{1}{\ln(h)} = 0$ und daher $\forall \varepsilon > 0: \exists h > 0: -\frac{1}{\ln(h)} \leq \varepsilon \equals \forall \varepsilon > 0: \exists h> 0: -\frac{h^2}{\ln(h)} \leq \varepsilon \cdot h^2 \implies f(h) = O(h^2)$. Allerdings ist $\lim\limits_{h\to 0} -\frac{1}{h\ln(h)} = \lim\limits_{h\to 0} \frac{1}{h\ln(\frac{1}{h})} = \lim\limits_{x\to\infty}\frac{x}{\ln(x)} = \infty$. Also gilt: $\forall C > 0: \exists h >0: -\frac{1}{h\ln(h)} \geq C$ und daher auch $\forall C> 0: \exists h>0: -\frac{h^2}{\ln(h)} \geq Ch^3$. Also ist $f(h)$ nicht $O(h^3)$ und somit ist auch hier die größte Potenz, die wir finden können $h^2$. $f(h)$ ist sogar $o(h^2)$, da $f(h)  \leq c(h)h^2$ mit $c(h) = -\frac{1}{\ln(h)} \xrightarrow{h \to 0} 0$.
+	\item Wir wenden zunächst die Additionstheoreme an und erhalten
+	\begin{align*}
+		&\frac{\sin(x+h) - 2\sin(x) + \sin(x-h) + h^2 \sin(x)}{h^2}\\
+		=&\frac{\sin(x)\cos(h) + \cos(x)\sin(h) - 2\sin(x) + \sin(x)\cos(h) - \cos(x)\sin(h) + h^2 \sin(x)}{h^2}\\
+		=& \sin(x)\frac{2\cos(h) - 2 + h^2}{h^2}
+	\end{align*}
+	Um $f(0)$, $f'(0)$ und $f''(0)$ zu berechnen, wenden wir die Regel von $L'Hospital$ an. Damit erhalten wir 
+	\begin{align*}
+		&\lim\limits_{\epsilon\to0}f(\epsilon)\\ 
+		=&\lim\limits_{\epsilon\to0}\sin(x) \frac{2\cos(\epsilon) - 2 + \epsilon^2}{\epsilon^2}\\
+		=&\sin(x)\lim\limits_{\epsilon\to0} \frac{-2\sin(\epsilon) + 2\epsilon}{2\epsilon}\\
+		=&\sin(x)\lim\limits_{\epsilon\to0} \frac{-2\cos(\epsilon) + 2}{2}\\
+		=&\sin(x) \lim\limits_{\epsilon\to0} 1 - \cos(\epsilon)\\
+		=& 0
+	\end{align*}
+	Für $f'(0)$ erhalten wir
+	\begin{align*}
+		&\lim\limits_{\epsilon\to0}f'(\epsilon)\\ 
+		=&\lim\limits_{\epsilon\to0}\sin(x) \frac{-2\sin(\epsilon)\epsilon - 2(\cos(\epsilon) -1)\cdot 2}{\epsilon^3}
+		\intertext{3-maliges Anwenden von L'Hospital liefert}
+		=&\sin(x)\lim\limits_{\epsilon\to0} \sin(\epsilon) + \frac{2}{3}\epsilon \cos(\epsilon)\\
+		=&0
+	\end{align*}
+	Für $f''(0)$ erhalten wir
+	\begin{align*}
+		&\lim\limits_{\epsilon\to 0}f''(\epsilon)\\
+		=&-\sin(x)\lim\limits_{\epsilon\to 0} 4\frac{\epsilon^3\cos(\epsilon) - 3\epsilon^2\sin(\epsilon)}{\epsilon^6} + 2\frac{\epsilon^2\sin(\epsilon)+ 2\epsilon(\cos(\epsilon)-1)}{\epsilon^4}\\
+		=&-\sin(x)\lim\limits_{\epsilon\to 0} 4\frac{\epsilon\cos(\epsilon) - 3\sin(\epsilon)}{\epsilon^4} + 2\frac{\epsilon\sin(\epsilon)+ 2(\cos(\epsilon)-1)}{\epsilon^3}\\
+		\intertext{Der hintere Term ist gleich $f'(\epsilon)$ und verschwindet daher}
+		=& -\sin(x)\lim\limits_{\epsilon\to 0} 4\frac{\epsilon\cos(\epsilon) - 3\sin(\epsilon)}{\epsilon^4}\\
+		\intertext{Nach zahlreichem Anwenden von L'Hospital kommt raus, dass hier nicht 0 rauskommt...}
+	\end{align*}
+	Nun bilden wir die Taylorreihe dieses Ausdrucks an der Stelle $h = 0$.
+	\begin{align*}
+		\frac{f(\epsilon + h)}{\sin(x)} &= f(\epsilon) + f'(\epsilon)\cdot h + \frac{f''(\epsilon)}{2}h^2 + O(h^3)\\
+		&= 0 + 0 \cdot h +O(h^2)\\
+	\end{align*}
+	Also muss die gesamte Funktion $O(h^2)$ sein, sie kann aber nicht $O(h^3)$ sein, da es Terme $\neq 0$ gibt, die von der Ordnung $h^2$ sind.
+	Die Skizze der ersten beiden Funktionen findet sich in Abbildung 1.
+\end{enumerate}
+\section*{Aufgabe 3}
+Es gilt (für $p \neq 1$)$$k_{1/2} = \frac{\partial (p \pm \sqrt{p^2 - 1})}{\partial p}\cdot \frac{p}{x_{1/2}} = \left(1 \pm \frac{p}{\sqrt{p^2-1}}\right)\cdot \frac{p}{x_{1/2}} = \frac{\sqrt{p^2 - 1} \pm p}{\sqrt{p^2 - 1}} \cdot \frac{p}{p \pm \sqrt{p^2 - 1}} = \pm \frac{p}{\sqrt{p^2-1}}$$
+Die Lösung liegt in den reellen Zahlen, solange $p \neq 1$ ist.
+Die Lösungen des Polynoms $x^2 - \frac{t^2 + 1}{t}x + 1 = 0$ sind, wie man leicht durch Einsetzen verifiziert, $t$ und $\frac{1}{t}$. Also ist hier
+$$k_1 = \frac{\partial t_1}{\partial t} \cdot \frac{t}{t_1} = \frac{\partial t}{\partial t}\cdot \frac{t}{t} = 1$$
+$$k_2 =  \frac{\partial t_1}{\partial t} \cdot \frac{t}{t_1} = \frac{\partial \frac{1}{t}}{\partial t}\cdot \frac{t}{\frac{1}{t}} = -\frac{1}{t^2} \cdot t^2 = -1$$
+Die erste Parametrisierung ist gut konditioniert, wenn $$|\frac{p}{\sqrt{p^2-1}}| \leq 1 \equals \frac{p^2}{p^2-1} \leq 1 \equals p^2 \leq p^2 - 1 \equals 1 \leq 0.$$ Folglich ist die erste Parametrisierung immer schlecht konditioniert.
+Die zweite Parametrisierung ist hingegen stets gut konditioniert. Mit der zweiten Parametrisierung hat man also eine wesentlich bessere Parametrisierung gefunden (zumindest hinsichtlich der Konditionierung).
+\section*{Aufgabe 4}
+\begin{enumerate}[(a)]
+	\item \lstinputlisting[language=C++, caption={Programm für die Zeltabbildung}]{tent_map.cc}
+	\begin{figure}
+		\begin{tikzpicture}
+			\begin{axis}
+				\addplot[only marks, mark options={scale=0.2}] table[col sep=comma, header = false, x index = 0, y index = 1, ] {daten.dat};
+			\end{axis}
+		\end{tikzpicture}
+		\begin{tikzpicture}
+			\begin{axis}
+				\addplot[only marks, mark options={scale=0.2}] table[col sep=comma, header = false, x index = 0, y index = 1, ] {daten2.dat};
+			\end{axis}
+		\end{tikzpicture}
+		\caption{Links: Daten generiert mit \lstinline{tent_map.cc}, offensichtlich wird ab ca. $i=60$ nur noch der Wert 0 angenommen. Rechts: Daten generiert mit modifiziertem Programm wie in (c) beschrieben, hier erhält man durchgehend chaotisches Verhalten}
+	\end{figure}
+	\item Behauptung: Für alle $i \leq r$ sind bei $x_i$ alle Nachkommastellen $m_{r-j} = 0 \forall j\in \Z: j < i$.
+	\induktion{$i=0$. Dann sind nach Aufgabenstellung alle Stellen ab $m_{r+1}$ gleich 0}{Sei die Behauptung für $i=k < r$ erfüllt, also alle Nachkommastellen von $x_k$ ab $m_{r+1 - k}$ sind 0.}{Wir betrachten zunächst die $r-k$-te Nachkommastelle von $2 \cdot x_k$. Da alle späteren Nachkommastellen offensichtlich von $x_k$ und daher auch von $2\cdot x_k$ 0 sein müssen, haben sie keinen Einfluss auf die $r-k$-te Nachkommastelle von $2 \cdot x_k$. Ist nun in $x_k$ $m_{r-k} = 0$, so ist $m_{r-k}$ auch bei $2\cdot x_k$ 0. Ist sie hingegen 1, so bleibt trotzdem $2\cdot 1= 0$ in $Z/2Z$. Also ist die $r-k$-te Nachkommastelle von $2\cdot x_k$ 0. Ist $x_k < 0.5$ folgt daraus sofort die Behauptung für $x_{k+1} = 2\cdot x_k$, ist $x_k \geq 0.5$, so ist $x_{k+1} = 2 - 2x_k$. Allerdings sind in der Binärdarstellung von $2$ insbesondere alle Nachkommastellen ab $m_{r-k} = 0$, sodass auch in $2 - 2x_k$ gilt $m_{r-k} = 0$. Also gilt auch für $x_{k+1}$ die Aussage.}
+	Mit dieser Aussage erhalten wir nun sofort, dass bei $x_r$ alle Nachkommastellen $m_{r - j} = 0\forall j \in \Z: j < r$, also müssen alle Nachkommastellen $=0$ und damit $x_r$ und $x_{r+1} = 2\cdot x_r = 0$ sein.
+	\item Siehe Abbildung 2
+\end{enumerate}
+
+\end{document}

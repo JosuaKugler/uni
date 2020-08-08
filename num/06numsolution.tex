@@ -1,0 +1,392 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amsfonts, amsthm, mathtools, amssymb}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\usepackage{cases}
+\usepackage{fancyhdr}
+\usepackage{comment}
+%\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{pgf}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.16}
+\usepackage{cases}
+\usepackage{listings}
+\usepackage{siunitx}
+\usepackage[left = 3cm, bottom =3cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{subcaption}
+\usepackage{gauss}
+
+\usepackage{environ}
+\newtheorem{satz}{Satz}[section]
+\newtheorem{lemma}[satz]{Lemma}
+\newtheorem{korollar}[satz]{Korollar}
+\newtheorem{proposition}[satz]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[satz]{Def.}
+\newtheorem{axiom}[satz]{Axiom}
+\newtheorem{bsp}[satz]{Bsp.}
+\newtheorem*{anmerkung}{Anm}
+\newtheorem{bemerkung}[satz]{Bem}
+\newtheorem*{notatio}{Notation}
+\newcommand{\obda}{O.B.d.A. }
+\newcommand{\equals}{\Longleftrightarrow}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\intd}{\mathrm{d}}
+\newcommand{\Pot}{\operatorname{Pot}}
+\newcommand{\mychar}{\operatorname{char}}
+\newcommand{\myker}{\operatorname{ker}}
+\newcommand{\induktion}[3]
+{\begin{proof}\ \\
+	\noindent\textbf{Induktionsanfang:}\ #1\\
+	\noindent\textbf{Induktionsvoraussetzung:}\ #2\\
+	\noindent\textbf{Induktionsschluss:}\ #3
+\end{proof}}
+
+\newcommand{\rg}{\operatorname{rg}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\abb}{\operatorname{Abb}}
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\Ima}{\operatorname{Im}}
+
+\let\oldstackrel\stackrel
+\renewcommand{\stackrel}[2]{%
+    \oldstackrel{\mathclap{#1}}{#2}
+}%
+
+
+\newcommand{\numlayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Einführung in die Numerik, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Peter Bastian\\
+			Tutor: Ernestine Großmann}
+		\rhead{Einführung in die Numerik, Übungsblatt #1\\ David, Josua}
+		\cfoot{\thepage}
+	}
+\thispagestyle{firstpage}
+}
+
+\newcommand{\analayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Analysis 2, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Ekaterina Kostina\\
+			Tutor: Julian Matthes}
+		\rhead{Analysis 1, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+\newcommand{\lalayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Lineare Algebra 2, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Denis Vogel\\
+			Tutor: Marina Savarino}
+		\rhead{Lineare Algebra 2, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+
+\lstset{
+    frame=tb, % draw a frame at the top and bottom of the code block
+    tabsize=4, % tab space width
+    showstringspaces=false, % don't mark spaces in strings
+    numbers=left, % display line numbers on the left
+    commentstyle=\color{green}, % comment color
+    keywordstyle=\color{blue}, % keyword color
+    stringstyle=\color{red} % string color
+}
+\setlength{\headheight}{25pt}
+
+\makeatletter \renewcommand\d{\ensuremath{%
+		\;\mathrm{d}}}
+\makeatother
+
+\ExplSyntaxOn
+
+% S-tackrelcompatible ALIGN environment
+% some might also call it the S-uper ALIGN environment
+% uses regular expressions to calculate the widest stackrel
+% to put additional padding on both sides of relation symbols
+\NewEnviron{salign}
+{
+    \begin{align}
+        \lec_insert_padding:V \BODY
+    \end{align}
+}
+% starred version that does no equation numbering
+\NewEnviron{salign*}
+{
+    \begin{align*}
+        \lec_insert_padding:V \BODY
+    \end{align*}
+}
+
+% some helper variables
+\tl_new:N \l__lec_text_tl
+\seq_new:N \l_lec_stackrels_seq
+\int_new:N \l_stackrel_count_int
+\int_new:N \l_idx_int
+\box_new:N \l_tmp_box
+\dim_new:N \l_tmp_dim_a
+\dim_new:N \l_tmp_dim_b
+\dim_new:N \l_tmp_dim_needed
+
+% function to insert padding according to widest stackrel
+\cs_new_protected:Nn \lec_insert_padding:n
+ {
+  \tl_set:Nn \l__lec_text_tl { #1 }
+  % get all stackrels in this align environment
+  \regex_extract_all:nnN { \c{stackrel}{(.*?)}{(.*?)} } { #1 } \l_lec_stackrels_seq
+  % get number of stackrels
+  \int_set:Nn \l_stackrel_count_int { \seq_count:N \l_lec_stackrels_seq }
+  \int_set:Nn \l_idx_int { 1 }
+  \dim_set:Nn \l_tmp_dim_needed { 0pt }
+  % iterate over stackrels
+  \int_while_do:nn { \l_idx_int <= \l_stackrel_count_int }
+  {
+      % calculate width of text
+      \hbox_set:Nn \l_tmp_box {$\seq_item:Nn \l_lec_stackrels_seq { \l_idx_int + 1 }$}
+      \dim_set:Nn \l_tmp_dim_a {\box_wd:N \l_tmp_box}
+      % calculate width of relation symbol
+      \hbox_set:Nn \l_tmp_box {$\seq_item:Nn \l_lec_stackrels_seq { \l_idx_int + 2 }$}
+      \dim_set:Nn \l_tmp_dim_b {\box_wd:N \l_tmp_box}
+      % check if 0.5*(a-b) > minimum padding, if yes updated minimum padding
+      \dim_compare:nNnTF
+        { 1pt * \dim_ratio:nn { \l_tmp_dim_a - \l_tmp_dim_b } { 2pt } } > { \l_tmp_dim_needed }
+        { \dim_set:Nn \l_tmp_dim_needed { 1pt * \dim_ratio:nn { \l_tmp_dim_a - \l_tmp_dim_b } { 2pt } } }
+        { }
+      \quad
+      % increment list index by three, as every stackrel produces three list entries
+      \int_incr:N \l_idx_int
+      \int_incr:N \l_idx_int
+      \int_incr:N \l_idx_int
+  }
+  % replace all relations with align characters (&) and add the needed padding
+  \regex_replace_all:nnN
+      { (\c{approx}&|&\c{approx}|\c{equiv}&|&\c{equiv}|=&|&=|\c{le}&|&\c{le}|\c{ge}&|&\c{ge}|&\c{stackrel}{.*?}{.*?}|\c{stackrel}{.*?}{.*?}&|&\c{neq}|\c{neq}&) }
+      { \c{kern} \u{l_tmp_dim_needed} \1 \c{kern} \u{l_tmp_dim_needed} }
+      \l__lec_text_tl
+  \l__lec_text_tl
+ }
+\cs_generate_variant:Nn \lec_insert_padding:n { V }
+\ExplSyntaxOff
+
+
+% norm
+\newcommand{\norm}[1]{\left\Vert#1\right\Vert}
+\newcommand{\maxnorm}[1]{\norm{#1}_\infty}
+\renewcommand{\epsilon}{\varepsilon}
+
+\begin{document}
+\numlayout{5}
+\section*{Aufgabe 1}
+Es gilt \[P \cdot A = \begin{pmatrix}
+    -2 & 6 & 3 & 10\\
+    0 & -4 & 10 & \frac{15}{2}\\
+    2 & -6 & 7 & -\frac{11}{2}\\
+    -2 & 10 & -12 & 0
+\end{pmatrix}\] und \[Pb = \begin{pmatrix}
+    59 \\ 52 \\ -11 \\ -18
+\end{pmatrix}\]
+Nun können wir ab jetzt die Zerlegung ohne weitere Pivotisierung durchführen. Im ersten Schritt erhalten wir
+\[L_1 \cdot PA = \begin{pmatrix}
+    1& & &\\
+    0&1& &\\
+    1&0&1&\\
+   -1&0&0&1 
+\end{pmatrix}\cdot \begin{pmatrix}
+   -2 & 6 & 3 & 10\\
+   0 & -4 & 10 & \frac{15}{2}\\
+   2 & -6 & 7 & -\frac{11}{2}\\
+   -2 & 10 & -12 & 0
+\end{pmatrix} = \begin{pmatrix}
+    -2 & 6 & 3 & 10\\
+    0 & -4 & 10 & \frac{15}{2}\\
+    0 & 0 & 10 & \frac{9}{2}\\
+    0 & 4 & -15 & -10
+ \end{pmatrix}\] Schritt 2 liefert dann
+ \[L_2\cdot L_1PA = \begin{pmatrix}
+    1& & &\\
+    0&1& &\\
+    0&0&1&\\
+    0&1&0&1 
+\end{pmatrix}\cdot \begin{pmatrix}
+    -2 & 6 & 3 & 10\\
+    0 & -4 & 10 & \frac{15}{2}\\
+    0 & 0 & 10 & \frac{9}{2}\\
+    0 & 4 & -15 & -10
+ \end{pmatrix} = \begin{pmatrix}
+    -2 & 6 & 3 & 10\\
+    0 & -4 & 10 & \frac{15}{2}\\
+    0 & 0 & 10 & \frac{9}{2}\\
+    0 & 0 & -5 & -\frac{5}{2}
+ \end{pmatrix}\]
+ Schritt 3 ergibt
+ \[L_3 \cdot L_2L_1PA = \begin{pmatrix}
+    1& & &\\
+    0&1& &\\
+    0&0&1&\\
+    0&0&\frac{1}{2}&1 
+\end{pmatrix}\cdot \begin{pmatrix}
+    -2 & 6 & 3 & 10\\
+    0 & -4 & 10 & \frac{15}{2}\\
+    0 & 0 & 10 & \frac{9}{2}\\
+    0 & 0 & -5 & -\frac{5}{2}
+ \end{pmatrix} = \begin{pmatrix}
+    -2 & 6 & 3 & 10\\
+    0 & -4 & 10 & \frac{15}{2}\\
+    0 & 0 & 10 & \frac{9}{2}\\
+    0 & 0 & 0 & -\frac{1}{4}
+ \end{pmatrix}\]
+ Wir erhalten
+\[
+    L = L_3^{-1}L_2^{-1}L_1^{-1} = 
+    \begin{pmatrix}
+        1& & &\\
+        0&1& &\\
+        -1&0&1&\\
+        1&0&0&1 
+    \end{pmatrix} \cdot \begin{pmatrix}
+        1& & &\\
+        0&1& &\\
+        0&0&1&\\
+        0&-1&0&1 
+    \end{pmatrix} \cdot 
+    \begin{pmatrix}
+        1& & &\\
+        0&1& &\\
+        0&0&1&\\
+        0&0&-\frac{1}{2}&1 
+    \end{pmatrix} = 
+    \begin{pmatrix}
+        1& & &\\
+        0&1& &\\
+        -1&0&1&\\
+        1&-1&-\frac{1}{2}&1 
+        \end{pmatrix}\]
+\[U =
+    \begin{pmatrix}
+        -2 & 6 & 3 & 10\\
+        0 & -4 & 10 & \frac{15}{2}\\
+        0 & 0 & 10 & \frac{9}{2}\\
+        0 & 0 & 0 & -\frac{1}{4}
+     \end{pmatrix}
+\]
+Es gilt nun $\det PA = \det L \det U = 1 \cdot -20 = -20$, also $-1\cdot \det A = -20 \implies \det A = 20$. Für $Ax = b \equals PAx = Pb$ lösen wir zunächst $Ly = Px$. Durch Einsetzen erhalten wir sofort \[y = \begin{pmatrix}
+     59\\52\\48\\-1
+\end{pmatrix}\]
+Nun lösen wir noch $Ux = y$. Daraus ergibt sich mit rückwärts Einsetzen \[x = \begin{pmatrix}
+    1\\2\\3\\4
+\end{pmatrix}\]
+Zur Berechnung von $A^{-1}$ lösen wir $(LU)x_i = Pe_i,\; i = 1,\dots, 4$. Dann sind $x_i$ die Spalten von $A^{-1}$. Als erstes berechnen wir $Ly_i = Pe_i$, also $Ly_1 = e_2,\; Ly_2 = e_1,\; Ly_3 = e_3,\; Ly_4 = e_4$. Durch Einsetzen erhalten wir
+\[
+  y_1 = \begin{pmatrix}
+      0\\1\\0\\1
+  \end{pmatrix},\; y_2 = \begin{pmatrix}
+      1 & 0 & 1 & - \frac{1}{2}
+  \end{pmatrix},\; y_3 = \begin{pmatrix}
+      0 & 0 & 1 & \frac{1}{2}
+  \end{pmatrix},\; y_4 = \begin{pmatrix}
+      0 & 0 & 0 & 1
+  \end{pmatrix}
+\] und Lösen nun noch $Ux_i = y_i$. Daraus ergibt sich
+\[
+    x_1 = \begin{pmatrix}
+        -\frac{541}{20}\\[0.2em]-\frac{13}{4}\\[0.2em]\frac{9}{5}\\[0.2em]-4
+    \end{pmatrix},\;
+    x_2 = \begin{pmatrix}
+        \frac{271}{20}\\[0.2em]\frac{7}{4}\\[0.2em]-\frac{4}{5}\\[0.2em]2
+    \end{pmatrix},\;
+    x_3 = \begin{pmatrix}
+        -\frac{49}{4}\\[0.2em]-\frac{5}{4}\\[0.2em]1\\[0.2em]-2
+    \end{pmatrix},\;
+    x_4 = \begin{pmatrix}
+        -\frac{263}{10}\\[0.2em]-3\\[0.2em]\frac{9}{5}\\[0.2em]-4
+    \end{pmatrix}
+\] und sofort 
+\[
+  A^{-1} = \begin{pmatrix}
+    -\frac{541}{20} & \frac{271}{20} & -\frac{49}{4} & -\frac{263}{10}\\[0.2em]
+    -\frac{13}{4} & \frac{7}{4} & -\frac{5}{4} & -3\\[0.2em]
+    \frac{9}{5} & \frac{-4}{5} & 1 & \frac{9}{5}\\[0.2em]
+    -4 & 2 & -2 & -4
+  \end{pmatrix}  
+\]
+Für die Konditionszahl gilt nach Vorlesung
+\[\operatorname{cond}_\infty = \norm{A}_\infty \cdot \norm{A^{-1}}_\infty = 24 \cdot 1583\cdot \frac{1}{20} = 1899.6\]
+\section*{Aufgabe 2}
+\begin{enumerate}[(a)]
+    \item Es gilt
+    \begin{align*}
+    (T\cdot v_k)_i &= c\cdot \nu^{i-1}\sin\left((i-1)\frac{k\pi}{n+1}\right) + a\cdot \nu^i\sin\left(i\frac{k\pi}{n+1}\right) + b \cdot \nu^{i+1}\sin\left((i+1)\frac{k\pi}{n+1}\right)
+    \intertext{für $1 < i < n$. Für $i = 1$ wird aber der erste Term 0, da $\sin(0) = 0$ und für $i = n$ wird der letzte Term 0, da $\sin(k\pi) = 0$. Also gilt dieser Ausdruck für alle $1 \leq i \leq n$. Umformen ergibt nun}
+        &= c \cdot \underbrace{\sqrt{\frac{b^2}{c^2}}\nu^2}_{=1} \cdot \nu^{i-1}\sin\left((i-1)\frac{k\pi}{n+1}\right) + a\nu^i\sin\left(i\frac{k\pi}{n+1}\right) + b \nu^{i+1}\sin\left((i+1)\frac{k\pi}{n+1}\right)\\
+        &= a\nu^i\sin\left(i\frac{k\pi}{n+1}\right) + b\nu^{i+1}\cdot \left(\sin\left((i-1)\frac{k\pi}{n+1}\right) + \sin\left((i+1)\frac{k\pi}{n+1}\right)\right)
+        \intertext{Anwenden der Formel vom Übungsblatt}
+        &= a\nu^i\sin\left(i\frac{k\pi}{n+1}\right) + b\nu^{i+1}\cdot 2 \cos\left(\frac{k\pi}{n+1}\right)\sin\left(i\frac{k\pi}{n+1}\right)\\
+        &= \left(a + 2 b \nu \cos\left(\frac{k\pi}{n+1}\right)\right)\cdot \sin\left(i\frac{k\pi}{n+1}\right)\\
+        &= \left(a + 2 b \nu \cos\left(\frac{k\pi}{n+1}\right)\right) \cdot (v_k)_i
+    \end{align*}
+    Also ist $a + 2 b \nu \cos\left(\frac{k\pi}{n+1}\right)$ ein Eigenwert zum Eigenvektor $v_k$.
+    \item Für diese Werte von $a,b,c$ gilt $\lambda_k = 2 - 2 \cos\left(\frac{k}{n+1}\pi\right)$. Da der Cosinus im Intervall $(0,\pi)$ streng monoton fallend ist, erhalten wir $\lambda_\mathrm{max} = \lambda_n  = 2 - 2 \cos\left(\frac{n}{n+1}\pi\right)$ und $\lambda_\mathrm{min} = \lambda_1 = 2 - 2 \cos\left(\frac{1}{n+1}\pi\right)$. Es gilt demnach $\lim\limits_{n\to \infty} \lambda_\mathrm{max} = 4$ und $\lim\limits_{n\to \infty} \lambda_\mathrm{min} = 0$. Es folgt $\operatorname{cond}_2(T) = \frac{\lambda_\mathrm{max}}{\lambda_\mathrm{min}} = \frac{2 - 2 \cos\left(\frac{n}{n+1}\pi\right)}{2 - 2 \cos\left(\frac{1}{n+1}\pi\right)}$ und $\lim\limits_{n\to \infty} \operatorname{cond}_2(T) = \infty$.
+\end{enumerate}
+\section*{Aufgabe 3}
+\begin{enumerate}[(a)]
+    \item Diese Aussage folgt fast sofort aus der zweiten Formulierung der Gauß-Elimination im Skript (Algorithmus 7.8). $\frac{1}{\alpha^{(k)}}\sigma^{(k)}$ besteht nach dieser Definition einfach aus den unteren $n-k-1$ Einträgen von $l^{(k)}$, $\omega^{(k)}$ aus den unteren $n-k-1$ Einträgen von $u^{(k)}$. Beim Gaußverfahren würde nun $l^{(k)}\cdot \left(u^{(k)}\right)^T$ auf die Matrix $A^{(k)}$ addiert, $\frac{1}{\alpha^{(k)}}\sigma^{(k)}\cdot \left(\omega^{(k)}\right)^T$ entspricht genau der unteren rechten $(n-k-1)\times (n-k-1)$-Untermatrix von $l^{(k)}\cdot \left(u^{(k)}\right)^T$. Nun wird $\frac{1}{\alpha^{(k)}}\sigma^{(k)}\cdot \left(\omega^{(k)}\right)^T$ auf die unteren rechte $(n-k-1)\times (n-k-1)$-Untermatrix von $A^{(k)}$ addiert. Insgesamt erhalten wir also durch $C^{(k)} - \frac{1}{\alpha^{(k)}}\sigma^{(k)}(\omega^{(k)})^T$ genau die $(n-k-1)\times (n-k-1)$-Untermatrix von $A^{(k+1)}$, die wir gemäß unserer Blockzerlegung $B^{(k+1)}$ nennen.
+    \item Dieser Algorithmus geht die Matrix $A$ zeilenweise durch, wobei $i$ stets die aktuelle Zeile angibt. Die erste Zeile findet sich exakt so in der Matrix $U$ wieder, sodass der Algorithmus bei $i = 2$ anfangen kann, außerdem dient uns die erste Zeile als Induktionsanfang. Wir nehmen als Induktionsvoraussetzung an, dass der Algorithmus alle Zeilen über Zeile $i$ bereits korrekt zerlegt hat, d.h. in der Zeile $\nu$ gilt $\forall \eta < \nu$ $a_{\nu,\eta} = l^{(\eta)}_\nu$ und $\forall \eta \ge \nu$ gilt $a_{i,\eta} = u^{(i)}_\eta$.
+    Nun führen wir noch eine Induktion über die Spalten durch. Als Induktionsanfang benutzen wir, dass in der dritten Programmzeile für $j=2$ der Eintrag $a_{i,1} = a_{i,1}/a_{1,1}$ gesetzt wird. Das ist genau die Definition von $l^{(1)}_i$. Also ist unsere Induktionsvoraussetzung, dass für die ersten $\nu-1$ Einträge bereits gilt $a_\eta = l^{(\eta)}_i$.
+    Die erste \lstinline{for}-Schleife geht nun von $j=2$ bis $j=i$. Für den Eintrag $a_{ij}$ werden nun durch die Schleife in Programmzeile 4 die Schritte 1 bis $j-1$ durchgeführt, sodass nach dem Durchführen der Schleife der Eintrag $a_{i,\nu}^{(\nu-1)}$ dasteht. Im $\eta$-ten Schritt wird nämlich $a_{i,j}^{(\eta)} = a_{i,j}^{\eta - 1} - a_{i,\eta}\cdot a_{\eta,j} = a_{i,j}^{\eta - 1} - l^{(\eta)}_i\cdot u^{(\eta)}_j$, was genau dem im Skript beschriebenen Update entspricht. Für $\nu \neq i$ wird nun $j$ auf $\nu + 1$ gesetzt und in Programmzeile 3 dann $a^{(\nu-1)}_{i,\nu +1-1} = a^{(\nu-1)}_{i,\nu} = \frac{a^{(\nu-1)}_{i,\nu}}{a^{(\nu-1)}_{\nu, \nu}} = \frac{\tilde{a}^{(\nu)}_{i,\nu}}{u^{(\nu)}_{\nu}} = \frac{\tilde{a}^{(j)}_{i,\nu}}{a^{(j)}_{\nu,\nu}} = l_i^{(j)}$, da sich die ersten $\nu$ Einträge der $\nu$-te Spalte nach Schritt $\nu$ nicht mehr ändern (siehe Teilaufgabe a). Ab $\nu = i$ wird in der zweiten \lstinline{for}-Schleife einfach immer $a_{i,j} = a^{(\nu-1)}_{i,j} = \tilde{a}^{(\nu)}_{i,j} = \tilde{a}^{(i)}_{i,j} = u^{(i)}_j$ gesetzt. (Auch hier benutzen wir, dass sich die ersten $\nu$ Einträge der $\nu$-ten Zeile nach Schritt $\nu$ nicht mehr ändern.) Damit ist aber schon der Induktionsschluss für die Zeile und damit auch für die Spalten gezeigt.
+\end{enumerate}
+\section*{Aufgabe 4}
+\begin{figure}[h]
+    \begin{tikzpicture}%
+        \begin{axis}[ymode = log, xlabel = $n$, ylabel = Laufzeit in Mikrosekunden, legend pos=north west,]%
+            \addplot table[col sep=comma, header = false, x index = 0, y index = 1] {times};
+            \addlegendentry{SparseMatrix};
+            \addplot table[col sep=comma, header = false, x index = 0, y index = 2] {times};
+            \addlegendentry{DenseMatrix};
+            \addplot[smooth, domain=4:14, color = blue, dashed] {2^x};
+            \addlegendentry{$N = 2^n$};
+            \addplot[smooth, domain=4:14, color = red, dashed] {0.1 * 2^(2*x)};
+            \addlegendentry{$0.1 \cdot N^2$};
+        \end{axis}%\end{}
+    \end{tikzpicture}
+    \begin{tikzpicture}% file%
+        \begin{axis}[ymode = log, xlabel = $n$, legend pos=north west,]%
+            \addplot table[col sep=comma, header = false, x index = 0, y index = 1] {times2};
+            \addlegendentry{SparseMatrix};
+            \addplot table[col sep=comma, header = false, x index = 0, y index = 2] {times2};
+            \addlegendentry{DenseMatrix};
+            \addplot[smooth, domain=4:14, color = blue, dashed] {2^x};
+            \addlegendentry{$N = 2^n$};
+            \addplot[smooth, domain=4:14, color = red, dashed] {0.1 * 2^(2*x)};
+            \addlegendentry{$0.1 \cdot N^2$};
+        \end{axis}%\end{}
+    \end{tikzpicture}
+    \caption{Laufzeit der Multiplikation einer Matrix der Dimension $N \times N$ mit $N = 2^n$ mit einem Vektor. }
+\end{figure}
+In rot ist die Laufzeit bei Implementierung mit \lstinline{DenseMatrix} dargestellt. Durch den Vergleich mit der rot gestrichelten Linie erkennt man, dass die Laufzeit quadratisch in der Größe wächst. In blau dargestellt ist die Laufzeit bei Implementierung mit \lstinline{SparseMatrix}. Hier sieht man am Vergleich mit einer blau gestrichelten Linie, dass die Laufzeit linear in $N$ wächst. Auf der linken Seite ist die Bandbreite 10, auf der rechten Seite 100. Man erkennt, dass rechts zu Beginn also DenseMatrix ebenfalls quadratisch wächst, da die Bandbreite noch größer ist als $N$. Ab $n = 7 \implies N = 128$ spielt die Bandbreite eine Rolle und die Laufzeit wird linear. Das entspricht also exakt den Erwartungen für die Laufzeiten bei konstanter Bandbreite.
+\end{document}

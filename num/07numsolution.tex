@@ -1,0 +1,379 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amsfonts, amsthm, mathtools, amssymb}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\usepackage{cases}
+\usepackage{fancyhdr}
+\usepackage{comment}
+%\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{pgf}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.16}
+\usepackage{cases}
+\usepackage{listings}
+\usepackage{siunitx}
+\usepackage[left = 3cm, bottom =3cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{subcaption}
+\usepackage{gauss}
+\usepackage{nicematrix}
+
+\usepackage{environ}
+\newtheorem{satz}{Satz}[section]
+\newtheorem{lemma}[satz]{Lemma}
+\newtheorem{korollar}[satz]{Korollar}
+\newtheorem{proposition}[satz]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[satz]{Def.}
+\newtheorem{axiom}[satz]{Axiom}
+\newtheorem{bsp}[satz]{Bsp.}
+\newtheorem*{anmerkung}{Anm}
+\newtheorem{bemerkung}[satz]{Bem}
+\newtheorem*{notatio}{Notation}
+\newcommand{\obda}{O.B.d.A. }
+\newcommand{\equals}{\Longleftrightarrow}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\intd}{\mathrm{d}}
+\newcommand{\Pot}{\operatorname{Pot}}
+\newcommand{\mychar}{\operatorname{char}}
+\newcommand{\myker}{\operatorname{ker}}
+\newcommand{\induktion}[3]
+{\begin{proof}\ \\
+	\noindent\textbf{Induktionsanfang:}\ #1\\
+	\noindent\textbf{Induktionsvoraussetzung:}\ #2\\
+	\noindent\textbf{Induktionsschluss:}\ #3
+\end{proof}}
+
+\newcommand{\rg}{\operatorname{rg}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\abb}{\operatorname{Abb}}
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\Ima}{\operatorname{Im}}
+
+\let\oldstackrel\stackrel
+\renewcommand{\stackrel}[2]{%
+    \oldstackrel{\mathclap{#1}}{#2}
+}%
+
+
+\newcommand{\numlayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Einführung in die Numerik, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Peter Bastian\\
+			Tutor: Ernestine Großmann}
+		\rhead{Einführung in die Numerik, Übungsblatt #1\\ David, Josua}
+		\cfoot{\thepage}
+	}
+\thispagestyle{firstpage}
+}
+
+\newcommand{\analayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Analysis 2, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Ekaterina Kostina\\
+			Tutor: Julian Matthes}
+		\rhead{Analysis 1, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+\newcommand{\lalayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Lineare Algebra 2, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Denis Vogel\\
+			Tutor: Marina Savarino}
+		\rhead{Lineare Algebra 2, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+
+\lstset{
+    frame=tb, % draw a frame at the top and bottom of the code block
+    tabsize=4, % tab space width
+    showstringspaces=false, % don't mark spaces in strings
+    numbers=left, % display line numbers on the left
+    commentstyle=\color{green}, % comment color
+    keywordstyle=\color{blue}, % keyword color
+    stringstyle=\color{red} % string color
+}
+\setlength{\headheight}{25pt}
+
+\makeatletter \renewcommand\d{\ensuremath{%
+		\;\mathrm{d}}}
+\makeatother
+
+\ExplSyntaxOn
+
+% S-tackrelcompatible ALIGN environment
+% some might also call it the S-uper ALIGN environment
+% uses regular expressions to calculate the widest stackrel
+% to put additional padding on both sides of relation symbols
+\NewEnviron{salign}
+{
+    \begin{align}
+        \lec_insert_padding:V \BODY
+    \end{align}
+}
+% starred version that does no equation numbering
+\NewEnviron{salign*}
+{
+    \begin{align*}
+        \lec_insert_padding:V \BODY
+    \end{align*}
+}
+
+% some helper variables
+\tl_new:N \l__lec_text_tl
+\seq_new:N \l_lec_stackrels_seq
+\int_new:N \l_stackrel_count_int
+\int_new:N \l_idx_int
+\box_new:N \l_tmp_box
+\dim_new:N \l_tmp_dim_a
+\dim_new:N \l_tmp_dim_b
+\dim_new:N \l_tmp_dim_needed
+
+% function to insert padding according to widest stackrel
+\cs_new_protected:Nn \lec_insert_padding:n
+ {
+  \tl_set:Nn \l__lec_text_tl { #1 }
+  % get all stackrels in this align environment
+  \regex_extract_all:nnN { \c{stackrel}{(.*?)}{(.*?)} } { #1 } \l_lec_stackrels_seq
+  % get number of stackrels
+  \int_set:Nn \l_stackrel_count_int { \seq_count:N \l_lec_stackrels_seq }
+  \int_set:Nn \l_idx_int { 1 }
+  \dim_set:Nn \l_tmp_dim_needed { 0pt }
+  % iterate over stackrels
+  \int_while_do:nn { \l_idx_int <= \l_stackrel_count_int }
+  {
+      % calculate width of text
+      \hbox_set:Nn \l_tmp_box {$\seq_item:Nn \l_lec_stackrels_seq { \l_idx_int + 1 }$}
+      \dim_set:Nn \l_tmp_dim_a {\box_wd:N \l_tmp_box}
+      % calculate width of relation symbol
+      \hbox_set:Nn \l_tmp_box {$\seq_item:Nn \l_lec_stackrels_seq { \l_idx_int + 2 }$}
+      \dim_set:Nn \l_tmp_dim_b {\box_wd:N \l_tmp_box}
+      % check if 0.5*(a-b) > minimum padding, if yes updated minimum padding
+      \dim_compare:nNnTF
+        { 1pt * \dim_ratio:nn { \l_tmp_dim_a - \l_tmp_dim_b } { 2pt } } > { \l_tmp_dim_needed }
+        { \dim_set:Nn \l_tmp_dim_needed { 1pt * \dim_ratio:nn { \l_tmp_dim_a - \l_tmp_dim_b } { 2pt } } }
+        { }
+      \quad
+      % increment list index by three, as every stackrel produces three list entries
+      \int_incr:N \l_idx_int
+      \int_incr:N \l_idx_int
+      \int_incr:N \l_idx_int
+  }
+  % replace all relations with align characters (&) and add the needed padding
+  \regex_replace_all:nnN
+      { (\c{approx}&|&\c{approx}|\c{equiv}&|&\c{equiv}|=&|&=|\c{le}&|&\c{le}|\c{ge}&|&\c{ge}|&\c{stackrel}{.*?}{.*?}|\c{stackrel}{.*?}{.*?}&|&\c{neq}|\c{neq}&) }
+      { \c{kern} \u{l_tmp_dim_needed} \1 \c{kern} \u{l_tmp_dim_needed} }
+      \l__lec_text_tl
+  \l__lec_text_tl
+ }
+\cs_generate_variant:Nn \lec_insert_padding:n { V }
+\ExplSyntaxOff
+
+
+% norm
+\newcommand{\norm}[1]{\left\Vert#1\right\Vert}
+\newcommand{\maxnorm}[1]{\norm{#1}_\infty}
+\renewcommand{\epsilon}{\varepsilon}
+
+\begin{document}
+\numlayout{7}
+\section*{Aufgabe 1}
+\begin{enumerate}[(a)]
+    \item Es gilt die Gleichung
+          \[
+              \begin{pmatrix}
+                  A_{11} & A_{12} \\
+                  A_{21} & A_{22}
+              \end{pmatrix} = A = \begin{pmatrix}
+                  Id & 0 \\ A_{21}A_{11}^{-1}& Id
+              \end{pmatrix} \cdot \begin{pmatrix}
+                  A_{11} & A_{22} \\ 0 & S
+              \end{pmatrix} = \begin{pmatrix}
+                  A_{11} & A_{12}                      \\
+                  A_{21} & A_{21}A_{11}^{-1}A_{12} + S
+              \end{pmatrix}
+          \]
+          Daraus erhalten wir $A_{22} = A_{21}A_{11}^{-1}A_{12} + S \Leftrightarrow S = A_{22} - A_{21}A_{11}^{-1}A_{12}$.
+    \item Es gilt $$(A_{11})_{ij} = A_{ij} = \overline{A_{ji}} = \overline{(A_{11})_{ji}},$$ also ist $A_{11}$ hermitesch. Außerdem gilt $$(A_{22})_{ij} = A_{(p+i)(p+j)} = \overline{A_{(p+j)(p+i)}} = \overline{(A_{22})_{ji}}.$$ Schließlich zeigen wir noch \[(A_{21})_{ij} = A_{(p+i)j} = \overline{A_{j(p+i)}} = \overline{(A_{12})_{ji}}\] und folglich $A_{21} = \overline{A_{12}}^T$.
+          Weiter gilt für alle Vektoren $x \in \K^{n\times n}$ $(Ax, A)_2 > 0$. Sind die letzten $n-p$ Einträge von $x$ 0, so gilt $(Ax,x)_2 = (A_{11}x,x) > 0$. Man kann nun jeden Vektor $\hat x \in \K^{p\times p}$ per (mehr oder weniger) kanonischer Inklusion als einen Vektor $x\in \K^{n\times n}$ auffassen, bei dem die letzten $n-p$ Elemente $0$ sind. Also ist $(A_{11}\hat x,\hat x)_2 = (Ax,x) > 0$ und damit $A_{11}$ positiv definit. Also ist $A_{11}$ reell unitär diagonalisierbar und regulär, d.h. $A_{11} = Q\cdot A' \cdot \overline{Q}^T$, wobei $A' = \operatorname{diag}(\lambda_1,\dots,\lambda_p),\; 0\neq \lambda_i\in \R$. Es gilt also $$A_{11} \cdot Q \cdot \operatorname{diag}\left(\frac{1}{\lambda_1}, \dots, \frac{1}{\lambda_p}\right)\cdot \overline{Q}^T = Q \cdot \operatorname{diag}(\lambda_1,\dots,\lambda_p) \cdot \operatorname{diag}\left(\frac{1}{\lambda_1}, \dots, \frac{1}{\lambda_p}\right) \cdot \overline{Q}^T = Id$$ und folglich $A_{11}^{-1} = Q \cdot \operatorname{diag}\left(\frac{1}{\lambda_1}, \dots, \frac{1}{\lambda_p}\right)\cdot \overline{Q}^T = \overline{A_{11}}^{-T}$, da alle $\lambda_i$ reell sind.
+          Nun betrachten wir die Matrix $S$. Es gilt
+          \[
+              \overline{S}^T = \overline{A_{22}}^T - \overline{(A_{21}A_{11}^{-1}A_{12})}^T = A_{22} - \overline{A_{12}}^T \overline{A_{11}}^{-T} \overline{A_{21}}^T = A_{22} - A_{21} A_{11}^{-1}A_{12} = S,
+          \] $S$ ist also hermitesch.
+          Es gilt für $X = \begin{pmatrix}
+                  Id & 0 \\-A_{21}A_{11}^{-1}& Id
+              \end{pmatrix}$
+          \[
+              X
+              \cdot A \overline{X}^T = \begin{pmatrix}
+                  Id & 0 \\-A_{21}A_{11}^{-1}& Id
+              \end{pmatrix}
+              \cdot \begin{pmatrix}
+                  A_{11} & A_{12} \\ A_{21} & A_{22}
+              \end{pmatrix} \cdot
+              \begin{pmatrix}
+                  Id & -A_{12}A_{11}^{-1} \\0&Id
+              \end{pmatrix}=
+              \begin{pmatrix}
+                  A_{11} & 0 \\0&S
+              \end{pmatrix}
+          \]
+          Es gilt also
+          \[
+              \left(\begin{pmatrix}
+                      A_{11} & 0 \\0&S
+                  \end{pmatrix}x, x\right)_2 = \left(XA\overline{X}^Tx,x\right)_2 =\left(XA\overline{X}^Tx,x\right)_2 = \left(A\overline{X}^Tx, \overline{X}^Tx\right)_2 > 0
+          \]
+          Das gilt insbesondere auch für alle Vektoren, deren ersten $p$ Komponenten 0 sind. Daher muss auch $S$ positiv definit sein.
+\end{enumerate}
+
+\section*{Aufgabe 2}
+\begin{enumerate}[(a)]
+    \item Behauptung: Der Algorithmus ist durchführbar.
+          \begin{proof} Beweis durch endliche Induktion über $j<n.$
+              \begin{enumerate}[\textbf{IB:}]
+                  \item Für alle $1\leq j<n$ gelte $u_j\neq 0$ und $|u_j|>|b_j|.$
+                  \item [\textbf{IS:}] Sei $j<n$ und \textbf{IB} für $j-1$ bereits gezeigt. Dann ist $u_{j-1}\neq 0, $ und $u_j=a_j-\frac{c_j}{u_{j-1}}b_{j-1}.$ Somit gilt
+                        \begin{align*}
+                            |u_j| & =|a_j-\frac{c_j}{u_{j-1}}b_{j-1}|                \\
+                                  & \geq ||a_j|-\frac{|c_j|}{|u_{j-1}|}|b_{j-1}||    \\
+                                  & \geq ||b_j|+|c_j|(1-\frac{|b_{j-1}|}{|u_{j-1}|}) \\
+                                  & \overset{IB}{\geq}|b_j|>0.
+                        \end{align*}
+                        Für den Fall $j=n$ gilt:
+                        \begin{align*}
+                            |u_j| & =|a_n-\frac{c_n}{u_{n-1}}b_{n-1}|        \\
+                                  & \geq ||c_n|(1-\frac{|b_{n-1}}{|u_{n-1}}) \\
+                                  & >0.
+                        \end{align*}
+              \end{enumerate}
+          \end{proof}
+    \item Behauptung: Der Algorithmus liefert die gesuchte LU-Zerlegung.
+          \begin{proof}
+              In jeder Zeile müssen nur die $c_j$ verändert werden, was durch das $l_j$ geschieht. Die Diagonale wird um $-l_jb_{j-1}$ verändert, da $b_j\neq 0$ und die $b_j$ werden nicht verändert, denn die Elemente oberhalb der $b_j$ sind alle gleich null. Insgesamt erhält man so die gesuchte LU-Zerlegung.
+          \end{proof}
+    \item Behauptung: $\det(A)\neq 0.$
+          \begin{proof}
+              Nach VL ist $\det(A)=\det(L)\cdot\det(U)$ und somit ist $\det(A)=1\cdot u_1\cdot...\cdot u_n\neq 0,$ da das Produkt $u_1\cdot...\cdot u_n\neq 0.$
+          \end{proof}
+\end{enumerate}
+\section*{Aufgabe 3}
+\begin{enumerate}[(a)]
+    \item Wählen wir stets $l_{ij} = -1$, so erhalten wir für das Produkt $L_i \cdot \dots \cdot L_1 \cdot A$
+          \NiceMatrixOptions{code-for-last-col = \color{blue},
+              code-for-last-row = \color{blue}}
+          \[
+              \begin{pNiceArray}{CCC|CCC|C}[last-row=8, last-col]
+                  \Block{3-3}<\Huge>{\mathbb{I}} &                             &       &   \Block{3-3}<\Huge>{0}                    &       &      &  1  & \\
+                  &                     &\vspace*{1cm}        &  &        &    & \vdots      & i   \\
+                  &  \hspace*{1cm}                    &  &                       &        &    & 2^{i-1} &                  \\\hline
+                  \Block{4-3}<\Huge>{0}  & &        & 1                     & \Block{2-2}<\Large>{0}       &   & 2^i    &  \\
+                  &                      &        & -1                    & \ddots &    & \vdots &                 \\
+                  &                      &        & \vdots                & \ddots & 1  & \vdots & n-i                 \\
+                  &                      &        & -1                    & \dots  & -1 & 2^i    &                 \\
+                  \Block{1-3}{i}&        &        & \Block{1-3}{n-1-i}    &        &    & 1 &
+              \end{pNiceArray}
+          \]
+          Sowohl Induktionsanfang als auch Induktionsschritt sind leicht einzusehen. Für $L_{n-1}\cdot \dots \cdot L_1$ erhalten wir damit eine obere Dreiecksmatrix $u$ mit $u_{nn} = 2^{n-1}$.
+    \item Wir vertauschen zunächst die Spalten so, dass Spalte $i$ zu Spalten $i+1$ wird und die letzte Spalte zur ersten Spalte wird. Für die erste Spalte müssen wir also $l_{i1} = 1$ wählen. Nach dem ersten Schritt erhalten wir also die Matrix
+          \[
+              \begin{pmatrix}
+                  1      & 1      &        &        &    \\
+                  1      & -1     & 1      &        &    \\
+                  1      & -1     & -1     & \ddots &    \\
+                  \vdots & \vdots & \vdots & \ddots & 1  \\
+                  1      & -1     & -1     & \dots  & -1
+              \end{pmatrix}
+              \leadsto
+              \begin{pmatrix}
+                  1      & 1      &        &        &    \\
+                  0      & -2     & 1      &        &    \\
+                  0      & -2     & -1     & \ddots &    \\
+                  \vdots & \vdots & \vdots & \ddots & 1  \\
+                  0      & -2     & -1     & \dots  & -1
+              \end{pmatrix}
+          \]
+          Nun können wir $l_{ij} = 1$ wählen und erhalten die LU-Zerlegung:
+          \[
+              \begin{pmatrix}
+                  1      & 1      &        &        &    \\
+                  0      & -2     & 1      &        &    \\
+                  0      & -2     & -1     & \ddots &    \\
+                  \vdots & \vdots & \vdots & \ddots & 1  \\
+                  0      & -2     & -1     & \dots  & -1
+              \end{pmatrix}
+              \leadsto
+              \begin{pmatrix}
+                  1      & 1      &        &        &    \\
+                  0      & -2     & 1      &        &    \\
+                  0      & 0      & -2     & \ddots &    \\
+                  \vdots & \vdots & \vdots & \ddots & 1  \\
+                  0      & 0      & -2     & \dots  & -1
+              \end{pmatrix}
+              \leadsto \dots \leadsto
+              \begin{pmatrix}
+                  1 & 1  &    &        &    \\
+                    & -2 & 1  &        &    \\
+                    &    & -2 & \ddots &    \\
+                    &    &    & \ddots & 1  \\
+                    &    &    &        & -2
+              \end{pmatrix}
+          \]
+\end{enumerate}
+\section*{Aufgabe 4}
+\begin{figure}[h]
+    \begin{tikzpicture}%
+        \begin{axis}[width=\textwidth, ymode = log, xlabel = $n$, ylabel = Laufzeit in Mikrosekunden, legend pos=north west,]%
+            \addplot table[col sep=comma, header = false, x index = 0, y index = 1] {dense_times};
+            \addlegendentry{Richard};
+            \addplot table[col sep=comma, header = false, x index = 0, y index = 2] {dense_times};
+            \addlegendentry{Jacobi};
+            \addplot table[col sep=comma, header = false, x index = 0, y index = 3] {dense_times};
+            \addlegendentry{Gauss-Seidel};
+            \addplot table[col sep=comma, header = false, x index = 0, y index = 4] {sparse_times};
+            \addlegendentry{linsolve};
+            %    \end{axis}%\end{}
+            %\end{tikzpicture}
+            %\begin{tikzpicture}% file%
+            %    \begin{axis}[ymode = log, xlabel = $n$, ylabel = Laufzeit in Mikrosekunden, legend pos=north west,]%
+            \addplot table[col sep=comma, header = false, x index = 0, y index = 1] {sparse_times};
+            \addlegendentry{Richard2};
+            \addplot table[col sep=comma, header = false, x index = 0, y index = 2] {sparse_times};
+            \addlegendentry{Jacobi2};
+            \addplot table[col sep=comma, header = false, x index = 0, y index = 3] {sparse_times};
+            \addlegendentry{Gauss-Seidel2};
+            %\addplot table[col sep=comma, header = false, x index = 0, y index = 4] {dense_times};
+            %\addlegendentry{linsolve};
+        \end{axis}%\end{}
+    \end{tikzpicture}
+    \caption{Laufzeit der Verfahren zur Lösung von $Ax = b$. Die Verfahren, die mit einer 1 gekennzeichent sind, wurden in \lstinline{DenseMatrix} implementiert, die mit einer 2 indizierten Verfahren haben verbesserte Laufzeiten durch die Verwendung von \lstinline{SparseMatrix}. Beim Gauß-Seidel-Verfahren wurde zusätzlich das Invertieren von $W$ verbessert, indem die Bandstruktur ausgenutzt wurde.}
+\end{figure}
+
+\end{document}

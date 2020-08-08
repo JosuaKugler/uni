@@ -1,0 +1,259 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amsfonts, amsthm, mathtools, amssymb}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\usepackage{cases}
+\usepackage{fancyhdr}
+\usepackage{comment}
+%\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{pgf}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.16}
+\usepackage{cases}
+\usepackage{listings}
+\usepackage{siunitx}
+\usepackage[left = 3cm, bottom =3cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{subcaption}
+\usepackage{gauss}
+
+\usepackage{environ}
+\newtheorem{satz}{Satz}[section]
+\newtheorem{lemma}[satz]{Lemma}
+\newtheorem{korollar}[satz]{Korollar}
+\newtheorem{proposition}[satz]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[satz]{Def.}
+\newtheorem{axiom}[satz]{Axiom}
+\newtheorem{bsp}[satz]{Bsp.}
+\newtheorem*{anmerkung}{Anm}
+\newtheorem{bemerkung}[satz]{Bem}
+\newtheorem*{notatio}{Notation}
+\newcommand{\obda}{O.B.d.A. }
+\newcommand{\equals}{\Longleftrightarrow}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\intd}{\mathrm{d}}
+\newcommand{\Pot}{\operatorname{Pot}}
+\newcommand{\mychar}{\operatorname{char}}
+\newcommand{\myker}{\operatorname{ker}}
+\newcommand{\induktion}[3]
+{\begin{proof}\ \\
+	\noindent\textbf{Induktionsanfang:}\ #1\\
+	\noindent\textbf{Induktionsvoraussetzung:}\ #2\\
+	\noindent\textbf{Induktionsschluss:}\ #3
+\end{proof}}
+
+\newcommand{\rg}{\operatorname{rg}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\abb}{\operatorname{Abb}}
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\Ima}{\operatorname{Im}}
+
+\let\oldstackrel\stackrel
+\renewcommand{\stackrel}[2]{%
+    \oldstackrel{\mathclap{#1}}{#2}
+}%
+
+
+\newcommand{\numlayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Einführung in die Numerik, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Peter Bastian\\
+			Tutor: Ernestine Großmann}
+		\rhead{Einführung in die Numerik, Übungsblatt #1\\ David, Josua}
+		\cfoot{\thepage}
+	}
+\thispagestyle{firstpage}
+}
+
+\newcommand{\analayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Analysis 2, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Ekaterina Kostina\\
+			Tutor: Julian Matthes}
+		\rhead{Analysis 1, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+\newcommand{\lalayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Lineare Algebra 2, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Denis Vogel\\
+			Tutor: Marina Savarino}
+		\rhead{Lineare Algebra 2, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+
+\lstset{
+    frame=tb, % draw a frame at the top and bottom of the code block
+    tabsize=4, % tab space width
+    showstringspaces=false, % don't mark spaces in strings
+    numbers=left, % display line numbers on the left
+    commentstyle=\color{green}, % comment color
+    keywordstyle=\color{blue}, % keyword color
+    stringstyle=\color{red} % string color
+}
+\setlength{\headheight}{25pt}
+
+\makeatletter \renewcommand\d{\ensuremath{%
+		\;\mathrm{d}}}
+\makeatother
+
+\ExplSyntaxOn
+
+% S-tackrelcompatible ALIGN environment
+% some might also call it the S-uper ALIGN environment
+% uses regular expressions to calculate the widest stackrel
+% to put additional padding on both sides of relation symbols
+\NewEnviron{salign}
+{
+    \begin{align}
+        \lec_insert_padding:V \BODY
+    \end{align}
+}
+% starred version that does no equation numbering
+\NewEnviron{salign*}
+{
+    \begin{align*}
+        \lec_insert_padding:V \BODY
+    \end{align*}
+}
+
+% some helper variables
+\tl_new:N \l__lec_text_tl
+\seq_new:N \l_lec_stackrels_seq
+\int_new:N \l_stackrel_count_int
+\int_new:N \l_idx_int
+\box_new:N \l_tmp_box
+\dim_new:N \l_tmp_dim_a
+\dim_new:N \l_tmp_dim_b
+\dim_new:N \l_tmp_dim_needed
+
+% function to insert padding according to widest stackrel
+\cs_new_protected:Nn \lec_insert_padding:n
+ {
+  \tl_set:Nn \l__lec_text_tl { #1 }
+  % get all stackrels in this align environment
+  \regex_extract_all:nnN { \c{stackrel}{(.*?)}{(.*?)} } { #1 } \l_lec_stackrels_seq
+  % get number of stackrels
+  \int_set:Nn \l_stackrel_count_int { \seq_count:N \l_lec_stackrels_seq }
+  \int_set:Nn \l_idx_int { 1 }
+  \dim_set:Nn \l_tmp_dim_needed { 0pt }
+  % iterate over stackrels
+  \int_while_do:nn { \l_idx_int <= \l_stackrel_count_int }
+  {
+      % calculate width of text
+      \hbox_set:Nn \l_tmp_box {$\seq_item:Nn \l_lec_stackrels_seq { \l_idx_int + 1 }$}
+      \dim_set:Nn \l_tmp_dim_a {\box_wd:N \l_tmp_box}
+      % calculate width of relation symbol
+      \hbox_set:Nn \l_tmp_box {$\seq_item:Nn \l_lec_stackrels_seq { \l_idx_int + 2 }$}
+      \dim_set:Nn \l_tmp_dim_b {\box_wd:N \l_tmp_box}
+      % check if 0.5*(a-b) > minimum padding, if yes updated minimum padding
+      \dim_compare:nNnTF
+        { 1pt * \dim_ratio:nn { \l_tmp_dim_a - \l_tmp_dim_b } { 2pt } } > { \l_tmp_dim_needed }
+        { \dim_set:Nn \l_tmp_dim_needed { 1pt * \dim_ratio:nn { \l_tmp_dim_a - \l_tmp_dim_b } { 2pt } } }
+        { }
+      \quad
+      % increment list index by three, as every stackrel produces three list entries
+      \int_incr:N \l_idx_int
+      \int_incr:N \l_idx_int
+      \int_incr:N \l_idx_int
+  }
+  % replace all relations with align characters (&) and add the needed padding
+  \regex_replace_all:nnN
+      { (\c{approx}&|&\c{approx}|\c{equiv}&|&\c{equiv}|=&|&=|\c{le}&|&\c{le}|\c{ge}&|&\c{ge}|&\c{stackrel}{.*?}{.*?}|\c{stackrel}{.*?}{.*?}&|&\c{neq}|\c{neq}&) }
+      { \c{kern} \u{l_tmp_dim_needed} \1 \c{kern} \u{l_tmp_dim_needed} }
+      \l__lec_text_tl
+  \l__lec_text_tl
+ }
+\cs_generate_variant:Nn \lec_insert_padding:n { V }
+\ExplSyntaxOff
+
+
+% norm
+\newcommand{\norm}[1]{\left\Vert#1\right\Vert}
+\newcommand{\maxnorm}[1]{\norm{#1}_\infty}
+\renewcommand{\epsilon}{\varepsilon}
+
+\begin{document}
+\numlayout{4}
+\section*{Aufgabe 1}
+\begin{enumerate}[a)]
+	\item Beträge sind stets größer 0, also ist insbesondere auch $\norm{f} = \max\limits_{x \in [0,1]}|f(x)| > 0$. Gilt andererseits $\norm{f} = \max\limits_{x \in [0,1]}|f(x)| = 0$, so muss $\forall x\in [0,1]: |f(x)| = 0 \implies f \equiv 0$ auf $[0,1]$. Nach der positiven Definitheit folgt auch die Homogenität sehr leicht:
+	$$\max\limits_{x \in [0,1]}|a\cdot f(x)| = |a| \cdot \max\limits_{x \in [0,1]}|f(x)| = |a| \cdot \norm{f}$$
+	Die Dreiecksungleichung folgt sofort aus der Dreiecksungleichung für Beträge:
+	$$\norm{f + g} = \max\limits_{x \in [0,1]}|f(x) + g(x)| \leq \max\limits_{x \in [0,1]}|f(x)| + \max\limits_{x \in [0,1]}|g(x)| = \norm{f} + \norm{g}$$
+	\item Beträge sind stets größer 0, also ist insbesondere auch $\norm{f} = \int_0^1 |f(x)| \d x > 0$. Gilt andererseits $\norm{f} = \int_0^1 |f(x)| \d x| = 0$, so muss aufgrund der Definitheit des Integrals und des Betrags $f \equiv 0$ auf $[0,1]$ sein. Nach der positiven Definitheit folgt auch die Homogenität sehr leicht:
+	$$\int_0^1 |a\cdot f(x)| \d x = |a| \cdot \int_0^1 |f(x)| \d x= |a| \cdot \norm{f}$$
+	Die Dreiecksungleichung folgt sofort aus der Dreiecksungleichung für Beträge:
+	$$\norm{f + g} = \int_0^1 |a\cdot |f(x) + g(x)| \d x \leq \int_0^1 |f(x)| \d x + \int_0^1 |g(x)| \d x = \norm{f} + \norm{g}$$
+	\item Es gilt $\sin(x) \leq 1 \forall x$. Außerdem ist $u_k\left(\frac{x_k + x_{k+1}}{2}\right) = \sin\left(\frac{\frac{2x_k - x_k - x_{k+1}}{2}}{x_k -x_{k+1}}\cdot \pi\right) = \sin\left(\frac{\pi}{2}\right) = 1$.
+	Also ist $\norm{u_k}_\infty = 1 \forall k\in \N$. 
+	Um die 1-Norm zu berechnen, müssen wir zunächst zeigen, dass $u_k$ stetig ist. 
+	Konstante Funktionen sowie der Sinus sind stetig, also bleiben noch die Punkte $x_k$ und $x_{k+1}$. 
+	Es gilt $u_k(x_k) = 0 = u_k(x_{k+1})$. 
+	Mit $\lim\limits_{x \searrow x_k}0 = 0$ und $\lim\limits_{x\nearrow x_{k+1}}0 = 0$ folgt die Stetigkeit von $u_k$. 
+	Nun können wir das Integral ausführen und erhalten
+	\begin{salign*}
+		\norm{u_k}_1 &= \int_0^{x_{k+1}} 0 \d x+ \int_{xk}^1 0 \d x + \int_{x{k+1}}^{x_{k+1}} \sin\left(\frac{x_k -x}{x_k-x_{k+1}}\cdot \pi\right) \d x\\
+		&= \left[\frac{x_k - x_{k+1}}{\pi}\cos\left(\frac{x_k -x}{x_k-x_{k+1}}\cdot \pi\right)\right]_{x_{k+1}}^{x_k}\\
+		&= \frac{x_k - x_{k+1}}{\pi} \cos(0) - \frac{x_k - x_{k+1}}{\pi}\cos(\pi)\\
+		&= 2 \frac{x_k - x_{k+1}}{\pi}
+	\end{salign*}
+	Also ist $\lim\limits_{k\to\infty}\norm{u_k}_1 = \lim\limits_{k\to\infty}2 \frac{x_k - x_{k+1}}{\pi} = \frac{2}{\pi} \lim\limits_{k\to\infty} \frac{1}{k} - \frac{1}{k+1} = 0$.
+\end{enumerate}
+\section*{Aufgabe 2}
+\begin{enumerate}[(i)]
+	\item Da stets der Betrag genommen wird, ist die Norm stets positiv. Da über alle Werte summiert wird, bedeutet $\norm{A}_F = 0$, dass alle Einträge 0 sind, also $A = 0$. Damit haben wir bereits die positive Definitheit gezeigt. Die Homogenität gilt wegen $$\norm{b\cdot A}_F = \left(\sum_{i,j = 1}^{n}|b\cdot a_{ij}|^2\right)^\frac{1}{2} = |b| \cdot \left(\sum_{i,j = 1}^{n}|a_{ij}|^2\right)^\frac{1}{2} = |b| \cdot \norm{A}_F.$$ Nun müssen wir nur noch die Dreiecksungleichung zeigen. Es gilt 
+	\begin{align*}
+		\norm{A + B}_F^2 &= \sum_{i,j = 1}^{n}|a_{ij} + b_{ij}|^2\\
+		&\leq \sum_{i,j = 1}^{n} |a_{ij}|^2 + 2\sum_{i,j = 1}^{n} |a_{ij}b_{ij}| + \sum_{i,j = 1}^{n} |b_{ij}|^2\\
+		&\stackrel{\text{C.S.U.}}{\leq} \sum_{i,j = 1}^{n} |a_{ij}|^2 + 2 \cdot \sqrt{\sum_{i,j = 1}^{n} |a_{ij}|^2 \cdot \sum_{i,j = 1}^{n} |b_{ij}|^2} + \sum_{i,j = 1}^{n} |b_{ij}|^2\\
+		&= \left(\sqrt{\sum_{i,j = 1}^{n} |a_{ij}|^2} + \sqrt{\sum_{i,j = 1}^{n} |b_{ij}|^2}\right)^2\\
+		&= \left(\norm{A}_F + \norm{B}_F\right)^2
+		\intertext{Wurzelziehen ergibt}
+		\norm{A + B}_F &\leq \norm{A}_F + \norm{B}_F
+	\end{align*}
+	\item Es gilt
+	\begin{salign*}
+		\norm{Ax}_2^2 &= \sum_{j = 1}^{n} \left(\sum_{i = 1}^{n} a_{ij}x_i\right)^2\\
+		&\stackrel{\text{C.S.U.}}{\leq} \sum_{j = 1}^{n} \left(\sum_{i = 1}^{n} a_{ij}^2 \cdot \underbrace{\sum_{i = 1}^{n}x_i^2}_{\text{unabhängig von $j$}}\right)\\
+		&=\sum_{i = 1}^{n}x_i^2 \cdot \sum_{i,j = 1}^{n}a_{ij}^2\\
+		&= \norm{x}_2 \cdot \norm{A}_F
+	\end{salign*}
+	\item 
+	\begin{salign*}
+		\norm{A\cdot B}_F^2 &= \sum_{i,j = 1}^{n} \left(\sum_{k = 1}^{n} a_{ik}b_{kj}\right)^2\\
+		&\stackrel{\text{C.S.U.}}{\leq} \sum_{i,j = 1}^{n} \left(\underbrace{\sum_{k = 1}^{n} a_{ik}^2}_{\text{unabhängig von $j$}} \cdot \underbrace{\sum_{i = 1}^{n}b_{kj}^2}_{\text{unabhängig von $i$}}\right)\\
+		&=\sum_{i,k = 1}^{n}a_{ik}^2 \cdot \sum_{k,j = 1}^{n}b_{kj}^2\\
+		&= \norm{A}_F \cdot \norm{B}_F
+	\end{salign*}
+\end{enumerate}
+\section*{Aufgabe 3}
+Kommt dann nächste Woche.
+\end{document}

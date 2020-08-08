@@ -1,0 +1,362 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amsfonts, amsthm, mathtools, amssymb}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\usepackage{cases}
+\usepackage{fancyhdr}
+\usepackage{comment}
+%\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{pgf}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.16}
+\usepackage{cases}
+\usepackage{listings}
+\usepackage{siunitx}
+\usepackage[left = 3cm, bottom =3cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{subcaption}
+\usepackage{gauss}
+
+\usepackage{environ}
+\newtheorem{satz}{Satz}[section]
+\newtheorem{lemma}[satz]{Lemma}
+\newtheorem{korollar}[satz]{Korollar}
+\newtheorem{proposition}[satz]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[satz]{Def.}
+\newtheorem{axiom}[satz]{Axiom}
+\newtheorem{bsp}[satz]{Bsp.}
+\newtheorem*{anmerkung}{Anm}
+\newtheorem{bemerkung}[satz]{Bem}
+\newtheorem*{notatio}{Notation}
+\newcommand{\obda}{O.B.d.A. }
+\newcommand{\equals}{\Longleftrightarrow}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\intd}{\mathrm{d}}
+\newcommand{\Pot}{\operatorname{Pot}}
+\newcommand{\mychar}{\operatorname{char}}
+\newcommand{\myker}{\operatorname{ker}}
+\newcommand{\induktion}[3]
+{\begin{proof}\ \\
+	\noindent\textbf{Induktionsanfang:}\ #1\\
+	\noindent\textbf{Induktionsvoraussetzung:}\ #2\\
+	\noindent\textbf{Induktionsschluss:}\ #3
+\end{proof}}
+
+\newcommand{\rg}{\operatorname{rg}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\abb}{\operatorname{Abb}}
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\Ima}{\operatorname{Im}}
+
+\let\oldstackrel\stackrel
+\renewcommand{\stackrel}[2]{%
+    \oldstackrel{\mathclap{#1}}{#2}
+}%
+
+
+\newcommand{\numlayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Einführung in die Numerik, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Peter Bastian\\
+			Tutor: Ernestine Großmann}
+		\rhead{Einführung in die Numerik, Übungsblatt #1\\ David, Josua}
+		\cfoot{\thepage}
+	}
+\thispagestyle{firstpage}
+}
+
+\newcommand{\analayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Analysis 2, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Ekaterina Kostina\\
+			Tutor: Julian Matthes}
+		\rhead{Analysis 1, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+\newcommand{\lalayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Lineare Algebra 2, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Denis Vogel\\
+			Tutor: Marina Savarino}
+		\rhead{Lineare Algebra 2, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+
+\lstset{
+    frame=tb, % draw a frame at the top and bottom of the code block
+    tabsize=4, % tab space width
+    showstringspaces=false, % don't mark spaces in strings
+    numbers=left, % display line numbers on the left
+    commentstyle=\color{green}, % comment color
+    keywordstyle=\color{blue}, % keyword color
+    stringstyle=\color{red} % string color
+}
+\setlength{\headheight}{25pt}
+
+\makeatletter \renewcommand\d{\ensuremath{%
+		\;\mathrm{d}}}
+\makeatother
+
+\ExplSyntaxOn
+
+% S-tackrelcompatible ALIGN environment
+% some might also call it the S-uper ALIGN environment
+% uses regular expressions to calculate the widest stackrel
+% to put additional padding on both sides of relation symbols
+\NewEnviron{salign}
+{
+    \begin{align}
+        \lec_insert_padding:V \BODY
+    \end{align}
+}
+% starred version that does no equation numbering
+\NewEnviron{salign*}
+{
+    \begin{align*}
+        \lec_insert_padding:V \BODY
+    \end{align*}
+}
+
+% some helper variables
+\tl_new:N \l__lec_text_tl
+\seq_new:N \l_lec_stackrels_seq
+\int_new:N \l_stackrel_count_int
+\int_new:N \l_idx_int
+\box_new:N \l_tmp_box
+\dim_new:N \l_tmp_dim_a
+\dim_new:N \l_tmp_dim_b
+\dim_new:N \l_tmp_dim_needed
+
+% function to insert padding according to widest stackrel
+\cs_new_protected:Nn \lec_insert_padding:n
+ {
+  \tl_set:Nn \l__lec_text_tl { #1 }
+  % get all stackrels in this align environment
+  \regex_extract_all:nnN { \c{stackrel}{(.*?)}{(.*?)} } { #1 } \l_lec_stackrels_seq
+  % get number of stackrels
+  \int_set:Nn \l_stackrel_count_int { \seq_count:N \l_lec_stackrels_seq }
+  \int_set:Nn \l_idx_int { 1 }
+  \dim_set:Nn \l_tmp_dim_needed { 0pt }
+  % iterate over stackrels
+  \int_while_do:nn { \l_idx_int <= \l_stackrel_count_int }
+  {
+      % calculate width of text
+      \hbox_set:Nn \l_tmp_box {$\seq_item:Nn \l_lec_stackrels_seq { \l_idx_int + 1 }$}
+      \dim_set:Nn \l_tmp_dim_a {\box_wd:N \l_tmp_box}
+      % calculate width of relation symbol
+      \hbox_set:Nn \l_tmp_box {$\seq_item:Nn \l_lec_stackrels_seq { \l_idx_int + 2 }$}
+      \dim_set:Nn \l_tmp_dim_b {\box_wd:N \l_tmp_box}
+      % check if 0.5*(a-b) > minimum padding, if yes updated minimum padding
+      \dim_compare:nNnTF
+        { 1pt * \dim_ratio:nn { \l_tmp_dim_a - \l_tmp_dim_b } { 2pt } } > { \l_tmp_dim_needed }
+        { \dim_set:Nn \l_tmp_dim_needed { 1pt * \dim_ratio:nn { \l_tmp_dim_a - \l_tmp_dim_b } { 2pt } } }
+        { }
+      \quad
+      % increment list index by three, as every stackrel produces three list entries
+      \int_incr:N \l_idx_int
+      \int_incr:N \l_idx_int
+      \int_incr:N \l_idx_int
+  }
+  % replace all relations with align characters (&) and add the needed padding
+  \regex_replace_all:nnN
+      { (\c{approx}&|&\c{approx}|\c{equiv}&|&\c{equiv}|=&|&=|\c{le}&|&\c{le}|\c{ge}&|&\c{ge}|&\c{stackrel}{.*?}{.*?}|\c{stackrel}{.*?}{.*?}&|&\c{neq}|\c{neq}&) }
+      { \c{kern} \u{l_tmp_dim_needed} \1 \c{kern} \u{l_tmp_dim_needed} }
+      \l__lec_text_tl
+  \l__lec_text_tl
+ }
+\cs_generate_variant:Nn \lec_insert_padding:n { V }
+\ExplSyntaxOff
+
+
+% norm
+\newcommand{\norm}[1]{\left\Vert#1\right\Vert}
+\newcommand{\maxnorm}[1]{\norm{#1}_\infty}
+\renewcommand{\epsilon}{\varepsilon}
+
+\begin{document}
+\numlayout{4}
+\section*{Aufgabe 1}
+\begin{enumerate}[(a)]
+    \item Da es sich um eine natürliche Matrixnorm handelt, ist $\norm{\cdot}$ insbesondere submultiplikativ und es gilt \[\norm{P} = \norm{P^2}\leq \norm{P}\norm{P} \implies 1\leq \norm{P}.\]
+    \item "$\implies$"\ : \[(Ax,y)_2 = (Ax)^T\overline{y} = x^TA^t\overline{y} = x^T\overline{Ay} = (x, Ay).\] "$\Longleftarrow$"\ : Insbesondere gilt für alle $1 \leq i,j,\leq n$: \[a_{ji} = e_i^TA^Te_j =e_i^TA^T\overline{e_j} = (Ae_i, e_j) = (e_i, Ae_j) = e_i^T\overline{Ae_j} = e_i^T\overline{A}e_j = \overline{a_{ij}}.\] Es gilt also $A^T = \overline{A}$.
+    \item Da $d$ eine Diagonalmatrix ist, schreiben wir $D =: \operatorname{diag}(\lambda_1, \dots, \lambda_n)$. Es gilt daher $D = C \cdot C$ mit $C \coloneqq \operatorname{diag}(\sqrt{\lambda_1}, \dots, \sqrt{\lambda_n})$. Für $B \coloneqq QCQ^T$ gilt \[B \cdot B = QCQ^TQCQ^T \oldstackrel{Q \text{ orthogonal}}{=} QC^TCQ^t = QDQ^T = A.\]
+\end{enumerate}
+\section*{Aufgabe 2}
+\begin{enumerate}[(a)]
+    \item Für $\mathbb{K} = \C$ folgt aus positiver Definitheit sofort, dass $A$ hermitesch ist. Also lässt sich für $\mathbb{K} = \R$ oder $\mathbb{K} = \C$ der Spektralsatz anwenden und es existiert eine Orthonormalbasis $(x_1, \dots, x_n)$ aus Eigenvektoren von $A$. Bezüglich dieser Basis ist \[x = \sum_{i = 1}^{n} \alpha_ix_i.\] Nun können wir den Raleigh-Quotienten berechnen. Es gilt
+          \[
+              R_A(x) = \frac{(Ax,x)_2}{(x,x)_2} = \frac{\left(\sum_{i = 1}^{n}Ax_i\alpha_i\right)^T\overline{\left(\sum_{i = 1}^{n}\alpha_ix_i\right)}}{\left(\sum_{i = 1}^{n}x_i\alpha_i\right)^T\overline{\left(\sum_{i = 1}^{n}\alpha_ix_i\right)}}	\oldstackrel{x_ix_j = \delta_{ij}}{=} \frac{\sum_{i = 1}^{n}\lambda_ix_i^T\alpha_i\overline{x_i}\overline{\alpha_i}}{\sum_{i = 1}^{n}x_i^T\alpha_i\overline{x_i}\overline{\alpha_i}} = \frac{\sum_{i = 1}^{n}\lambda_i|\alpha_i|^2}{\sum_{i = 1}^{n}|\alpha_i|^2}
+          \]
+          Das Supremum bzw. erreichen wir also durch geschickte Wahl der $\alpha_i$. Maximal wird die Summe wenn wir alle $\alpha_i = 0$ außer dem Koeffizienten des maximalen Eigenwerts $\lambda_\text{max}$. Dann erhalten wir \[\sup\limits_{x \in \mathbb{K}^n\setminus\{0\}} R_A(x) = \lambda_{\text{max}}\] und analog \[\inf\limits_{x \in \mathbb{K}^n\setminus\{0\}} R_A(x) = \lambda_{\text{min}}.\]
+    \item Völlig analog zu Bemerkung 6.2 im Skript. Dort wird die Matrix $A$ als positiv definit und symmetrisch vorausgesetzt, der Beweis ist aber für eine positiv definite und daher hermitesche Matrix über $\C$ verbatim derselbe.
+\end{enumerate}
+\section*{Aufgabe 3}
+Wir benutzen Ansatz 1:\newline
+Definiere: $G:=\{A\in \mathbb{K}^{n\times n}|\text{ }A \text{ ist untere Dreiecksmatrix und alle Einträge auf der Hauptdiagonalen sind 1en}\}$
+\begin{enumerate}[(a)]
+    \item Behauptung: $G$ ist eine Gruppe.
+          \begin{proof}
+              \begin{enumerate}[(G1)]
+                  \item Seien $A,B\in G,$ wobei $A=(a_{ij})_{i,j=1}^{n}$ und $B=(b_{ij})_{i,j=1}^{n}.$ Weiter gilt für $A,B$, dass $a_{ij}=b_{ij}=0,\forall i<j$ und $a_{ij}=b_{ij}=1,\forall i=j$. Damit folgt für das Produkt $C=AB$:
+                        $$ c_{ij}=\sum_{k=1}^{n}a_{ik}b_{kj}=\left\{\begin{array}{cc}
+                                0                                 & i<j          \\
+                                1                                 & i=j          \\
+                                \sum\limits_{k=j}^{i}a_{ik}b_{kj} & \text{sonst}
+                            \end{array}\right.$$
+                        Somit ist $C$ wieder in $G$.
+                  \item Das neutrale Element ist die Einheitsmatrix $E_n$, da für alle $A\in G$ gilt: $E_nA=AE_n= A$ und $E_n\in G$
+                  \item Sei $A\in G$. Es ist $\det(A)=1$, weshalb $A$ regulär ist. Es existiert also ein $A^{-1}\in \mathbb{K}^n$\newline
+                        Behauptung: $A^{-1}\in G$:
+                        Betrachte den Algorithmus zum invertieren einer Matrix $A$: Bringe Matrix $A$ durch Zeilen-/Spaltenumformungen auf die Einheitsmatrix $E_n$, wobei jede Umformung auch mit der Einheitsmatrix $E_n$ durchgeführt wird. Erhalte somit nach endlich vielen Schritten aus $E_n$ die Matrix $A^{-1}.$ Nun ist $A$ eine obere Dreiecksmatrix mit Einsen auf der Hauptdiagonalen. Um $A$ auf die Einheitsmatrix zu bringen, werden immer nur Vielfache einer Zeile auf die Zeilen unterhalb dieser addiert, weshalb alle Einträge oberhalb der Hauptdiagonalen unberührt bleiben:
+                        \begin{align*}
+                            A = \begin{pmatrix}
+                                1      &        &   &        &   \\
+                                a_{21} & 1      &   &        &   \\
+                                a_{31} & a_{32} & 1 &        &   \\
+                                \vdots &        &   & \ddots &   \\
+                                a_{n1} &        &   &        & 1
+                            \end{pmatrix} & \left| \begin{gmatrix}[p]
+                                1&&&&\\
+                                0&1&&&\\
+                                0&0&1&&\\
+                                \vdots &&&\ddots&\\
+                                0 & &&& 1
+                                \rowops
+                                \add[-a_{21}]{0}{1}
+                                \add[-a_{31}]{0}{2}
+                                \add[\dots]{0}{3}
+                                \add[-a_{n1}]{0}{4}
+                            \end{gmatrix}\right.          \\
+                            \leadsto
+                            \begin{pmatrix}
+                                1      &        &   &        &   \\
+                                0      & 1      &   &        &   \\
+                                0      & a_{32} & 1 &        &   \\
+                                \vdots &        &   & \ddots &   \\
+                                0      &        &   &        & 1
+                            \end{pmatrix}     & \left| \begin{pmatrix}
+                                1       &   &   &        &   \\
+                                -a_{21} & 1 &   &        &   \\
+                                -a_{31} & 0 & 1 &        &   \\
+                                \vdots  &   &   & \ddots &   \\
+                                -a_{n1} &   &   &        & 1
+                            \end{pmatrix}\right.          \\
+                            \leadsto \dots \leadsto
+                            \begin{pmatrix}
+                                1      &   &   &        &   \\
+                                0      & 1 &   &        &   \\
+                                0      & 0 & 1 &        &   \\
+                                \vdots &   &   & \ddots &   \\
+                                0      &   &   &        & 1
+                            \end{pmatrix}     & \left| \begin{pmatrix}
+                                1       &         &   &        &   \\
+                                -a_{21} & 1       &   &        &   \\
+                                *       & -a_{32} & 1 &        &   \\
+                                \vdots  &         &   & \ddots &   \\
+                                *       &         &   &        & 1
+                            \end{pmatrix}\right. = A^{-1}
+                        \end{align*}
+                        Nach endlich vielen Schritten erhalten wir also eine untere Dreiecksmatrix $A^{-1}$.
+              \end{enumerate}
+          \end{proof}
+    \item Behauptung: $G$ ist nicht abelsch
+          \begin{proof}
+              Es gilt:
+              $$\begin{pmatrix}
+                      1 & 0 & 0 \\
+                      0 & 1 & 0 \\
+                      0 & 1 & 1
+                  \end{pmatrix}\cdot \begin{pmatrix}
+                      1 & 0 & 0 \\
+                      1 & 1 & 0 \\
+                      0 & 0 & 1
+                  \end{pmatrix}= \begin{pmatrix}
+                      1 & 0 & 0 \\
+                      1 & 1 & 0 \\
+                      1 & 1 & 1
+                  \end{pmatrix}\neq \begin{pmatrix}
+                      1 & 0 & 0 \\
+                      1 & 1 & 0 \\
+                      0 & 1 & 1
+                  \end{pmatrix}= \begin{pmatrix}
+                      1 & 0 & 0 \\
+                      1 & 1 & 0 \\
+                      0 & 0 & 1
+                  \end{pmatrix}\cdot \begin{pmatrix}
+                      1 & 0 & 0 \\
+                      0 & 1 & 0 \\
+                      0 & 1 & 1
+                  \end{pmatrix}$$
+          \end{proof}
+    \item Wir nehmen an, es gäbe zwei Zerlegungen $L \cdot U = L' \cdot U'$. Da $L$ und $L'$ linke untere Dreiecksmatrizen sind, können wir die Gleichung von links mit $L'^{-1}$ multiplizieren. Daraus erhalten wir $\underbrace{L'^{-1}L}_{L''} \cdot U = U'$, wobei $L''$ aufgrund der Gruppeneigenschaft wieder eine linke untere Dreiecksmatrix mit 1 auf der Hauptdiagonalen ist. Wir wollen nun zeigen, dass alle Elemente, die nicht auf der Hauptdiagonalen stehen, 0 sein müssen. Da die Zerlegung ohne Pivotisierung möglich war, gibt es eine Zerlegung, bei der alle Hauptdiagonalelemente von $U$ nicht 0 sind. Also ist $A = LU$ invertierbar, also muss in jeder Zerlegung $U$ invertierbar sein und damit sind insbesondere alle Diagonalelemente von $U$ nicht 0.
+          \[
+              L'' \cdot U = \begin{pmatrix}
+                  1        &   &        & 0 \\
+                  l''_{21} & 1 &        &   \\
+                  \vdots   &   & \ddots &   \\
+                  l''_{n1} &   &        & 1
+              \end{pmatrix} \cdot \begin{pmatrix}
+                  u_{11} &        &        & u_{1n} \\
+                         & u_{22} &        &        \\
+                         &        & \ddots &        \\
+                  0      &        &        & u_{nn}
+              \end{pmatrix} = \begin{pmatrix}
+                  u'_{11} &         &        & u'_{1n} \\
+                          & u'_{22} &        &         \\
+                          &         & \ddots &         \\
+                  0       &         &        & u'_{nn}
+              \end{pmatrix} = U'
+          \]
+          Nun betrachen wir die erste Spalte dieses Gleichungssystems.
+          \[
+              \begin{pmatrix}
+                  1 \cdot u_{11} = u'_{11}      \\
+                  l''_{21} \cdot u_{11} + 0 = 0 \\
+                  \vdots                        \\
+                  l''_{n1} \cdot u_{11} + 0 = 0
+              \end{pmatrix} \implies \forall 1 < i \leq n\colon\; l''_{i1} = 0
+          \]
+          Mit diesem Ergebnis können wir nun die zweite Spalte betrachten und erhalten
+          \[
+              \begin{pmatrix}
+                  u_{12}\cdot 1 + u_{22}\cdot 0 = u_{21'}  \\
+                  u_{12}\cdot 0 + u_{22}\cdot 1 = u_{22'}  \\
+                  u_{12}\cdot 0 + u_{22}\cdot l''_{32} = 0 \\
+                  \vdots                                   \\
+                  u_{12}\cdot 0 + u_{22}\cdot l''_{n2} = 0
+              \end{pmatrix}  \implies \forall 2 < i \leq n\colon\; l''_{i2} = 0
+          \]
+          Auf diese Weise lässt sich das Schema weiter für alle Spalten weiter fortsetzen, sodass wir erhalten:
+          \[
+              \forall 1 \leq j \leq n\colon\; \forall j < i \leq n\colon\; l''_{ij} = 0
+          \]
+          Also ist $L'^{-1} \cdot L = L'' = E_n \Leftrightarrow L = L'$ und auch $L''\cdot U = U = U'$. Also ist die $LU$-Zerlegung eindeutig.
+\end{enumerate}
+\end{document}

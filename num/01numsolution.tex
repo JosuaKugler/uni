@@ -1,0 +1,173 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amsfonts, amsthm, mathtools, amssymb}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\usepackage{cases}
+\usepackage{fancyhdr}
+\usepackage{comment}
+%\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{cases}
+\usepackage{listings}
+\usepackage{siunitx}
+\usepackage[left = 3cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{subcaption}
+\usepackage{gauss}
+\newtheorem{satz}{Satz}[section]
+\newtheorem{lemma}[satz]{Lemma}
+\newtheorem{korollar}[satz]{Korollar}
+\newtheorem{proposition}[satz]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[satz]{Def.}
+\newtheorem{axiom}[satz]{Axiom}
+\newtheorem{bsp}[satz]{Bsp.}
+\newtheorem*{anmerkung}{Anm}
+\newtheorem{bemerkung}[satz]{Bem}
+\newtheorem*{notatio}{Notation}
+\newcommand{\obda}{O.B.d.A. }
+\newcommand{\equals}{\Longleftrightarrow}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\intd}{\mathrm{d}}
+\newcommand{\Pot}{\operatorname{Pot}}
+\newcommand{\mychar}{\operatorname{char}}
+\newcommand{\myker}{\operatorname{ker}}
+\newcommand{\induktion}[3]
+{\begin{proof}\ \\
+	\noindent\textbf{Induktionsanfang:}\ #1\\
+	\noindent\textbf{Induktionsvoraussetzung:}\ #2\\
+	\noindent\textbf{Induktionsschluss:}\ #3
+\end{proof}}
+
+\newcommand{\rg}{\operatorname{rg}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\abb}{\operatorname{Abb}}
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\Ima}{\operatorname{Im}}
+
+
+
+\newcommand{\numlayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Einführung in die Numerik, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Peter Bastian\\
+			Tutor: Ernestine Großmann}
+		\rhead{Einführung in die Numerik, Übungsblatt #1\\ David, Josua}
+		\cfoot{\thepage}
+	}
+\thispagestyle{firstpage}
+}
+
+\newcommand{\analayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Analysis 2, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Ekaterina Kostina\\
+			Tutor: Julian Matthes}
+		\rhead{Analysis 1, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+\newcommand{\lalayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Lineare Algebra 2, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Denis Vogel\\
+			Tutor: Marina Savarino}
+		\rhead{Lineare Algebra 2, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+
+\lstset{
+    frame=tb, % draw a frame at the top and bottom of the code block
+    tabsize=4, % tab space width
+    showstringspaces=false, % don't mark spaces in strings
+    numbers=left, % display line numbers on the left
+    commentstyle=\color{green}, % comment color
+    keywordstyle=\color{blue}, % keyword color
+    stringstyle=\color{red} % string color
+}
+\setlength{\headheight}{25pt}
+
+\makeatletter \renewcommand\d[1]{\ensuremath{%
+		\;\mathrm{d}#1\@ifnextchar\d{\!}{}}}
+\makeatother
+
+% maximum norm
+\newcommand{\maxnorm}[1]{\left|\left|#1\right|\right|_\infty}
+\renewcommand{\epsilon}{\varepsilon}
+
+\begin{document}
+\numlayout{1}
+\section*{Aufgabe 1}
+\begin{enumerate}[(a)]
+    \item Es ist $(0,5731\times 10^5)_8 = 5\cdot 8^4+7\cdot 8^3 + 3 \cdot 8^2 + 1\cdot 8 = (0,24264\times 10^5)_{10}$
+    \item Es ist $0.3 = 1228.8 \cdot 2^{-12} \approx \left(0.10011001101\cdot 2^{-1}\right)_2 = 1229\cdot 2^{-12} = 0.300048828\dots\cdot 10^0$. Dieses Ergebnis ist genau dann gleich $0.3$, wenn $r \leq 4$ ist.
+    \item Sei $x_2\in \mathbb{F}(4,6,2)$ und $x_3\in \mathbb{F}(3,7,1)$. Es ist $e_{\max}(x_2)=\sum_{j=0}^{1}3\cdot 4^j=15$. Die größte Zahl in $4$er System hat überall die Zahl $3$ stehen: 
+		$$\max |x_2| = (0,333333\times 10^{15})_{4}$$
+		Es ist $e_{\max}(x_3)=\sum_{j=0}^{0}2\cdot 3^j=2$. Die größte Zahl im $3$er System hat an jeder Mantissestelle ein $2$ stehen:
+		$$\max |x_3| = (0,2222222\times 10^2)_3$$
+		Umgerechnet zur Basis $10$ ist 
+		$$\max |x_2|=3\cdot 4^{14} + 3\cdot 4^{13} + 3\cdot 4^{12} + 3\cdot 4^{11} + 3\cdot 4^{10} + 3 \cdot 4^{9}= 1.073.479.680$$
+		und 
+		$$\max |x_3|= 2\cdot 3 + 2\cdot 3^{-1} + 2\cdot 3^{-2} + 2\cdot 3^{-3} + 2\cdot 3^{-4} + 2\cdot 3^{-5} + 2\cdot 3^{-6} = \frac{2186}{243}\approx 8,995884774.$$
+		Da wir eine der beiden Zahlen mit $-1$ multiplizieren können, um den größten Abstand zwischen beiden Zahlen zu erhalten, gilt:
+		$$\underset{x_2,x_3}{\max}|x_2-x_3| = |x_2| + |x_3| \approx 1.073.479.680 + 8,995884774 = 1.073.479.688,995884774$$
+    \item Ein solches Gegenbeispiel wurde bereits in der Vorlesung gegeben: In $\mathbb{F}(2,2,1)$ ist für $x_4 = \frac{1}{4}:\; x_5 = 0, x_6 = \frac{3}{8}$ und daher $|x_4-x_5| = \frac{1}{4} \neq \frac{1}{8} = |x_6-x_4|$
+\end{enumerate}
+\section*{Aufgabe 2}
+Seien $x,y\in \mathbb{F}(10,3,1)$ mit $x=2,46$ und $y=-0,755$.
+	\begin{itemize}
+		\item (natürliches Runden): Es ist $x_0=0,246\times 10^1$.
+			\begin{align*}
+				x_1&= (0,246\times 10^1 \oplus 0,755\times 10^0) \ominus 0,755\times 10^0 \\
+				&= \operatorname{rd}(0,246\times 10^1 + 0,0755\times 10^1) \ominus 0,755\times 10^0\\
+				&= \operatorname{rd}(0,3215\times 10^1) \ominus 0,755\times 10^0
+				\intertext{In diesem Schritt wird um 0,005 aufgerundet}
+				&= \operatorname{rd}(0,322\times 10^1 - 0,0755\times 10^1)\\
+				&= \operatorname{rd}(0,2465 \times 10^1)
+				\intertext{In diesem Schritt wird noch einmal um 0,005 aufgerundet}
+				&= 0,247 \times 10^1.
+			\end{align*}
+			Es wird in jedem Iterationsschritt um $0,01$ erhöht. Somit ist $x_{10}= 2,56$.
+		\item (gerades Runden): Es gilt
+			\begin{align*}
+				x_1&= rd(rd(0,246\times 10^1+0,755\times 10^1)-0,755\times 10^1)\\
+				&= rd(rd(0,3215\times 10^1)-0,755\times 10^1)\\
+				&=rd(0,322\times 10^1 -0,755\times 10^1)\\
+				&= 0,246
+			\end{align*}
+			Somit gilt offensichtlich $x_{10}=2,46$.
+	\end{itemize}
+\section*{Aufgabe 3}
+\begin{enumerate}[(a)]
+    \item% 
+    \lstinputlisting[language=C++, caption={Programm zum Testen der Präzision von \lstinline{double} bzw. \lstinline{float}}]{01num03.cc}
+    Dieses Programm liefert für den Datentyp \lstinline{float} bei Eingabe \lstinline{0.00000006} $ = 6 \cdot 10^8$ bzw. \lstinline{0.00000005} $= 5\cdot 10^8$ die Ausgabe \lstinline{1.00000011920928955078125} bzw. \lstinline{1}.
+
+    Für den Datentyp \lstinline{double} erhält man bei Eingabe \lstinline{0.0000000000000002} $= 2\cdot 10^{16}$ die Ausgabe \lstinline{1.0000000000000002220446049250313080847263336181641}, während \lstinline{0.0000000000000001} $= 10^{16}$ einfach die Ausgabe \lstinline{1} liefert.
+    \item Lässt man im Programm das Addieren der 1 weg, so kann man wesentlich kleinere Zahlen eingeben, bevor einfach nur 0 zurückgegeben wird. Folglich müssen \lstinline{double} und \lstinline{float} noch kleinere Zahlen darstellen können.
+\end{enumerate}
+\end{document}

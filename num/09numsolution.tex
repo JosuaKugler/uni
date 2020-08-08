@@ -1,0 +1,360 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amsfonts, amsthm, mathtools, amssymb}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\usepackage{cases}
+\usepackage{fancyhdr}
+\usepackage{comment}
+%\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{pgf}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.16}
+\usepackage{cases}
+\usepackage{listings}
+\usepackage{siunitx}
+\usepackage[left = 3cm, bottom =3cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{subcaption}
+\usepackage{gauss}
+\usepackage{nicematrix}
+\usepackage{graphicx}
+
+\usepackage{environ}
+\newtheorem{satz}{Satz}[section]
+\newtheorem{lemma}[satz]{Lemma}
+\newtheorem{korollar}[satz]{Korollar}
+\newtheorem{proposition}[satz]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[satz]{Def.}
+\newtheorem{axiom}[satz]{Axiom}
+\newtheorem{bsp}[satz]{Bsp.}
+\newtheorem*{anmerkung}{Anm}
+\newtheorem{bemerkung}[satz]{Bem}
+\newtheorem*{notatio}{Notation}
+\newcommand{\obda}{O.B.d.A. }
+\newcommand{\equals}{\Longleftrightarrow}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\intd}{\mathrm{d}}
+\newcommand{\Pot}{\operatorname{Pot}}
+\newcommand{\mychar}{\operatorname{char}}
+\newcommand{\myker}{\operatorname{ker}}
+\newcommand{\induktion}[3]
+{\begin{proof}\ \\
+	\noindent\textbf{Induktionsanfang:}\ #1\\
+	\noindent\textbf{Induktionsvoraussetzung:}\ #2\\
+	\noindent\textbf{Induktionsschluss:}\ #3
+\end{proof}}
+
+\newcommand{\rg}{\operatorname{rg}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\abb}{\operatorname{Abb}}
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\Ima}{\operatorname{Im}}
+
+\let\oldstackrel\stackrel
+\renewcommand{\stackrel}[2]{%
+    \oldstackrel{\mathclap{#1}}{#2}
+}%
+
+
+\newcommand{\numlayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Einführung in die Numerik, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Peter Bastian\\
+			Tutor: Ernestine Großmann}
+		\rhead{Einführung in die Numerik, Übungsblatt #1\\ David, Josua}
+		\cfoot{\thepage}
+	}
+\thispagestyle{firstpage}
+}
+
+\newcommand{\analayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Analysis 2, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Ekaterina Kostina\\
+			Tutor: Julian Matthes}
+		\rhead{Analysis 1, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+\newcommand{\lalayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Lineare Algebra 2, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Denis Vogel\\
+			Tutor: Marina Savarino}
+		\rhead{Lineare Algebra 2, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+
+\lstset{
+    frame=tb, % draw a frame at the top and bottom of the code block
+    tabsize=4, % tab space width
+    showstringspaces=false, % don't mark spaces in strings
+    numbers=left, % display line numbers on the left
+    commentstyle=\color{green}, % comment color
+    keywordstyle=\color{blue}, % keyword color
+    stringstyle=\color{red} % string color
+}
+\setlength{\headheight}{25pt}
+
+\makeatletter \renewcommand\d{\ensuremath{%
+		\;\mathrm{d}}}
+\makeatother
+
+\ExplSyntaxOn
+
+% S-tackrelcompatible ALIGN environment
+% some might also call it the S-uper ALIGN environment
+% uses regular expressions to calculate the widest stackrel
+% to put additional padding on both sides of relation symbols
+\NewEnviron{salign}
+{
+    \begin{align}
+        \lec_insert_padding:V \BODY
+    \end{align}
+}
+% starred version that does no equation numbering
+\NewEnviron{salign*}
+{
+    \begin{align*}
+        \lec_insert_padding:V \BODY
+    \end{align*}
+}
+
+% some helper variables
+\tl_new:N \l__lec_text_tl
+\seq_new:N \l_lec_stackrels_seq
+\int_new:N \l_stackrel_count_int
+\int_new:N \l_idx_int
+\box_new:N \l_tmp_box
+\dim_new:N \l_tmp_dim_a
+\dim_new:N \l_tmp_dim_b
+\dim_new:N \l_tmp_dim_needed
+
+% function to insert padding according to widest stackrel
+\cs_new_protected:Nn \lec_insert_padding:n
+ {
+  \tl_set:Nn \l__lec_text_tl { #1 }
+  % get all stackrels in this align environment
+  \regex_extract_all:nnN { \c{stackrel}{(.*?)}{(.*?)} } { #1 } \l_lec_stackrels_seq
+  % get number of stackrels
+  \int_set:Nn \l_stackrel_count_int { \seq_count:N \l_lec_stackrels_seq }
+  \int_set:Nn \l_idx_int { 1 }
+  \dim_set:Nn \l_tmp_dim_needed { 0pt }
+  % iterate over stackrels
+  \int_while_do:nn { \l_idx_int <= \l_stackrel_count_int }
+  {
+      % calculate width of text
+      \hbox_set:Nn \l_tmp_box {$\seq_item:Nn \l_lec_stackrels_seq { \l_idx_int + 1 }$}
+      \dim_set:Nn \l_tmp_dim_a {\box_wd:N \l_tmp_box}
+      % calculate width of relation symbol
+      \hbox_set:Nn \l_tmp_box {$\seq_item:Nn \l_lec_stackrels_seq { \l_idx_int + 2 }$}
+      \dim_set:Nn \l_tmp_dim_b {\box_wd:N \l_tmp_box}
+      % check if 0.5*(a-b) > minimum padding, if yes updated minimum padding
+      \dim_compare:nNnTF
+        { 1pt * \dim_ratio:nn { \l_tmp_dim_a - \l_tmp_dim_b } { 2pt } } > { \l_tmp_dim_needed }
+        { \dim_set:Nn \l_tmp_dim_needed { 1pt * \dim_ratio:nn { \l_tmp_dim_a - \l_tmp_dim_b } { 2pt } } }
+        { }
+      \quad
+      % increment list index by three, as every stackrel produces three list entries
+      \int_incr:N \l_idx_int
+      \int_incr:N \l_idx_int
+      \int_incr:N \l_idx_int
+  }
+  % replace all relations with align characters (&) and add the needed padding
+  \regex_replace_all:nnN
+      { (\c{approx}&|&\c{approx}|\c{equiv}&|&\c{equiv}|=&|&=|\c{le}&|&\c{le}|\c{ge}&|&\c{ge}|&\c{stackrel}{.*?}{.*?}|\c{stackrel}{.*?}{.*?}&|&\c{neq}|\c{neq}&) }
+      { \c{kern} \u{l_tmp_dim_needed} \1 \c{kern} \u{l_tmp_dim_needed} }
+      \l__lec_text_tl
+  \l__lec_text_tl
+ }
+\cs_generate_variant:Nn \lec_insert_padding:n { V }
+\ExplSyntaxOff
+
+
+% norm
+\newcommand{\norm}[1]{\left\Vert#1\right\Vert}
+\newcommand{\maxnorm}[1]{\norm{#1}_\infty}
+\renewcommand{\epsilon}{\varepsilon}
+\newcommand{\pdv}[2]{\frac{\partial #1}{\partial #2}}
+\begin{document}
+\numlayout{9}
+\section*{Aufgabe 1}
+\begin{enumerate}[(a)]
+    \item Wir stellen zunächst die Polynome auf und erhalten 
+    \begin{align*}
+        N_0(x) &= 1 & N_1(x) &= x-\frac{1}{4} & N_2(x) &= (x-\frac{1}{4})(x-1)
+        \intertext{Für $y$ gilt daher}
+        y_0 &\overset{!}{=} f(\frac{1}{4}) = \frac{1}{2} & y_1 &\overset{!}{=} f(1) = 1 & y_2 &\overset{!}{=} f(4) = 2
+        \intertext{Schließlich erhalten wir für $L$}
+        l_{0,0} &= N_0(x_0) = 1 & l_{0,1} &= N_1(x_0) = 0           & l_{0,2} &= N_2(x_0) = 0\\
+        l_{1,0} &= N_0(x_1) = 1 & l_{1,1} &= N_1(x_1) = \frac{3}{4} & l_{1,2} &= N_2(x_1) = 0\\
+        l_{2,0} &= N_0(x_2) = 1 & l_{2,1} &= N_1(x_2) = \frac{15}{4}& l_{2,2} &= N_2(x_2) = \frac{45}{4}
+    \end{align*}
+    Wir müssen also das folgende Gleichungssystem lösen
+    \begin{align*}
+        \begin{pmatrix}
+            1 & 0 & 0\\
+            1 & \frac{3}{4} & 0\\
+            1 & \frac{15}{4} & \frac{45}{4}
+        \end{pmatrix} \cdot \begin{pmatrix}
+            a_0\\a_1\\a_2
+        \end{pmatrix} = \begin{pmatrix}
+            \frac{1}{2}\\1\\2
+        \end{pmatrix}
+    \end{align*}
+    Tun wir dies, 
+    \begin{align*}
+        \begin{gmatrix}[p]
+            1 & 0 & 0 & \frac{1}{2}\\
+            1 & \frac{3}{4} & 0 & 1\\
+            1 & \frac{15}{4} & \frac{45}{4} & 2
+            \rowops
+            \add[-1]{0}{1}
+            \add[-1]{0}{2}
+        \end{gmatrix}\leadsto
+        \begin{gmatrix}[p]
+            1 & 0 & 0 & \frac{1}{2}\\
+            0 & \frac{3}{4} & 0 & \frac{1}{2}\\
+            0 & \frac{15}{4} & \frac{45}{4} & \frac{3}{2}
+            \rowops
+            \add[-5]{1}{2}
+            \mult{1}{\frac{4}{3}}
+        \end{gmatrix}\leadsto
+        \begin{gmatrix}[p]
+            1 & 0 & 0 & \frac{1}{2}\\
+            0 & 1 & 0 & \frac{2}{3}\\
+            0 & 0& \frac{45}{4} & -1
+        \end{gmatrix}
+    \end{align*}
+    so erhalten wir \[a = \begin{pmatrix}
+        \frac{1}{2}\\\frac{2}{3}\\-\frac{4}{45}
+    \end{pmatrix}.\]
+    Als Interpolationspolynom erhalten wir demnach \[p_2(x) = \frac{1}{2} + \frac{2}{3}(x-\frac{1}{4}) -\frac{4}{45}(x-\frac{1}{4})(x-1).\]
+    \item Mit der neuen Stützstelle gilt $N_3(x) = (x-\frac{1}{4})(x-4)(x-9)$ und $y_3 \overset{!}{=} f(t_3) = 3$, sowie \[l_{3,0} = 1,\quad l_{3,1} = N_1(x_3) = \frac{35}{4},\quad l_{3,2} = N_2(x_3) = 70,\quad l_{3,3}(x_3) = N_3(x_3) = 350.\] Es gilt
+    \begin{align*}
+        l_{3,0}a_0 + l_{3,1}a_1 + l_{3,2}a_2 + l_{3,3}a_3 &= y_3\\
+        3 &= \frac{1}{2} + \frac{35}{6} -\frac{56}{9} + 350 a_3\\
+        a_3 &= \frac{54 - 9 - 105 + 112}{18} \frac{1}{350}\\
+        a_3 &= \frac{13}{1575}
+    \end{align*}
+    Damit ergibt sich das Interpolationspolynom \[p_3 = \frac{1}{2} + \frac{2}{3}(x-\frac{1}{4}) -\frac{4}{45}(x-\frac{1}{4})(x-1) + \frac{13}{1575}(x-\frac{1}{4})(x-1)(x-4).\]
+    \item siehe Abbildung \ref{fig:1c}. 
+    \begin{figure}
+        \centering
+        \begin{tikzpicture}
+            \begin{axis}[xmin=0,xmax=10,width=\textwidth,legend style={legend pos=north west}]
+                \addplot[domain=0.25:9,smooth,samples=50] {sqrt(x)};
+                \addlegendentry{$\sqrt{x}$};
+                \addplot[color=red,domain=0.25:9,smooth,samples=50] {0.5 + (2/3)*(x-0.25) -(4/45)*(x-0.25)*(x-1)};
+                \addlegendentry{$p_2(x)$};
+                \addplot[color=blue,domain=0.25:9,smooth,samples=50] {0.5 + (2/3)*(x-0.25) -(4/45)*(x-0.25)*(x-1) + (13/1575)*(x-0.25)*(x-1)*(x-4)};
+                \addlegendentry{$p_3(x)$};
+            \end{axis}
+        \end{tikzpicture}
+        \caption{Graphen von $f = \sqrt{x}$ und den Interpolationspolynomen vom Grad 2 bzw. 3 $p_2(x)$ bzw. $p_3(x)$}
+        \label{fig:1c}
+    \end{figure}
+\end{enumerate}
+\section*{Aufgabe 2}
+\begin{enumerate}[(a)]
+    \item Das Interpolationspolynom vom Grad 0 ist konstant und daher gleich dem einzigen Wert, der vorgegeben ist, also $p_{i,0}(x) = y_i$. Das Interpolationspolynom vom Grad $k$ zu $k$ vorgegebenen Wertepaaren ist eindeutig bestimmt. Daher genügt es, zu überprüfen, dass das angegebene Polynom die Vorschrift, die durch die Wertepaare gegeben ist, erfüllt. An der Stelle $x_i$ erhalten wir 
+    \[
+        p_{i,k}(x_i) = \frac{(x_i-x_i)p_{i+1,k-1}(x)-(x_i-x_{i+k})p_{i,k-1}(x)}{x_{i+k}-x_i} = p_{i,k-1}(x_i) = y_i,  
+    \]
+    da $x_i$ Teil der Wertepaarmenge ist, durch die $p_{i,k-1}$ definiert ist. Alle Stellen $x_{i+1},\dots, x_{i+k-1}$ liegen sowohl in der Wertepaarmenge von $p_{i,k-1}$ als auch von $p_{i+1,k-1}$. Daher gilt für alle diese Stellen $x_j$ mit $i+1\le j \le i+k-1$
+    \[
+        p_{i,k}(x_j) =  \frac{(x_j-x_i)p_{i+1,k-1}(x_j)-(x_j-x_{i+k})p_{i,k-1}(x_j)}{x_{i+k}-x_i} = \frac{(x_j-x_i)y_j-(x_j-x_{i+k})y_j}{x_{i+k}-x_i} = y_j.
+    \]
+    Schließlich betrachten wir noch $x_{i+k}$. Es gilt
+    \[
+        p_{i,k}(x_{i+k}) = \frac{(x_{i+k}-x_i)p_{i+1,k-1}(x_{i+k})-(x_{i+k}-x_{i+k})p_{i,k-1}(x_{i+k})}{x_{i+k}-x_i} = p_{i+1,k-1}(x_{i+k}) = y_{i+k},
+    \]
+    da $x_{i+k}$ in der Wertepaarmenge von $x_{i+1,k-1}$ enthalten ist.
+    \item Zeit geben wir hier immer in Minuten an.\ \\
+    \resizebox{\linewidth}{!}{
+        \begin{minipage}{\linewidth}
+        \begin{align*}
+            p_{A,0} &= 1048 & p_{B,0} &= 1080 & p_{C,0} &= 1111 & p_{D,0} = 1196\\
+            p_{A,1} &= 1048 + \frac{1048 - 1080}{\frac{61,7-57,7}{61,7-55,7} -1} = 1144 & p_{B,1} &= 1080 + \frac{1080 - 1111}{\frac{61,7 - 59,3}{61,7-57,7}-1} = 1157.5 & p_{C,1} &= 1111 + \frac{1111-1196}{\frac{61,7 - 62,6}{61,7-59,3}-1} = \frac{12901}{11}&&\\
+            p_{A,2} &= 1144 + \frac{1144-1157.5}{\frac{61.7-59.3}{61.7-55.7}-1}=1166.5 & p_{B,2} &= 1157.5 + \frac{1157.5-\frac{12901}{11}}{\frac{61.7-62.6}{61.7-57.7}-1}= \frac{1261265}{1078}&&&&\\
+            p_{A,3} &= 1166.5 + \frac{1166.5 - \frac{1261265}{1078}}{\frac{61.7-62.6}{61.7-55.7}-1} =1166.5 + \frac{37780}{12397} \approx 1169.55&&&&&&
+        \end{align*}
+        \end{minipage}
+    }
+
+    Die Tageslänge am Ort E beträgt also 19 Stunden und 29.55 Minuten.
+\end{enumerate}
+\section*{Aufgabe 3}
+\begin{enumerate}[(a)]
+    \item Bezüglich der Lagrange-Basis sind die Koeffizienten sofort durch die Werte an der entsprechenden Stelle gegeben. Daher benötigt man dafür überhaupt keinen Aufwand, außer man möchte die Koeffizienten an eine neue Stelle kopieren, dann hat man den Aufwand $\mathcal{O}(n)$. Zur Auswertung eines Polynoms $L_i^{(n)} = \prod_{j=0,j\neq i}^n \frac{\xi - x_j}{x_i-x_j}$ benötigt man $n-1$ Multiplikationen, $n-1$ Divisionen und $2(n-1)$ Subtraktionen, also insgesamt $4(n-1)$ Operationen. Zur Auswertung des Interpolationspolynoms \[\sum_{i = 1}^{n}y_iL_i^{(n)}(\xi)\] benötigt man $n-1$ Additionen und Multiplikationen und muss $n$ Lagrange-Polynomen auswerten, also insgesamt $2(n-1) + n(4(n-1)) = 4n^2 - 4n + 2n - 1 = 4n^2 - 2n + 1\in \mathcal{O}(n^2)$ Operationen.
+    \item In der Newton-Basis muss man zur Bestimmung der Koeffizienten ein LGS mit einer $n\times n$ unteren Dreiecksmatrix lösen. Für den $k$-ten Koeffizienten gilt die Gleichung
+    \[
+        a_k = \left(y_k - \sum_{i = 0}^{k-1}a_iN_i(x_k)\right)/N_k(x_k).  
+    \]
+    Wir bestimmen also zunächst den Aufwand der Berechnung von $N_i(x_k)$ für $i\le k$. Dazu müssen wir $i$ Faktoren multiplizieren, von denen jeder eine Differenz zweier Zahlen ist. Wir erhalten also $2i$ Operationen. Um den oberen Ausdruck zu berechnen, benötigen wir in jedem Summand eine Multiplikation und dann $k-1$ Additionen. Daraufhin subtrahieren wir die Summe von $y_k$ und dividieren noch durch $N_k(x_k)$ Die Anzahl der benötigten Operationen ist also \[\underbrace{k-1}_{\text{Multiplikationen}} + \underbrace{\sum_{i = 1}^{k}2i}_{\text{Auswertungen von } N_i} + \underbrace{k-1}_{\text{Additionen}} + \underbrace{1}_{\text{Subtraktion}} + \underbrace{1}_{\text{Division}}.\]
+    Zählt man einfach die Operationen zusammen, so erhält man $2k + k(k-1) = k^2+k$. Will man also alle $n$ Koeffizienten berechnen, so erhält man insgesamt $\sum_{k = 1}^{n} k^2+k = \frac{1}{3}n(n+1)(n+2)$ Operationen, also $\mathcal{O}(n^3)$.  Die Auswertung an einer Stelle besteht darin, die Summe 
+    \[\sum_{i = 1}^{n}a_iN_i(\xi)\] zu berechnen. Man erhält $n$ Multiplikationen, $n-1$ Additionen und $\sum_{i = 1}^{n}2i = n(n-1)$ Operationen durch Auswertungen von Polynomen, also insgesamt $n^2+n-1\in \mathcal{O}(n^2)$ Operationen.
+    \item Um die Koeffizienten in der Monom-Basis zu bestimmen, müssen wir zunächst die Vandermonde-Matrix aufstellen. Da man zur Berechnung der $n$-ten Potenz $\mathcal{O}(\ln n)$ Operationen benötigt, erhalten wir für den Aufwand die Summe $\sum_{i = 1}^{n} \sum_{j = 0}^{n}\ln(i) \approx n\cdot \int_1^n\ln(x)\d x = n\cdot x\ln(x) -x \bigg|_1^n = n^2\ln(n) - n^2 + n \in \mathcal{O}(n^2\ln(n))$. Für das Lösen des linearen Gleichungssystems benötigen wir schließlich $\mathcal{O}(n^3)$ Operationen. Damit liegt der Aufwand zur Koeffizientenbestimmung in $\mathcal{O}(n^3)$. Die Auswertung mit dem Horner-Schema benötigt für $n=1$ genau 1 Addition und 1 Multiplikation. Wird $n$ um 1 erhöht, kommt eine Addition und eine Multiplikation hinzu. Man benötigt also $n$ Additionen und $n$ Multiplikationen insgesamt.
+\end{enumerate}
+Für das Neville-Aitken-Schema muss man alle $p_{k,j}$ berechnen mit $j <n-k$. Die Berechnung mithilfe aller $p_{k-1,j}$ mit $j<n-k+1$ benötigt 4 Subtraktionen, zwei Multiplikationen und eine Division für jedes $p_{k,j}$, also $7(n-k)$ Operationen für alle $p_{k,j}$. Summieren wir nun über alle $k$, so ergibt sich für die Berechnung von $p_{0,n}$ als Anzahl der Operationen
+\[
+    \sum_{k = 1}^{n}7(n-k) = 7n^2 - 7\frac{n(n-1)}{2} = \frac{7}{2}\left(n^2-n\right) \in \mathcal{O}(n^2)
+\]
+\section*{Aufgabe 4}
+\begin{figure}[h]
+    \begin{tikzpicture}%
+        \begin{axis}[width=\textwidth, xmin = -1, xmax = 1,xlabel = $x$, ylabel = $y$, legend pos=north west,]%
+            \addplot[domain=-1:1, smooth] {1/(1+x*x)};
+            \addlegendentry{$f_1(x)$};
+            \addplot[color = green, mark = none, smooth] table[col sep=comma, header = false, x index = 0, y index = 1] {interpolation_plot};
+            \addlegendentry{$f_1(x)$, $n = 5$};
+            \addplot[color = blue, mark = none, smooth] table[col sep=comma, header = false, x index = 0, y index = 3] {interpolation_plot};
+            \addlegendentry{$f_1(x)$, $n = 10$};
+            \addplot[color = red, mark = none, smooth] table[col sep=comma, header = false, x index = 0, y index = 5] {interpolation_plot};
+            \addlegendentry{$f_1(x)$, $n = 20$};
+                \end{axis}%\end{}
+            \end{tikzpicture}
+\end{figure}
+\begin{figure}
+    \begin{tikzpicture}%
+        \begin{axis}[width=\textwidth, xmin = -1, xmax = 1,xlabel = $x$, ylabel = $y$, legend pos=north west,]%
+            \addplot[domain=-1:1, smooth] {1/(1+x*x)};
+            \addlegendentry{$f_1(x)$};
+            \addplot[color = green, mark = none, smooth] table[col sep=comma, header = false, x index = 0, y index = 2] {interpolation_plot};
+            \addlegendentry{$f_1(x)$, $n = 5$};
+            \addplot[color = blue, mark = none, smooth] table[col sep=comma, header = false, x index = 0, y index = 4] {interpolation_plot};
+            \addlegendentry{$f_1(x)$, $n = 10$};
+            \addplot[color = red, mark = none, smooth] table[col sep=comma, header = false, x index = 0, y index = 6] {interpolation_plot};
+            \addlegendentry{$f_1(x)$, $n = 20$};
+                \end{axis}%\end{}
+            \end{tikzpicture}
+\end{figure}
+Je genauer man das Raster wählt, desto größer wird die Abweichung vom tatsächlichen Funktionswert an der Stelle.
+\end{document}
