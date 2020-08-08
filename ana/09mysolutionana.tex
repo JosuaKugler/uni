@@ -1,0 +1,503 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amsfonts, amsthm, mathtools, amssymb}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\usepackage{cases}
+\usepackage{fancyhdr}
+\usepackage{comment}
+%\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{cases}
+\usepackage{listings}
+\usepackage{siunitx}
+\usepackage[left = 3cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{subcaption}
+\usepackage{gauss}
+\usepackage{environ}
+\usepackage{url}
+\newtheorem{satz}{Satz}[section]
+\newtheorem{lemma}[satz]{Lemma}
+\newtheorem{korollar}[satz]{Korollar}
+\newtheorem{proposition}[satz]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[satz]{Def.}
+\newtheorem{axiom}[satz]{Axiom}
+\newtheorem{bsp}[satz]{Bsp.}
+\newtheorem*{anmerkung}{Anm}
+\newtheorem{bemerkung}[satz]{Bem}
+\newtheorem*{notatio}{Notation}
+\newcommand{\obda}{O.B.d.A. }
+\newcommand{\equals}{\Longleftrightarrow}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\intd}{\mathrm{d}}
+\newcommand{\Pot}{\operatorname{Pot}}
+\newcommand{\mychar}{\operatorname{char}}
+\newcommand{\myker}{\operatorname{ker}}
+\newcommand{\induktion}[3]
+{\begin{proof}\ \\
+	\noindent\textbf{Induktionsanfang:}\ #1\\
+	\noindent\textbf{Induktionsvoraussetzung:}\ #2\\
+	\noindent\textbf{Induktionsschluss:}\ #3
+\end{proof}}
+
+\newcommand{\rg}{\operatorname{rg}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\abb}{\operatorname{Abb}}
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\Ima}{\operatorname{Im}}
+\newcommand{\norm}[1]{\left\Vert #1 \right\Vert}
+
+\makeatletter \renewcommand\d{\ensuremath{%
+		\;\mathrm{d}\@ifnextchar\d{\!}{}}}
+\makeatother
+
+\let\oldstackrel\stackrel
+\renewcommand{\stackrel}[2]{%
+    \oldstackrel{\mathclap{#1}}{#2}
+}%
+
+% maximum norm
+\newcommand{\maxnorm}[1]{\left|\left|#1\right|\right|_\infty}
+\renewcommand{\epsilon}{\varepsilon}
+
+\newcommand{\dv}[2]{\frac{\d #1 }{\d #2 }}
+\newcommand{\pdv}[2]{\frac{\partial #1}{\partial #2}}
+
+
+\ExplSyntaxOn
+
+% S-tackrelcompatible ALIGN environment
+% some might also call it the S-uper ALIGN environment
+% uses regular expressions to calculate the widest stackrel
+% to put additional padding on both sides of relation symbols
+\NewEnviron{salign}
+{
+    \begin{align}
+        \lec_insert_padding:V \BODY
+    \end{align}
+}
+% starred version that does no equation numbering
+\NewEnviron{salign*}
+{
+    \begin{align*}
+        \lec_insert_padding:V \BODY
+    \end{align*}
+}
+
+% some helper variables
+\tl_new:N \l__lec_text_tl
+\seq_new:N \l_lec_stackrels_seq
+\int_new:N \l_stackrel_count_int
+\int_new:N \l_idx_int
+\box_new:N \l_tmp_box
+\dim_new:N \l_tmp_dim_a
+\dim_new:N \l_tmp_dim_b
+\dim_new:N \l_tmp_dim_needed
+
+% function to insert padding according to widest stackrel
+\cs_new_protected:Nn \lec_insert_padding:n
+ {
+  \tl_set:Nn \l__lec_text_tl { #1 }
+  % get all stackrels in this align environment
+  \regex_extract_all:nnN { \c{stackrel}{(.*?)}{(.*?)} } { #1 } \l_lec_stackrels_seq
+  % get number of stackrels
+  \int_set:Nn \l_stackrel_count_int { \seq_count:N \l_lec_stackrels_seq }
+  \int_set:Nn \l_idx_int { 1 }
+  \dim_set:Nn \l_tmp_dim_needed { 0pt }
+  % iterate over stackrels
+  \int_while_do:nn { \l_idx_int <= \l_stackrel_count_int }
+  {
+      % calculate width of text
+      \hbox_set:Nn \l_tmp_box {$\seq_item:Nn \l_lec_stackrels_seq { \l_idx_int + 1 }$}
+      \dim_set:Nn \l_tmp_dim_a {\box_wd:N \l_tmp_box}
+      % calculate width of relation symbol
+      \hbox_set:Nn \l_tmp_box {$\seq_item:Nn \l_lec_stackrels_seq { \l_idx_int + 2 }$}
+      \dim_set:Nn \l_tmp_dim_b {\box_wd:N \l_tmp_box}
+      % check if 0.5*(a-b) > minimum padding, if yes updated minimum padding
+      \dim_compare:nNnTF
+        { 1pt * \dim_ratio:nn { \l_tmp_dim_a - \l_tmp_dim_b } { 2pt } } > { \l_tmp_dim_needed }
+        { \dim_set:Nn \l_tmp_dim_needed { 1pt * \dim_ratio:nn { \l_tmp_dim_a - \l_tmp_dim_b } { 2pt } } }
+        { }
+      \quad
+      % increment list index by three, as every stackrel produces three list entries
+      \int_incr:N \l_idx_int
+      \int_incr:N \l_idx_int
+      \int_incr:N \l_idx_int
+  }
+  % replace all relations with align characters (&) and add the needed padding
+  \regex_replace_all:nnN
+      { (\c{iff}&|&\c{iff}|\c{impliedby}&|&\c{impliedby}|\c{implies}&|&\c{implies}|\c{approx}&|&\c{approx}|\c{equiv}&|&\c{equiv}|=&|&=|\c{le}&|&\c{le}|\c{ge}&|&\c{ge}|&\c{stackrel}{.*?}{.*?}|\c{stackrel}{.*?}{.*?}&|&\c{neq}|\c{neq}&) }
+      { \c{kern} \u{l_tmp_dim_needed} \1 \c{kern} \u{l_tmp_dim_needed} }
+      \l__lec_text_tl
+  \l__lec_text_tl
+ }
+\cs_generate_variant:Nn \lec_insert_padding:n { V }
+\ExplSyntaxOff
+
+
+\newcommand{\ipilayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Einführung in die praktische Informatik, Blatt #1}
+	\fancyhead[R]{Josua Kugler, Jan Metzger, David Wesner}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Peter Bastian\\
+			Tutor: Frederick Schenk}
+		\rhead{Einführung in die praktische Informatik, Übungsblatt #1\\ David, Jan, Josua}
+		\cfoot{\thepage}
+	}
+\thispagestyle{firstpage}
+}
+
+\newcommand{\analayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Analysis 2, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Ekaterina Kostina\\
+			Tutor: Julian Matthes}
+		\rhead{Analysis 1, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+\newcommand{\lalayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Lineare Algebra 2, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Denis Vogel\\
+			Tutor: Marina Savarino}
+		\rhead{Lineare Algebra 2, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+
+\lstset{
+    frame=tb, % draw a frame at the top and bottom of the code block
+    tabsize=4, % tab space width
+    showstringspaces=false, % don't mark spaces in strings
+    numbers=left, % display line numbers on the left
+    commentstyle=\color{green}, % comment color
+    keywordstyle=\color{blue}, % keyword color
+    stringstyle=\color{red} % string color
+}
+\setlength{\headheight}{25pt}
+
+
+
+\begin{document}
+\analayout{9}
+\noindent \textbf{Anmerkung:} Wir benutzen für Referenzen unser mit ein paar Kommilitonen zusammen getextes Skript, zu finden unter \url{https://flavigny.de/lecture/pdf/analysis2}.
+\section*{Aufgabe 1}
+Wir definieren 
+\[
+	g \colon \begin{pmatrix}
+		u\\[0.3em]v\\[0.3em]w
+	\end{pmatrix} \mapsto \begin{pmatrix}
+		\frac{wv}{w+2u}\\[0.3em]
+		\frac{w+2u}{v}\\[0.3em]
+		\frac{uv}{w+2u}
+	\end{pmatrix}
+\]
+Es gilt 
+\[
+	g\circ f(\begin{pmatrix}
+		x\\[0.3em]y\\[0.3em]z
+	\end{pmatrix}) = g(\begin{pmatrix}
+		yz\\[0.3em]x+2z\\[0.3em]xy
+	\end{pmatrix}) = \begin{pmatrix}
+		\frac{xy(x+2z)}{xy+2yz}\\[0.3em]
+		\frac{xy+2yz}{x+2z}\\[0.3em]
+		\frac{yz(x+2z)}{xy+2yz}
+	\end{pmatrix} = \begin{pmatrix}
+		x\\[0.3em]y\\[0.3em]z\\[0.3em]
+	\end{pmatrix}
+\]
+Also ist $f^{-1} = g$. Nun berechnen wir die Jacobi-Matrizen.
+\[
+	D_f(2,1,0)^{-1} = \left.\begin{pmatrix}
+		0&z & y\\[0.3em]
+		1 & 0 & 2\\[0.3em]
+		y & x & 0
+	\end{pmatrix}^{-1}\right|_{(2,1,0)^T} = \begin{pmatrix}
+		0 & 0 & 1\\[0.3em]
+		1 & 0 & 2\\[0.3em]
+		1 & 2 & 0
+	\end{pmatrix}^{-1} = \begin{pmatrix}
+		-2 & 1 & 0\\[0.3em]
+		1 & -\frac{1}{2} & \frac{1}{2}\\[0.3em]
+		1 & 0 & 0
+	\end{pmatrix},
+\] da
+\[
+	\begin{pmatrix}
+		0 & 0 & 1\\[0.3em]
+		1 & 0 & 2\\[0.3em]
+		1 & 2 & 0
+	\end{pmatrix} \cdot \begin{pmatrix}
+		-2 & 1 & 0\\[0.3em]
+		1 & -\frac{1}{2} & \frac{1}{2}\\[0.3em]
+		1 & 0 & 0
+	\end{pmatrix} = \begin{pmatrix}
+		1 & 0 & 0\\[0.3em]
+		0 & 1 & 0\\[0.3em]
+		0 & 0 & 1
+	\end{pmatrix}	
+\]
+Außerdem ist 
+\begin{align*}
+	D_g(2,1,0) &= \left.\begin{pmatrix}
+		-2\frac{wv}{(w+2u)^2} & \frac{w}{w+2u} & \frac{v(w+2u)-wv}{(w+2u)^2}\\[0.3em]
+		\frac{2}{v} & -\frac{w+2u}{v^2} & \frac{1}{v}\\[0.3em]
+		\frac{v(w+2u)-2uv}{(w+2u)^2} & \frac{u}{w+2u} & \frac{uv}{(w+2u)^2}
+	\end{pmatrix}\right|_{f(2,1,0)}\\
+	&= \left.\begin{pmatrix}
+		-2\frac{wv}{(w+2u)^2} & \frac{w}{w+2u} & \frac{2uv}{(w+2u)^2}\\[0.3em]
+		\frac{2}{v} & -\frac{w+2u}{v^2} & \frac{1}{v}\\[0.3em]
+		\frac{vw}{(w+2u)^2} & \frac{u}{w+2u} & \frac{uv}{(w+2u)^2}
+	\end{pmatrix}\right|_{(0,2,2)^T}\\
+	&= \begin{pmatrix}
+		-2 & 1 & 0\\[0.3em]
+		1 & -\frac{1}{2} & \frac{1}{2}\\[0.3em]
+		1 & 0 & 0
+	\end{pmatrix}
+\end{align*}
+\section*{Aufgabe 2}
+Definiere \[g(x,y,z) = \begin{pmatrix}
+	x+y-z-1\\
+	x^2+y^2-1
+\end{pmatrix}\]
+und \[f(x) = x^2+y^2+z^2.\]
+Die Aufgabenstellung besteht nun darin, $f$ unter der Bedingung $g = 0$ zu minimieren. Zunächst berechnen wir
+\[\nabla f = \begin{pmatrix}
+	2x\\2y\\2z
+\end{pmatrix},\quad \nabla g_1 = \begin{pmatrix}
+	1\\1\\-1
+\end{pmatrix},\quad\text{ und } \nabla g_2 = \begin{pmatrix}
+	2x\\2y\\0
+\end{pmatrix}\]
+Nach Lagrange existieren $\lambda_1,\lambda_2\in \R$ mit
+\begin{align}
+	\lambda_1 \nabla g_1 + \lambda_2 \nabla g_2 &= \nabla f\nonumber
+	\intertext{Daraus ergibt sich für jede Komponente eine Gleichung}
+	\lambda_1 + 2\lambda_2x &= 2x\label{one}\\
+	\lambda_1 + 2\lambda_2y &= 2y\label{two}\\
+	-\lambda_1 &= 2z\label{three}
+\end{align}
+Setzen wir nun Gleichung \refeq{three} in Gleichung \refeq{one} und \refeq{two} ein, so erhalten wir
+\begin{align*}
+	-2z + 2\lambda_2x &= 2x & -2z + 2\lambda_2y &= 2y\\
+	-z + \lambda_2x &= x & -z + \lambda_2y &= y\\
+	x(\lambda_2 - 1) &= z & y(\lambda_2-1)&= z
+	\intertext{Wir nehmen zunächst $\lambda_2 -1 \neq 0$ an}
+	x &= \frac{z}{\lambda_2 -1} & y &= \frac{z}{\lambda_2-1}
+\end{align*}
+Also ist $y = x$. Da die Punkte auf $Z$ liegen, ist $1 = x^2 + y^2 = 2x^2\Leftrightarrow x^2 = \frac{1}{2}$.
+Daraus ergibt sich $x_{1,2} = y_{1,2} = \pm \frac{\sqrt{2}}{2}$. Da die Punkte auch in $P$ liegen, erhalten wir $z = x + y -1 = \pm \sqrt{2}-1$. Damit erhalten wir die Punkte $\vec{x}_1 = (\frac{\sqrt{2}}{2},\frac{\sqrt{2}}{2}, \sqrt{2}-1)$ und $\vec{x}_1 = (-\frac{\sqrt{2}}{2},-\frac{\sqrt{2}}{2},-\sqrt{2}-1)$.
+Nun betrachten wir den Fall $\lambda_2 = 1$. Dann erhalten wir $z = 0$. Aus den Zwangsbedingungen ergibt sich dann $x+y = 1$ und $x^2+y^2 = 1$. Einsetzen ergibt $1 = (1-y)^2 + y^2 = 1 - 2y + 2y^2$, also $y^2-y = 0$. Mögliche Lösungen sind also $y = 0$ und $y = 1$, korrespondierend zu $x = 1$ und $x = 0$. Damit ergeben sich zwei weitere Punkte $\vec{x}_3 = (1,0,0)$ und $\vec{x}_4 = (0,1,0)$.
+Wir berechnen nun die Werte der Zielfunktion an diesen vier Punkten.
+\begin{align*}
+	f(\vec{x}_1) &= f(\frac{\sqrt{2}}{2},\frac{\sqrt{2}}{2}, \sqrt{2}-1) = \frac{1}{2} + \frac{1}{2} + 2 - 2\sqrt{2} + 1 = 4 - 2\sqrt{2}\\
+	f(\vec{x}_2) &= f(-\frac{\sqrt{2}}{2},-\frac{\sqrt{2}}{2},-\sqrt{2}-1) = \frac{1}{2} + \frac{1}{2} + 2 + 2\sqrt{2} + 1 = 4 + 2\sqrt{2}\\
+	f(\vec{x}_3) &= f(1,0,0) = 1\\
+	f(\vec{x}_4) &= f(0,1,0) = 1\\
+\end{align*}
+Der minimale Abstand ist also 1.
+
+\section*{Aufgabe 3}
+Wir definieren $f(x) = \frac{1}{2}x^TQx - c^Tx$ mit \[Q = \begin{pmatrix}
+	4 & 0 & 2\\0 & 4 & 1\\2 & 1&6
+\end{pmatrix},\quad c = \begin{pmatrix}
+	-3\\8\\-2
+\end{pmatrix}.\] Insbesondere ist $Q$ symmetrisch. Dann gilt
+\begin{align*}
+	f(x) &= \frac{1}{2}\sum_{j = 1}^{n}\sum_{k = 1}^{n}q_{jk}x_jx_k - \sum_{j = 1}^{n}c_jx_j\\
+	&= \frac{1}{2}\sum_{j \neq i}\sum_{k \neq i}q_{jk}x_jx_k + \frac{1}{2}\sum_{k \neq i} q_{ik}x_ix_k + \frac{1}{2}\sum_{j \neq i}q_{ji}x_jx_i + \frac{1}{2}q_{ii}x_i^2 - \sum_{j\neq i}c_jx_j - c_ix_i\\
+	\pdv{f}{x_i} &= \frac{1}{2} \sum_{k \neq i}q_{ik}x_k + \frac{1}{2} \sum_{j \neq i}q_{ji}x_j + q_{ii}x_i - c_i\\
+	&= \frac{1}{2} \sum_{k \neq i}q_{ik}x_k + \frac{1}{2} \sum_{j \neq i}q_{ij}x_j + q_{ii}x_i - c_i\\
+	&= \sum_{j \neq i}q_{ij}x_j + q_{ii}x_i - c_i\\
+	&= (Qx - c)_i
+\end{align*}
+Also ist $\nabla f(x) = Qx-c$.
+Weiter definieren wir $g(x) = A\cdot x - b$ mit \[A = \begin{pmatrix}
+	-1 & 3 & -2\\-3&2&-1
+\end{pmatrix},\quad b = \begin{pmatrix}
+	7 \\ 2
+\end{pmatrix}\]
+Dann gilt \[\partial_i g_j = \partial_i\left(\sum_{k = 1}^na_{jk}x_k - b_j\right) = a_{ji},\] woraus wir schließen $\nabla g = A^T$ (ist glaube ich eher sloppy, funktioniert aber völlig analog).
+Durch Ausmultiplizieren erkennt man, dass die oben definierten Matrizen die Kriterien aus der Aufgabenstellung erfüllen, wir können also $f$ s.t. $g = 0$ optimieren.
+Nach Lagrange existiert also ein $\lambda \in \R^2$ mit \[\nabla g\cdot \lambda = \nabla f \Leftrightarrow A^T\cdot \lambda = Qx - c \Leftrightarrow Qx= A^T\cdot \lambda + c.\]
+Außerdem muss noch $Ax = b$ gelten. Insgesamt erhalten wir demnach \[
+	\begin{pmatrix}
+		4 & 0 & 2\\0 & 4 & 1\\2 & 1&6
+	\end{pmatrix} \cdot \begin{pmatrix}
+		x_1\\x_2\\x_3
+	\end{pmatrix}=\begin{pmatrix}
+		-\lambda_1  -3\lambda_2 - 3\\
+		3\lambda_1 + 2\lambda_2 + 8\\
+		-2\lambda_1  -\lambda_2 -2
+	\end{pmatrix}
+\]
+und \[
+	\begin{pmatrix}
+		-1 & 3 & -2\\-3&2&-1
+	\end{pmatrix}\cdot \begin{pmatrix}
+		x_1\\x_2\\x_3
+	\end{pmatrix} = \begin{pmatrix}
+		7 \\ 2
+	\end{pmatrix}
+\]
+Wir lösen zunächst die zweite Gleichung. Es gilt
+\[
+	\begin{gmatrix}[p]
+		-1 & 3 & -2 & 7\\
+		-3 & 2 & -1 & 2
+		\rowops
+		\add[-3]{0}{1}
+	\end{gmatrix}	\leadsto \begin{gmatrix}[p]
+		-1 & 3 & -2 & 7\\
+		0 & -7 & 5 & -19
+		\rowops
+		\mult{0}{-1}\\
+		\mult{1}{-\frac{1}{7}}
+		\add[3]{1}{0}
+	\end{gmatrix} \leadsto \begin{gmatrix}[p]
+		1 & 0 & -\frac{1}{7} & \frac{8}{7}\\
+		0 & 1 & -\frac{5}{7} & \frac{19}{7}
+	\end{gmatrix}.
+\]
+Damit folgt für $x$
+\[
+	x \in  \begin{pmatrix}
+		\frac{8}{7}\\
+		\frac{19}{7}\\
+		0
+	\end{pmatrix} + \operatorname{Lin} \frac{1}{7}\cdot \begin{pmatrix}
+		1\\5\\7
+	\end{pmatrix} = \begin{pmatrix}
+		1\\2\\-1
+	\end{pmatrix} + \operatorname{Lin} \begin{pmatrix}
+		1\\5\\7
+	\end{pmatrix},\;\text{ also }\exists a\colon x = \begin{pmatrix}
+		1 + a\\2 + 5a\\-1+7a
+	\end{pmatrix}
+\]
+Dies setzen wir in die erste Gleichung ein und erhalten
+\begin{align*}
+	\begin{pmatrix}
+		4 & 0 & 2\\0 & 4 & 1\\2 & 1&6
+	\end{pmatrix} \cdot \begin{pmatrix}
+		1 + a\\2 + 5a\\-1+7a
+	\end{pmatrix}=\begin{pmatrix}
+		-\lambda_1  -3\lambda_2 - 3\\
+		3\lambda_1 + 2\lambda_2 + 8\\
+		-2\lambda_1  -\lambda_2 - 2
+	\end{pmatrix}
+    \intertext{Ausmultiplizieren ergibt}
+    \begin{pmatrix}
+		2  + 18a\\7 + 27a\\-2+49a
+	\end{pmatrix}=\begin{pmatrix}
+		-\lambda_1  -3\lambda_2 -3\\
+		3\lambda_1 + 2\lambda_2 + 8\\
+		-2\lambda_1  -\lambda_2 -2
+    \end{pmatrix}
+    \intertext{Durch kurzes Umformen sehen wir nun}
+	\begin{pmatrix}
+		18a+\lambda_1+ 3\lambda_2\\27a-3\lambda_1 - 2\lambda_2\\49a+ 2\lambda_1 + \lambda_2
+	\end{pmatrix}=\begin{pmatrix}
+		-5\\
+		1\\
+		0
+	\end{pmatrix}\\
+	\begin{pmatrix}
+		1 &  3 & 18\\ -3 &  - 2 & 27\\ 2 & 1 & 49
+	\end{pmatrix}\cdot \begin{pmatrix}
+		\lambda_1\\\lambda_2\\a
+	\end{pmatrix}=\begin{pmatrix}
+		-5\\
+		1\\
+		0
+	\end{pmatrix}\\
+\end{align*}
+Wir lösen nun auch dieses Gleichungssystem
+\begin{align*}
+	\begin{gmatrix}[p]
+		1 & 3 & 18 &-5\\ 
+		-3&-2 & 27 & 1\\ 
+		2 & 1 & 49 & 0
+		\rowops
+		\add[3]{0}{1}
+		\add[-2]{0}{2}
+	\end{gmatrix}&\leadsto \begin{gmatrix}[p]
+		1 & 3 & 18 &-5\\ 
+		0 & 7 & 81 & -14\\ 
+		0 & -5 & 13 & 10
+		\rowops
+		\mult{1}{\frac{1}{7}}
+		\add[5]{1}{2}
+		\add[-3]{1}{0}
+	\end{gmatrix}\\
+	&\leadsto \begin{gmatrix}[p]
+		1 & 0 & \frac{-117}{7} &1\\
+		0 & 1 & \frac{81}{7} & -2\\
+		0 & 0 & \frac{496}{7} & 0
+	\end{gmatrix}
+	\intertext{Mit geeigneten Faktoren kann man die 3. Zeile auf alle anderen addieren}
+	&\leadsto 
+	\begin{gmatrix}[p]
+		1 & 0 & 0 &1\\
+		0 & 1 & 0 & -2\\
+		0 & 0 & 1 & 0
+	\end{gmatrix}
+\end{align*}
+Es folgt $\lambda_1 = 1,\; \lambda_2 = -2$ und $a = 0$. Das setzen wir in unser Ergebnis für $x$ ein und erhalten
+\[
+	x = \begin{pmatrix}
+		1 + a\\2 + 5a\\-1+7a
+	\end{pmatrix} = \begin{pmatrix}
+		1\\2\\-1
+	\end{pmatrix}.	
+\]
+Es gilt nun $f(x) = -6$. Wir überprüfen noch eine anderen Punkt, der $g = 0$ erfüllt, z.B. mit $a = 1$.
+\[
+	f\begin{pmatrix}
+		2\\7\\-6
+	\end{pmatrix} = 86	
+\]
+Also ist $x$ tatsächlich das gesuchte Minimum von $f$ s.t. $g = 0$.
+\section*{Aufgabe 4}
+\begin{enumerate}[(a)]
+	\item Folgendes Gleichungssystem erster Ordnung ist äquivalent zum Gleichungssystem aus der Aufgabe
+	\begin{align*}
+		v_2'(t) &= \dv{v_2}{t}(t)& v_2'''(t) &= \dv{v_2''}{t}(t)& \dv{v_2'''(t)}{t} - a\dv{v_1'}{t}(t) &= f(t) \\
+		v_2''(t) &= \dv{v_2'}{t}(t)& v_1'(t) &= \dv{v_1}{t}(t) & \dv{v_1'}{t}(t) + bv_2(t) &= g(t)
+	\end{align*}
+	\item \begin{align*}
+		\dv{}{t}W(t) &= -p(t)W(t)\\
+		\dv{}{t}\left(u_1(t)\dv{}{t}u_2(t) - \dv{}{t}u_1(t)u_2(t)\right) &= -p(t)\left(u_1(t)\dv{}{t}u_2(t) - \dv{}{t}u_1(t)u_2(t)\right)
+		\intertext{Beim Ausschreiben der Ableitung der Wronskideterminante werden sich die gemischten Ableitungen $\dv{}{t}u_1(t)\dv{}{t}u_2(t)$ kürzen, daher schreiben wir sie gar nicht auf.}
+		u_1(t)\dv{^2}{t^2}u_2(t) - \dv{^2}{t^2}u_1(t)u_2(t)  &= -p(t)u_1(t)\dv{}{t}u_2(t) + p(t)\dv{}{t}u_1(t)u_2(t)\\
+		u_1(t)\left(\dv{^2}{t^2}u_2(t) + p(t)\dv{}{t}u_2(t)\right) &= u_2(t)\left(\dv{^2}{t^2}u_1(t)+ p(t)\dv{}{t}u_1(t)\right)\\
+		u_1(t)\left(-q(t)u_2(t)\right) &= u_2(t)\left(-q(t)u_1(t)\right)\\
+		q(t)u_1(t)u_2(t) &= q(t)u_2(t)u_1(t)
+	\end{align*}
+\end{enumerate}
+
+\end{document}

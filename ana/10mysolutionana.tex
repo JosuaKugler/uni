@@ -1,0 +1,522 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amsfonts, amsthm, mathtools, amssymb}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\usepackage{cases}
+\usepackage{fancyhdr}
+\usepackage{comment}
+%\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{cases}
+\usepackage{listings}
+\usepackage{siunitx}
+\usepackage[left = 3cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{subcaption}
+\usepackage{gauss}
+\usepackage{environ}
+\usepackage{url}
+\newtheorem{satz}{Satz}[section]
+\newtheorem{lemma}[satz]{Lemma}
+\newtheorem{korollar}[satz]{Korollar}
+\newtheorem{proposition}[satz]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[satz]{Def.}
+\newtheorem{axiom}[satz]{Axiom}
+\newtheorem{bsp}[satz]{Bsp.}
+\newtheorem*{anmerkung}{Anm}
+\newtheorem{bemerkung}[satz]{Bem}
+\newtheorem*{notatio}{Notation}
+\newcommand{\obda}{O.B.d.A. }
+\newcommand{\equals}{\Longleftrightarrow}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\intd}{\mathrm{d}}
+\newcommand{\Pot}{\operatorname{Pot}}
+\newcommand{\mychar}{\operatorname{char}}
+\newcommand{\myker}{\operatorname{ker}}
+\newcommand{\induktion}[3]
+{\begin{proof}\ \\
+	\noindent\textbf{Induktionsanfang:}\ #1\\
+	\noindent\textbf{Induktionsvoraussetzung:}\ #2\\
+	\noindent\textbf{Induktionsschluss:}\ #3
+\end{proof}}
+
+\newcommand{\rg}{\operatorname{rg}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\abb}{\operatorname{Abb}}
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\Ima}{\operatorname{Im}}
+\newcommand{\norm}[1]{\left\Vert #1 \right\Vert}
+
+\makeatletter \renewcommand\d{\ensuremath{%
+		\;\mathrm{d}\@ifnextchar\d{\!}{}}}
+\makeatother
+
+\let\oldstackrel\stackrel
+\renewcommand{\stackrel}[2]{%
+    \oldstackrel{\mathclap{#1}}{#2}
+}%
+
+% maximum norm
+\newcommand{\maxnorm}[1]{\left|\left|#1\right|\right|_\infty}
+\renewcommand{\epsilon}{\varepsilon}
+
+\newcommand{\dv}[2]{\frac{\d #1 }{\d #2 }}
+\newcommand{\pdv}[2]{\frac{\partial #1}{\partial #2}}
+
+
+\ExplSyntaxOn
+
+% S-tackrelcompatible ALIGN environment
+% some might also call it the S-uper ALIGN environment
+% uses regular expressions to calculate the widest stackrel
+% to put additional padding on both sides of relation symbols
+\NewEnviron{salign}
+{
+    \begin{align}
+        \lec_insert_padding:V \BODY
+    \end{align}
+}
+% starred version that does no equation numbering
+\NewEnviron{salign*}
+{
+    \begin{align*}
+        \lec_insert_padding:V \BODY
+    \end{align*}
+}
+
+% some helper variables
+\tl_new:N \l__lec_text_tl
+\seq_new:N \l_lec_stackrels_seq
+\int_new:N \l_stackrel_count_int
+\int_new:N \l_idx_int
+\box_new:N \l_tmp_box
+\dim_new:N \l_tmp_dim_a
+\dim_new:N \l_tmp_dim_b
+\dim_new:N \l_tmp_dim_needed
+
+% function to insert padding according to widest stackrel
+\cs_new_protected:Nn \lec_insert_padding:n
+ {
+  \tl_set:Nn \l__lec_text_tl { #1 }
+  % get all stackrels in this align environment
+  \regex_extract_all:nnN { \c{stackrel}{(.*?)}{(.*?)} } { #1 } \l_lec_stackrels_seq
+  % get number of stackrels
+  \int_set:Nn \l_stackrel_count_int { \seq_count:N \l_lec_stackrels_seq }
+  \int_set:Nn \l_idx_int { 1 }
+  \dim_set:Nn \l_tmp_dim_needed { 0pt }
+  % iterate over stackrels
+  \int_while_do:nn { \l_idx_int <= \l_stackrel_count_int }
+  {
+      % calculate width of text
+      \hbox_set:Nn \l_tmp_box {$\seq_item:Nn \l_lec_stackrels_seq { \l_idx_int + 1 }$}
+      \dim_set:Nn \l_tmp_dim_a {\box_wd:N \l_tmp_box}
+      % calculate width of relation symbol
+      \hbox_set:Nn \l_tmp_box {$\seq_item:Nn \l_lec_stackrels_seq { \l_idx_int + 2 }$}
+      \dim_set:Nn \l_tmp_dim_b {\box_wd:N \l_tmp_box}
+      % check if 0.5*(a-b) > minimum padding, if yes updated minimum padding
+      \dim_compare:nNnTF
+        { 1pt * \dim_ratio:nn { \l_tmp_dim_a - \l_tmp_dim_b } { 2pt } } > { \l_tmp_dim_needed }
+        { \dim_set:Nn \l_tmp_dim_needed { 1pt * \dim_ratio:nn { \l_tmp_dim_a - \l_tmp_dim_b } { 2pt } } }
+        { }
+      \quad
+      % increment list index by three, as every stackrel produces three list entries
+      \int_incr:N \l_idx_int
+      \int_incr:N \l_idx_int
+      \int_incr:N \l_idx_int
+  }
+  % replace all relations with align characters (&) and add the needed padding
+  \regex_replace_all:nnN
+      { (\c{iff}&|&\c{iff}|\c{impliedby}&|&\c{impliedby}|\c{implies}&|&\c{implies}|\c{approx}&|&\c{approx}|\c{equiv}&|&\c{equiv}|=&|&=|\c{le}&|&\c{le}|\c{ge}&|&\c{ge}|&\c{stackrel}{.*?}{.*?}|\c{stackrel}{.*?}{.*?}&|&\c{neq}|\c{neq}&) }
+      { \c{kern} \u{l_tmp_dim_needed} \1 \c{kern} \u{l_tmp_dim_needed} }
+      \l__lec_text_tl
+  \l__lec_text_tl
+ }
+\cs_generate_variant:Nn \lec_insert_padding:n { V }
+\ExplSyntaxOff
+
+
+\newcommand{\ipilayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Einführung in die praktische Informatik, Blatt #1}
+	\fancyhead[R]{Josua Kugler, Jan Metzger, David Wesner}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Peter Bastian\\
+			Tutor: Frederick Schenk}
+		\rhead{Einführung in die praktische Informatik, Übungsblatt #1\\ David, Jan, Josua}
+		\cfoot{\thepage}
+	}
+\thispagestyle{firstpage}
+}
+
+\newcommand{\analayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Analysis 2, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Ekaterina Kostina\\
+			Tutor: Julian Matthes}
+		\rhead{Analysis 1, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+\newcommand{\lalayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Lineare Algebra 2, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Denis Vogel\\
+			Tutor: Marina Savarino}
+		\rhead{Lineare Algebra 2, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+
+\lstset{
+    frame=tb, % draw a frame at the top and bottom of the code block
+    tabsize=4, % tab space width
+    showstringspaces=false, % don't mark spaces in strings
+    numbers=left, % display line numbers on the left
+    commentstyle=\color{green}, % comment color
+    keywordstyle=\color{blue}, % keyword color
+    stringstyle=\color{red} % string color
+}
+\setlength{\headheight}{25pt}
+
+
+
+\begin{document}
+\analayout{11}
+\noindent \textbf{Anmerkung:} Wir benutzen für Referenzen unser mit ein paar Kommilitonen zusammen getextes Skript, zu finden unter \url{https://flavigny.de/lecture/pdf/analysis2}.
+\section*{Aufgabe 1}
+\begin{enumerate}
+	\item Es gilt 
+	\begin{align*}
+		\norm{f(t,u(t))} &\leq \alpha(t)\norm{u(t)} + \beta(t)\\
+		&= \alpha(t)\norm{\int_{t_0}^tu(t')\d t' - u(t_0)} + \beta(t)\\
+		&\leq \alpha(t) \int_{t_0}^t\norm{f(t', u(t'))} \d t' + u_0\alpha(t) + \beta(t)
+	\end{align*}
+	Mit dem Lemma von Gronwall folgt also $\norm{f(t, u(t))} \leq e^{\alpha(t)(t-t_0)} \cdot (u_0 \alpha(t) + \beta(t))$.
+	Da $f$ auch noch stetig ist, folgt nach dem Existenzsatz von Peano die lokale Existenz. Es gilt außerdem 
+	\[
+		\norm{y(t)} \leq y_0 + \int_{t_0}^t e^{\alpha(t)(t-t_0)} \cdot (u_0 \alpha(t) + \beta(t)) \d t
+	\]
+	Der Integrand ist stetig, daher auf dem kompakten Intervall $[0,t]$ Riemann-integrierbar und die Stammfunktion ist wieder stetig. Folglich ist erhalten wir nach Korollar 5.10 die globale Existenz einer Lösung.
+	\item Es gilt 
+	\begin{align*}
+		\norm{f_1(t, x)} &= \norm{t|x_1|^{\frac{1}{2}} + \sin(t)x_2}
+		&\leq |t| (|x_1| + 1) + |x_2|\\
+		&\leq (|t|+1)(|x_1| + 1) + (|t|+1)|x_2|\\
+		&= (|t|+1)(|x_1| + |x_2|) + |t|+1\\
+		&= \alpha(t) \norm{x}_1 + \beta(t)
+	\end{align*}
+	Also ist $f_1$ linear beschränkt durch $\alpha(t)= \beta(t) = |t|+1$.
+	Außerdem gilt auch
+	\begin{align*}
+		\norm{f_1} &= \norm{e^{-t^2|x_1|} + x_1\frac{1}{1+x_2^2}}\\
+		&\leq 1 + |x_1|\\
+		&\leq \norm{x}_1 + 1
+	\end{align*}
+	Daher ist auch $f_2$ linear beschränkt, mit $\alpha(t) = \beta(t) = 1$.
+\end{enumerate}
+\section*{Aufgabe 2}
+Es gilt
+\begin{align*}
+	u^{(3)}(t) &= \cos(u(t)) \cdot u'(t) - 2u''(t)\\
+	&= \cos(u(t)) \cdot u'(t) - 2(-\sin(u(t))-2u'(t))\\
+	&= 2 \sin(u(t)) + \cos(u(t))\cdot u'(t) +4 u'(t)\\
+\end{align*}
+und
+\begin{align*}
+	u^{(4)}(t) &= 2u'(t)\cos(u(t)) + \cos(u(t))u''(t) - \sin(u(t))u'(t) + 4u''(t)
+\end{align*}
+Wir benötigen die Ableitungen allerdings nur an der Stelle $0$. Dort ist
+\begin{align*}
+	u(0) &= 0\\
+	u'(0) &= 1\\
+	u''(0) &= - \sin(u(0)) - 2u'(0) = -\sin(0) - 2 = -2\\
+	u^{(3)}(0) &= 2 \sin(u(0)) + \cos(u(0))\cdot u'(0) +4 u'(0)\\
+	&= 2\sin(0) + \cos(0)\cdot 1 + 4 = 5\\
+	u^{(4)}(0) &= 2u'(0)\cos(u(0)) + \cos(u(0))u''(0) - \sin(u(0))u'(0) + 4u''(0)\\
+	&= 2\cos(0) + \cos(0)\cdot (-2) - \sin(0) + 4(-2) = 2 -2 -8 = -8
+\end{align*}
+Daraus erhalten wir schließlich
+\begin{align*}
+	T_4(u,t, t_0 = 0) &= u(0) + u'(0)t + \frac{u''(0)}{2}t^2 + \frac{u^{(3)}(0)}{6}t^3 + \frac{u^{(4)}}{24}t^4\\
+	&= t + \frac{-2}{2}t^2 + \frac{5}{6}t^3 -\frac{8}{24}t^4\\
+	&= t - t^2 + \frac{5}{6}t^3 - \frac{1}{3}t^4.
+\end{align*}
+\section*{Aufgabe 3}
+$\phi(t) = \begin{pmatrix}
+	1+ t & t\\
+	t^2 & t ^2 - t + 1
+\end{pmatrix}$.
+Es gilt $\phi'(t) = A(t)\phi(t)$ und daher
+\begin{align*}
+	A(t) &= \phi'(t)\cdot \phi^{-1}(t)\\
+	&= \begin{pmatrix}
+		1 & 1\\
+		2t & 2t -1
+	\end{pmatrix} \cdot \frac{1}{(1+t)(t^2 + t - 1) - t^2\cdot t} \begin{pmatrix}
+		t^2 - t + 1 & -1\\
+		-t^2 & 1 + t
+	\end{pmatrix}\\
+	&= \begin{pmatrix}
+		1 & 1\\
+		2t & 2t -1
+	\end{pmatrix} \cdot \begin{pmatrix}
+		t^2 - t + 1 & -1\\
+		-t^2 & 1 + t
+	\end{pmatrix}\\
+	&= \begin{pmatrix}
+		t^2  - t + 1 - t^2 & -1 + 1 + t\\
+		2t^3 - 2t^2 + 2t - 2t^3 + t^2& -2t + (2t-1)(1+t)
+	\end{pmatrix}\\
+	&= \begin{pmatrix}
+		-t + 1 & t\\
+		-t^2 + 2t & 2t^2 - t -1
+	\end{pmatrix}
+\end{align*}
+Um eine partikuläre Lösung zu bestimmen, berechnen wir 
+\begin{align*}
+	u(t) &= \phi(t) \left(\int_{t_0}^{t} \phi^{-1}(s)b(s) \d s + c\right)\\
+	&= \begin{pmatrix}
+		1+ t & t\\
+		t^2 & t ^2 - t + 1
+	\end{pmatrix} \cdot \left(\int_{t_0}^{t} \begin{pmatrix}
+		s^2 - s + 1 & -1\\
+		-s^2 & 1 + s
+	\end{pmatrix}\cdot \begin{pmatrix}
+		1\\s
+	\end{pmatrix} \d s + c\right)\\
+	&= \begin{pmatrix}
+		1+ t & t\\
+		t^2 & t ^2 - t + 1
+	\end{pmatrix} \cdot \left(\int_{t_0}^{t}
+	\begin{pmatrix}
+		s^2 - 2s + 1\\
+		s
+	\end{pmatrix}
+	\d s + c\right)\\
+	&= \begin{pmatrix}
+		1+ t & t\\
+		t^2 & t ^2 - t + 1
+	\end{pmatrix} \cdot \left(
+	\begin{pmatrix}
+		\frac{1}{3}t^3 - t^2 + t\\
+		\frac{1}{2}t^2
+	\end{pmatrix} - \begin{pmatrix}
+		\frac{1}{3}t_0^3 - t_0^2 + t_0\\
+		\frac{1}{2}t_0^2
+	\end{pmatrix} + c\right)
+\end{align*}
+Nun wählen wir $c$ so, dass $u(0) = (1,0)$ ist. Das ergibt die Gleichung
+\begin{align*}
+	u(0) &= \phi(0) \cdot \left(0- \begin{pmatrix}
+			\frac{1}{3}t_0^3 - t_0^2 + t_0\\
+			\frac{1}{2}t_0^2
+		\end{pmatrix} + c\right)
+		\intertext{Es gilt $t_0 = 0$}
+	\begin{pmatrix}
+		1\\0
+	\end{pmatrix} &= \begin{pmatrix}
+		1 & 0\\
+		0 & 1
+	\end{pmatrix} \cdot c = c
+\end{align*}
+Also wählen wir $c = \begin{pmatrix}
+	1\\0
+\end{pmatrix}$ und erhalten als Lösung:
+\[
+	u(t) = \begin{pmatrix}
+		1+ t & t\\
+		t^2 & t ^2 - t + 1
+	\end{pmatrix} \cdot
+	\begin{pmatrix}
+		\frac{1}{3}t^3 - t^2 + t + 1\\
+		\frac{1}{2}t^2
+	\end{pmatrix}.	
+\]
+\section*{Aufgabe 4}
+\begin{enumerate}[(a)]
+\item 
+Wir formulieren zunächst das RWP als System 1. Ordnung. Dann erhalten wir das System
+\begin{align*}
+	\dv{}{t} \begin{pmatrix}
+		y(t)\\y'(t)
+	\end{pmatrix} &= \begin{pmatrix}
+		0 & 1\\
+		-q(t)& - p(t)
+	\end{pmatrix} \begin{pmatrix}
+		y(t)\\y'(t)
+	\end{pmatrix} + \begin{pmatrix}
+		0\\\varphi(t)
+	\end{pmatrix}\\
+	\Leftrightarrow Y'(t) &= A(t) \cdot Y(t) + f(t)
+\end{align*} mit $Y(t) = \begin{pmatrix}
+	y(t)\\y'(t)
+\end{pmatrix}$, $A(t) = \begin{pmatrix}
+	0 & 1\\
+	-q(t)& - p(t)
+\end{pmatrix}\in \mathcal{C}[a,b]$ und $f(t) = \begin{pmatrix}
+	0\\\varphi(t)
+\end{pmatrix} \in \mathcal{C}[a,b]$, wobei wir noch keine Nebenbedingungen berücksichtigt haben. Sei $U_0 = \begin{pmatrix}
+	u_0(t)\\u_0'(t)
+\end{pmatrix}$ eine Lösung der AWA $U_0(a) = 0$ nach Bemerkung 5.32 und seien $U_1, U_2$ ein Fundamentalsystem der homogenen Gleichung mit, ebenfalls nach Bemerkung 5.32 
+$U(t) = \left[U_1(t),U_2(t)\right]$ und $U(0) = \mathbb{I}_2$. Dann lässt sich eine beliebige Lösung der RWA in der Form $U_0(t) + s_1U_1(t) + s_2U_2(t)$ schreiben. Die Lösung ist eindeutig, wenn $s_1, s_2$ durch die Randbedingungen eindeutig festgelegt sind. Die Randbedingungen schreiben sich in der folgenden Form
+\begin{align*}
+	\begin{pmatrix}
+		\alpha_0 & \alpha_1\\
+		0 & 0
+	\end{pmatrix} \cdot \left(\begin{pmatrix}
+		u_0(a)\\u_0'(a)
+	\end{pmatrix} + \begin{pmatrix}
+		u_1(a) & u_2(a)\\
+		u_1'(a) & u_2'(a)
+	\end{pmatrix}\cdot \begin{pmatrix}
+		s_1\\s_2
+	\end{pmatrix}\right) &= \begin{pmatrix}
+		\eta\\
+		0
+	\end{pmatrix}\\
+	\begin{pmatrix}
+		\alpha_0 & \alpha_1\\
+		0 & 0
+	\end{pmatrix}
+	\cdot \left(\underbrace{U_0(a)}_{=0} + U(a)\cdot s\right) &= \begin{pmatrix}
+		\eta_0\\
+		0
+	\end{pmatrix}
+	\intertext{Und völlig analog}
+	\begin{pmatrix}
+		0 & 0\\
+		\beta_0 & \beta_1
+	\end{pmatrix} \cdot \left(U_0(b) + U(b)\cdot s\right) &= \begin{pmatrix}
+		0\\
+		\eta_1
+	\end{pmatrix}
+	\intertext{Bringen wir die Terme, die nicht von $s$ abhängen, auf die andere Seite, und vereinfachen, so erhalten wir}
+	\begin{pmatrix}
+		\alpha_0 u_1(a) + \alpha_1 u_1'(a) & \alpha_0 u_2(a) + \alpha_1 u_2'(a)\\
+		0 & 0
+	\end{pmatrix}
+	\cdot s &= \begin{pmatrix}
+		\eta_0\\
+		0
+	\end{pmatrix}\\
+	\intertext{und}
+	\begin{pmatrix}
+		0 & 0\\
+		\beta_0 u_1(b) + \beta_1 u_1'(b) & \beta_0 u_2(b) + \beta_1 u_2'(b)
+	\end{pmatrix} 
+	\cdot s &= 
+	\begin{pmatrix}
+		0\\ \eta_1 - \beta_0 u_0(b) - \beta_1 u_0'(b)
+	\end{pmatrix}
+	\intertext{Addieren der zwei Gleichungen ergibt}
+	\begin{pmatrix}
+		\alpha_0 u_1(a) + \alpha_1 u_1'(a) & \alpha_0 u_2(a) + \alpha_1 u_2'(a)\\
+		\beta_0 u_1(b) + \beta_1 u_1'(b) & \beta_0 u_2(b) + \beta_1 u_2'(b)
+	\end{pmatrix} \cdot s&= 
+	\begin{pmatrix}
+		\eta_0\\
+		\eta_1 - \beta_0 u_0(b) - \beta_1 u_0'(b)
+	\end{pmatrix}
+\end{align*}
+Diese Gleichung ist eindeutig lösbar genau dann, wenn die Determinante der linken Matrix $\neq 0$ ist, was zu zeigen war.
+\item Es gilt $u_0(t) = -\cos(t) + 1$. Dann ist nämlich $u_0(0) = 0$ und $u_0'(0) = 0$ erfüllt. $u_1(t) = \cos(t), u_2(t) = \sin(t)$ bilden ein Fundamentalsystem, da 
+\[
+	\left.\begin{pmatrix}
+		\cos(t) & \sin(t)\\
+		-\sin(t) & \cos(t)
+	\end{pmatrix}\right|_{t = 0} = \begin{pmatrix}
+		1 & 0\\ 0 & 1
+	\end{pmatrix}.
+\]
+Wir bestimmen daher die Matrix aus Kriterium (**) und setzen sofort $a = 0$ sowie $\alpha_1 = \beta_1 = 0$, da der Definitionsbereich in allen drei Fällen bei $0$ beginnt und die Bedingungen nie von $u'$ abhängen. Außerdem sind alle Vorfaktoren in den Randbedingungen immer 1, sodass wir $\alpha_0 = \beta_0 = 1$ setzen können und daher erhalten
+\begin{align*}
+	M = \begin{pmatrix}
+		\cos(0) & \sin(0)\\
+		\cos(b) & \sin(b)
+	\end{pmatrix} = \begin{pmatrix}
+		1 & 0\\
+		\cos(b) & \sin(b)
+	\end{pmatrix}
+\end{align*}
+In Fall (i)ist $\det M = \det \begin{pmatrix}
+	1 & 0\\
+	0 & 1
+\end{pmatrix} = -1$ und daher ist die Lösung eindeutig bestimmt. Im Fall (ii) und (iii) ist $\det M = \det \begin{pmatrix}
+	1 & 0\\
+	-1 & 0
+\end{pmatrix} = 0$. Also gilt Kriterium (**) nicht.
+Wir erhalten für (ii) stattdessen die Gleichung
+\begin{align*}
+	\begin{pmatrix}
+		 1 &  0\\
+		 -1 &  0
+	\end{pmatrix} \cdot s&= 
+	\begin{pmatrix}
+		\eta_0\\
+		\eta_1 - u_0(\pi) 
+	\end{pmatrix}\\
+	\Leftrightarrow \begin{pmatrix}
+		1 &  0\\
+		-1 &  0
+   \end{pmatrix} \cdot s&= 
+   \begin{pmatrix}
+	   0\\
+	   0 + \underbrace{\cos(\pi) - 1}_{= 0}
+   \end{pmatrix}\\
+\end{align*}
+Offensichtlich sind also alle Vektoren $s = \begin{pmatrix}
+	0 \\ x
+\end{pmatrix}$ eine Lösung des Gleichungssystems und damit lösen alle Funktionen 
+$u(t) = u_0(t) + x \cdot \sin(x) = x\sin(t) - \cos(t) + 1$ die RWA, was man auch leicht durch Einsetzen verifiziert. Es gibt in diesem Fall also unendlich viele Lösungen.
+Wir erhalten für (iii) stattdessen die Gleichung
+\begin{align*}
+	\begin{pmatrix}
+		 1 &  0\\
+		 -1 &  0
+	\end{pmatrix} \cdot s&= 
+	\begin{pmatrix}
+		\eta_0\\
+		\eta_1 - u_0(\pi) 
+	\end{pmatrix}\\
+	\Leftrightarrow \begin{pmatrix}
+		1 &  0\\
+		-1 &  0
+   \end{pmatrix} \cdot s&= 
+   \begin{pmatrix}
+	   1\\
+	   1 + \underbrace{\cos(\pi) - 1}_{= 0}
+   \end{pmatrix}\\
+   \Leftrightarrow \begin{pmatrix}
+	s_1\\
+	-s_1
+\end{pmatrix}&= 
+\begin{pmatrix}
+   1\\
+   1
+\end{pmatrix}\\
+\end{align*}
+Dieses Gleichungssystem besitzt keine Lösung, daher hat auch die Randwertaufgabe für diese Anfangsbedingungen keine Lösung.
+\end{enumerate}
+\end{document}

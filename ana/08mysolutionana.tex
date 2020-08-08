@@ -1,0 +1,398 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amsfonts, amsthm, mathtools, amssymb}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\usepackage{cases}
+\usepackage{fancyhdr}
+\usepackage{comment}
+%\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{cases}
+\usepackage{listings}
+\usepackage{siunitx}
+\usepackage[left = 3cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{subcaption}
+\usepackage{gauss}
+\usepackage{environ}
+\usepackage{url}
+\newtheorem{satz}{Satz}[section]
+\newtheorem{lemma}[satz]{Lemma}
+\newtheorem{korollar}[satz]{Korollar}
+\newtheorem{proposition}[satz]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[satz]{Def.}
+\newtheorem{axiom}[satz]{Axiom}
+\newtheorem{bsp}[satz]{Bsp.}
+\newtheorem*{anmerkung}{Anm}
+\newtheorem{bemerkung}[satz]{Bem}
+\newtheorem*{notatio}{Notation}
+\newcommand{\obda}{O.B.d.A. }
+\newcommand{\equals}{\Longleftrightarrow}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\intd}{\mathrm{d}}
+\newcommand{\Pot}{\operatorname{Pot}}
+\newcommand{\mychar}{\operatorname{char}}
+\newcommand{\myker}{\operatorname{ker}}
+\newcommand{\induktion}[3]
+{\begin{proof}\ \\
+	\noindent\textbf{Induktionsanfang:}\ #1\\
+	\noindent\textbf{Induktionsvoraussetzung:}\ #2\\
+	\noindent\textbf{Induktionsschluss:}\ #3
+\end{proof}}
+
+\newcommand{\rg}{\operatorname{rg}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\abb}{\operatorname{Abb}}
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\Ima}{\operatorname{Im}}
+\newcommand{\norm}[1]{\left\Vert #1 \right\Vert}
+
+\makeatletter \renewcommand\d{\ensuremath{%
+		\;\mathrm{d}\@ifnextchar\d{\!}{}}}
+\makeatother
+
+\let\oldstackrel\stackrel
+\renewcommand{\stackrel}[2]{%
+    \oldstackrel{\mathclap{#1}}{#2}
+}%
+
+% maximum norm
+\newcommand{\maxnorm}[1]{\left|\left|#1\right|\right|_\infty}
+\renewcommand{\epsilon}{\varepsilon}
+
+\newcommand{\dv}[2]{\frac{\d #1 }{\d #2 }}
+\newcommand{\pdv}[2]{\frac{\partial #1}{\partial #2}}
+
+
+\ExplSyntaxOn
+
+% S-tackrelcompatible ALIGN environment
+% some might also call it the S-uper ALIGN environment
+% uses regular expressions to calculate the widest stackrel
+% to put additional padding on both sides of relation symbols
+\NewEnviron{salign}
+{
+    \begin{align}
+        \lec_insert_padding:V \BODY
+    \end{align}
+}
+% starred version that does no equation numbering
+\NewEnviron{salign*}
+{
+    \begin{align*}
+        \lec_insert_padding:V \BODY
+    \end{align*}
+}
+
+% some helper variables
+\tl_new:N \l__lec_text_tl
+\seq_new:N \l_lec_stackrels_seq
+\int_new:N \l_stackrel_count_int
+\int_new:N \l_idx_int
+\box_new:N \l_tmp_box
+\dim_new:N \l_tmp_dim_a
+\dim_new:N \l_tmp_dim_b
+\dim_new:N \l_tmp_dim_needed
+
+% function to insert padding according to widest stackrel
+\cs_new_protected:Nn \lec_insert_padding:n
+ {
+  \tl_set:Nn \l__lec_text_tl { #1 }
+  % get all stackrels in this align environment
+  \regex_extract_all:nnN { \c{stackrel}{(.*?)}{(.*?)} } { #1 } \l_lec_stackrels_seq
+  % get number of stackrels
+  \int_set:Nn \l_stackrel_count_int { \seq_count:N \l_lec_stackrels_seq }
+  \int_set:Nn \l_idx_int { 1 }
+  \dim_set:Nn \l_tmp_dim_needed { 0pt }
+  % iterate over stackrels
+  \int_while_do:nn { \l_idx_int <= \l_stackrel_count_int }
+  {
+      % calculate width of text
+      \hbox_set:Nn \l_tmp_box {$\seq_item:Nn \l_lec_stackrels_seq { \l_idx_int + 1 }$}
+      \dim_set:Nn \l_tmp_dim_a {\box_wd:N \l_tmp_box}
+      % calculate width of relation symbol
+      \hbox_set:Nn \l_tmp_box {$\seq_item:Nn \l_lec_stackrels_seq { \l_idx_int + 2 }$}
+      \dim_set:Nn \l_tmp_dim_b {\box_wd:N \l_tmp_box}
+      % check if 0.5*(a-b) > minimum padding, if yes updated minimum padding
+      \dim_compare:nNnTF
+        { 1pt * \dim_ratio:nn { \l_tmp_dim_a - \l_tmp_dim_b } { 2pt } } > { \l_tmp_dim_needed }
+        { \dim_set:Nn \l_tmp_dim_needed { 1pt * \dim_ratio:nn { \l_tmp_dim_a - \l_tmp_dim_b } { 2pt } } }
+        { }
+      \quad
+      % increment list index by three, as every stackrel produces three list entries
+      \int_incr:N \l_idx_int
+      \int_incr:N \l_idx_int
+      \int_incr:N \l_idx_int
+  }
+  % replace all relations with align characters (&) and add the needed padding
+  \regex_replace_all:nnN
+      { (\c{iff}&|&\c{iff}|\c{impliedby}&|&\c{impliedby}|\c{implies}&|&\c{implies}|\c{approx}&|&\c{approx}|\c{equiv}&|&\c{equiv}|=&|&=|\c{le}&|&\c{le}|\c{ge}&|&\c{ge}|&\c{stackrel}{.*?}{.*?}|\c{stackrel}{.*?}{.*?}&|&\c{neq}|\c{neq}&) }
+      { \c{kern} \u{l_tmp_dim_needed} \1 \c{kern} \u{l_tmp_dim_needed} }
+      \l__lec_text_tl
+  \l__lec_text_tl
+ }
+\cs_generate_variant:Nn \lec_insert_padding:n { V }
+\ExplSyntaxOff
+
+
+\newcommand{\ipilayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Einführung in die praktische Informatik, Blatt #1}
+	\fancyhead[R]{Josua Kugler, Jan Metzger, David Wesner}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Peter Bastian\\
+			Tutor: Frederick Schenk}
+		\rhead{Einführung in die praktische Informatik, Übungsblatt #1\\ David, Jan, Josua}
+		\cfoot{\thepage}
+	}
+\thispagestyle{firstpage}
+}
+
+\newcommand{\analayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Analysis 2, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Ekaterina Kostina\\
+			Tutor: Julian Matthes}
+		\rhead{Analysis 1, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+\newcommand{\lalayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Lineare Algebra 2, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Denis Vogel\\
+			Tutor: Marina Savarino}
+		\rhead{Lineare Algebra 2, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+
+\lstset{
+    frame=tb, % draw a frame at the top and bottom of the code block
+    tabsize=4, % tab space width
+    showstringspaces=false, % don't mark spaces in strings
+    numbers=left, % display line numbers on the left
+    commentstyle=\color{green}, % comment color
+    keywordstyle=\color{blue}, % keyword color
+    stringstyle=\color{red} % string color
+}
+\setlength{\headheight}{25pt}
+
+
+
+\begin{document}
+\analayout{8}
+\noindent \textbf{Anmerkung:} Wir benutzen für Referenzen unser mit ein paar Kommilitonen zusammen getextes Skript, zu finden unter \url{https://flavigny.de/lecture/pdf/analysis2}.
+\section*{Aufgabe 1}
+\begin{enumerate}[(a)]
+	\item \textbf{Induktionsanfang:} Es gilt für $n = 2$.
+	\[
+			(x_1 + x_2)^\nu \oldstackrel{\text{Binom. Formel}}{=} \sum_{i = 1}^{\nu} \binom{\nu}{i} x_1^i x_2^{\nu-i} = \nu! \sum_{i = 1}^{\nu} \frac{x_1^ix_2^{\nu-i}}{i!(\nu-i)!} = \nu! \sum_{i = 1}^{\nu} \frac{x^{(i,\nu-i)}}{(i,\nu-i)!} = \nu! \sum_{|\alpha| = \nu} \frac{x^\alpha}{\alpha!}
+	\]
+	Der letzte Umformungsschritt gilt, da der zweite Eintrag eines Index $\alpha = (i,j)$ mit $|\alpha| = \nu$ bereits durch $\nu - i$ gegeben ist. Durch Iteration über alle $i$ erhält man so bereits alle $\alpha$ mit $|\alpha| = \nu$.\\
+	\textbf{Induktionsvoraussetzung:} Es gelte die Behauptung für ein $n \in \N$.\\
+	\textbf{Induktionsschritt:}
+	\begin{align*}
+		(x_1 + \dots + x_n + x_{n+1})^\nu &= \sum_{i = 1}^{\nu} \binom{\nu}{i} (x_1 + \dots + x_n)^i x_{n+1}^{\nu-i}
+		\intertext{Setzen wir die Definition des Binomialkoeffizienten und die Induktionsvoraussetzung ein, erhalten wir}
+		&= \nu!\sum_{i = 1}^{\nu} \frac{1}{(\nu -i)! \cdot i!}\left(i! \sum_{|\alpha| = i}\frac{x^\alpha}{\alpha!}\right) x_{n+1}^{\nu-i}\\
+		&= \nu!\sum_{i = 1}^{\nu} \sum_{|\alpha| = i} \frac{x^\alpha x_{n+1}^{\nu-i}}{(\nu -i)! \cdot \alpha!}\\
+		&= \nu!\sum_{i = 1}^{\nu}\sum_{|\alpha| = i} \frac{x_1^{\alpha_1} \cdot\dots\cdot x_n^{\alpha_n} x_{n+1}^{\nu-i}}{\alpha_1! \cdot \dots \alpha_n! \cdot (\nu -i)!}\\
+		&= \nu!\sum_{i = 1}^{\nu}\sum_{|\alpha| = i} \frac{x^{(\alpha_1, \dots, \alpha_n,\nu-i)}}{(\alpha_1, \dots, \alpha_n,\nu-i)!}
+		\intertext{Analog zur letzen Umformung im Induktionsanfang ist das letze Element des Multiindex $\beta \coloneqq (\alpha_1,\dots,\alpha_n, \nu-i)$ bereits vollständig durch $|\alpha| = i$ und $|\beta| = \nu$ festgelegt, sodass wir durch Iteration über $i$ alle Multiindizes mit $|\beta| = \nu$ erhalten}
+		&= \nu!\sum_{|\beta| = \nu} \frac{x^{\beta}}{\beta!}
+	\end{align*}
+	\item Wir berechnen zunächst einige Ableitungen
+	\[
+		\begin{array}{rlcrlcrl}
+			\partial_1f(x_1,x_2,x_3)\mkern-14mu&= e^{-x_2} -x_3e^{-x_1}&&
+			\partial_2f(x_1,x_2,x_3)\mkern-14mu&= -x_1e^{-x_2}&&
+			\partial_3f(x_1,x_2,x_3)\mkern-14mu&= e^{-x_1}\\
+			\partial_1\partial_1f(x_1,x_2,x_3)\mkern-14mu&= x_3e^{-x_1}&&
+			\partial_2\partial_2f(x_1,x_2,x_3)\mkern-14mu&= x_1e^{-x_2}&&
+			\partial_3\partial_3f(x_1,x_2,x_3)\mkern-14mu&= 0\\
+			\partial_2\partial_1f(x_1,x_2,x_3)\mkern-14mu&= -e^{-x_2}&&
+			\partial_3\partial_2f(x_1,x_2,x_3)\mkern-14mu&= 0&&
+			\partial_1\partial_3f(x_1,x_2,x_3)\mkern-14mu&= -e^{-x_1}
+		\end{array}	
+	\]
+	An der Stelle $(x_1,x_2,x_3)^T = \hat x$ erhalten wir also $x_1 = -1,\;x_2=-1,\;x_3=0$.
+	\[
+		\begin{array}{rlcrlcrl}
+			\partial_1f(x_1,x_2,x_3)\mkern-14mu&= e&&
+			\partial_2f(x_1,x_2,x_3)\mkern-14mu&= e&&
+			\partial_3f(x_1,x_2,x_3)\mkern-14mu&= e\\
+			\partial_1\partial_1f(x_1,x_2,x_3)\mkern-14mu&= 0&&
+			\partial_2\partial_2f(x_1,x_2,x_3)\mkern-14mu&= -e&&
+			\partial_3\partial_3f(x_1,x_2,x_3)\mkern-14mu&= 0\\
+			\partial_2\partial_1f(x_1,x_2,x_3)\mkern-14mu&= -e&&
+			\partial_3\partial_2f(x_1,x_2,x_3)\mkern-14mu&= 0&&
+			\partial_1\partial_3f(x_1,x_2,x_3)\mkern-14mu&= -e
+		\end{array}	
+	\]
+	\begin{align*}
+		T_2^f(\hat x + h) &= \sum_{|\alpha| = 0}^{r}\frac{\partial^{\alpha}f(\hat x)}{\alpha!}h^{\alpha}\\
+		&= \sum_{i = 1}^{3} \partial_if(\hat x)h_i + \sum_{i = 1}^{3} \partial_i\partial_i f(\hat x) \frac{h_i^2}{2}  + \partial_2\partial_1f(\hat x) h_2h_1 +\partial_3\partial_2f(\hat x) h_2h_3 + \partial_1\partial_3f(\hat x) h_1h_3\\
+		&= eh_1 + eh_2 + eh_3 -e\frac{h_2^2}{2} -eh_2h_1 -eh_1h_3\\
+		&= e\left(h_1 + h_2 + h_3 - \frac{h^2}{2} - h_2h_1 - h_1h_3\right)
+	\end{align*}
+\end{enumerate}
+\section*{Aufgabe 2}
+Wir berechnen zunächst den Gradienten
+\begin{align*}
+	\vec{\nabla} f &= \begin{pmatrix}
+		8x + (4x^2 + y^2)(-2x)\\
+		2y + (4x^2+y^2)(-8y)
+	\end{pmatrix}\cdot e^{-x^2-4y^2}
+\end{align*}
+und die Hesse-Matrix
+\begin{align*}
+	\begin{pmatrix}
+		-24x^2 + 8 - 2y^2 + (-8x^3 + 8x - 2xy^2)(-2x) & -4xy + (-8x^3 + 8x - 2xy^2)(-8y)\\
+		(-8y^3 + 2y - 32x^2y)(-2x^2) - 64xy & -24y^2 + 2 - 32x^2 - 8y(-8y^3 + 2y - 32x^2y)
+	\end{pmatrix}\cdot e^{-x^2-4y^2}.
+\end{align*}
+An einer Extremstelle muss notwendigerweise $\nabla f = 0$ sein. 
+Da die Exponentialfunktion nicht 0 wird, erhalten wir folgende Gleichungen
+\begin{align*}
+	0 &= 2x \cdot (-4x^2 + 4 - y^2)\\
+	0 &= 2y \cdot (4y^2 - 1 + 16x^2)
+\end{align*}
+Wir machen nun eine Fallunterscheidung. Beim Einsetzen in die Hesse-Matrix lassen wir stets die Exponentialfunktion weg, da diese stets größer 0 ist und keinen Einfluss auf die Klassifizierung hat.
+\begin{enumerate}
+	\item $x = y = 0$ ist eine Lösung der Gleichungen. Setzen wir dies in die Hesse-Matrix ein, so erhalten wir \[H_f(0,0) = \begin{pmatrix}
+		8 & 0\\ 0 & 2
+	\end{pmatrix},\] was offensichtlich positiv definit ist. Daher erhalten wir ein lokales Minimum bei $x = y = 0$.
+	\item $x = 0,\; y \neq 0$. Die erste Gleichung ist also erfüllt, nun müssen wir die Bedingungen für die zweite Gleichung überprüfen. Wir erhalten durch Einsetzen $4y^2 -1 = 0$, woraus wir $y = \pm \frac{1}{2}$ schließen. Setzen wir diese beiden Möglichkeiten in die Hesse-Matrix ein, so erhalten wir
+	\[
+		H_f(0,\frac{1}{2}) = \begin{pmatrix}
+			\frac{15}{2} & 0\\
+			0 & -4
+		\end{pmatrix},\qquad H_f(0,-\frac{1}{2}) = \begin{pmatrix}
+			\frac{15}{2} & 0\\
+			0 & -4
+		\end{pmatrix},
+	\] sodass an beiden Stellen kein Extremum vorliegt, da die Hesse-Matrix offensichtlich semidefinit ist.
+	\item $x \neq 0,\; y = 0$. Die zweite Gleichung ist erfüllt, aus der ersten Gleichung erhalten wir $4 = 4x^2\equals x = \pm 1$. Setzen wir dies in die Hesse-Matrix ein, so ergibt sich
+	\[
+		H_f(1,0) = \begin{pmatrix}
+			-16 & 0\\
+			0 & -30
+		\end{pmatrix},\qquad H_f(-1,0) = \begin{pmatrix}
+			-16 & 0\\
+			0 & -30
+		\end{pmatrix},
+	\] was offensichtlich negativ semidefinit ist, wir erhalten zwei lokale Maxima.
+	\item $x \neq 0,\; y \neq 0$. In diesem Fall erhalten wir durch Umformungen einen Widerspruch.
+	\begin{align*}
+		\intertext{Umformen der ersten Gleichung liefert}
+		-4x^2 + 4 &= y^2
+		\intertext{Einsetzen in die zweite Gleichung ergibt}
+		4(-4x^2 + 4) - 1 + 16x^2 &= 0\\
+		-16x^2 + 16 - 1 + 16x^2&= 0\\
+		15 &= 0\lightning
+	\end{align*}
+\end{enumerate}
+\section*{Aufgabe 3}
+Die Funktion $F$ mit
+\begin{align*}
+	F_1(x_1,x_2,y_1,y_2) &=  y_1 + \sin(y_1y_2) - y_1x_1-1-\frac{\pi}{2}\\
+	F_2(x_1,x_2,y_1,y_2) &= x_2 + y_2 - \cos(y_1)
+\end{align*}
+ist stetig differenzierbar und es gilt
+\begin{align*}
+	D_yF(x^0,y^0) &=\left.\begin{pmatrix}
+		1 + y_2\cos(y_1y_2) - x_1& y_1\cos(y_1y_2)\\
+		\sin(y_1) & 1
+	\end{pmatrix}\right|_{(0,-1,\frac{\pi}{2}, 1)^T}\\
+	&= \begin{pmatrix}
+		1 & 0\\
+		1 & 1
+	\end{pmatrix}
+	\intertext{Diese Matrix ist also invertierbar und}
+	\left(D_yF(x^0,y^0)\right)^{-1} &= \begin{pmatrix}
+		1 & 0\\
+		-1 & 1
+	\end{pmatrix}
+\end{align*}
+Nach dem Satz über implizite Funktionen gibt es dann die geforderten eindeutigen Funktionen und es gilt
+\begin{align*}
+	J_g(x^0) &= -\left(D_yF(x^0,y^0)\right)^{-1} \cdot D_xF(x^0,y^0)\\
+	&= -\begin{pmatrix}
+		1 & 0\\
+		-1 & 1
+	\end{pmatrix} \cdot \left.\begin{pmatrix}
+		-y_1 & 0\\
+		0 & 1
+	\end{pmatrix}\right|_{(0,-1,\frac{\pi}{2},1)^T}\\
+	&= -\begin{pmatrix}
+		1 & 0\\
+		-1 & 1
+	\end{pmatrix} \cdot \begin{pmatrix}
+		-\frac{\pi}{2} & 0\\
+		0 & 1
+	\end{pmatrix}\\
+	&= \begin{pmatrix}
+		\frac{\pi}{2} & 0\\
+		-\frac{\pi}{2} & -1
+	\end{pmatrix}
+\end{align*}
+\section*{Aufgabe 4}
+Diese Gleichung wird durch die implizite Funktion $F(\epsilon,x) = \epsilon^2x - \ln(3\epsilon + x)$ beschrieben. Die $1\times 1$-Matrix $D_xF(\epsilon_0,x_0) = \epsilon_0^2 - \frac{1}{3\epsilon_0 + x_0} = -1$ ist offensichtlich invertierbar mit $(D_xF(\epsilon_0,x_0))^{-1} = -1$. Nach dem Satz über implizite Funktionen gibt es daher eine eindeutige Abbildung $g$, die $F$ in einer Umgebung von $(0,1)^T$ nach $x$ auflöst. Es gilt nun nach Bemerkung 4.45
+\[
+	\pdv{g}{\epsilon}(\epsilon_0) = -\left(\pdv{F}{x}(\epsilon_0,f(\epsilon_0))\right)^{-1} \pdv{F}{\epsilon}(\epsilon_0,f(\epsilon_0)) = -(D_xF(\epsilon_0,x_0))^{-1} \cdot \left(2\epsilon_0x_0 - \frac{3}{3\epsilon_0 + x_0}\right) = -3
+\]
+Nun müssen wir die zweite Ableitung berechnen. Analog zu Beispiel 4.46 folgern wir
+\begin{align*}
+	\pdv{^2g}{\epsilon^2}(\epsilon_0) &= -\left(\pdv{F}{x}(\epsilon_0,f(\epsilon_0))\right)^{-1} \cdot \left(\pdv{^2F}{\epsilon^2} + 2\pdv{^2 F}{x\partial \epsilon}\pdv{g}{\epsilon} + \pdv{^2F}{x^2}\left(\pdv{f}{\epsilon}\right)^2\right)\bigg|_{(\epsilon_0,f(\epsilon_0))}\\
+	&= 2x_0 + \frac{9}{(3\epsilon_0 + x_0)^2} + 2\left(2 \epsilon_0 + \frac{3}{(3\epsilon_0 + x_0)^2}\right)\cdot (-3) + \pdv{}{x}\left(\epsilon^2 - \frac{1}{3\epsilon + x}\right)\bigg|_{(\epsilon_0,x_0}\cdot 9\\
+	&= 2x_0 + \frac{9}{(1)^2} + 2\left(2 \cdot 0 + \frac{3}{(1)^2}\right)\cdot (-3) + \frac{1}{(3\epsilon_0 + x_0)^2}\cdot 9\\
+	&= 2 + 9 + 6\cdot (-3) + 9\\
+	&= 2
+\end{align*}
+Damit können wir nun das Taylorpolynom aufstellen.
+\[
+	T_2^g(\epsilon_0 + h) = g(\epsilon_0) + g'(\epsilon_0)\cdot h + \frac{g''(\epsilon_0)}{2}h^2 = 1 -3 h + 2h^2
+\]
+\section*{Aufgabe 5}
+Es gilt für alle $x_1,x_2,x_3$ in einer geeigneten Umgebung von $x_1^0,x_2^0,x_3^0$
+\begin{align*}
+	f(g_1(x_2,x_3),x_2,x_3) &= f(x^0) 
+	& \xRightarrow{\dv{}{x_2}} \pdv{f}{x_1}\pdv{g_1}{x_2} + \pdv{f}{x_2} &= 0
+	& \implies \pdv{f}{x_1}\pdv{g_1}{x_2} &= - \pdv{f}{x_2}\\
+	f(x_1,g_2(x_1,x_3),x_3) &= f(x^0) 
+	& \xRightarrow{\dv{}{x_3}} \pdv{f}{x_2}\pdv{g_2}{x_3} + \pdv{f}{x_3} &= 0
+	& \implies \pdv{f}{x_2}\pdv{g_2}{x_3} &= - \pdv{f}{x_3}\\
+	f(x_1,x_2,g_3(x_1,x_2)) &= f(x^0) 
+	& \xRightarrow{\dv{}{x_1}} \pdv{f}{x_3}\pdv{g_3}{x_1} + \pdv{f}{x_1} &= 0
+	& \implies \pdv{f}{x_3}\pdv{g_3}{x_1} &= - \pdv{f}{x_1}
+\end{align*}
+Werten wir diese Gleichungen an der Stelle $x^0$ aus und multiplizieren sie, so erhalten wir
+\begin{align*}
+	\prod_{i=1}^3-\pdv{f}{x_i}(x^0) &= \prod_{i=1}^3\pdv{f}{x_i}(x^0) \cdot \pdv{g_1}{x_2}(x_2^0,x_3^0)\pdv{g_2}{x_3}(x_1^0,x_3^0)\pdv{g_3}{x_1}(x_1^0,x_2^0)
+	\intertext{Wir teilen durch $\prod_{i=1}^3-\pdv{f}{x_i}(x^0) \neq 0$ und erhalten}
+	-1 &= \pdv{g_1}{x_2}(x_2^0,x_3^0)\cdot \pdv{g_2}{x_3}(x_1^0,x_3^0)\cdot \pdv{g_3}{x_1}(x_1^0,x_2^0).
+\end{align*}
+\end{document}

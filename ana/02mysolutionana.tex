@@ -1,0 +1,290 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amsfonts, amsthm, mathtools, amssymb}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\usepackage{cases}
+\usepackage{fancyhdr}
+\usepackage{comment}
+%\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{cases}
+\usepackage{listings}
+\usepackage{siunitx}
+\usepackage[left = 3cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{subcaption}
+\usepackage{gauss}
+\newtheorem{satz}{Satz}[section]
+\newtheorem{lemma}[satz]{Lemma}
+\newtheorem{korollar}[satz]{Korollar}
+\newtheorem{proposition}[satz]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[satz]{Def.}
+\newtheorem{axiom}[satz]{Axiom}
+\newtheorem{bsp}[satz]{Bsp.}
+\newtheorem*{anmerkung}{Anm}
+\newtheorem{bemerkung}[satz]{Bem}
+\newtheorem*{notatio}{Notation}
+\newcommand{\obda}{O.B.d.A. }
+\newcommand{\equals}{\Longleftrightarrow}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\intd}{\mathrm{d}}
+\newcommand{\Pot}{\operatorname{Pot}}
+\newcommand{\mychar}{\operatorname{char}}
+\newcommand{\myker}{\operatorname{ker}}
+\newcommand{\induktion}[3]
+{\begin{proof}\ \\
+	\noindent\textbf{Induktionsanfang:}\ #1\\
+	\noindent\textbf{Induktionsvoraussetzung:}\ #2\\
+	\noindent\textbf{Induktionsschluss:}\ #3
+\end{proof}}
+
+\newcommand{\rg}{\operatorname{rg}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\abb}{\operatorname{Abb}}
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\Ima}{\operatorname{Im}}
+
+
+
+\newcommand{\ipilayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Einführung in die praktische Informatik, Blatt #1}
+	\fancyhead[R]{Josua Kugler, Jan Metzger, David Wesner}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Peter Bastian\\
+			Tutor: Frederick Schenk}
+		\rhead{Einführung in die praktische Informatik, Übungsblatt #1\\ David, Jan, Josua}
+		\cfoot{\thepage}
+	}
+\thispagestyle{firstpage}
+}
+
+\newcommand{\analayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Analysis 2, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Ekaterina Kostina\\
+			Tutor: Julian Matthes}
+		\rhead{Analysis 1, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+\newcommand{\lalayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Lineare Algebra 2, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Denis Vogel\\
+			Tutor: Marina Savarino}
+		\rhead{Lineare Algebra 2, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+
+\lstset{
+    frame=tb, % draw a frame at the top and bottom of the code block
+    tabsize=4, % tab space width
+    showstringspaces=false, % don't mark spaces in strings
+    numbers=left, % display line numbers on the left
+    commentstyle=\color{green}, % comment color
+    keywordstyle=\color{blue}, % keyword color
+    stringstyle=\color{red} % string color
+}
+\setlength{\headheight}{25pt}
+
+\makeatletter \renewcommand\d{\ensuremath{%
+		\;\mathrm{d}\@ifnextchar\d{\!}{}}}
+\makeatother
+
+% maximum norm
+\newcommand{\maxnorm}[1]{\left|\left|#1\right|\right|_\infty}
+\renewcommand{\epsilon}{\varepsilon}
+
+\begin{document}
+\analayout{2}
+\section*{Aufgabe 1}
+\begin{enumerate}[(a)]
+\item Für $n>m$ gilt:
+$$\frac{\d^n}{\d x^n}(x+a)^m = \frac{\d^n}{\d x^n}\sum_{k=0}^{m}\begin{pmatrix} m \\ k \end{pmatrix} x^ma^{m-k} = \frac{\d^n}{\d x^n}x^m + ... + \frac{d^n}{\d x^n}a^m = 0$$%
+Es gilt
+\begin{align*}
+	\int_{-1}^{1}P_n(x)P_m(x)\d x&= \int_{-1}^{1}\frac{1}{2^nn!}\frac{\d^n}{\d x^n}(x^2-1)^n\frac{1}{2^mm!}\frac{\d^m}{\d x^m}(x^2-1)^m \d x\\
+	 &= \frac{1}{2^nn!}\frac{1}{2^mm!}\int_{-1}^{1}\frac{\d^n}{\d x^n}(x^2-1)^n\frac{\d^m}{\d x^m}(x^2-1)^m\d x
+	 \intertext{Für ein natürliches $0\leq k \leq n$ ist das gleich}
+	 &= \frac{1}{2^nn!}\frac{1}{2^mm!}(-1)^k\int_{-1}^{1}\frac{\d^{n-k}}{\d x^{n-k}}((x^2-1)^n)\cdot\frac{\d^{m+k}}{\d x^{m+k}}((x^2-1)^m)\d x
+	\intertext{Wir wählen nun $k= n$. Dann erhalten wir}
+	 &= \frac{1}{2^nn!}\frac{1}{2^mm!}(-1)^n\int_{-1}^{1}((x^2-1)^n)\cdot\frac{\d^{m+n}}{\d x^{m+n}}((x^2-1)^m)\d x
+	 \intertext{Aus $m+ n > m$ folgt, dass $\frac{\d^{m+n}}{\d x^{m+n}}((x^2-1)^m)$ verschwinden muss}
+	&= \frac{1}{2^nn!}\frac{1}{2^mm!}(-1)^n\int_{-1}^{1}((x^2-1)^n)\cdot 0 \d x\\
+	&= 0
+\end{align*}
+\item Sei $n \in \N_0$. Es gilt mittels endlicher Induktion nach $k$:
+\induktion{k=0: 
+\begin{align*}
+	\frac{(n!)^2}{(n)!(n)!}\int_{-1}^{1}(1-x)^{n}(1+x)^{n}\d x= \int_{-1}^{1}(1-x)^{n}(1+x)^{n}\d x
+\end{align*}}
+{Gelte für ein festes aber beliebiges $k\in \N_0$ $$\frac{(n!)^2}{(n-k)!(n+k)!}\int_{-1}^{1}(1-x)^{n-k}(1+x)^{n+k}\d x= \int_{-1}^{1}(1-x)^{n}(1+x)^{n}\d x$$}
+{$k\mapsto k+1$: Wir beginnen mit der Induktionsvoraussetzung. 
+\begin{align*}
+	\int_{-1}^{1}(1-x)^{n}(1+x)^{n}\d x &= \underbrace{\frac{(n!)^2}{(n-k)!(n+k)!}}_{\coloneqq \alpha}\int_{-1}^{1}(1-x)^{n-k}(1+x)^{n+k}\d x
+	\intertext{partielle Integration führt auf}
+	&=\alpha \cdot (1-x)^{n-k} \cdot \frac{1}{n+k+1} \cdot (1+x)^{n+k+1}\bigg|_{-1}^1\\
+	&- \alpha \int_{-1}^1  -(n-k) \cdot (1-x)^{n-k-1} \cdot \frac{1}{n+k+1} \cdot (1+x)^{n+k+1} \d x
+	\intertext{Sowohl an der Stelle $-1$ als auch an der Stelle $1$ verschwindet der erste Term}
+	&= (n!)^2 \cdot \frac{n-k}{(n-k)!} \cdot \frac{1}{(n+k)! \cdot (n+k+1)} \cdot \int_{-1}^{1}(1-x)^{n-k-1}(1+x)^{n+k+1}\\
+	&= \frac{(n!)^2}{(n-k-1)!(n+k+1)!}\int_{-1}^{1}(1-x)^{n-k-1}(1+x)^{n+k+1}\d x
+\end{align*}}
+\item Es gilt für $n\in \N_{0}$
+\begin{align*}
+	(2^nn!)^2\cdot \int_{-1}^{1}P_n(x)P_n(x) \d x &= \int_{-1}^{1}\frac{\d^n}{\d x^n}(x^2-1)^n\frac{\d^n}{\d x^n}(x^2-1)^n\d x
+	\intertext{Benutzt man nun die in der a) gegebene Formel, so erhält man für $k = n$}
+	&= (-1)^n\cdot \int_{-1}^1 (x^2 - 1)^n \cdot \frac{\d^{2n}}{\d x^{2n}}((x^2 - 1)^{n})\d x
+	\intertext{Die höchste vorkommende Potenz in $(x^2 - 1)^n$ ist $x^{2n}$. Diese hat den Vorfaktor 1. Bildet man nun die $2n$-te Ableitung, so bleibt nur ein Faktor $(2n)!$ übrig.}
+	&= (-1)^n\cdot \int_{-1}^1 (x^2 - 1)^n \cdot (2n)! \d x\\
+	&= (-1)^n \cdot (2n!) \cdot \int_{-1}^1 (x-1)^n \cdot (x+1)^n \d x\\
+	&= (-1)^{2n} \cdot (2n!) \cdot \int_{-1}^1 (1-x)^n(1+x)^n \d x
+	\intertext{Hier können wir nun unser Resultat aus Aufgabe (b) anwenden und wählen direkt $k = n$}
+	&= (2n!) \cdot \frac{(n!)^2}{(2n)!}\int_{-1}^1 (1+x)^{2n}\d x\\
+	&= (n!)^2\cdot \frac{1}{2n+1}\cdot (1+x)^{2n+1}\bigg|_{-1}^1\\
+	(2^nn!)^2\cdot \int_{-1}^{1}P_n(x)P_n(x) \d x &= \frac{(n!)^2 \cdot 2^{2n+1}}{2n+1}\\
+	\intertext{Teilen durch $(2^nn!)^2$ ergibt}
+	\int_{-1}^{1}P_n(x)P_n(x) \d x &= \frac{2}{2n+1}
+\end{align*}
+\end{enumerate}
+\section*{Aufgabe 2}
+Es gilt 
+\begin{align*}
+	\pi \cdot a_k &= \int_0^\pi \left(x - \frac{\pi}{2}\right)\cos(kx)\d x + \int_\pi^{2\pi} \left(\frac{3\pi}{2}- x\right)\cos(kx)\d x\\
+	\intertext{partielle Integration}
+	&= \frac{1}{k}\left(x - \frac{\pi}{2}\right)\sin(kx) \bigg|_0^\pi - \int_0^\pi \frac{1}{k}\sin(kx)\d x + \frac{1}{k}\left(\frac{3\pi}{2} - x\right)\sin(kx) \bigg|_\pi^{2\pi} + \int_\pi^{2\pi} \frac{1}{k} \sin(kx)\d x
+	\intertext{Es gilt $\sin(k\pi) = 0$ für ganzzahlige $k$}
+	&=0 + \frac{1}{k^2}\cos(kx)\bigg|_0^\pi + 0 - \frac{1}{k^2}\cos(kx)\bigg|_\pi^{2\pi}\\
+	&= \frac{1}{k^2}\left(\cos(k\pi) - \cos(0) - \cos(2k\pi) + \cos(k\pi) \right)
+	\intertext{$\cos(2k\pi) = 1$ für ganzzahlige $k$}
+	&= \frac{2}{k^2}\cos(k\pi) - \frac{2}{k^2}\\
+	&= \frac{2}{k^2}(\cos(k\pi) - 1)
+\end{align*}
+Außerdem gilt
+\begin{align*}
+	\pi \cdot b_k &= \int_0^\pi \left(x - \frac{\pi}{2}\right)\sin(kx)\d x + \int_\pi^{2\pi} \left(\frac{3\pi}{2}- x\right)\sin(kx)\d x\\
+	\intertext{partielle Integration}
+	&= -\frac{1}{k}\left(x - \frac{\pi}{2}\right)\cos(kx) \bigg|_0^\pi + \int_0^\pi \frac{1}{k}\cos(kx)\d x - \frac{1}{k}\left(\frac{3\pi}{2} - x\right)\cos(kx) \bigg|_\pi^{2\pi} - \int_\pi^{2\pi} \frac{1}{k} \cos(kx)\d x\\
+	&= -\frac{1}{k}\frac{\pi}{2}\cos(k\pi) - \frac{1}{k}\frac{\pi}{2}\cos(0) + \frac{1}{k^2}\sin(kx)\bigg|_0^\pi + \frac{1}{k}\frac{\pi}{2}\cos(2k\pi) + \frac{1}{k}\frac{\pi}{2} \cos(k\pi) - \frac{1}{k^2}\sin(x)\bigg|_\pi^{2\pi}
+	\intertext{$\cos(2k\pi) =1$ und $\sin(k\pi) = 0$ für ganzzahlige $k$}
+	&=0
+\end{align*}
+Wir erhalten also für die Fourier-Reihe
+\begin{align*}
+	F_\infty^f(x) &= \frac{a_0}{2} + \sum_{k = 1}^{\infty}(a_k\cos(kx) + b_k \sin(kx))\\
+	&= 0+ \sum_{k = 1}^{\infty}\left(\frac{2}{\pi k^2}(\cos(k\pi) - 1)\cos(kx)\right)
+	\intertext{Die geraden Terme fallen weg, da dann $\cos(k\pi) - 1 = 0$ wird}
+	&= \sum_{k = 1}^{\infty} \left(\frac{2}{\pi (2k-1)^2}(-1 - 1)\cos((2k-1)x)\right)\\
+	&= \sum_{k = 1}^{\infty}\frac{-4}{\pi(2k-1)^2}\cos((2k-1)x)
+\end{align*}
+\section*{Aufgabe 3}
+Es gilt
+\begin{align*}
+	\frac{1}{2\pi}\int_0^{2\pi} |f(x)|^2 \d x &= \frac{1}{2\pi} \left(\int_0^\pi \left(x - \frac{\pi}{2}\right)^2 \d x + \int_\pi^{2\pi} \left(\frac{3\pi}{2} - x\right)^2 \d x\right)\\
+	&= \frac{1}{2\pi} \left(\frac{1}{3}\left(x - \frac{\pi}{2}\right)^3\bigg|_0^\pi - \frac{1}{3}\left(\frac{3\pi}{2} - x\right)^3\bigg|_\pi^{2\pi}\right)\\
+	&= \frac{1}{2\pi}\left(\frac{1}{3}\left[\left(\frac{\pi}{2}\right)^3 + \left(\frac{\pi}{2}\right)^3\right]+ \frac{1}{3}\left[\left(\frac{\pi}{2}\right)^3 + \left(\frac{\pi}{2}\right)^3\right]\right)\\
+	&= \frac{1}{\pi}\frac{1}{3}\cdot 2\cdot \left(\frac{\pi}{2}\right)^3\\
+	&= \frac{\pi^2}{12}
+\end{align*}
+Außerdem ist $$c_k = \begin{cases}
+	\frac{1}{2} (a_k-ib_k) = \frac{1}{2\pi} \frac{2}{k^2}(\cos(k\pi) - 1) = \frac{(\cos(k\pi) - 1)}{\pi k^2}, &k\geq 0\\
+	\frac{a_0}{2} = 0, &k = 0\\
+	\frac{1}{2}(a_{-k} + ib_{-k}) = \frac{1}{2} \frac{1}{2\pi} \frac{2}{(-k)^2}(\cos(-k\pi) - 1) = \frac{(\cos(k\pi) - 1)}{\pi k^2}, &k < 0 
+\end{cases}$$
+Es gilt also
+$$\sum_{k = \infty}^{\infty}|c_k|^2 = \sum_{k = 1}^{\infty}2 \cdot \left|\frac{(\cos(k\pi) - 1)}{\pi k^2}\right|^2$$
+Daher erhalten wir aus der Parsevalgleichung folgende Identität
+\begin{align*}
+	\frac{1}{2\pi}\int_0^{2\pi} |f(x)|^2 \d x &= \sum_{k = -\infty}^{\infty}|c_k|^2\\
+	\frac{\pi^2}{12} &= \sum_{k = 1}^{\infty}2 \cdot \frac{(\cos(k\pi) - 1)^2}{\pi^2 k^4}
+	\intertext{Da für gerade $k$ $\cos(k\pi) -1 = 0$ wird, erhalten wir}
+	&= \sum_{k = 1}^{\infty}2 \cdot \frac{4}{\pi^2 (2k-1)^4} && \left| \cdot \frac{\pi ^2}{8}\right.\\
+	\frac{\pi^4}{96} &= \sum_{k = 1}^{\infty}\frac{1}{(2k-1)^4}
+\end{align*}
+\section*{Aufgabe 4}
+Es gilt 
+\begin{align*}
+	\int_{-\pi}^{\pi}f(x)\sin(kx)\d x &= \int_{-\pi}^{0}f(x)\sin(kx)\d x+\int_{0}^{\pi}f(x)\sin(kx)\d x
+	\intertext{Substituieren wir nun im ersten Term $u \coloneqq x + 2\pi$, so erhalten wir}
+	&= \int_\pi^{2\pi} f(u - 2\pi)\sin(k(u - 2\pi))\d u + \int_{0}^{\pi}f(x)\sin(kx)\d x
+	\intertext{Aufgrund der $2\pi$-Periodizität der Funktionen erhalten wir}
+	&= \int_{0}^{\pi}f(x)\sin(kx)\d x + \int_\pi^{2\pi} f(u)\sin(ku)\d u\\
+	&= \int_0^{2\pi} f(x)\sin(kx)\d x
+\end{align*}
+Analog zeigen wir
+\begin{align*}
+	\int_{-\pi}^{\pi}f(x)\cos(kx)\d x &= \int_{-\pi}^{0}f(x)\cos(kx)\d x+\int_{0}^{\pi}f(x)\cos(kx)\d x\\
+	&= \int_\pi^{2\pi} f(u - 2\pi)\cos(k(u - 2\pi))\d u + \int_{0}^{\pi}f(x)\cos(kx)\d x
+	\intertext{Aufgrund der $2\pi$-Periodizität der Funktionen gilt auch hier}
+	&= \int_{0}^{\pi}f(x)\cos(kx)\d x + \int_\pi^{2\pi} f(u)\cos(ku)\d u\\
+	&= \int_0^{2\pi} f(x)\cos(kx)\d x
+\end{align*}
+Betrachte nun folgende zwei Fälle: 
+\begin{itemize}
+	\item Sei $f$ gerade, d.h. $f(-x)=f(x)$. Dann gilt 
+	\begin{align*} 
+		b_k =& \frac{1}{\pi}\int_{0}^{2\pi}f(x)\sin(x)\d x\\
+		&= \frac{1}{\pi}\int_{-\pi}^{\pi}f(x)\sin(x)\d x\\
+		&= \frac{1}{\pi}\left(\int_{-\pi}^{0}f(x)\sin(x)\d x+\int_{0}^{\pi}f(x)\sin(x)\d x\right)
+		\intertext{Substituieren wir nun im ersten Term $u \coloneqq -x$, so erhalten wir}
+		&= \frac{1}{\pi}\left(-\int_{\pi}^{0}f(-u)\sin(-u)\d u+\int_{0}^{\pi}f(x)\sin(x)\d x\right)
+		\intertext{Vertauschen wir die Integralgrenzen, kommt ein $-$ hinzu}
+		&= \frac{1}{\pi}\left(\int_0^{\pi}f(-u)\sin(-u)\d u+\int_{0}^{\pi}f(x)\sin(x)\d x\right)
+		\intertext{Nun wenden wir $f(-x) = f(x)$ und $\sin(-x) = -\sin(x)$ an}
+		&= \frac{1}{\pi}\left(-\int_0^\pi f(x)\sin(x)\d x+\int_{0}^{\pi}f(x)\sin(x)\d x\right)
+		&= 0
+	\end{align*}
+	Mit der Definition aus dem Skript erhält man, da $b_k = 0\forall k \in \N$ $$F_\infty^{f_g}(x) = \frac{a_0}{2} + \sum_{k = 1}^{\infty}a_k \cos(kx).$$
+	\item Sei $f$ ungerade, d.h. $f(-x) = -f(x)$. Dann gilt analog
+	\begin{align*}
+		a_k =& \frac{1}{\pi}\int_{0}^{2\pi}f(x)\cos(x)\d x\\
+		&= \frac{1}{\pi}\int_{-\pi}^{\pi}f(x)\cos(x)\d x\\
+		&= \frac{1}{\pi}\left(\int_{-\pi}^{0}f(x)\cos(x)\d x+\int_{0}^{\pi}f(x)\cos(x)\d x\right)
+		\intertext{Substituieren wir nun im ersten Term $u \coloneqq -x$, so erhalten wir}
+		&= \frac{1}{\pi}\left(-\int_{\pi}^{0}f(-u)\cos(-u)\d u+\int_{0}^{\pi}f(x)\cos(x)\d x\right)
+		\intertext{Vertauschen wir die Integralgrenzen, kommt ein $-$ hinzu}
+		&= \frac{1}{\pi}\left(\int_0^{\pi}f(-u)\cos(-u)\d u+\int_{0}^{\pi}f(x)\cos(x)\d x\right)
+		\intertext{Nun wenden wir $f(-x) = -f(x)$ und $\cos(-x) = \cos(x)$ an}
+		&= \frac{1}{\pi}\left(-\int_0^\pi f(x)\cos(x)\d x+\int_{0}^{\pi}f(x)\cos(x)\d x\right)
+		&= 0
+	\end{align*}
+	Mit der Definition aus dem Skript erhält man, da $a_k = 0\forall k \in \N$ $$F_\infty^{f_u}(x) = \sum_{k = 1}^{\infty}b_k\sin(kx)$$
+\end{itemize}
+\section*{Aufgabe 5}
+\textbf{Z.Z.} 
+$$\int_{-1}^{1}\frac{\d^n}{\d x^n}(x^2-1)^n\frac{\d^m}{\d x^m}(x^2-1)^m\d x = (-1)^k\int_{-1}^{1}\frac{\d^{n-k}}{\d x^{n-k}}((x^2-1)^n)\cdot\frac{\d^{m+k}}{\d x^{m+k}}((x^2-1)^m)\d x$$
+\begin{proof}
+	Der Induktionsanfang für $k= 0$ folgt sofort aus $(-1)^0 = 1$.
+	Gelte die Behauptung für ein beliebiges, aber festes $0 \leq k \leq n$.
+	Unsere Induktionsvoraussetzung ist also 
+	$$\int_{-1}^{1}\frac{\d^n}{\d x^n}(x^2-1)^n\frac{\d^m}{\d x^m}(x^2-1)^m\d x = (-1)^k\int_{-1}^{1}\frac{\d^{n-k}}{\d x^{n-k}}((x^2-1)^n)\cdot\frac{\d^{m+k}}{\d x^{m+k}}((x^2-1)^m)\d x$$
+	Führt man nun eine partielle Integration durch, so erhält man
+	$$(-1)^k \left(\frac{\d^{n-k-1}}{\d x^{n-k-1}}(x^2-1)^n\frac{\d^{m+k}}{\d x^{m+k}}(x^2-1)^m\bigg|_{-1}^1 - \int_{-1}^{1}\frac{\d^{n-k-1}}{\d x^{n-k-1}}(x^2-1)^n\frac{\d^{m+k+1}}{\d x^{m+k+1}}(x^2-1)^m\d x\right)$$
+	Der erste Term ist ausgewertet bei $x = \pm 1$ stets gleich 0, womit man schon den Induktionsschluss erhält.
+	$$(-1)^{k+1} \cdot \int_{-1}^{1}\frac{\d^{n-k-1}}{\d x^{n-k-1}}((x^2-1)^n)\cdot\frac{\d^{m+k+1}}{\d x^{m+k+1}}((x^2-1)^m)\d x$$
+	$$= \int_{-1}^{1}\frac{\d^n}{\d x^n}(x^2-1)^n\frac{\d^m}{\d x^m}(x^2-1)^m\d x$$
+\end{proof}
+\end{document}

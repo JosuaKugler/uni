@@ -1,0 +1,248 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amsfonts, amsthm, mathtools, amssymb}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\usepackage{cases}
+\usepackage{fancyhdr}
+\usepackage{comment}
+%\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{cases}
+\usepackage{listings}
+\usepackage{siunitx}
+\usepackage[left = 3cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{subcaption}
+\usepackage{gauss}
+\newtheorem{satz}{Satz}[section]
+\newtheorem{lemma}[satz]{Lemma}
+\newtheorem{korollar}[satz]{Korollar}
+\newtheorem{proposition}[satz]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[satz]{Def.}
+\newtheorem{axiom}[satz]{Axiom}
+\newtheorem{bsp}[satz]{Bsp.}
+\newtheorem*{anmerkung}{Anm}
+\newtheorem{bemerkung}[satz]{Bem}
+\newtheorem*{notatio}{Notation}
+\newcommand{\obda}{O.B.d.A. }
+\newcommand{\equals}{\Longleftrightarrow}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\intd}{\mathrm{d}}
+\newcommand{\Pot}{\operatorname{Pot}}
+\newcommand{\mychar}{\operatorname{char}}
+\newcommand{\myker}{\operatorname{ker}}
+\newcommand{\induktion}[3]
+{\begin{proof}\ \\
+	\noindent\textbf{Induktionsanfang:}\ #1\\
+	\noindent\textbf{Induktionsvoraussetzung:}\ #2\\
+	\noindent\textbf{Induktionsschluss:}\ #3
+\end{proof}}
+
+\newcommand{\rg}{\operatorname{rg}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\abb}{\operatorname{Abb}}
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\Ima}{\operatorname{Im}}
+\newcommand{\norm}[1]{\left\Vert #1 \right\Vert}
+
+
+\newcommand{\ipilayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Einführung in die praktische Informatik, Blatt #1}
+	\fancyhead[R]{Josua Kugler, Jan Metzger, David Wesner}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Peter Bastian\\
+			Tutor: Frederick Schenk}
+		\rhead{Einführung in die praktische Informatik, Übungsblatt #1\\ David, Jan, Josua}
+		\cfoot{\thepage}
+	}
+\thispagestyle{firstpage}
+}
+
+\newcommand{\analayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Analysis 2, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Ekaterina Kostina\\
+			Tutor: Julian Matthes}
+		\rhead{Analysis 1, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+\newcommand{\lalayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Lineare Algebra 2, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Denis Vogel\\
+			Tutor: Marina Savarino}
+		\rhead{Lineare Algebra 2, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+
+\lstset{
+    frame=tb, % draw a frame at the top and bottom of the code block
+    tabsize=4, % tab space width
+    showstringspaces=false, % don't mark spaces in strings
+    numbers=left, % display line numbers on the left
+    commentstyle=\color{green}, % comment color
+    keywordstyle=\color{blue}, % keyword color
+    stringstyle=\color{red} % string color
+}
+\setlength{\headheight}{25pt}
+
+\makeatletter \renewcommand\d{\ensuremath{%
+		\;\mathrm{d}\@ifnextchar\d{\!}{}}}
+\makeatother
+
+\let\oldstackrel\stackrel
+\renewcommand{\stackrel}[2]{%
+    \oldstackrel{\mathclap{#1}}{#2}
+}%
+
+% maximum norm
+\newcommand{\maxnorm}[1]{\left|\left|#1\right|\right|_\infty}
+\renewcommand{\epsilon}{\varepsilon}
+
+\begin{document}
+\analayout{3}
+\section*{Aufgabe 1}
+\begin{enumerate}[(a)]
+	\item Behauptung: Diese Aussage ist falsch.
+	\begin{proof}
+		Sei $d(\cdot,\cdot):\mathbb{K}^n\times\mathbb{K}^n\longrightarrow \R$ eine Metrik. Definiere $\varphi: \R_{\geq 0} \longrightarrow \R, \varphi(x)=x^2.$ $\varphi$ ist nach Analysis 1 eine stetige, wohldefinierte Funktion. Betrachte nun die Funktion $\rho: \mathbb{K}^n\longrightarrow \R, \rho(x)=\varphi(||x||_2)$ und gelte $d(x,y)=\rho(x-y)$. Sei nun $\alpha\in\R$. Dann gilt 
+		\begin{align*}
+			\rho(\alpha(x-y))=& \varphi(||\alpha(x-y)||_2)\\
+			\overset{||x||_2\text{ ist eine Norm}}{=}& \varphi(\alpha ||x-y||_2)\\
+			=& (\alpha||x-y||_2)^2\\
+			=& \alpha^2\cdot ||x-y||_{2}^{2}\\
+			=& \alpha^2 \cdot \rho(x-y)
+		\end{align*}
+	Somit ist $\rho$ nicht linear im ersten Argument und somit keine Norm.
+	\end{proof}
+	\item Behauptung: Diese Aussage ist richtig.
+	\begin{proof}
+		\begin{itemize}
+			\item "$\Rightarrow$": Angenommen $r\in O$ sei ein Randpunkt von $O$. Dann befindet sich in jeder Umgebung von $r$ sowohl ein Element aus $O$, als auch aus der Menge $\mathbb{K}^n\backslash O$. Somit ist $O$ insbesondere nicht abgeschlossen.
+			\item "$\Leftarrow$": Diese Richtung folgt direkt aus 2.26 (i)
+		\end{itemize}
+	\end{proof}
+	\item Diese Aussage ist wahr, siehe 2.26 (iii) im Skript
+	\item Behauptung: Diese Aussage ist falsch für $\emptyset\neq M\neq \mathbb{K}^n$
+	\begin{proof}
+		\begin{itemize}
+		\item ($\emptyset\neq M\neq \mathbb{K}^n$): Nach Satz 2.26 (i) ist jede Menge $\overline{M}$ mit $M\subset \mathbb{K}^n$ abgeschlossen und $M^{\circ}$ offen. $(\overline{M})^{\circ}= \overline{M^{\circ}}$ fordert also die Gleichheit einer offenen und einer abgeschlossenen Menge, was ein Widerspruch ist.
+		\item ($\emptyset= M $ oder $M= \mathbb{K}^n$): Das Innere der leeren Menge, ist wieder leer, genau so auch der Abschluss. Somit gilt die Gleichung für die leere Menge. Es gilt $(\mathbb{K}^n)^{\circ}=\emptyset$, also insbesondere auch die Gleicheit.
+		\end{itemize}
+	\end{proof}
+	\end{enumerate}
+
+\section*{Aufgabe 2}
+\begin{enumerate}[(a)]
+	\item Behauptung: $\partial M = A \coloneqq \{x \in \R^n | \norm{x}_\infty \leq 1\}$.
+	\begin{proof}
+		
+		Da $\Q$ dicht in $\R$ liegt, gibt es in jeder Umgebung eines beliebigen Elementes aus $M$ sowohl Punkte in $\Q^n$ als auch Punkte in $\R^n$. Auch für alle $x\in \R^n$ mit $\norm{x}_\infty = 1$ liegen in jeder Umgebung sowohl Punkte in $M$ als auch in $\R^n\setminus M$. Sei $x\in \R^n$ ein Punkt mit $\norm{x}_\infty = 1 + \epsilon$ mit $\epsilon >1$. Dann ist $B_\frac{\epsilon}{2}(x) \cap M = \emptyset$. Daher ist $\partial M = \{x \in \R^n| \norm{x}_\infty \leq 1\}$. 
+	\end{proof}
+		Der Abschluss ergibt sich dann durch $\overline{M} = M \cup \partial M = \{x \in \R^n| \norm{x}_\infty \leq 1\}$ und für das Innere erhalten wir $M^\circ = M \setminus \partial M = \emptyset$.
+		\item Behauptung: $\partial M = M$.
+	\begin{proof}
+		In jeder Umgebung eines Punktes aus $M$ liegen sowohl Punkte aus $M$ (z.B. der Punkt selbst), als auch Punkte aus $\R^n \setminus M$, da es immer auch Punkte mit $x_1 \neq 0$ gibt. Sei nun $x \in \R^n$ mit $x_1 = \epsilon \neq 0$. Dann ist $B_\frac{\epsilon}{2}(x) \cap M = \emptyset$, da kein Punkt mit $x_1 = 0$ in  $B_\frac{\epsilon}{2}(x)$ liegt. Sei ansonsten $x \in \R^n$ mit $\norm{x}_2 = 1 + \epsilon, \epsilon > 0$. Dann ist aufgrund der Dreiecksungleichung $B_\frac{\epsilon}{2}(x) \cap M = \emptyset$.
+	\end{proof}
+	Der Abschluss ergibt sich dann durch $\overline{M} = M \cup M = M$ und für das Innere erhalten wir $M^\circ = M \setminus \partial M = M \setminus M = \emptyset$.
+	\item $F \coloneqq \{x\in \R^n| f(x) = 1\} = \{x \in \R^n | x \in (1, -1)^n\} = \{x \in \R^n | \norm{x}_\infty < 1\}$. Behauptung: $\partial F = A \coloneqq \{x \in \R^n | \norm{x}_\infty = 1\}$.
+	\begin{proof}
+		Wegen $A \cap F = \emptyset$ liegen natürlich in jeder Umgebung eines Punktes von $A$ Punkte aus $\R^n \setminus F$. Allerdings liegen in jeder Umgebung auch Punkte mit $\norm{x}_\infty < 1$, also Punkte aus $F$. Wäre jetzt $\norm{x}_\infty = 1 - \epsilon$, dann wäre $B_\frac{\epsilon}{2}(x) \subset F$. Analog wäre für $\norm{x}_\infty = 1 + \epsilon$ $B_\frac{\epsilon}{2}(x) \cap F = \emptyset$. Daher können solche Punkte nicht auf dem Rand liegen.
+	\end{proof}
+	Wir erhalten also $\overline{F} = F \cup\partial F = \{x \in \R^n | \norm{x}_\infty \leq 1\}$ und $F^\circ = F \setminus \partial F = F$.
+	Nun ist $M$ gleich $\R^n \setminus F = \{x \in \R^n | \norm{x}_\infty > 1\}$. Daher erhalten wir $\partial M = \partial F$. Also ist $\overline{M} = M \cup \partial M = \{x \in \R^n | \norm{x}_\infty \geq 1\}$ und $M ^\circ = M \setminus \partial M = \{x \in \R^n | \norm{x}_\infty > 1\}$.
+	\item Hier ist $M = F$ und wir erhalten aus der (c) sofort $\partial F = A \coloneqq \{x \in \R^n | \norm{x}_\infty = 1\}$, $\overline{F} = F \cup\partial F = \{x \in \R^n | \norm{x}_\infty \leq 1\}$ und $F^\circ = F \setminus \partial F = F$.
+\end{enumerate}
+\section*{Aufgabe 3}
+Seien $V,\overset{\sim}{V}$ definiert, wie auf dem Übungsblatt
+\begin{enumerate}[(a)]
+	\item Behauptung: Auf $\overset{\sim}{V}$ ist die Abbildung $(\cdot,\cdot)$ nicht definit.
+	\begin{proof}
+		Gelte $(f,f)=0$ für ein $f\in \overset{\sim}{V},$ d.h. $\int\limits_{a}^{b}f'(x)^2 \d x=0$. Nun ist $\int\limits_{a}^{b}0\d x=0$, weshalb $f'$ gleich der Nullabbildung sein kann. Nun ist dann aber $f$ der Form $f(x)=c$ für alle $x\in [a,b]$, also nicht die Nullabbildung in $\overset{\sim}{V}$. Also gilt $\exists x\in \overset{\sim}{V}: (x,x)=0 \wedge x\neq 0$  
+	\end{proof}
+	\item Wir zeigen die Skalarprodukt eigenschaften:
+	\begin{enumerate}[(S1)]
+		\item (Definitheit): Nach Analysis 1 Korollar 6.22 gilt $\forall x\in V: (x,x)=0\implies x=0$.  Außerdem ist $f'(x)^2\geq 0$ für alle $f\in V$, weshalb $(x,x)\geq 0, \forall x\in V$
+		\item (Symmetrie): Es gilt für $f,g\in V$:
+		\begin{align*}
+			(f,g)=& \int\limits_{a}^{b}f'(x)g'(x)\d x \\
+			\overset{V\subset C[a,b]}{=}& \int\limits_{a}^{b}g'(x)f'(x)\d x\\
+			=& (g,f)\\
+		\end{align*}
+		\item (Linearität im ersten Argument): Seien $\alpha, \beta\in \R$ und $f_1,f_2,g\in V$. Dann gilt:
+			\begin{align*}
+				(\alpha f_1+\beta f_2,g)&= \int\limits_{a}^{b}(\alpha f_1+\beta f_2)g \d x\\
+				&=  \int\limits_{a}^{b}\alpha f_1g+\beta f_2 g \d x\\
+				&= \int\limits_{a}^{b}\alpha f_1g\d x+\int\limits_{a}^{b}\beta f_2g\d x\\
+				&= \alpha\int\limits_{a}^{b}f_1g\d x+\beta\int\limits_{a}^{b} f_2g\d x\\
+				& =\alpha(f_1,g)+\beta(f_2,g)
+			\end{align*}
+		\end{enumerate}
+\end{enumerate}
+\section*{Aufgabe 4}
+Wir suchen 4 Elemente $x_1, x_2, x_3, x_4 \in C([0,1])$ mit $(x_i, x_j) = \delta_{ij}$. $x_1 = 1$ ist bereits normiert. Daher bestimmen wir zunächst
+$$\tilde{x_2} = t - (t, x_1) \cdot x_1 = t - \int_0^1 t \d t = t - \frac{t^2}{2}\bigg|_0^1 = t - \frac{1}{2}.$$
+Nun müssen wir $\tilde{x_2}$ noch normieren.
+$$(\tilde{x_2}, \tilde{x_2}) = \int_0^1 x_2^2 \d t= \int_0^1 t^2 -t + \frac{1}{4}\d t = \frac{1}{3} - \frac{1}{2} + \frac{1}{4} = \frac{1}{12}$$
+Es gilt $x_2 = \frac{\tilde{x_2}}{\norm{\tilde{x_2}}} = \frac{t-\frac{1}{2}}{\sqrt{\frac{1}{12}}} = 2 \sqrt{3} \left(t - \frac{1}{2}\right)$
+Als nächstes berechnen wir $\tilde{x_3}$.
+\begin{align*}
+	\tilde{x_3} &= t^2 - \int_0^1 t^2\cdot 1 \d t 1 - \left(\int_0^1t^2 \cdot 2 \sqrt{3} \left(t - \frac{1}{2}\right) \d t\right)\cdot 2 \sqrt{3} \left(t - \frac{1}{2}\right)\\
+	&= t^2 - \frac{1}{3} - \left(t - \frac{1}{2}\right) \cdot 12 \cdot \int_0^1t^3 - \frac{1}{2}t^2 \d t\\
+	&= t^2 - \frac{1}{3} - \left(12t - 6\right)  \cdot (\frac{1}{4} - \frac{1}{6})\\
+	&= t^2 - \frac{1}{3} - t + \frac{1}{2}\\
+	&= t^2 - t + \frac{1}{6}
+\end{align*}
+
+\begin{align*}
+	\norm{\tilde{x_3}}^2 &= \int_0^1 (t^2 - t + \frac{1}{6})^2 \d t\\
+	&= \int_0^1 (t^4 - 2t^3 + t^2\frac{1}{3} - t\frac{1}{3} + t^2 + \frac{1}{36})\\
+	&= \frac{1}{5} - \frac{1}{2} + \frac{1}{9} - \frac{1}{6} + \frac{1}{3} + \frac{1}{36}\\
+	&= \frac{1}{180}
+\end{align*}
+$$x_3 = \tilde{x_3} \cdot \frac{1}{\norm{\tilde{x_3}}} = (t^2 - t + \frac{1}{6}) \cdot \frac{30}{\sqrt{5}} = 6 \sqrt{5} \left(t^{2} - t + \frac{1}{6}\right)$$
+\begin{align*}
+	\tilde{x_4} &= t^3 - \int_0^1 t^3 \d t - \int_0^1 t^3\cdot \left(t - \frac{1}{2}\right)\d t \cdot 12 \left(t - \frac{1}{2}\right) - \int_0^1 t^3\cdot \left(t^{2} - t + \frac{1}{6}\right) \d t \cdot 180 \left(t^{2} - t + \frac{1}{6}\right)\\
+	&= t^3 - \frac{1}{4} - \left(\frac{1}{5} - \frac{1}{8}\right)\cdot 12 \left(t - \frac{1}{2}\right) - \left(\frac{1}{6} - \frac{1}{5} + \frac{1}{24}\right)\cdot 180 \left(t^{2} - t + \frac{1}{6}\right)\\
+	&= t^3 - \frac{1}{4} - \left(\frac{9}{10}t - \frac{9}{20}\right) - \left(\frac{3}{2}t^{2} - \frac{3}{2}t + \frac{1}{4}\right)\\
+	&= t^3 - \frac{3}{2}t^2 + \frac{15}{10}t - \frac{9}{10}t - \frac{10}{20} + \frac{9}{20}\\
+	&= t^{3} - \frac{3 t^{2}}{2} + \frac{3 t}{5} - \frac{1}{20}
+\end{align*}
+
+\begin{align*}
+	\norm{\tilde{x_4}}^2 &= \int_0^1 \left(t^{3} - \frac{3 t^{2}}{2} + \frac{3 t}{5} - \frac{1}{20}\right)^2\d t\\
+	&= \int_0^1 t^{6} - 3t^5 + \frac{6t^4}{5} - \frac{1}{10}t^3 + \frac{9t^4}{4} + \frac{9t^3}{5} + \frac{3t^2}{20} + \frac{9t^2}{25} - \frac{3t}{50} + \frac{1}{400}\d t\\
+	&= \int_0^1 t^{6} - 3 t^{5} + \frac{69 t^{4}}{20} - \frac{19 t^{3}}{10} + \frac{51 t^{2}}{100} - \frac{3 t}{50} + \frac{1}{400} \d t\\
+	&= \frac{1}{7} - \frac{3}{6} + \frac{69}{100} - \frac{19}{40} + \frac{17}{100} - \frac{3}{100} + \frac{1}{400}\\
+	&= \frac{1}{7} + \frac{-200 + 4 \cdot 69 - 190 + 4 \cdot 17 - 12 + 1}{400}\\
+	&= \frac{400 - 7 \cdot 57}{2800}\\
+	&= \frac{1}{2800}
+\end{align*}
+
+$$x_4 = \frac{\tilde{x_4}}{\norm{\tilde{x_4}}} = 20 \sqrt{7} \cdot \left(t^{3} - \frac{3 t^{2}}{2} + \frac{3 t}{5} - \frac{1}{20}\right) = \sqrt{7} \left(20 t^{3} - 30 t^{2} + 12 t - 1\right)$$
+\end{document}

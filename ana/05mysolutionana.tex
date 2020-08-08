@@ -1,0 +1,297 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amsfonts, amsthm, mathtools, amssymb}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\usepackage{cases}
+\usepackage{fancyhdr}
+\usepackage{comment}
+%\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{cases}
+\usepackage{listings}
+\usepackage{siunitx}
+\usepackage[left = 3cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{subcaption}
+\usepackage{gauss}
+\usepackage{environ}
+\usepackage{url}
+\newtheorem{satz}{Satz}[section]
+\newtheorem{lemma}[satz]{Lemma}
+\newtheorem{korollar}[satz]{Korollar}
+\newtheorem{proposition}[satz]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[satz]{Def.}
+\newtheorem{axiom}[satz]{Axiom}
+\newtheorem{bsp}[satz]{Bsp.}
+\newtheorem*{anmerkung}{Anm}
+\newtheorem{bemerkung}[satz]{Bem}
+\newtheorem*{notatio}{Notation}
+\newcommand{\obda}{O.B.d.A. }
+\newcommand{\equals}{\Longleftrightarrow}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\intd}{\mathrm{d}}
+\newcommand{\Pot}{\operatorname{Pot}}
+\newcommand{\mychar}{\operatorname{char}}
+\newcommand{\myker}{\operatorname{ker}}
+\newcommand{\induktion}[3]
+{\begin{proof}\ \\
+	\noindent\textbf{Induktionsanfang:}\ #1\\
+	\noindent\textbf{Induktionsvoraussetzung:}\ #2\\
+	\noindent\textbf{Induktionsschluss:}\ #3
+\end{proof}}
+
+\newcommand{\rg}{\operatorname{rg}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\abb}{\operatorname{Abb}}
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\Ima}{\operatorname{Im}}
+\newcommand{\norm}[1]{\left\Vert #1 \right\Vert}
+
+
+\ExplSyntaxOn
+
+% S-tackrelcompatible ALIGN environment
+% some might also call it the S-uper ALIGN environment
+% uses regular expressions to calculate the widest stackrel
+% to put additional padding on both sides of relation symbols
+\NewEnviron{salign}
+{
+    \begin{align}
+        \lec_insert_padding:V \BODY
+    \end{align}
+}
+% starred version that does no equation numbering
+\NewEnviron{salign*}
+{
+    \begin{align*}
+        \lec_insert_padding:V \BODY
+    \end{align*}
+}
+
+% some helper variables
+\tl_new:N \l__lec_text_tl
+\seq_new:N \l_lec_stackrels_seq
+\int_new:N \l_stackrel_count_int
+\int_new:N \l_idx_int
+\box_new:N \l_tmp_box
+\dim_new:N \l_tmp_dim_a
+\dim_new:N \l_tmp_dim_b
+\dim_new:N \l_tmp_dim_needed
+
+% function to insert padding according to widest stackrel
+\cs_new_protected:Nn \lec_insert_padding:n
+ {
+  \tl_set:Nn \l__lec_text_tl { #1 }
+  % get all stackrels in this align environment
+  \regex_extract_all:nnN { \c{stackrel}{(.*?)}{(.*?)} } { #1 } \l_lec_stackrels_seq
+  % get number of stackrels
+  \int_set:Nn \l_stackrel_count_int { \seq_count:N \l_lec_stackrels_seq }
+  \int_set:Nn \l_idx_int { 1 }
+  \dim_set:Nn \l_tmp_dim_needed { 0pt }
+  % iterate over stackrels
+  \int_while_do:nn { \l_idx_int <= \l_stackrel_count_int }
+  {
+      % calculate width of text
+      \hbox_set:Nn \l_tmp_box {$\seq_item:Nn \l_lec_stackrels_seq { \l_idx_int + 1 }$}
+      \dim_set:Nn \l_tmp_dim_a {\box_wd:N \l_tmp_box}
+      % calculate width of relation symbol
+      \hbox_set:Nn \l_tmp_box {$\seq_item:Nn \l_lec_stackrels_seq { \l_idx_int + 2 }$}
+      \dim_set:Nn \l_tmp_dim_b {\box_wd:N \l_tmp_box}
+      % check if 0.5*(a-b) > minimum padding, if yes updated minimum padding
+      \dim_compare:nNnTF
+        { 1pt * \dim_ratio:nn { \l_tmp_dim_a - \l_tmp_dim_b } { 2pt } } > { \l_tmp_dim_needed }
+        { \dim_set:Nn \l_tmp_dim_needed { 1pt * \dim_ratio:nn { \l_tmp_dim_a - \l_tmp_dim_b } { 2pt } } }
+        { }
+      \quad
+      % increment list index by three, as every stackrel produces three list entries
+      \int_incr:N \l_idx_int
+      \int_incr:N \l_idx_int
+      \int_incr:N \l_idx_int
+  }
+  % replace all relations with align characters (&) and add the needed padding
+  \regex_replace_all:nnN
+      { (\c{iff}&|&\c{iff}|\c{impliedby}&|&\c{impliedby}|\c{implies}&|&\c{implies}|\c{approx}&|&\c{approx}|\c{equiv}&|&\c{equiv}|=&|&=|\c{le}&|&\c{le}|\c{ge}&|&\c{ge}|&\c{stackrel}{.*?}{.*?}|\c{stackrel}{.*?}{.*?}&|&\c{neq}|\c{neq}&) }
+      { \c{kern} \u{l_tmp_dim_needed} \1 \c{kern} \u{l_tmp_dim_needed} }
+      \l__lec_text_tl
+  \l__lec_text_tl
+ }
+\cs_generate_variant:Nn \lec_insert_padding:n { V }
+\ExplSyntaxOff
+
+
+\newcommand{\ipilayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Einführung in die praktische Informatik, Blatt #1}
+	\fancyhead[R]{Josua Kugler, Jan Metzger, David Wesner}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Peter Bastian\\
+			Tutor: Frederick Schenk}
+		\rhead{Einführung in die praktische Informatik, Übungsblatt #1\\ David, Jan, Josua}
+		\cfoot{\thepage}
+	}
+\thispagestyle{firstpage}
+}
+
+\newcommand{\analayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Analysis 2, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Ekaterina Kostina\\
+			Tutor: Julian Matthes}
+		\rhead{Analysis 1, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+\newcommand{\lalayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Lineare Algebra 2, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Denis Vogel\\
+			Tutor: Marina Savarino}
+		\rhead{Lineare Algebra 2, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+
+\lstset{
+    frame=tb, % draw a frame at the top and bottom of the code block
+    tabsize=4, % tab space width
+    showstringspaces=false, % don't mark spaces in strings
+    numbers=left, % display line numbers on the left
+    commentstyle=\color{green}, % comment color
+    keywordstyle=\color{blue}, % keyword color
+    stringstyle=\color{red} % string color
+}
+\setlength{\headheight}{25pt}
+
+\makeatletter \renewcommand\d{\ensuremath{%
+		\;\mathrm{d}\@ifnextchar\d{\!}{}}}
+\makeatother
+
+\let\oldstackrel\stackrel
+\renewcommand{\stackrel}[2]{%
+    \oldstackrel{\mathclap{#1}}{#2}
+}%
+
+% maximum norm
+\newcommand{\maxnorm}[1]{\left|\left|#1\right|\right|_\infty}
+\renewcommand{\epsilon}{\varepsilon}
+
+\begin{document}
+\analayout{5}
+\noindent \textbf{Anmerkung:} Wir benutzen für Referenzen unser mit ein paar Kommilitonen zusammen getextes Skript, zu finden unter \url{https://flavigny.de/lecture/pdf/analysis2}.
+\section*{Aufgabe 1}
+\begin{enumerate}[(a)]
+	\item Die natürliche Matrixnorm ist \begin{itemize}
+		\item \textbf{positiv definit:} $\norm{Ax} , \norm{x}\geq 0$, also insbesondere auch $\sup\limits_{x \in \K^n\setminus\{0\}} \frac{\norm{Ax}}{\norm{x}}\geq 0$.\\ Gilt $\sup\limits_{x \in \K^n\setminus\{0\}} \frac{\norm{Ax}}{\norm{x}}= 0$, so folgt daraus $$\forall x \in \K^n\setminus\{0\}: \frac{\norm{Ax}}{\norm{x}} = 0 \xRightarrow{\norm{x}\neq 0} \norm{Ax} = 0 \xRightarrow{\norm{\cdot}\text{ definit}} Ax = 0,$$ also ist $A = 0$.
+		\item \textbf{homogen:} $\norm{b\cdot A} = \sup\limits_{x \in \K^n\setminus\{0\}} \frac{\norm{b\cdot Ax}}{\norm{x}}= |b| \cdot \sup\limits_{x \in \K^n\setminus\{0\}} \frac{\norm{Ax}}{\norm{x}} = |b| \cdot \norm{A}$.
+		\item \textbf{Dreiecksungleichung:}
+		\begin{salign*}
+			\norm{A + B} &= \sup\limits_{x\in\K^n,\norm{x} = 1} \norm{(A + B)x}\\
+			&= \sup\limits_{x\in\K^n, \norm{x} = 1} \norm{Ax + Bx}\\
+			&\stackrel{\Delta -\text{Ug für Vektornorm}}{\leq} \sup\limits_{x\in\K^n,\norm{x} = 1} \norm{Ax} + \norm{Bx}\\
+			&=  \sup\limits_{x\in\K^n,\norm{x} = 1} \norm{Ax} + \sup\limits_{x\in\K^n,\norm{x} = 1} \norm{Bx}\\
+			&= \norm{A} + \norm{B}
+		\end{salign*}
+	\end{itemize}
+	\item Behauptung: Die Abbildung $\mathcal{N}: \K^n \to K x \mapsto \norm{A\cdot x}$ ist stetig.
+	\begin{proof}
+		Sei $\epsilon > 0$. Dann gilt $\forall \norm{x-y} < \frac{\epsilon}{\norm{A}}$ aufgrund der umgekehrten Dreiecksungleichung $|\mathcal{N}(x) - \mathcal{N}(y)| = |\norm{Ax} - \norm{Ay}| \leq \norm{Ax - Ay} = \norm{A(x-y)}$. Da $\norm{\cdot}$ natürlich ist, ist sie insbesondere verträglich und daher $\norm{A(x-y)} \leq \norm{A}\cdot \norm{x-y} < \epsilon$. Also ist $\mathcal{N}$ stetig.
+	\end{proof}
+	Die Menge $S_1(0) = \{x \in \K^n, \norm{x} = 1\}$ ist als Rand der Einheitskugel $K_1(0)$ kompakt. Stetige Funktionen nehmen auf kompakten Mengen ihr Maximum an, also ist $$\sup\limits_{x\in S_1(0)} \norm{Ax} = \sup\limits_{x\in S_1(0)} \mathcal{N}(x) = \max\limits_{x\in S_1(0)} \mathcal{N}(x) = \max\limits_{x\in S_1(0)} \norm{Ax}.$$
+	\item Die Frobenius-Norm ist
+	\begin{itemize}
+		\item \textbf{verträglich:} Es gilt
+	\begin{salign*}
+		\norm{Ax}_2^2 &= \sum_{j = 1}^{n} \left(\sum_{i = 1}^{n} a_{ij}x_i\right)^2\\
+		&\stackrel{\text{C.S.U.}}{\leq} \sum_{j = 1}^{n} \left(\sum_{i = 1}^{n} a_{ij}^2 \cdot \underbrace{\sum_{i = 1}^{n}x_i^2}_{\text{unabhängig von $j$}}\right)\\
+		&=\sum_{i = 1}^{n}x_i^2 \cdot \sum_{i,j = 1}^{n}a_{ij}^2\\
+		&= \norm{x}_2 \cdot \norm{A}_F
+	\end{salign*}
+	\item \textbf{submultiplikativ:}
+	\begin{salign*}
+		\norm{A\cdot B}_F^2 &= \sum_{i,j = 1}^{n} \left(\sum_{k = 1}^{n} a_{ik}b_{kj}\right)^2\\
+		&\stackrel{\text{C.S.U.}}{\leq} \sum_{i,j = 1}^{n} \left(\underbrace{\sum_{k = 1}^{n} a_{ik}^2}_{\text{unabhängig von $j$}} \cdot \underbrace{\sum_{i = 1}^{n}b_{kj}^2}_{\text{unabhängig von $i$}}\right)\\
+		&=\sum_{i,k = 1}^{n}a_{ik}^2 \cdot \sum_{k,j = 1}^{n}b_{kj}^2\\
+		&= \norm{A}_F \cdot \norm{B}_F
+	\end{salign*}
+	\end{itemize}
+\end{enumerate}
+\section*{Aufgabe 2}
+\begin{enumerate}[a)]
+	\item Sei $A \in M$. Nach Korollar 2.57 gilt $\forall \tilde{A}$ mit $\norm{A - \tilde{A}} < \frac{1}{\norm{A^{-1}}}$ ist $A-\tilde{A}$ immer noch regulär. Also liegt für $\epsilon \leq \frac{1}{\norm{A^{-1}}}$ die Umgebung $K_\epsilon(A)$ ganz in $M$.
+	\item Sei $z \in \operatorname{Res}(A)$ und $\epsilon > 0$. Wähle dann $\delta = \min\left(\norm{(A - z\mathbb{I})}, \frac{\norm{(A - z\mathbb{I})}}{\norm{(A - z\mathbb{I})^{-1}}}\epsilon\right)$. Dann gilt $\forall z, z' \in \operatorname{Res}(A)$ mit $|z - z'| < \delta$
+	\begin{salign*}
+		\norm{\operatorname{Res}(z) - \operatorname{Res}(z')} &= \norm{(A-z\mathbb{I})^{-1} - (A - z'\mathbb{I})^{-1}}\\
+		&= \norm{(A - z\mathbb{I})^{-1}\cdot \mathbb{I} - (A - z \mathbb{I})^{-1} \cdot (A - z'\mathbb{I})^{-1}(A - z\mathbb{I})}\\
+		&= \norm{(A - z\mathbb{I})^{-1}\left(\mathbb{I} - (A - z'\mathbb{I})^{-1}(A - z'\mathbb{I} + (z'-z)\mathbb{I})\right)}\\
+		&= \norm{(A - z\mathbb{I})^{-1}\left(\mathbb{I} - \mathbb{I} - (A - z'\mathbb{I})^{-1}(z'-z)\mathbb{I})\right)}\\
+		&= |z - z'|\cdot \norm{(A - z\mathbb{I})^{-1}(A - z'\mathbb{I})^{-1}}\\
+		&\leq |z - z'|\cdot \norm{(A - z\mathbb{I})^{-1}}\norm{(A - z'\mathbb{I})^{-1}}\\
+		&= |z - z'|\cdot \norm{(A - z\mathbb{I})^{-1}}\norm{(A - z\mathbb{I}+z\mathbb{I}-z'\mathbb{I})^{-1}}\\
+		&=|z - z'|\cdot \norm{(A - z\mathbb{I})^{-1}}\norm{(A - z\mathbb{I}+(z-z')\mathbb{I})^{-1}}\\
+	\end{salign*}
+	Es gilt 
+	\begin{salign*}
+		1 &= \norm{\mathbb{I}}\\
+		&= \norm{((z-z')\mathbb{I} + (A - z\mathbb{I}))(A - z\mathbb{I}+(z-z')\mathbb{I})^{-1}}\\
+		&= \norm{((z-z')\mathbb{I}) \cdot (A - z\mathbb{I}+(z-z')\mathbb{I})^{-1}+(A - z\mathbb{I})\cdot (A - z\mathbb{I}+(z-z')\mathbb{I})^{-1})}\\
+		&\geq \left|\norm{(z-z')(A - z\mathbb{I}+(z-z')\mathbb{I})^{-1}} - \norm{(A - z\mathbb{I})(A - z\mathbb{I}+(z-z')\mathbb{I})^{-1}}\right|\\
+		&\geq \left||z - z'| \norm{(A - z\mathbb{I}+(z-z')\mathbb{I})^{-1}} - \norm{(A - z\mathbb{I})}\norm{(A - z\mathbb{I}+(z-z')\mathbb{I})^{-1}}\right|\\
+		&= \left||z-z'|-\norm{(A - z\mathbb{I})}\right|\norm{(A - z\mathbb{I}+(z-z')\mathbb{I})^{-1}}
+		\intertext{Insgesamt folgt also}
+		\norm{(A - z\mathbb{I}+(z-z')\mathbb{I})^{-1}} &\leq \frac{1}{\left||z-z'|-\norm{(A - z\mathbb{I})}\right|}
+	\end{salign*}
+	Setzen wir dies oben ein, so erhalten wir
+	\begin{salign*}
+		\norm{\operatorname{Res}(z) - \operatorname{Res}(z')} &\leq |z - z'|\cdot \norm{(A - z\mathbb{I})^{-1}} \frac{1}{\left||z-z'|-\norm{(A - z\mathbb{I})}\right|}\\
+		&= |z - z'|\cdot \frac{\norm{(A - z\mathbb{I})^{-1}}}{\left|\norm{(A - z\mathbb{I})} - |z-z'|\right|}\\
+		\intertext{$|z-z'| < \norm{(A - z\mathbb{I})}$}
+		&\leq |z - z'|\cdot \frac{\norm{(A - z\mathbb{I})^{-1}}}{\norm{(A - z\mathbb{I})}}\\
+		&< \epsilon
+	\end{salign*}
+\end{enumerate}
+\section*{Aufgabe 3}
+Für $\K  =\R$, $n = 1$,  $f(x) = \sin(x)$ und $c = 1$ ist $M$ nicht kompakt, da es $\forall x\in \R$ eine Nullstelle $x_0$ des Sinus gibt, sodass $x_0 > x$.\\
+\textbf{Z.Z.} $M$ ist abgeschlossen.
+\begin{proof}
+	$f(M) = \{c\}$ ist offensichtlich abgeschlossen. Das stetige Urbild einer abgeschlossenen Menge ist wieder abgeschlossen, also ist auch $M$ abgeschlossen.
+\end{proof}
+\section*{Aufgabe 4}
+\textbf{Behauptung:}  Es gilt $|\cos(f(x)) - \cos(g(x))| \leq |f(x) - g(x)|$.
+\begin{proof}
+Nach dem Mittelwertsatz der Differenzialrechnung gibt es ein $\xi$ zwischen $f(x)$ und $g(x)$ mit $\sin(\xi) = \frac{\cos(g(x)) - \cos(f(x))}{g(x) - f(x)}$, also auch $\frac{|\cos(g(x)) - \cos(f(x))|}{|g(x) - f(x)|} = |\sin(x)| \leq 1$. Nach Multiplikation mit $|g(x) - f(x)|$ folgt sofort die Behauptung. 
+\end{proof}
+$\forall f, g: \norm{f-g}_\infty < \frac{\epsilon}{\pi}$ gilt
+\begin{salign*}
+	\left|S(f) - S(g)\right| &= \left|\int_0^\pi \cos(f(x)) \d x - \int_0^\pi \cos(g(x)) \d x\right|\\
+	&\leq \int_0^\pi\left| \cos(f(x)) - \cos(g(x))\right| \d x\\
+	&\leq \pi \cdot \sup\limits_{x\in [0,\pi]} \left|\cos(f(x)) - \cos(g(x))\right|\\
+	\intertext{Diese Ungleichung folgt aus der obigen Behauptung.}
+	&\leq \pi \cdot \sup\limits_{x\in [0,\pi]} \left|f(x) - g(x)\right|\\
+	&< \pi \cdot \frac{\epsilon}{\pi}\\
+	&= \epsilon
+\end{salign*}
+
+\end{document}

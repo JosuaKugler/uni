@@ -1,0 +1,204 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amsfonts, amsthm, mathtools, amssymb}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\usepackage{cases}
+\usepackage{fancyhdr}
+\usepackage{comment}
+%\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{cases}
+\usepackage{listings}
+\usepackage{siunitx}
+\usepackage[left = 3cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{subcaption}
+\usepackage{gauss}
+\newtheorem{satz}{Satz}[section]
+\newtheorem{lemma}[satz]{Lemma}
+\newtheorem{korollar}[satz]{Korollar}
+\newtheorem{proposition}[satz]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[satz]{Def.}
+\newtheorem{axiom}[satz]{Axiom}
+\newtheorem{bsp}[satz]{Bsp.}
+\newtheorem*{anmerkung}{Anm}
+\newtheorem{bemerkung}[satz]{Bem}
+\newtheorem*{notatio}{Notation}
+\newcommand{\obda}{O.B.d.A. }
+\newcommand{\equals}{\Longleftrightarrow}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\intd}{\mathrm{d}}
+\newcommand{\Pot}{\operatorname{Pot}}
+\newcommand{\mychar}{\operatorname{char}}
+\newcommand{\myker}{\operatorname{ker}}
+\newcommand{\induktion}[3]
+{\begin{proof}\ \\
+	\noindent\textbf{Induktionsanfang:}\ #1\\
+	\noindent\textbf{Induktionsvoraussetzung:}\ #2\\
+	\noindent\textbf{Induktionsschluss:}\ #3
+\end{proof}}
+
+\newcommand{\rg}{\operatorname{rg}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\abb}{\operatorname{Abb}}
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\Ima}{\operatorname{Im}}
+
+
+
+\newcommand{\ipilayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Einführung in die praktische Informatik, Blatt #1}
+	\fancyhead[R]{Josua Kugler, Jan Metzger, David Wesner}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Peter Bastian\\
+			Tutor: Frederick Schenk}
+		\rhead{Einführung in die praktische Informatik, Übungsblatt #1\\ David, Jan, Josua}
+		\cfoot{\thepage}
+	}
+\thispagestyle{firstpage}
+}
+
+\newcommand{\analayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Analysis 2, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Ekaterina Kostina\\
+			Tutor: Julian Matthes}
+		\rhead{Analysis 1, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+\newcommand{\lalayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Lineare Algebra 2, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Denis Vogel\\
+			Tutor: Marina Savarino}
+		\rhead{Lineare Algebra 2, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+
+\lstset{
+    frame=tb, % draw a frame at the top and bottom of the code block
+    tabsize=4, % tab space width
+    showstringspaces=false, % don't mark spaces in strings
+    numbers=left, % display line numbers on the left
+    commentstyle=\color{green}, % comment color
+    keywordstyle=\color{blue}, % keyword color
+    stringstyle=\color{red} % string color
+}
+\setlength{\headheight}{25pt}
+
+\makeatletter \renewcommand\d{\ensuremath{%
+		\;\mathrm{d}\@ifnextchar\d{\!}{}}}
+\makeatother
+
+\let\oldstackrel\stackrel
+\renewcommand{\stackrel}[2]{%
+    \oldstackrel{\mathclap{#1}}{#2}
+}%
+
+% maximum norm
+\newcommand{\maxnorm}[1]{\left|\left|#1\right|\right|_\infty}
+\renewcommand{\epsilon}{\varepsilon}
+
+\begin{document}
+\analayout{3}
+\section*{Aufgabe 1}
+\begin{enumerate}[(a)]
+	\item $d_1$ ist keine Norm, da sie die Dreiecksungleichung nicht erfüllt. Für $x = 0, y = 1, z = 2$ gilt nämlich $(-2)^2 \geq 1^2 + 1^2$.
+	\item $d_2$ ist eine Norm, denn folgende Aussagen gelten: 
+	\begin{itemize}
+		\item Definitheit: $\sqrt{|x-y|}=0\Leftrightarrow |x-y|=0\implies x=y$. Offensichtlich gilt $\sqrt{|x-y|}>0 \forall x,y\in\R$
+		\item Symmterie: Es gilt für $x,y\in\R$: $\sqrt{|x-y|}=\sqrt{|-(y-x)|}=\sqrt{|y-x|}$
+		\item Dreiecksungleichung: Es gilt für $x,y\in\R$:
+		\begin{align*}
+			|x-z|\leq|x-y|+|y-z|&\leq |x-y|+2\sqrt{|x-y|\cdot|y-z|}+|y-z|\\
+			& \Leftrightarrow \sqrt{|x-z|}\leq\sqrt{|x-y|+|y-z|}\\
+			&\leq \sqrt{|x-y|+2\sqrt{|x-y|\cdot|y-z|}+|y-z|}\\
+			&=\sqrt{|x-y|}+\sqrt{|y-z|}
+		\end{align*}
+	\end{itemize}
+	\item $d_3$ ist keine Norm, da sie die Definitheit nicht erfüllt: $x=1,y=-1: |1^2-(-1)^2|= 0 $ aber $x\neq y$
+	\item $d_4$ ist keine Norm, da sie die Definitheit nicht erfüllt: $x=1,y=0,5: |1-2\cdot 0,5|=0 $ aber $x\neq y$
+	\item $d_4$ ist eine Norm, denn folgende Aussagen gelten: 
+	\begin{itemize} 
+	\item Definitheit: $\frac{|x-y|}{1+|x-y|}=0 \Leftrightarrow |x-y|=0 \implies x=y.$ Offensichtlich gilt $\forall x,y\in\R: |x-y|>0 $ und somit $1+|x-y|>0$.
+	\item Symmetrie: Es gilt für $x,y\in \R$: $\frac{|x-y|}{1+|x-y|}=\frac{|-(y-x)|}{1+|-(y-x)|}=\frac{|y-x|}{1+|y-x|}$
+	\item Dreiecksungleichung: Es gilt für $x,y,z\in \R$:$\frac{|x-z|}{1+|x-z|}= \frac{|x-y+y-z|}{1+|x-y+y-z|}\leq \frac{|x-y|+|y-z|}{1+|x-y|+|y-z}= \frac{|x-y|}{1+|x-y|+|y-z}+\frac{|y-z|}{1+|x-y|+|y-z|} \overset{|x-y|,|y-z|\geq 0}{\leq}\frac{|x-y|}{1+|x-y|}+\frac{|y-z|}{1+|y-z|}$
+	\end{itemize}
+\end{enumerate}
+\section*{Aufgabe 2}
+Es gilt die Definitheit: $\Vert x \Vert_d =  d(x,0) \geq 0, \Vert x \Vert_d = d(x,0) = 0 \xRightarrow{M1} x = 0$.
+Die Homogenität folgt aus E2, $\Vert \lambda x\Vert_d = d(\lambda x, 0) = \lambda d(x,0) = \lambda \Vert x\Vert_d$.
+Die Dreiecksungleichung erhalten wir schließlich mit E1 und der Dreiecksungleichung für die Metrik: 
+$$\Vert x + y \Vert_d = d(x+y, 0) \leq d(0, x) + d(x, x+y) \overset{\text{E1}}{=} \Vert x \Vert_d + d(y,0) = \Vert x\Vert_d + \Vert y\Vert_d$$
+\section*{Aufgabe 3}
+\begin{enumerate}[(a)]
+	\item Sei $b \geq 0$ beliebig. Wir betrachten die Funktion $f(a) = \frac{a^p}{p} + \frac{b^q}{q} -ab$ mit den Ableitungen $f'(a) = a^{p-1} - b$ und $f''(a) = (p-1)a^{p-2} \overset{p>1, a >0}{>} 0$. Da die zweite Ableitung stets positiv ist, ist jede Extremstelle der Funktion ein Minimum. Setzen wir also $f'(a) = 0$, so erhalten wir $a^{p-1} = b$. Alle Stellen, an denen diese Bedingung gilt, sind also lokale Minima. Setzen wir in $f$ einfach $b = a^{p-1}$, so erhalten wir $f(a) = \frac{a^p}{p} + \frac{a^{(p-1)\cdot q}}{q} - a\cdot a^{p-1} \overset{*}{=} \left(\frac{1}{p} + \frac{1}{q}\right)a^p - a\cdot a^{p-1} = a^p - a^p = 0$, wobei $*$ aus $\frac{1}{p} + \frac{1}{q} = 1\equals p + q = pq \equals p = q (p-1)$ folgt. Am Rand, also bei $a = 0$, erhalten wir außerdem $f(0) = \frac{b^q}{q} \geq 0$. Also ist bei beliebigem $b$ die Funktion $f(a)$ stets größer 0. Daraus folgt sofort $\frac{a^p}{p} + \frac{b^q}{q} \geq ab$, was zu zeigen war.
+	\item \begin{align*}
+		1 &= \frac{1}{q} + \frac{1}{p}\\
+		&= \frac{1}{q} \cdot \frac{\sum_{i = 1}^{n}|a_i|^p}{\sum_{j = 1}^{n}|a_j|^p} + \frac{1}{p}\cdot \frac{\sum_{i = 1}^{n}|b_i|^q}{\sum_{j = 1}^{n}|b_j|^q}\\
+		&= \frac{1}{p} \sum_{i = 1}^{n} \frac{|a_i|^p}{\sum_{j = 1}^{n}|a_j|^p} + \frac{1}{q}\sum_{i = 1}^{n} \frac{|b_i|^q}{\sum_{j = 1}^{n}|b_j|^q}\\
+		&= \sum_{i = 1}^{n} \frac{1}{p} \left(\frac{|a_i|}{\left(\sum_{j = 1}^{n}|a_j|^p\right)^\frac{1}{p}}\right)^p + \frac{1}{q} \left(\frac{|b_i|}{\left(\sum_{j = 1}^{n}|b_j|^q\right)^\frac{1}{q}}\right)^q\\
+		&\stackrel{\text{Young}}{\geq}\qquad \sum_{i = 1}^{n} \left(\frac{|a_i|}{\left(\sum_{j = 1}^{n}|a_j|^p\right)^\frac{1}{p}}\right) \cdot \left(\frac{|b_i|}{\left(\sum_{j = 1}^{n}|b_j|^q\right)^\frac{1}{q}}\right)\\
+		&= \frac{\sum_{i = 1}^{n} |a_ib_i|}{\left(\sum_{j = 1}^{n}|a_j|^p\right)^\frac{1}{p} \cdot \left(\sum_{j = 1}^{n}|b_j|^q\right)^\frac{1}{q}}
+		\intertext{Multiplizieren wir nun den Nenner auf die andere Seite, so erhalten wir die Behauptung}
+		\left(\sum_{j = 1}^{n}|a_j|^p\right)^\frac{1}{p} \cdot \left(\sum_{j = 1}^{n}|b_j|^q\right)^\frac{1}{q} &\geq \sum_{i = 1}^{n} |a_ib_i|
+	\end{align*}
+\end{enumerate}
+\section*{Aufgabe 4}
+\begin{enumerate}[(a)]
+	\item Betrachte $(f_n)_{n\in\N}$ mit $f_n: [0,1]\longrightarrow \R $ definiert durch: 
+		$$f_n(x)=\begin{cases}
+			1 - \frac{2}{\frac{1}{n} - \frac{1}{n+1}}(x-\frac{1}{n}) &\left|\frac{1}{n} < x \leq \frac{1}{n} + \frac{\frac{1}{n} - \frac{1}{n+1}}{2}\right.\\
+			1 + \frac{2}{\frac{1}{n} - \frac{1}{n+1}}(x-\frac{1}{n}) &\left|\frac{1}{n} - \frac{\frac{1}{n} - \frac{1}{n+1}}{2} \leq x \leq \frac{1}{n}\right.\\
+			0 &\left|\text{sonst}\right.
+		\end{cases} $$
+		Für $n = 1$ ist offensichtlich der erste Fall in der Funktionsdefinition irrelevant, der Beweis geht dann völlig analog, nur ohne diesen Fall.
+		\textbf{Z.Z.} $f_n$ ist stetig.
+		\begin{proof}
+			Da Polynome stetig sind, ist $f_n$ ganz sicher auf $$\left[0,\frac{1}{n} - \frac{\frac{1}{n} - \frac{1}{n+1}}{2}\right) \cup \left(\frac{1}{n} - \frac{\frac{1}{n} - \frac{1}{n+1}}{2}, \frac{1}{n}\right) \cup \left(\frac{1}{n}, \frac{1}{n} + \frac{\frac{1}{n} - \frac{1}{n+1}}{2}\right)\cup \left(\frac{1}{n} + \frac{\frac{1}{n} - \frac{1}{n+1}}{2}, 1\right]$$ stetig. Nun untersuchen wir die rechts- und linksseitigen Grenzwerte an den 3 fehlenden Stellen.
+			$$\lim\limits_{x\nearrow \frac{1}{n} - \frac{\frac{1}{n} - \frac{1}{n+1}}{2}} f(x) = 0 = \lim\limits_{x\searrow \frac{1}{n} - \frac{\frac{1}{n} - \frac{1}{n+1}}{2}} f(x),$$
+			$$\lim\limits_{x\nearrow \frac{1}{n}} f(x) = 1 = \lim\limits_{x\searrow \frac{1}{n}} f(x)$$ und 
+			$$\lim\limits_{x\nearrow \frac{1}{n} + \frac{\frac{1}{n} - \frac{1}{n+1}}{2}} f(x) = 0 = \lim\limits_{x\searrow \frac{1}{n} + \frac{\frac{1}{n} - \frac{1}{n+1}}{2}} f(x).$$
+		\end{proof}
+		\textbf{Z.Z.} $f_n(x)f_m(x) = 0 \qquad \forall x\in [0,1],\; \forall n \neq m$
+		\begin{proof}
+			Sei O.B.d.A. $m > n$. Aus der Funktionsdefinition sieht man sofort, dass $f_n(x) \neq 0$ nur für $x\in I_n$ mit 
+			$$I_n \coloneqq \left[\frac{1}{n} - \frac{\frac{1}{n} - \frac{1}{n+1}}{2}, \frac{1}{n} + \frac{\frac{1}{n} - \frac{1}{n+1}}{2}\right]$$ gelten kann. Es genügt also zu zeigen, dass $I_n \cap I_m = \emptyset$ oder äquivalent dazu, dass $\max I_m < \min I_n$. Wir beweisen zunächst, dass $\max I_{n+1} < \min I_n$, woraus dann induktiv die Behauptung folgt.
+			\begin{align*}
+				n(n+1) &< (n +1)(n+2)\\
+				\frac{1}{ (n +1)(n+2)} &<\frac{1}{n(n+1)}\\
+				\frac{(n+2) - (n+1)}{ (n +1)(n+2)} &<\frac{(n+1) - n}{n(n+1)}\\
+				\frac{1}{n+1} - \frac{1}{n+2} &< \frac{1}{n} - \frac{1}{n+1}\\
+				\frac{2}{n+1} + \frac{1}{n+1} - \frac{1}{n+2} &< \frac{2}{n} - \frac{1}{n} + \frac{1}{n+1}\\
+				\frac{1}{n+1} + \frac{\frac{1}{n+1} - \frac{1}{n+2}}{2} &< \frac{1}{n} - \frac{\frac{1}{n} + \frac{1}{n+1}}{2}\\
+				\max I_{n+1} &< \min I_n
+			\end{align*}
+		\end{proof}
+	\item Sei $(f_n)_{n\in\N}$ eine Folge mit den Eigenschaften aus (a). Dann gilt für $n,m\in\N$ mit $n\neq m$ wegen $f_n(x)f_m(x)=0$ auch $f_n(x) = 1 \implies f_m(x) = 0$ und wegen $\Vert f_n \Vert_\infty = 1$ existiert stets solch ein $x$. Daher gilt $\Vert f_n-f_m\Vert_{\infty}=1 \forall n, m \in \N$. Gäbe es eine konvergente Teilfolge $(f_{n_k})_{k\in \N}$, so wäre diese auch eine Cauchy-Folge, sodass es $n, m$ mit $\Vert f_n - f_m\Vert_\infty < 1$ geben müsste, Widerspruch.
+	\end{enumerate}
+\end{document}

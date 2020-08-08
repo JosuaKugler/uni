@@ -1,0 +1,335 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amsfonts, amsthm, mathtools, amssymb}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\usepackage{cases}
+\usepackage{fancyhdr}
+\usepackage{comment}
+%\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{cases}
+\usepackage{listings}
+\usepackage{siunitx}
+\usepackage[left = 3cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{subcaption}
+\usepackage{gauss}
+\usepackage{environ}
+\usepackage{url}
+\newtheorem{satz}{Satz}[section]
+\newtheorem{lemma}[satz]{Lemma}
+\newtheorem{korollar}[satz]{Korollar}
+\newtheorem{proposition}[satz]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[satz]{Def.}
+\newtheorem{axiom}[satz]{Axiom}
+\newtheorem{bsp}[satz]{Bsp.}
+\newtheorem*{anmerkung}{Anm}
+\newtheorem{bemerkung}[satz]{Bem}
+\newtheorem*{notatio}{Notation}
+\newcommand{\obda}{O.B.d.A. }
+\newcommand{\equals}{\Longleftrightarrow}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\intd}{\mathrm{d}}
+\newcommand{\Pot}{\operatorname{Pot}}
+\newcommand{\mychar}{\operatorname{char}}
+\newcommand{\myker}{\operatorname{ker}}
+\newcommand{\induktion}[3]
+{\begin{proof}\ \\
+	\noindent\textbf{Induktionsanfang:}\ #1\\
+	\noindent\textbf{Induktionsvoraussetzung:}\ #2\\
+	\noindent\textbf{Induktionsschluss:}\ #3
+\end{proof}}
+
+\newcommand{\rg}{\operatorname{rg}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\abb}{\operatorname{Abb}}
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\Ima}{\operatorname{Im}}
+\newcommand{\norm}[1]{\left\Vert #1 \right\Vert}
+
+
+\ExplSyntaxOn
+
+% S-tackrelcompatible ALIGN environment
+% some might also call it the S-uper ALIGN environment
+% uses regular expressions to calculate the widest stackrel
+% to put additional padding on both sides of relation symbols
+\NewEnviron{salign}
+{
+    \begin{align}
+        \lec_insert_padding:V \BODY
+    \end{align}
+}
+% starred version that does no equation numbering
+\NewEnviron{salign*}
+{
+    \begin{align*}
+        \lec_insert_padding:V \BODY
+    \end{align*}
+}
+
+% some helper variables
+\tl_new:N \l__lec_text_tl
+\seq_new:N \l_lec_stackrels_seq
+\int_new:N \l_stackrel_count_int
+\int_new:N \l_idx_int
+\box_new:N \l_tmp_box
+\dim_new:N \l_tmp_dim_a
+\dim_new:N \l_tmp_dim_b
+\dim_new:N \l_tmp_dim_needed
+
+% function to insert padding according to widest stackrel
+\cs_new_protected:Nn \lec_insert_padding:n
+ {
+  \tl_set:Nn \l__lec_text_tl { #1 }
+  % get all stackrels in this align environment
+  \regex_extract_all:nnN { \c{stackrel}{(.*?)}{(.*?)} } { #1 } \l_lec_stackrels_seq
+  % get number of stackrels
+  \int_set:Nn \l_stackrel_count_int { \seq_count:N \l_lec_stackrels_seq }
+  \int_set:Nn \l_idx_int { 1 }
+  \dim_set:Nn \l_tmp_dim_needed { 0pt }
+  % iterate over stackrels
+  \int_while_do:nn { \l_idx_int <= \l_stackrel_count_int }
+  {
+      % calculate width of text
+      \hbox_set:Nn \l_tmp_box {$\seq_item:Nn \l_lec_stackrels_seq { \l_idx_int + 1 }$}
+      \dim_set:Nn \l_tmp_dim_a {\box_wd:N \l_tmp_box}
+      % calculate width of relation symbol
+      \hbox_set:Nn \l_tmp_box {$\seq_item:Nn \l_lec_stackrels_seq { \l_idx_int + 2 }$}
+      \dim_set:Nn \l_tmp_dim_b {\box_wd:N \l_tmp_box}
+      % check if 0.5*(a-b) > minimum padding, if yes updated minimum padding
+      \dim_compare:nNnTF
+        { 1pt * \dim_ratio:nn { \l_tmp_dim_a - \l_tmp_dim_b } { 2pt } } > { \l_tmp_dim_needed }
+        { \dim_set:Nn \l_tmp_dim_needed { 1pt * \dim_ratio:nn { \l_tmp_dim_a - \l_tmp_dim_b } { 2pt } } }
+        { }
+      \quad
+      % increment list index by three, as every stackrel produces three list entries
+      \int_incr:N \l_idx_int
+      \int_incr:N \l_idx_int
+      \int_incr:N \l_idx_int
+  }
+  % replace all relations with align characters (&) and add the needed padding
+  \regex_replace_all:nnN
+      { (\c{iff}&|&\c{iff}|\c{impliedby}&|&\c{impliedby}|\c{implies}&|&\c{implies}|\c{approx}&|&\c{approx}|\c{equiv}&|&\c{equiv}|=&|&=|\c{le}&|&\c{le}|\c{ge}&|&\c{ge}|&\c{stackrel}{.*?}{.*?}|\c{stackrel}{.*?}{.*?}&|&\c{neq}|\c{neq}&) }
+      { \c{kern} \u{l_tmp_dim_needed} \1 \c{kern} \u{l_tmp_dim_needed} }
+      \l__lec_text_tl
+  \l__lec_text_tl
+ }
+\cs_generate_variant:Nn \lec_insert_padding:n { V }
+\ExplSyntaxOff
+
+
+\newcommand{\ipilayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Einführung in die praktische Informatik, Blatt #1}
+	\fancyhead[R]{Josua Kugler, Jan Metzger, David Wesner}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Peter Bastian\\
+			Tutor: Frederick Schenk}
+		\rhead{Einführung in die praktische Informatik, Übungsblatt #1\\ David, Jan, Josua}
+		\cfoot{\thepage}
+	}
+\thispagestyle{firstpage}
+}
+
+\newcommand{\analayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Analysis 2, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Ekaterina Kostina\\
+			Tutor: Julian Matthes}
+		\rhead{Analysis 1, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+\newcommand{\lalayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Lineare Algebra 2, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Denis Vogel\\
+			Tutor: Marina Savarino}
+		\rhead{Lineare Algebra 2, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+
+\lstset{
+    frame=tb, % draw a frame at the top and bottom of the code block
+    tabsize=4, % tab space width
+    showstringspaces=false, % don't mark spaces in strings
+    numbers=left, % display line numbers on the left
+    commentstyle=\color{green}, % comment color
+    keywordstyle=\color{blue}, % keyword color
+    stringstyle=\color{red} % string color
+}
+\setlength{\headheight}{25pt}
+
+\makeatletter \renewcommand\d{\ensuremath{%
+		\;\mathrm{d}\@ifnextchar\d{\!}{}}}
+\makeatother
+
+\let\oldstackrel\stackrel
+\renewcommand{\stackrel}[2]{%
+    \oldstackrel{\mathclap{#1}}{#2}
+}%
+
+% maximum norm
+\newcommand{\maxnorm}[1]{\left|\left|#1\right|\right|_\infty}
+\renewcommand{\epsilon}{\varepsilon}
+
+\begin{document}
+\analayout{5}
+\noindent \textbf{Anmerkung:} Wir benutzen für Referenzen unser mit ein paar Kommilitonen zusammen getextes Skript, zu finden unter \url{https://flavigny.de/lecture/pdf/analysis2}.
+\section*{Aufgabe 1}
+\begin{enumerate}[(a)]
+	\item Behauptung: $\partial (K_1(0) \setminus\{0\}) = \{x\in \R^2|\norm{x}_2 = 1\}\cup \{0\}$.
+	\begin{proof}
+		Nach Beispiel 2.24 (2) ist $\partial K_1(0) = \{x \in \R^n| \norm{x}=1\}$. Außerdem gilt für alle $\epsilon > 0\colon K_\epsilon(0)$ enthält stets die $0$ und $K_\epsilon(0) \cap K_1(0)\setminus\{0\} \neq \emptyset$. Also ist $0\in \partial (K_1(0) \setminus\{0\})$. Punkte mit $\norm{x} > 1$ gehören nicht zu $\partial K_1(0)$ und daher auch nicht zu $\partial K_1(0)\setminus\{0\}$. Für alle Punkte $x$ mit $\norm{x} = \epsilon >0$ ist $K_\frac{\epsilon}{2}(x) \subset K_1(0)\setminus\{0\}$ und daher kann $x$ nicht auf dem Rand liegen.
+	\end{proof}
+	Behauptung: $M$ ist nicht zusammenhängend. 
+	\begin{proof}
+		Mit unserer ersten Behauptung sieht man sofort, dass $M = \{x\in \R^2|\norm{x}_2 = 1\}\cup \{0\}$ mit $\{x\in \R^2|\norm{x}_2 = 1\}\cap \{0\} = \emptyset$ und $\{x\in \R^2|\norm{x}_2 = 1\},\{0\} \neq \emptyset$. Nun müssen wir noch zeigen, dass $\{0\}$ und $\{x\in \R^2|\norm{x}_2 = 1\}$ relativ-offen bezüglich $M$ sind.
+		Es gilt $K_\frac{1}{2}(0) \cap M = \{0\} \subset \{0\}$. Also ist $\{0\}$ relativ-offen bezüglich $M$. Außerdem gilt $K_\frac{1}{2}(a) \cap M = \{x \in \R^n| \norm{x}_2 = 1, \norm{x - a}_2 < \frac{1}{2}\} \subset \{x\in \R^2|\norm{x}_2 = 1\}$, woraus auch die relative Offenheit von $\{x\in \R^2|\norm{x}_2 = 1\}$ folgt. 
+	\end{proof}
+	\item Behauptung $M = \emptyset$.
+	\begin{proof}
+		Sei $x \in K_1(0) \cap K_1((2,0)^T)$. Dann gilt $\norm{x}_2 < 1$ und $$\norm{(2,0)^T-x}_2 < 1 \implies \norm{(2,0)^T}_2-\norm{x}_2 < 1 \implies 2 - \norm{x} < 1\implies 1 < \norm{x}_2.$$ Offensichtlich gibt es keine solchen Punkte $x$ und daher ist auch $M = \overline{K_1(0) \cap K_1((2,0)^T)} = \overline{\emptyset} = \emptyset$, da die leere Menge bereits abgeschlossen ist.
+	\end{proof}
+	Es kann keine Zerlegung in disjunkte, echte Teilmengen der leeren Menge geben, daher ist sie zusammenhängend.
+	\item Behauptung: $K \coloneqq \overline{K_\frac{1}{2}(\alpha)}$ ist zusammenhängend.
+	\begin{proof}
+		Angenommen, es gäbe eine offene Menge $\emptyset \subsetneq U \subsetneq K$ derart, dass $V \coloneqq K\setminus U$ auch offen ist. Als Komplement einer offenen Menge sind $U$ und $V$ dann beide relativ-abgeschlossen bezüglich $K$ und daher beide kompakt. Sei o.B.d.A. $\alpha \in U$ und $r = \sup \{\epsilon | K_\epsilon(\alpha) \subset U\}$. $r > 0$, da $U$ offen ist. Dann ist $K_r(\alpha) \subset U$, da $U$ abgeschlossen ist. Sei nun $r' = \inf \{\norm{v - \alpha}|v\in V, v_1 = \alpha_1\}$ (wobei $v_1$ die erste Komponente von $v$ und analog $\alpha_1$ die erste Komponente von $\alpha$ bezeichne). Da $U$ abgeschlossen ist, gibt es dann einen Punkt $u \in U$ mit $\norm{u - \alpha} = r'$. Also muss $r' > r$ sein. Alle Punkte $\xi$ mit $\xi_1 = \alpha_1$ und $r < \norm{\xi - \alpha} < r'$ liegen damit weder in $U$ noch in $V$, ein Widerspruch. Also kann es keine solche Menge $U$ geben. 
+	\end{proof}
+	Sei $\emptyset \neq U \neq M$ eine relativ-offene Teilmenge von $M$. 
+	Behauptung: Dann $\exists a \in \Z^2$ mit  $\overline{K_\frac{1}{2}(a)}\cap U \neq \emptyset$ und $\overline{K_\frac{1}{2}(a)}\cap M\setminus U \neq \emptyset$. 
+	\begin{proof}
+		Angenommen, das würde nicht gelten. Sei dann $a \in Z^2$ mit $\overline{K_\frac{1}{2}(a)} \cap U \neq \emptyset$ (so ein $a$ existiert, weil $U$ nichtleer ist). Dann ist auch $\overline{K_\frac{1}{2}(a)} \subset U$. Sei $a \neq a'\in \Z^2$ mit $\norm{a-a'}_2 = 1$. Dann gilt $\overline{K_\frac{1}{2}(a)}\cap \overline{K_\frac{1}{2}(a')} \neq \emptyset$. Also gibt es ein $\xi \in \overline{K_\frac{1}{2}(a')}$, sodass $\xi \in \overline{K_\frac{1}{2}(a)} \subset U$. Also liegt ein Punkt von $\overline{K_\frac{1}{2}(a')}$ in $U$, also muss bereits $\overline{K_\frac{1}{2}(a')}\subset U$ gelten. Wendet man diese Aussage iterativ wieder auf alle $a''$ mit $\norm{a''-a'}_2 = 1$ an, so erhält man schlussendlich $M \subset U$, was im Widerspruch zur Annahme steht. 
+	\end{proof}
+	Sei also $\alpha\in \Z^2$ mit   $\overline{K_\frac{1}{2}(\alpha)}\cap U \neq \emptyset$ und $\overline{K_\frac{1}{2}(\alpha)}\cap M\setminus U \neq \emptyset$. Behauptung: Dann existiert ein $\xi \in \overline{K_\frac{1}{2}(\alpha)}$ derart, dass $\forall \epsilon >0: K_\epsilon(\xi) \cap U \neq \emptyset$ und $K_\epsilon(\xi) \cap M\setminus U \neq \emptyset$. 
+	\begin{proof}
+		Angenommen das wäre nicht der Fall, dann gäbe es $\forall x\in \overline{K_\frac{1}{2}(\alpha)}\cap U$ eine Umgebung $K_\epsilon(x)$, sodass $K_\epsilon(x)\cap M \subset U$. Analog für $M\subset U$. Also gibt es zwei relativ-offene Mengen (bzgl. M) $A \coloneqq U \cap \overline{K_\frac{1}{2}(\alpha)}$ und $B \coloneqq (M\setminus U) \cap \overline{K_\frac{1}{2}(\alpha)}$, sodass $A \cup B = \overline{K_\frac{1}{2}(\alpha)}$. Das ist aber ein Widerspruch zu unserer ersten Behauptung.
+	\end{proof}
+	In jeder Umgebung von $\xi$ liegen also sowohl Punkte von $U$ als auch von $M\setminus U$. Da $U$ offen ist, kann also $\xi \notin U$ liegen. Also ist $\xi \in M\setminus U$. Folglich kann $M\setminus U$ nicht offen sein. Da $U$ beliebig war, gibt es keine relativ-offene Zerlegung $U, M\setminus U$ mit $\emptyset \neq U \neq M$.
+	\item Wir bezeichnen die Menge $M \setminus \{0\} = \{x \in \R^2 | x_1 \in \R_+, x_2 = \sin\left(\frac{1}{x_1}\right)\}$ mit $M'$. Behauptung: $\{0\}$ ist nicht relativ-offen bezüglich $M$.
+	\begin{proof}
+		Sei $\epsilon > 0$. Dann existiert ein $k\in \N$ mit $\frac{1}{2\pi k} < \epsilon$. Es gilt $x \coloneqq \left(\frac{1}{2\pi k}, 0\right)^T\in M'$, da $\sin(2\pi k) = 0$. Natürlich ist also auch $x \in K_\epsilon(0)$.
+	\end{proof}
+	Behauptung: Ist $U\subset M$ relativ offen, so ist auch $U' \coloneqq U\setminus\{0\} \subset M'$ relativ offen.
+	\begin{proof}
+		Sei $a\in U'$. Dann $\exists \epsilon >0$ mit $K_\epsilon(a) \cap M \subset U$ (da $U$ relativ offen bzgl. $M$). Ist $0 \neq x\in K_\epsilon(a) \cap M$, so ist $x\in U$ und $x\neq 0$, also $x\in U'$. In $K_\epsilon(a) \cap M'$ sind alle Elemente ungleich 0, sodass $K_\epsilon(a) \cap M' \subset U'$. Also ist $U'$ wieder relativ offen bezüglich $M'$.
+	\end{proof}
+	Behauptung: Ein kompaktes Intervall $[a,b]\in \R$ ist zusammenhängend.
+	\begin{proof}
+		Angenommen, es gäbe eine offene Menge $\emptyset \subsetneq U \subsetneq [a,b]$ derart, dass $V \coloneqq [a,b]\setminus U$ auch offen ist. Als Komplement einer offenen Menge sind $U$ und $V$ dann beide relativ-abgeschlossen bezüglich $[a,b]$ und daher beide kompakt. Also ist $\sup U \in U$ und $\sup V \in V$. Sei also $b$ o.B.d.A. das Supremum von $U$. Dann ist $v \coloneqq \sup V < b$. Sei $U' \coloneqq U \cap [v,b]$. Dann gilt $u \coloneqq \inf U' > v$, sonst würde nämlich $v \in U'$ und $v\in V$ liegen, ein Widerspruch. Sei dann $v < x < u$. Dann ist $x \notin V$, da $\sup V < x$. Außerdem ist $x \in [v,b]$, aber $x < \in U\cap [v,b]$. Daher ist $x \notin U$. Das ist aber ein Widerspruch. Also kann es keine solche Menge $U$ geben und $[a,b]$ ist zusammenhängend.
+	\end{proof}
+	Behauptung: $\R_+$ ist zusammenhängend.
+	\begin{proof}
+		Angenommen, es gäbe eine offene Menge $\emptyset \subsetneq U\subsetneq \R_+$ derart, dass $V \coloneqq \R_+\setminus U$ auch offen ist. Dann gibt es ein kompaktes Intervall $[a,b]$, in dem sowohl Punkte aus $U$ als auch Punkte aus $V$ liegen. Sei nämlich $a \in U$ (existiert wegen $U\neq \emptyset$) und $b\in \R_+$. Dann ist das Intervall $[a,b]$ (bzw. $[b,a]$, wir schreiben o.B.d.A. $[a,b]$) kompakt. Gäbe es kein kompaktes Intervall, in dem sowohl Punkte aus $U$ als auch Punkte aus $V$ liegen, so folgern wir daraus, dass $b \in U$ liegen muss und daher $U = \R_+.\lightning$ Nun sind $U \cap [a,b]$ und $V \cap [a,b]$ wieder relativ offen bezüglich $[a,b]$ ($\forall x \in U\exists \epsilon>0: K_\epsilon(x) \cap \R_+ \subset U \implies K_\epsilon(x)\cap [a,b] \subset [a,b] \implies U$ relativ offen, analog für $V$) und wegen $U \cup V = \R_+$ ist auch $(U\cap [a,b]) \cup (V \cap [a,b]) = (U \cup V)\cap [a,b] = [a,b]$. Da aber jedes kompakte Intervall $[a,b]\subset \R$ zusammenhängend ist, erhalten wir einen Widerspruch. Also gibt es keine solche Menge $U$ und $\R_+$ ist zusammenhängend.\\
+	\end{proof}
+	Behauptung: $M'$ ist zusammenhängend.
+	\begin{proof}
+		Die Abbildung $f: \R_+ \to \R, x \mapsto \sin\left(\frac{1}{x}\right)$ ist stetig als Komposition stetiger Funktionen. Also ist auch $g: \R_+ \to \R^2, x \mapsto (x, \sin\left(\frac{1}{x}\right))$ stetig. Die Menge $\R_+$ ist zusammenhängend, also ist auch das stetige Bild $g(\R_+) = \{x \in \R^2| x_1\in \R_+, x_2 = \sin\left(\frac{1}{x_1}\right)\} = M'$ wieder zusammenhängend.
+	\end{proof}
+	Wir nehmen an, es gäbe eine relativ-offene Teilmenge $U$ von $M$ mit $\emptyset \neq U \neq M$ derart, dass $V \coloneqq M\setminus U$ auch offen ist. Dann ist, wie gezeigt, $U \neq \{0\} \neq V$. Außerdem sind $U' \coloneqq U \cap M'$ und $V' \coloneqq V \cap M'$ relativ offen bezüglich $M'$. Zudem gilt $U' \cup V' = (U \cup V) \cap M' = M'$. Damit wäre aber $M'$ nicht mehr zusammenhängend $\lightning$. Also kann es keine solche Teilmenge $U$ geben und $M$ ist zusammenhängend.
+\end{enumerate}
+\section*{Aufgabe 2}
+\begin{enumerate}[(a)]
+	\item \begin{enumerate}[(i)]
+		\item Wir definieren die Nullfolge $X_n = \begin{pmatrix}
+			n^{-3}\\n^{-3}\\n^{-1}
+		\end{pmatrix}$. Es gilt \[\lim\limits_{n\to \infty} f_1(X_n) = \lim\limits_{n\to \infty} \frac{n^{-5} + n^{-9}}{2n^{-6}} = \lim\limits_{n\to \infty} \frac{n + n^{-3}}{2} = \infty.\] Daher gibt es keinen Wert $f_1(0,0,0)$, sodass die Funktion an der Stelle $0\in \R^3$ stetig fortsetzbar ist.
+		\item Es gilt $\forall x, y \in \R: (x-y)^2 \geq 0 \equals x^2 - 2xy + y^2 \geq 0 \implies x^2 + y^2 \geq xy \implies \frac{xy}{x^2 + y^2}\leq 1$. Für alle $(x,y,z)^T$ mit $\norm{(x,y,z)^T - 0}_1 = |x + y +z| < \epsilon$ gilt daher für $f_2(0,0,0) = 0$ \[|f_2(x,y,z)-f_2(0,0,0)|\! =\! \left|\frac{xyz + xy^2}{x^2+y^2}\right|\! =\! \left|\frac{xy}{x^2+y^2}z + \frac{xy^2}{x^2 + y^2}\right| \leq \left|z + \frac{xy^2}{y^2}\right| \leq \left|x+y+z\right| < \epsilon\] Also ist $f_2$ stetig fortsetzbar an der Stelle $(0,0,0)^T$
+		\item Bonusaufgabe: Wir definieren die Folge $Z_n = \begin{pmatrix}
+			n^{-3}\\n^{-3}\\z
+		\end{pmatrix}$ mit $\lim\limits_{n\to \infty} Z_n = \begin{pmatrix}
+			0\\0\\z
+		\end{pmatrix}$. Es gilt \[\lim\limits_{n\to \infty} f_1(X_n) = \lim\limits_{n\to \infty} \frac{n^{-3}z^2 + n^{-9}}{2n^{-6}} = \lim\limits_{n\to \infty} \frac{n^3z^2 + n^{-3}}{2} = \infty.\] Daher gibt es keinen Wert $f_1(0,0,z)$, sodass die Funktion an der Stelle $(0,0,z)^T\in \R^3$ stetig fortsetzbar ist. Für die zweite Funktion erhalten wir, dass für alle $(x,y,z)^T$ mit $\norm{(x,y,z)^T - (0,0,z)^T}_1 = |x + y| < \epsilon$ und $f_2(0,0,z) = z$ gilt: \[|f_2(x,y,z)-f_2(0,0,z)|\! =\! \left|\frac{xyz + xy^2}{x^2+y^2}-z\right|\! =\! \left|\frac{xy}{x^2+y^2}z -z + \frac{xy^2}{x^2 + y^2}\right| \leq \left|\frac{xy^2}{y^2}\right| \leq \left|x+y\right| < \epsilon\] Also ist $f_2$ stetig fortsetzbar an der Stelle $(0,0,z)^T$.
+	\end{enumerate}
+	\item Es gilt $\forall x, y \in K^n$ \begin{align*}
+		(x-y,x-y)_K &\geq 0\\
+		(x,x)_K - 2(x,y)_K + (y,y)_K &\geq 0\\
+		\norm{x}_K^2 + \norm{y}_K^2 &\geq 2(x,y)_K\\
+		\frac{1}{2}\left(\norm{x}_K^2 + \norm{y}_K^2\right) &\geq (x,y)_K. &&(*)
+	\end{align*}
+	Sei nun $\epsilon > 0$. Dann gilt $\forall \{x,y\}\in P$ mit $\norm{\{x,y\}}_P = \left(\norm{x}_K^2 + \norm{y}_K^2\right)^\frac{1}{2} < \sqrt{\epsilon}$:
+	\[
+		(x,y)_K \stackrel{*}{\leq} \frac{1}{2}\left(\norm{x}_K^2 + \norm{y}_K^2\right) \leq \frac{1}{2} \sqrt{\epsilon}^2 < \epsilon.
+	\]
+\end{enumerate}
+\section*{Aufgabe 3}
+Sei $T:\partial K_R(0)\longrightarrow \R$ stetig.
+\begin{enumerate}[(a)]
+	\item Behauptung: Es existiert ein $x\in \partial K_R(0)$, so dass $T(x)=T(-x)$.\newline
+	\begin{proof}
+	\begin{align*}
+		\intertext{Da die Menge $\partial K_R(0)$ beschränkt und abgeschlossen ist, ist sie insbesondere kompakt. Als stetige Funktion auf einem kompakten Intervall nimmt $T$ sowohl Maximum, als auch Minimum an. Seien $x_{\max},x_{\min}\in \partial K_R(0)$, so dass}
+		\underset{x\in \partial K_R(0)}{\max}T(x)=T(x_{\max})&\text{ und }\underset{x\in \partial K_R(0)}{\min}T(x)=T(x_{\min}).\\
+		\intertext{Außerdem definieren wir und die Funkktion $T':\partial K_R(0)\longrightarrow \R, x\longmapsto T(x)-T(-x).$ Wir betrachten zwei Fälle:}
+		\intertext{1. Fall: $T'(x_{\max})=0$ oder $T'(x_{\min})=0$: Die Aussage folgt sofort aus dem Mittelwertsatz.}
+		\intertext{2. Fall: sonst: Gilt $T(x_{\max}>0,$ ist )}
+		T'(x_{\max})&=T(x_{\max})-T(-x_{\max})>0\\
+		T'(x_{\min})&=T(x_{\min})-T(-x_{\min})<0\\
+		\intertext{und für den Fall $T(x_{\max})<0$ analog. Somit gilt ingesamt}
+		T'(x_{\max})&\cdot T'(x_{\min})=0\\
+		\intertext{Da $\partial K_R(0)$ wegzusammenhängend ist folgt aus dem Zwischenwertsatz direkt, dass}
+		\exists k \in \partial K_R(0)&\text{ s.d. }f(k)=0 : T(k)=T(-k)
+	\end{align*}
+\end{proof}
+\item Seien $f,g: \mathbb{K}^n\longrightarrow \R$ stetig. Für $x\in \mathbb{K}^n$ sei $\varphi$ definiert als: 
+$$\varphi(x):=\max{f(x),g(x)}$$
+Behauptung: $\varphi: \mathbb{K}^n\longrightarrow \R$ ist stetig.
+\begin{proof}
+	\begin{align*}
+	\intertext{Für alle $x,y\in \R$ gilt:}
+	\max{x,y}&=\frac{x+y+|x-y|}{2}.\\
+	\intertext{O.B.d.A. $x\geq y$:}
+	\frac{x+y+|x-y|}{2}&=\frac{x+y+x-y}{2}=x=\max{x,y}.\\
+	\intertext{Daher lässt sich $\varphi$ schreiben als:}
+	\varphi(x)=\max{f(x),g(x)}&=\frac{f(x)+g(x)-|f(x)-g(x)|}{2}.\\
+	\intertext{Da $f,g$ stetig sind, ist insbesondere $|f-g|$ stetig. Da der Nenner des Ausdrucks $2\neq 0,$ ist somit $\varphi$ als Quotient stetiger Funktionen wieder stetig.}
+	\end{align*}
+\end{proof}
+\end{enumerate}
+\section*{Aufgabe 4}
+Sei $f:\mathbb{K}^n\longrightarrow D\subset \mathbb{K}^n$ beliebig und $g:D\subset\mathbb{K}^n\longrightarrow  \mathbb{K}^n$ stetig und injektiv. Sei zusätzlich $D$ kompakt.
+\begin{enumerate}[(i)]
+	\item Behauptung: $g\circ f$ stetig $\implies$ $f$ stetig.
+	\begin{proof}
+		\begin{align*}
+			\intertext{Wir definieren uns zunächst $C:=\mathrm{im}(g)$ und die Funktion $g':D\longrightarrow C.$ Nun ist $g$ stetig und injektiv, weshalb $g'$ ebenfalls stetig und injektiv ist. Außerdem existiert eine stetige Funktion $g'^{-1}:C\longrightarrow D.$ Es gilt für alle $x\in \mathbb{K}^n:$}
+			g'^{-1}(g(f(x)))&=g'^{-1}(g'(f(x)))=f(x).\\
+			\intertext{Also gilt}
+			f&=g'^{-1}\circ g \circ f\\
+			\intertext{Sei nun $g\circ f$ stetig. Somit ist $f$ als Komposition stetiger Funktionen wieder stetig.}
+		\end{align*}
+	\end{proof}
+	\item Behauptung: $g\circ f$ gleichmäßig stetig $\implies f$ gleichmäßig stetig.
+	\begin{proof}
+		\begin{align*}
+		\intertext{Sei $g\circ f$ gleichmäßig stetig. Seien zusätzlich $C,g',g'^{-1}$ wie in (i) definiert. Also lässt sich $f$ wieder als Komposition}
+		f&=g'^{-1}\circ g\circ f\\
+		\intertext{schreiben. Aufgrund der Kompaktheit von $D$ und der Stetikeit von $g$, ist $C$ ebenfalls kompakt. Somit ist aufgrund der Stetikeit von $g'^{-1}$ $g'^{-1}$ gleichmäßig stetig. Insgesamt folgt daraus, dass $f$ als Komposition gleichmäßig stetiger Funktion auch gleichmäßig stetig ist.}
+		\end{align*}
+	\end{proof}
+\end{enumerate}
+\end{document}

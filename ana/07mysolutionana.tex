@@ -1,0 +1,360 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amsfonts, amsthm, mathtools, amssymb}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\usepackage{cases}
+\usepackage{fancyhdr}
+\usepackage{comment}
+%\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{cases}
+\usepackage{listings}
+\usepackage{siunitx}
+\usepackage[left = 3cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{subcaption}
+\usepackage{gauss}
+\usepackage{environ}
+\usepackage{url}
+\newtheorem{satz}{Satz}[section]
+\newtheorem{lemma}[satz]{Lemma}
+\newtheorem{korollar}[satz]{Korollar}
+\newtheorem{proposition}[satz]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[satz]{Def.}
+\newtheorem{axiom}[satz]{Axiom}
+\newtheorem{bsp}[satz]{Bsp.}
+\newtheorem*{anmerkung}{Anm}
+\newtheorem{bemerkung}[satz]{Bem}
+\newtheorem*{notatio}{Notation}
+\newcommand{\obda}{O.B.d.A. }
+\newcommand{\equals}{\Longleftrightarrow}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\intd}{\mathrm{d}}
+\newcommand{\Pot}{\operatorname{Pot}}
+\newcommand{\mychar}{\operatorname{char}}
+\newcommand{\myker}{\operatorname{ker}}
+\newcommand{\induktion}[3]
+{\begin{proof}\ \\
+	\noindent\textbf{Induktionsanfang:}\ #1\\
+	\noindent\textbf{Induktionsvoraussetzung:}\ #2\\
+	\noindent\textbf{Induktionsschluss:}\ #3
+\end{proof}}
+
+\newcommand{\rg}{\operatorname{rg}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\abb}{\operatorname{Abb}}
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\Ima}{\operatorname{Im}}
+\newcommand{\norm}[1]{\left\Vert #1 \right\Vert}
+\newcommand{\pdv}[2]{\frac{\partial #1}{\partial #2}}
+
+
+\ExplSyntaxOn
+
+% S-tackrelcompatible ALIGN environment
+% some might also call it the S-uper ALIGN environment
+% uses regular expressions to calculate the widest stackrel
+% to put additional padding on both sides of relation symbols
+\NewEnviron{salign}
+{
+    \begin{align}
+        \lec_insert_padding:V \BODY
+    \end{align}
+}
+% starred version that does no equation numbering
+\NewEnviron{salign*}
+{
+    \begin{align*}
+        \lec_insert_padding:V \BODY
+    \end{align*}
+}
+
+% some helper variables
+\tl_new:N \l__lec_text_tl
+\seq_new:N \l_lec_stackrels_seq
+\int_new:N \l_stackrel_count_int
+\int_new:N \l_idx_int
+\box_new:N \l_tmp_box
+\dim_new:N \l_tmp_dim_a
+\dim_new:N \l_tmp_dim_b
+\dim_new:N \l_tmp_dim_needed
+
+% function to insert padding according to widest stackrel
+\cs_new_protected:Nn \lec_insert_padding:n
+ {
+  \tl_set:Nn \l__lec_text_tl { #1 }
+  % get all stackrels in this align environment
+  \regex_extract_all:nnN { \c{stackrel}{(.*?)}{(.*?)} } { #1 } \l_lec_stackrels_seq
+  % get number of stackrels
+  \int_set:Nn \l_stackrel_count_int { \seq_count:N \l_lec_stackrels_seq }
+  \int_set:Nn \l_idx_int { 1 }
+  \dim_set:Nn \l_tmp_dim_needed { 0pt }
+  % iterate over stackrels
+  \int_while_do:nn { \l_idx_int <= \l_stackrel_count_int }
+  {
+      % calculate width of text
+      \hbox_set:Nn \l_tmp_box {$\seq_item:Nn \l_lec_stackrels_seq { \l_idx_int + 1 }$}
+      \dim_set:Nn \l_tmp_dim_a {\box_wd:N \l_tmp_box}
+      % calculate width of relation symbol
+      \hbox_set:Nn \l_tmp_box {$\seq_item:Nn \l_lec_stackrels_seq { \l_idx_int + 2 }$}
+      \dim_set:Nn \l_tmp_dim_b {\box_wd:N \l_tmp_box}
+      % check if 0.5*(a-b) > minimum padding, if yes updated minimum padding
+      \dim_compare:nNnTF
+        { 1pt * \dim_ratio:nn { \l_tmp_dim_a - \l_tmp_dim_b } { 2pt } } > { \l_tmp_dim_needed }
+        { \dim_set:Nn \l_tmp_dim_needed { 1pt * \dim_ratio:nn { \l_tmp_dim_a - \l_tmp_dim_b } { 2pt } } }
+        { }
+      \quad
+      % increment list index by three, as every stackrel produces three list entries
+      \int_incr:N \l_idx_int
+      \int_incr:N \l_idx_int
+      \int_incr:N \l_idx_int
+  }
+  % replace all relations with align characters (&) and add the needed padding
+  \regex_replace_all:nnN
+      { (\c{iff}&|&\c{iff}|\c{impliedby}&|&\c{impliedby}|\c{implies}&|&\c{implies}|\c{approx}&|&\c{approx}|\c{equiv}&|&\c{equiv}|=&|&=|\c{le}&|&\c{le}|\c{ge}&|&\c{ge}|&\c{stackrel}{.*?}{.*?}|\c{stackrel}{.*?}{.*?}&|&\c{neq}|\c{neq}&) }
+      { \c{kern} \u{l_tmp_dim_needed} \1 \c{kern} \u{l_tmp_dim_needed} }
+      \l__lec_text_tl
+  \l__lec_text_tl
+ }
+\cs_generate_variant:Nn \lec_insert_padding:n { V }
+\ExplSyntaxOff
+
+
+\newcommand{\ipilayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Einführung in die praktische Informatik, Blatt #1}
+	\fancyhead[R]{Josua Kugler, Jan Metzger, David Wesner}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Peter Bastian\\
+			Tutor: Frederick Schenk}
+		\rhead{Einführung in die praktische Informatik, Übungsblatt #1\\ David, Jan, Josua}
+		\cfoot{\thepage}
+	}
+\thispagestyle{firstpage}
+}
+
+\newcommand{\analayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Analysis 2, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Ekaterina Kostina\\
+			Tutor: Julian Matthes}
+		\rhead{Analysis 1, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+\newcommand{\lalayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Lineare Algebra 2, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Denis Vogel\\
+			Tutor: Marina Savarino}
+		\rhead{Lineare Algebra 2, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+
+\lstset{
+    frame=tb, % draw a frame at the top and bottom of the code block
+    tabsize=4, % tab space width
+    showstringspaces=false, % don't mark spaces in strings
+    numbers=left, % display line numbers on the left
+    commentstyle=\color{green}, % comment color
+    keywordstyle=\color{blue}, % keyword color
+    stringstyle=\color{red} % string color
+}
+\setlength{\headheight}{25pt}
+
+\makeatletter \renewcommand\d{\ensuremath{%
+		\;\mathrm{d}\@ifnextchar\d{\!}{}}}
+\makeatother
+
+\let\oldstackrel\stackrel
+\renewcommand{\stackrel}[2]{%
+    \oldstackrel{\mathclap{#1}}{#2}
+}%
+
+% maximum norm
+\newcommand{\maxnorm}[1]{\left|\left|#1\right|\right|_\infty}
+\renewcommand{\epsilon}{\varepsilon}
+
+\begin{document}
+\analayout{7}
+\noindent \textbf{Anmerkung:} Wir benutzen für Referenzen unser mit ein paar Kommilitonen zusammen getextes Skript, zu finden unter \url{https://flavigny.de/lecture/pdf/analysis2}.
+\section*{Aufgabe 1}
+\begin{enumerate}[(a)]
+	\item Sei $f:\R^2\longrightarrow \R, f(x,y)=e^x\cos(y)+\ln(1+y^2)$ Dann gilt:
+	$$\nabla f=\begin{pmatrix}
+			e^x\cos(y)\\
+			-e^x\sin(y)+\frac{2y}{1+y^2}
+	\end{pmatrix}$$
+	\item Sei $f:\R^2\longrightarrow \R$ definiert durch 
+	 $$f(x,y)=\left\{\begin{array}{cc}
+		xy\frac{x^2-y^2}{x^2+y^2},&(x,y)\neq (0,0)\\
+		0, & (x,y)=(0,0)
+	 \end{array}\right.$$
+	 Behauptung: $f$ ist zweimal partiell differenzierbar, aber $$\frac{\partial^2f(0,0)}{\partial x\partial y}\neq \frac{\partial^2f(0,0)}{\partial y\partial x}$$
+	 \begin{proof}
+		Sei $(x,y)\neq (0,0).$ Dann gilt 
+		\begin{align*}
+			\frac{\partial f}{\partial x}&=\frac{\partial}{\partial x}\frac{x^3y-xy^3}{x^2-y^2}\\
+			&= \frac{yx^4+4x^2y^3-y^5}{(x^2+y^2)^2}\\
+			\intertext{und}
+			\frac{\partial f}{\partial y}&=\frac{\partial}{\partial y}\frac{x^3y-xy^3}{x^2-y^2}\\
+			&=\frac{x^5-4y^2x^3-y^4x}{(x^2+y^2)^2}
+		\end{align*}
+		Da $(x^2+y^2)^2\neq 0$ sind diese partiellen Ableitungen als Quotienten partieller Ableitungen wieder partiell differenzierbar.
+		\begin{align*}
+			\intertext{Für die partielle Ableitung von $f$ im Punkt $(x,y)=(0,0)$ gilt }
+			\frac{\partial f}{\partial x}(0,0)&=\underset{h\to 0}{\lim}\frac{f((0,0)+(h,0))-f(0,0)}{h}=\underset{h\to 0}{\lim}\frac{f(h,0)}{h}=0\\
+			\frac{\partial f}{\partial y}(0,0)&=\underset{h\to 0}{\lim}\frac{f((0,0)+(0,h))-f(0,0)}{h}=\underset{h\to 0}{\lim}\frac{f(0,h)}{h}=0,\\
+			\intertext{und für die zweiten partiellen Ableitungen gilt }
+			\frac{\partial^2f(0,0)}{\partial x\partial y}&=\underset{h\to 0}{\lim}\frac{\frac{\partial f}{\partial y}(h,0)-\frac{\partial f}{\partial y}(0,0)}{h}=\underset{h\to 0}{\lim}\frac{\frac{\partial f}{\partial y}(h,0)}{h}=\frac{h^5}{hh^4}=1\\
+			\frac{\partial^2f(0,0)}{\partial y\partial x}&=\underset{h\to 0}{\lim}\frac{\frac{\partial f}{\partial x}(h,0)-\frac{\partial f}{\partial x}(0,0)}{h}=\underset{h\to 0}{\lim}\frac{\frac{\partial f}{\partial x}(h,0)}{h}=-\frac{h^5}{hh^4}=-1.\\
+			\intertext{Somit existieren die zweiten partiellen Ableitungen, aber es gilt }
+		\end{align*}
+		$$\frac{\partial^2f(0,0)}{\partial y\partial x}\neq \frac{\partial^2f(0,0)}{\partial x\partial y}.$$
+	\end{proof}
+	Behauptung: Die partielle Ableitung $\frac{\partial f}{\partial x\partial y}$ ist unstetig in $(0,0)$.
+	\begin{proof}
+		Es ist für $(x,y)\neq (0,0)$:
+		$$\frac{\partial f}{\partial x\partial y}=\frac{x^6+9x^4y^2-9x^2y^4-y^6}{(x^2+y^2)^3}.$$
+		Für die Folge $(x,y)_n=(\frac{1}{n},\frac{1}{n})$ gilt $\underset{n\to \infty}{\lim}(x,y)_n\longrightarrow (0,0).$ Jedoch ist außerdem 
+		$$\frac{\partial f}{\partial x\partial y}(x,y)_n=\frac{\frac{1}{n^6}-\frac{9}{n^6}-\frac{9}{n^6}-\frac{1}{n^6}}{\frac{8}{n^6}}=0\neq 1=\frac{\partial f}{\partial x\partial y}(0,0).$$
+		Der Satz von Schwarz wirkt nur, wenn $f$ 2-mal stetig partiell diffbar ist für alle $x\in D.$ Für $x=(0,0)$ ist die zweite partielle Ableitung von $f$ nicht stetig.
+	\end{proof}
+
+\end{enumerate}
+\section*{Aufgabe 2}
+\begin{enumerate}[(a)]
+	\item Die Folge $\left(a_n\right)_{n\in \N},\; a_n = \left(\frac{1}{n^2}, \frac{1}{n}\right)^T$ konvergiert gegen (0,0) für $n \to \infty$. Allerdings gilt \[\lim\limits_{n\to \infty} f(a_n) = \lim\limits_{n\to \infty} \frac{\frac{1}{n^2}\cdot \frac{1}{n^2}}{\frac{1}{n^4} + \frac{1}{n^4}} = \frac{1}{2} \neq 0.\] Also ist $f$ an der Stelle $(0,0)$ unstetig und daher auch nicht differenzierbar. Die Richtungsableitung nach $v$ ergibt sich als \[\lim\limits_{t\searrow 0} \frac{f\left(t \cdot \begin{pmatrix}
+		v_0\\v_1
+	\end{pmatrix}\right)-f(0,0)}{t} = \lim\limits_{t\searrow 0} \frac{\frac{t^3 v_0 \cdot v_1^2}{t^2v_0^2 + t^4v_1^4}}{t} = \lim\limits_{t\searrow 0} \frac{v_0v_1^2}{v_0^2 + t^2\cdot v_1^4}.\]
+	Ist nun $v_0 = 0$, so ist der Zähler und damit der gesamte Limes $0$. Sonst schreiben wir \[\lim\limits_{t\searrow 0} \frac{v_0v_1^2}{v_0^2 + t^2\cdot v_1^4} = \frac{v_0v_1^2}{v_0^2} = \frac{v_1^2}{v_0}.\]
+	Damit haben wir für beliebige $v_0, v_1$ gezeigt, dass die Richtungsableitung für $v = \begin{pmatrix}
+		v_0\\v_1
+	\end{pmatrix}$ existiert.
+	\item Wählen wir die euklidische Norm, so gilt
+	\begin{salign*}
+		\lim\limits_{h\to 0} \frac{f(h)-f(0)}{\norm{h}_2} 
+		&= \lim\limits_{h\to 0} \frac{(h_1^2 + h_2^2)\sin\left(\frac{1}{\sqrt{h_1^2 + h_2^2}}\right)}{\sqrt{h_1^2 + h_2^2}}\\
+		&= \lim\limits_{h\to 0} \sqrt{h_1^2 + h_2^2}\sin\left(\frac{1}{\sqrt{h_1^2 + h_2^2}}\right)\\
+		&\stackrel{h \to 0 \implies \norm{h}_2 \to 0}{=} \lim\limits_{\norm{h}_2\to 0} \norm{h}_2\underbrace{\sin\left(\frac{1}{\norm{h}_2}\right)}_{\mathclap{\text{beschränkt}}}\\
+		&= 0
+	\end{salign*}
+	Also ist $f$ an der Stelle $0$ differenzierbar mit $Df = 0$, also ist insbesondere $\pdv{f}{x}\big|_0 = 0$. Es gilt aber 
+	\begin{align*}
+		\pdv{f}{x}(x,y) &= (x^2 + y^2) \cdot \cos\left(\frac{1}{\sqrt{x^2 + y^2}}\right) \cdot - \frac{1}{2} \frac{1}{\sqrt{x^2 + y^2}^3} \cdot 2x + 2x \cdot \sin\left(\frac{1}{\sqrt{x^2 + y^2}}\right)\\
+		&= -\frac{x}{\sqrt{x^2 + y^2}}\cdot \cos\left(\frac{1}{\sqrt{x^2 + y^2}}\right) + 2x \cdot \sin\left(\frac{1}{\sqrt{x^2 + y^2}}\right)
+	\end{align*}
+	Betrachten wir nun die Nullfolge $(a_n)_{n\in \N}, a_n = \left(\frac{1}{2 \pi n}, 0\right)^T$, so erhalten wir 
+	\begin{salign*}
+		\pdv{f}{x}(a_n) &= -1 \cdot \cos\left(\frac{1}{\frac{1}{2\pi n}}\right) + \frac{2}{2\pi n} \cdot \sin\left(\frac{1}{\frac{1}{2\pi n}}\right)\\
+		&= -1 \cdot \cos(n \cdot 2\pi) + \frac{1}{\pi n} \cdot \sin(n \cdot 2\pi)\\
+		&= -1 \cdot 1 + \frac{1}{\pi n}\cdot 0\\
+		&= -1\\
+		&\neq 0 = \pdv{f}{y}\big|_0
+	\end{salign*}
+	Also ist $\pdv{f}{x}$ an der Stelle $0$ unstetig.
+\end{enumerate}
+\section*{Aufgabe 3}
+Es gilt 
+\[
+	D_f(1,e) = \left.\begin{pmatrix}
+		\ln x_2 & \frac{x_1}{x_2}\\[0.2em]
+		\frac{x_2}{\cos^2(x_1x_2)}& \frac{x_1}{\cos^2(x_1x_2)}
+	\end{pmatrix}\right|_{1,e} = \begin{pmatrix}
+		1 & \frac{1}{e}\\[0.2em]
+		\frac{e}{\cos^2(e)} & \frac{1}{\cos^2(e)}
+	\end{pmatrix}
+\] und 
+\[
+	D_g(f(1,e)) = \left.\begin{pmatrix}
+		2y_1 & 0\\0& y_2
+	\end{pmatrix} \right|_{f(1,e) = (1, \tan(e))} = \begin{pmatrix}
+		2 & 0\\ 0 & 2 \tan(e)
+	\end{pmatrix}
+\]
+Mit der Kettenregel erhalten wir 
+\[
+	D_h(1,e) = D_{g \circ f}(1,e) = D_g(f(1,e)) \cdot D_f(1,e) = \begin{pmatrix}
+		2 & 0\\ 0 &2 \tan(e)
+	\end{pmatrix} \cdot \begin{pmatrix}
+		1 & \frac{1}{e}\\[0.2em]
+		\frac{e}{\cos^2(e)} & \frac{1}{\cos^2(e)}
+	\end{pmatrix} = \begin{pmatrix}
+		2 & \frac{2}{e}\\[0.2em]
+		\frac{2 e\tan(e)}{\cos^2(e)} & \frac{2 \tan(e)}{\cos^2(e)}
+	\end{pmatrix}
+\]
+Es gilt \[h(x_1, x_2) = (g \circ f) (x_1,x_2) = \begin{pmatrix}
+	x_1^2\ln^2(x_2)\\\tan^2(x_1x_2)
+\end{pmatrix}.\] Für die Jacobi-Matrix ohne die Kettenregel erhalten wir demnach
+\[
+	D_h(1,e) = \left.\begin{pmatrix}
+		2x_1\ln^2(x_2) & \frac{x_1^2\cdot 2\ln(x_2)}{x_2}\\[0.2em]
+		2x_2\tan(x_1x_2)\frac{1}{\cos^2(x_1x_2)} & 2 x_1 \tan(x_1x_2)\frac{1}{\cos^2(x_1x_2)}
+	\end{pmatrix}\right|_{1,e} = \begin{pmatrix}
+		2 & \frac{2}{e}\\[0.2em]
+		\frac{2e\tan(e)}{\cos^2(e)} & \frac{2\tan(e)}{\cos^2(e)}
+	\end{pmatrix}
+\]
+\section*{Aufgabe 4}
+Sei $f:\R\longrightarrow \R^2$ mit 
+$$f(x)=\begin{pmatrix}
+	\cos(x)\\
+	\sin(x)
+\end{pmatrix}$$
+Seien $a=0$ und $b=2\pi.$\newline
+Behauptung: Es existiert kein $\xi \in (a,b)$ mit $f(b)-f(a)=D_f(\xi)(b-a).$
+\begin{proof}
+	Es gilt 
+	$$ D_f(x)=\begin{pmatrix}
+		-\sin(x)\\
+		\cos(x)
+	\end{pmatrix}.$$ Nach Ana 1 wissen wir, dass $\cos(x)$ und $\sin(x)$ keine gemeinsamen Nullstellen in $\R$ haben. Somit gilt $\forall x\in \R:$
+	$$ D_f(x)\neq \begin{pmatrix}
+		0\\
+		0
+	\end{pmatrix}.$$
+	Insgesamt gilt somit 
+	$$f(b)-f(a)=\begin{pmatrix}
+		\cos(2\pi)\\
+		\sin(2\pi)
+	\end{pmatrix}-\begin{pmatrix}
+		\cos(0)\\
+		\sin(0)
+	\end{pmatrix}=\begin{pmatrix}
+		1\\
+		0
+	\end{pmatrix}-\begin{pmatrix}
+		1\\
+		0
+	\end{pmatrix}
+	=0\neq 2\pi\begin{pmatrix}
+		-\sin(\xi)\\
+		\cos(\xi)
+	\end{pmatrix}=D_f(\xi).$$
+\end{proof}
+
+\end{document}
