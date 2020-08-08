@@ -1,0 +1,23 @@
+- einführendes Beispiel
+- Definitionen I (+ grundlegende Eigenschaften zeigen)
+	- zusammenhängend
+	- Baum (n Knoten -> n-1 Kanten, Baum <=> minimal zusammenhängend und maximal kreisfrei)
+	- Blätter
+	- aufspannender Baum
+	- minimal aufspannender Baum
+	* Cayley-Formel
+	- azyklisch
+- Algorithmen I
+	- Breitensuche
+	- Tiefensuche
+	- Korrektheit (je nachdem wie technisch ausführlich)
+
+- Definitionen II
+	- Matroid
+		- Basis
+		- Rang
+		- unabhängige Mengen
+- Algorithmen II
+	- Prim
+	- Kruskal
+	- Korrektheit

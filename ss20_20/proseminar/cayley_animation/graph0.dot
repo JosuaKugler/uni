@@ -1,0 +1,5 @@
+strict graph "" {
+	2	 [style=vertex];
+	6	 [style=vertex];
+	2 -- 6	 [style="edge"];
+}

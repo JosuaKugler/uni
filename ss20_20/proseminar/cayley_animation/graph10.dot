@@ -1,0 +1,26 @@
+strict graph "" {
+	2	 [style=vertex];
+	6	 [style=vertex];
+	2 -- 6	 [style="edge"];
+	8	 [style=vertex];
+	2 -- 8	 [style="edge"];
+	7	 [style=vertex];
+	2 -- 7	 [style="edge"];
+	9	 [style=vertex];
+	7 -- 9	 [style="edge"];
+	1	 [style=vertex];
+	7 -- 1	 [style="edge"];
+	3	 [style=vertex];
+	1 -- 3	 [style="edge"];
+	12	 [style=vertex];
+	1 -- 12	 [style="edge"];
+	4	 [style=vertex];
+	1 -- 4	 [style="edge"];
+	5	 [style=vertex];
+	10	 [style=vertex];
+	5 -- 10	 [style="edge"];
+	11	 [style=vertex];
+	3 -- 11	 [style="edge"];
+	13	 [style=vertex];
+	4 -- 13	 [style="edge"];
+}

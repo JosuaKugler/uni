@@ -1,0 +1,11 @@
+\begin{frame}
+    \frametitle{Algorithmus von Kruskal}
+    \begin{algorithm}
+        \alginout{gewichteter Graph $G = (V,E)$ mit $n$ Knoten, Funktion $w : E \rightarrow \mathbb{R}$  }{minimal Spannbaum $G'$ von $G$}
+        \begin{algtab}
+            \algwhile{$\# G < n - 1$}
+            		betrachte Kante $e$ aus $G$ mit $w(e) = \min_{e \in E}w(e)$\\
+                    \algifthenelse{$G'$ mit $e$ azyklisch}{$e$ von $G$ zu $G'$}{entferne $e$ in $G$}
+        \end{algtab}
+    \end{algorithm}
+\end{frame}

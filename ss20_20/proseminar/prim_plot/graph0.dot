@@ -1,0 +1,37 @@
+strict graph "" {
+	a	 [style=vertex];
+	b	 [style=vertex];
+	a -- b	 [color=black,
+		label=1,
+		minlen=1,
+		style="edge",
+		weight=1];
+	c	 [style=vertex];
+	a -- c	 [color=black,
+		label=1,
+		minlen=1,
+		style="edge",
+		weight=1];
+	d	 [style=vertex];
+	a -- d	 [color=black,
+		label=2,
+		minlen=2,
+		style="edge",
+		weight=2];
+	e	 [style=vertex];
+	a -- e	 [color=black,
+		label=5,
+		minlen=5,
+		style="edge",
+		weight=5];
+	b -- c	 [color=black,
+		label=2,
+		minlen=2,
+		style="edge",
+		weight=2];
+	b -- e	 [color=black,
+		label=4,
+		minlen=4,
+		style="edge",
+		weight=4];
+}

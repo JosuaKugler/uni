@@ -1,0 +1,22 @@
+
+\begin{tikzpicture}[>=latex,line join=bevel,]
+%%
+\begin{scope}[scale=0.5]
+  \node (2) at (99.0bp,162.0bp) [draw,ellipse,vertex] {$2$};
+  \node (6) at (27.0bp,90.0bp) [draw,ellipse,vertex] {$6$};
+  \node (8) at (99.0bp,90.0bp) [draw,ellipse,vertex] {$8$};
+  \node (7) at (171.0bp,90.0bp) [draw,ellipse,vertex] {$7$};
+  \node (9) at (135.0bp,18.0bp) [draw,ellipse,vertex] {$9$};
+  \node (1) at (207.0bp,18.0bp) [draw,ellipse,vertex] {$1$};
+  \node (5) at (243.0bp,162.0bp) [draw,ellipse,vertex] {$5$};
+  \node (10) at (243.0bp,90.0bp) [draw,ellipse,vertex] {$10$};
+\end{scope}
+  \draw [edge] (2) -- (6);
+  \draw [edge] (2) -- (8);
+  \draw [edge] (2) -- (7);
+  \draw [edge] (7) -- (9);
+  \draw [edge] (7) -- (1);
+  \draw [edge] (5) -- (10);
+%
+\end{tikzpicture}
+

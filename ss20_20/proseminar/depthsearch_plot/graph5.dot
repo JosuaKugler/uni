@@ -1,0 +1,24 @@
+strict graph "" {
+	a	 [color=red,
+		style="selected vertex"];
+	b	 [color=red,
+		style="selected vertex"];
+	a -- b	 [color=black,
+		style="edge"];
+	c	 [color=red,
+		style="selected vertex"];
+	a -- c	 [color=red,
+		style="edge"];
+	d	 [color=red,
+		style="selected vertex"];
+	a -- d	 [color=red,
+		style="edge"];
+	e	 [color=red,
+		style="selected vertex"];
+	a -- e	 [color=red,
+		style="edge"];
+	b -- c	 [color=black,
+		style="edge"];
+	b -- e	 [color=red,
+		style="edge"];
+}

@@ -1,0 +1,10 @@
+\begin{frame}
+    \frametitle{Algorithmus von Kruskal - Korrektheitsbeweis}
+    \begin{theorem}
+    		$M = (K, W)$ Matroid mit Gewichtsfunktion $w: K \rightarrow \mathbb{R}$. Algorithmus liefert minimalen Spannbaum:
+    		\begin{enumerate}
+    			\item Sei $A_{0} = \emptyset \in W$.
+    			\item Ist $A_{1} = \{ a_{1},...,a_{i}\} \subseteq K$, so sei $X_{i} = \{ k \in S\setminus A_{i} \ | \ A_{i} \cup \{ x\} \in U \}$. Falls $X_{i} = \emptyset$, so ist $A_{i}$ gesuchte Basis. Andernfalls wähle ein $a_{i+1} \in X_{i}$ mit minimalem Gewicht, und setze $A_{i + 1} = A_{i} \cup \{ a_{i+1}\}$. \\ Iteriere (2).
+    		\end{enumerate}
+    \end{theorem}
+\end{frame}
