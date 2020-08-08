@@ -1,0 +1,193 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amsfonts, amsthm, mathtools, amssymb}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\usepackage{cases}
+\usepackage{fancyhdr}
+\usepackage{comment}
+%\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{calc,intersections,through,backgrounds}
+\usepackage{cases}
+\usepackage{listings}
+\usepackage{siunitx}
+\usepackage[left = 2cm, right = 2cm, top=2.5cm, bottom=2.5cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{subcaption}
+\usepackage{gauss}
+\usepackage{environ}
+\newtheorem{satz}{Satz}[section]
+\newtheorem{lemma}[satz]{Lemma}
+\newtheorem{korollar}[satz]{Korollar}
+\newtheorem{proposition}[satz]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[satz]{Def.}
+\newtheorem{axiom}[satz]{Axiom}
+\newtheorem{bsp}[satz]{Bsp.}
+\newtheorem*{anmerkung}{Anm}
+\newtheorem{bemerkung}[satz]{Bem}
+\newtheorem*{notatio}{Notation}
+\newcommand{\obda}{O.B.d.A. }
+\newcommand{\equals}{\Longleftrightarrow}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\intd}{\mathrm{d}}
+\newcommand{\Pot}{\operatorname{Pot}}
+\newcommand{\mychar}{\operatorname{char}}
+\newcommand{\myker}{\operatorname{ker}}
+\newcommand{\induktion}[3]
+{\begin{proof}\ \\
+	\noindent\textbf{Induktionsanfang:}\ #1\\
+	\noindent\textbf{Induktionsvoraussetzung:}\ #2\\
+	\noindent\textbf{Induktionsschluss:}\ #3
+\end{proof}}
+
+\newcommand{\rg}{\operatorname{rg}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\abb}{\operatorname{Abb}}
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\Ima}{\operatorname{Im}}
+\newcommand{\Fit}{\operatorname{Fit}}
+\newcommand{\ggt}{\operatorname{GGT}}
+
+\let\oldstackrel\stackrel
+\renewcommand{\stackrel}[2]{%
+    \oldstackrel{\mathclap{#1}}{#2}
+}%
+\ExplSyntaxOn
+
+% S-tackrelcompatible ALIGN environment
+% some might also call it the S-uper ALIGN environment
+% uses regular expressions to calculate the widest stackrel
+% to put additional padding on both sides of relation symbols
+\NewEnviron{salign}
+{
+    \begin{align}
+        \lec_insert_padding:V \BODY
+    \end{align}
+}
+% starred version that does no equation numbering
+\NewEnviron{salign*}
+{
+    \begin{align*}
+        \lec_insert_padding:V \BODY
+    \end{align*}
+}
+
+% some helper variables
+\tl_new:N \l__lec_text_tl
+\seq_new:N \l_lec_stackrels_seq
+\int_new:N \l_stackrel_count_int
+\int_new:N \l_idx_int
+\box_new:N \l_tmp_box
+\dim_new:N \l_tmp_dim_a
+\dim_new:N \l_tmp_dim_b
+\dim_new:N \l_tmp_dim_needed
+
+% function to insert padding according to widest stackrel
+\cs_new_protected:Nn \lec_insert_padding:n
+ {
+  \tl_set:Nn \l__lec_text_tl { #1 }
+  % get all stackrels in this align environment
+  \regex_extract_all:nnN { \c{stackrel}{(.*?)}{(.*?)} } { #1 } \l_lec_stackrels_seq
+  % get number of stackrels
+  \int_set:Nn \l_stackrel_count_int { \seq_count:N \l_lec_stackrels_seq }
+  \int_set:Nn \l_idx_int { 1 }
+  \dim_set:Nn \l_tmp_dim_needed { 0pt }
+  % iterate over stackrels
+  \int_while_do:nn { \l_idx_int <= \l_stackrel_count_int }
+  {
+      % calculate width of text
+      \hbox_set:Nn \l_tmp_box {$\seq_item:Nn \l_lec_stackrels_seq { \l_idx_int + 1 }$}
+      \dim_set:Nn \l_tmp_dim_a {\box_wd:N \l_tmp_box}
+      % calculate width of relation symbol
+      \hbox_set:Nn \l_tmp_box {$\seq_item:Nn \l_lec_stackrels_seq { \l_idx_int + 2 }$}
+      \dim_set:Nn \l_tmp_dim_b {\box_wd:N \l_tmp_box}
+      % check if 0.5*(a-b) > minimum padding, if yes updated minimum padding
+      \dim_compare:nNnTF
+        { 1pt * \dim_ratio:nn { \l_tmp_dim_a - \l_tmp_dim_b } { 2pt } } > { \l_tmp_dim_needed }
+        { \dim_set:Nn \l_tmp_dim_needed { 1pt * \dim_ratio:nn { \l_tmp_dim_a - \l_tmp_dim_b } { 2pt } } }
+        { }
+      \quad
+      % increment list index by three, as every stackrel produces three list entries
+      \int_incr:N \l_idx_int
+      \int_incr:N \l_idx_int
+      \int_incr:N \l_idx_int
+  }
+  % replace all relations with align characters (&) and add the needed padding
+  \regex_replace_all:nnN
+      { (\c{approx}&|&\c{approx}|\c{equiv}&|&\c{equiv}|=&|&=|\c{le}&|&\c{le}|\c{ge}&|&\c{ge}|&\c{stackrel}{.*?}{.*?}|\c{stackrel}{.*?}{.*?}&|&\c{neq}|\c{neq}&) }
+      { \c{kern} \u{l_tmp_dim_needed} \1 \c{kern} \u{l_tmp_dim_needed} }
+      \l__lec_text_tl
+  \l__lec_text_tl
+ }
+\cs_generate_variant:Nn \lec_insert_padding:n { V }
+\ExplSyntaxOff
+
+
+
+\newcommand{\lalayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Lineare Algebra 1, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Dozent: Denis Vogel\\
+			Tutor: Marina Savarino}
+		\rhead{Lineare Algebra 2, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+
+\lstset{
+    frame=tb, % draw a frame at the top and bottom of the code block
+    tabsize=4, % tab space width
+    showstringspaces=false, % don't mark spaces in strings
+    numbers=left, % display line numbers on the left
+    commentstyle=\color{green}, % comment color
+    keywordstyle=\color{blue}, % keyword color
+    stringstyle=\color{red} % string color
+}
+\setlength{\headheight}{25pt}
+\begin{document}
+\lalayout{7}
+\section*{Aufgabe 26}
+Sei $R$ ein Ring, $M, N$ $R$-Moduln und $\varphi:M\longrightarrow N$ ein $R$-Modulhomomorphismus. Sei $\iota:\ker \varphi\longrightarrow M$ die kanonische Inklusion. \newline
+Behauptung: Zu jedem $R$-Modul $U$ und jedem $R$-Modulhomomorphismus $f:U\longrightarrow M$ mit $\varphi\circ f=0$ existiert einen eindeutig bestimmten $R$-Modulhomomorphismus $g:U\longrightarrow \ker \varphi$ mit $f=\iota \circ g.$ 
+\begin{proof}
+    \begin{enumerate}[(i)]
+        \item \begin{align*}
+            \intertext{Existenz: Wir definieren die Funktion}
+            g:U&\longrightarrow \ker \varphi\\
+            u&\longrightarrow f(u).\\
+            \intertext{$g$ ist wohldefiniert, denn $\varphi\circ f=0,$ also ist $\im f\subseteq \ker \varphi.$ Weil $f$ ein Modulhomomorphismus ist, ist somit auch $g$ einer. Für $u\in U$ ist $f(u)=g(u)=\iota(g(u))\Leftrightarrow f=\iota \circ g.$}
+        \end{align*}
+        \item \begin{align*}
+            \intertext{Eindeutigkeit von $g$: Seien $g,g':U\longrightarrow \ker \varphi$ zwei $R$-Modulhomomorphismen mit $f=\iota\circ g=\iota\circ g'.$ Dann gilt für alle $u\in U:$}
+                g'(u)s=\iota(g'(u))&=f(u)=\iota(g(u))=g(u).\\
+                \intertext{Es gilt also }
+                g&=g'
+        \end{align*}
+        
+    \end{enumerate}
+\end{proof}
+\section*{Aufgabe 27}
+\begin{enumerate}[(a)]
+    \item Das ist wörtlich die universellen Eigenschaft freier Moduln (UF) für das Tupel $(M_i, (x_{i,j})_{j\in J_i})$.
+    \item Wir zeigen, dass $M$ frei ist mit Basis $q_i(x_{i,j})_{(i,j)\in K}$. Sei also ein $R$-Modul $N$ und eine Familie $(y_{i,j})_{(i,j)\in K}$. Zu zeigen: $\exists ! f : M \to N$ mit $f(q_i(x_{i,j})) = y_{i,j} \forall (i,j)\in K$.
+    \begin{proof}
+        Nach Aufgabe $a$ gibt es für alle $i\in I$ einen eindeutigen $R$-Modulhomomorphismus $f_i : M_i \to N$ mit $f_i(x_{i,j})= y_{i,j}$ für alle $j\in J_i$. Die universelle Eigenschaft der direkten Summe besagt, dass für jeden $R$-Modul $N$ und jede Familie $(f_i)_{i\in I}$ von $R$-Modulhomomorphismen $f_i:N\mapsto M_i$ genau ein $R$-Modulhomomorphismus $f:N\mapsto M $ mit $f_i=f\circ q_i$ für alle $i\in J$ existiert, insbesondere also auch für die Familie $(f_i)_{i\in i}$ aus Teilaufgabe~(a). Es gilt demnach \[f(q_i(x_{i,j})) = f_i(x_{i,j}) = y_{i,j}.\]
+        Also erfüllt $f$ die geforderte Eigenschaft. Angenommen, es gäbe nun ein $f'$ mit $f'(q_i(x_{i,j})) = y_{i,j}$. Sei dann $f_i' = f'\circ q_i$. Dann gilt $f_i' (x_{i,j}) = y_{i,j}$. Allerdings ist nach Teilaufgabe~(a) $f_i$ eindeutig über diese Eigenschaft bestimmt. Also ist $f_i' = f_i$. Also gilt $f_i = f' \circ q_i$. Nach der universellen Eigenschaft der direkten Summe ist $f$ aber darüber eindeutig definiert, also ist $f' = f$. 
+    \end{proof}
+\end{enumerate}
+\end{document}

@@ -1,0 +1,212 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amsfonts, amsthm, mathtools, amssymb}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\usepackage{cases}
+\usepackage{fancyhdr}
+\usepackage{comment}
+%\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{calc,intersections,through,backgrounds, babel}
+\usepackage{tikz-cd}
+\usepackage{cases}
+\usepackage{listings}
+\usepackage{siunitx}
+\usepackage[left = 2cm, right = 2cm, top=2.5cm, bottom=2.5cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{subcaption}
+\usepackage{gauss}
+\usepackage{environ}
+\newtheorem{satz}{Satz}[section]
+\newtheorem{lemma}[satz]{Lemma}
+\newtheorem{korollar}[satz]{Korollar}
+\newtheorem{proposition}[satz]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[satz]{Def.}
+\newtheorem{axiom}[satz]{Axiom}
+\newtheorem{bsp}[satz]{Bsp.}
+\newtheorem*{anmerkung}{Anm}
+\newtheorem{bemerkung}[satz]{Bem}
+\newtheorem*{notatio}{Notation}
+\newcommand{\obda}{O.B.d.A. }
+\newcommand{\equals}{\Longleftrightarrow}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\intd}{\mathrm{d}}
+\newcommand{\Pot}{\operatorname{Pot}}
+\newcommand{\mychar}{\operatorname{char}}
+\newcommand{\myker}{\operatorname{ker}}
+\newcommand{\induktion}[3]
+{\begin{proof}\ \\
+	\noindent\textbf{Induktionsanfang:}\ #1\\
+	\noindent\textbf{Induktionsvoraussetzung:}\ #2\\
+	\noindent\textbf{Induktionsschluss:}\ #3
+\end{proof}}
+
+\newcommand{\rg}{\operatorname{rg}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\abb}{\operatorname{Abb}}
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\Ima}{\operatorname{Im}}
+\newcommand{\Fit}{\operatorname{Fit}}
+\newcommand{\ggt}{\operatorname{GGT}}
+\newcommand{\id}{\operatorname{id}}
+
+\let\oldstackrel\stackrel
+\renewcommand{\stackrel}[2]{%
+    \oldstackrel{\mathclap{#1}}{#2}
+}%
+\ExplSyntaxOn
+
+% S-tackrelcompatible ALIGN environment
+% some might also call it the S-uper ALIGN environment
+% uses regular expressions to calculate the widest stackrel
+% to put additional padding on both sides of relation symbols
+\NewEnviron{salign}
+{
+    \begin{align}
+        \lec_insert_padding:V \BODY
+    \end{align}
+}
+% starred version that does no equation numbering
+\NewEnviron{salign*}
+{
+    \begin{align*}
+        \lec_insert_padding:V \BODY
+    \end{align*}
+}
+
+% some helper variables
+\tl_new:N \l__lec_text_tl
+\seq_new:N \l_lec_stackrels_seq
+\int_new:N \l_stackrel_count_int
+\int_new:N \l_idx_int
+\box_new:N \l_tmp_box
+\dim_new:N \l_tmp_dim_a
+\dim_new:N \l_tmp_dim_b
+\dim_new:N \l_tmp_dim_needed
+
+% function to insert padding according to widest stackrel
+\cs_new_protected:Nn \lec_insert_padding:n
+ {
+  \tl_set:Nn \l__lec_text_tl { #1 }
+  % get all stackrels in this align environment
+  \regex_extract_all:nnN { \c{stackrel}{(.*?)}{(.*?)} } { #1 } \l_lec_stackrels_seq
+  % get number of stackrels
+  \int_set:Nn \l_stackrel_count_int { \seq_count:N \l_lec_stackrels_seq }
+  \int_set:Nn \l_idx_int { 1 }
+  \dim_set:Nn \l_tmp_dim_needed { 0pt }
+  % iterate over stackrels
+  \int_while_do:nn { \l_idx_int <= \l_stackrel_count_int }
+  {
+      % calculate width of text
+      \hbox_set:Nn \l_tmp_box {$\seq_item:Nn \l_lec_stackrels_seq { \l_idx_int + 1 }$}
+      \dim_set:Nn \l_tmp_dim_a {\box_wd:N \l_tmp_box}
+      % calculate width of relation symbol
+      \hbox_set:Nn \l_tmp_box {$\seq_item:Nn \l_lec_stackrels_seq { \l_idx_int + 2 }$}
+      \dim_set:Nn \l_tmp_dim_b {\box_wd:N \l_tmp_box}
+      % check if 0.5*(a-b) > minimum padding, if yes updated minimum padding
+      \dim_compare:nNnTF
+        { 1pt * \dim_ratio:nn { \l_tmp_dim_a - \l_tmp_dim_b } { 2pt } } > { \l_tmp_dim_needed }
+        { \dim_set:Nn \l_tmp_dim_needed { 1pt * \dim_ratio:nn { \l_tmp_dim_a - \l_tmp_dim_b } { 2pt } } }
+        { }
+      \quad
+      % increment list index by three, as every stackrel produces three list entries
+      \int_incr:N \l_idx_int
+      \int_incr:N \l_idx_int
+      \int_incr:N \l_idx_int
+  }
+  % replace all relations with align characters (&) and add the needed padding
+  \regex_replace_all:nnN
+      { (\c{approx}&|&\c{approx}|\c{equiv}&|&\c{equiv}|=&|&=|\c{le}&|&\c{le}|\c{ge}&|&\c{ge}|&\c{stackrel}{.*?}{.*?}|\c{stackrel}{.*?}{.*?}&|&\c{neq}|\c{neq}&) }
+      { \c{kern} \u{l_tmp_dim_needed} \1 \c{kern} \u{l_tmp_dim_needed} }
+      \l__lec_text_tl
+  \l__lec_text_tl
+ }
+\cs_generate_variant:Nn \lec_insert_padding:n { V }
+\ExplSyntaxOff
+
+
+
+\newcommand{\lalayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Lineare Algebra 1, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Dozent: Denis Vogel\\
+			Tutor: Marina Savarino}
+		\rhead{Lineare Algebra 2, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+
+\lstset{
+    frame=tb, % draw a frame at the top and bottom of the code block
+    tabsize=4, % tab space width
+    showstringspaces=false, % don't mark spaces in strings
+    numbers=left, % display line numbers on the left
+    commentstyle=\color{green}, % comment color
+    keywordstyle=\color{blue}, % keyword color
+    stringstyle=\color{red} % string color
+}
+\setlength{\headheight}{25pt}
+\begin{document}
+\lalayout{11}
+\section*{Aufgabe 40}
+\begin{enumerate}[(a)]
+    \item Reflexivität und Symmetrie sind offensichtlich, für die Transitivität setzen wir voraus, dass $(r_1,s_1) \sim (r_2,s_2)$, also $r_1s_2 = r_2s_1$ und $r_2s_3 = r_3s_2$ gilt. Dann erhalten wir $$s_2(r_1s_3) = (r_1s_2)s_3 = (r_2s_1)s_3 = s_1(r_2s_3) = s_1r_3s_2 = s_2(s_1r_3).$$ Daraus folgern wir
+    \[
+        s_2(r_1s_3 - r_3s_1) = 0 \overset{R \text{ nullteilerfrei}}{\equals} r_1s_3 = r_3s_1,   
+    \]
+    was äquivalent ist zu $(r_1, s_1) \sim (r_3s_3)$.
+    \item Sei $(r_1', s_1') \sim (r_1, s_1)$ und $(r_2', s_2)\sim (r_2,s_2)$. Wir müssen zeigen, dass dann $(r_1s_2 + r_2s_1, s_1s_2) = (r_1's_2' + r_2's_1', s_1's_2')$. Nun gilt aber 
+    \[
+        (r_1s_2 + r_2s_1)s_1's_2' = r_1s_1's_2s_2' + r_2s_2's_1s_1' = r_1's_1s_2s_2' + r_2's_2s_1s_1' = (r_1's_2' + r_2's_1')s_1s_2,
+    \] womit wir sofort die Aussage erhalten. Für den zweiten Teil müssen wir noch zeigen, dass $(r_1r_2, s_1s_2) \sim (r_1'r_2', s_1's_2')$, das folgt aber sofort aus
+    \[
+        r_1r_2s_1's_2' =  r_1's_1r_2's_2 = s_1s_2r_1'r_2'.
+    \]
+    \item Auch hier sind Reflexivität und Symmetrie erneut trivial. Für die Transitivität nehmen wir an, dass $(r_1, s_1) \sim (r_2,s_2)$ und $(r_2, s_2) \sim (r_3, s_3)$, also $\exists s, t \in R\setminus\{0\}$ mit $sr_1s_2 = sr_2s_1$ und $tr_2s_3 = tr_3s_2$ gilt. Dann erhalten wir
+    \[  
+        \underbrace{tss_2}_{u} r_1s_3 = tss_1r_2s_3 = tss_1s_2r_3 = u\cdot s_1r_3.
+    \]
+    Wegen $u \in R\setminus\{0\}$ haben wir damit die Transitivität bewiesen.
+    \item In $\Z/6\Z \times \Z^\times$ gilt $(1,3) \sim (2,6)$ wegen $1\cdot 6 = 2\cdot 3$ und $(2,6)\sim (2,3)$ wegen $2\cdot 3 = 6 = 0 = 12 = 6 \cdot 2$. Allerdings gilt nicht $(1,3)\sim (2,3)$, da $3\neq 6$ in $\Z/6\Z$.
+\end{enumerate}
+\section*{Aufgabe 41}
+\begin{enumerate}
+    \item (i)$\implies$(ii): Sei $(m_1, \dots, m_n)$ eine Basis von $M$. Dann existiert zu jedem $m_i$ ein $s_i\in R\setminus\{0\}$ mit $s_im_i = 0\forall i$. Dann liegt $s \coloneqq s_1\cdot \dots\cdot s_n$ aufgrund der Nullteilerfreiheit in $R\setminus\{0\}$ und wegen $s \cdot m = s \cdot \sum_{i = 1}^{n}m_i = \sum_{i = 1}^{n}s_im_i = 0$ auch $s\in \operatorname{Ann}(M)$.
+    \item (ii)$\implies$(ii): Sei $0 \neq s \in \operatorname{Ann}(M)$. Dann ist $\forall m \in M\colon sm = 0$ mit $s \neq 0$, woraus sofort die Behauptung folgt.
+    \item Da in der direkten Summe fast alle \glqq Summanden\grqq\ gleich $0$ sein müssen, kann man ein beliebiges $m\in M$ darstellen durch $(m_1, \dots, m_n, 0, \dots)$. Dann ist aber $2^n\cdot m = 0$, also ist $M$ ein Torsionsmodul. Sei ein beliebiges $0 \neq s\in \operatorname{Ann}(M)$ gegeben, o.B.d.A. $s > 0$. Betrachte dann das Element $m \coloneqq (0,\dots, 0,1,0, \dots)\in M$, wobei die $1$ an der $s$-ten Stelle stehe. Dann ist $sm = (0,\dots, 0 , s, 0, \dots) \neq 0$, da $s\neq 0 \in \Z/2^s\Z \lightning$. Daher muss $\operatorname{Ann}(M) = (0)$ sein.
+\end{enumerate}
+\section*{Aufgabe 42}
+\begin{enumerate}[(a)]
+    \item Sei $f \in M$. Dann ist $t^2 \cdot f = 0$ mit $0 \neq t^2 \in \R[t]$, also $T(M) = M$. Mit 11.3d folgt daraus, dass $Q(M) = 0$ und daher muss der Rang von $M$ auch $0$ sein.
+    \item Ein beliebiges Element aus $M$ können wir darstellen durch $a + b\overline{t}$ mit $a, b\in \R$. Es gilt aber $r\cdot (a + bt) \neq 0$ für $r, a, b\neq 0,\; r\in \R$. Daher ist $T(M) = 0$. Außerdem ist $M$ ein freier $\R$-Modul, mit Basis $(\overline{1},\overline{t})$. Die lineare Unabhängigkeit ist trivial, außerdem handelt es sich um ein Erzeugendensystem, da $\overline{t^2} = 0$ und daher $\overline{a_0 + a_1t + a_2t^2 + \dots + a_nt^n} = \overline{a_0} + \overline{a_1}\overline{t}$. 
+    \item Behauptung: $0 \subsetneqq (\overline{t}) \subsetneqq M$ ist eine Kompositionsreihe. Zu zeigen ist also, dass $(\overline{t})$ und $M / (\overline{t})$ einfach sind. Sei $N$ ein echter Untermodul $\neq 0$ von $(\overline{t})$. Dann liegt ein Element $a\overline{t}$ in $N$. Damit ist aber insbesondere auch $\frac{1}{a}\cdot a \cdot \overline{t} = \overline{t}\in N$ und damit $N = (\overline{t})$. Also besitzt $(\overline{t})$ keine Untermoduln außer $0$ und $(\overline{t})$ und ist damit einfach. Nun betrachten wir noch $M/(\overline{t})$. Die Menge der Untermoduln von $M/(\overline{t})$ ist nach Bemerkung 6.7 isomorph zur Menge der Untermoduln $N$ von $M$ mit $(\overline{t})\subset N\subset M$. Die einzigen Untermoduln, die diese Bedingungen erfüllen sind $(\overline{t})$ und $M$ selbst. Sei nämlich $f\in \tilde{N}\subset M$ mit $(\overline{t})\subsetneq \tilde{N}$ und $f\notin (\overline{t})$. Dann ist $f = a + b\overline{t}$ mit $a \neq 0$. Dann ist aber auch $g = 1 = \frac{1}{a} \cdot a = \frac{1}{a}\left(f - b\overline{t}\right) \in \tilde{N}$. Da aber $(1,\overline{t})$ bereits ein Erzeugendensystem von $M$ ist, ist dann $\tilde{N}$ schon gleich $M$. Also gibt es nur zwei Untermoduln von $M /(\overline{t})$, nämlich $0$ und $M/(\overline{t})$. Also ist $M/(\overline{t})$ einfach. Damit haben wir eine Kompositionsreihe mit den einfachen Kompositionsfaktoren $(\overline{t})$ und $M/(\overline{t})$. Die Länge $\ell(M)$ beträgt also $2$.
+\end{enumerate}
+\section*{Aufgabe 43}
+\begin{enumerate}[(a)]
+    \item Die kurze Folge 
+    \[
+        0 \to \ker \varphi \xrightarrow{\iota} M \xrightarrow{\pi} \im \varphi \simeq M/\ker \varphi \to 0
+    \]
+    ist exakt (siehe die Anmerkung zur Definition 10.1). Daher ist nach Folgerung 12.15 $\ell(\ker \varphi) + \ell(\im \varphi) = \ell(M)$.
+    \item Sei $\mathcal{F}$ eine Filtrierung von $\ell(L)$. Dann können wir die Filtrierung fortsetzen, indem wir einfach als letztes Modul $M$ hinzufügen und eine neue Filtrierung $\mathcal{G}$ mit einer Länge $L \leq \ell(M)$ erhalten. Also ist $\ell(L) \leq \ell(M) - 1$, also $\ell(L) < \ell(M)$.
+    \item Es gilt
+    \[
+        \varphi \text{ injektiv } \equals \ker \varphi = \{0\} \equals \ell(M) = \ell(\im \varphi) \equals \im \varphi \text{ ist kein echter Untermodul von } M \equals \im \varphi = M.
+    \]
+    Also ist die Injektivität von $\varphi$ äquivalent zur Surjektivität. Ist also $\varphi$ surjektiv, erhalten wir sofort die Injektivität und damit die Bijektivität. Ist $\varphi$ injektiv, so auch surjektiv und damit bijektiv. Die Umkehrungen sind jeweils trivial.
+\end{enumerate}
+\end{document}

@@ -1,0 +1,164 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amsfonts, amsthm, mathtools, amssymb}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\usepackage{cases}
+\usepackage{fancyhdr}
+\usepackage{comment}
+%\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{cases}
+\usepackage{listings}
+\usepackage{siunitx}
+\usepackage[left = 2cm, right = 2cm, top=2.5cm, bottom=2.5cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{subcaption}
+\usepackage{gauss}
+\newtheorem{satz}{Satz}[section]
+\newtheorem{lemma}[satz]{Lemma}
+\newtheorem{korollar}[satz]{Korollar}
+\newtheorem{proposition}[satz]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[satz]{Def.}
+\newtheorem{axiom}[satz]{Axiom}
+\newtheorem{bsp}[satz]{Bsp.}
+\newtheorem*{anmerkung}{Anm}
+\newtheorem{bemerkung}[satz]{Bem}
+\newtheorem*{notatio}{Notation}
+\newcommand{\obda}{O.B.d.A. }
+\newcommand{\equals}{\Longleftrightarrow}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\intd}{\mathrm{d}}
+\newcommand{\Pot}{\operatorname{Pot}}
+\newcommand{\mychar}{\operatorname{char}}
+\newcommand{\myker}{\operatorname{ker}}
+\newcommand{\induktion}[3]
+{\begin{proof}\ \\
+	\noindent\textbf{Induktionsanfang:}\ #1\\
+	\noindent\textbf{Induktionsvoraussetzung:}\ #2\\
+	\noindent\textbf{Induktionsschluss:}\ #3
+\end{proof}}
+
+\newcommand{\rg}{\operatorname{rg}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\abb}{\operatorname{Abb}}
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\Ima}{\operatorname{Im}}
+
+
+
+\newcommand{\ipilayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Einführung in die praktische Informatik, Blatt #1}
+	\fancyhead[R]{Josua Kugler, Jan Metzger, David Wesner}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Peter Bastian\\
+			Tutor: Frederick Schenk}
+		\rhead{Einführung in die praktische Informatik, Übungsblatt #1\\ David, Jan, Josua}
+		\cfoot{\thepage}
+	}
+\thispagestyle{firstpage}
+}
+
+\newcommand{\analayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Analysis 1, Blatt #1}
+	\fancyhead[R]{Alexander Bryant, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Ekaterina Kostina\\
+			Tutor: Philipp Elja Müller}
+		\rhead{Analysis 1, Übungsblatt #1\\ Alexander Bryant, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+\newcommand{\lalayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Lineare Algebra 1, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Denis Vogel\\
+			Tutor: Marina Savarino}
+		\rhead{Lineare Algebra 2, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+
+\lstset{
+    frame=tb, % draw a frame at the top and bottom of the code block
+    tabsize=4, % tab space width
+    showstringspaces=false, % don't mark spaces in strings
+    numbers=left, % display line numbers on the left
+    commentstyle=\color{green}, % comment color
+    keywordstyle=\color{blue}, % keyword color
+    stringstyle=\color{red} % string color
+}
+\setlength{\headheight}{25pt}
+\begin{document}
+\lalayout{1}
+\section*{Aufgabe 4}
+\begin{enumerate}[(a)]
+	\item  Seien $f,g\in R[t]$ mit $f=f(t)=a_0+a_1t+...+a_nt^n$ und $g=g(t)=b_0+b_1t+...+b_mt^m$ wobei $a_i,b_j\in R$. Dann gilt aufgrund der Nullteilerfreiheit $\operatorname{deg}f\cdot g= n+m$. Somit gilt insbesondere, dass wenn deg$(f\cdot g)=0 \implies$ deg$(f) =$ deg$(g)= 0$. Somit existieren nur zu konstanten Polynomen der Form $h=r$, $r\in R$ Inverse. Dann gilt $R[t]^{\times}=R^{\times}$.
+	\item In $\Z/6\Z$ gilt $(x-\overline{2})(x-\overline{1})=\overline{2}\cdot\overline{3}=\overline{6}=\overline{0}$, was (a) widerspricht. 
+	\item $\Z/6\Z$
+\end{enumerate}
+\section*{Aufgabe 5}
+\begin{enumerate}[(a)]
+	\item Seien $f, g\in \R[t]$. Dann gilt $\varphi(1) = 1, \varphi(f + g) = (f+g)(i) = f(i) + g(i) = \varphi(f) + \varphi(g)$ und $\varphi(f\cdot g) = (f\cdot g)(i) = f(i) \cdot g(i) = \varphi(f)\cdot \varphi(f)$. Sei außerdem $z = a+ bi \in \C$. Dann ist $f = a + b\cdot t$ ein Urbild von $z$ unter $\varphi$, da $\varphi(f) = f(i) = a + b i = z$.
+	\item $\varphi(t^2 + 1) = i^2 + 1 = -1 + 1 = 0 \implies t^2 + 1 \in \ker \varphi$. Sei nun $f\in \R[t]$ mit $\deg f < 2, f \neq 0$, dann lässt sich $f$ schreiben als $f = a + bt$ mit $a,b\in \R$, $a$ und $b$ nicht beide 0. Also ist $\varphi(f) = a + bi = z \in \C$ und da nicht $a$ und $b$ 0 sein dürfen ist $z\neq 0$.
+	\item Sei $f\in \ker \varphi$. Dann ist $f(i) = 0$ und nach Satz 4.6 gilt $$f(t) = (t^2 + 1)\cdot q + \underbrace{r}_{\mathllap{\deg r < 2}}.$$ Wegen $(t^2 + 1)(i) = 0$ ist auch $((t^2 + 1)\cdot q)(i) = 0$. Folglich muss auch $r(i) = 0$ gelten, was wegen $\deg r < 2$ und (b) nur möglich ist, wenn $r = 0$. Folglich gilt: $f(t) = (t^2 + 1)\cdot q$ und da $f\in \ker \varphi$ beliebig gewählt war, $\ker \varphi \subseteq (t^2 + 1)$. Trivialerweise ist auch $(t^2 + 1) \subseteq \ker \varphi$.
+	\item Die erste Aussage folgt sofort aus dem Homomorphiesatz angewendet auf $\varphi: \R[t] \to \C$. In der Vorlesung wurde außerdem gezeigt, dass $(t^2 + 1)$ genau dann ein maximales Ideal ist, wenn 
+	$\R[t]/(t^2 + 1) \cong \C$
+	 ein Körper ist, was wegen der Isomorphie zu $\C$ offensichtlich ist.
+\end{enumerate}
+\section*{Aufgabe 6}
+\begin{enumerate}[(a)]
+	\item Da $\forall i\in I: i^1\in I$ ist $I\subset \sqrt{I}$, also ist sofort auch $0 \in I$. Ist nun $r\in \sqrt{I}$, so $\exists n \in \N: r^n\in I$ und, da $I$ ein Ideal ist, auch $a^n\cdot r^n \in I\implies a\cdot r \in \sqrt{I}$ für ein beliebiges $a\in R$. Seien nun $a, b \in \sqrt{I}$. Dann $\exists m, n\in \N: a^m\in I, b^n \in I$. Da $I$ ein Ideal ist liegen also insbesondere auch alle Potenzen $b^n+r,\; r\in \N$ sowie $a^rb^n ,r\in \N$ in $I$. Da dasselbe analog für $a$ gilt, liegen $a^{x\cdot y}\; \forall x\geq m \lor y \geq n$ und alle Linearkombinationen solcher Ausdrücke in $I$, insbesondere also auch $$(a + b)^{n+m} = \sum_{i = 0}^{n+m}\binom{n+m}{i}a^ib^{n+m-i},$$ woraus wir sofort $a+b \in \sqrt{I}$ schließen können.
+	\item $r\in \sqrt{I}\implies r^n\in I\; (n\in \N)\xRightarrow{\text{Definition eines Primideals}} r\in I\lor r^{n-1}\in I$. Setzt man die Definition des Primideals wieder für $r^{n-1}$ ein, so folgt nach endlich vielen Rekursionsschritten $r\in I$. Dies gilt für alle $r\in I$, woraus sofort $I = \sqrt{I}$ folgt.
+	\item Für $R = I = \Z$ gilt offensichtlich $\sqrt{I} = I$, und nach Definition ist $\Z \subseteq \Z$ kein Primideal.
+\end{enumerate}
+\section*{Aufgabe 7}
+\begin{enumerate}[(a)]
+	\item
+	\begin{itemize}
+	\item  $\Phi$ ist wohldefiniert: Sei $J$ ein Ideal in $R/I$. Dann gilt $\Phi(J) = \pi^{-1}(J) = \{a \in R|\overline{a}\in J\}$. Da $J$ ein Ideal ist, enthält es insbesondere $\overline{0}$. Da $\pi(a) = \overline{0}\; \forall a \in I$, gilt $I\subseteq \pi^{-1}(J)$. Wir verfizieren nun, dass $\pi^{-1}(J)$ ein Ideal sein muss. $a, b\in \pi^{-1}(J) \implies \pi(a)\in J, \pi(b)\in J\xRightarrow{J\text{ Ideal}} \pi(a) + \pi(b) = \pi(a+b) \in J \implies a+b \in \pi^{-1}(J)$. Außerdem gilt $r \in R, a\in \pi^{-1}(J) \implies \pi(r) \in R/I, \pi(a) \in J\xRightarrow{J\text{ Ideal}} \pi(r)\cdot \pi(a) = \pi(r\cdot a) \in J \implies r\cdot a \in \pi^{-1}(J)$.
+	 \item $\Psi$ ist wohldefiniert: Sei $J$ ein Ideal in $R/I$ mit $I\subseteq J$. Dann ist $\pi(J) \in R/I$. Wir verfizieren nun, dass $\pi(J)$ ein Ideal ist. $I \subseteq J \implies \overline{0} = \pi(I) \in \pi(J)$. Außerdem gilt $a, b \in \pi(J) \implies \pi^{-1}(a) \subseteq J, \pi^{-1}(b) \subseteq (J) \xRightarrow{J \text{ Ideal}} \forall \alpha \in \pi^{-1}(a):\forall \beta \in \pi^{-1}(b): \alpha + \beta \in J \implies \pi(\alpha + \beta) \in \pi(J) \implies \pi(\alpha) + \pi(\beta) \in \pi(J)$. Nun ist nach Konstruktion unabhängig von der Auswahl von $\alpha$ und $\beta$ $\pi(\alpha) = a$ und $\pi(\beta) = b$, also $a + b\in J$. Schließlich bleibt noch zu zeigen: $a\in \pi(J), r\in R/I\implies \pi^{-1}(a) \subseteq J, \pi^{-1}(r) \subseteq R\xRightarrow{J\text{ Ideal}} \forall \alpha \in \pi^{-1}(a): \forall \rho \in \pi^{-1}(r): \alpha \cdot \rho \in \pi^{-1}(J) \implies \pi(\alpha\cdot \rho)\in J \implies \pi(\alpha) \cdot \pi(\rho) \in J.$ Wir nutzen wieder, dass $\pi(\alpha) = a$ und $\pi(\rho) = r$, womit $a \cdot r \in J$ folgt.
+	 \item $\Phi$ ist inklusionserhaltend: Seien $A,B$ Ideale in $R/I$ und gelte $A\subseteq B$. Dann ist $\Psi(A)=\{a_i|\overline{a_i}\in A\}$ und $\Psi(B)=\{b_i|\overline{b_i}\in B\}$. Da nun $A\subseteq B$ gilt, sind auch alle Repräsentanten der Elemente von $A$ auch in $B$, weshalb $\Psi(A)\subseteq \Psi(B)$.
+	 \item $\Psi$ ist inklusionserhaltend: Seien $A,B$ Ideale in $R$ und gelte $A\subseteq B$. Dann ist $\Phi(A)=\{(a_i+I)|a_i\in A\}$ und $ \Phi(B)=\{(b_i+I)|b_i\in B\}$. Da nun $\forall a \in A: a\in B$ gilt auch $\forall \overline{a}\in\Phi(A): \overline{a}\in\Phi(B)$.
+	\end{itemize} 
+	\item Beh: $\Psi\circ\Phi =\operatorname{id}$ 
+	\begin{proof}
+		Sei $J$ ein Ideal in $R/I$ und $K$ ein Ideal in $R$. %Definiere $\tilde I:= \Phi(J)=\pi^{-1}(J)$
+		Dann ist $\Psi(\Phi(J)) = \Psi(\{r \in R|\pi(r) \in J\}) = \{\pi(r)\in R/I|\pi(r) \in J\} = J$ und 
+		$\Phi(\Psi(K)) = \Phi(\{\pi(r)|r\in K\}) = \{s\in R|\pi(s) \in \{\pi(r)|r\in K\}\} = \{s\in R| s \in K\} = K$. Folglich ist $\Psi \circ \Phi = \operatorname{id}_{R/I}$ und $\Phi\circ \Psi = \operatorname{id}_{R}$.
+	\end{proof}
+	\item Für $\Z/5\Z$ existieren die Ideale: 
+	\begin{enumerate}[(i)]
+		\item $\{\overline{0}\}$
+		\item $\{\overline{0},\overline{3},\overline{6},\overline{9},\overline{12}\}$
+		\item $\{\overline{0},\overline{5},\overline{10}\}$
+		\item $\Z/15\Z$
+		\begin{proof}
+			Wir benutzen die Bijektion $$A \coloneqq \{\text{Ideale $\tilde{I}$ in $R$ mit } 15\Z \subset \tilde{I}\} \xrightarrow{\sim} \{\text{Ideale in }\Z/15\Z\} =: B$$
+			Offensichtlich ist $\Z \in A$, also ist $\pi(\Z) = \Z/15\Z\in B$. Genauso ist auch $\Z/15\Z \in A$, dieses Ideal wird auf $\pi(\Z/15\Z) = \overline{0}\in B$ abgebildet. Die einzigen weiteren Ideale in $\Z$, die $\Z/15\Z$ enthalten, sind die von den echten Teilern von 15 aufgespannten Ideale $3\Z$ bzw. $5\Z$. Diese werden auf $\pi(3\Z) = \{\overline{0},\overline{3},\overline{6},\overline{9},\overline{12}\}\in B$ bzw. $\pi(5\Z) = \{\overline{0},\overline{5},\overline{10}\}\in B$ abgebildet.
+		\end{proof}
+	\end{enumerate}
+\end{enumerate}
+
+\end{document}

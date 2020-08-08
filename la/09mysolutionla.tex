@@ -1,0 +1,322 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amsfonts, amsthm, mathtools, amssymb}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\usepackage{cases}
+\usepackage{fancyhdr}
+\usepackage{comment}
+%\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{calc,intersections,through,backgrounds}
+\usepackage{cases}
+\usepackage{listings}
+\usepackage{siunitx}
+\usepackage[left = 2cm, right = 2cm, top=2.5cm, bottom=2.5cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{subcaption}
+\usepackage{gauss}
+\usepackage{environ}
+\newtheorem{satz}{Satz}[section]
+\newtheorem{lemma}[satz]{Lemma}
+\newtheorem{korollar}[satz]{Korollar}
+\newtheorem{proposition}[satz]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[satz]{Def.}
+\newtheorem{axiom}[satz]{Axiom}
+\newtheorem{bsp}[satz]{Bsp.}
+\newtheorem*{anmerkung}{Anm}
+\newtheorem{bemerkung}[satz]{Bem}
+\newtheorem*{notatio}{Notation}
+\newcommand{\obda}{O.B.d.A. }
+\newcommand{\equals}{\Longleftrightarrow}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\intd}{\mathrm{d}}
+\newcommand{\Pot}{\operatorname{Pot}}
+\newcommand{\mychar}{\operatorname{char}}
+\newcommand{\myker}{\operatorname{ker}}
+\newcommand{\induktion}[3]
+{\begin{proof}\ \\
+	\noindent\textbf{Induktionsanfang:}\ #1\\
+	\noindent\textbf{Induktionsvoraussetzung:}\ #2\\
+	\noindent\textbf{Induktionsschluss:}\ #3
+\end{proof}}
+
+\newcommand{\rg}{\operatorname{rg}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\abb}{\operatorname{Abb}}
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\Ima}{\operatorname{Im}}
+\newcommand{\Fit}{\operatorname{Fit}}
+\newcommand{\ggt}{\operatorname{GGT}}
+\newcommand{\id}{\operatorname{id}}
+
+\let\oldstackrel\stackrel
+\renewcommand{\stackrel}[2]{%
+    \oldstackrel{\mathclap{#1}}{#2}
+}%
+\ExplSyntaxOn
+
+% S-tackrelcompatible ALIGN environment
+% some might also call it the S-uper ALIGN environment
+% uses regular expressions to calculate the widest stackrel
+% to put additional padding on both sides of relation symbols
+\NewEnviron{salign}
+{
+    \begin{align}
+        \lec_insert_padding:V \BODY
+    \end{align}
+}
+% starred version that does no equation numbering
+\NewEnviron{salign*}
+{
+    \begin{align*}
+        \lec_insert_padding:V \BODY
+    \end{align*}
+}
+
+% some helper variables
+\tl_new:N \l__lec_text_tl
+\seq_new:N \l_lec_stackrels_seq
+\int_new:N \l_stackrel_count_int
+\int_new:N \l_idx_int
+\box_new:N \l_tmp_box
+\dim_new:N \l_tmp_dim_a
+\dim_new:N \l_tmp_dim_b
+\dim_new:N \l_tmp_dim_needed
+
+% function to insert padding according to widest stackrel
+\cs_new_protected:Nn \lec_insert_padding:n
+ {
+  \tl_set:Nn \l__lec_text_tl { #1 }
+  % get all stackrels in this align environment
+  \regex_extract_all:nnN { \c{stackrel}{(.*?)}{(.*?)} } { #1 } \l_lec_stackrels_seq
+  % get number of stackrels
+  \int_set:Nn \l_stackrel_count_int { \seq_count:N \l_lec_stackrels_seq }
+  \int_set:Nn \l_idx_int { 1 }
+  \dim_set:Nn \l_tmp_dim_needed { 0pt }
+  % iterate over stackrels
+  \int_while_do:nn { \l_idx_int <= \l_stackrel_count_int }
+  {
+      % calculate width of text
+      \hbox_set:Nn \l_tmp_box {$\seq_item:Nn \l_lec_stackrels_seq { \l_idx_int + 1 }$}
+      \dim_set:Nn \l_tmp_dim_a {\box_wd:N \l_tmp_box}
+      % calculate width of relation symbol
+      \hbox_set:Nn \l_tmp_box {$\seq_item:Nn \l_lec_stackrels_seq { \l_idx_int + 2 }$}
+      \dim_set:Nn \l_tmp_dim_b {\box_wd:N \l_tmp_box}
+      % check if 0.5*(a-b) > minimum padding, if yes updated minimum padding
+      \dim_compare:nNnTF
+        { 1pt * \dim_ratio:nn { \l_tmp_dim_a - \l_tmp_dim_b } { 2pt } } > { \l_tmp_dim_needed }
+        { \dim_set:Nn \l_tmp_dim_needed { 1pt * \dim_ratio:nn { \l_tmp_dim_a - \l_tmp_dim_b } { 2pt } } }
+        { }
+      \quad
+      % increment list index by three, as every stackrel produces three list entries
+      \int_incr:N \l_idx_int
+      \int_incr:N \l_idx_int
+      \int_incr:N \l_idx_int
+  }
+  % replace all relations with align characters (&) and add the needed padding
+  \regex_replace_all:nnN
+      { (\c{approx}&|&\c{approx}|\c{equiv}&|&\c{equiv}|=&|&=|\c{le}&|&\c{le}|\c{ge}&|&\c{ge}|&\c{stackrel}{.*?}{.*?}|\c{stackrel}{.*?}{.*?}&|&\c{neq}|\c{neq}&) }
+      { \c{kern} \u{l_tmp_dim_needed} \1 \c{kern} \u{l_tmp_dim_needed} }
+      \l__lec_text_tl
+  \l__lec_text_tl
+ }
+\cs_generate_variant:Nn \lec_insert_padding:n { V }
+\ExplSyntaxOff
+
+
+
+\newcommand{\lalayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Lineare Algebra 1, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Dozent: Denis Vogel\\
+			Tutor: Marina Savarino}
+		\rhead{Lineare Algebra 2, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+
+\lstset{
+    frame=tb, % draw a frame at the top and bottom of the code block
+    tabsize=4, % tab space width
+    showstringspaces=false, % don't mark spaces in strings
+    numbers=left, % display line numbers on the left
+    commentstyle=\color{green}, % comment color
+    keywordstyle=\color{blue}, % keyword color
+    stringstyle=\color{red} % string color
+}
+\setlength{\headheight}{25pt}
+\begin{document}
+\lalayout{9}
+\section*{Aufgabe 32}
+\begin{enumerate}[(a)]
+    \item Es gilt \[
+              \begin{pmatrix}
+                  0 & 2 \\ 1 & 0
+              \end{pmatrix}
+              \cdot \begin{pmatrix}
+                  \sqrt{2} \\
+                  1
+              \end{pmatrix}
+              = \begin{pmatrix}
+                  2 \\\sqrt{2}
+              \end{pmatrix} = \sqrt{2}\cdot \begin{pmatrix}
+                  \sqrt{2} \\
+                  1
+              \end{pmatrix}
+          \]
+          und
+          \[
+              \begin{pmatrix}
+                  0 & 3 \\ 1 & 0
+              \end{pmatrix}
+              \cdot \begin{pmatrix}
+                  \sqrt{3} \\
+                  1
+              \end{pmatrix}
+              = \begin{pmatrix}
+                  3 \\\sqrt{3}
+              \end{pmatrix} = \sqrt{3}\cdot \begin{pmatrix}
+                  \sqrt{3} \\
+                  1
+              \end{pmatrix}
+          \]
+          \item Wir erhalten \[
+                C = \begin{pmatrix}
+                    0 & 2 \\ 1 & 0
+                \end{pmatrix} \oplus \begin{pmatrix}
+                    1 & 0\\0 & 1
+                \end{pmatrix} + \begin{pmatrix}
+                    1 & 0\\0 & 1
+                \end{pmatrix} \oplus \begin{pmatrix}
+                    0 & 3 \\ 1 & 0
+                \end{pmatrix} =  \begin{pmatrix}
+                    0 & 0 & 2 & 0\\
+                    0 & 0 & 0 & 2\\
+                    1 & 0 & 0 & 0\\
+                    0 & 1 & 0 & 0
+                \end{pmatrix} + \begin{pmatrix}
+                    0 & 3 & 0 & 0\\
+                    1 & 0 & 0 & 0\\
+                    0 & 0 & 0 & 3\\
+                    0 & 0 & 1 & 0
+                \end{pmatrix}
+                = \begin{pmatrix}
+                    0 & 3 & 2 & 0\\
+                    1 & 0 & 0 & 2\\
+                    1 & 0 & 0 & 3\\
+                    0 & 1 & 1 & 0
+                \end{pmatrix}
+          \]
+          \item Für das charakteristische Polynom ergibt sich \[
+                \chi^{\operatorname{char}}_C = \det \begin{pmatrix}
+                    t & -3 & -2 & 0\\
+                    -1 & t & 0 & -2\\
+                    -1 & 0 & t & -3\\
+                    0 & -1 & -1 & t
+                \end{pmatrix} = t^4 - 10t^2 + 1.
+          \]
+            Es gilt nun $(\sqrt{2} + \sqrt{3})^4 - 10(\sqrt{2} + \sqrt{3})^2 + 1 = 0$. Das muss schon nach Aufgabe 31(c) so sein, da die Einheitsmatrix natürlich die Darstellungsmatrix der Identität ist und wir mit $f$ und $g$ die zugehörigen Endomorphismen der Matrizen $A$ und $B$ bezeichnen können. Als Eigenwert von $f$ erhalten wir $\lambda = \sqrt{2}$ und als Eigenwert von $g$ ergibt sich $\mu = \sqrt{3}$. Damit lässt sich die Aussage direkt anwenden.
+\end{enumerate}
+\section*{Aufgabe 33}
+\begin{enumerate}[(a)]
+    \item Definiere $\mu\colon V^n \to K,\; (x_1,\dots, x_n) \mapsto f_1(x_1)\dots f_n(x_n)$. Diese Abbildung ist multilinear, da
+          \begin{salign*}
+              \mu(x_1,\dots,x_i+ \lambda x_i',\dots,x_n) &= f_1(x_1)\dots f_i(x_i + \lambda x_i')\dots f_n(x_n)\\
+              &\stackrel{f_i\text{ linear}}{=} f_1(x_1)\cdot f_i(x_i)\dots f_n(x_n) + \lambda f_1(x_1)\cdot \dots\cdot f_i(x_i') \cdot f_n(x_n)\\
+              &= \mu(x_1,\dots,x_i,\dots,x_n) + \lambda \mu(x_1,\dots,x_i',\dots,x_n)
+          \end{salign*}
+          Nach der universellen Eigenschaft (UM) existiert also eine eindeutige lineare Abbildung $\varphi_{f_1,\dots,f_n}\colon V^{\otimes n} \to K$ mit
+          \[\varphi_{f_1,\dots,f_n}(x_1\otimes \dots\otimes x_n) = \mu(x_1, \dots, x_n) = f_1(x_1)\dots f_n(x_n),\] was zu zeigen war.
+    \item Definiere $\mu\colon (V^*)^n \to (V^{\otimes n})^*,\; (f_1,\dots, f_n) \mapsto \varphi_{f_1,\dots,f_n}$. Diese Abbildung ist multilinear, da
+          \begin{align*}
+              \mu(f_1,\dots,f_i+ \lambda f_i',\dots,x_n) & = \varphi_{f_1,\dots,f_i+ \lambda f_i',\dots,f_n}                                                                                                                         \\
+                                                         & = \big(x_1\otimes\dots\otimes x_n \mapsto f_1(x_1)\cdots (f_i+ \lambda f_i')(x_i) \cdots f_n(x_n)\big)                                                                    \\
+                                                         & = \big(x_1\otimes\dots\otimes x_n \mapsto f_1(x_1)\cdots (f_i(x_i) + \lambda f_i'(x_i)) \cdots f_n(x_n)\big)                                                              \\
+                                                         & = \big(x_1\otimes\dots\otimes x_n \mapsto f_1(x_1)\cdots f_i(x_i) \cdots f_n(x_n) + \lambda f_1(x_1)\cdots f_i'(x_i) \cdots f_n(x_n)\big)                                 \\
+                                                         & = \big(x_1\otimes\dots\otimes x_n \mapsto f_1(x_1) \cdots  f_n(x_n)\big) + \lambda \big(x_1\otimes\cdots\otimes x_n \mapsto f_1(x_1)\cdots f_i'(x_i) \cdots f_n(x_n)\big) \\
+                                                         & = \varphi_{f_1,\dots,f_i,\dots,f_n} + \lambda \varphi_{f_1,\dots, f_i',\dots,f_n}                                                                                         \\
+                                                         & = \mu(f_1,\dots,f_i,\dots,x_n) + \lambda \mu(f_1,\dots, f_i',\dots,x_n)
+          \end{align*}
+          Nach der universellen Eigenschaft (UM) existiert also eine eindeutige lineare Abbildung $\Phi_n\colon (V^*)^{\otimes n} \to (V^{\otimes n})^*$ mit
+          \[\Phi_n(f_1\otimes \dots\otimes f_n) = \mu(f_1, \dots, f_n) = \varphi_{f_1,\dots,f_n},\] was zu zeigen war.
+    \item Sei $(x_1,\dots,x_n)$ eine Basis von $V$. Dann ist $f\in V^*$ eindeutig durch die Werte auf den Basisvektoren definiert. Wir erhalten daher mit $\psi_i\colon V\to K,\quad x_j \mapsto \delta_{ij}$ eine Basis von $V^*$ (siehe LA1). Es gilt nun für ein $f\in V^*:$
+          \[
+              f = \sum_{i = 1}^{n} f(x_i)\cdot \psi_i,
+          \] da nämlich
+          \[
+              f(x) = f\left(\sum_{j = 1}^{n}\alpha_jx_j\right) = \sum_{j = 1}^{n}\alpha_jf(x_j) = \sum_{j = 1}^{n}\alpha_j \sum_{i = 1}^{n}f(x_i)\psi_i(x_j) = \sum_{j = 1}^{n}\sum_{i = 1}^{n}\alpha_jf(x_i)\delta_{ij} = \sum_{i = 1}^{n}\alpha_if(x_i).
+          \]
+          Wir betrachten nun $f\otimes g\in V^*\otimes V^*$ mit $\Phi_2(f\otimes g) = 0$. Dann gilt
+          \begin{align*}
+              0 & = \Phi_2(f\otimes g)                                 \\
+                & = \varphi_{f,g}                                      \\
+                & = (x_i\otimes x_j \mapsto f(x_i)\cdot g(x_j))
+              \intertext{Damit diese Abbildung gleich der Nullabbildung wird, muss gelten}
+              0 & = f(x_i)\cdot g(x_i)\qquad \forall 1\le x_i,x_j\le n
+          \end{align*}
+          Allerdings gilt auch
+          \begin{align*}
+              f \otimes g & = \left(\sum_{i = 1}^{n}f(x_i)\psi_i\right) \otimes \left(\sum_{j = 1}^{n}g(x_j)\psi_j\right) \\
+                          & = \sum_{i = 1}^{n} \sum_{j = 1}^{n} g(x_j)f(x_i) \big(\psi_i\otimes\psi_j\big)
+              \intertext{Da $\Phi_2(f,g) = 0$ ist, muss $f(x_i)\cdot g(x_i)\; \forall 1\le x_i,x_j\le n$ gelten}
+                          & = \sum_{i = 1}^{n} \sum_{j = 1}^{n} 0 \big(\psi_i\otimes\psi_j\big)                           \\
+                          & = 0
+          \end{align*}
+          Also ist $\ker \Phi_2 = 0$. Ist nun ein $F\in (V\otimes V)^*$ vorgeben durch die Werte an den Basisvektoren $F(x_i\otimes x_j) = \alpha_{ij}$, so ist durch $G\in V^*\otimes V^*$ mit
+          \[
+              G = \sum_{i = 1}^{n}\sum_{j = 1}^{n}\alpha_{ij}(\psi_i\otimes\psi_j)
+          \] ein Urbild gegeben, da
+          \begin{align*}
+              \Phi_2(G)(x_k\otimes x_l) & = \Phi_2\left(\sum_{i = 1}^{n}\sum_{j = 1}^{n}\alpha_{ij}(\psi_i\otimes\psi_j)\right)(x_k\otimes x_l) \\
+                                        & = \sum_{i = 1}^{n}\sum_{j = 1}^{n}\alpha_{ij}\Phi_2(\psi_i\otimes\psi_j)(x_k\otimes x_l)              \\
+                                        & = \sum_{i = 1}^{n}\sum_{j = 1}^{n}\alpha_{ij}\psi_i(x_k)\cdot\psi_j(x_l)                              \\
+                                        & = \sum_{i = 1}^{n}\sum_{j = 1}^{n}\alpha_{ij}\delta_{ik}\cdot\delta_{jl}                              \\
+                                        & = \alpha_{kl}                                                                                         \\
+                                        & = F(x_k\otimes x_l)
+          \end{align*}
+          Also ist $\Phi_2$ sowohl injektiv als auch surjektiv und damit bijektiv.
+\end{enumerate}
+\section*{Aufgabe 34}
+\begin{enumerate}[(a)]
+    \item Sei $y \in \bigwedge^n M$. Dann gilt
+    \begin{align*}
+        y &= y_1\wedge \dots\wedge y_n
+        \intertext{Da $(x_1,\dots,x_n)$ ein Erzeugendensystem von $M$ ist, können wir schreiben}
+        &= \sum_{i_1 = 0}^{n}\alpha_{1,i} x_{i_1} \wedge \dots \wedge \sum_{i_n = 0}^{n}\alpha_{n,i} x_{i_n}
+        \intertext{Aufgrund der Linearität von $\wedge$ ist das gleich}
+        &= \sum_{i_1 = 0}^{n}\alpha_{1,i} \dots \sum_{i_n = 0}^{n}\alpha_{n,i}  \big(x_{i_1} \wedge \dots \wedge x_{i_n}\big)
+    \end{align*}
+    Da Ausdrücke mit $x_{i_j} = x_{i_k}$ für $k \neq j$ gleich $0$ sind, müssen wir nur Ausdrücke mit paarweise verschiedenen $x_{i_j}$ betrachten. Durch Umsortieren, wobei Vorzeichenwechsel in den Koeffizienten berücksichtigt werden sollen, sehen wir ein,dass es o.B.d.A. genügt, solche Ausdrücke zu summieren, in denen $x_{i_1} < \dots < x_{i_n}$ gilt.
+    \item Da $I$ von $2$ und $1 + \sqrt{-5}$ erzeugt wird, genügt es zu zeigen, dass $2 \wedge 1 + \sqrt{-5} = 0$, da aufgrund der Bilinearität von $\wedge$ alle Elemente in $\bigwedge^2 I$ durch Linearkombination mit Skalaren aus $R$ aus diesem Element erzeugt werden können. Es gilt 
+    \[
+        3 \cdot (2 \wedge (1 + \sqrt{-5})) = 6 \wedge 1 + \sqrt{-5} = (1 + \sqrt{-5})(1 - \sqrt{-5}) \wedge 1 + \sqrt{-5} = (1-\sqrt{-5}) \cdot (1 + \sqrt{-5}\wedge 1 + \sqrt{-5}) = 0  
+    \]
+    und
+    \[
+        2 \cdot (2 \wedge (1 + \sqrt{-5})) = 2 \wedge 2\cdot (1 + \sqrt{-5}) = (2\wedge 2)\cdot (1 + \sqrt{-5}) = 0
+    \]
+    Aus der Differenz der beiden Aussagen folgt die Behauptung.
+\end{enumerate}
+\section*{Aufgabe 35}
+\begin{enumerate}[(a)]
+    \item Definiere $\mu\colon M\times M \to M \otimes M,\; (a,b) \mapsto a\otimes b - b \otimes a$.
+          Es gilt $\mu(\lambda a, b) = (\lambda a)\otimes b - b\otimes (\lambda a) = \lambda (a\otimes b - b\otimes a) = \lambda\mu(a,b)$ und analog $\mu(a, \lambda b) = \lambda\mu(a,b)$. Außerdem ist $\mu(a + a',b) = (a + a')\otimes b - b\otimes (a + a') = a\otimes b - b\otimes a + a'\otimes b - b\otimes a' = \mu(a,b) + \mu(a',b)$ genauso wie $\mu(a, b + b') = \mu(a,b) + \mu(a, b')$. Schließlich gilt $\mu(a,a) = a\otimes a - a\otimes a = 0$. $\mu$ ist also multilinear und alternierend.
+          Nach der universellen Eigenschaft (UA) existiert daher eine eindeutige lineare Abbildung $f\colon \bigwedge^2 M \to M \otimes M$ mit
+          \[f(a\wedge b) = \mu(a,b) = a\otimes b - b \otimes a,\] was zu zeigen war.
+    \item Sei $x_1,\dots,x_n$ eine Basis von $M$. Es genügt, zu zeigen dass $f(x_i\hat x_j) \neq 0$ ist, da die Familie $(x_i,x_j)_{1\le i\neq j\le n}$ eine Basis von $\bigwedge^2 M$ bildet, sodass wir daraus folgern können, dass $\ker f = 0$ ist. Wir nehmen an, es gäbe $i\neq j$ derart, dass $0 = f(x_i \wedge x_j) = x_i\otimes x_j - x_j\otimes i \implies x_i\otimes x_j = x_j\otimes x_i$. Allerdings bilden $(x_i\otimes x_j)_{1\le i, j\le n}$ eine Basis von $M\otimes M$, sodass $x_i \otimes x_j = x_j\otimes x_i$ ein Widerspruch zur linearen Unabhängigkeit dieser Basis wäre. Damit haben wir unsere Annahme zum Widerspruch geführt und die Behauptung gezeigt.
+\end{enumerate}
+\end{document}

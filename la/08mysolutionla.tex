@@ -1,0 +1,217 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amsfonts, amsthm, mathtools, amssymb}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\usepackage{cases}
+\usepackage{fancyhdr}
+\usepackage{comment}
+%\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{calc,intersections,through,backgrounds}
+\usepackage{cases}
+\usepackage{listings}
+\usepackage{siunitx}
+\usepackage[left = 2cm, right = 2cm, top=2.5cm, bottom=2.5cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{subcaption}
+\usepackage{gauss}
+\usepackage{environ}
+\newtheorem{satz}{Satz}[section]
+\newtheorem{lemma}[satz]{Lemma}
+\newtheorem{korollar}[satz]{Korollar}
+\newtheorem{proposition}[satz]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[satz]{Def.}
+\newtheorem{axiom}[satz]{Axiom}
+\newtheorem{bsp}[satz]{Bsp.}
+\newtheorem*{anmerkung}{Anm}
+\newtheorem{bemerkung}[satz]{Bem}
+\newtheorem*{notatio}{Notation}
+\newcommand{\obda}{O.B.d.A. }
+\newcommand{\equals}{\Longleftrightarrow}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\intd}{\mathrm{d}}
+\newcommand{\Pot}{\operatorname{Pot}}
+\newcommand{\mychar}{\operatorname{char}}
+\newcommand{\myker}{\operatorname{ker}}
+\newcommand{\induktion}[3]
+{\begin{proof}\ \\
+	\noindent\textbf{Induktionsanfang:}\ #1\\
+	\noindent\textbf{Induktionsvoraussetzung:}\ #2\\
+	\noindent\textbf{Induktionsschluss:}\ #3
+\end{proof}}
+
+\newcommand{\rg}{\operatorname{rg}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\abb}{\operatorname{Abb}}
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\Ima}{\operatorname{Im}}
+\newcommand{\Fit}{\operatorname{Fit}}
+\newcommand{\ggt}{\operatorname{GGT}}
+\newcommand{\id}{\operatorname{id}}
+
+\let\oldstackrel\stackrel
+\renewcommand{\stackrel}[2]{%
+    \oldstackrel{\mathclap{#1}}{#2}
+}%
+\ExplSyntaxOn
+
+% S-tackrelcompatible ALIGN environment
+% some might also call it the S-uper ALIGN environment
+% uses regular expressions to calculate the widest stackrel
+% to put additional padding on both sides of relation symbols
+\NewEnviron{salign}
+{
+    \begin{align}
+        \lec_insert_padding:V \BODY
+    \end{align}
+}
+% starred version that does no equation numbering
+\NewEnviron{salign*}
+{
+    \begin{align*}
+        \lec_insert_padding:V \BODY
+    \end{align*}
+}
+
+% some helper variables
+\tl_new:N \l__lec_text_tl
+\seq_new:N \l_lec_stackrels_seq
+\int_new:N \l_stackrel_count_int
+\int_new:N \l_idx_int
+\box_new:N \l_tmp_box
+\dim_new:N \l_tmp_dim_a
+\dim_new:N \l_tmp_dim_b
+\dim_new:N \l_tmp_dim_needed
+
+% function to insert padding according to widest stackrel
+\cs_new_protected:Nn \lec_insert_padding:n
+ {
+  \tl_set:Nn \l__lec_text_tl { #1 }
+  % get all stackrels in this align environment
+  \regex_extract_all:nnN { \c{stackrel}{(.*?)}{(.*?)} } { #1 } \l_lec_stackrels_seq
+  % get number of stackrels
+  \int_set:Nn \l_stackrel_count_int { \seq_count:N \l_lec_stackrels_seq }
+  \int_set:Nn \l_idx_int { 1 }
+  \dim_set:Nn \l_tmp_dim_needed { 0pt }
+  % iterate over stackrels
+  \int_while_do:nn { \l_idx_int <= \l_stackrel_count_int }
+  {
+      % calculate width of text
+      \hbox_set:Nn \l_tmp_box {$\seq_item:Nn \l_lec_stackrels_seq { \l_idx_int + 1 }$}
+      \dim_set:Nn \l_tmp_dim_a {\box_wd:N \l_tmp_box}
+      % calculate width of relation symbol
+      \hbox_set:Nn \l_tmp_box {$\seq_item:Nn \l_lec_stackrels_seq { \l_idx_int + 2 }$}
+      \dim_set:Nn \l_tmp_dim_b {\box_wd:N \l_tmp_box}
+      % check if 0.5*(a-b) > minimum padding, if yes updated minimum padding
+      \dim_compare:nNnTF
+        { 1pt * \dim_ratio:nn { \l_tmp_dim_a - \l_tmp_dim_b } { 2pt } } > { \l_tmp_dim_needed }
+        { \dim_set:Nn \l_tmp_dim_needed { 1pt * \dim_ratio:nn { \l_tmp_dim_a - \l_tmp_dim_b } { 2pt } } }
+        { }
+      \quad
+      % increment list index by three, as every stackrel produces three list entries
+      \int_incr:N \l_idx_int
+      \int_incr:N \l_idx_int
+      \int_incr:N \l_idx_int
+  }
+  % replace all relations with align characters (&) and add the needed padding
+  \regex_replace_all:nnN
+      { (\c{approx}&|&\c{approx}|\c{equiv}&|&\c{equiv}|=&|&=|\c{le}&|&\c{le}|\c{ge}&|&\c{ge}|&\c{stackrel}{.*?}{.*?}|\c{stackrel}{.*?}{.*?}&|&\c{neq}|\c{neq}&) }
+      { \c{kern} \u{l_tmp_dim_needed} \1 \c{kern} \u{l_tmp_dim_needed} }
+      \l__lec_text_tl
+  \l__lec_text_tl
+ }
+\cs_generate_variant:Nn \lec_insert_padding:n { V }
+\ExplSyntaxOff
+
+
+
+\newcommand{\lalayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Lineare Algebra 1, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Dozent: Denis Vogel\\
+			Tutor: Marina Savarino}
+		\rhead{Lineare Algebra 2, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+
+\lstset{
+    frame=tb, % draw a frame at the top and bottom of the code block
+    tabsize=4, % tab space width
+    showstringspaces=false, % don't mark spaces in strings
+    numbers=left, % display line numbers on the left
+    commentstyle=\color{green}, % comment color
+    keywordstyle=\color{blue}, % keyword color
+    stringstyle=\color{red} % string color
+}
+\setlength{\headheight}{25pt}
+\begin{document}
+\lalayout{8}
+\section*{Aufgabe 28}
+\begin{itemize}
+    \item[(i)$\to$(ii)] Ist $f$ bijektiv, so kann zur Abbildung $\Phi\colon\operatorname{Hom}_R(L,M) \to \operatorname{Hom}_R(L,N), g \mapsto f\circ g$ einfach die Umkehrabbildung $\Phi^{-1}\colon\operatorname{Hom}_R(L,N) \to \operatorname{Hom}_R(L,M), g \mapsto f^{-1}\circ g$ angegeben werden. Die Wohldefiniertheit ist trivial und es gilt $$\Phi \circ \Phi^{-1}(g) = \Phi(f^{-1}(g)) = f(f^{-1}(g)) = g$$ und $$\Phi^{-1}\circ \Phi(g) = \Phi^{-1}(f(g)) = f^{-1}(f(g)) = f.$$
+    \item[(ii)$\to$(i)] Wir bezeichnen die Abbildung wieder mit $\Phi$. Setzen wir $L = N$, so erhalten wir eine bijektive Abbildung $\Phi\colon \operatorname{Hom}_R(N,M) \to \operatorname{Hom}_R(N,N)$. Daher $\exists g \in \operatorname{Hom}_R(N,M)\colon f\circ g = \id_N$. Also muss $\im f = N$ sein, sonst wäre $N = \im \id = \im (f \circ g) \subset \im f \subsetneq N \lightning$. Für $L = M$ erhalten wir eine bijektive Abbildung $\Psi\colon \operatorname{Hom}_R(M,M) \to \operatorname{Hom}_R(M,N)$. Angenommen, $\ker f$ wäre $\neq 0$. Da $\ker f$ ein Untermodul von $M$ ist, können wir nun $g$ definieren als eine beliebige lineare Abbildung (nicht die Nullabbildung) von $M$ nach $\ker f$ komponiert mit der kanonischen Inklusion $\iota\colon \ker f \to M$. Dann ist $\im g  =\ker f$ und damit ist $f \circ g \equiv 0$, obwohl $g \neq 0$ ist. Das widerspricht der Injektivität von $\Psi$. Also muss $\ker f = \{0\}$ sein. Insgesamt folgern wir also, dass $f$ bijektiv und damit ein $R$-Modulisomorphismus sein muss.
+\end{itemize}
+\section*{Aufgabe 29}
+\begin{enumerate}[(a)]
+     \item Behauptung: $\Q\otimes_{\Z}\Z/2\Z=0.$
+    \begin{proof}
+        Sei $a\otimes b \in \Q\otimes_{\Z}\Z/2\Z$. Dann ist $a = 2 \cdot \frac{1}{2}a$ und damit $a\otimes b = \frac{1}{2}a \otimes 2b = \frac{1}{2}a\otimes 0 = 0$. Angewendet für alle $a\otimes b\in \Q \otimes \Z/2\Z$ folgt die Behauptung.
+    \end{proof}
+    \item Behauptung: $2\Z\otimes_{\Z}\Z/2\Z\overset{\cong}{=}\Z/2\Z.$
+    \begin{proof}
+        Nach Vorlesung ist $2\Z\otimes_{\Z}\Z/2\Z\overset{\cong}{=}\Z/2\Z\otimes_{\Z}2\Z\overset{\cong}{=}2\Z/(2\Z2\Z)\overset{\cong}{=} 2\Z/4\Z$ Damit gilt 
+        $$\#\{2\Z/4\Z\}=\#\{0+4/Z,2+4\Z\}=2=\#\{\Z/2\Z\},$$
+        wir können also einen offensichtlich einen Isomorphismus zwischen beiden Mengen angeben.
+        Damit folgt die Behauptung.
+    \end{proof}
+    \item Behauptung: $2\otimes 1=0$ in $\Z\otimes_{\Z}\Z/2\Z,$ aber $2\otimes 1\neq 0$ in $2\Z\otimes_{\Z}\Z/2\Z.$
+    \begin{proof}
+        Es gilt: $2\otimes \overline{1}=(2\cdot 1)\otimes \overline{1}=1\otimes (2\cdot \overline{1})=1\cdot \overline{0}=0.$
+        Angenommen, es wäre $2 \otimes 1 = 0$ in $2\Z\otimes_{\Z}\Z/2\Z$. Dann können wir ein beliebiges $a\otimes b \in 2\Z\otimes_{\Z}\Z/2\Z$ wählen. Da jedes Element in $2\Z$ Vielfaches von $2$ ist, gibt es ein $c\in \Z$, sodass gilt $a\otimes b = c (2\otimes b)$. Nun machen wir eine Fallunterscheidung, ist $b = 0$, so ist offensichtlich $a\otimes b = 0$, ist $b = 1$, so ist nach unserer Annahme $a\otimes b = c(2\otimes 1) = c\cdot 0 = 0$. Also wäre bereits $2\Z\otimes_{\Z}\Z/2\Z \cong 0$. Das ist aber ein Widerspruch zu Aufgabe (b).
+    \end{proof}
+\end{enumerate}
+\section*{Aufgabe 30}
+Seien $R$ ein Ring, $I\subseteq R$ ein Ideal und $M$ ein $R$-Modul.
+\begin{enumerate}[(a)]
+    \item Behauptung: Es existiert ein eindeutiger surjektiver $R$-Modulhomomorphismus
+    $$f:I\otimes_R M\longrightarrow IM$$ mit $f(a\otimes m)=am$ für $a\in I$ und $m\in M.$ 
+    \begin{proof}
+        Wir definieren uns eine bilineare Abbildung $\varphi: I\times M \longrightarrow IM, (a,m)\longmapsto am.$ Mit der universellen Eigenschaft (UT) existiert genau ein $R$-Modulhomomorphismus $f:I\otimes_{R} M\longrightarrow IM$ mit $f\circ \tau =\varphi.$ Für ein $a\in I$ und ein $m\in M$ folgt somit: $f(a\otimes m)=f(\tau(a,m))=\varphi(a,m)=am.$ Weiter gilt für ein beliebiges $m\in IM:$ Es existieren  $a_i\in I,m_i\in M$ sodass
+        \begin{align*}
+            m&=\sum_{i=1}^{n}a_im_i\\
+            &= \sum_{i=1}^{n}f(a_i\otimes m_i)\\
+            \intertext{Nun ist $f$ ein $R$-Modulhomomorphismus, also gilt}
+            \sum_{i=1}^{n}f(a_i\otimes m_i) &= f\left(\sum_{i=1}^{n}a_i\otimes m_i\right)\\
+            &= f(z)
+            \intertext{für ein $z\in I\otimes_R M$.}
+        \end{align*}
+    \end{proof}
+    \item Behauptung: $f$ aus Teil (a) ist im Allgeminen nicht injektiv.
+    \begin{proof}
+        Seien $R=\Z,I=2\Z$ und $M=\Z/2\Z.$ Dann gilt:
+        $$f:2\Z\otimes_{\Z}\Z/2\Z\longrightarrow 2\Z(\Z/2\Z)=0,$$ 
+        jedoch mit Aufgabe 29 (b) gilt $2\Z\otimes_{\Z}\Z/2\Z\overset{\cong}{=}\Z/2\Z\neq 0,$ also ist $f$ nicht injektiv.
+    \end{proof}
+\end{enumerate}
+\section*{Aufgabe 31}
+\begin{enumerate}[(a)]
+    \item Wegen $w,v\neq 0$ sei O.B.d.A. $v_i \neq 0$ und $w_j\neq 0$. Sei dann $A$ die Matrix mit $A_{ij} = 1$ und sonst nur Nulleinträgen. Wir definieren $\beta \colon V\times V \to K, (v,w) \mapsto v^T \cdot A \cdot w$. Sei $v'^T \coloneqq v^T \cdot A$. Dann gilt $v'_j = v_i$ und $v'_i = 0\;\forall i\neq j$. Multiplizieren wir nun $v'^T \cdot w = \sum_{\nu = 1}^{\dim V}v'_\nu \cdot w_\nu = v'_j \cdot w_j = v_i \cdot w_j$. Also gilt $\beta(v,w) = v^T \cdot A \cdot w = v_i\cdot w_j \neq 0$ nach Voraussetzung. Da $K$ ein $K$-Modul ist, gibt es nach der universellen Eigenschaft des Tensorprodukts genau einen Modulhomomorphismus $f\colon V \otimes V \to K$ mit $f(v\otimes w) = \beta(v,w) \neq 0$. Da $f$ linear ist, wäre $f(0) = 0$, also ist $v\otimes w\neq 0$.
+    \item Sei $l$ ein Eigenvektor von $f$ zum Eigenwert $\lambda$ und $m$ ein Eigenvektor von $g$ zum Eigenwert $\mu$. Dann gilt \[(f \otimes g)(l\otimes m) = f(l)\otimes g(m) = (\lambda l) \otimes (\mu m) = \lambda \mu (l\otimes m).\] Also ist $\lambda\mu$ ein Eigenwert von $f\otimes g$ zum Eigenvektor $l\otimes m$.
+    \item Wir wählen dieselben Bezeichnungen wie in der b. Es gilt \[[(f\otimes \id_V) + (\id_V \otimes g)] (l\otimes m) = f(l)\otimes m + l\otimes g(m) = (\lambda l) \otimes m + l\otimes(\mu m) = (\lambda + \mu) (l\otimes m).\] Also ist $\lambda + \mu$ ein Eigenwert von $[(f\otimes \id_V) + (\id_V \otimes g)]$ zum Eigenvektor $l\otimes m$.
+\end{enumerate}
+\end{document}

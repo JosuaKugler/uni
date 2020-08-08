@@ -1,0 +1,329 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amsfonts, amsthm, mathtools, amssymb}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\usepackage{cases}
+\usepackage{fancyhdr}
+\usepackage{comment}
+%\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{calc,intersections,through,backgrounds}
+\usepackage{cases}
+\usepackage{listings}
+\usepackage{siunitx}
+\usepackage[left = 2cm, right = 2cm, top=2.5cm, bottom=2.5cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{subcaption}
+\usepackage{gauss}
+\newtheorem{satz}{Satz}[section]
+\newtheorem{lemma}[satz]{Lemma}
+\newtheorem{korollar}[satz]{Korollar}
+\newtheorem{proposition}[satz]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[satz]{Def.}
+\newtheorem{axiom}[satz]{Axiom}
+\newtheorem{bsp}[satz]{Bsp.}
+\newtheorem*{anmerkung}{Anm}
+\newtheorem{bemerkung}[satz]{Bem}
+\newtheorem*{notatio}{Notation}
+\newcommand{\obda}{O.B.d.A. }
+\newcommand{\equals}{\Longleftrightarrow}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\intd}{\mathrm{d}}
+\newcommand{\Pot}{\operatorname{Pot}}
+\newcommand{\mychar}{\operatorname{char}}
+\newcommand{\myker}{\operatorname{ker}}
+\newcommand{\induktion}[3]
+{\begin{proof}\ \\
+	\noindent\textbf{Induktionsanfang:}\ #1\\
+	\noindent\textbf{Induktionsvoraussetzung:}\ #2\\
+	\noindent\textbf{Induktionsschluss:}\ #3
+\end{proof}}
+
+\newcommand{\rg}{\operatorname{rg}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\abb}{\operatorname{Abb}}
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\Ima}{\operatorname{Im}}
+\newcommand{\Fit}{\operatorname{Fit}}
+
+
+\newcommand{\lalayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Lineare Algebra 1, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Dozent: Denis Vogel\\
+			Tutor: Marina Savarino}
+		\rhead{Lineare Algebra 2, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+
+\lstset{
+    frame=tb, % draw a frame at the top and bottom of the code block
+    tabsize=4, % tab space width
+    showstringspaces=false, % don't mark spaces in strings
+    numbers=left, % display line numbers on the left
+    commentstyle=\color{green}, % comment color
+    keywordstyle=\color{blue}, % keyword color
+    stringstyle=\color{red} % string color
+}
+\setlength{\headheight}{25pt}
+\begin{document}
+\lalayout{3}
+\section*{Aufgabe 12}
+\begin{enumerate}[(a)]
+\item Behauptung: Für $m,n\in\Z$ sind äquivalent:
+\begin{enumerate}[(i)]
+	\item $\overline{m}$ ist eine Einheit in $\Z/n\Z$
+	\item ggT($m,n$)$=1$
+	\begin{proof}
+		\begin{itemize}
+			\item (i) $\implies$ (ii): Sei $\overline{m}\in\Z/n\Z$. Da $\overline{m}$ eine Einheit ist, existiert ein $k\in \Z$, sodass $\overline{m}\cdot \overline{k}=\overline{1}.$ Somit ist $mk-1\in \Z$. Weiter existiert ein $l\in \Z$, sodass $mk-1=ln\Leftrightarrow 1=mk-ln$. Sei $d\in \Z$ derart, dass $d|m $ und $d|n$. Dann gilt aber auch $d|(mk-ln)=1$: Weil $d\in\Z$, folgt $d\in\{-1,1\},$ also ggT($m,n$)$=1.$
+			\item (ii) $\implies$ (i): Gelte ggT($m,n$)$=1$. Es existieren mit dem erweiterten euklidischen Algorithmus $u,v\in\Z $ mit $um+vn=1$. Daraus folgt $\overline{um}+\overline{vn}=\overline{um}=\overline{1}\implies \overline{u}\cdot \overline{m}=1$. Somit ist $\overline{m}$ eine Einheit in $\Z/n\Z$.
+		\end{itemize}
+	\end{proof}
+\end{enumerate}
+\item Es gilt mit dem euklidischen Algorithmus:
+\begin{align*}
+	51&=1\cdot 42 +9\\
+	42 &= 4\cdot 9+6\\
+	9&=1\cdot 6*3\\
+	6&=2\cdot 3\\
+\intertext{Somit ist der ggT($51,42$)$=3$, d.h. $\overline{42}\not\in(\Z/51\Z)^{\times}$.}
+	55&=1\cdot 42+13\\
+	42&=3\cdot 13+3\\
+	13&=4\cdot 3+1\\
+	3&=3\cdot 1\\
+	\intertext{Somit ist der ggT($55,42$)$=1$, d.h. $\overline{42}\in(\Z/55\Z)^{\times}$. Außerdem gilt:}
+	1&= 13-4\cdot 3\\
+	&= 13-4(42-3\cdot 13)\\
+	&=13\cdot 13-4\cdot 42\\
+	&=13(55-42)-4\cdot 42\\
+	&= 13\cdot 55+(-17)\cdot 42\\
+	\intertext{$55-17=38$, also gilt $\overline{42}\cdot\overline{38}=\overline{1}$ in $\Z/55\Z$.}
+\end{align*}
+
+
+\end{enumerate}
+\section*{Aufgabe 13}
+\begin{enumerate}[(a)]
+	\item Sei $z = c + di$. Dann gilt $|z - (a +bi)| \leq \frac{1}{\sqrt{2}} \equals (c-a)^2 + (d-b)^2 \leq \frac{1}{2}$. Zu jeder reellen Zahl $x$ gibt es eine ganze Zahl $n(x)$, sodass $|n(x) - x| \leq \frac{1}{2}$. Wähle also $a = n(c)$ und $b = n(d)$. Dann ist $(c-a)^2 + (d-b)^2 \leq \left(\frac{1}{2}\right)^2 + \left(\frac{1}{2}\right)^2 = \frac{1}{2}$.
+	\item Zu jeder Zahl $z$ gibt es ein $q$, sodass $z$ in einem von $qw$, $(q+1)w$, $(q + i)w$ und $(q + 1+ i)w$, wie in der Skizze abgebildet, begrenzten Quadrat liegt.
+	\begin{figure}[ht]
+		\centering
+		\begin{tikzpicture}[auto]
+			\coordinate [label=left:$qw$] (o) at ( 0, 0);
+			\coordinate [label=above:$(q+1)w$] (w) at ( 2, 1);
+			\coordinate [label=below:$(q+i)w$] (x) at (1, -2);
+			\coordinate [label=right:$(q +  i + 1)w$] (y) at (2 + 1, 1 - 2);
+			\coordinate [label=right:$z$] (z) at (1.5, -.5);
+
+			\node (O) [fill=black, circle, inner sep=1pt] at (o) {};
+			\node (W) [fill=black, circle, inner sep=1pt] at (w) {};
+			\node (X) [fill=black, circle, inner sep=1pt] at (x) {};
+			\node (Y) [fill=black, circle, inner sep=1pt] at (y) {};
+			\node (Z) [fill=black, circle, inner sep=1pt] at (z) {};
+			\draw (o) -| node[near start] {$a$} node[near end] {$b$} (w) |- (y) -| (x) |- (o);
+			\draw (O) -- node[near end, rotate = 28] {$\sqrt{a^2 + b^2}$} (W) -- (Y) -- (X) -- (O);
+		\end{tikzpicture}
+	\end{figure}
+	Der maximale Abstand von $z$ zu einem Vielfachen von $w$ ist genau dann erreicht, wenn $z$ in der Mitte dieses Quadrats liegt. Dann ist der Abstand von $z$ zu jedem der 4 Endpunkte durch die Hälfte der Länge der Diagonalen gegeben, also nach dem Satz des Pythagoras $|z - qw| = \frac{1}{2}\sqrt{(a^2 + b^2) + (a^2 + b^2)} = \sqrt{\frac{1}{2}}\sqrt{a^2 + b^2}$. Im Allgemeinen ist $|z - qw|$ aber kleiner als dieser Abstand (für geeignetes $q$ natürlich), also $\delta(z - qw) = |z-qw|^2 \leq \frac{1}{2}(a^2 + b^2) = \frac{1}{2}\delta(w)$. Natürlich könnte man das jetzt noch formalisieren, aber das macht nicht so viel Spaß und die Idee ist klar.
+	\item Laut Aufgabentext ist $\Z[i]$ nullteilerfrei. Es genügt also zu zeigen, dass  $\forall z, w\in \Z[i]$ mit $w\neq 0 \exists q, r\in \Z[i]$ mit $z = qw + r$, $\delta(r) <\delta(w)$. Wähle $r = z -qw$. Nach Aufgabenteil $(b)$ gilt dann $\deg(r) \leq \frac{1}{2}\deg(w) < \deg(w)$. Daraus folgt sofort die Aussage.
+	\item \begin{align*}
+		9 &= (1-i)(3+4i) + 2-i &&\delta(2-i) = 5 < 25 = \delta(3+4i)\\
+		3 + 4i &= (2i)(2-i) +1 &&\delta(1) = 1 < 5 = \delta(2-i)\\
+		2-i &= (2-i)(1) + 0\\
+		\implies 1&\in \operatorname{ggT}(9, 3+4i)
+	\end{align*}
+\end{enumerate}
+\section*{Aufgabe 14}
+Behauptung: Für einen Ring $\neq 0$ sind folgende Aussagen äquivalent:
+\begin{enumerate}[(i)]
+	\item $R$ ist ein Körper
+	\item $R[t]$ ist ein euklidischer Ring
+	\item $R[t]$ ist ein Hauptidealring
+\end{enumerate}
+\begin{proof}
+	\begin{enumerate}[(i)$\implies$ (ii):]
+		\item Jeder Polynomring über Körpern ist nach VL euklidisch
+		\item [(ii)$\implies$ (iii):]Jeder Euklidische Ring ist nach VL ein Hauptidealring
+		\item [(iii) $\implies$ (i):] Sei $R$ ein Körper. Ist $R$ nicht nullteilerfrei, folgt direkt die Behauptung. Sei nun also $R$ nullteilerfrei, weshalb $\exists x\in R\setminus\{0\}$ sodass $xy\neq 1 \forall y\in R$.
+	\end{enumerate}
+	Behauptung: $(x,t)$ ist kein Hauptideal. 
+	\begin{proof}
+		Angenommen $\exists f\in R[t]$, sodass $(f)=(x,t)$, dann $\exists h\in R[t],$ sodass $x=fh.$ $R$ ist nullteilerfrei, also gilt 
+		$$0=\deg(x)=\deg(f)+\deg(h)\implies \deg(f)=\deg(h)=0.$$
+		Es existiert also ein $a\in R$ sodass $f=a$ und ein $g\in R[t]$ sodass $t=fg=ag.$ Somit gilt $\deg(g)=1$ und wegen $e(t)=1$
+		$$ 1=e(t)=e(a)\cdot e(g)=a\cdot e(h)\in R.$$
+		Folglich ist $a$ eine Einheit auf $R$. Wegen $aa^{-1}=1 $ gilt zudem $1\in (a)=(x,t)$ und es existieren $u,v\in R[t]$ sodass 
+		$$1=xu+tv\overset{t=0}{\implies}1=x\cdot u(0)\in R.$$
+		Damit ist aber $x\in R^{\times}$, was ein Widerspruch ist.
+\end{proof}
+\end{proof}
+
+\section*{Aufgabe 15}
+\begin{enumerate}[(a)]
+	\item \begin{align*}
+		\begin{gmatrix}[p]
+			0 & 20 & 0\\
+			10 & 12 & 6\\
+			20 & 12 & 10
+			\colops
+			\add[-1]{0}{1}
+		\end{gmatrix} &\rightsquigarrow
+		\begin{gmatrix}[p]
+			0 & 20 & 0\\
+			10 & 2 & 6\\
+			20 & -8 & 10
+			\colops
+			\swap{0}{1}
+		\end{gmatrix}
+		\rightsquigarrow
+		\begin{gmatrix}[p]
+			20 & 0 & 0\\
+			2 & 10 & 6\\
+			-8 & 20 & 10
+			\rowops
+			\swap{0}{1}
+		\end{gmatrix}\\
+		&\rightsquigarrow
+		\begin{gmatrix}[p]
+			2 & 10 & 6\\
+			20 & 0 & 0\\
+			-8 & 20 & 10
+			\colops
+			\add[-5]{0}{1}
+			\add[-3]{0}{2}
+		\end{gmatrix}
+		\rightsquigarrow
+		\begin{gmatrix}[p]
+			2 & 0 & 0\\
+			20 & -100 & -60\\
+			-8 & 60 & 34
+			\rowops
+			\add[-10]{0}{1}
+			\add[4]{0}{2}
+		\end{gmatrix}\\
+		&\rightsquigarrow
+		\begin{gmatrix}[p]
+			2 & 0 & 0\\
+			0 & -100 & -60\\
+			0 & 60 & 34
+			\rowops
+			\add[2]{2}{1}
+		\end{gmatrix}
+		\rightsquigarrow
+		\begin{gmatrix}[p]
+			2 & 0 & 0\\
+			0 & 20 & 8\\
+			0 & 60 & 34
+			\rowops
+			\add[-4]{1}{2}
+		\end{gmatrix}\\
+		&\rightsquigarrow
+		\begin{gmatrix}[p]
+			2 & 0 & 0\\
+			0 & 20 & 8\\
+			0 & -20 & 2
+			\colops
+			\swap{1}{2}
+			\rowops
+			\swap{1}{2}
+		\end{gmatrix}
+		\rightsquigarrow
+		\begin{gmatrix}[p]
+			2 & 0 & 0\\
+			0 & 2 & -20\\
+			0 & 8 & 20
+			\rowops
+			\add[-4]{1}{2}
+		\end{gmatrix}\\
+		&\rightsquigarrow
+		\begin{gmatrix}[p]
+			2 & 0 & 0\\
+			0 & 2 & -20\\
+			0 & 0 & 100
+			\colops
+			\add[10]{1}{2}
+		\end{gmatrix}
+		\rightsquigarrow
+		\begin{gmatrix}[p]
+			2 & 0 & 0\\
+			0 & 2 & 0\\
+			0 & 0 & 100
+		\end{gmatrix}
+	\end{align*}
+	Die Elementarteiler sind also $2, 2$ und $100$. Die Fittingideale dieser Matrix sind nach Fittings Lemma gleich den Fittingidealen von $A$. Es gilt daher $\Fit_1(A) = (2,2,100) = (2)$, $\Fit_2(A) = (4, 200, 200) = (4)$ und $\Fit_3(A) = (400)$.
+	\item \begin{align*}
+		\begin{gmatrix}[p]
+			1-t & -1 & 2\\
+			-1 & -1 & 3\\
+			0 & -1 & 3-t
+			\rowops
+			\swap{1}{2}
+		\end{gmatrix}
+		&\rightsquigarrow
+		\begin{gmatrix}[p]
+			-1 & -1 & 3\\
+			1-t & -1 & 2\\
+			0 & -1 & 3-t
+			\colops
+			\add[-1]{0}{1}
+			\add[3]{0}{2}
+		\end{gmatrix}
+		\rightsquigarrow
+		\begin{gmatrix}[p]
+			-1 & 0 & 0\\
+			1-t & -2 +t & 5 -3t\\
+			0 & -1 & 3-t
+			\rowops
+			\add[1-t]{0}{1}
+		\end{gmatrix}\\
+		&\rightsquigarrow
+		\begin{gmatrix}[p]
+			-1 & 0 & 0\\
+			0 & -2 +t & 5 -3t\\
+			0 & -1 & 3-t
+			\rowops
+			\swap{1}{2}
+		\end{gmatrix}
+		\rightsquigarrow
+		\begin{gmatrix}[p]
+			-1 & 0 & 0\\
+			0 & -1 & 3-t\\
+			0 & -2+t & 5-3t
+			\rowops
+			\add[-2+t]{1}{2}
+		\end{gmatrix}\\
+		&\rightsquigarrow
+		\begin{gmatrix}[p]
+			-1 & 0 & 0\\
+			0 & -1 & 3-t\\
+			0 & 0 & -1 + 2t -t^2
+			\colops
+			\add[3-t]{1}{2}
+		\end{gmatrix}
+		\rightsquigarrow
+		\begin{gmatrix}[p]
+			-1 & 0 & 0\\
+			0 & -1 & 0\\
+			0 & 0 & -(t-1)^2
+		\end{gmatrix}
+	\end{align*}
+	Daraus folgt $F_1(B) = (1, 1, (t-1)^2) = \R[t], F_2(B) = (1, (t-1)^2, (t-1)^2) = \R[t], F_3(B) = ((t-1)^2)$.
+\end{enumerate}
+\end{document}

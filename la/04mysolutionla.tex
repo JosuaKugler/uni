@@ -1,0 +1,329 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amsfonts, amsthm, mathtools, amssymb}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\usepackage{cases}
+\usepackage{fancyhdr}
+\usepackage{comment}
+%\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{calc,intersections,through,backgrounds}
+\usepackage{cases}
+\usepackage{listings}
+\usepackage{siunitx}
+\usepackage[left = 2cm, right = 2cm, top=2.5cm, bottom=2.5cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{subcaption}
+\usepackage{gauss}
+\usepackage{environ}
+\newtheorem{satz}{Satz}[section]
+\newtheorem{lemma}[satz]{Lemma}
+\newtheorem{korollar}[satz]{Korollar}
+\newtheorem{proposition}[satz]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[satz]{Def.}
+\newtheorem{axiom}[satz]{Axiom}
+\newtheorem{bsp}[satz]{Bsp.}
+\newtheorem*{anmerkung}{Anm}
+\newtheorem{bemerkung}[satz]{Bem}
+\newtheorem*{notatio}{Notation}
+\newcommand{\obda}{O.B.d.A. }
+\newcommand{\equals}{\Longleftrightarrow}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\intd}{\mathrm{d}}
+\newcommand{\Pot}{\operatorname{Pot}}
+\newcommand{\mychar}{\operatorname{char}}
+\newcommand{\myker}{\operatorname{ker}}
+\newcommand{\induktion}[3]
+{\begin{proof}\ \\
+	\noindent\textbf{Induktionsanfang:}\ #1\\
+	\noindent\textbf{Induktionsvoraussetzung:}\ #2\\
+	\noindent\textbf{Induktionsschluss:}\ #3
+\end{proof}}
+
+\newcommand{\rg}{\operatorname{rg}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\abb}{\operatorname{Abb}}
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\Ima}{\operatorname{Im}}
+\newcommand{\Fit}{\operatorname{Fit}}
+\newcommand{\ggt}{\operatorname{GGT}}
+
+\let\oldstackrel\stackrel
+\renewcommand{\stackrel}[2]{%
+    \oldstackrel{\mathclap{#1}}{#2}
+}%
+\ExplSyntaxOn
+
+% S-tackrelcompatible ALIGN environment
+% some might also call it the S-uper ALIGN environment
+% uses regular expressions to calculate the widest stackrel
+% to put additional padding on both sides of relation symbols
+\NewEnviron{salign}
+{
+    \begin{align}
+        \lec_insert_padding:V \BODY
+    \end{align}
+}
+% starred version that does no equation numbering
+\NewEnviron{salign*}
+{
+    \begin{align*}
+        \lec_insert_padding:V \BODY
+    \end{align*}
+}
+
+% some helper variables
+\tl_new:N \l__lec_text_tl
+\seq_new:N \l_lec_stackrels_seq
+\int_new:N \l_stackrel_count_int
+\int_new:N \l_idx_int
+\box_new:N \l_tmp_box
+\dim_new:N \l_tmp_dim_a
+\dim_new:N \l_tmp_dim_b
+\dim_new:N \l_tmp_dim_needed
+
+% function to insert padding according to widest stackrel
+\cs_new_protected:Nn \lec_insert_padding:n
+ {
+  \tl_set:Nn \l__lec_text_tl { #1 }
+  % get all stackrels in this align environment
+  \regex_extract_all:nnN { \c{stackrel}{(.*?)}{(.*?)} } { #1 } \l_lec_stackrels_seq
+  % get number of stackrels
+  \int_set:Nn \l_stackrel_count_int { \seq_count:N \l_lec_stackrels_seq }
+  \int_set:Nn \l_idx_int { 1 }
+  \dim_set:Nn \l_tmp_dim_needed { 0pt }
+  % iterate over stackrels
+  \int_while_do:nn { \l_idx_int <= \l_stackrel_count_int }
+  {
+      % calculate width of text
+      \hbox_set:Nn \l_tmp_box {$\seq_item:Nn \l_lec_stackrels_seq { \l_idx_int + 1 }$}
+      \dim_set:Nn \l_tmp_dim_a {\box_wd:N \l_tmp_box}
+      % calculate width of relation symbol
+      \hbox_set:Nn \l_tmp_box {$\seq_item:Nn \l_lec_stackrels_seq { \l_idx_int + 2 }$}
+      \dim_set:Nn \l_tmp_dim_b {\box_wd:N \l_tmp_box}
+      % check if 0.5*(a-b) > minimum padding, if yes updated minimum padding
+      \dim_compare:nNnTF
+        { 1pt * \dim_ratio:nn { \l_tmp_dim_a - \l_tmp_dim_b } { 2pt } } > { \l_tmp_dim_needed }
+        { \dim_set:Nn \l_tmp_dim_needed { 1pt * \dim_ratio:nn { \l_tmp_dim_a - \l_tmp_dim_b } { 2pt } } }
+        { }
+      \quad
+      % increment list index by three, as every stackrel produces three list entries
+      \int_incr:N \l_idx_int
+      \int_incr:N \l_idx_int
+      \int_incr:N \l_idx_int
+  }
+  % replace all relations with align characters (&) and add the needed padding
+  \regex_replace_all:nnN
+      { (\c{approx}&|&\c{approx}|\c{equiv}&|&\c{equiv}|=&|&=|\c{le}&|&\c{le}|\c{ge}&|&\c{ge}|&\c{stackrel}{.*?}{.*?}|\c{stackrel}{.*?}{.*?}&|&\c{neq}|\c{neq}&) }
+      { \c{kern} \u{l_tmp_dim_needed} \1 \c{kern} \u{l_tmp_dim_needed} }
+      \l__lec_text_tl
+  \l__lec_text_tl
+ }
+\cs_generate_variant:Nn \lec_insert_padding:n { V }
+\ExplSyntaxOff
+
+
+
+\newcommand{\lalayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Lineare Algebra 1, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Dozent: Denis Vogel\\
+			Tutor: Marina Savarino}
+		\rhead{Lineare Algebra 2, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+
+\lstset{
+    frame=tb, % draw a frame at the top and bottom of the code block
+    tabsize=4, % tab space width
+    showstringspaces=false, % don't mark spaces in strings
+    numbers=left, % display line numbers on the left
+    commentstyle=\color{green}, % comment color
+    keywordstyle=\color{blue}, % keyword color
+    stringstyle=\color{red} % string color
+}
+\setlength{\headheight}{25pt}
+\begin{document}
+\lalayout{4}
+\section*{Aufgabe 16}
+\begin{enumerate}[(a)]
+	\item \begin{enumerate}[(i)]
+		\item Seien im folgenden $f,g \neq 0$ (sonst trivial). Wir führen den euklidischen Algorithmus über $L[t]$ durch und setzen dazu $a_0 = f\in K[t]$ und $a_1 = g\in K[t]$. Dann $\exists q_0 \in K[t]$ mit $a_0 = q_0a_1 + a_2$, da $K[t]$ ein euklidischer Ring ist. Folglich ist auch $a_2 \in K[t]$. Induktiv erhalten wir, dass es stets ein $q_{i-1}\in K[t]$ gibt mit $$a_{i-1} = q_{i-1}a_i + a_{i+1}.$$ Schließlich erhalten wir nach Vorlesung ein Polynom $d$, sodass $d$ normiert gleich dem eindeutig bestimmten $\ggt(f,g)_{L[t]}$ ist. Sei nun $\partial$ der Leitkoeffizient von $d$. Wegen $d\in K[t]$ ist $\partial \in K$. Also ist $\partial^{-1} \cdot d$ ein normiertes Polynom $\in K[t]$ und damit $\ggt(f,g) = \partial^{-1} d \in K[t]$.
+		Diesen gesamten Algorithmus können wir identisch über $K[t]$ ausführen, da wir die Polynome so gewählt hatten, dass sie alle in $K[t]$ lagen. Offensichlich erhalten wir dann auch dasselbe Ergebnis $GGT_{K[t]}$.
+		Bestimmen wir umgekehrt $GGT(f,g)_{K[t]}$ mit dem euklidischen Algorithmus über $K[t]$, so können wir den Algorithmus identisch über $L[t]$ ausführen, da die $q_i$ und $a_{i}$ natürlich die Gradbedingung über $L[t]$ genauso erfüllen wie über $K[t]$.
+		\item \textbf{Behauptung:} $d_l(M)$ ist über $K$ und $L$ gleich.
+		Nach Bemerkung 4.3 (b) ist $d_l(M) = \ggt(\det(N)| N\text{ ist }l\times l\text{ Untermatrix von }P_M)$. Wie in Aufgabe $(i)$ gezeigt, ist der größte gemeinsame Teiler aber über $L$ gleich wie über $K$. Natürlich ist auch die Determinante einer beliebigen Untermatrix von $P_M$ gleich. Daher folgt sofort unsere Behauptung.
+		Nach dem Invariantenteilersatz sind $A$ und $B$ genau dann äquivalent, wenn ihre Determinantenteiler übereinstimmen. Da diese jedoch unabhängig von $K$ oder $L$ sind, muss auch die Äquivalenz der Matrizen unabhängig davon sein, ob man sie als Elemente von $M_{n,n}(K)$ oder $M_{n,n}(L)$ auffasst.
+	\end{enumerate}
+	\item Es gilt $P_{A^t} = (tE_n-A^t) = (tE_n)^t - A^t = (tE_n - A)^t = P_A^t$.
+	Also $A\sim A^t \equals P_A \approx P_{A^t} \equals P_A \approx P_A^t \equals \forall 1\leq l \leq n:\; \Fit_l(P_A) = \Fit_l(P_A^t)$. 
+	Da die Fittingideale ausschließlich von den Determinanten abhängen, sind diese natürlich invariant unter Transposition, woraus sofort die Aussage folgt.
+\end{enumerate}
+\section*{Aufgabe 17}
+\begin{enumerate}[(a)]
+	\item Es gilt 
+	$$P_A = \begin{pmatrix}
+		t - 10 & 11 & 11 & 32\\
+		1 & t & 2 & -4\\
+		-1 & 1 & t-1 & 4\\
+		-2 & 2 & 2 & t + 6
+	\end{pmatrix}$$
+	Nun berechnen wir die Elementarteiler von $P_A$. % Invarianten- bzw. Determinantenteiler von A gesucht
+	\begin{align*}
+		\begin{gmatrix}[p]
+			t - 10 & 11 & 11 & 32\\
+			1 & t & 2 & -4\\
+			-1 & 1 & t-1 & 4\\
+			-2 & 2 & 2 & t + 6
+			\rowops
+			\swap{0}{1}
+		\end{gmatrix} 
+		&\rightsquigarrow \begin{gmatrix}[p]
+			1 & t & 2 & -4\\
+			t - 10 & 11 & 11 & 32\\
+			-1 & 1 & t-1 & 4\\
+			-2 & 2 & 2 & t + 6	
+			\rowops
+			\add[10 -t]{0}{1}
+			\add{0}{2}
+			\add[2]{0}{3}
+		\end{gmatrix}\\
+		\rightsquigarrow \begin{gmatrix}[p]
+			1 & t & 2 & -4\\
+			0 & 11 + 10 t - t^2 & 31 - 2t & -8 + 4t\\
+			0 & 1 + t & t+1 & 0\\
+			0 & 2 + 2t & 6 & t - 2
+			\colops
+			\add[-t]{0}{1}
+			\add[-2]{0}{2}
+			\add[4]{0}{3}
+		\end{gmatrix}
+		& \rightsquigarrow \begin{gmatrix}[p]
+			1 & 0 & 0 & 0\\
+			0 & 11 + 10 t - t^2 & 31 - 2t & -8 + 4t\\
+			0 & 1 + t & t+1 & 0\\
+			0 & 2 +2t & 6 & t -2
+			\colops
+			\swap{1}{2}
+		\end{gmatrix}\\
+		\rightsquigarrow \begin{gmatrix}[p]
+			1 & 0 & 0 & 0\\
+			0 & 6 & 2+t & -2 + t\\
+			0 &  1+t & 1+t & 0\\
+			0 & 31 - 2t & 11 + 10 t - t^2 & 4t -8)
+			\colops
+			\add[-1]{1}{2}
+		\end{gmatrix}
+		& \rightsquigarrow \begin{gmatrix}[p]
+			1 & 0 & 0 & 0\\
+			0 & 6 & 2(t-2) & t -2\\
+			0 & 1+t & 0 & 0\\
+			0 & 31 - 2t & -20 + 12t - t^2 & 4t -8
+			\colops
+			\add[-2]{3}{2}
+		\end{gmatrix}\\
+		\rightsquigarrow \begin{gmatrix}[p]
+			1 & 0 & 0 & 0\\
+			0 & 6 & 0 & t -2\\
+			0 & 1+t & 0 & 0\\
+			0 & 31 - 2t & -4 + 4t - t^2 & 4t -8
+			\rowops
+			\add[2]{2}{3}
+			\add[-4]{1}{3}
+		\end{gmatrix}
+		& \rightsquigarrow \begin{gmatrix}[p]
+			1 & 0 & 0 & 0\\
+			0 & 6 & 0 & t -2\\
+			0 & 1+t & 0 & 0\\
+			0 & 9& -4 + 4t - t^2 & 0
+			\colops
+			\add[-\frac{1}{6}(t-2)]{1}{3}
+		\end{gmatrix}\\
+		\rightsquigarrow \begin{gmatrix}[p]
+			1 & 0 & 0 & 0\\
+			0 & 6 & 0 & 0\\
+			0 & 1+t & 0 & -\frac{1}{6}(1+t)(t-2)\\
+			0 & 9& -(t-2)^2 & -\frac{3}{2}(t-2)
+			\rowops
+			\add[-\frac{1}{6}(1+t)]{1}{2}
+			\add[-\frac{3}{2}]{1}{3}
+		\end{gmatrix}
+		& \rightsquigarrow \begin{gmatrix}[p]
+			1 & 0 & 0 & 0\\
+			0 & 6 & 0 & 0\\
+			0 & 0& 0 & -\frac{1}{6}(1+t)(t-2)\\
+			0 & 0& -(t-2)^2 & -\frac{3}{2}(t-2)
+			\colops
+			\swap{2}{3}
+			\rowops
+			\swap{2}{3}
+		\end{gmatrix}\\
+		\rightsquigarrow \begin{gmatrix}[p]
+			1 & 0 & 0 & 0\\
+			0 & 6 & 0 & 0\\
+			0 & 0& -\frac{3}{2}(t-2) & -(t-2)(t-2)\\
+			0 & 0& -\frac{1}{6}(1+t)(t-2) & 0
+			\rowops
+			\add[-\frac{1}{9}(t+1)]{2}{3}
+		\end{gmatrix}
+		&\rightsquigarrow \begin{gmatrix}[p]
+			1 & 0 & 0 & 0\\
+			0 & 6 & 0 & 0\\
+			0 & 0& -\frac{3}{2}(t-2) & -(t-2)^2\\
+			0 & 0& 0 & \frac{1}{9}(t-2)^2(t+1)
+			\colops
+			\add[-\frac{2}{3}(t-2)]{2}{3}
+		\end{gmatrix}\\
+		\rightsquigarrow \begin{gmatrix}[p]
+			1 & 0 & 0 & 0\\
+			0 & 6 & 0 & 0\\
+			0 & 0& -\frac{3}{2}(t-2) & 0\\
+			0 & 0& 0 & \frac{1}{9}(t-2)^2(t+1)
+			\rowops
+			\mult{1}{\cdot \frac{1}{6}}
+			\mult{2}{\cdot \frac{2}{3}}
+			\mult{3}{\cdot 9}
+		\end{gmatrix}
+		&\rightsquigarrow \begin{gmatrix}[p]
+			1 & 0 & 0 & 0\\
+			0 & 1 & 0 & 0\\
+			0 & 0& (t-2) & 0\\
+			0 & 0& 0 & (t-2)^2(t+1)
+		\end{gmatrix}
+	\end{align*}
+	Damit erhalten wir die Invariantenteiler $1, 1, (t-2)$ und $(t-2)^2(t+1)$. Die Determinantenteiler lauten folglich $1, 1, (t-2)$ und $(t-2)^3 (t+1)$.
+	\item Es gilt $$P_B = \begin{pmatrix}
+		t + 5 & 3 & -5\\
+		0 & t-1 & 1\\
+		8 & 4 & t - 7
+	\end{pmatrix}$$ und $$P_C = \begin{pmatrix}
+		t + 3 & - 8 & - 12\\
+		- 1 & t + 2 & 3\\
+		2 & - 4 & t-7
+	\end{pmatrix}$$ Wir erhalten $$\det P_B = \det \begin{pmatrix}
+		t + 5 & 3 & -5\\
+		0 & t-1 & 1\\
+		8 & 4 & t - 7
+	\end{pmatrix} = t^3 - 3t^2 + 3t - 1$$ und $$P_C = \det \begin{pmatrix}
+		t + 3 & - 8 & - 12\\
+		- 1 & t + 2 & 3\\
+		2 & - 4 & t-7
+	\end{pmatrix} = 2 - t - 2 t^2 + t^3.$$ Da sich die beiden Determinanten unterscheiden, ist $d_3(B) \neq d_3(C)$ und daher sind $B$ und $C$ nicht äquivalent.
+\end{enumerate}
+\end{document}

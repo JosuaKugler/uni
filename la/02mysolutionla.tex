@@ -1,0 +1,150 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amsfonts, amsthm, mathtools, amssymb}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\usepackage{cases}
+\usepackage{fancyhdr}
+\usepackage{comment}
+%\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{cases}
+\usepackage{listings}
+\usepackage{siunitx}
+\usepackage[left = 2cm, right = 2cm, top=2.5cm, bottom=2.5cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{subcaption}
+\usepackage{gauss}
+\newtheorem{satz}{Satz}[section]
+\newtheorem{lemma}[satz]{Lemma}
+\newtheorem{korollar}[satz]{Korollar}
+\newtheorem{proposition}[satz]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[satz]{Def.}
+\newtheorem{axiom}[satz]{Axiom}
+\newtheorem{bsp}[satz]{Bsp.}
+\newtheorem*{anmerkung}{Anm}
+\newtheorem{bemerkung}[satz]{Bem}
+\newtheorem*{notatio}{Notation}
+\newcommand{\obda}{O.B.d.A. }
+\newcommand{\equals}{\Longleftrightarrow}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\intd}{\mathrm{d}}
+\newcommand{\Pot}{\operatorname{Pot}}
+\newcommand{\mychar}{\operatorname{char}}
+\newcommand{\myker}{\operatorname{ker}}
+\newcommand{\induktion}[3]
+{\begin{proof}\ \\
+	\noindent\textbf{Induktionsanfang:}\ #1\\
+	\noindent\textbf{Induktionsvoraussetzung:}\ #2\\
+	\noindent\textbf{Induktionsschluss:}\ #3
+\end{proof}}
+
+\newcommand{\rg}{\operatorname{rg}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\abb}{\operatorname{Abb}}
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\Ima}{\operatorname{Im}}
+
+
+
+\newcommand{\ipilayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Einführung in die praktische Informatik, Blatt #1}
+	\fancyhead[R]{Josua Kugler, Jan Metzger, David Wesner}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Peter Bastian\\
+			Tutor: Frederick Schenk}
+		\rhead{Einführung in die praktische Informatik, Übungsblatt #1\\ David, Jan, Josua}
+		\cfoot{\thepage}
+	}
+\thispagestyle{firstpage}
+}
+
+\newcommand{\analayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Analysis 1, Blatt #1}
+	\fancyhead[R]{Alexander Bryant, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Ekaterina Kostina\\
+			Tutor: Philipp Elja Müller}
+		\rhead{Analysis 1, Übungsblatt #1\\ Alexander Bryant, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+\newcommand{\lalayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Lineare Algebra 1, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Professor: Denis Vogel\\
+			Tutor: Marina Savarino}
+		\rhead{Lineare Algebra 2, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+
+\lstset{
+    frame=tb, % draw a frame at the top and bottom of the code block
+    tabsize=4, % tab space width
+    showstringspaces=false, % don't mark spaces in strings
+    numbers=left, % display line numbers on the left
+    commentstyle=\color{green}, % comment color
+    keywordstyle=\color{blue}, % keyword color
+    stringstyle=\color{red} % string color
+}
+\setlength{\headheight}{25pt}
+\begin{document}
+\lalayout{2}
+\section*{Aufgabe 8}
+\begin{enumerate}[(a)]
+	\item Sei $x\in (I(J+K))$. Dann gibt es Elemente $a_1, \dots, a_n \in I$, $b_1, \dots, b_n, \in J$ und $c_1, \dots, c_n\in K$, sodass $x = \sum_{i = 1}^{n}a_i(b_i + c_i) = \sum_{i = 1}^{n}\underbrace{a_ib_i}_{\in IJ} + \sum_{i = 1}^{n}\underbrace{a_ic_i}_{\in IK}$. Da $IJ$ und $IK$ wieder Ideale sind, gilt also auch $\sum_{i = 1}^{n}a_ib_i \in IJ$ und $\sum_{i = 1}^{n}a_ic_i \in IK$ und damit $x \in IJ + IK$.
+	Sei nun $x\in IJ + IK$. Dann existieren $a_1, \dots a_{2n} \in I$, $b_1, \dots b_{2n} \in J$ und $c_1, \dots c_{2n} \in K$ mit $b_{n+i} = c_i = 0\forall 1 \leq i \leq n$, sodass $x = \sum_{i = 1}^{n}a_ib_i + \sum_{i = n+1}^{2n}a_ic_i \overset{\forall i > n: b_i = 0, \forall i < n+1: c_i = 0}{=} \sum_{i = 1}^{2n}a_ib_i  + \sum_{i = 1}^{2n} a_ic_i = \sum_{i = 1}^{2n} a_i(b_i + c_i) \in I(J+K)$. Also erhalten wir insgesamt $I(J+K)\subseteq IJ + JK$ und $IJ + JK \subseteq I(J+K)$, woraus $IJ + IK = I(J+K)$ folgt.
+	\item Sei $x \in (I\cap J)(I+J)$. Dann existieren $a_1, \dots, a_n \in I\cap J$, $b_1, \dots, b_n, \in I$ und $c_1, \dots, c_n\in J$, sodass $x = \sum_{i = 1}^{n}a_i(b_i + c_i) \overset{a_i \in I,\; a_i \in J}{=}\sum_{i = 1}^{n}\underbrace{a_ib_i}_{\in JI} + \sum_{i = 1}^{n}\underbrace{a_ic_i}_{\in IJ}$. Da $IJ = JI$ ein Ideal ist, gilt auch $\sum_{i = 1}^{n}a_ib_i \in IJ$ und $\sum_{i = 1}^{n}a_ic_i \in IJ$ und damit $x \in IJ$. Sei nun $x\in IJ$. Dann existieren $a_1, \dots, a_n \in I$ und $b_1, \dots, b_n, \in J$, sodass $x = \sum_{i = 1}^{n}a_ib_i$. Da $I$ ein Ideal ist, liegen auch alle Vielfachen von $a_i$, also insbesondere auch $b_i \cdot a_i$ in $I$. Analog folgt: $a_i \cdot b_i \in J$. Da $IJ$ ein Ideal ist, liegt auch die Summe $\sum_{i = 1}^{n} a_ib_i \in I$ und $\sum_{i = 1}^{n} a_ib_i \in J$, also $\sum_{i = 1}^{n} a_ib_i \in I\cap J$.
+	\item Setzt man in der $b$ $(I+J) = (1)$ erhält man $(I\cap J)(1) \subseteq IJ \subseteq I\cap J$. Da $I\cap J$ ein Ideal ist, liegen alle Vielfachen von Elementen wieder in $I\cap J$. Also gilt $(I\cap J)(1) = I\cap J$. Damit erhalten wir $I\cap J \subseteq IJ \subseteq I\cap J\Leftrightarrow IJ = I\cap J$.
+\end{enumerate}
+\section*{Aufgabe 9}
+Am Mittwoch, den 13. Mai, wird die Python sowohl gebadet als auch gefüttert, da 7 Tage seit dem Mittwoch, an dem sie gebadet wurde vergangen sind und $8 = 2\cdot 4$ Tage seit dem Dienstag, an dem sie gefüttert wurde, vergangen sind. Die Menge aller Tage ist offensichtlich isomorph zum Ring der ganzen Zahlen , wobei Mittwoch, der 13. Mai 2020 auf die 0 abgebildet werde. Alle Tage, an denen die Python dann gebadet wird, werden dann auf $7\Z$ abgebildet, alle Tage, an denen die Python gefüttert wird, werden auf $4\Z$ abgebildet. Die Abbildung 
+$\phi: \Z \to (\Z/4\Z) \times (\Z/7\Z), r\to (r+ 4\Z, r+ 7\Z)$ ist nach dem chinesischen Restsatz ein Ringhomomorphismus mit dem Kern $\ker \phi = 4\Z \cap 7\Z = 28\Z$. Der Kern von $\phi$ ist isomorph zur Menge aller Tage, an denen die Python sowohl gebadet als auch gefüttert wird. Diese ist also gleich $\{\text{13. Mai 2020} + k \cdot 28\mathrm{d}|k\in \Z\}$.
+\section*{Aufgabe 10}
+\begin{enumerate}[(a)]
+	\item Es gilt $1 = 1 + 0 \cdot \sqrt{-33}$ und daher $\delta(1) = 1^2 = 1$. Sei $x = a + b\cdot \sqrt{-3}$ und $y = c + d\cdot\sqrt{-3}$. Dann ist $\delta(x\cdot y) = \delta(ac - 3bd + \sqrt{-3}\cdot (bc + ad)) = (ac - 3bd)^2 + 3(bc + ad)^2 = a^2c^2 - 6abcd + 9b^2d^2 + 3b^2c^2 + 6abcd + 3a^2d^2 = (a^2 + 3b^2) \cdot (c^2 + 3d^2) = \delta(x)\cdot \delta(y)$.
+	\item $\delta(0 + 0 \sqrt{-3}) = 0$. $\forall x = a + b\sqrt{-3} \in Z[\sqrt{-3}]\setminus\{0\}: \delta(x) = a^2 + b^2 \geq 1$. Ist also $\delta(x) > 1$ und $x \cdot y = 1$, dann muss $\delta(x) \cdot \delta(y) =1$ gelten. Da $\delta(x) > 1$, muss $\delta(y) < 1$ sein, also $y = 0$. Dann ist aber $x\cdot y = 0\lightning$. Folglich ist $Z[\sqrt{-3}]^\times = \{x \in \Z[\sqrt{-3}]|\delta(x) = 1\}$. Mit $a, b\in \Z$ folgt aus $a^2 + 3b^2 = 1$ sofort $b= 0, a = \pm 1$. Folglich ist $Z[\sqrt{-3}]^\times = \{x \in \Z[\sqrt{-3}]|\delta(x) = 1\} = \{\pm 1\}$.
+	\item $2 + \sqrt{-3}$ ist irreduzibel. 
+	Seien nämlich $a, b\in Z[\sqrt{-3}]$ mit $ab = 2 + \sqrt{-3}$, so ist $\delta(a)\cdot \delta(b) = \delta(a\cdot b) = \delta(2 + \sqrt{-3}) = 5 \implies \delta(a) \in \{\pm 1\}\lor \delta(b) \in \{\pm1\}$. 
+	Nun ist $(9 + \sqrt{-3}) \cdot (3 + \sqrt{-3}) = 27 - 3 + \sqrt{-3} (9+3) = 12(2 + \sqrt{-3})$. Allerdings ist $\delta(9 + \sqrt{-3}) = 81 + 3 = 84$ und $\delta(3 + \sqrt{-3}) = 9 + 3 = 12$. 
+	Angenommen, es gäbe nun ein $b$ mit $(2 + \sqrt{-3}) \cdot b = 9 + \sqrt{-3}$, dann gilt auch $5 \cdot \delta(b) = 84$. Da $\delta(b)$ eine ganze Zahl ist, existiert kein solches $b$. 
+	Analog zeigt man auch das $2 + \sqrt{-3} \not | 3 + \sqrt{-3}$. Also ist $2 + \sqrt{-3}$ nicht prim.
+	\item Die Menge aller Teiler von $4$ bzw. $2 + 2 \sqrt{-3}$ sei $A$ bzw. $B$. Es gilt $\delta(4) = \delta(2 + 2\sqrt{-3}) = 16$, $\delta(x) > 1 \forall x \in Z[\sqrt{-3}]$, $\delta(a + b \sqrt{-3}) = a^2 + 3b^2 \neq 2$, $x\cdot y = 4\implies \delta(x)\delta(y) = 16$ und $x \cdot y = 2 + 2\sqrt{-3} \implies \delta(x)\delta(y) = 16$. Also gilt $\forall x\in A \cup B$: $\delta(x) \in \{1, 4, 16\}$. Wir betrachten zunächst $x \in A\cup B: \delta(x) = 4$. Sei $x = a + b\sqrt{-3}$. Dann gilt $\delta(x) = a^2 + 3b^2 = 4 \implies b \leq 1$. Sei also $b^2 = 1$. Dann muss auch $a^2 = 1$ sein und wir erhalten die Lösungen $\pm (1 + \sqrt{-3})$ und $\pm (1 - \sqrt{-3})$. Im Fall $b^2 = 0$ erhalten wir die Lösungen $\pm 2$.
+	 Nach $(b)$ sind $x = \pm 1$ die einzigen Teiler mit $\delta(x) = 1$, also muss für $x\in A, \delta(x) = 16$ gelten: $x \cdot \pm 1 = 4 \implies x = \pm 4$. Außerdem gilt $\pm 2\cdot \pm 2 = \pm (1 + \sqrt{-3}) \cdot \pm (1 - \sqrt{-3}) = 4$. Also ist $A = \{\pm 1, \pm 2, \pm (1 + \sqrt{-3}), \pm (1 - \sqrt{-3}), \pm 4\}$. Es gilt $\pm 2 \cdot \pm (1 + \sqrt{-3}) = 2 + 2\sqrt{-3}$, also $\pm 2, \pm (1 + \sqrt{-3})\in B$. Allerdings gilt $\pm (1-\sqrt{3})\not| (2 + 2\sqrt{-3})$, sonst gäbe es ein $a + b\sqrt{-3}$ mit $(1 - \sqrt{-3})\cdot (a + b \sqrt{-3}) = a + 3b + \sqrt{-3}(b-a) = 2 + 2 \sqrt{-3} \implies 2 - 3b = a = b-2 \implies b = 0 \implies a = 2 = -a \lightning$. Analog zu $A$ erhalten wir also $B = \{\pm 1, \pm 2, \pm (1 + \sqrt{-3}), \pm (2 + 2 \sqrt{-3})\}$. Die gemeinsamen Teiler von $4$ und $2 + 2\sqrt{-3}$ sind also $\{\pm 1, \pm 2, \pm (1 + \sqrt{-3})\}$. Annahme: $\pm 1\in \operatorname{GGT}(4, 2 + 2\sqrt{-3})$. Dann gilt $\forall x \in \{\pm 2, \pm (1 + \sqrt{-3})\}: x | 1$. Da aber $\pm 2$ und $\pm (1 + \sqrt{-3})$ keine Einheiten sind, erhalten wir einen Widerspruch. Wäre $\pm 2\in \operatorname{GGT}(4, 2 + 2\sqrt{-3})$, so müsste gelten $1 + \sqrt{-3} | 2$. Da aber $\delta \pm (1+ \sqrt{-3} = \delta( \pm2))$ müsste $(1 + \sqrt{-3}) = \pm 2$ gelten, was offensichtlich nicht der Fall ist. Den Fall $\pm (1 + \sqrt{-3}) \in \operatorname{GGT}(4, 2 + 2\sqrt{-3})$ können wir völlig analog ausschließen. Also ist $\operatorname{GGT}(4, 2 + 2\sqrt{-3}) = \emptyset$
+	\item Es gilt $4 = 2 \cdot 2 = ( 1 + \sqrt{-3}) \cdot (1 - \sqrt{-3})$. Wie bereits gezeigt, sind dies alle echten Teiler von $4$ (bis auf Assoziiertheit) und es gilt $2 \not| ( 1 + \sqrt{-3}), 2\not|(1 - \sqrt{-3})$ genauso wie $( 1 + \sqrt{-3}) | 2$ und $( 1 - \sqrt{-3}) | 2$. Also ist $Z[\sqrt{-3}]$ nicht faktoriell.
+\end{enumerate}
+\section*{Aufgabe 11}
+\begin{itemize}
+	\item (i) $\Rightarrow$ (ii): Sei $R$ noethersch und $I\in R$ ein Ideal, das nicht endlich erzeugt ist. Behauptung: Dann kann man eine aufsteigende Kette von Idealen konstruieren, die nicht stationär wird.
+	\induktion{$I_0 = (0)$ ist eine Kette der Länge 0.}{Sei eine Kette $I_0 \subseteq \dots \subseteq I_n$ gegeben mit $I_n = (a_1, \dots, a_n)$}{Setze dann $I_{n+1} = (a_1, \dots, a_n, a_{n+1})$ mit $a_{n+1} \in I\setminus(a_1, \dots, a_n)$. Ein solches $a_{n+1}$ existiert stets, da sonst eine endliches Erzeugendensystem für $I$ gegeben wäre. Außerdem ist $I_{n+1} \neq I_n$, da sonst $a_{n+1} \in I_n$ enthalten wäre.} Also gibt es für alle $n\in \N$ eine aufsteigende Kette von Idealen, die nicht stationär wird. Das steht im Widerspruch dazu, dass der Ring noethersch sein soll. Also ist jedes Ideal $I\in R$ endlich erzeugt. 
+	\item (ii) $\Leftarrow$ (i): Sei $R$ endlich erzeugt. Sei $I_1\subseteq I_2 \subseteq ... $ eine aufsteigende Kette von Idealen in $R$. Setze $I:=\bigcup\limits_{k\geq 1}I_{k}.$ $I$ ist ein Ideal, da 
+		\begin{enumerate}[(J1)]
+			\item $0\in I_k, \forall k\geq 1 \implies 0\in I$
+			\item Seien $a,b\in J \implies \exists k, l\in \N $ mit $a\in I_k, b\in I_l$. Mit $\max\{k,l\}$ ist $a,b\in I_m \implies a+b\in I_m\subseteq I$.
+			\item Seien $a\in I, r\in R \implies \exists k\in \N $ mit $a\in I_k \implies ra\in I_k\subseteq I$
+		\end{enumerate}
+	Da $R$ endlich erzeugt ist, existieren $a_1, \dots, a_n \in R$ mit $I=(a_1,...,a_n)= \bigcup\limits_{k\geq 1}I_k$. Somit gilt $\{a_1,...,a_n\} \subseteq I$, insbesondere $\exists N\in\N$ so dass $(a_1,...,a_n)\subseteq I_N\subseteq J = (a_1,...,a_n)\implies I_N=J\implies I_k=I_N \forall k\geq N \implies R$ noethersch.
+\end{itemize}
+	\end{document}

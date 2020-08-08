@@ -1,0 +1,377 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amsfonts, amsthm, mathtools, amssymb}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\usepackage{cases}
+\usepackage{fancyhdr}
+\usepackage{comment}
+%\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{calc,intersections,through,backgrounds}
+\usepackage{cases}
+\usepackage{listings}
+\usepackage{siunitx}
+\usepackage[left = 2cm, right = 2cm, top=2.5cm, bottom=2.5cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{subcaption}
+\usepackage{gauss}
+\usepackage{environ}
+\newtheorem{satz}{Satz}[section]
+\newtheorem{lemma}[satz]{Lemma}
+\newtheorem{korollar}[satz]{Korollar}
+\newtheorem{proposition}[satz]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[satz]{Def.}
+\newtheorem{axiom}[satz]{Axiom}
+\newtheorem{bsp}[satz]{Bsp.}
+\newtheorem*{anmerkung}{Anm}
+\newtheorem{bemerkung}[satz]{Bem}
+\newtheorem*{notatio}{Notation}
+\newcommand{\obda}{O.B.d.A. }
+\newcommand{\equals}{\Longleftrightarrow}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\intd}{\mathrm{d}}
+\newcommand{\Pot}{\operatorname{Pot}}
+\newcommand{\mychar}{\operatorname{char}}
+\newcommand{\myker}{\operatorname{ker}}
+\newcommand{\induktion}[3]
+{\begin{proof}\ \\
+	\noindent\textbf{Induktionsanfang:}\ #1\\
+	\noindent\textbf{Induktionsvoraussetzung:}\ #2\\
+	\noindent\textbf{Induktionsschluss:}\ #3
+\end{proof}}
+
+\newcommand{\rg}{\operatorname{rg}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\abb}{\operatorname{Abb}}
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\Ima}{\operatorname{Im}}
+\newcommand{\Fit}{\operatorname{Fit}}
+\newcommand{\ggt}{\operatorname{GGT}}
+
+\let\oldstackrel\stackrel
+\renewcommand{\stackrel}[2]{%
+    \oldstackrel{\mathclap{#1}}{#2}
+}%
+\ExplSyntaxOn
+
+% S-tackrelcompatible ALIGN environment
+% some might also call it the S-uper ALIGN environment
+% uses regular expressions to calculate the widest stackrel
+% to put additional padding on both sides of relation symbols
+\NewEnviron{salign}
+{
+    \begin{align}
+        \lec_insert_padding:V \BODY
+    \end{align}
+}
+% starred version that does no equation numbering
+\NewEnviron{salign*}
+{
+    \begin{align*}
+        \lec_insert_padding:V \BODY
+    \end{align*}
+}
+
+% some helper variables
+\tl_new:N \l__lec_text_tl
+\seq_new:N \l_lec_stackrels_seq
+\int_new:N \l_stackrel_count_int
+\int_new:N \l_idx_int
+\box_new:N \l_tmp_box
+\dim_new:N \l_tmp_dim_a
+\dim_new:N \l_tmp_dim_b
+\dim_new:N \l_tmp_dim_needed
+
+% function to insert padding according to widest stackrel
+\cs_new_protected:Nn \lec_insert_padding:n
+ {
+  \tl_set:Nn \l__lec_text_tl { #1 }
+  % get all stackrels in this align environment
+  \regex_extract_all:nnN { \c{stackrel}{(.*?)}{(.*?)} } { #1 } \l_lec_stackrels_seq
+  % get number of stackrels
+  \int_set:Nn \l_stackrel_count_int { \seq_count:N \l_lec_stackrels_seq }
+  \int_set:Nn \l_idx_int { 1 }
+  \dim_set:Nn \l_tmp_dim_needed { 0pt }
+  % iterate over stackrels
+  \int_while_do:nn { \l_idx_int <= \l_stackrel_count_int }
+  {
+      % calculate width of text
+      \hbox_set:Nn \l_tmp_box {$\seq_item:Nn \l_lec_stackrels_seq { \l_idx_int + 1 }$}
+      \dim_set:Nn \l_tmp_dim_a {\box_wd:N \l_tmp_box}
+      % calculate width of relation symbol
+      \hbox_set:Nn \l_tmp_box {$\seq_item:Nn \l_lec_stackrels_seq { \l_idx_int + 2 }$}
+      \dim_set:Nn \l_tmp_dim_b {\box_wd:N \l_tmp_box}
+      % check if 0.5*(a-b) > minimum padding, if yes updated minimum padding
+      \dim_compare:nNnTF
+        { 1pt * \dim_ratio:nn { \l_tmp_dim_a - \l_tmp_dim_b } { 2pt } } > { \l_tmp_dim_needed }
+        { \dim_set:Nn \l_tmp_dim_needed { 1pt * \dim_ratio:nn { \l_tmp_dim_a - \l_tmp_dim_b } { 2pt } } }
+        { }
+      \quad
+      % increment list index by three, as every stackrel produces three list entries
+      \int_incr:N \l_idx_int
+      \int_incr:N \l_idx_int
+      \int_incr:N \l_idx_int
+  }
+  % replace all relations with align characters (&) and add the needed padding
+  \regex_replace_all:nnN
+      { (\c{approx}&|&\c{approx}|\c{equiv}&|&\c{equiv}|=&|&=|\c{le}&|&\c{le}|\c{ge}&|&\c{ge}|&\c{stackrel}{.*?}{.*?}|\c{stackrel}{.*?}{.*?}&|&\c{neq}|\c{neq}&) }
+      { \c{kern} \u{l_tmp_dim_needed} \1 \c{kern} \u{l_tmp_dim_needed} }
+      \l__lec_text_tl
+  \l__lec_text_tl
+ }
+\cs_generate_variant:Nn \lec_insert_padding:n { V }
+\ExplSyntaxOff
+
+
+
+\newcommand{\lalayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Lineare Algebra 1, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Dozent: Denis Vogel\\
+			Tutor: Marina Savarino}
+		\rhead{Lineare Algebra 2, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+
+\lstset{
+    frame=tb, % draw a frame at the top and bottom of the code block
+    tabsize=4, % tab space width
+    showstringspaces=false, % don't mark spaces in strings
+    numbers=left, % display line numbers on the left
+    commentstyle=\color{green}, % comment color
+    keywordstyle=\color{blue}, % keyword color
+    stringstyle=\color{red} % string color
+}
+\setlength{\headheight}{25pt}
+\begin{document}
+\lalayout{5}
+\section*{Aufgabe 18}
+\begin{enumerate}[(a)]
+    \item $0 \in I_A$, da $0(A) = 0$. Seien $f,g \in I_A$. Dann gilt (analog zu der Aufgabe vor ca. 3 Zetteln bei der man $i$ für $t$ einsetzen musste) $(f + g)(A) = f(A) + g(A) = 0 + 0 = 0$ und daher $(f+g)\in I_A$. Sei nun $g\in K[t]$. Dann ist  $(g\cdot f)(A) = g(A) \cdot f(A) = g(A)\cdot 0 = 0$ und daher $(g\cdot f) \in I_A$. Daher ist $I_A$ ein Ideal. Nun ist nach Cayley-Hamilton $\chi^\text{char}_A(A) = 0$, also $\chi^\text{char}_A(A) \in I_A$.
+    \item $K[t]$ ist ein Hauptidealring. Nach Bemerkung 2.5. und der Anmerkung dazu gibt es also ein endeutig bestimmtes normiertes Polynom $\chi^\text{min}_A$ mit $I_A = (\chi^\text{min}_A)$.
+    \item Wegen $\chi^\text{char}_A \in I_A = (\chi^\text{min}_A)$ existiert ein $f \in K[t]$ mit $\chi^\text{char}_A = f \cdot \chi^\text{min}_A$. Daraus folgt sofort $\chi^\text{min}_A(\lambda) = 0\implies (f\cdot \chi^\text{min}_A)(\lambda) = 0\implies \chi^\text{char}_A(\lambda) = 0$. Für die Rückrichtung zeigen wir zunächst, dass $f(SAS^{-1}) = S f(A) S^{-1}$ für alle $f\in K[t]$ und $S \in \operatorname{GL}_n(K)$ gilt.
+    \begin{proof}
+         Es gilt $$SCS^{-1} + SDS^{-1} = S(C + D)S^{-1}$$ für beliebige $C,D\in M_{n,n}(K)$ und $$(SAS^{-1})^m = SAS^{-1}\cdot SAS^{-1}\cdot \dots \cdot SAS^{-1} = SA\cdot A \cdot \dots \cdot AS^{-1} = SA^mS^{-1}$$ für $m\in \N$. Daher ist $$f(SAS^{-1}) = a_0 + a_1SAS^{-1} + \dots + a_n \left(SAS^{-1}\right)^n = Sa_0S^{-1} +Sa_1AS^{-1} + \dots + Sa_nA^nS^{-1} = Sf(A)S^{-1}$$ für ein $f\in K[t]$.
+    \end{proof}
+    Sei nun $\chi^\text{char}_A(\lambda) = 0$. Dann kann man $\chi^\text{char}_A$ schreiben als $(t-\lambda)f$. In LA1 wurde im Beweis von Satz 4.86 gezeigt, dass dann $A$ äquivalent ist zu einer Matrix der Form $A' = \begin{array}{c|c}
+        \lambda & * \\ \hline
+        0 & *\\
+        \end{array}$, also $A = SA'S^{-1}$ für ein $S \in \operatorname{GL}_n(K)$.
+    Für solche Matrizen gelten, wie man leicht nachrechnet, folgende Regeln:
+    \[
+        \left(\begin{array}{c|c}
+            \lambda & * \\ \hline
+            0 & *\\
+        \end{array}\right) \cdot \left(\begin{array}{c|c}
+            \mu & ** \\ \hline
+            0 & **\\
+        \end{array}\right) = \left(\begin{array}{c|c}
+            \lambda\mu & *** \\ \hline
+            0 & ***\\
+        \end{array}\right)
+    \] und \[
+        \left(\begin{array}{c|c}
+            \lambda & * \\ \hline
+            0 & *\\
+        \end{array}\right) + \left(\begin{array}{c|c}
+            \mu & ** \\ \hline
+            0 & **\\
+        \end{array}\right) = \left(\begin{array}{c|c}
+            \lambda + \mu & *** \\ \hline
+            0 & ***\\
+        \end{array}\right).
+    \] Dies können wir analog zu unserer obigen Rechnung nun auf Polynome übertragen. Es gilt also
+    \[
+        f\left(\begin{array}{c|c}
+            \lambda & * \\ \hline
+            0 & *\\
+        \end{array}\right) = \left(\begin{array}{c|c}
+           f(\lambda) & ** \\ \hline
+            0 & **\\
+        \end{array}\right).
+    \] Insgesamt erhalten wir 
+    \[
+        f(A) = Sf\left(\begin{array}{c|c}
+        \lambda & * \\ \hline
+        0 & *\\
+        \end{array}\right)S^{-1} = S\left(\begin{array}{c|c}
+            f(\lambda) & ** \\ \hline
+            0 & **\\
+        \end{array}\right)S^{-1}.
+    \] Für $f = \chi^\text{min}_A$ gilt daher
+    \[
+        \chi^\text{min}_A(A) = 0 \implies S\left(\begin{array}{c|c}
+            \chi^\text{min}_A(\lambda) & ** \\ \hline
+            0 & **\\
+        \end{array}\right)S^{-1} = 0 \implies \chi^\text{min}_A(\lambda) = 0.
+    \]
+    \item Es gibt per Definition ein $S\in \operatorname{GL}_n(K)$ mit $B = SAS^{-1}$. Mit der (c) gilt also $f(B) = 0 \implies Sf(A)S^{-1} = 0 \implies A = 0$. Die Rückrichtung erfolgt völlig analog. Also ist $I_A = I_B$ und daher nach Aufgabe (b) $\chi^\text{min}_A = \chi^\text{min}_B$.
+    \item Die Matrix $A = \begin{pmatrix}
+                  1 & 0 \\ 0 & 1
+              \end{pmatrix}$ hat das charakteristische Polynom $\chi^\text{char}_A = (t-1)^2$. Es gilt $f(1) = 0$. Da aufgrund von (c) dann auch jedes mögliche Minimalpolynom $g$ mit $g(A) = 0$ den Linearfaktor $(t-1)$ enhalten muss, das Polynom $f = (t-1)$ aber selbst schon in $I_A$ enthalten ist, gilt $\chi^\text{min}_A = t-1$. Also ist $ \chi^\text{char}_A = (t-1)^2 \neq (t-1) = \chi^\text{min}_A$.
+\end{enumerate}
+\section*{Aufgabe 19}
+\begin{enumerate}[(a)]
+    \item Zunächst wissen wir, dass $\chi^\text{char}_{B_g} = g$. Weiter ist $g \in I_A = (\chi^\text{min}_{B_g})$ und daher $\chi^\text{char}_{B_g} | g$, woraus sofort $ \deg \chi^\text{char}_{B_g} \leq \deg g = n$ folgt. Nun untersuchen wir eine bestimmte Sorte von Matrizen. Wir bezeichnen mit $M_i$ eine $n\times n$-Matrix der Form 
+    \[
+        M_i = \begin{array}{c|c}
+            0 & *\\\hline
+            E_i & *
+        \end{array}.
+    \] Mit etwas Aufwand erkennt man durch Nachrechnen, dass für $i < n$ gilt:
+    \[
+        M_i \cdot M_{n-1} = \begin{array}{c|c}
+            0 & *\\\hline
+            E_{i-1} & *
+        \end{array} = M_{i-1}.
+    \] Wir bemerken außerdem, dass für $\forall j$ mit $0 \neq i \leq j < n$ gilt: $(M_i)_{1,n-j} = 0$. Nachdem wir diese Eigenschaften festgestellt haben, bemerken wir, dass $\chi^\text{min}_{B_g}(B_g) = 0$. Durch scharfes Hinschauen (Zitat Prof. Schmidt) wird klar, dass $B_g$ eine Matrix der Form $M_{n-1}$ ist. Wir schreiben $\chi^\text{min}_{B_g} = a_n t^n + \dots + a_1t + a_0$. Nun betrachten wir $B_g^j$. Es gilt aufgrund der oben gezeigten Eigenschaften
+    \[
+      B_g^j = \underbrace{M_i \cdot \dots \cdot M_i}_{j\text{ mal}} = M_{n-j}.
+    \] Also ist $\chi^\text{min}_{B_g}(B_g) = a_nM_0 + a_{n-1}M_1 + \dots + a_1M_{n-1} + a_0M_n$. Sei nun $i_\text{min} \coloneqq \text{min} \{0\leq i\leq n |\; a_i \neq 0\}$. Es gilt dann $(M_{n-i_\text{min}})_{1,i_\text{min} +1} =1$.
+    Allerdings gilt für alle $j$ mit $n > j > i_\text{min}$: $(M_{n-j})_{1,i_\text{min} + 1} = 0$. Nehmen wir nun $a_n = 0$ an. Dann gilt
+    \[
+      \left(\chi^\text{min}_{B_g}\right)_{1, i_\text{min} + 1} = \left(\sum_{j = 0}^{n}a_jM_{n-j}\right)_{1,i_\text{min} + 1} = \sum_{j = i_\text{min}}^{n-1}a_j\left(M_{n-j}\right)_{1,i_\text{min} + 1} = a_i + \sum_{i_\text{min} < j < n}a_j\left(M_{n-j}\right)_{1,i_\text{min} + 1} = a_i \neq 0
+    \] Das ist ein Widerspruch, also muss $a_n \neq 0$ gelten und $\deg \chi^\text{min}_{B_g} = n$. Wie oben gezeigt, gilt $\chi^\text{min}_{B_g} | g$. Da beide Polynome normiert sind und denselben Grad haben, muss also $\chi^\text{min}_{B_g} = g$ sein.
+    \item Sei $M_{A_1,\dots,A_m}$ eine Blockmatrix der Form
+          \[
+              \begin{pmatrix}
+                  A_1 &     &        &     \\
+                      & A_2 &        &     \\
+                      &     & \ddots &     \\
+                      &     &        & A_m
+              \end{pmatrix}
+          \] mit Untermatrizen $A_1, \dots, A_m$. Dann ist
+          \begin{align*}
+              M_{A_1,\dots,A_m} + M_{B_1,\dots,B_m}     & = \begin{pmatrix}
+                  A_1 &     &        &     \\
+                      & A_2 &        &     \\
+                      &     & \ddots &     \\
+                      &     &        & A_m
+              \end{pmatrix} + \begin{pmatrix}
+                  B_1 &     &        &     \\
+                      & B_2 &        &     \\
+                      &     & \ddots &     \\
+                      &     &        & B_m
+              \end{pmatrix}     \\
+                                                        & = \begin{pmatrix}
+                  A_1+B_1 &         &        &         \\
+                          & A_2+B_2 &        &         \\
+                          &         & \ddots &         \\
+                          &         &        & A_m+B_m
+              \end{pmatrix}                                 \\
+                                                        & = M_{A_1+B_1, \dots, A_m+B_m}
+              \intertext{und für Multiplikation}
+              M_{A_1,\dots,A_m} \cdot M_{B_1,\dots,B_m} & = \begin{pmatrix}
+                  A_1 &     &        &     \\
+                      & A_2 &        &     \\
+                      &     & \ddots &     \\
+                      &     &        & A_m
+              \end{pmatrix} \cdot \begin{pmatrix}
+                  B_1 &     &        &     \\
+                      & B_2 &        &     \\
+                      &     & \ddots &     \\
+                      &     &        & B_m
+              \end{pmatrix} \\
+                                                        & = \begin{pmatrix}
+                  A_1\cdot B_1 &              &        &              \\
+                               & A_2\cdot B_2 &        &              \\
+                               &              & \ddots &              \\
+                               &              &        & A_m\cdot B_m
+              \end{pmatrix}                                 \\
+                                                        & = M_{A_1\cdot B_1, \dots, A_m\cdot B_m}.
+          \end{align*}
+          Diese Eigenschaften können wir auf Polynome anwenden.
+          \begin{align*}
+              f(M_{A_1,\dots,A_m}) & = a_ 0 + a_1\cdot \begin{pmatrix}
+                  A_1 &     &        &     \\
+                      & A_2 &        &     \\
+                      &     & \ddots &     \\
+                      &     &        & A_m
+              \end{pmatrix} + \dots + a_n\cdot\begin{pmatrix}
+                  A_1 &     &        &     \\
+                      & A_2 &        &     \\
+                      &     & \ddots &     \\
+                      &     &        & A_m
+              \end{pmatrix}^n \\
+                                   & = \begin{pmatrix}
+                  a_0 + a_1\cdot A_1 + \dots + a_n\cdot A_1^n &                                             &        &                                             \\
+                                                              & a_0 + a_1\cdot A_2 + \dots + a_n\cdot A_2^n &        &                                             \\
+                                                              &                                             & \ddots &                                             \\
+                                                              &                                             &        & a_0 + a_1\cdot A_m + \dots + a_n\cdot A_m^n
+              \end{pmatrix}                                                               \\
+                                   & = M_{f(A_1), \dots, f(A_m)}
+          \end{align*}
+          Damit erhalten wir $f(M_{A_1,\dots,A_m}) = 0 \equals M_{f(A_1), \dots, f(A_m)} = 0 \equals f(A_1) = f(A_2) = \dots = f(A_m) = 0$. Sei $B_{g_1,\dots, g_R}$ die Frobenius-Normalform von $A$. Dann gilt (nach Aufgabe 1d) $f(A) = 0 \equals f(B_{g_1,\dots, g_R}) = 0 \equals f(B_{g_1}) = \dots = f(B_{g_r}) = 0$. Nun gilt nach Cayley-Hamilton $g_i(B_{g_i}) = 0$ und wegen $g_1 | g_2 | \dots | g_r$ auch $g_r(B_{g_i}) = 0$. Nach Definition der Frobenius-Normalform ist $g_r$ aber gerade $c_n$. Insgesamt  gilt daher $c_n(A) = 0 \equals c_n\in I_A$. Nun nehmen wir an, es gäbe ein normiertes Polynom $d\in I_A$ mit $c_n \not | d$. Dann gilt aber $d(B_{g_r}) = d(B_{c_n}) = 0$ und also $d\in I_{B_{c_n}} = (c_n)$. Da $c_n \not | d$ ist dies ein Widerspruch und es folgt $I_A = (c_n)$ und daher $\chi^\text{min}_A = c_n$.
+\end{enumerate}
+\section*{Aufgabe 20}
+\begin{enumerate}[(a)]
+    \item Es ist $n=8$, $\chi_{A}^{\text{char}}=\prod\limits_{n=1}^{8}c_n(A)=c_6(A)\cdot c_7(A)\cdot c_8(A)=(t+1)\cdot t(t+1)\cdot t^2(t+1)^3=t^3(t+1)^5$ und nach Aufgabe 19 (b) $\chi_{A}^{\text{min}}=c_8(A)$.
+    \item Es ist $d_1(A)=...=d_5(A)=1, d_6(A)=c_6(A)=t+1,d_7(A)=c_6(A)\cdot c_7(A)=(t+1)\cdot t(t+1)=t(t+1)^2$ und $d_8(A)= c_6(A)\cdot c_7(A)\cdot c_8(A)=t(t+1)^2\cdot t^2(t+1)^3 = t^3(t+1)^5.$ Somit gilt für die Frobenius-Normalform von $A$:
+    $$A\approx B_{c_6,c_7,c_8}=\begin{pmatrix}
+        -1 & & & & & & & \\
+         & 0 & 0 & & & &0 & \\
+         & 1 & -1 & & & & & \\
+         &  &  & 0 & 0 & 0 & 0 & 0\\
+        & & & 1 & 0& 0&0 & 0\\
+        & & &  0& 1& 0& 0& -1\\
+        &0 & & 0& 0&1 &0 & -3\\
+        & & & 0& 0&0 & 1& -3
+    \end{pmatrix}$$
+    \item Es sind $h_1=t+1,h_2= t,h_3=t+1,h_4=t^2,h_5=(t+1)^3.$ Somit gilt für die Weierstrass-Normalform von $A$:
+    $$A\approx B_{h_1,h_2,h_3,h_4,h_5}=\begin{pmatrix}
+        -1& 0& 0& & & & & \\
+        0&0 &0 & & & &0 & \\
+        0&0 &-1 & & & & & \\
+        & & &0 &0 & & & \\
+        & & &1 &0 & & & \\
+        & & & & & 0& 0&-1 \\
+        & 0& & & & 1& 0&-3 \\
+        & & & & & 0& 1&-3
+    \end{pmatrix}$$
+
+\end{enumerate}
+\section*{Aufgabe 21}
+\begin{align*}
+\intertext{Wir betrachten die $2\times 2$-Matrix}
+A&=\begin{pmatrix}
+    0 & 2 \\
+    1 & 0 
+\end{pmatrix}.\\
+\intertext{Dann ist}
+P_A&=\begin{pmatrix}
+    t & -2 \\
+    -1 & t
+\end{pmatrix}
+\sim \begin{pmatrix}
+    1 & 0\\
+    0 & t^2-2
+\end{pmatrix}\\
+\intertext{ Somit ist $c_1(A)=1$ und $c_2(A)=t^2-2.$ Über $\R$ ist $t^2-2$ reduzibel, denn $t^2-2=\underbrace{(t-\sqrt{2})}_{:=h_1}\underbrace{(t+\sqrt{2})}_{:=h_2}$. Somit gilt für die WNF:}
+A&\approx B_{h_1,h_2}=\begin{pmatrix}
+    \sqrt{2} & 0 \\
+    0 & -\sqrt{2}
+\end{pmatrix}
+\intertext{ Über $\Q$ ist $c_2(A)=t^2-2$ irreduzibel. Also ist $h_1=t^2-2$ und es gilt für die WNF:}
+A&\approx B_{h_1}=\begin{pmatrix}
+0 & 2 \\
+1 & 0 
+\end{pmatrix}
+\end{align*}
+
+\end{document}

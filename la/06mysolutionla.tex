@@ -1,0 +1,260 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amsfonts, amsthm, mathtools, amssymb}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\usepackage{cases}
+\usepackage{fancyhdr}
+\usepackage{comment}
+%\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{calc,intersections,through,backgrounds}
+\usepackage{cases}
+\usepackage{listings}
+\usepackage{siunitx}
+\usepackage[left = 2cm, right = 2cm, top=2.5cm, bottom=2.5cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{subcaption}
+\usepackage{gauss}
+\usepackage{environ}
+\newtheorem{satz}{Satz}[section]
+\newtheorem{lemma}[satz]{Lemma}
+\newtheorem{korollar}[satz]{Korollar}
+\newtheorem{proposition}[satz]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[satz]{Def.}
+\newtheorem{axiom}[satz]{Axiom}
+\newtheorem{bsp}[satz]{Bsp.}
+\newtheorem*{anmerkung}{Anm}
+\newtheorem{bemerkung}[satz]{Bem}
+\newtheorem*{notatio}{Notation}
+\newcommand{\obda}{O.B.d.A. }
+\newcommand{\equals}{\Longleftrightarrow}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\intd}{\mathrm{d}}
+\newcommand{\Pot}{\operatorname{Pot}}
+\newcommand{\mychar}{\operatorname{char}}
+\newcommand{\myker}{\operatorname{ker}}
+\newcommand{\induktion}[3]
+{\begin{proof}\ \\
+	\noindent\textbf{Induktionsanfang:}\ #1\\
+	\noindent\textbf{Induktionsvoraussetzung:}\ #2\\
+	\noindent\textbf{Induktionsschluss:}\ #3
+\end{proof}}
+
+\newcommand{\rg}{\operatorname{rg}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\abb}{\operatorname{Abb}}
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\Ima}{\operatorname{Im}}
+\newcommand{\Fit}{\operatorname{Fit}}
+\newcommand{\ggt}{\operatorname{GGT}}
+
+\let\oldstackrel\stackrel
+\renewcommand{\stackrel}[2]{%
+    \oldstackrel{\mathclap{#1}}{#2}
+}%
+\ExplSyntaxOn
+
+% S-tackrelcompatible ALIGN environment
+% some might also call it the S-uper ALIGN environment
+% uses regular expressions to calculate the widest stackrel
+% to put additional padding on both sides of relation symbols
+\NewEnviron{salign}
+{
+    \begin{align}
+        \lec_insert_padding:V \BODY
+    \end{align}
+}
+% starred version that does no equation numbering
+\NewEnviron{salign*}
+{
+    \begin{align*}
+        \lec_insert_padding:V \BODY
+    \end{align*}
+}
+
+% some helper variables
+\tl_new:N \l__lec_text_tl
+\seq_new:N \l_lec_stackrels_seq
+\int_new:N \l_stackrel_count_int
+\int_new:N \l_idx_int
+\box_new:N \l_tmp_box
+\dim_new:N \l_tmp_dim_a
+\dim_new:N \l_tmp_dim_b
+\dim_new:N \l_tmp_dim_needed
+
+% function to insert padding according to widest stackrel
+\cs_new_protected:Nn \lec_insert_padding:n
+ {
+  \tl_set:Nn \l__lec_text_tl { #1 }
+  % get all stackrels in this align environment
+  \regex_extract_all:nnN { \c{stackrel}{(.*?)}{(.*?)} } { #1 } \l_lec_stackrels_seq
+  % get number of stackrels
+  \int_set:Nn \l_stackrel_count_int { \seq_count:N \l_lec_stackrels_seq }
+  \int_set:Nn \l_idx_int { 1 }
+  \dim_set:Nn \l_tmp_dim_needed { 0pt }
+  % iterate over stackrels
+  \int_while_do:nn { \l_idx_int <= \l_stackrel_count_int }
+  {
+      % calculate width of text
+      \hbox_set:Nn \l_tmp_box {$\seq_item:Nn \l_lec_stackrels_seq { \l_idx_int + 1 }$}
+      \dim_set:Nn \l_tmp_dim_a {\box_wd:N \l_tmp_box}
+      % calculate width of relation symbol
+      \hbox_set:Nn \l_tmp_box {$\seq_item:Nn \l_lec_stackrels_seq { \l_idx_int + 2 }$}
+      \dim_set:Nn \l_tmp_dim_b {\box_wd:N \l_tmp_box}
+      % check if 0.5*(a-b) > minimum padding, if yes updated minimum padding
+      \dim_compare:nNnTF
+        { 1pt * \dim_ratio:nn { \l_tmp_dim_a - \l_tmp_dim_b } { 2pt } } > { \l_tmp_dim_needed }
+        { \dim_set:Nn \l_tmp_dim_needed { 1pt * \dim_ratio:nn { \l_tmp_dim_a - \l_tmp_dim_b } { 2pt } } }
+        { }
+      \quad
+      % increment list index by three, as every stackrel produces three list entries
+      \int_incr:N \l_idx_int
+      \int_incr:N \l_idx_int
+      \int_incr:N \l_idx_int
+  }
+  % replace all relations with align characters (&) and add the needed padding
+  \regex_replace_all:nnN
+      { (\c{approx}&|&\c{approx}|\c{equiv}&|&\c{equiv}|=&|&=|\c{le}&|&\c{le}|\c{ge}&|&\c{ge}|&\c{stackrel}{.*?}{.*?}|\c{stackrel}{.*?}{.*?}&|&\c{neq}|\c{neq}&) }
+      { \c{kern} \u{l_tmp_dim_needed} \1 \c{kern} \u{l_tmp_dim_needed} }
+      \l__lec_text_tl
+  \l__lec_text_tl
+ }
+\cs_generate_variant:Nn \lec_insert_padding:n { V }
+\ExplSyntaxOff
+
+
+
+\newcommand{\lalayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Lineare Algebra 1, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Dozent: Denis Vogel\\
+			Tutor: Marina Savarino}
+		\rhead{Lineare Algebra 2, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+
+\lstset{
+    frame=tb, % draw a frame at the top and bottom of the code block
+    tabsize=4, % tab space width
+    showstringspaces=false, % don't mark spaces in strings
+    numbers=left, % display line numbers on the left
+    commentstyle=\color{green}, % comment color
+    keywordstyle=\color{blue}, % keyword color
+    stringstyle=\color{red} % string color
+}
+\setlength{\headheight}{25pt}
+\begin{document}
+\lalayout{6}
+\section*{Aufgabe 22}
+\begin{enumerate}[(a)]
+\item Aus Aufgabe 17 kennen wir bereits: $c_1(A)=c_2(A)=1,c_3(A)=t-2,c_4(A)=(t+1)(8t-2)^2.$ Die Weierstrassteiler sind $h_1=t-2,h_2=t+1,h_3=(t-2)^2.$ Wir erhalten
+$$A\approx B_{h_1,h_2,h_3}\approx \begin{pmatrix}
+    J(2,1)&&\\
+    &J(2,2)&\\
+    &&J(-1,1)
+\end{pmatrix}
+=\begin{pmatrix}
+    2&&&\\
+    &2&0&\\
+    &1&2&\\
+    &&&-1
+\end{pmatrix}$$
+\item Aus Aufgabe 20 kennen wir bereits die Weierstrassteiler: $h_1=t+1,h_2=t,h_3=t+1,h_4=t^2,h_5=(t+1)^3.$ Wir erhalten
+$$A\approx B_{h_1,h_2,h_3,h_4}\approx \begin{pmatrix}
+    J(0,1)& & & &\\
+    &J(0,2)&&&\\
+    &&J(-1,1)&&\\
+    &&&J(-1,1)&\\
+    &&&&J(-1,3)
+\end{pmatrix}=\begin{pmatrix}
+    0&&&&&&&\\
+    &0&0&&&&&\\
+    &1&0&&&&&\\
+    &&&-1&&&&\\
+    &&&&-1&&&\\
+    &&&&&-1&0&0\\
+    &&&&&1&-1&0\\
+    &&&&&0&1&0
+\end{pmatrix}$$
+\end{enumerate}
+\section*{Aufgabe 23}
+\begin{enumerate}[(a)]
+    \item Da $M/IM$ ein $R$-Modul ist, ist $M/IM$ eine abelsche Gruppe. Es genügt also, die Verträglichkeit der skalaren Multiplikation zu überprüfen. Seien also $a,b \in R$ und $x,y\in M$, sodass also $\overline{a}, \overline{b}\in R/I$ und $\overline{x}, \overline{y} \in M/IM$. 
+    \begin{enumerate}[(1)]
+        \item $(\overline{a} + \overline{b})\overline{x} = \overline{(a+b)}\overline{x} = \overline{(a+b)x}\oldstackrel{M\ R-\text{Modul}}{=} \overline{ax + bx} = \overline{ax} + \overline{bx} = \overline{a}\cdot \overline{x} + \overline{b} \cdot \overline{x}$
+        \item $\overline{a}(\overline{x}+\overline{y}) = \overline{a}\overline{(x+y)} = \overline{a(x+y)} \oldstackrel{M\ R-\text{Modul}}{=} = \overline{ax + ay} = \overline{ax} + \overline{ay} = \overline{a}\cdot \overline{x} + \overline{a} \cdot \overline{y}$
+        \item $(\overline{a}\cdot \overline{b}) \cdot \overline{x} = \overline{(ab)} \cdot \overline{x} = \overline{(ab) x} \oldstackrel{M\ R-\text{Modul}}{=} \overline{a(bx)} = \overline{a}\cdot \overline{(bx)} = \overline{a}\cdot (\overline{b}\cdot \overline{x})$
+        \item $\overline{1}\cdot \overline{x} = \overline{1\cdot x} \oldstackrel{M\ R-\text{Modul}}{=} \overline{x}$
+    \end{enumerate}
+    \item %$\ker \varphi|_{IM} \subset \ker \varphi = \{0\} \implies \ker \varphi|_{IM} = \{0\} \implies \varphi|_{IM}$ injektiv. 
+    Sei $x = \sum_{i = 1}^{n}a_im_i \in IM$ mit $a_i \in I$, $m_i \in M$. Dann gilt \[\varphi(x) = \varphi\left(\sum_{i = 1}^{n}a_im_i\right)\oldstackrel{\varphi \text{ linear}}{=} \sum_{i = 1}^{n}a_i\varphi(m_i) = \sum_{i = 1}^{n}a_i(\underbrace{y_{1,i}}_{\in R}, \dots, \underbrace{y_{n,i}}_{\in R}) = \bigg(\underbrace{\sum_{i = 1}^{n}a_iy_{1,i}}_{\in I}\ ,\dots,\ \underbrace{\sum_{i = 1}^{n}a_iy_{n,i}}_{\in I}\bigg) \in I^n\]
+    Also ist $\varphi(IM) \subset I^n$ und daher $\varphi|_{Im}\colon IM \to I^n$ wohldefiniert.
+    Es genügt also zu zeigen, dass $\varphi^{-1}|_{I^n}\colon I^n \to IM$ wohldefiniert ist. Sei also $y = (y_1,\dots, y_n) \in I^n$. 
+    \[\varphi^{-1}(y) = \varphi^{-1}\left(\sum_{i = 1}^{n}e_iy_i\right) \oldstackrel{\varphi^{-1} \text{ linear}}{=} \sum_{i = 1}^{n}\underbrace{y_i}_{\in I}\underbrace{\varphi^{-1}(e_i)}_{\in M} \in IM\]
+    Also ist $\varphi|_{I^n}$ eine wohldefinierte Umkehrabbildung und daher $\varphi|_{IM}$ bijektiv. Außerdem ist $\varphi|_{IM}$ als Einschränkung eines Homomorphismus immer noch ein Homomorphismus.
+    Nun betrachten wir die lineare Abbildung $f \colon M \to R^n \to R^n/I^n, m \mapsto (\pi \circ \varphi)(m)$. Da $\varphi$ und $\pi$ surjektiv sind, ist auch $f = \pi \circ \varphi$ surjektiv und daher $\im f = R^n/I^n$. Für den Kern von $f$ erhalten wir
+    \[\ker f = \{m \in M| \pi(\varphi(m)) = 0\} = \{m \in M| \varphi(m) \in I^n\} \oldstackrel{\varphi|_{IM} IM \to I^n \text{ Iso.}}{=} \{m \in M| m \in IM\} = IM.\] 
+    Nach dem Homomorphiesatz induziert $f$ also einen Isomorphismus $M/IM \stackrel{\sim}{=} R^n/I^n$. Außerdem gilt
+    \begin{align*}
+        R^n/I^n &= \{r + I^n| r \in R^n\}\\
+        &= \{\{r + i| i\in I^n\}| r \in R^n\}\\
+        &= \{\{(r_1 + i_1, \dots, r_n +i_n)|i_1, \dots, i_n \in I\}|r_1, \dots, r_n \in R^n\}\\
+        &= \{(r_1 + I, \dots, r_n + I)|r_1, \dots, r_n\in R\}\\
+        &= \{r + I|r \in R\}^n\\
+        &= (R/I)^n.
+    \end{align*}
+\end{enumerate}
+\section*{Aufgabe 24}
+Es gilt $\frac{1}{2}(t^2 +1) +(-\frac{t}{2} + \frac{1}{2})(t + 1) = 1$. Daher ist $(1) \subset (t^2 + 1, t+1)$ und wegen $(1) = Q[t]$ ist $t^2 + 1,\; t+1$ ein Erzeugendensystem. Außerdem ist es minimal, da es kein $a \in Q[t]$ gibt mit $a\cdot (t^2 + 1) = 1$ oder $a\cdot (t+1) = 1$. Also lässt sich die 1 nicht mehr darstellen, sobald man eines der beiden Elemente des Erzeugendensystems entfernt. Daher ist es minimal. Es ist aber wegen $-(t+1) (t^2 + 1) + (t^2 + 1)(t+1) = 0$ nicht linear unabhängig und daher keine Basis.
+\section*{Aufgabe 25}
+\begin{enumerate}[(a)]
+    \item Wir zeigen zunächst: $I = (a)$, also $I$ Hauptideal $\Leftrightarrow$ $a$ ist ein Erzeugendensystem von $I$ als $R$-Modul.
+    \begin{proof}
+        $I = (a) \Leftrightarrow \forall x \in I\colon \exists r \in R\colon x \cdot x = r \cdot a$. Dann ist aber $a$ definitionsgemäß ein Erzeugendensystem von $I$ als $R$-Modul.
+    \end{proof}
+    Nun beweisen wir (i)$\implies$ (ii).
+    \begin{proof}
+        Es gilt $I = (a)$, wobei $a$ kein Nullteiler ist. Also ist $a$ ein Erzeugendensystem von $I$ als $R$-Modul. Gilt nun $a \cdot r = 0$ für ein beliebiges $r\in R$, so muss $r$, weil $a$ kein Nullteiler ist, bereits 0 sein, woraus wir die lineare Unabhängigkeit erhalten. Also ist $a$ eine Basis von $I$ und $I$ ist frei.
+    \end{proof}
+    Schließlich zeigen wir auch (ii)$\implies$(i).
+    \begin{proof}
+        Sei also $I$ frei als $R$-Modul. Angenommen, eine Basis von $I$ enthält mindestens zwei Elemente $a,b$. Dann ist $r \cdot a + s \cdot b = 0$ für $0 \neq r = -b \in R,\; 0\neq s = a \in R$ erfüllt, was aber der linearen Unabhängigkeit einer Basis widerspricht. Also hat jede Basis von $I$ genau ein Element $a$, da auch $I \neq 0$. Angenommen, $a$ wäre ein Nullteiler. Dann gibt es definitionsgemäß ein $r\in $ mit $r \cdot a = 0$, was ein Widerspruch zur linearen Unabhängigkeit von $a$ darstellt. Also darf $a$ kein Nullteiler sein.
+    \end{proof}
+    \item Behauptung: $(2,1 + \sqrt{-3})$ ist kein Hauptideal.
+    \begin{proof}
+        Sei $A$ die Menge aller Teiler von 2. Dann ist $A$ eine Teilmenge der Teilermenge (lol) von 4, also $A \subset \{\pm 1, \pm 2, \pm (1 + \sqrt{-3}), \pm (1 - \sqrt{-3}), \pm 4\}$. Wie bereits in Aufgabe 10 gezeigt, gilt aber $\pm (1 \pm \sqrt{-3}) \not | 2$ und wegen 10 und $\delta(2) < \delta(4)$ auch $4 \not | 2$. Also ist $A = \{\pm 1, \pm 2\}$. Analog gilt für die Menge $B$ aller Teiler von $1 + \sqrt{-3}\colon B = \{\pm 1, \pm (1 + \sqrt{-3})\}$.
+        Wir nehmen an, es gäbe ein $a \in \Z[\sqrt{-3}]$ mit $(2,1 + \sqrt{-3}) = (a)$. Dann muss $a$ ein Teiler von $2$ und $1 + \sqrt{-3}$ sein und daher $a \in (A \cap B) = \{\pm 1\}$. Es müsste also $a,b,c,d \in \Z$ geben mit
+        \begin{salign*}
+            1 &= (a + b\sqrt{-3})\cdot 2 + (c + d\sqrt{-3})\cdot (1 + \sqrt{-3})
+            \intertext{Anwenden von $\delta$ auf beiden Seiten erhält die Gleichheit}
+            \delta(1) &= \delta\left(2a + 2b\sqrt{-3} + c + c\sqrt{-3} + d\sqrt{-3} -3d\right)\\
+            1 &= \delta\left(2a + c -3d + (2b + c + d)\sqrt{-3}\right)\\
+            1 &= (2a + c -3d)^2 + 3(2b + c + d)^2
+            \intertext{$a,b,c,d\in \Z \implies (2b + c +d) =0$}
+            1 & = (2a + c - 3d)^2 0&&=2b + c + d
+            \intertext{Wir ziehen die linke Gleichung von der rechten ab und erhalten}
+            1 &= 2a -2b -4d\\
+            1 &= 2(a - b - 2d)
+        \end{salign*}
+        Da $a-b-2d$ in $\Z$ liegt, muss das doppelte eine gerade Zahl, also insbesondere $\neq 1$ sein. Das ist ein Widerspruch, also ist $(2,1 + \sqrt{-3})$ kein Hauptideal
+    \end{proof}
+    Nach Aufgabenteil (a) ist $(2,1 + \sqrt{-3})$ damit auch nicht frei.
+    \item Wähle $R = \Z[\sqrt{-3}]$, $M = \Z[\sqrt{-3}]$ und $N = (2,1 + \sqrt{-3})$. Ein Ring als Ideal über sich selbst ist stets frei (Bsp. 6.16b). Wegen Teilaufgabe (b) ist $N$ nicht frei. Außerdem ist $(2,1 + \sqrt{-3})$ nach Beispiel 6.5b ein $\Z[\sqrt{-3}]$-Untermodul von $\Z[\sqrt{-3}]$.
+\end{enumerate}
+\end{document}

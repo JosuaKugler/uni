@@ -1,0 +1,244 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amsfonts, amsthm, mathtools, amssymb}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\usepackage{cases}
+\usepackage{fancyhdr}
+\usepackage{comment}
+%\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{calc,intersections,through,backgrounds, babel}
+\usepackage{tikz-cd}
+\usepackage{cases}
+\usepackage{listings}
+\usepackage{siunitx}
+\usepackage[left = 2cm, right = 2cm, top=2.5cm, bottom=2.5cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{subcaption}
+\usepackage{gauss}
+\usepackage{environ}
+\newtheorem{satz}{Satz}[section]
+\newtheorem{lemma}[satz]{Lemma}
+\newtheorem{korollar}[satz]{Korollar}
+\newtheorem{proposition}[satz]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[satz]{Def.}
+\newtheorem{axiom}[satz]{Axiom}
+\newtheorem{bsp}[satz]{Bsp.}
+\newtheorem*{anmerkung}{Anm}
+\newtheorem{bemerkung}[satz]{Bem}
+\newtheorem*{notatio}{Notation}
+\newcommand{\obda}{O.B.d.A. }
+\newcommand{\equals}{\Longleftrightarrow}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\intd}{\mathrm{d}}
+\newcommand{\Pot}{\operatorname{Pot}}
+\newcommand{\mychar}{\operatorname{char}}
+\newcommand{\myker}{\operatorname{ker}}
+\newcommand{\induktion}[3]
+{\begin{proof}\ \\
+	\noindent\textbf{Induktionsanfang:}\ #1\\
+	\noindent\textbf{Induktionsvoraussetzung:}\ #2\\
+	\noindent\textbf{Induktionsschluss:}\ #3
+\end{proof}}
+
+\newcommand{\rg}{\operatorname{rg}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\abb}{\operatorname{Abb}}
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\Ima}{\operatorname{Im}}
+\newcommand{\Fit}{\operatorname{Fit}}
+\newcommand{\ggt}{\operatorname{GGT}}
+\newcommand{\id}{\operatorname{id}}
+
+\let\oldstackrel\stackrel
+\renewcommand{\stackrel}[2]{%
+    \oldstackrel{\mathclap{#1}}{#2}
+}%
+\ExplSyntaxOn
+
+% S-tackrelcompatible ALIGN environment
+% some might also call it the S-uper ALIGN environment
+% uses regular expressions to calculate the widest stackrel
+% to put additional padding on both sides of relation symbols
+\NewEnviron{salign}
+{
+    \begin{align}
+        \lec_insert_padding:V \BODY
+    \end{align}
+}
+% starred version that does no equation numbering
+\NewEnviron{salign*}
+{
+    \begin{align*}
+        \lec_insert_padding:V \BODY
+    \end{align*}
+}
+
+% some helper variables
+\tl_new:N \l__lec_text_tl
+\seq_new:N \l_lec_stackrels_seq
+\int_new:N \l_stackrel_count_int
+\int_new:N \l_idx_int
+\box_new:N \l_tmp_box
+\dim_new:N \l_tmp_dim_a
+\dim_new:N \l_tmp_dim_b
+\dim_new:N \l_tmp_dim_needed
+
+% function to insert padding according to widest stackrel
+\cs_new_protected:Nn \lec_insert_padding:n
+ {
+  \tl_set:Nn \l__lec_text_tl { #1 }
+  % get all stackrels in this align environment
+  \regex_extract_all:nnN { \c{stackrel}{(.*?)}{(.*?)} } { #1 } \l_lec_stackrels_seq
+  % get number of stackrels
+  \int_set:Nn \l_stackrel_count_int { \seq_count:N \l_lec_stackrels_seq }
+  \int_set:Nn \l_idx_int { 1 }
+  \dim_set:Nn \l_tmp_dim_needed { 0pt }
+  % iterate over stackrels
+  \int_while_do:nn { \l_idx_int <= \l_stackrel_count_int }
+  {
+      % calculate width of text
+      \hbox_set:Nn \l_tmp_box {$\seq_item:Nn \l_lec_stackrels_seq { \l_idx_int + 1 }$}
+      \dim_set:Nn \l_tmp_dim_a {\box_wd:N \l_tmp_box}
+      % calculate width of relation symbol
+      \hbox_set:Nn \l_tmp_box {$\seq_item:Nn \l_lec_stackrels_seq { \l_idx_int + 2 }$}
+      \dim_set:Nn \l_tmp_dim_b {\box_wd:N \l_tmp_box}
+      % check if 0.5*(a-b) > minimum padding, if yes updated minimum padding
+      \dim_compare:nNnTF
+        { 1pt * \dim_ratio:nn { \l_tmp_dim_a - \l_tmp_dim_b } { 2pt } } > { \l_tmp_dim_needed }
+        { \dim_set:Nn \l_tmp_dim_needed { 1pt * \dim_ratio:nn { \l_tmp_dim_a - \l_tmp_dim_b } { 2pt } } }
+        { }
+      \quad
+      % increment list index by three, as every stackrel produces three list entries
+      \int_incr:N \l_idx_int
+      \int_incr:N \l_idx_int
+      \int_incr:N \l_idx_int
+  }
+  % replace all relations with align characters (&) and add the needed padding
+  \regex_replace_all:nnN
+      { (\c{approx}&|&\c{approx}|\c{equiv}&|&\c{equiv}|=&|&=|\c{le}&|&\c{le}|\c{ge}&|&\c{ge}|&\c{stackrel}{.*?}{.*?}|\c{stackrel}{.*?}{.*?}&|&\c{neq}|\c{neq}&) }
+      { \c{kern} \u{l_tmp_dim_needed} \1 \c{kern} \u{l_tmp_dim_needed} }
+      \l__lec_text_tl
+  \l__lec_text_tl
+ }
+\cs_generate_variant:Nn \lec_insert_padding:n { V }
+\ExplSyntaxOff
+
+
+
+\newcommand{\lalayout}[1]
+{	
+	\pagestyle{fancy}
+	\fancyhead[L]{Lineare Algebra 1, Blatt #1}
+	\fancyhead[R]{David Wesner, Josua Kugler}
+	\fancypagestyle{firstpage}{%
+		\fancyhf{}
+		\lhead{Dozent: Denis Vogel\\
+			Tutor: Marina Savarino}
+		\rhead{Lineare Algebra 2, Übungsblatt #1\\ David Wesner, Josua Kugler}
+		\cfoot{\thepage}
+	}
+	\thispagestyle{firstpage}
+}
+
+\lstset{
+    frame=tb, % draw a frame at the top and bottom of the code block
+    tabsize=4, % tab space width
+    showstringspaces=false, % don't mark spaces in strings
+    numbers=left, % display line numbers on the left
+    commentstyle=\color{green}, % comment color
+    keywordstyle=\color{blue}, % keyword color
+    stringstyle=\color{red} % string color
+}
+\setlength{\headheight}{25pt}
+\begin{document}
+\lalayout{10}
+\section*{Aufgabe 36}
+Es gilt
+\begin{align*}
+    \textstyle{\bigwedge^2} f_A(e_1\wedge e_2) &= f_A(e_1)\wedge f_A(e_2) = \begin{pmatrix}
+        0\\1\\0
+    \end{pmatrix} \wedge \begin{pmatrix}
+        2\\1\\3
+    \end{pmatrix}
+    = e_2 \wedge 2e_1 + e_2\wedge e_2 + e_2\wedge 3e_3 = -2 (e_1\wedge e_2) + 3 (e_2\wedge e_3)\\
+    \textstyle{\bigwedge^2}f_A(e_1\wedge e_3) &= f_A(e_1)\wedge f_A(e_3) = \begin{pmatrix}
+        0\\1\\0
+    \end{pmatrix} \wedge \begin{pmatrix}
+        0\\1\\2
+    \end{pmatrix}
+    = e_2\wedge e_2 + e_2\wedge 2e_3 = 2(e_2\wedge e_3)\\
+    \textstyle{\bigwedge^2}f_A(e_2\wedge e_3) &= f_A(e_2)\wedge f_A(e_3) = \begin{pmatrix}
+        2\\1\\3
+    \end{pmatrix} \wedge \begin{pmatrix}
+        0\\1\\2
+    \end{pmatrix}\\
+    &= 2e_1\wedge e_2 + 2e_1\wedge 2e_3 + e_2\wedge e_2 + e_2\wedge 2e_3 + 3e_3\wedge e_2 + 3e_3\wedge 2e_3\\
+    &= 2e_1\wedge e_2 + 4e_1\wedge e_3 - e_2\wedge e_3
+\end{align*}
+Für die gesuchte Darstellungsmatrix erhalten wir also
+\[
+    \begin{pmatrix}
+        -2& 0 & 2\\
+        0 & 0 & 4\\
+        3 & 2 &-1
+    \end{pmatrix}.
+\]
+\section*{Aufgabe 37}
+\begin{enumerate}[(a)]
+    \item Sei $n\in N$, $m\in M$ und $(m_1,\dots,m_n$ eine Basis von $M$. Ist $\varphi(n)\otimes m = 0$, so ist $\id_N\otimes\Phi^{-1}(\varphi(n)\otimes m) =  \id_L\otimes\Phi^{-1}(\varphi(n)\otimes \sum_{i = 1}^{n}m_i) = \varphi(n)\otimes (\alpha_1,\dots,\alpha_n)$ ebenfalls $0$ und mit dem Isomorphismus aus 8.14 auch $0 = (\alpha_1 \varphi(n), \dots, \alpha_n \varphi(n)) = (\varphi(\alpha_1 n), \dots, \varphi(\alpha_n n))$. Aufgrund der Injektivität von $\varphi$ muss also bereits $(\alpha_1 n, \dots, \alpha_n n) = 0$ sein. Wir können nun erneut 8.14 benutzen, um zu folgern, dass $n \otimes (\alpha_1,\dots,\alpha_n) = 0$ ist. Unter der Abbildung $\id_N\otimes\Phi$ erhalten wir $n\otimes m = 0$. Daraus folgt, dass $\ker \varphi \otimes \id_M = \{0\}$ sein muss, da sich die Argumentation auf Summen von reinen Tensoren überträgt.
+    \item Da $M$ flach ist, folgt aus der Injektivität von $\varphi$ sofort die Injektivität von $(\varphi \otimes \id_M)\colon M\otimes M \to N\otimes M$ nach Definition von flachen Moduln. Da $N$ ebenfalls flach ist, folgt analog die Injektivität von $(\id_N \otimes \varphi)\colon N\otimes M \to N\otimes N$. Die Komposition zweier injektiver Abbildungen ist wieder injektiv, sodass $\varphi \otimes \varphi = (\id_N \otimes \varphi) \circ (\varphi \otimes \id_M)$ injektiv ist.
+    \item Wähle $R = \Z$ und $M= \Z /2\Z$. Dann ist nach Beispiel 8.12 $M$ nicht flach.
+\end{enumerate}
+\section*{Aufgabe 38}
+\begin{enumerate}[(a)]
+    \item Seien $f\colon \textstyle{\bigwedge^2}M \to M \otimes M$ und $g\colon \textstyle{\bigwedge^2}N \to N \otimes N$ die entsprechenden eindeutigen $R$-Modulhomomorphismen aus Aufgabe 35. Da $M$ und $N$ beide freie Moduln sind, sind $f$ und $g$ nach Aufgabe 35b beide injektiv, genau wie $(\varphi \otimes \varphi)\colon M\otimes M\to N\otimes N$ nach Aufgabe 37b.\\
+    \textbf{Behauptung:} Das Diagramm 
+    \[\begin{tikzcd}
+        M\otimes M \ar[r,hook,"\varphi \otimes \varphi"] & N\otimes N\\
+        \bigwedge^2M \ar[u, hook,"f"] \ar[r,"\bigwedge^2 \varphi"] & \bigwedge^2 N \ar[u,hook,"g"]
+    \end{tikzcd}\] kommutiert.
+    \begin{proof}
+        Wir definieren die offensichtlich bilineare Abbildung
+        \[
+            \beta\colon M\times M\to N\otimes N,\; (a,b) \mapsto \varphi(a)\otimes \varphi(b) - \varphi(b)\otimes\varphi(a).
+        \]
+        Wegen der universellen Eigenschaft UA gibt es daher einen eindeutigen $R$-Modulhomomorphismus
+        \[
+            F\colon \textstyle{\bigwedge^2}M \to N\otimes N,\; a\wedge b \mapsto  \varphi(a)\otimes \varphi(b) - \varphi(b)\otimes\varphi(a).
+        \]
+        Man sieht leicht, dass $((\varphi \otimes \varphi) \circ f)(a,b) = F(a,b)$ und $(g\circ(\textstyle{\bigwedge^2} \varphi))(a,b) = F(a,b)$. Da $F$ aber eindeutig bestimmt ist, sind beide Abbildungen gleich.
+    \end{proof}
+    Daher ist auch der Kern beider Abbildungen gleich. 
+    \[
+        \ker ((\varphi \otimes \varphi) \circ f) = 0 = \ker (f\circ(\textstyle{\bigwedge^2} \varphi)).
+    \]
+    Ist die Komposition zweier Abbildungen injektiv, so auch die zwei Komponenten. Also muss $\textstyle{\bigwedge^2} \varphi$ injektiv sein.
+    \item \ \begin{itemize}
+        \item[(i)$\implies$(ii)] Es gilt $\ker \psi = \{(a,b)\in R^2 \mid \psi(a,b) = 0\} = \{(a,b)\in R^2\mid am_1 + bm_2 = 0\} \overset{(m_1,m_2)\text{ l.u.}}{=} \{0\}$. Daher ist $\psi$ injektiv. Nach Satz 9.9 lässt sich jedes $x\in \textstyle{\bigwedge^2}R^2$ auf eindeutige Weise durch $r\cdot \left(e_1\wedge e_2\right)$ mit $r\in R$ schreiben. Also ist \[(\textstyle{\bigwedge^2} \psi)(x) = (\textstyle{\bigwedge^2} \psi)(r\cdot (e_1\wedge e_2)) = r \cdot (\psi(e_1)\wedge \psi(e_2)) = r\cdot (m_1\wedge m_2).\]
+        Ist nun $r\cdot (m_1\wedge m_2) = 0$, dann ist $r\cdot (e_1\wedge e_2)\in \ker \psi$. Da $\psi$ injektiv ist, muss also schon $r = 0$ sein.
+        \item[(ii)$\implies$(i)] Wir zeigen die Aussage per Kontraposition. Seien $0 \neq a,b\in R$ mit $am_1+ bm_2 = 0$ gegeben. Dann gilt für $r = b$.
+        \[b(m_1\wedge m_2) = (m_1\wedge bm_2) = (m_1\wedge -am_1) = -a(m_1\wedge m_1) = 0.\]
+    \end{itemize}
+        \item Sei $(m_1,m_2)$ eine Basis von $M$. Da $m_1\wedge m_2$ ein Erzeugendensystem ist, können wir jedes Element aus $\textstyle{\bigwedge^2} M$ schreiben als $r (m_1\wedge m_2)$ für geeignetes $r\in R$. Es gilt \[r \cdot (m_1\wedge m_2) \in \ker (\textstyle{\bigwedge^2} \varphi) \equals 0 = (\textstyle{\bigwedge^2} \varphi)(r\cdot(m_1\wedge m_2)) = r \cdot (\textstyle{\bigwedge^2} \varphi)(m_1\wedge m_2) = r \cdot \det \varphi \cdot (m_1\wedge m_2) \equals r\cdot \det \varphi = 0.\]
+        Offensichtlich ist also die Injektivität von $(\textstyle{\bigwedge^2} \varphi)$ äquivalent dazu, dass $\det \varphi$ kein Nullteiler ist.
+        \begin{itemize}
+            \item[(i)$\implies$(ii)] Nach Teilaufgabe a ist $\textstyle{\bigwedge^2}\varphi \colon \textstyle{\bigwedge^2} M \to \textstyle{\bigwedge^2} M$ injektiv, da $M$ endlich erzeugt und frei ist und $\varphi$ injektiv ist.
+            \item[(ii)$\implies$(i)] Angenommen, $\textstyle{\bigwedge^2}\varphi \colon \textstyle{\bigwedge^2} M \to \textstyle{\bigwedge^2} M$ wäre injektiv, aber $\varphi$ wäre nicht injektiv. Dann gäbe es $0\neq a,b\in R$ bzw. ein $0\neq am_1 + bm_2\in R$, sodass $\varphi(m) = 0$. Ist nun $a \neq b$, so erhalten wir daraus $(am_1 + bm_2)\wedge (m_1 + m_2) = (a-b) (m_1\wedge m_2) \neq 0$, aber $(\textstyle{\bigwedge^2}\varphi)((am_1 + bm_2)\wedge (m_1 + m_2)) = \varphi(am_1 + bm_2) \wedge \varphi(bm_1 + am_2) = 0 \wedge \varphi(bm_1 + am_2) = 0$. Ist stattdessen $a = b$, so ist $(am_1 + bm_1)\wedge(m_1-m_2) = 2a(m_1\wedge m_2)$, aber $(\textstyle{\bigwedge^2}\varphi)((am_1 + bm_2)\wedge (m_1 - m_2)) = \varphi(am_1 + bm_2) \wedge \varphi(m_1 - m_2) = 0 \wedge \varphi(m_1 - m_2) = 0$. Damit erhalten wir einen Widerspruch zur Injektivität von $\textstyle{\bigwedge^2}\varphi$. Also muss  $\varphi$ injektiv sein.
+        \end{itemize}
+\end{enumerate}
+\section*{Aufgabe 39}
+\begin{enumerate}[(a)]
+    \item Offensichtlich ist $f$ injektiv. Es gilt $g(2n,0) = (\overline{2n},\overline{0},\dots) = 0$. Daher ist $\im f \subset \ker g$. Sei nun $(i,(j_1,j_2,\dots)) \in \ker g$. Daraus folgt sofort, dass $(j_1,j_2,\dots) = 0$ sein muss. $i$ muss gerade sein, da genau dann $\overline{i} = 0$ ist. Also ist $(i,(j_1,j_2,\dots)) = (2k,0)$ für ein geeignetes $k\in \N$. Die kanonische Projektion ist trivialerweise surjektiv, also insbesondere auch die komponentenweise kanonische Projektion bzw. Identität. Insgesamt folgt, dass es sich um eine kurze exakte Folge von $\Z$-Moduln handelt.
+    \item Sei ein Untermodul $T$ von $N\otimes M$ gegeben, der die Eigenschaften aus Bemerkung 10.6 erfüllt. Dann existiert ein eindeutig bestimmtes Urbild $(a,(0,\dots))$ von $(1,0,\dots)$ unter $g|_{T}$. Nun betrachten wir $2(a,(0,\dots))$. Es gilt $g_{T}(2(a,(0,\dots))) = 2(1,0,\dots) = 0$, aber auch $2(a,(0,\dots)) = (a,2(0,\dots)) = (a,(0,\dots))$. Aufgrund der Injektivität von $g_{T}$ muss daher schon $(a,(0,\dots)) = 0$ sein. Nach Konstruktion ist aber $g_{T}((a,(0,\dots))) \neq 0$. Daher erhalten wir einen Widerspruch und die Folge zerfällt nicht.
+\end{enumerate}
+\end{document}
