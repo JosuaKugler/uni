@@ -1,0 +1,127 @@
+\documentclass{article}
+\usepackage{josuamathheader}
+\title{Die Riemannsche $\zeta$-Funktion.}
+\author{Josua Kugler}
+\renewcommand{\Re}{\operatorname{Re}}
+\begin{document}
+\maketitle
+\allowdisplaybreaks
+\begin{definition}[Riemannsche $\zeta$-Funktion]
+    \[
+      \zeta(s) = \sum_{n=1}^\infty \frac{1}{n^s}  
+    \]
+\end{definition}
+\begin{lemma}[Konvergenzgebiet]
+    Die Riemannsche $\zeta$-Funktion konvergiert für Re $s > 1$.
+\end{lemma}
+\begin{proof}
+    \[\sum_{n=1}^\infty \left|\frac{1}{n^s}\right| = \sum_{n=1}^\infty \frac{1}{n^{\Re s}}.\] Diese Reihe konvergiert, wie aus der reellen Analysis bekannt, für $\Re s > 1$.
+\end{proof}
+\begin{lemma}[Eulerprodukt]
+    Die Riemannsche $\zeta$-Funktion lässt sich in Produktform schreiben:
+    \[
+        \zeta(s) = \prod_{p\in \mathbb{P}}\frac{1}{1-p^{-s}}.
+    \]
+\end{lemma}
+\begin{proof}
+    Wir entwickeln in eine geometrische Reihe,
+    \begin{align*}
+        \prod_{k=1}^m \frac{1}{1-p_k^{-s}} &= \prod_{k=1}^m\sum_{\nu = 0}^\infty \frac{1}{p_k^{\nu s}}
+        \intertext{benutzen den Cauchyschen Multiplikationssatz}
+        &= \sum_{\nu_1,\dots, \nu_m = 0}^\infty (p_1^{\nu_1}\cdots p_m^{\nu_m})^{-s}
+        \intertext{sowie die Eindeutigkeit der Primfaktorzerlegung und erhalten}
+        &= \sum_{n\in \mathcal{A}(m)}n^{-s},
+        \intertext{wobei $\mathcal{A}(m)$ die Menge aller natürlichen Zahlen bezeichne, die keine von $p_1,\dots,p_m$ verschiedenen Primteiler besitzen. Für $m\to \infty$ folgt daraus}
+        \lim\limits_{m\to \infty} \prod_{k=1}^m \frac{1}{1-p_k^{-s}} &= \sum_{n=1}^\infty n^{-s}
+    \end{align*}
+    Wegen 
+    \[
+        \sum_p \left|1 - \frac{1}{1-p^{-s}}\right| \leq \sum_p\sum_m \left|p^{-ms}\right| \leq \sum_{n=1}^\infty \left|n^{-s}\right| 
+    \]
+    konvergiert das Eulerprodukt für $\Re(s) > 1$.
+\end{proof}
+
+\begin{definition}[Thetafunktion]
+    \[
+        \theta(z) \coloneqq \sum_{n = -\infty}^\infty e^{i\pi n^2z}.
+    \]
+    Die Thetafunktion konvergiert für Im $z > 0$.
+\end{definition}
+\begin{lemma}
+    Es gilt die $\theta$-Transformationsformel
+    \begin{align*}
+        \theta(z) &= \theta\left(-\frac{1}{z}\right)\cdot \sqrt{\frac{i}{z}}\\
+        \Leftrightarrow \theta(it) &= \theta\left(-\frac{1}{it}\right) \cdot \sqrt{\frac{i}{it}}\\
+        &= \theta\left(it^{-1}\right)\cdot t^{-\frac{1}{2}}.
+    \end{align*}
+\end{lemma}
+\begin{proof}
+    Was genau heißt zitieren? Soll ich die Transformationsformel für diese spezielle Thetafunktion beweisen? Oder darf ich sie einfach so annehmen?
+\end{proof}
+
+\begin{lemma}
+    Die Funktion $R_\infty(s) \coloneqq \int_1^\infty \frac{\theta(it)-1}{2} t^s \frac{\intd t}{t}$ ist ganz.
+\end{lemma}
+\begin{proof}
+    Schreibt man $\theta(it)$ aus, so erhält man
+    \begin{align*}
+        R_\infty(s) &= \int_1^\infty \sum_{n=1}^\infty e^{-\pi n^2 t} t^s \frac{\intd t}{t}
+    \end{align*}
+    Da $\sum_{n=1}^\infty e^{-\pi n^2 t}$ für $t\to \infty$ exponentiell abfällt, spielt der polynomielle Term $t^s$ für $t\to\infty$ keine Rolle und das Integral konvergiert für beliebiges $s\in \C$.
+\end{proof}
+
+\begin{lemma}
+    Die Riemannsche $\zeta$-Funktion besitzt eine analytische Fortsetzung auf ganz $\C$, sodass 
+    $\xi(s) \coloneqq \pi^{-\frac{s}{2}} \Gamma\left(\frac{s}{2}\right)\zeta(s)$ der Funktionalgleichung $\xi(s) = \xi(1-s)$ genügt.
+\end{lemma}
+\begin{proof}
+\begin{align*}
+    \Gamma(s) &= \int_0^\infty e^{-t} t^s \frac{\intd t}{t}&&\left|t \mapsto \pi n^2t\right.\\
+    &= \int_0^\infty e^{-\pi n^2t}(\pi n^2 t)^s \frac{\intd t}{t} &&\left|\cdot \pi^{-s} \cdot n^{-2s}\right.\\
+    \pi^{-s} \Gamma(s)\frac{1}{n^{2s}} &= \int_0^\infty e^{-\pi n^2 t} t^s \frac{\intd t}{t}&&\left| \sum\right.\\
+    \pi^{-s} \Gamma(s)\sum_{n=1}^{\infty}n^{-2s} &= \sum_{n=1}^\infty \int_0^\infty e^{-\pi n^2 t}t^s \frac{\intd t}{t}
+    \intertext{Satz von Beppo Levi beziehungsweise Abschätzen durch eigentliches Integral $\to$ Vertauschen von Integral und Summe}
+    \pi^{-s} \Gamma(s)\zeta(2s) &= \int_0^\infty \sum_{n=1}^\infty e^{-\pi n^2 t} t^s \frac{\intd t}{t}&&\left|\text{Gilt für Re $s > \frac{1}{2}$}\right.
+    \intertext{Einsetzen der Thetafunktion}
+    &= \int_0^\infty \frac{\theta(it)-1}{2} t^s \frac{\intd t}{t}\\
+    &= \int_0^1 \frac{\theta(it)-1}{2} t^s \frac{\intd t}{t} + \underbrace{\int_1^\infty \frac{\theta(it)-1}{2} t^s \frac{\intd t}{t}}_{R_\infty(s)}\\
+    &= \int_0^1 \frac{\theta(it)-1}{2} t^s \frac{\intd t}{t} + R_\infty(s)&&\left|\theta-\text{Transformation}\right.\\
+    &= \int_0^1 \frac{\theta\left(it^{-1}\right)\cdot t^{-\frac{1}{2}}-1}{2} t^s \frac{\intd t}{t} + R_\infty(s)&&\left| t\mapsto t^{-1}\right.\\
+    &= \int_1^\infty \frac{\theta\left(it\right)\cdot t^{\frac{1}{2}}-1}{2} t^{-s} \frac{\intd t}{t} + R_\infty(s)\\
+    &= \int_1^\infty \frac{\theta\left(it\right)\cdot t^{\frac{1}{2}}-t^{\frac{1}{2}} + t^{\frac{1}{2}} -1}{2} t^{-s} \frac{\intd t}{t} + R_\infty(s)\\
+    &= \int_1^\infty \frac{\theta\left(it\right)\cdot t^{\frac{1}{2}}-t^{\frac{1}{2}}}{2}\cdot t^{-s} \frac{\intd t}{t} + \int_1^\infty \frac{t^{\frac{1}{2}} -1}{2} t^{-s} \frac{\intd t}{t} + R_\infty(s)\\
+    &= \int_1^\infty \frac{\theta\left(it\right)-1}{2}\cdot t^{\frac{1}{2}-s} \frac{\intd t}{t} + \int_1^\infty \frac{t^{\frac{1}{2}} -1}{2} t^{-s} \frac{\intd t}{t} \\
+    &= R_\infty\left(\frac{1}{2}-s\right) + R_\infty(s) + \int_1^\infty \frac{1}{2}t^{\frac{1}{2}-s} \frac{\intd t}{t} - \int_1^{\infty} \frac{1}{2} t^{-s} \frac{\intd t}{t} \\
+    \pi^{-s} \Gamma(s)\zeta(2s)&= R_\infty(s) + R_\infty\left(\frac{1}{2}-s\right) + \frac{1}{1-2s} + \frac{1}{2s}&&\left|s\mapsto \frac{s}{2}\right.\\
+    \zeta(s) &= \frac{\pi^\frac{s}{2}}{\Gamma(\frac{s}{2})} \left(R_\infty\left(\frac{s}{2}\right) +R_\infty\left(\frac{1-s}{2}\right) + \frac{1}{1-s} + \frac{1}{s} \right)
+\end{align*}
+Da $\Gamma$ und $R_\infty$ ganze Funktionen sind und $\Gamma(z) \neq 0 \forall z\in \C$, handelt es sich hierbei um eine meromorphe Funktion, die für Re $s > 1$ mit $\zeta(s)$ übereinstimmt und Singularitäten höchstens in $s = 0$ und $s = 1$ besitzt. Wegen 
+\[\lim\limits_{s \to 0}\frac{1}{s\Gamma\left(\frac{s}{2}\right)} = \lim\limits_{s \to 0} \frac{1}{2\Gamma\left(\frac{s}{2} + 1\right)} = \frac{1}{2\Gamma(1)}\]
+handelt es sich an der Stelle $0$ allerdings um eine hebbare Singularität. An der Stelle $s = 1$ liegt eine einfache Polstelle vor. Damit haben wir die analytische Fortsetzung der $\zeta$-Funktion gefunden.
+Außerdem kann man aus der Gleichung 
+\[
+    \xi(s) = \pi^{-\frac{s}{2}} \Gamma\left(\frac{s}{2}\right)\zeta(s) = R_\infty\left(\frac{s}{2}\right) +R_\infty\left(\frac{1-s}{2}\right) + \frac{1}{1-s} + \frac{1}{s}
+\]
+sofort die Funktionalgleichung $\xi(s) = \xi(1-s)$ ablesen.
+\end{proof}
+
+\begin{lemma}[Riemannsche Vermutung]
+    $\forall\; 0 < \Re s < 1$ gilt:
+    \[
+        \zeta(s) = 0 \Leftrightarrow \Re s = \frac{1}{2},  
+    \] d.h. alle nichttrivialen Nullstellen haben Realteil $\frac{1}{2}$.
+\end{lemma}
+\begin{proof}
+    ja schön wärs\dots
+\end{proof}
+\end{document}
+
+\begin{align*}
+    R_0(s) &= \int_0^1 \frac{\theta(it)-1}{2} t^s \frac{\intd t}{t}&&\left|\theta-\text{Transformationsformel}\right.\\
+    &= \int_0^1 \frac{\theta\left(it^{-1}\right)\cdot t^{-\frac{1}{2}}-1}{2} t^s \frac{\intd t}{t}&&\left|\text{Substitution: } t\mapsto t^{-1}\right.\\
+    &= \int_1^\infty \frac{\theta\left(it\right)\cdot t^{\frac{1}{2}}-1}{2} t^{-s} \frac{\intd t}{t}\\
+    &= \int_1^\infty \frac{\theta\left(it\right)\cdot t^{\frac{1}{2}}-t^{\frac{1}{2}} + t^{\frac{1}{2}} -1}{2} t^{-s} \frac{\intd t}{t}\\
+    &= \int_1^\infty \frac{\theta\left(it\right)\cdot t^{\frac{1}{2}}-t^{\frac{1}{2}}}{2}\cdot t^{-s} \frac{\intd t}{t} + \int_1^\infty \frac{t^{\frac{1}{2}} -1}{2} t^{-s} \frac{\intd t}{t}\\
+    &= \int_1^\infty \frac{\theta\left(it\right)-1}{2}\cdot t^{\frac{1}{2}-s} \frac{\intd t}{t} + \int_1^\infty \frac{1}{2}t^{\frac{1}{2}-s} \frac{\intd t}{t} - \int_1^{\infty} \frac{1}{2} t^{-s} \frac{\intd t}{t}\\
+     &= R_\infty\left(\frac{1}{2}-s\right) + 
+\end{align*}
