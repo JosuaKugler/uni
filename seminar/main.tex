@@ -1,0 +1,47 @@
+\documentclass{beamer}
+\usetheme{Berlin}
+
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage[utf8x]{inputenc}
+\usepackage[ngerman]{babel}
+
+\usepackage{amsmath, amsfonts, amsthm, mathtools, amssymb}
+
+\renewcommand{\Im}{\operatorname{Im}}
+\renewcommand{\Re}{\operatorname{Re}}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+
+\newcommand{\intd}{\mathrm{d}}
+
+\title{Die Riemannsche Zeta-Funktion}
+\author{Josua Kugler}
+\date{03.11.2020}
+
+\begin{document}
+%\includeonlyframes{current}
+\titlepage
+\section{Definition und Konvergenzgebiet}
+\input{slides/definition.tex}
+\input{slides/konvergenzgebiet.tex}
+\section{Eulerprodukt}
+\input{slides/eulerprodukt_lemma.tex}
+\input{slides/eulerprodukt_beweis.tex}
+\section{Analytische Fortsetzung}
+\input{slides/theta.tex}
+\input{slides/rinfty_lemma.tex}
+\input{slides/rinfty_proof.tex}
+\input{slides/ac_lemma.tex}
+\input{slides/ac_proof1.tex}
+\input{slides/ac_proof2.tex}
+\input{slides/r0_to_rinfty.tex}
+\input{slides/ac_proof3.tex}
+\input{slides/ac_conclusion.tex}
+\section{Riemannsche Hypothese}
+\input{slides/riemann_ht.tex}
+\end{document}

@@ -1,0 +1,17 @@
+\begin{frame}
+
+    \begin{definition}[$\theta$-Funktion]
+        Die Thetafunktion ist gegeben durch
+        \[
+            \theta(z) = \sum_{n = -\infty}^{\infty} e^{i\pi n^2z}.
+        \]
+    \end{definition}
+    \begin{itemize}
+        \item<2-> konvergiert für $\Im z > 0$ (Majorantenkriterium)
+        \item<3-> erfüllt die Thetatransformationsformel: 
+        \begin{align*}
+            \theta(z) &= \theta\left(-\frac{1}{z}\right)\cdot \sqrt{\frac{i}{z}}\\
+            \Leftrightarrow \theta(it) &= \theta\left(-\frac{1}{it}\right) \cdot \sqrt{\frac{i}{it}} = \theta\left(it^{-1}\right)\cdot t^{-\frac{1}{2}}.
+        \end{align*}
+        \end{itemize}
+\end{frame}

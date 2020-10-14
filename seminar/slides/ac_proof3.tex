@@ -1,0 +1,17 @@
+\begin{frame}
+\begin{block}{Beweis}
+    \vspace*{-0.5cm}
+    \begin{align*}
+        \pi^{-s/2} \Gamma(s/2)\zeta(s) &= R_\infty(s) + R_0(s)\\
+        \visible<2->{&= R_\infty(s) + R_\infty(1-s) - \frac{1}{s} - \frac{1}{1-s}\\}
+        \visible<3->{\zeta(s) &= \frac{\pi^{s/2}}{\Gamma(s/2)} \left(R_\infty(s) + R_\infty(1-s) - \frac{1}{s} - \frac{1}{1-s}\right)}
+    \end{align*}
+    \begin{itemize}
+        \item<4-> $R_\infty$ und $\Gamma$ sind ganz
+        \item<5-> $\Gamma$ besitzt keine Nullstellen
+        \item<6->[$\Rightarrow$] Einzige Singularitäten bei $s = 1$ und $s = 0$. Für $s = 0$ gilt:
+        \[\lim\limits_{s \to 0} \frac{1}{s\cdot \Gamma(s/2)} = \lim\limits_{s \to 0} \frac{1}{2\Gamma(s/2 + 1)} = \frac{1}{2\Gamma(1)} = \frac{1}{2}\]
+        \vspace*{-0.5cm}
+    \end{itemize}
+\end{block}
+\end{frame}

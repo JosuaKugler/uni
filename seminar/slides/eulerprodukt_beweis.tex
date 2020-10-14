@@ -1,0 +1,12 @@
+\begin{frame}[t]
+    \begin{proof}
+    \begin{align*}%geometrische Reihe
+        \visible<5->{\lim\limits_{m \to \infty}}\visible<2->{\prod_{k=1}^m} \frac{1}{1-p_k^{-s}} &= \only<5->{\lim\limits_{m \to \infty}}\only<2->{\prod_{k=1}^m} \sum_{\nu = 0}^\infty \frac{1}{p_k^{\nu s}}\\
+        %Cauchyscher Multiplikationssatz
+        \visible<3->{&=} \only<5->{\lim\limits_{m \to \infty}} \visible<3->{\sum_{\nu_1,\dots, \nu_m = 0}^\infty (p_1^{\nu_1}\cdots p_m^{\nu_m})^{-s}}\visible<3->{\\}
+        %Eindeutigkeit der Primfaktorzerlegung
+        \visible<4->{&=} \only<5->{\lim\limits_{m\to \infty}} \visible<4->{\sum_{n = p_1^{\nu_1}\cdots p_m^{\nu_m}}n^{-s}\\}
+        \only<7>{\prod_{k=1}^\infty \frac{1}{1-p_k^{-s}} }\visible<6->{ &= \sum_{n=1}^\infty n^{-s}}\invisible<1->{justsomespaceforkeepingthe=}
+    \end{align*}
+    \end{proof}
+\end{frame}

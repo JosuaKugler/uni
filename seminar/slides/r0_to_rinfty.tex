@@ -1,0 +1,22 @@
+\begin{frame}
+\begin{block}{Beweis.}
+    \begin{align*}
+        R_0(s) &= \int_0^1 \frac{\theta(it)-1}{2} t^{s/2} \frac{\intd t}{t}\invisible<1->{\hspace*{2.2cm}}&&\left|\theta(it) = \theta(it^{-1})\cdot t^{-\frac{1}{2}}\right.\\
+        \visible<2->{&= \only<3->{-}\alt<-2>{\int_0^1}{\int_1^0} \frac{\theta\left(it^{-1}\right)\cdot t^{-\frac{1}{2}}-1}{2} t^{s/2\only<4->{+1}} \frac{\intd t}{t\only<4->{^2}}&&\left|u = \frac{1}{t},\; \intd u = \frac{-1}{t^2}\intd t\right.\\}
+        \visible<5->{&= \int_1^\infty \frac{\theta\left(iu\right)\cdot u^{\frac{1}{2}}-1}{2} u^{-s/2-1} \intd u\\}
+        \visible<6->{&= \int_1^\infty \frac{\theta\left(it\right)\cdot t^{\frac{1}{2}}-1}{2} t^{-s/2} \frac{\intd t}{t}}
+    \end{align*}
+\end{block}
+\end{frame}
+\begin{frame}[label = current]
+\begin{block}{Beweis}
+    \begin{align*}
+        R_0(s) &= \alt<3->{\int_1^\infty 
+        \alt<3>{\frac{\theta\left(it\right)\cdot t^{\frac{1}{2}}-t^{\frac{1}{2}}}{2}\cdot t^{-s/2}}{\frac{\theta\left(it\right)-1}{2}\cdot t^{\frac{1-s}{2}}}\only<4>{}\frac{\intd t}{t} + \int_1^\infty \frac{t^{\frac{1}{2}} -1}{2} t^{-s/2} \frac{\intd t}{t}}{\int_1^\infty \frac{\theta\left(it\right)\cdot t^{\frac{1}{2}}\only<2->{-t^{\frac{1}{2}} + t^{\frac{1}{2}}}-1}{2} t^{-s/2} \frac{\intd t}{t}}\\
+        \visible<5->{&= R_\infty\left(1-s\right) + \int_1^\infty \frac{1}{2}t^{\frac{1-s}{2}} \frac{\intd t}{t} - \int_1^{\infty} \frac{1}{2} t^{-s/2} \frac{\intd t}{t}\hspace*{1.4cm}\\}
+        \visible<6->{&= R_\infty(1-s) + \alt<6>{\frac{1}{2}\frac{2}{1-s}}{\frac{1}{1-s}}t^{\frac{1-s}{2}}\bigg|_1^\infty + \alt<6>{\frac{1}{2}\frac{2}{s}}{\frac{1}{s}}t^{-\frac{s}{2}}\bigg|_1^\infty\\}
+        \visible<8->{&= R_\infty\left(1-s\right) - \frac{1}{1-s} - \frac{1}{s}\\}
+        %\invisible<1->{R_0(s) &= \int_1^\infty \frac{\theta\left(it\right)\cdot t^{\frac{1}{2}}-t^{\frac{1}{2}}}{2}\cdot t^{-s/2} \frac{\intd t}{t} + \int_1^\infty \frac{t^{\frac{1}{2}} -1}{2} t^{-s/2} \frac{\intd t}{t}}
+    \end{align*}
+\end{block}
+\end{frame}
