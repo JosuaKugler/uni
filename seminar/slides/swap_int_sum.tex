@@ -1,0 +1,14 @@
+\begin{frame}
+    \begin{block}{Beweis.}%
+    Wegen
+    \begin{align*}
+        \sum_{n = 1}^{\infty} \left|\int_0^\infty e^{-\pi n^2 t}t^{s/2} \frac{\intd t}{t}\right| &\leq \sum_{n = 1}^{\infty} \int_0^\infty e^{-\pi n^2 t}t^{\Re s/2} \frac{\intd t}{t}\\
+        &= \pi^{- \Re s/2} \Gamma(\Re s/2)\zeta(\Re s)\\
+        &< \infty
+    \end{align*}
+    gilt nach dem Satz von Fubini/Tonelli für absolut konvergente Reihen
+    \[
+        \sum_{n = 1}^{\infty} \int_0^\infty e^{-\pi n^2 t}t^{s/2} \frac{\intd t}{t} = \int_0^\infty \sum_{n = 1}^{\infty} e^{-\pi n^2 t}t^{s/2} \frac{\intd t}{t}.
+    \]
+    \end{block}
+\end{frame}
