@@ -11,8 +11,8 @@
 \usepackage{sagetex}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.16}
-%\usetikzlibrary{external}
-%\tikzexternalize[prefix=tikz_externalized/]
+\usetikzlibrary{external}
+\tikzexternalize[prefix=tikz_externalized/]
 
 
 \renewcommand{\Im}{\operatorname{Im}}
@@ -64,7 +64,7 @@
     output += r"\end{axis}"
     output += r"\end{tikzpicture}"
 \end{sagesilent}
-%\includeonlyframes{current}
+\includeonlyframes{current}
 \titlepage
 \section{Definition und Konvergenzgebiet}
 \input{slides/definition.tex}
@@ -84,9 +84,7 @@
 \input{slides/r0_to_rinfty.tex}
 \input{slides/ac_proof3.tex}
 \input{slides/ac_conclusion.tex}
-\input{slides/ac_plots.tex}
 \section{Riemannsche Hypothese}
 \input{slides/riemann_ht.tex}
-\input{slides/pi_li_diff.tex}
 \input{slides/bibliography.tex}
 \end{document}

@@ -1,0 +1,43 @@
+% This file was created by tikzplotlib v0.9.4.
+\begin{tikzpicture}
+
+\definecolor{color0}{rgb}{0.12156862745098,0.466666666666667,0.705882352941177}
+
+\begin{axis}[
+legend cell align={left},
+legend style={fill opacity=0.8, draw opacity=1, text opacity=1, at={(0.03,0.97)}, anchor=north west, draw=white!80!black},
+tick align=outside,
+tick pos=left,
+x grid style={white!69.0196078431373!black},
+xmin=0.1, xmax=19.9,
+xtick style={color=black},
+y grid style={white!69.0196078431373!black},
+ymin=-0.35, ymax=7.35,
+ytick style={color=black}
+]
+\addplot [semithick, color0, const plot mark right]
+table {%
+1 0
+2 0
+3 1
+4 2
+5 2
+6 3
+7 3
+8 4
+9 4
+10 4
+11 4
+12 5
+13 5
+14 6
+15 6
+16 6
+17 6
+18 7
+19 7
+};
+\addlegendentry{$\pi(x)$}
+\end{axis}
+
+\end{tikzpicture}
