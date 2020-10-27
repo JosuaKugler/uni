@@ -1,0 +1,30 @@
+\begin{frame}
+    \frametitle{Konsequenzen der Riemannschen Hypothese}
+
+    \begin{definition}
+        \[
+            \mu(n) = \begin{cases}
+                (-1)^k & n \text{ ist quadratfrei und hat $k$ Primfaktoren}\\
+                0 & \text{sonst}
+            \end{cases}  
+        \]
+    \end{definition}
+    \begin{lemma}
+        Es gilt \[
+            \frac{1}{\zeta(s)} = \sum_{n = 1}^{\infty} \frac{\mu(n)}{n^s}  
+        \] für $\Re s > 1$ mit
+    \end{lemma}
+\end{frame}
+\begin{frame}
+    \frametitle{Konsequenzen der Riemannschen Hypothese}
+    \begin{proof}\vspace*{-0.5cm}
+        \[
+            \frac{1}{\zeta(s)} = \prod_{k=1}^\infty \left(1 - \frac{1}{p_k^s}\right) = \left(1 - \frac{1}{2^s}\right)\left(1 - \frac{1}{3^s}\right) \dots = \sum_{n = 1}^{\infty} \frac{\mu(n)}{n^s} 
+        \]
+    \end{proof}
+    \begin{theorem}
+        Die Gleichung \[
+            \frac{1}{\zeta(s)} = \sum_{n = 1}^{\infty} \frac{\mu(n)}{n^s}
+        \] für $\Re s > \frac{1}{2}$ ist äquivalent zur Riemannschen Hypothese.
+    \end{theorem}
+\end{frame}

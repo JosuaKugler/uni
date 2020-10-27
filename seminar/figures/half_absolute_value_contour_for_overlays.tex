@@ -1,8 +1,4 @@
 % This file was created by tikzplotlib v0.9.4.
-\documentclass{standalone}
-\usepackage{pgfplots}
-\begin{document}
-
 \begin{tikzpicture}
 
     \definecolor{color0}{rgb}{0.269944,0.014625,0.341379}
@@ -106,7 +102,11 @@
     xtick style={color=black},
     y grid style={white!69.0196078431373!black},
     ymin=-9.95, ymax=9.95,
-    ytick style={color=black}
+    ytick style={color=black},
+    extra x ticks = {1},
+    extra x tick labels = {$1$},
+    xlabel= $\operatorname{Re} s$,
+    ylabel = $\operatorname{Im} s$,
     ]
     \path [draw=color0, very thin]
     (axis cs:-5.95,-0.0616788019148981)
@@ -19012,5 +19012,3 @@
     \end{axis}
     
 \end{tikzpicture}
-
-\end{document}

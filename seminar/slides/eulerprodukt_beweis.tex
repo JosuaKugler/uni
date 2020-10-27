@@ -1,21 +1,21 @@
 \begin{frame}[t]
     \begin{proof}
     \begin{align*}%geometrische Reihe
-        \visible<5->{\lim\limits_{m \to \infty}}\visible<2->{\prod_{k=1}^m} \frac{1}{1-p_k^{-s}} &= \only<5->{\lim\limits_{m \to \infty}}\only<2->{\prod_{k=1}^m} \sum_{\nu = 0}^\infty \frac{1}{p_k^{\nu s}}\\
+        \visible<6->{\lim\limits_{m \to \infty}}\visible<2->{\prod_{k=1}^m} \frac{1}{1-p_k^{-s}} &= \only<6->{\lim\limits_{m \to \infty}}\only<2->{\prod_{k=1}^m} \sum_{\nu = 0}^\infty \frac{1}{p_k^{\nu s}}\only<3>{\scriptscriptstyle =\left(1 + \frac{1}{p_1^s} + \frac{1}{p_1^{2s}} \dots\!\right)\dots \left(1 + \frac{1}{p_m^s} + \frac{1}{p_m^{2s}} \dots\!\right)}\\
         %Cauchyscher Multiplikationssatz
-        \visible<3->{&=} \only<5->{\lim\limits_{m \to \infty}} \visible<3->{\sum_{\nu_1,\dots, \nu_m = 0}^\infty (p_1^{\nu_1}\cdots p_m^{\nu_m})^{-s}}\visible<3->{\\}
+        \visible<4->{&=} \only<6->{\lim\limits_{m \to \infty}} \visible<4->{\sum_{\nu_1,\dots, \nu_m = 0}^\infty (p_1^{\nu_1}\cdots p_m^{\nu_m})^{-s}}\visible<4->{\\}
         %Eindeutigkeit der Primfaktorzerlegung
-        \visible<4->{&=} \only<5->{\lim\limits_{m\to \infty}} \visible<4->{\sum_{n = p_1^{\nu_1}\cdots p_m^{\nu_m}}n^{-s}\\}
-        \only<7>{\prod_{k=1}^\infty \frac{1}{1-p_k^{-s}} }\visible<6->{ &= \sum_{n=1}^\infty n^{-s}}\invisible<1->{justsomespaceforkeepingthe=}
+        \visible<5->{&=} \only<6->{\lim\limits_{m\to \infty}} \visible<5->{\sum_{n = p_1^{\nu_1}\cdots p_m^{\nu_m}}n^{-s}\\}
+        \only<8>{\prod_{k=1}^\infty \frac{1}{1-p_k^{-s}} }\visible<7->{ &= \sum_{n=1}^\infty n^{-s}}\invisible<1->{justsomespaceforkeepingthe=}
     \end{align*}
     \end{proof}
 \end{frame}
 \begin{frame}
     \begin{proof}[Beweis. (Absolute Konvergenz)]
         \begin{align*}
-        \sum_p \left|1 - \frac{1}{1-p^{-s}}\right| &= \sum_p \left|1 - \sum_{m=0}^\infty p^{-ms}\right|\\
-        &\leq \sum_p \sum_{m=1}^\infty \left| p^{-ms}\right|\\
-        &\leq \sum_{n=1}^\infty \left|n^{-s}\right|
+        \sum_{k=1}^\infty \left|1 - \frac{1}{1-p_k^{-s}}\right| &= \sum_{k=1}^\infty \left|1 - \sum_{m=0}^\infty p_k^{-ms}\right|\\
+        \visible<2->{&\leq \sum_{k=1}^\infty \sum_{m=1}^\infty \left| p_k^{-ms}\right|\\}
+        \visible<3>{&\leq \sum_{n=1}^\infty \left|n^{-s}\right|}
         \end{align*}
     \end{proof}
 \end{frame}
