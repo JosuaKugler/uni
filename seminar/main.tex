@@ -8,11 +8,8 @@
 
 \usepackage{amsmath, amsfonts, amsthm, mathtools, amssymb}
 
-\usepackage{sagetex}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.16}
-%\usetikzlibrary{external}
-%\tikzexternalize[prefix=tikz_externalized/]
 
 
 \renewcommand{\Im}{\operatorname{Im}}
@@ -26,47 +23,16 @@
 
 \newcommand{\intd}{\mathrm{d}}
 \newtheorem*{hypothesis}{Vermutung}
+\newtheorem*{behauptung}{Behauptung}
 
 \title{Die Riemannsche Zeta-Funktion}
 \author{Josua Kugler}
 \date{03.11.2020}
 
 \begin{document}
-\begin{sagesilent}
-    t = var('t')
-    LowerY = -3
-    UpperY = 4
-    LowerX = -30
-    UpperX = 30
-    step = .1
-    x_coords = [t for t in srange(LowerX,UpperX,step)]
-    y_coords1 = [real_part(zeta(0.5 + t*I)).n(digits=6) for t in srange(LowerX,UpperX,step)]
-    y_coords2 = [imag_part(zeta(0.5 + t*I)).n(digits=6) for t in srange(LowerX,UpperX,step)]
-
-    output = r""
-    output += r"\begin{tikzpicture}[scale=.7]"
-    output += r"\begin{axis}[xmin=%f,xmax=%f,ymin= %f,ymax=%f, width=1.4\textwidth, height = 9cm, hide y axis, axis x line = middle, legend pos = north west]"%(LowerX,UpperX,LowerY, UpperY)
-    output += r"\addplot[thin, blue, unbounded coords=jump] coordinates {"
-    for i in range(0,len(x_coords)-1):
-        if (y_coords1[i])<LowerY or (y_coords1[i])>UpperY:
-            output += r"(%f , inf) "%(x_coords[i])
-        else:
-            output += r"(%f , %f) "%(x_coords[i],y_coords1[i])
-    output += r"};"
-    output += r"\addlegendentry{$\Re \zeta(\frac{1}{2} + ix)$}"
-    output += r"\addplot[thin, red, unbounded coords=jump] coordinates {"
-    for i in range(0,len(x_coords)-1):
-        if (y_coords2[i])<LowerY or (y_coords2[i])>UpperY:
-            output += r"(%f , inf) "%(x_coords[i])
-        else:
-            output += r"(%f , %f) "%(x_coords[i],y_coords2[i])
-    output += r"};"
-    output += r"\addlegendentry{$\Im \zeta(\frac{1}{2} + ix)$}"
-    output += r"\end{axis}"
-    output += r"\end{tikzpicture}"
-\end{sagesilent}
+%\includeonlyframes{current}
 \titlepage
-\section{Definition und Konvergenzgebiet}
+\section{Definition}
 \input{slides/definition.tex}
 \input{slides/konvergenzgebiet.tex}
 \section{Eulerprodukt}
@@ -83,9 +49,11 @@
 \input{slides/ac_proof2.tex}
 \input{slides/r0_to_rinfty.tex}
 \input{slides/ac_proof3.tex}
-\input{slides/ac_conclusion.tex}
 \input{slides/ac_plots.tex}
-\section{Riemannsche Hypothese}
+\section{Nullstellen, Riemannsche Hypothese}
+\input{slides/xi_plots.tex}
+\input{slides/zeros_proof.tex}
+\input{slides/zeros_plots.tex}
 \input{slides/riemann_ht.tex}
 \input{slides/pi_li_diff.tex}
 \input{slides/robin.tex}

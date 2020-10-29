@@ -3,15 +3,65 @@
     \vspace*{-0.5cm}
     \begin{align*}
         \pi^{-s/2} \Gamma(s/2)\zeta(s) &= R_\infty(s) + R_0(s)\\
-        \visible<2->{&= R_\infty(s) + R_\infty(1-s) - \frac{1}{s} - \frac{1}{1-s}\\}
-        \visible<3->{\zeta(s) &= \frac{\pi^{s/2}}{\Gamma(s/2)} \left(R_\infty(s) + R_\infty(1-s) - \frac{1}{s} - \frac{1}{1-s}\right)}
-    \end{align*}
+        \visible<3->{\xi(s)}\visible<2->{&= R_\infty(s) + R_\infty(1-s) - \frac{1}{s} - \frac{1}{1-s}}
+        %\visible<3->{\zeta(s) &= \frac{\pi^{s/2}}{\Gamma(s/2)} \left(R_\infty(s) + R_\infty(1-s) - \frac{1}{s} - \frac{1}{1-s}\right)}
+    \end{align*}%
     \begin{itemize}
-        \item<4-> $R_\infty$ und $\Gamma$ sind ganz
-        \item<5-> $\Gamma$ besitzt keine Nullstellen
-        \item<6->[$\Rightarrow$] Einzige Singularitäten bei $s = 1$ und $s = 0$. Für $s = 0$ gilt:
-        \[\lim\limits_{s \to 0} \frac{1}{s\cdot \Gamma(s/2)} = \lim\limits_{s \to 0} \frac{1}{2\Gamma(s/2 + 1)} = \frac{1}{2\Gamma(1)} = \frac{1}{2}\]
-        \vspace*{-0.5cm}
+        \item<4-> $R_\infty$ ist ganz
+        \item<5-> $\xi$ ist ganz bis auf einfache Polstellen bei $s = 0$ und $s = 1$
+        \item<6-> $\xi$ genügt der Funktionalgleichung $\xi(s) = \xi(1-s)$
     \end{itemize}
+    %\begin{itemize}
+    %    \item<4-> $R_\infty$ und $\Gamma$ sind ganz
+    %    \item<5-> $\Gamma$ besitzt keine Nullstellen
+    %    \item<6->[$\Rightarrow$] Einzige Singularitäten bei $s = 1$ und $s = 0$. Für $s = 0$ gilt:
+    %    \[\lim\limits_{s \to 0} \frac{1}{s\cdot \Gamma(s/2)} = \lim\limits_{s \to 0} \frac{1}{2\Gamma(s/2 + 1)} = \frac{1}{2\Gamma(1)} = \frac{1}{2}\]
+    %    \vspace*{-0.5cm}
+    %\end{itemize}
 \end{block}
+\end{frame}
+
+\begin{frame}
+    \begin{block}{Beweis.}
+        \vspace*{-0.5cm}
+        \begin{align*}
+            \pi^{-s/2} \Gamma(s/2)\zeta(s) &= \xi(s)\\
+            \visible<2->{\zeta(s) &= \frac{\pi^{s/2}}{\Gamma(s/2)}}
+            \begin{overprint}
+                \only<2>{\xi(s)}
+                \only<3->{\left(R_\infty(s) + R_\infty(1-s) - \frac{1}{s} - \frac{1}{1-s}\right)}
+            \end{overprint}
+        \end{align*}%
+        \vspace*{-0.5cm}
+        \begin{itemize}
+            \item<4-> Die $\Gamma$-Funktion ist meromorph auf $\C$ und besitzt einfache Polstellen genau bei $s = 0, -1,\dots$
+            \item<5-> Es gilt \[\lim\limits_{s \to 0} \frac{1}{s\cdot \Gamma(s/2)} = \lim\limits_{s \to 0} \frac{1}{2\Gamma(s/2 + 1)} = \frac{1}{2\Gamma(1)} = \frac{1}{2},\] die Polstelle der $\Gamma$-Funktion bei $s = 0$ gleicht also die Polstelle der $\xi$-Funktion aus
+        \end{itemize}
+        %\begin{itemize}
+        %    \item<4-> $R_\infty$ und $\Gamma$ sind ganz
+        %    \item<5-> $\Gamma$ besitzt keine Nullstellen
+        %    \item<6->[$\Rightarrow$] Einzige Singularitäten bei $s = 1$ und $s = 0$. Für $s = 0$ gilt:
+        %    \[\lim\limits_{s \to 0} \frac{1}{s\cdot \Gamma(s/2)} = \lim\limits_{s \to 0} \frac{1}{2\Gamma(s/2 + 1)} = \frac{1}{2\Gamma(1)} = \frac{1}{2}\]
+        %    \vspace*{-0.5cm}
+        %\end{itemize}
+    \end{block}
+\end{frame}
+\begin{frame}
+    \begin{block}{Beweis.}
+        Die Funktion \[
+            \frac{\pi^{s/2}}{\Gamma(s/2)}\left(R_\infty(s) + R_\infty(1-s) - \frac{1}{s} - \frac{1}{1-s}\right)
+        \] ist daher
+        \begin{itemize}
+            \item<2-> holomorph auf $\C \setminus \{1\}$. 
+            \item<3-> stimmt für $\Re s > 1$ mit $\zeta(s)$ überein
+        \end{itemize}
+        \visible<4->{$\implies$ stellt die gesuchte analytische Fortsetzung für die Riemannsche $\zeta$-Funktion dar!!!}
+        %\begin{itemize}
+        %    \item<4-> $R_\infty$ und $\Gamma$ sind ganz
+        %    \item<5-> $\Gamma$ besitzt keine Nullstellen
+        %    \item<6->[$\Rightarrow$] Einzige Singularitäten bei $s = 1$ und $s = 0$. Für $s = 0$ gilt:
+        %    \[\lim\limits_{s \to 0} \frac{1}{s\cdot \Gamma(s/2)} = \lim\limits_{s \to 0} \frac{1}{2\Gamma(s/2 + 1)} = \frac{1}{2\Gamma(1)} = \frac{1}{2}\]
+        %    \vspace*{-0.5cm}
+        %\end{itemize}
+    \end{block}
 \end{frame}
