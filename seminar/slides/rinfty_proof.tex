@@ -1,13 +1,23 @@
 \begin{frame}
-    \begin{proof}
+    \begin{block}{Beweis.}
         Abschätzen der Reihe ergibt
-        \[
-            e^{\pi t} \cdot \sum_{n = 1}^{\infty} e^{-\pi t n^2} = \sum_{n = 1}^{\infty} e^{-\pi t (n^2-1)} \leq B(t) \leq B(1) \eqqcolon B.
-        \]
-        Also ist $\sum_{n = 1}^{\infty} e^{-\pi n^2 t} \leq B e^{-\pi t}$.\\
-        Daraus folgt
-        \[
-            \int_1^\infty \sum_{n=1}^\infty e^{-\pi n^2 t} t^s \frac{\intd t}{t} \leq B \cdot \int_1^\infty e^{-\pi t} t^{s+1} \frac{\intd t}{t^2} \leq B\cdot C \cdot \int_1^\infty \frac{\intd t}{t^2}.
-        \]
+        \begin{align*}
+            e^{\pi t} \cdot \sum_{n = 1}^{\infty} e^{-\pi t n^2} &= \sum_{n = 1}^{\infty} e^{-\pi t (n^2-1)}\stackrel{t \geq 1}{\leq} \sum_{n = 1}^{\infty} e^{-\pi (n^2-1)}\\
+            \visible<2->{&= \sum_{n = 1}^{N} e^{-\pi (n^2-1)} + \sum_{n = N+1}^{\infty} e^{-\pi (n^2-1)}\\}
+            \visible<3->{&\leq  \sum_{n = 1}^{N} e^{-\pi (n^2-1)} + \sum_{n = N+1}^{\infty} \frac{1}{n^2}\\}
+            \visible<4->{&\leq B}
+        \end{align*}
+        \visible<5>{Also ist $\sum_{n = 1}^{\infty} e^{-\pi n^2 t} \leq B e^{-\pi t}$.}
+    \end{block}
+\end{frame}
+\begin{frame}
+    \begin{proof}
+        \begin{align*}
+            \int_1^\infty \sum_{n=1}^\infty e^{-\pi n^2 t} t^s \frac{\intd t}{t} &\leq B \cdot \int_1^\infty e^{-\pi t} t^{s+1} \frac{\intd t}{t^2}
+            \visible<2->{\intertext{$\exists a(s):\ \forall \alpha > a: e^{-\pi \alpha} < \alpha^{-s+1}$}}
+            \visible<3->{&= B \cdot \int_1^a e^{-\pi t} t^{s+1} \frac{\intd t}{t^2} + B\cdot \int_a^\infty e^{-\pi t} t^{s+1} \frac{\intd t}{t^2}\\}
+            \visible<4->{&\leq B \cdot C(s) + B\cdot \int_a^\infty \frac{\intd t}{t^2}\\}
+            \visible<5->{&\leq B\cdot C(s) + \frac{B}{a(s)} < \infty}
+        \end{align*}
     \end{proof}
 \end{frame}
