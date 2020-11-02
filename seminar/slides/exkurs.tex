@@ -1,0 +1,27 @@
+\begin{frame}
+    \begin{block}{Exkurs.}
+        Es gilt die Duplikationsformel und der Ergänzungssatz: 
+        \[
+            \frac{\Gamma\left(\frac{1-s}{2}\right)}{\Gamma\left(\frac{s}{2}\right)} = \frac{\Gamma\left(\frac{1-s}{2}\right) \cdot \Gamma\left(1-\frac{s}{2}\right)}{\Gamma\left(\frac{s}{2}\right)\cdot \Gamma\left(1-\frac{s}{2}\right)} = \frac{\sin\left(\frac{\pi \cdot s}{2}\right)}{\pi} \cdot \frac{\sqrt{\pi}}{2^{1-s-1}}\cdot \Gamma(1-s)
+        \]
+        \begin{align*}
+            \xi(s) &= \xi(1-s)\\
+            \pi^{-\frac{s}{2}} \Gamma\left(\frac{s}{2}\right)\zeta(s) &= \pi^\frac{s-1}{2} \Gamma\left(\frac{1-s}{2}\right)\zeta(1-s)\\
+            \zeta(s) &= \pi^{s-1}\cdot \sqrt{\pi} \frac{\Gamma\left(\frac{1-s}{2}\right)}{\Gamma\left(\frac{s}{2}\right)}\zeta(1-s)\\
+            &= \pi^{s-1} \cdot 2^s \cdot \sin\left(\frac{\pi s}{2}\right)\Gamma(1-s)\zeta(1-s)
+        \end{align*}
+    \end{block}
+\end{frame}
+\begin{frame}
+    \begin{block}{Beispiel}
+        \[
+            \zeta(s) = \pi^{s-1} \cdot 2^s \cdot \sin\left(\frac{\pi s}{2}\right)\Gamma(1-s)\zeta(1-s)
+        \]
+        \[
+            \zeta(-1) = \pi^{-2} \cdot 2^{-1} \cdot \sin\left(\frac{-\pi}{2}\right)\Gamma(2)\zeta(2) = \frac{1}{2\pi^2}\cdot -1 \cdot 1 \cdot \frac{\pi^2}{6} = -\frac{1}{12}
+        \]
+        \visible<2->{\[
+           -\frac{1}{12} = \zeta(-1)\ \text{\glqq}=\text{\grqq}\ \sum_{n = 1}^{\infty} \frac{1}{n^{-1}} = 1 + 2 + 3 + \dots  
+        \]}
+    \end{block}
+\end{frame}

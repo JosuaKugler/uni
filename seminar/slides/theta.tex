@@ -11,8 +11,8 @@
         \begin{align*}
             \visible<1->{\sum_{n = -\infty}^{\infty} \left|e^{i\pi n^2 (\Re z + i (\Im z)}\right| &= \sum_{n = -\infty}^{\infty} \left|e^{i\pi n^2 \Re z}\right|\cdot \left| e^{i \pi n^2 \cdot i (\Im z)}\right|\\}
             \visible<2->{&= \sum_{n = -\infty}^{\infty} e^{- \pi n^2 \Im z}\\}
-            \visible<3->{&= \sum_{n = -N}^{N} e^{- \pi n^2 \Im z} + 2\cdot \sum_{n = N}^{\infty} e^{- \pi n^2 \Im z}\\}
-            \visible<4>{&\leq \sum_{n = -N}^{N} e^{- \pi n^2 \Im z} + 2\cdot \sum_{n = N}^{\infty} \frac{1}{n^2}< \infty}
+            \visible<3->{&= \sum_{n = -N}^{N} e^{- \pi n^2 \Im z} + 2\cdot \sum_{n = N+1}^{\infty} e^{- \pi n^2 \Im z}\\}
+            \visible<4>{&\leq \sum_{n = -N}^{N} e^{- \pi n^2 \Im z} + 2\cdot \sum_{n = N+1}^{\infty} \frac{1}{n^2}< \infty}
         \end{align*}
     \end{proof}
 \end{frame}

@@ -19,17 +19,17 @@
             \visible<2->{\zeta(s) &= \frac{\pi^{s/2}}{\Gamma(s/2)}\xi(s)}
         \end{align*}
         \visible<3->{$\Gamma$ ist meromorph auf $\C$ und besitzt keine Nullstellen.\\}
-        \visible<4->{$\implies$ $\frac{\pi^{s/2}}{\Gamma(s/2)}$ ist holomorph auf $\C$.}
-        \visible<5->{$\implies$ $\zeta(s)$ ist holomorph auf $\C\setminus\{0,1\}$.}
+        \visible<4->{$\implies$ $\frac{\pi^{s/2}}{\Gamma(s/2)}$ ist holomorph auf $\C$.\\}
+        \visible<5->{$\implies$ $\frac{\pi^{s/2}}{\Gamma(s/2)}\xi(s)$ ist holomorph auf $\C\setminus\{0,1\}$.}
     \end{block}
 \end{frame}
 \begin{frame}
     \begin{block}{Beweis.}
         \begin{align*}
-            \lim\limits_{s \to 0} \zeta(s) &= \lim\limits_{s \to 0} \frac{\pi^{s/2}}{\Gamma(s/2)}\bigg(\underbrace{R_\infty(s) + R_\infty(1-s) - \frac{1}{1-s}}_{\to \text{const für } s \to 0} - \frac{1}{s}\bigg)\\
+            & \lim\limits_{s \to 0} \frac{\pi^{s/2}}{\Gamma(s/2)}\bigg(\underbrace{R_\infty(s) + R_\infty(1-s) - \frac{1}{1-s}}_{\implies \text{beschränkt für } s \to 0} - \frac{1}{s}\bigg)\\
             \visible<2->{\intertext{Wegen $\lim\limits_{s \to 0} \Gamma(s/2) = \infty$ erhalten wir}}
-            \visible<3->{&= 0 - \lim\limits_{s \to 0} \frac{\pi^{s/2}}{s\cdot \Gamma(s/2)} = - \lim\limits_{s \to 0} \frac{\pi^{s/2}}{2\cdot s/2\cdot \Gamma(s/2)}\\}
-            \visible<4->{&= -\lim\limits_{s \to 0} \frac{\pi^{s/2}}{2\cdot \Gamma(s/2 + 1)}= -\frac{\pi^0}{2\cdot \Gamma(1)} = -\frac{1}{2}}
+            \visible<3->{=& 0 - \lim\limits_{s \to 0} \frac{\pi^{s/2}}{s\cdot \Gamma(s/2)} = - \lim\limits_{s \to 0} \frac{\pi^{s/2}}{2\cdot s/2\cdot \Gamma(s/2)}\\}
+            \visible<4->{=& -\lim\limits_{s \to 0} \frac{\pi^{s/2}}{2\cdot \Gamma(s/2 + 1)}= -\frac{\pi^0}{2\cdot \Gamma(1)} = -\frac{1}{2}}
         \end{align*}
     \end{block}
 \end{frame}

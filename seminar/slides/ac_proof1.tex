@@ -4,7 +4,7 @@
         \begin{align*}
             \Gamma(s) &= \int_0^\infty e^{-t} t^s \frac{\intd t}{t}&&\left|t \mapsto \pi n^2t\right.\\
             \visible<2->{&= \int_0^\infty e^{-\pi n^2t}(\pi n^2 t)^s \frac{\intd t}{t} &&\left|\cdot \pi^{-s} \cdot n^{-2s}\right.\\}
-            \visible<4->{\sum_{n = 1}^{\infty}}\visible<3->{\pi^{-s} \Gamma(s)\frac{1}{n^{2s}} &= }\only<4->{\sum_{n = 1}^{\infty}}\visible<3->{\int_0^\infty e^{-\pi n^2 t} t^s \frac{\intd t}{t}&&\left|\sum_{n = 1}^{\infty},\; s\mapsto s/2\right.\\}
+            \visible<4->{\sum_{n = 1}^{\infty}}\visible<3->{\pi^{-s} \Gamma(s)n^{-2s}&= }\only<4->{\sum_{n = 1}^{\infty}}\visible<3->{\int_0^\infty e^{-\pi n^2 t} t^s \frac{\intd t}{t}&&\left|\sum_{n = 1}^{\infty},\; s\mapsto s/2\right.\\}
             \alt<6>{\invisible<1->{\sum_{n=1}^{\infty}n^{-s}}}{\invisible<1->{\zeta(s)}}\visible<5->{\pi^{-s/2} \Gamma(s/2)\alt<6>{\zeta(s)}{\sum_{n=1}^{\infty}n^{-s}} &= \sum_{n=1}^\infty \int_0^\infty e^{-\pi n^2 t}t^{s/2} \frac{\intd t}{t}}
         \end{align*}
     \end{block}

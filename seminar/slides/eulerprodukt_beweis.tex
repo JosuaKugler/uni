@@ -13,9 +13,9 @@
 \begin{frame}
     \begin{proof}[Beweis. (Absolute Konvergenz)]
         \begin{align*}
-        \sum_{k=1}^\infty \left|1 - \frac{1}{1-p_k^{-s}}\right| &= \sum_{k=1}^\infty \left|1 - \sum_{m=0}^\infty p_k^{-ms}\right|\\
-        \visible<2->{&\leq \sum_{k=1}^\infty \sum_{m=1}^\infty \left| p_k^{-ms}\right|\\}
-        \visible<3>{&\leq \sum_{n=1}^\infty \left|n^{-s}\right|}
+        \sum_{k=1}^\infty \left|1 - \frac{1}{1-p_k^{-s}}\right| &= \sum_{k=1}^\infty \left|1 - \sum_{\nu=0}^\infty p_k^{-\nu s}\right|\\
+        \visible<2->{&\leq \sum_{k=1}^\infty \sum_{\nu=1}^\infty \left| p_k^{-\nu s}\right|\\}
+        \visible<3>{&< \sum_{n=1}^\infty \left|n^{-s}\right|}
         \end{align*}
     \end{proof}
 \end{frame}

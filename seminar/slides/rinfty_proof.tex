@@ -11,11 +11,12 @@
     \end{block}
 \end{frame}
 \begin{frame}
+    \vspace*{-0.2pt}
     \begin{proof}
         \begin{align*}
-            \int_1^\infty \sum_{n=1}^\infty e^{-\pi n^2 t} t^s \frac{\intd t}{t} &\leq B \cdot \int_1^\infty e^{-\pi t} t^{s+1} \frac{\intd t}{t^2}
-            \visible<2->{\intertext{$\exists a(s):\ \forall \alpha > a: e^{-\pi \alpha} < \alpha^{-s+1}$}}
-            \visible<3->{&= B \cdot \int_1^a e^{-\pi t} t^{s+1} \frac{\intd t}{t^2} + B\cdot \int_a^\infty e^{-\pi t} t^{s+1} \frac{\intd t}{t^2}\\}
+            \int_1^\infty \sum_{n=1}^\infty e^{-\pi n^2 t} t^\frac{s}{2} \frac{\intd t}{t} &\leq B \cdot \int_1^\infty e^{-\pi t} t^{\frac{s}{2}+1} \frac{\intd t}{t^2}
+            \visible<2->{\intertext{$\exists a(s):\ \forall t > a: e^{-\pi t} < t^{-\frac{s}{2}-1}$}}
+            \visible<3->{&= B \cdot \int_1^a e^{-\pi t} t^{\frac{s}{2}+1} \frac{\intd t}{t^2} + B\cdot \int_a^\infty e^{-\pi t} t^{\frac{s}{2}+1} \frac{\intd t}{t^2}\\}
             \visible<4->{&\leq B \cdot C(s) + B\cdot \int_a^\infty \frac{\intd t}{t^2}\\}
             \visible<5->{&\leq B\cdot C(s) + \frac{B}{a(s)} < \infty}
         \end{align*}
