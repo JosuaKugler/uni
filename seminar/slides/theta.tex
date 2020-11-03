@@ -3,16 +3,17 @@
         Die Thetafunktion, gegeben durch
         \[
             \theta(z) = \sum_{n = -\infty}^{\infty} e^{i\pi n^2z},
-        \] konvergiert für $\Im z > 0$.
+        \] konvergiert normal für $\Im z > 0$.
     \end{lemma}
 \end{frame}
 \begin{frame}
     \begin{proof}
+        \vspace*{-0.5cm}
         \begin{align*}
-            \visible<1->{\sum_{n = -\infty}^{\infty} \left|e^{i\pi n^2 (\Re z + i (\Im z)}\right| &= \sum_{n = -\infty}^{\infty} \left|e^{i\pi n^2 \Re z}\right|\cdot \left| e^{i \pi n^2 \cdot i (\Im z)}\right|\\}
-            \visible<2->{&= \sum_{n = -\infty}^{\infty} e^{- \pi n^2 \Im z}\\}
-            \visible<3->{&= \sum_{n = -N}^{N} e^{- \pi n^2 \Im z} + 2\cdot \sum_{n = N+1}^{\infty} e^{- \pi n^2 \Im z}\\}
-            \visible<4>{&\leq \sum_{n = -N}^{N} e^{- \pi n^2 \Im z} + 2\cdot \sum_{n = N+1}^{\infty} \frac{1}{n^2}< \infty}
+            \visible<1->{\sum_{n = -\infty}^{\infty} \left|e^{i\pi n^2 (\Re z + i (\Im z)}\right| &= \sum_{n = -\infty}^{\infty} \left| e^{i \pi n^2 \cdot i (\Im z)}\right| = \sum_{n = -\infty}^{\infty} e^{-\pi n^2\Im z}\\}
+            \visible<2->{\intertext{$\exists M(\Im z):\ \forall n \geq M: e^{- \pi n^2 \Im z} < \frac{1}{n^2}$}}
+            \visible<3->{&= \sum_{n = -M}^{M} e^{- \pi n^2 \Im z} + 2\cdot \sum_{n = M+1}^{\infty} e^{- \pi n^2 \Im z}\\}
+            \visible<4>{&\leq \sum_{n = -M}^{M} e^{- \pi n^2 \Im z} + 2\cdot \sum_{n = M+1}^{\infty} \frac{1}{n^2}< \infty}
         \end{align*}
     \end{proof}
 \end{frame}
@@ -21,7 +22,7 @@
         Die Thetafunktion, $\theta(z) = \sum_{n = -\infty}^{\infty} e^{i\pi n^2z}$, konvergiert für $\Im z > 0$.
     \end{lemma}
     \begin{behauptung}
-        $\theta(z)$ erfüllt die Thetatransformationsformel ($\sqrt{\cdot}$ bezeichne den Zweig mit positivem Realteil): 
+        $\theta(z)$ erfüllt die Thetatransformationsformel ($\Im \sqrt{\cdot} > 0$, bei rein reller Lsg $\Re \sqrt{\cdot} > 0$): 
             \begin{align*}
                 \theta(z) &= \theta\left(-\frac{1}{z}\right)\cdot \sqrt{\frac{i}{z}}\\
                 \Leftrightarrow \theta(it) &= \theta\left(-\frac{1}{it}\right) \cdot \sqrt{\frac{i}{it}} = \theta\left(it^{-1}\right)\cdot t^{-\frac{1}{2}}.
