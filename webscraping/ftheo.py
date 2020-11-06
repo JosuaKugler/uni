@@ -12,7 +12,7 @@ baseurl = 'https://moodle.uni-heidelberg.de'
 scrapeurl = 'https://moodle.uni-heidelberg.de/course/view.php?id=2129'
 url = 'https://moodle.uni-heidelberg.de/login/index.php'
 
-payload = passwords.funktheopayload()
+payload = passwords.moodlepayload()
 
 s = HTMLSession()
 
