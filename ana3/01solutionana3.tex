@@ -1,0 +1,128 @@
+\documentclass{article}
+
+\usepackage{josuamathheader}
+
+\begin{document}
+    \section*{Aufgabe 1}
+    Da $\mathcal{A} \subset \mathcal{A}_\mu$ gilt $\emptyset, X \in A$.
+    Seien nun $A, A' \in \mathcal{A}_\mu$. 
+    Dann existieren $B, B'\in \mathcal{A}$ und $\mu$-Nullmengen $C, C'\in \mathcal{A}$, sodass $A\triangle B \subset C$ und $A'\triangle B' \subset C'$.
+    Dann gilt
+    \begin{align*}
+        (A\cup A')\triangle (B\cup B') &= [(A\cup A')\setminus (B \cup B')] \cup [(B\cup B')\setminus (A\cup A')]\\
+        &= [A\setminus(B \cup B')] \cup [A'\setminus(B \cup B')] \cup [B\setminus (A\cup A')] \cup [B'\setminus (A\cup A')]\\
+        &\subset (A\setminus B) \cup (A'\setminus B') \cup (B\setminus A) \cup (B'\setminus A')\\
+        &= (A \triangle B) \cup (A'\triangle B')\\
+        &\subset C\cup C'
+    \end{align*}
+    Wegen $\mu(C \cup C') = \mu(C) + \mu(C') = 0$ gilt daher $A\cup A' \in \mathcal{A}_\mu$.
+    Außerdem gilt
+    \begin{align*}
+        (A\cap A')\triangle (B\cap B') &= [(A\cap A')\setminus (B \cap B')] \cup [(B\cap B')\setminus (A\cap A')]\\
+        &= [[A\setminus(B \cup B')] \cap [A'\setminus(B \cup B')]] \cup [[B\setminus (A\cup A')] \cap [B'\setminus (A\cup A')]]\\
+        &\subset [(A\setminus B) \cap (A'\setminus B')] \cup [(B\setminus A) \cap (B'\setminus A')]\\
+        &\subset (C \cap C') \cup (C \cap C')\\
+        &= C\cap C'\subset C\cup C'
+    \end{align*} 
+    Wegen $\mu(C \cup C') = \mu(C) + \mu(C') = 0$ gilt daher $A\cap A' \in \mathcal{A}$.
+    Außerdem gilt
+    \begin{align*}
+        A^c \triangle B^c &= (A^c \setminus B^c) \cup (B^c \setminus A^c)\\
+        &= (A^c \cap B) \cup (B^c \cap A)\\
+        &= (B \cap A^c) \cup (A \cap B^c)\\
+        &= (B\setminus A) \cup (A \setminus B)\\
+        &= A \triangle B\\  
+        &\subset C
+    \end{align*} 
+    Wegen $\mu(C) = 0$ gilt daher $A^c \in \mathcal{A}_\mu$.
+    Damit handelt es sich bei $\mathcal{A}_\mu$ um eine Algebra.
+    Seien nun $A_i \in \mathcal{A}_\mu$ und entsprechende $B_i, C_i \in \mathcal{A}$ mit $\mu(C_i) = 0$ und $A_i \triangle B_i \subset C_i$ gegeben. 
+    Wegen
+    \begin{align*}
+        \bigcup_{i = 1}^\infty A_i \triangle \bigcup_{i=1}^\infty B_i &= \left( \bigcup_{i = 1}^\infty A_i\setminus \bigcup_{i=1}^\infty B_i\right) \cup \left(\bigcup_{i=1}^\infty B_i \setminus \bigcup_{i=1}^\infty A_i\right)\\
+        &=  \left[ \bigcup_{i = 1}^\infty \left(A_i\setminus \bigcup_{i=1}^\infty B_i\right)\right] \cup \left[\bigcup_{i=1}^\infty \left(B_i \setminus \bigcup_{i=1}^\infty A_i\right)\right]\\
+        &\subset \left[ \bigcup_{i = 1}^\infty \left(A_i\setminus B_i\right)\right] \cup \left[\bigcup_{i=1}^\infty \left(B_i \setminus A_i\right)\right]\\
+        &= \left[ \bigcup_{i = 1}^\infty \left(A_i\setminus B_i\right) \cup \left(B_i \setminus A_i\right)\right]\\
+        &= \left[ \bigcup_{i = 1}^\infty \left(A_i\triangle B_i\right)\right]\\
+        &\subset \left( \bigcup_{i=1}^\infty C_i\right)
+    \end{align*}
+    und der $\sigma$-Additivität von $\mu$, \[\mu\left( \bigcup_{i=1}^\infty C_i\right) = \sum_{i = 1}^{\infty} \mu(C_i) = \sum_{n = 0}^{\infty} 0 = 0,\] gilt \[\bigcup_{i = 1}^\infty A_i \in \mathcal{A}_\mu.\]
+    Daher ist $\mathcal{A}_\mu$ eine $\sigma$-Algebra.
+    Nun zeigen wir, dass $\mu$ ein Maß ist.
+    Seien zwei Zerlegungen $A\triangle B \subset C$ und $A\triangle B' \subset C'$ gegeben.
+    Zunächst gilt $B \setminus A \subset A\triangle B \subset C$ und daher $B \subset A \cup C$ und analog auch $B' \subset A \cup C'$. Daraus folgern wir
+    \[
+        B \setminus B' \subset (A\cup C)\setminus B' = (A \setminus B') \cup (C\setminus B') \subset A\triangle B' \cup C \subset C' \cup C
+    \]
+    und analog
+    \[
+        B' \setminus B \subset (A\cup C')\setminus B = (A \setminus B) \cup (C'\setminus B) \subset A\triangle B \cup C' \subset C \cup C'.
+    \]
+    Diese beiden Identitäten bedeuten einfach, dass $\mu(B \setminus B') = \mu(B'\setminus B) = \mu(C\cup C') = 0$ ist.
+    Damit erhalten wir
+    \[
+        \mu(B) = \mu(B \cap B') + \mu(B \setminus B') = \mu(B \cap B') = \mu(B' \cap B) + \mu(B'\setminus B) = \mu(B').
+    \]
+    Insbesondere gilt also $\overline{\mu}(A) = \mu(B) = \mu(B')$ und damit ist $\overline{\mu}$ wohldefiniert.
+    Wir müssen also nur noch die $\sigma$-Additivität von $\overline \mu$ zeigen.
+    Seien also $A_k \in \mathcal{A}_\mu, k\in \N$ mit $A_i \cap A_j = \emptyset$ für $i\neq j$ gegeben. Es existieren folglich $B_k, C_k \in \mathcal{A}$ mit $A_k \triangle B_k \subset C_k$ und $\mu(C_k) = 0$. Es gilt also $\overline{\mu}(A_k) = \mu(B_k)$ und wegen 
+    \[
+        \bigcup_{i = 1}^\infty A_i \triangle \bigcup_{i=1}^\infty B_i \subset \left( \bigcup_{i=1}^\infty C_i\right),\quad \mu\left( \bigcup_{i=1}^\infty C_i\right) = 0
+    \] gilt
+    \[
+        \overline \mu \left(\bigcup_{i = 1}^\infty A_i\right) = \mu \left(\bigcup_{i = 1}^\infty B_i\right) = \sum_{i = 1}^{\infty} \mu(B_i) = \sum_{i = 1}^{\infty} \overline{\mu}(A_i).
+    \]
+    Damit ist $\overline{\mu}$ auch $\sigma$-additiv, also ein Maß.
+    \section*{Aufgabe 2}
+    \begin{enumerate}[(a)]
+        \item Betrachte $A_k = \left[0, \frac{1}{k}\right] \forall k\in \N$. Dann gilt stets $\nu(A_k) = 1$. Angenommen, es gäbe nämlich ein $k$ mit $\nu(A_k) = 0$, dann folgte aus der Translationsinvarianz des Maßes $\nu(A_k) = \nu(A_k + \frac{1}{k}) = \dots = \nu(A_k + \frac{k-1}{k})$. Insgesamt erhielte man 
+        \[
+            \nu([0,1]) = \nu\left(\sum_{j = 0}^{k-1} A_k + \frac{j}{k}\right) = \sum_{j = 0}^{k-1} \nu(A_k + \frac{j}{k}) = \sum_{j = 0}^{k-1} \nu(A_k) = 0.
+        \]
+        Das stünde aber im Widerspruch zu $\nu([0,1]) = 1$. Allerdings ist $\lim\limits_{k \to \infty} A_k = \{0\}$. Damit erhielte man $\lim\limits_{k \to \infty} \nu(A_k) = \lim\limits_{k \to \infty} 1 = 1$, aber $\nu\left(\lim\limits_{k \to \infty} A_k\right) = \nu(\{0\}) = 0$. Das steht aber im Widerspruch zu 2.8(iii) im Skript.
+        \item \begin{enumerate}[(i)]
+            \item $\emptyset$ ist abzählbar, $X^c = \emptyset$ ist abzählbar $\implies \emptyset, X\in \mathcal{A}$.
+            \item Seien $A, B \in \mathcal{A}$. Sind $A$ und $B$ beide abzählbar, so ist $A\cup B$ und $A\cap B$ wieder abzählbar und damit in $\mathcal{A}$ enthalten. Sei nun genau eine der beiden Mengen abzählbar, \obda $A$ abzählbar und $B$ überabzählbar also $B^c$ abzählbar. Dann ist $(A\cup B)^c = A^c \cap B^c$. Mit $B^c$ ist natürlich auch $A^c \cap B^c$ abzählbar $\implies A\cup B \in \mathcal{A}$. $A \cap B \subset A$ ist natürlich auch abzählbar $\implies A\cap B \in \mathcal{A}$. Sind nun $A$ und $B$ überabzählbar, so ist $(A\cup B)^c = A^c \cap B^c$ offensichtlich abzählbar $\implies A \cup B \in \mathcal{A}$. Außerdem ist $(A\cap B)^c = A^c \cup B^c$ wieder abzählbar $\implies A \cap B \in \mathcal{A}$.
+            \item Seien $A_i \in \mathcal{A} \forall i\in \N$. Sind alle $A_i$ abzählbar, so ist $\bigcup_{i\in \N} A_i$ wieder abzählbar. Ist mindestens eines der $A_i$, beispielsweise $A_j$ überabzählbar, so gilt 
+            \[
+                \left(\bigcup_{i\in \N} A_i\right)^c = \bigcap_{i\in \N} A_i^c \subset A_j^c
+            \]
+            Da $A_j^c$ abzählbar ist, folgt $\bigcup_{i\in \N} A_i \in \mathcal{A}$. Insbesondere ist also $\mathcal{A}$ eine $\sigma$-Algebra.
+        \end{enumerate}
+        Nun zeigen wir, dass $\mu$ ein Maß auf $\mathcal{A}$ definiert. Seien also $A_i\in \mathcal{A}$ gegeben mit $A_i \cap A_j = \emptyset \forall i \neq j$.
+            \[
+                a = \mu\left(\sum_{i = 1}^\infty A_i\right).
+            \]
+            Sind alle $A_i$ abzählbar, so ist $a = 0$. Sei nun $A_j$ überabzählbar. Angenommen, $A_k$ mit $k\neq j$ wäre auch überabzählbar. Wegen $A_j \in \mathcal{A}$ ist $A_j^c$ abzählbar. Wegen $A_j \cap A_k = \emptyset$ ist aber $A_k \subset A_j   c$. Widerspruch. Ist also eine der Mengen überabzählbar, ist $a = 1$.
+        \item $[0,0.5]$ liegt in $\mathcal{P}(x)$, aber nicht in $\mathcal{A}$, weil sowohl $[0,0.5]$ als auch $[0.5,1]$ überabzählbar sind. Da sich also die beiden Algebren unterscheiden, gibt es keinen Widerspruch.
+    \end{enumerate}
+    \section*{Aufgabe 3}
+    \begin{enumerate}[(a)]
+        \item \begin{enumerate}[(i)]
+            \item $\emptyset, X \in \mathcal{D}$ (Dynkin-System)
+            \item $A, B \in \mathcal{D}$
+            \begin{itemize}
+                \item[$\implies$] $A\cap B\in \mathcal{D}$ ($\pi$-System)
+                \item[$\implies$] $B^c \in \mathcal{D} \implies A \cap B^c = A \setminus B \in \mathcal{D}$.
+                \item[$\implies$] $B\setminus A\in \mathcal{D} \implies A \cup B\setminus A = B$, da $A \cap (B\setminus A) = \emptyset$.  
+            \end{itemize}
+            \item $A_i \in \mathcal{D}\; \forall i \in \N, A_i\cap A_j = \emptyset\; \forall i \neq j \implies$
+            \[
+                \bigcup_{i=1}^\infty A_i = \bigcup_{i=1}^\infty \left( A_i \setminus\bigcup_{j=1}^i A_j\right) \in \mathcal{D}.
+            \]
+        \end{enumerate}
+        \item \begin{enumerate}[(i)]
+            \item $\emptyset \cap D = \emptyset \in D_0,\; X\cap D = D \in D_0 \implies \emptyset, X \in \mathcal{H}$.
+            \item Sei $F \in H$, also $D\cap F \in D_0$. Wir müssen zeigen, dass $F^c \cap D \in D_0$ liegt, weil dann $F^c$ in $H$ enthalten ist.
+            Es gilt $D \in D_0 \implies D^c \in D_0$.  $(D\cap F) \cap D^c = \emptyset$. Die disjunkte Vereinigung ist in einem Dynkin-System enthalten, also folgt $(D^c \cup (D\cap F))^c = D \cap (D \cap F)^c = D\cap (D^c \cup F^c) = D \cap F^c \in D_0$.
+            \item Sei $A_i \cap D \in D_0 \; \forall i \in \N, A_i \cap A_j = \emptyset \forall i \neq j$. Da die $A_i$ also alle disjunkt sind, gilt $\bigcup_{i = 1}^\infty (A_i \cap D) = \left(\bigcup_{i = 1}^\infty A_i\right) \cap D \in D_0$.
+        \end{enumerate}
+        \item Sei $A \in \mathcal{K}$. Dann gilt $\forall B \in \mathcal{K}: B \cap A \in D_0 \implies B \in \mathcal{H}(A)$, also $\mathcal{K} \subset \mathcal{H}(K)$. Da $\mathcal{H}(K)$ ein Dynkin-System ist und $\mathcal{K}$ enthält, gilt $D_0 \subset \mathcal{H}(K) \subset D_0$. Die zweite Inklusion gilt per Definition von $\mathcal{H}(K)$. Also ist $D_0 = \mathcal{H}(K)$.
+        Daraus folgt aber sofort, dass $\forall A \in D_0\colon\forall K\in \mathcal{K}\colon\; A \cap K \in D_0$. Insbesondere gilt also $\forall K \in \mathcal{K}\colon \forall A \in D_0\colon\; K \cap A \in D_0 \implies K \in \mathcal{H}(A)$. Daraus folgern wir:
+        \[
+            \mathcal{K} \subset \mathcal{H}(A)\quad \forall A \in D_0.
+        \]
+        Da aber $D_0$ das kleinste Dynkin-System mit $\mathcal{K} \subset D_0$ ist, gilt sofort \[D_0 \subset \mathcal{H}(A) \subset D_0 \implies D_0 = \mathcal{H}(A)\quad  \forall A\in D_0.\]
+        \item Seien $A, B\in D_0$. Dann gilt $A \in D_0 = \mathcal{H}(B) \implies A\cap B \in D_0$. Es handelt sich bei $D_0$ also nicht nur um ein Dynkin-System, sondern auch um ein $\pi$-System. Nach Teilaufgabe (a) ist $D_0$ damit eine $\sigma$-Algebra, die $\mathcal{K}$ enthält. Da $\mathcal{D}$ ein Dynkin-System ist, das $\mathcal{K}$ enthält, umfasst es auch $D_0$. Daher gilt $\sigma(\mathcal{K}) \subset D_0 \subset \mathcal{D}$.
+    \end{enumerate}
+\end{document}
