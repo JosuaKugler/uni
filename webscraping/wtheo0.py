@@ -33,6 +33,7 @@ alist = soup.find_all("a")
 
 vlname = "wtheo0"
 
+
 def getZettel(number):
     global alist
     if number < 10:
@@ -42,7 +43,7 @@ def getZettel(number):
     blattlink = ""
 
     for a in alist:
-        if "Übungsblatt - " + str(number) in a.text and "Lösungen" not in a.text:
+        if "Übungsblatt - " + numberstring in a.text and "Lösungen" not in a.text:
             blattlink = a["href"]
     
     if blattlink != "":
