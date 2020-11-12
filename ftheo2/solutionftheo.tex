@@ -1,0 +1,20 @@
+\documentclass{article}
+
+\usepackage{josuamathheader}
+
+\begin{document}
+    \section*{Aufgabe 3}
+       Sei $n \coloneqq \max(\deg P_1(z), \deg P_i(z))$. Dann gilt $$f^{(n+1)}(z + 1) = f^{(n+1)}(z) + P_1^{(n+1)}(z) = f^{(n+1)}(z)$$ und analog $$f^{(n+1)}(z + i) = f^{(n+1)}(z) + P_i^{(n+1)}(z) = f^{(n+1)}(z).$$
+       Daraus folgt $f^{(n+1)}(z) = f^{(n+1)}(z+1) = f^{(n+1)}(z+i)$, $f^{(n+1)}$ ist also eine elliptische Funktion auf $\Z \oplus \Z i $. Mit $f$ ist auch $f^{(n+1)}$ holomorph. Eine elliptische holomorphe Funktion ist notwendigerweise konstant. Da also die $n+1$-te Ableitung von $f$ konstant ist, muss $f$ ein Polynom sein.
+    \section*{Aufgabe 4}
+    Eine Polstelle mit Vielfachheit $n > 0$ hat nach dem Ableiten Vielfachheit $n+1$, $\frac{\intd}{\intd z} z^{-n} = -n \cdot z^{-(n+1)}$.
+    Sei nun $P_f$ die Anzahl der Polstellen von $f$ ohne Vielfachheiten gezählt. $P_f$ ist invariant unter Differentiation, wie man aus der Laurentreihendarstellung leicht erkennt. Beim Ableiten erhöht sich für jede Polstelle die Vielfachheit um 1, wir erhalten also \[
+      N_{f'} = N_f + P_f  
+    \]
+    Da es sich bei $f$ um eine nichtkonstante Funktion handelt, ist $P_f \geq 1$. Offensichtlich ist außerdem $N_f \geq P_f$. Mit diesen beiden Ungleichungen erhalten wir
+    \[
+        N_f + 1 \leq N_{f'} \leq N_f + N_f = 2 N_f.
+    \]
+    \section*{Aufgabe 5}
+    Nach Vorlesung ist $h \coloneqq \frac{f}{g}$ eine meromorphe, elliptische Funktion. Da $f$ und $g$ überall dieselbe Pol- bzw. Nullstellenordnung haben, kürzt sich jede Polstelle von $f$ mit einer Polstelle gleicher Vielfachheit von $g$. Analog kürzt sich jede Nullstelle von $g$ mit einer Nullstelle gleicher Vielfachheit von $f$. Daher lässt sich $h$ holomorph auf ganz $\C$ fortsetzen. Eine holomorphe elliptische Funktion ist aber konstant, $h \equiv c$. Daraus folgt $\frac{f}{g} = h = c\implies f = c \cdot g$.
+\end{document}
