@@ -3,7 +3,9 @@
 \usepackage{josuamathheader}
 
 \begin{document}
-    \section*{Aufgabe 1}
+\def\headheight{25pt}
+\analayout{1}
+    \section*{Aufgabe 1}    
     Da $\mathcal{A} \subset \mathcal{A}_\mu$ gilt $\emptyset, X \in A$.
     Seien nun $A, A' \in \mathcal{A}_\mu$. 
     Dann existieren $B, B'\in \mathcal{A}$ und $\mu$-Nullmengen $C, C'\in \mathcal{A}$, sodass $A\triangle B \subset C$ und $A'\triangle B' \subset C'$.
@@ -124,5 +126,15 @@
         \]
         Da aber $D_0$ das kleinste Dynkin-System mit $\mathcal{K} \subset D_0$ ist, gilt sofort \[D_0 \subset \mathcal{H}(A) \subset D_0 \implies D_0 = \mathcal{H}(A)\quad  \forall A\in D_0.\]
         \item Seien $A, B\in D_0$. Dann gilt $A \in D_0 = \mathcal{H}(B) \implies A\cap B \in D_0$. Es handelt sich bei $D_0$ also nicht nur um ein Dynkin-System, sondern auch um ein $\pi$-System. Nach Teilaufgabe (a) ist $D_0$ damit eine $\sigma$-Algebra, die $\mathcal{K}$ enthält. Da $\mathcal{D}$ ein Dynkin-System ist, das $\mathcal{K}$ enthält, umfasst es auch $D_0$. Daher gilt $\sigma(\mathcal{K}) \subset D_0 \subset \mathcal{D}$.
+    \end{enumerate}
+    \section*{Zusatzaufgabe}
+    \begin{enumerate}[(a)]
+        \item $\liminf\limits_{k \to \infty} A_k = \bigcup_{n=0}^\infty \bigcap_{k=n}^\infty A_k$ und $\limsup\limits_{k \to \infty} A_k = \bigcap_{n=0}^\infty \bigcup_{k=n}^\infty A_k$.
+        Es gilt zunächst \[\bigcap_{k=n}^\infty A_k = \{x \in X\colon x \in A_k\text{ für alle } k \text{ bis auf } 1 \leq k\leq n\}.\]
+        Die Vereinigung aller dieser Mengen ist also $\{x \in X\colon x \in A_k\text{ für alle } k \text{ bis auf endlich viele}\}.$.
+        Analog gilt \[\bigcup_{k=n}^\infty A_k = \{x \in X\colon \exists k \geq n\colon x \in A_k\}.\]
+        Der Schnitt aller dieser Mengen ist also \[\{x \in X\colon \forall n\colon \exists k \geq n\colon x\in A_k\} = \{x \in X\colon \text{Es gibt unendlich viele $k$ mit} x\in A_k\}.\]
+        \item Es gilt $(\liminf\limits{k \to \infty} \chi_{A_k})(x) = 1$ genau dann, wenn für alle bis auf endlich viele $k$ $\chi_{A_k}(x) = 1$ ist. Nach Aufgabe (a) ist das genau $\chi_{A_*}$. Außerdem gilt $(\limsup\limits_{k \to \infty} \chi_{A_k})(x) = 1$ genau dann, wenn es unendlich viele $k\in \N$ gibt mit $\chi_{A_k}(x) = 1$. Nach Aufgabe (a) ist das genau $\chi_{A^*}$.
+        \item $A_* = \emptyset$. Sei nämlich $x \in A_*$. Ist $x < \frac{1}{2}$, so gibt es unendlich viele Intervalle, die 0 nicht enthalten, da $[0,1)$ nacheinander für alle $m\in \N$ in $m$ disjunkte Intervalle zerteilt wird, aber $x$ in keinem der Zyklen in einem der Intervalle $\lceil \frac{m}{2}\rceil +1$ bis $m$ vorkommt. Ist $x \geq \frac{1}{2}$, so kommt $x$ in keinem Zyklus in einem der ersten  $\lceil \frac{m}{2}\rceil$ Intervalle vor. Daher gibt es unabhängig von $x$ stets unendlich viele Intervalle, in denen $x$ nicht liegt. Auf der anderen Seite kommt $x$ für $x < \frac{1}{2}$ in jedem der Zyklen in einem der $\lceil \frac{m}{2}\rceil$ Intervalle vor. Für $x > \frac{1}{2}$ kommt $x$ in jedem der Zyklen in einem der Intervalle $\lceil \frac{m}{2}\rceil +1$ bis $m$ vor. Daher gibt es unabhängig von $x$ stets unendlich viele Intervalle, in denen $x$ liegt. Also ist $A^* = [0,1)$.
     \end{enumerate}
 \end{document}
