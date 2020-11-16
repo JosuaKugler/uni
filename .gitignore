@@ -6,7 +6,7 @@ ss20_20/theo/2015*
 passwords.py
 seminar/figures/full_real_value_contour.tex
 ## Python files
-*__pycache__/*
+*__pycache__*
 
 ## Core latex/pdflatex auxiliary files:
 *.aux

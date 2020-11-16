@@ -44,14 +44,13 @@ def getZettel(number):
     for a in alist:
         if "Übungsblatt " + str(number) in a.text and "Lösungen" not in a.text:
             blattlink = a["href"]
-    
+    print(blattlink)
     if blattlink != "":
         finalpage = s.get(blattlink)
         soup = BeautifulSoup(finalpage.html.html, "lxml")
-        alist = soup.find_all("a")
-
-        for a in alist:
-            if "Blatt" in a.text:
+        a_list = soup.find_all("a")
+        for a in a_list:
+            if "Blatt" + numberstring in a.text:
                 zettelurl = a["href"]
         basepath = "/home/josua/repos/uni/" + vlname + "/"
         filename = numberstring + vlname + ".pdf"
