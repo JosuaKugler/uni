@@ -1,0 +1,197 @@
+\documentclass{article}
+
+\usepackage{josuamathheader}
+\usepackage{mathrsfs}
+
+\newcommand{\diam}{\operatorname{diam}}
+\begin{document}
+\def\headheight{25pt}
+\analayout{2}
+    \section*{Aufgabe 1}    
+    \begin{enumerate}[(a)]
+        \item Sei $A \subset \R$ abzählbar. Dann lässt sich $A = \{x_1, \dots \}$ schreiben als abzählbare Vereinigung $\bigcup_{n\in \N} \{x_n\}$ seiner Elemente. Einelementige Mengen sind insbesondere abgeschlossen. $A$ ist also die abzählbare Vereinigung von abgeschlossenen Mengen und liegt daher in $\mathcal{B}(\R)$. Sei nun $\forall n \in \N$
+        \[
+            A_i = [x_n, x_n + \frac{\epsilon}{2^n}).
+        \]
+        Dann ist das durch das Lebesgue-Prämaß induzierte Maß
+        \[
+            \lambda(A) = \inf \{\sum_{i = 1}^{\infty} \lambda_{\text{pre}}(B_i)\colon B_i \in \mathscr{K},\; A \subset \bigcup_{i\in \N} B_i\}.
+        \]
+        Da $A_i \in \mathscr{J}$, ist das Lebesgue-Prämaß von $A_i$ gerade gegeben durch $\lambda_\text{pre}(A_i) = x_i + \frac{\epsilon}{2^i} - x_i = \frac{\epsilon}{2^i}$. Wählen wir nun $B_i = A_i$, so ergibt sich für das Lebesgue-Maß
+        \[
+        \lambda(A) \leq \sum_{i = 1}^{\infty} \lambda_\text{pre}(A_i) = \sum_{i = 1}^{\infty} \frac{\epsilon}{2^i} = \epsilon.
+        \]
+        Für $\epsilon \to 0$ erhalten wir also $\lambda(A) = 0 $.
+        \item Für jede beliebige abgeschlossene bzw. offene Menge $A \subset \R$ ist auch $\alpha A$ eine Teilmenge von $\R$ und abgeschlossen bzw. offen. Sei für offenes $A$ nämlich ein Punkt $\alpha x \in \alpha A$. Dann $\exists \epsilon > 0$ mit $U_\epsilon(x) \subset A$. Dann ist aber schon $U_{\alpha \epsilon}(x) \subset \alpha A$. 
+        Nun zeigen wir, dass $\alpha \bigcup_{n\in \N} A_n = \bigcup_{n\in \N} \alpha A_n$. Es gilt 
+        \begin{align*}
+            \alpha \bigcup_{n\in \N} A_n &= \alpha \{a | \exists n\in \N\colon a \in A_n\}\\
+            &= \{\alpha a | \exists n\in \N \colon a \in A_n\}\\
+            &= \{a' | \exists n \in \N\colon a' \in \alpha A_n\}\\
+            &= \bigcup_{n\in \N} \alpha A_n
+        \end{align*}
+        Analog gilt auch
+        \begin{align*}
+            \alpha \bigcap_{n\in \N} A_n &= \alpha \{a | \forall n\in \N\colon a \in A_n\}\\
+            &= \{\alpha a | \forall n\in \N \colon a \in A_n\}\\
+            &= \{a' | \forall n \in \N\colon a' \in \alpha A_n\}\\
+            &= \bigcap_{n\in \N} \alpha A_n.
+        \end{align*}
+        Wir betrachten nun die Menge $D = \{A \in \mathscr B (\R)\colon \alpha A \in \mathscr B(\R)\}$.
+        Behauptung: $D$ ist eine $\sigma$-Algebra.
+        \begin{proof}
+            \begin{enumerate}[(i)]
+                \item $\alpha \R = \R \in \mathscr B(\R)$. Also liegt $\R \in D$.
+                \item Sei $A \in D$, d.h. $\alpha A \in \mathscr B(\R)$. Es gilt 
+                \[
+                    \alpha A^c = \alpha \{a \in \R\colon a \notin A\} = \{\alpha a \in \R\colon a \notin A\} = \{\alpha a \in \R \colon \alpha a \notin \alpha A\} = (\alpha A)^c.
+                \]
+                Mit $\alpha A$ liegt stets auch $(\alpha A)^c$ in $\mathscr B(\R)$. Daraus folgt $A^c \in D$. 
+                \item Sei $\forall i\in \N: A_i \in D$, d.h. $\forall i \in \N: \alpha A_i \in \mathscr B(\R)$. Es gilt
+                \[
+                    \alpha \bigcup_{i\in \N} A_i = \bigcup_{i\in \N} \alpha A_i \in \mathscr B(\R).
+                \]
+                Also ist $\bigcup_{i\in \N} A_i \in D$.
+            \end{enumerate}
+        \end{proof}
+        Da für alle offenen Mengen $A$ auch $\alpha A$ wieder in $\mathscr B(\R)$ liegen, enthält $D$ insbesondere alle offenen Mengen in $\R$. Sei $O$ die Menge aller offenen Mengen von $\R$. Dann gilt $\mathscr B (\R) = \sigma(O) \subset D\subset \mathscr B (\R)$, also $D = \mathscr B(\R)$. Daher gilt für alle $A \in \mathscr B(\R)\colon \alpha A \in \mathscr B(\R)$.
+        
+        Wir betrachten wieder das Lebesgue-Maß
+        \[
+            \lambda(A) = \inf \{\sum_{i = 1}^{\infty} \lambda_{\text{pre}}(B_i)\colon B_i \in \mathscr{K},\; A \subset \bigcup_{i\in \N} B_i\}.
+        \]
+        Zunächst gilt $B_i \in \mathscr{K}\implies B_i = \bigcup_{1\leq k \leq n}[a_k,b_k) \implies \alpha B_i = \bigcup_{1\leq k \leq n}[\alpha a_k, \alpha b_k) \in \mathscr{K}$. Daran sieht man auch sofort, dass $\lambda_\text{pre}(\alpha B_i) = \sum_{1\leq k \leq n} (\alpha b_k - \alpha a_k) =\alpha  \sum_{1\leq k \leq n} ( b_k -  a_k) = \alpha \lambda_\text{pre}(B_i)$. Diese beiden Aussagen benutzen wir im Folgenden:
+        \begin{align*}
+            \lambda(\alpha A) &= \inf \{\sum_{i = 1}^{\infty} \lambda_{\text{pre}}(B_i)\colon B_i \in \mathscr{K},\; \alpha A \subset \bigcup_{i\in \N} B_i\}
+            \intertext{Es gilt $B_i = \alpha \frac{1}{\alpha}B_i \eqqcolon \alpha B_i'$}
+            &= \inf \{\sum_{i = 1}^{\infty} \lambda_{\text{pre}}(\alpha B_i')\colon \alpha B_i' \in \mathscr{K},\; \alpha A \subset \bigcup_{i\in \N} \alpha B_i'\}\\
+            &= \inf \{\sum_{i = 1}^{\infty} \lambda_{\text{pre}}(\alpha B_i')\colon \alpha B_i' \in \mathscr{K},\; \alpha A \subset \alpha \bigcup_{i\in \N} B_i'\}
+            \intertext{Es gilt $\alpha A \subset \alpha B \implies A \subset B$}
+            &= \inf \{\sum_{i = 1}^{\infty} \lambda_{\text{pre}}(\alpha B_i')\colon \alpha B_i' \in \mathscr{K},\;  A \subset \bigcup_{i\in \N} B_i'\}
+            &= \inf \{\sum_{i = 1}^{\infty} \alpha \lambda_{\text{pre}}(B_i')\colon B_i' \in \mathscr{K},\;  A \subset \bigcup_{i\in \N} B_i'\}\\
+            &= \inf \{\alpha \sum_{i = 1}^{\infty} \lambda_{\text{pre}}(B_i')\colon B_i' \in \mathscr{K},\;  A \subset \bigcup_{i\in \N} B_i'\}\\
+            &= \alpha \inf \{\sum_{i = 1}^{\infty} \lambda_{\text{pre}}(B_i')\colon B_i' \in \mathscr{K},\;  A \subset \bigcup_{i\in \N} B_i'\}\\
+            &= \alpha \lambda(A)
+        \end{align*}
+        \item Wähle $A \coloneqq [0,\alpha) \uplus (\Q \cap [\alpha, \infty))$. Dann gilt 
+        \[
+            \lambda(A) = \underbrace{\lambda([0,\alpha))}_{\in \mathscr{K}} + \underbrace{\lambda(\Q\cap [\alpha, \infty))}_{\text{abzählbar}} = \alpha + 0.
+        \]
+        Behauptung: Es gibt keine offene Menge mit diesen Eigenschaften. 
+        \begin{proof}
+            Zunächst stellen wir fest, dass sich jede offene Menge $A \subset \R$ als Vereinigung offener Intervalle der Form $(a,b)$ schreiben lässt. Jedes solcher Intervalle ist eine abzählbare Vereinigung von offenen Intervallen mit rationalen Endpunkten $(q_a, q_b)$, da sich leicht eine Folge von Mengen konstruieren lässt, die monoton wachsend gegen $(a,b)$ konvergiert. Daher muss $A$ bereits eine abzählbare Vereinigung offener Intervalle mit rationalen Endpunkten sein, $A = \bigcup_{n\in \N} (a_n, b_n)$. Sei nun $(q_i)_{i\in \N}$ eine qufsteigende Abzählung der rationalen Zahlen. Angenommen, es gäbe ein $i\in \N$, sodass $(q_i, q_{i+1}) \not \subset A$. Dann gäbe es für ein $x\in (q_i, q_{i+1})$ eine Umgebung, die nicht in $A$ läge. $A$ liegt aber dicht in $\R$. Also müssen alle Intervalle der Form $(q_i, q_{i+1})$ in $A$ liegen. Damit ist aber bereits $A^c \subset \Q$ und daher $\lambda(A) = \lambda(\R) - \lambda(A^c) = \lambda(\R) - \lambda(\Q) = \lambda(\R) > \alpha$ für beliebiges $\alpha \in \R$.
+        \end{proof}
+    \end{enumerate}
+    \section*{Aufgabe 2}
+    Notationstechnisch wird die Aufgabe (meiner Meinung nach) schöner, wenn man folgendes definiert
+        \[
+            \mathscr H_\delta^s \coloneqq \inf \left\{\sum_{j \in J} \diam(B_j)^s \colon A\subset \bigcup_{j\in J} B_j,\; \diam(B_j) \leq \delta, J\subset \N, B_j \neq \emptyset\right\}.
+        \]
+    Diese Definition ist nur eine Änderung der Notationsweise, sonst verändert sich nichts am Ergebnis.
+    \begin{enumerate}[(a)]
+        \item \begin{enumerate}[(i)]
+            \item Es gilt $\emptyset \subset \bigcup_{j\in \emptyset} B_j = \emptyset$. Also ist $\mathscr H_\delta^s(\emptyset) = \sum_{j \in \emptyset} \diam(B_j)^s = 0$. Daher ist auch $\mathscr H ^s (\emptyset) = 0$.
+            \item Monotonie: Sei $A \subset B$. Dann gilt $B \subset \bigcup_{j\in J} B_j \implies A \subset \bigcup_{j\in J} B_j$. Also ist 
+            \begin{multline*}
+                \{\sum_{j \in J} \diam(B_j)^s\colon B \subset \bigcup_{j\in J} B_j,\diam(B_j) \leq \delta, J\subset \N, B_j \neq \emptyset\}\\ \subset \{\sum_{j \in \N} \diam(B_j)^s\colon A \subset \bigcup_{j\in \N} B_j,\diam(B_j) \leq \delta, J\subset \N, B_j \neq \emptyset\}.
+            \end{multline*}
+            Ist $M \subset N$, so ist $\inf M \geq \inf N$. Hier gilt also $\forall \delta\colon \mathscr H_\delta^s(A) \leq \mathscr H_\delta^s(B)$ und damit auch $\mathscr H^s(A) \leq \mathscr H^s(B)$.
+            \item Seien $\forall i \in \N\colon A_i \subset \R$ und zu jedem $A_i$ eine Überdeckung gegeben,
+            \[
+                A_i \subset \bigcup_{j \in M_i} B_j\qquad \diam(B_j)\leq \delta, M_i \subset \N, B_j \neq \emptyset.
+            \] Sei $J \coloneqq \bigcup_{i \in \N} M_i$. Dann lässt sich leicht eine Überdeckung von $A \coloneqq \bigcup_{i\in \N} A_i$ konstruieren,
+            \[
+                A \subset\bigcup_{j \in J} B_j\qquad \diam(B_j)\leq \delta, M_i \subset \N, B_j \neq \emptyset.
+            \] Es gilt
+            \[
+                \sum_{j \in J} \diam(B_j)^s \leq \sum_{i \in \N} \sum_{j \in M_i} \diam(B_j)^s, 
+            \]
+            da $\bigcup_{i=1}^\infty M_i = J$.
+            Da wir für jedes $A_i$ eine beliebige Überdeckung vorgeben und stets diese Ungleichung erhalten, gilt auch
+            \begin{align*}
+                \mathscr H_\delta^s(A) &= \inf \{\sum_{j \in J} \diam(B_j)^s\colon B \subset \bigcup_{j\in J} B_j,\diam(B_j) \leq \delta, J\subset \N, B_j \neq \emptyset\}\\ 
+                &\leq \inf \{\sum_{i\in \N} \sum_{j \in M_i} \diam(B_j)^s\colon A_i \subset \bigcup_{j\in M_i} B_j,\diam(B_j) \leq \delta, M_i \subset \N, B_j \neq \emptyset\}\\
+                &= \sum_{i\in \N} \inf \{\sum_{j \in M_i} \diam(B_j)^s\colon A_i \subset \bigcup_{j\in M_i} B_j,\diam(B_j) \leq \delta, M_i \subset \N, B_j \neq \emptyset\}\\
+                &= \sum_{i\in \N} \mathscr H_\delta^s(A_i)
+            \end{align*}
+            Damit ist die Subadditivität für beliebiges $\delta$, also auch für $\delta \to 0$ bewiesen.
+        \end{enumerate}
+        \item Es gilt $\diam(\alpha B_j) = \sup \{|\alpha x - \alpha y|\colon x,y\in B_j\} = \alpha \diam(B_j)$. Daraus folgt sofort $\sum_{j \in J} \diam( \alpha B_j)^s = \alpha^s \sum_{j\in J} \diam(B_j)^s$. Insgesamt erhalten wir also
+        \begin{align*}
+            \mathscr H_\delta^s(\alpha A) &= \inf \{\sum_{j \in J} \diam(B_j)^s\colon \alpha A \subset \bigcup_{j\in J} B_j,\diam(B_j) \leq \delta, J\subset \N, B_j \neq \emptyset\}\\
+            \intertext{$B_j = \alpha \frac{1}{\alpha} B_j \eqqcolon \alpha B_j'$}
+            &= \inf \{\sum_{j \in J} \diam(\alpha B_j')^s\colon \alpha A \subset \bigcup_{j\in J}\alpha B_j',\diam(\alpha B_j') \leq \delta, J\subset \N, \alpha B_j' \neq \emptyset\}\\
+            &= \inf \{\alpha^s \sum_{j \in J} \diam( B_j')^s\colon \alpha A \subset \alpha \bigcup_{j\in J} B_j', \alpha \diam(B_j') \leq \delta, J\subset \N, B_j' \neq \emptyset\}\\
+            \intertext{$\alpha A \subset \alpha B \implies A \subset B$}
+            &=  \alpha^s \inf \{\sum_{j \in J} \diam( B_j')^s\colon A \subset \bigcup_{j\in J} B_j', \diam(B_j') \leq \frac{1}{\alpha}\delta, J\subset \N, B_j' \neq \emptyset\}\\
+            &= \alpha^s \cdot \mathscr H_{\frac{\delta}{\alpha}}^s(A)
+        \end{align*}
+        Für $\delta \to 0$ erhalten wir also $\mathscr H^s(\alpha A) = \alpha^s\cdot \mathscr H^s(A)$.
+        \item Es gilt $\diam(B_j + y) = \sup \{|x + y - (z + y)|\colon x,z \in B_j\} = \sup \{|x -z|\colon x,z \in B_j\} = \diam(B_j)$.
+        Daher erhalten wir
+        \begin{align*}
+            \mathscr H_\delta^s(A + y) &= \inf \{\sum_{j \in J} \diam(B_j)^s\colon A + y \subset \bigcup_{j\in J} B_j,\diam(B_j) \leq \delta, J\subset \N, B_j \neq \emptyset\}\\
+            \intertext{$B_j = B_j - y + y \eqqcolon B_j' + y$}
+            &= \inf \{\sum_{j \in J} \diam(B_j' + y)^s\colon A + y \subset \bigcup_{j\in J} B_j' + y,\diam( B_j' + y) \leq \delta, J\subset \N,  B_j' + y \neq \emptyset\}\\
+            &= \inf \{\sum_{j \in J} \diam( B_j')^s\colon A + y \subset \left(\bigcup_{j\in J} B_j'\right) + y, \diam(B_j') \leq \delta, J\subset \N, B_j' \neq \emptyset\}\\
+            \intertext{$ A + y \subset B + y \implies A \subset B$}
+            &=  \alpha^s \inf \{\sum_{j \in J} \diam( B_j')^s\colon A \subset \bigcup_{j\in J} B_j', \diam(B_j') \leq \delta, J\subset \N, B_j' \neq \emptyset\}\\
+            &= \mathscr H_{\delta}^s(A)
+        \end{align*}
+        Für $\delta \to 0$ folgt also $\mathscr H^s(A + y) = \mathscr H^s(A)$.
+        \item Im Grenzprozess $\delta \to 0$ bleiben am Ende nur noch Mengen $B_j = \{x\}$ übrig, da $\diam(\{x\}) = \sup \{|y-z| y,z\in \{x\}\} = 0$. Sobald mehr als ein Punkt in $B_j$ liegt, ist nämlich $\diam(B_j) > 0$. Wir erhalten daher
+        \begin{align*}
+            \mathscr H^0(A) &= \inf \{\sum_{j \in J} \diam(B_j)^0 \colon A \subset \bigcup_{j\in J} B_j,\diam(B_j) = 0, J\subset \N, B_j \neq \emptyset\}\\
+            &= \inf \{\sum_{j \in J} 1 \colon A \subset \bigcup_{j \in J} \{a_j\}, a_j \in \R\}\\
+            &= \sum_{a\in A} 1
+        \end{align*}
+        Für endliche Mengen ist dies gerade $\#A$, für unendliche Mengen divergiert die Reihe und es gilt $\mathscr H^0(A) = \infty$.
+        \item Wir zeigen zunächst, dass $\mathscr H^1([0,1]) = 1$ ist. Daraus folgt bereits, dass $\mathscr H^1$ nicht $\sigma$-additiv sein kann, da sonst das Maßproblem gelöst wäre.
+        Wir wählen zunächst $\delta_k = \frac{1}{k}$ und $\forall 1 \le j \le k\colon: B_j^k = [(j-1)\delta_k, j\delta_k]$. Dann gilt $\diam(B_j^k) = \sup \{|x - y|,\; (j-1)\delta_k \leq x,y\leq j\delta_k\} = \delta_k$, $\bigcup_{1\le j \le k} B_j^k = [0,1]$ und
+        $\sum_{j = 1}^{k} \diam(B_j^k) = \sum_{j = 1}^{k} \delta_k = k\cdot \frac{1}{k} = 1$. Es gilt
+        \[
+            \mathscr H^1([0,1]) = \lim\limits_{k \to \infty} \inf \underbrace{\{\sum_{j \in J} \diam(B_j)\colon [0,1] \subset \bigcup_{j\in J} B_j,\;\diam(B_j) \leq \delta_k, J\subset \N, B_j \neq \emptyset\}}_{M_k}
+        \]
+        Offensichtlich gilt $\forall k$ für $J = \{1,\dots, k\}$ und $B_j = B_j^k$: \[\sum_{j \in J} \diam(B_j^k) = 1 \in M_k.\] Daher gilt $\mathscr H^1([0,1]) \leq 1$. Angenommen, es gäbe eine Überdeckung $\bigcup_{j\in J} B_j$ von $[0,1]$ sodass $\sum_{j\in J} \diam(B_j) < 1$. Wir ordnen die $B_j$ dann nach aufsteigendem Supremum $\sup b_j$ und erhalten eine Folge $(B_j)_{j\in J}$. Wir definieren nun $C_j = B_j \setminus \left[\bigcup_{i=1}^{j-1} B_j\right]$. Es gilt immer noch $\bigcup_{j\in J} C_j = \bigcup_{j\in J} B_j$, aber die $C_j$ sind jetzt paarweise disjunkt. Da $[0,1] \subset \bigcup_{j\in J} C_j$ darf es keine Lücken in der Überdeckung geben, es muss also $\inf C_j = \sup C_{j-1}$ gelten. Außerdem muss $\inf C_1 = 0$ und $\sup C_{\max J} = 1$ sein.
+        Wir wissen außerdem, dass $\diam(C_j) = \sup \{|x - y| \colon \inf C_j \leq x,y \leq \sup C_j\} = \sup C_j - \inf C_j$ Damit ergibt sich
+        \[
+            1 = 1 - 0 \overset{\text{Teleskop}}{=} \sum{j\in J} \sup C_j - \inf C_j = \sum_{j\in J}\diam(C_j) < 1.
+        \]
+        Das ist aber ein Widerspruch. Also ist für jede Überdeckung immer $\sum_{j\in J} \diam(B_j) \geq 1$. Da wir bereits gezeigt haben, dass eine Überdeckung mit $\sum_{j\in J} \diam(B_j) = 1$ existiert, gilt 
+        \[
+            \mathscr H^1([0,1]) = \lim\limits_{k \to \infty} \inf \{\sum_{j \in J} \diam(B_j)\colon [0,1] \subset \bigcup_{j\in J} B_j,\;\diam(B_j) \leq \delta_k, J\subset \N, B_j \neq \emptyset\} = 1.
+        \]
+        Also kann, wie oben erklärt, $\mathscr H^1$ nicht $\sigma$-additiv sein. Daher ist es kein Maß.
+    \end{enumerate}
+    \section*{Aufgabe 3}
+    \begin{enumerate}[(a)]
+        \item \begin{enumerate}[(i)]
+            \item $\nu(\emptyset) = 0$
+            \item Sei $A\subset B$ und $A, B \in \mathscr P(X)$. Wir machen eine Fallunterscheidung
+            \begin{enumerate}[1.]
+                \item $B$ höchstens abzählbar. Dann ist wegen $A\subset B$ auch $A$ höchstens abzählbar. Daher gilt $\nu(A) = 0 \leq 0 = \nu(B)$.
+                \item $B$ überabzählbar. Dann ist $\nu(B) = 1$ und wegen $\nu(A) \in \{0,1\}$ ist $\nu(A) \leq 1 = \nu(B)$.
+            \end{enumerate}
+            \item Seien $A_k \in \mathscr P(X) \forall k \in \N$. Auch hier machen wir eine Fallunterscheidung.
+            \begin{enumerate}[1.]
+                \item $\forall k\in \N$ mit $A_k$ ist höchstens abzählbar. Dann ist $\nu(A_k) = 0 \forall k \in \N$ und $\bigcup_{k\in \N} A_k$ ist als abzählbare Vereinigung von abzählbaren Mengen ebenfalls abzählbar. Also ist $\nu\left(\bigcup_{k\in \N} A_k\right) = 0 \leq 0 = \sum_{k \in \N} \nu(A_k)$
+                \item $\exists k \in \N$ mit $A_k$ ist überabzählbar. Dann ist $\sum_{k \in \N} \nu(A_k) \geq 1 \geq \nu\left(\bigcup_{k\in \N} A_k\right)$, da $\nu\left(\bigcup_{k\in \N} A_k\right) \in \{0,1\}$.
+            \end{enumerate}
+        \end{enumerate}
+        \item Wir machen auch hier wieder eine Fallunterscheidung.
+        \begin{enumerate}[1.]
+            \item Sei $A$ abzählbar. \begin{enumerate}
+                \item Sei $E$ abzählbar. Dann ist $\nu(E) = 0 = 0 + 0 = \nu(E \cap A) + \nu(E\cap A^c)$.
+                \item Sei $E$ überabzählbar. Dann ist $E \cap A\subset A$ trotzdem abzählbar. Angenommen, $E \cap A^c$ wäre abzählbar. Dann wäre $E =(E \cap A) \cup (E \cap A^c)$ die Vereinigung von zwei abzählbaren Mengen und damit abzählbar, Widerspruch! Also ist $E \cap A^c$ überabzählbar. Also gilt $\nu(E) = 1 = 0 + 1 = \nu(E \cap A) + \nu(E \cap A^c)$.
+            \end{enumerate}
+            \item Sei $A^c$ abzählbar. Dann folgt $\nu(E) = \nu(E \cap A) + \nu(E \cap A^c)$ völlig analog zu Fall 1.
+            \item Seien $A$ und $A^c$ überabzählbar. Dann sind $X \cap A$ und $X \cap A^c$ beide überabzählbar und es gilt $\nu(X) = 1 < 1 + 1 = \nu(X \cap A) + \nu(X \cap A^c)$.
+        \end{enumerate}
+    \end{enumerate}
+    Gleichung 3.2 ist also genau für die Mengen $A\subset X$ erfüllt, für die $A$ oder $A^c$ abzählbar sind.
+    \section*{Aufgabe 4}
+    Sei $A_k = \{k\} \forall k \in\N$. Dann gilt $\mu(A_k) = 0\forall k\in \N$, aber 
+    \[
+        \mu\left(\biguplus_{k\in \N} A_k\right) = \mu(\N) = \limsup\limits_{n \to \infty} \frac{1}{n}\#\left(\N \cap \{1,\dots, n\}\right) = \limsup\limits_{n \to \infty} 1 = 1.
+    \] Also ist $\mu\left(\biguplus_{k\in \N} A_k\right) = 1 > 0 = \sum_{k\in \N} \mu(A_k)$. Das verletzt $\sigma$-Subadditivität und $\sigma$-Additivität. Also handelt es sich bei $\mu$ weder um ein Maß noch um ein äußeres Maß.
+\end{document}
