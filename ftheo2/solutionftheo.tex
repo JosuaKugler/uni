@@ -3,18 +3,63 @@
 \usepackage{josuamathheader}
 
 \begin{document}
-    \section*{Aufgabe 3}
-       Sei $n \coloneqq \max(\deg P_1(z), \deg P_i(z))$. Dann gilt $$f^{(n+1)}(z + 1) = f^{(n+1)}(z) + P_1^{(n+1)}(z) = f^{(n+1)}(z)$$ und analog $$f^{(n+1)}(z + i) = f^{(n+1)}(z) + P_i^{(n+1)}(z) = f^{(n+1)}(z).$$
-       Daraus folgt $f^{(n+1)}(z) = f^{(n+1)}(z+1) = f^{(n+1)}(z+i)$, $f^{(n+1)}$ ist also eine elliptische Funktion auf $\Z \oplus \Z i $. Mit $f$ ist auch $f^{(n+1)}$ holomorph. Eine elliptische holomorphe Funktion ist notwendigerweise konstant. Da also die $n+1$-te Ableitung von $f$ konstant ist, muss $f$ ein Polynom sein.
-    \section*{Aufgabe 4}
-    Eine Polstelle mit Vielfachheit $n > 0$ hat nach dem Ableiten Vielfachheit $n+1$, $\frac{\intd}{\intd z} z^{-n} = -n \cdot z^{-(n+1)}$.
-    Sei nun $P_f$ die Anzahl der Polstellen von $f$ ohne Vielfachheiten gezählt. $P_f$ ist invariant unter Differentiation, wie man aus der Laurentreihendarstellung leicht erkennt. Beim Ableiten erhöht sich für jede Polstelle die Vielfachheit um 1, wir erhalten also \[
-      N_{f'} = N_f + P_f  
-    \]
-    Da es sich bei $f$ um eine nichtkonstante Funktion handelt, ist $P_f \geq 1$. Offensichtlich ist außerdem $N_f \geq P_f$. Mit diesen beiden Ungleichungen erhalten wir
+  \section*{Aufgabe 7}
+  \begin{enumerate}[(a)]
+    \item Sei $B \coloneqq \max_{z \in K} |z|$. Es gilt dann $\forall \gamma \in \Gamma$ mit $|\gamma| > 2B$ die folgende Ungleichung:
     \[
-        N_f + 1 \leq N_{f'} \leq N_f + N_f = 2 N_f.
+        |\gamma - z| > |\gamma| - |z| > |\gamma| - B \geq \frac{1}{2}|\gamma|
     \]
-    \section*{Aufgabe 5}
-    Nach Vorlesung ist $h \coloneqq \frac{f}{g}$ eine meromorphe, elliptische Funktion. Da $f$ und $g$ überall dieselbe Pol- bzw. Nullstellenordnung haben, kürzt sich jede Polstelle von $f$ mit einer Polstelle gleicher Vielfachheit von $g$. Analog kürzt sich jede Nullstelle von $g$ mit einer Nullstelle gleicher Vielfachheit von $f$. Daher lässt sich $h$ holomorph auf ganz $\C$ fortsetzen. Eine holomorphe elliptische Funktion ist aber konstant, $h \equiv c$. Daraus folgt $\frac{f}{g} = h = c\implies f = c \cdot g$.
+    Für $|\gamma| < 2B$ erhalten wir eine ähnliche Ungleichung. Dafür sei zunächst $b = \min_{z\in K, \gamma \in \Gamma} |z - \gamma|$. Dann gilt nämlich
+    \[
+        |\gamma - z| \geq b = \frac{b}{2B}2B > \frac{b}{2B}|\gamma|
+    \]
+    Insgesamt erhalten wir also $|\gamma - z| > \underbrace{\min\left(\frac{1}{2}, \frac{b}{2B}\right)}_{\eqqcolon c} \cdot |\gamma|$.
+    Damit können wir den gesamten Ausdruck abschätzen.
+    Es gilt
+    \begin{align*}
+      \left| \frac{1}{(z-\gamma)^2} - \frac{1}{\gamma^2}\right| &=  \left|\frac{\gamma^2 - (z - \gamma)^2}{(z-\gamma)^2\gamma^2}\right|\\
+      &= \left|\frac{-z^2 + 2z\gamma}{(z-\gamma)^2\gamma^2}\right|\\
+      &\leq \frac{|z^2|}{|(z-\gamma)^2\gamma^2|} + \frac{|2z|}{|(z-\gamma)^2 \gamma|}\\
+      &\leq \frac{B^2}{c |z - \gamma| |\gamma|^3} + \frac{2B}{c^2 |\gamma|^3}\\
+      &\leq \frac{B^2}{c b |\gamma|^3} + \frac{2B}{c^2 |\gamma|^3}\\
+      &= \left(\frac{B^2}{bc} + \frac{2B}{c^2}\right) \cdot |\gamma|^{-3}
+    \end{align*}
+    \item Um absolute, kompakte Konvergenz nachzuweisen, wählen wir ein beliebiges Kompaktum $K \subset \C\setminus \Gamma$ und betrachten die Reihe
+    \[
+        |\left|\frac{1}{z^2}\right| + \sum_{0 \neq \gamma \in \Gamma} \left|\frac{1}{(z-\gamma)^2} - \frac{1}{\gamma^2}\right| \overset{(a)}{\leq} |\left|\frac{1}{z^2}\right| + C \cdot \sum_{0 \neq \gamma \in \Gamma} |\gamma|^{-3}
+    \]
+    Die linke Reihe konvergiert absolut nach Aufgabe 1. Daher ist $p(z)$ meromorph auf $\C$ (analog zum Beweis von Mittag-Leffler).
+    \item Nach dem Haupsatz von Weierstraß dürfen wir gliedweise ableiten. Daher erhalten wir
+    \[
+        p'(z) = -2 \frac{1}{z^3} - 2 \sum_{0 \neq \gamma \in \Gamma} \frac{1}{(z-\gamma)^3} = -2 \sum_{\gamma \in \Gamma} \frac{1}{(z-\gamma)^3}.
+    \]
+    Diese Reihe hat offensichtlich genau für alle $\gamma \in \Gamma$ eine dreifache Polstelle. Es gilt \[p'(z + \gamma_0) = -2 \sum_{\gamma \in \Gamma} \frac{1}{(z + \gamma_0 -\gamma)^3}.\] Da $\varphi\colon \Gamma \to \Gamma,\; \gamma_0 -\gamma \mapsto \gamma$ eine Bijektion ist, erhalten wir einfach nur eine Umsummation und es gilt $p'(z) = p'(z + \gamma_0) = p'(z)$ für ein beliebiges $\gamma_0 \in \Gamma$. 
+    \item Die Polstellenordnung von $p'$ und $\wp'$ ist in jedem Punkt gleich, da beide genau eine dreifache Polstelle im Punkt $0$ besitzen und sonst keine weiteren Polstellen (modulo $\Gamma$) besitzen. Die Differenz $p' - \wp'$ der beiden Funktionen ist also holomorph und, da es sich auch bei der Differenz wieder um eine elliptische Funktion handelt, nach Liouville konstant. Da $\wp'$ und $p'$ beide als Ableitung von geraden Funktionen ungerade sind, handelt es sich auch bei der Differenz um eine ungerade Funktion. Jede ungerade konstante Funktion ist 0, also ist $p' = \wp'$. Daher können sich $\wp$ und $p$ nur um einen konstanten Term unterscheiden. Betrachten wir nun $\wp - z^{-2}$, so erkennen wir, dass $\lim\limits_{z \to 0} \wp(z) - z^{-2} = 0$ nach VL und $\lim\limits_{z \to 0} p(z) - z^{-2} = \sum{0\neq \gamma\in \Gamma} \frac{1}{\gamma^2} - \frac{1}{\gamma^2} = 0$. Also muss die konstante Differenz von $\wp$ und $p$ sofort gleich 0 sein.
+  \end{enumerate}
+  \section*{Aufgabe 8}
+  \begin{enumerate}[(a)]
+    \item $f(z) = \wp(z) - \frac{1}{z^2} = \sum_{0 \neq \gamma \in \Gamma}\left[\frac{1}{(z- \gamma)^2} - \frac{1}{\gamma^2}\right]$. Diese Reihe ist in einer Umgebung von 0 holomorph. Daher ist auch $f(z)$ auf 0 holomorph fortsetzbar.
+    \item Nach dem Haupsatz von Weierstraß dürfen wir gliedweise ableiten. Daher erhalten wir
+    \begin{align*}
+      f^{(k)}(z) &= \sum_{0 \neq \gamma \in \Gamma}\left[ \frac{\mathrm{d}}{\mathrm{d} z}\frac{1}{(z- \gamma)^2} - \underbrace{\frac{\mathrm{d}}{\mathrm{d} z}\frac{1}{\gamma^2}}_{\eqqcolon 0 \forall k \geq 1}\right]\\
+      &= \sum_{0 \neq \gamma \in \Gamma}(-1)^k(k+1)!\frac{1}{(z- \gamma)^{(k+2)}}\\
+      &= (-1)^k(k+1)! \sum_{0 \neq \gamma \in \Gamma}\frac{1}{(z- \gamma)^{(k+2)}}\\
+    \end{align*}
+    \item Da es sich bei $f$ in einer Umgebung von $0$ um eine holomorphe Funktion handelt, können wir den Satz von Taylor anwenden und erhalten die folgende Taylor-Reihe um 0. Der Konvergenzbereich ist $|z| < \min_{0 \neq \gamma \in \Gamma} |\gamma|$, da $f$ in diesem Gebiet holomorph ist.
+    \begin{align*}
+      f(z) &= \sum_{k = 0}^{\infty} \frac{f^{(k)}(0)}{k!} z^k\\
+      &= \sum_{k = 0}^{\infty} (-1)^k (k+1) \sum_{0 \neq \gamma \in \Gamma}\frac{1}{(- \gamma)^{(k+2)}} \cdot z^k\\
+      \intertext{Wegen $\Gamma = - \Gamma$ gilt}
+      &= \sum_{k = 0}^{\infty} (-1)^k (k+1) \sum_{0 \neq \gamma \in \Gamma}\frac{1}{(\gamma)^{(k+2)}}\cdot z^k\\
+      &= \sum_{k = 0}^{\infty} (-1)^k (k+1) G_{k+2} \cdot z^k\\
+      \intertext{Wie in Aufgabe 1f gezeigt, ist $G_{k} = 0$ für ungerade $k$.}
+      &= \sum_{k = 0}^{\infty} (-1)^(2k) (2k+1) G_{2k+2} \cdot z^{2k}\\
+      &= \sum_{k = 0}^{\infty} (2k+1) G_{2k+2} \cdot z^{2k}\\
+    \end{align*}
+    Damit erhalten wir für $\wp(z) = \frac{1}{z^2} + f(z)$ die Laurententwicklung um 0 durch
+    \[
+      \wp(z) = \frac{1}{z^2} + \sum_{k = 1}^{\infty} (2k+1)G_{2k+2}\cdot z^{2k}.
+    \]
+    Diese hat den Konvergenzbereich $0 < |z| < \min_{0 \neq \gamma \in \Gamma} |\gamma|$, der sich aus dem Konvergenzbereich der Taylorreihe von $f$ ergibt, indem die $0$ weggelassen wird, da $\wp(z)$ bei 0 eine Polstelle hat.
+  \end{enumerate}
 \end{document}
