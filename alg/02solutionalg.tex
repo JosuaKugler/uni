@@ -72,7 +72,7 @@
         \end{proof}
         \item Für $R = \Z[X]$ ist $(X + 2)$ offensichtlich ein Primideal. Es gilt aber wegen Aufgabe $(c)$ die folgende Inklusion: $(X + 2) \subsetneq (X,2) \subsetneq \Z[X]$. Daher ist $(X + 2)$ kein maximales Ideal.
         \item $\Z[X]$ ist nach LA2 faktoriell, aber $(2) + (X) \neq \Z[x] = (1) = (\operatorname{ggT}(2, X))$.
-        \item \textbf{fehlt noch}
+        \item $\Z/2\Z(X_1,X_2,\dots)$ ist ein Körper mit unendlich vielen Elementen. Außerdem gilt $1 + 1 = 0$ und damit $p = 2 > 0$.
     \end{enumerate}
     \section*{Bonusaufgabe}
     \begin{enumerate}[(a)]
@@ -81,7 +81,7 @@
             \draw[->] (0,0) -- node[below] {$\Re x$} (5,0);
             \foreach \x in {0,1,2,3,4} \foreach \y in {0,1,2,3,4} \node[fill = black, shape = circle, inner sep=2pt] at (\x,1.414 * \y) {};
         \end{tikzpicture}
-        \item Es gilt
+        Es gilt
         \begin{align*}
             N((a + b\sqrt{-2}) \cdot (c + d\sqrt{-2})) &= N((ac - 2bd) + (bc + ad)\sqrt{-2})\\
             &= (ac - 2bd)^2 + 2 (bc + ad)^2\\
@@ -89,8 +89,29 @@
             &= a^2c^2 + 2a^2d^2 + 2b^2c^2 + 4b^2d^2\\
             &= (a^2 + 2b^2)(c^2 + 2d^2)\\
             &= N(a + b\sqrt{-2}) \cdot N(c + d \sqrt{-2})
+        \end{align*}, die Normfunktion ist also multiplikativ.
+        
+        Wir zeigen nun die Nullteilerfreiheit.
+        Seien dafür $a, b, c, d\in \Z$ und $ 0 = (a + b\sqrt{-2})(c + d\sqrt{-2}) = ac -2bd + \sqrt{-2}(bc + ad)$. Koeffizientenvergleich liefert $ac = 2bd \implies abc = 2b^2d$ und $bc = -ad$. Setzen wir die zweite Gleichung in die erste ein, so ergibt sich $-a^2 d = 2b^2 d \implies -a^2 = 2b^2$. Da Quadrate stets größer 0 sind, müssen beide Seiten 0 sein, $a = b = 0$. Damit ist bereits einer der beiden Faktoren 0 und $\Z[\sqrt{-2}]$ ist nullteilerfrei.
+        Sei nun $z = c + d\sqrt{-2}$. Wir zeigen, dass $\exists z' \coloneqq (a + b \sqrt{-2})\in \Z[\sqrt{-2}]$ mit $N(z - z') \leq \frac{3}{4}$. 
+        
+        Es gilt $N(z - (a +b\sqrt{-2})) \leq \frac{3}{\sqrt{4}} \equals (c-a)^2 + 2(d-b)^2 \leq \frac{1}{2}$. Zu jeder reellen Zahl $x$ gibt es eine ganze Zahl $n(x)$, sodass $|n(x) - x| \leq \frac{1}{2}$. Wähle also $a = n(c)$ und $b = n(d)$. Dann ist $(c-a)^2 + (d-b)^2 \leq \left(\frac{1}{2}\right)^2 + 2\left(\frac{1}{2}\right)^2 = \frac{3}{4}$.
+
+        Seiein schließlich $z, w\in \Z[\sqrt{-2}]$ vorgegeben. Es genügt zu zeigen, dass $\exists q\in \Z[\sqrt{-2}]$ mit $N(r) = N(z - qw) < N(w)$. Wir betrachten dazu zunächst $\tilde q \coloneqq \frac{z}{w}$. Nun gibt es, wie vorhin bewiesen, zu $\tilde q$ ein $1\in \Z[\sqrt{-2}]$ mit $N(\tilde q - q) \leq \frac{3}{4}$. Nun gilt $N(z - qw) = N((\tilde q - q)w) = N(\tilde q - q) \cdot N(w) \leq \frac{3}{4} N(w) < N(w)$. Damit ist bewiesen, dass $Z[\sqrt{-2}]$ euklidisch ist.
+        \item Sei $u$ eine Einheit. Dann $\exists v$ mit $u\cdot v = 1 \implies N(u\cdot v) = 1 = N(u)\cdot N(v)$. Wegen $N(x) > 0 \forall x \in \Z[\sqrt{-2}]$ muss $N(u) = N(v) = 1$ gelten. Sei andererseits $N(u) = 1$. $u$ besitzt eine Darstellung durch $u = a + b\sqrt{-2}$. Wegen $N(u) = 1$ muss aber $b = 0$ und $a^2 = 1$ gelten. Also ist $u \in \{\pm 1\}$. Da $1$ und $-1$ offensichtlich Einheiten sind, folgt die Behauptung.
+        \item Es gilt $x^3 = y^2 + 2 = (y + \sqrt{-2})(y - \sqrt{-2})$. Wegen $y + \sqrt{-2} = y - \sqrt{-2} + 2\sqrt{-2}$ ist mithilfe des euklidischen Algorithmus $$N(\underbrace{\operatorname{ggT}(y + \sqrt{-2}, y - \sqrt{-2})}_{\eqqcolon b}) \leq N(2\sqrt{-2}) = 8.$$ Wäre aber $y + \sqrt{-2} = (c + d\sqrt{-2}) \cdot 2 \sqrt{-2}$, so wäre nach Koeffizientenvergleich $1 = 2c$ mit $c\in \Z$. Das ist aber ein Widerspruch. Also ist $N(b) \neq 2\sqrt{-2}$, aber $b | 2 \cdot \sqrt{-2} = -\sqrt{-2}^3$. Da $\Z[\sqrt{-2}]$ faktoriell ist, muss also $b = \pm 1$, $b = \pm \sqrt{-2}$ oder $b = \pm \sqrt{-2}^2 = \pm 2$ sein. Sei also $b = \pm \sqrt{-2}$. Dann erhalten wir $y + \sqrt{-2} = (\eta + \xi \sqrt{-2})\cdot b = \pm (\eta\sqrt{-2} -2 \xi) \implies y$ gerade. Ist $y$ gerade, so folgt $x^3 = (2d)^2 + 2 = 4d + 2$. Daher muss $x$ ebenfalls gerade sein, $x = 2c$. Betrachten wir die resultierende Gleichung $8c^3 = 4d^2 + 2$ modulo 4, so ergibt sich $0 = 2$. Das ist ein Widerspruch und $y$ muss ungerade sein.
+        Sei daher $b = \pm 2$. Dann erhalten wir $y + \sqrt{-2} = (\eta + \xi \sqrt{-2})\cdot b = \pm (2\eta + 2\xi\sqrt{-2}) \implies 2\eta = 1$ mit $\eta \in \Z$. Das ist ein Widerspruch. Also bleibt nur noch $b = \pm 1$, sodass $y + \sqrt{-2}$ und $y -\sqrt{-2}$ teilerfremd sein müssen.
+
+        Da $\Z[\sqrt{-2}]$ faktoriell ist, muss es eine eindeutige Darstellung durch irreduzible Faktoren geben. Wegen $x^3 = (y + \sqrt{-2}) \cdot (y - \sqrt{-2})$, wobei auf der rechten Seite ein Produkt von teilerfremden Faktoren steht, müssen beide Faktoren auf der rechten Seite selbst schon dritte Potenzen in $\Z[\sqrt{-2}]$ sein. Daraus ergibt sich die Gleichung
+        \begin{align*}
+            y + \sqrt{-2} &= (a + b\sqrt{-2})^3\\
+            &= a^3 + 3a^2b\sqrt{-2} -6ab^2 -2 b^3\sqrt{-2}\\
+            &= a^3 - 6ab^2 + (3a^2b - 2b^3)\sqrt{-2}
         \end{align*}
-        Sei $u$ eine Einheit. Dann $\exists v$ mit $u\cdot v = 1 \implies N(u\cdot v) = 1 = N(u)\cdot N(v)$. Wegen $N(x) > 0 \forall x \in \Z[\sqrt{-2}]$ muss $N(u) = N(v) = 1$ gelten. Sei andererseits $N(u) = 1$. $u$ besitzt eine Darstellung durch $u = a + b\sqrt{-2}$. Wegen $N(u) = 1$ muss aber $b = 0$ und $a^2 = 1$ gelten. Also ist $u \in \{\pm 1\}$. Da $1$ und $-1$ offensichtlich Einheiten sind, folgt die Behauptung.
-        \item Es gilt $x^3 = y^2 + 2 = (y + \sqrt{-2})(y - \sqrt{-2})$. Wegen $y + \sqrt{-2} = y - \sqrt{-2} + 2\sqrt{-2}$ ist $$N(\underbrace{\operatorname{ggT}(y + \sqrt{-2}, y . \sqrt{-2})}_{\eqqcolon b}) \leq N(2\sqrt{-2}) = 8.$$ Wäre aber $y + \sqrt{-2} = (c + d\sqrt{-2}) \cdot 2 \sqrt{-2}$, so wäre nach Koeffizientenvergleich $1 = 2c$ mit $c\in \Z$. Das ist aber ein Widerspruch. Also ist $N(b) < 8$. Sei also $b = \nu + \mu \sqrt{-2}$. Dann muss $\mu <2$ sein. Im Fall $\mu = 0$ erhalten wir $y + \sqrt{-2} = (\eta + \xi \sqrt{-2})\cdot b = \nu \eta + \nu \xi \sqrt{-2} \implies \nu = \pm 1 \implies b = \pm 1$. Im Fall $\mu = 1$ erhalten wir 
+        Durch Koeffizientenvergleich erhalten wir $y = a^3 - 6ab^2$ und $1 = 3a^2b - 2b^3 = b(3a^2 - 2b^2)$. Wegen $a,b\in \Z$ folgt aus dieser zweiten Gleichung $b = \pm 1$ und damit $1 = \pm (3a^2 - 2)$. Aus $1 = 3a^2 - 2$ folgt $a = \pm 1$, aus $1 = -3a^2 + 2$ folgt $3a^2 = 1$, was ein Widerspruch ist. Also ist $a = \pm 1$ und damit $(3a^2 - 2b^2) = 1 \implies b = 1$. Daraus folgt bereits 
+        \[
+            y = a(a^2 - 6b^2) = \pm (1 - 6) = \pm 5.  
+        \]
+        Daher ist $x^3 = y^2 + 2 = 27 \implies x = 3$. Damit sind $(3,5)$ und $(3,-5)$ die einzigen Lösungen dieser Gleichung mit ganzen Zahlen $x$ und $y$. Also ist tatsächlich 26 die einzige Zahl, die auf eine Quadratzahl folgt und deren Nachfolger eine Kubikzahl ist.
     \end{enumerate}
 \end{document}
