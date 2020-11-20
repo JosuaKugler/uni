@@ -1,0 +1,74 @@
+\documentclass{article}
+
+\usepackage{josuamathheader}
+
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\D}{\mathcal{D}}
+\newcommand{\E}{\mathcal{E}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\IP}{\mathbb{P}}
+\begin{document}
+\def\headheight{25pt}
+\wtheolayout{2}
+    \section*{Aufgabe 6}
+    \begin{enumerate}[(a)]
+        \item \textbf{Zu zeigem:} $\IP_1 = \IP_2$.
+        \begin{proof}
+        Schritt 2 und Schritt 3 sind bereits erledigt. Daher betrachten wir die Menge $\D = \{A\in \A| \IP_1(A) = \IP_2(A)\}$.
+        \begin{enumerate}[(i)]
+            \item Da $\E$ ein Erzeuger von $\A$ ist, muss $\Omega \in \E$ liegen, somit gilt $\IP_1(\Omega) = \IP_2(\Omega)$ und daraus folgt $\Omega \in \D$. 
+            \item Sei $E \in \D$. Dann gilt $\IP_1(E^c) = \IP_1(\Omega \setminus E) = \IP_1(\Omega) - \IP_1(\Omega \cap E) = 1 - \IP_1(E) = 1 - \IP_2(E)$. Mithilfe analoger Umformungsschritte auf der rechten Seite erhält man $\IP_1(E^c) = \IP_2(E^c)$ und damit $E^c \in \D$. $\D$ ist also komplementstabil
+            \item Sei $\forall n \in \N\colon E_n \in \D$. Dann gilt 
+            \[
+                \IP_1\left(\biguplus_{n\in \N} E_n\right) = \sum_{n \in \N} \IP_1(E_n) = \sum_{n \in \N} \IP_2(E_n) = \IP_2\left(\biguplus_{n\in \N} E_n\right).
+                \]
+                Somit ist auch $\biguplus_{n\in \N}E_n \in \D$.
+            \end{enumerate}
+            $\D$ ist also ein Dynkin-System. Da $\E$ schnittstabil ist, gilt $\E \subset \D$. Insbesondere folgt unter Benutzung des $\pi-\lambda-$Satzes \[\A = \sigma(\E) = \delta(\E) \subset \D,\] da $\D$ ja ein Dynkin-System ist, das $\E$ enthält. Wegen $\D \subset \A$ erhalten wir die sofort $\A = \D$. Somit gilt $\IP_1(A) = \IP_2(A) \forall A \in \A$.
+        \end{proof}
+        \item \textbf{Behauptung:} $\sigma(\E) = 2^\Omega$. Außerdem sind die Wahrscheinlichkeitsmaße $\IP_1,\IP_2$ eindeutig gegeben durch
+        \[
+            \IP_1(\{x\}) = 0.25 \forall x \in \Omega
+        \]
+        \[
+            \IP_2(\{a\}) = \IP_2(\{c\}) = 0.2,\quad \IP_2(\{b\}) = \IP_2(\{d\}) = 0.3
+        \] und stimmen auf $\E$ überein, nicht aber auf $2^\Omega$.
+        \begin{proof}
+            Eine $\sigma$-Algebra enthält stets $\Omega$ und ist stabil bezüglich Schnitt, Vereinigung und Komplement. Daher liegen $\Omega = \{a,b,c,d\},\; \{a\} = A \setminus C,\; \{b\} = A\cap C,\; c = C \setminus A$ und $\{d\} = \Omega \setminus (A \cup C)$  in $\sigma(\E)$. Aus den Mengen $\{a\}, \{b\},\{c\},\{d\}$ erhält man durch disjunkte Vereinigung jede Teilmenge $E \in 2^\Omega$. Daraus folgt auf der einen Seite $\sigma(\E) = \Omega$. Auf der anderen Seite folgt auch, dass $\IP_1$ und $\IP_2$ durch die Werte auf diesen vier einelementigen Mengen bereits eindeutig bestimmt sind, da jeder beliebige Wert als disjunkte Vereinigung aus den Mengen und damit als Summe aus den Werten von $\IP_i$ konstruiert werden kann.
+            Offensichtlich ist $\IP_1(\{a\}) \neq \IP_2(\{a\})$. Daher stimmen die beiden Maße auf $2^\Omega$ nicht überein. Es gilt aber $\IP_1(A) = \IP_1(\{a\}\uplus \{b\}) = \IP_1(\{a\}) + \IP_1(\{b\}) = 0.5 = \IP_2(\{a\}) + \IP_2(\{b\}) = \IP_2(A)$ und $\IP_1(B) = \IP_1(\{b\}\uplus \{c\}) = \IP_1(\{b\}) + \IP_1(\{c\}) = 0.5 = \IP_2(\{b\}) + \IP_2(\{c\}) = \IP_2(B)$.
+        \end{proof}
+        Offensichtlich ist $\E$ einfach nicht schnittstabil, da $A \cap C = \{b\}\notin \E$. Also lässt sich auch der Maßeindeutigkeitssatz nicht anwenden.
+    \end{enumerate}
+    \section*{Aufgabe 8}
+    \begin{enumerate}[(a)]
+        \item Es gilt 
+        \begin{align*}
+            \scriptstyle{\IP}_{\text{Hyp}_{(N, M, n)}}(\omega) &= \frac{\binom{N-M}{n-\omega}\binom{M}{\omega}}{\binom{N}{n}}\\
+            &= \frac{\frac{(N-M)!}{(N-M-(n-\omega))! \cdot (n-\omega)!} \cdot \frac{M!}{(M-\omega)! \cdot \omega!}}{\frac{N!}{(N-n)!\cdot n!}}\\
+            &= \frac{n!}{(n-\omega)!\cdot \omega!} \cdot \frac{M!}{(M-\omega)!} \cdot \frac{(N-n)!}{N!} \cdot \frac{(N-M)!}{(N-M-(n - \omega))!}\\
+            &= \binom{n}{\omega} \cdot \frac{M^\omega \cdot \prod_{i=1}^\omega (1 - \frac{i}{M})}{N^\omega \cdot \prod_{i = 1}^\omega (1 - \frac{i}{N})} \cdot \frac{(N-M)^{n - \omega - 1} \prod_{i = 1}^{n - \omega - 1}\left(1 - \frac{i}{N-M}\right)}{N ^{n-1 - \omega} \prod_{i = \omega}^{n - 1} (1 - \frac{i}{N})}
+            \intertext{Bilden wir nun den Grenzwert $\lim\limits_{N, M \to \infty}$, so erhalten wir}
+            &= \lim\limits_{N, M \to \infty} \binom{n}{\omega} \cdot \left(\frac{M}{N}\right)^\omega \cdot \left(\frac{N- M }{N}\right)^{n - \omega - 1}
+            \intertext{Wegen $M/N \to p$ erhalten wir daraus}\\
+            &= \binom{n}{\omega} \cdot \left(p\right)^\omega \cdot \left(1-p\right)^{n - \omega - 1}\\
+            &= \scriptstyle{\IP}_{\text{Bin}_{(n, p)}}(\omega)
+        \end{align*}
+        \item Die Situation kann durch eine hypergeometrische Verteilung $\text{Hyp}_{(N, M , n)}$ mit $N = 1000, M = 200, n = 10$ modelliert werden. Daher erhalten wir als exaktes Ergebnis
+        \[
+            \scriptstyle{\IP}_{\text{Hyp}_{(1000, 200, 10)}}(2) = \frac{\binom{800}{8}\binom{200}{2}}{\binom{1000}{10}} \approx 0.304
+        \] und für die Näherung durch $\text{Bin}_{(10,0.2)}$ ergibt sich
+        \[
+            \scriptstyle{\IP}_{\text{Bin}_{(10, 0.2)}}(2) = \binom{10}{2} (0.2)^2 (0.8)^2 \approx 0.302.
+        \]
+        \item Die Zähldichte entspricht genau einer Binomialverteilung $\text{Bin}_{(n, p)}$ mit $n = 100$ und $p = 0.01$. Es gilt nun für das eindeutig bestimmte Wahrscheinlichkeitsmaß 
+        \[
+            \IP(\{x | 2 \leq x \leq 100\}) = \IP(\{1,\dots, 100\} \setminus \{0,1\}) = 1 - \scriptstyle{\IP}_{\text{Bin}_{(100, 0.01)}}(0) - \scriptstyle{\IP}_{\text{Bin}_{(100, 0.01)}}(1).
+        \]
+        Wegen $\scriptstyle{\IP}_{\text{Bin}_{(100, 0.01)}}(0) = \binom{100}{0} \cdot 0.01^0 \cdot 0.99^100 \approx 0.366$ und $\scriptstyle{\IP}_{\text{Bin}_{(100, 0.01)}}(1) = \binom{100}{1} \cdot 0.01^1 \cdot 0.99^99 = 0.370$
+        erhalten wir damit als exakte Wahrscheinlichkeit $\IP(\{x | 2 \leq x \leq 100\}) \approx 1 - 0.366 - 0.370 = 0.264$.
+        Wir nähern nun die Binomialverteilung durch eine Poisson-Verteilung. Wegen $p \cdot n = 0.01 \cdot 100 = 1$ wählen wir $\lambda = 1$ und erhalten $\scriptstyle{\IP}_{\text{Bin}_{(100, 0.01)}}(0) \approx \scriptstyle{\IP}_{\text{Poi}_1}(0) = e^{-1}\frac{1^0}{0!} = \frac{1}{e}$ und $\scriptstyle{\IP}_{\text{Bin}_{(100, 0.01)}}(1) \approx \scriptstyle{\IP}_{\text{Poi}_1}(1) = e^{-1}\frac{1^1}{1!} = \frac{1}{e}$. Für die genäherte Wahrscheinlichkeit ergibt sich damit $\IP(\{x | 2 \leq x \leq 100\}) \approx 1 - \frac{2}{e} = 0.264$.
+    \end{enumerate}
+
+\end{document}
