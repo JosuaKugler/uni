@@ -1,0 +1,176 @@
+\documentclass{article}
+
+\usepackage{josuamathheader}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+\newcommand{\diam}{\operatorname{diam}}
+\begin{document}
+\def\headheight{25pt}
+\analayout{4}
+    \section*{Aufgabe 4.1}  
+    \begin{enumerate}[(a)]
+        \item $f$ ist als Grenzwert einer monoton steigenden Folge von messbaren Funktionen wieder messbar.
+        Es gilt $f_k = f_k^+ - f_k^-$. Wegen $f_k \ge g \forall k \in \N$ ist insbesondere $0 \leq f_k^- \leq |g|$. 
+        Dabei ist mit $g$ auch $|g|$ eine integrable Funktion.
+        Wegen $f_k \nearrow f$ gilt auch $f_k^+ \nearrow f^+$ und $f_k^- \searrow f^-$. 
+        Nach dem Satz von der dominierten Konvergenz gilt wegen $f_k^- \leq |g|$
+        \[
+            -\lim\limits_{k \to \infty} \int_X f_k^- \d{\mu} = -\int_X \lim\limits_{k \to \infty} f_k^- \d{\mu} = - \int_X f^- \d{\mu}.
+        \]
+        Nun unterscheiden wir zwei Fälle: 
+        \begin{enumerate}[(1.)]
+            \item $f_k^+$ ist integrierbar. Dann gilt nach dem Satz von der monotonen Konvergenz wegen $f_k^+ \nearrow f^+$ auch
+            \[
+                \lim\limits_{k \to \infty} \int_X f_k^+ \d{\mu} = \int_X \lim\limits_{k \to \infty} f_k^+ \d{\mu} = \int_X f^+ \d{\mu}.
+            \]
+            In diesem Fall folgt 
+            \[
+                \lim\limits_{k \to \infty} \int_X f_k\d{\mu} 
+                = \lim\limits_{k \to \infty} \left[\int_X f_k^+ \d{\mu} - \int_Xf_k^- \d{\mu}\right] 
+                = \int_X f^+ \d{\mu} - \int_X f^- \d{\mu} 
+                = \int_X f \d{\mu}
+            \]
+            \item $\exists k_0\in \N$ mit $\int_X f_k^+ \d{\mu}$ ist nicht endlich.
+            Dann ist wegen $f \geq f_{k+1}^+ \geq f_k^+$ und der Monotonie des Integrals auch $\int_X f^+ \d{\mu}$ nicht endlich.
+            In diesem Fall erhalten wir
+            \[
+                \lim\limits_{k \to \infty} \int_X f_k\d{\mu} 
+                = \lim\limits_{k \to \infty} \left[\int_X f_k^+ \d{\mu} - \int_Xf_k^- \d{\mu}\right]
+                = \lim\limits_{k \to \infty, k \geq k_0} \infty 
+                = \int_X f^+ \d{\mu} =  \int_X f \d{\mu},
+            \]
+            da $\int_X f^- \d{\mu}$ stets endlich ist.
+        \end{enumerate}
+        \item Wegen $f_k \geq g$ ist $f_k - g \geq 0\forall k \in \N$.
+        Da $g$ eine integrable Funktion ist, erhalten wir
+        \begin{align*}
+            \int_X \liminf\limits_{k \to \infty} f_k \d{\mu} 
+            &= \int_X \liminf\limits_{k \to \infty} f_k \d{\mu} - \int_X g \d{\mu} + \int_X g \d{\mu}\\
+            &= \int_X \liminf\limits_{k \to \infty} f_k - g \d{\mu} + \int_X g \d{\mu}\\
+            \intertext{Lemma von Fatou}
+            &\leq \liminf\limits_{k \to \infty} \int_X  f_k - g \d{\mu} + \int_X g \d{\mu}\\
+            &= \liminf\limits_{k \to \infty} \int_X  f_k  \d{\mu} - \int_X g \d{\mu} + \int_X g \d{\mu}\\
+            &= \liminf\limits_{k \to \infty} \int_X  f_k \d{\mu}
+        \end{align*}
+    \end{enumerate}
+    \section*{Aufgabe 4.2}
+    \begin{enumerate}[(a)]
+        \item Es gilt $e^{-x} \cos(x/k) \le e^{-x}$. Da $e^{-x}$ integrabel ist, gilt nach dem Satz von der dominierten Konvergenz unter Anwendung von Satz 3.20
+        \[
+            \lim\limits_{k \to \infty} \int_0^\infty e^{-x} \cos(x/k) \d{\mu(x)} = \int_0^\infty e^{-x} \cos(0) \d{\mu(x)} = -e^{-x}\bigg|_0^\infty = 1.
+        \]
+        \item Wir wenden partielle Integration an (erlaubt wegen Satz 3.20) und erhalten
+        \begin{align*}
+            \int_0^\infty e^{-x} \cos(kx) \d{\mu(x)} &= -e^{-x} \cos(kx) \bigg|_0^\infty + \int_0^\infty- e^{-x} k \sin(kx) \d{\mu(x)}\\
+            &= 1 + \left[e^{-x}k\sin(kx)\right]_{0}^\infty + \int_0^\infty e^{-x} k^2 \cos(kx) \d{\mu(x)}\\
+            &= 1 + 0 + k^2\int_0^\infty e^{-x} \cos(kx) \d{\mu(x)}\\
+            (1 - k^2)\int_0^\infty e^{-x} k^2 \cos(kx) \d{\mu(x)} &= 1\\
+            \int_0^\infty e^{-x} k^2 \cos(kx) \d{\mu(x)} &= \frac{1}{1-k^2}
+        \end{align*}
+        Daher gilt $\lim\limits_{k \to \infty} \int_0^\infty e^{-x} k^2 \cos(kx) \d{\mu(x)} = \lim\limits_{k \to \infty} \frac{1}{1-k^2} = 1$.
+        \item Zunächst bemerken wir, dass $\forall x \in (0,1]$
+        \[
+            \lim\limits_{k \to \infty} \frac{1}{k} \sum_{i = 0}^{k} \binom{k}{i} x^{2i} = \lim\limits_{k \to \infty} \frac{1}{k} + x^2 + x^{2k -2} + \frac{1}{k}x^{2k} + \sum_{i = 2}^{k-2} \frac{1}{k}\binom{k}{i} x^{2i} \to \infty,
+        \]
+        da sich der Binomialkoeffizient $\forall 2 \leq i \leq k-2$ als ganzzahliges Vielfaches von $k^2$ schreiben lässt.
+        Wegen
+        \[
+            \frac{1 + kx^2}{(1+x^2)^k} = \frac{1 + kx^2}{1 + kx^2 + kx^{2k -2} + x^{2k} + \sum_{i = 2}^{k-2} \binom{k}{i} x^{2i}}
+        \]
+        gilt 
+        \[
+            \frac{1 + kx^2}{(1+x^2)^k} \leq 1
+        \]
+        und
+        \[
+            \lim\limits_{k \to \infty} \frac{1 + kx^2}{(1+x^2)^k} = \lim\limits_{k \to \infty} \frac{\frac{1}{k} + x^2}{\frac{1}{k}(1+x^2)^k} \to \begin{cases}
+                0 &x > 0\\
+                1 &x = 0
+            \end{cases}
+        \]
+        sowie schließlich
+        \[
+            \lim\limits_{k \to \infty} \underbrace{\frac{1 + kx^2}{(1+x^2)^k} \log\left(2 + \cos\left(\frac{x}{k}\right)\right)}_{\eqqcolon f_k} = \begin{cases}
+                0 & x > 0\\
+                \log(3) & x = 0
+            \end{cases}.
+        \]
+        Außerdem gilt auch 
+        \[
+            f_k = \underbrace{\frac{1 + kx^2}{(1+x^2)^k}}_{\leq 1} \cdot \underbrace{\log\left(2 + \cos\left(\frac{x}{k}\right)\right)}_{\leq \log(3)} \leq \log(3)
+        \]
+        sodass $f_k$ durch die integrable Funktion $\log(3)$ beschränkt ist. Nach dem Satz von der dominierten Konvergenz folgt daraus 
+        \[
+            \lim\limits_{k \to \infty} \int_X f_k \d{\mu(x)}
+            = \int_X \lim\limits_{k \to \infty} f_k \d{\mu(x)}
+            = 0,
+        \]
+        da $\mu(\operatorname{spt}(\lim\limits_{k \to \infty} f_k)) = \mu(\{0\}) = 0$.
+        \item Wir substituieren $y = kx$
+        \[
+            \int_z^\infty \frac{k}{1 + k^2x^2} \d{\mu(x)} = \int_{zk}^\infty \frac{1}{1 + y^2}\d{\mu(y)} = \frac{\pi}{2} - \int_{0}^{zk} \frac{1}{1 + y^2}\d{\mu(y)}
+        \]
+        Daher gilt
+        \[
+              \lim\limits_{k \to \infty} \int_z^\infty \frac{k}{1 + k^2x^2} \d{\mu(x)} = \frac{\pi}{2} - \lim\limits_{k \to \infty} \int_{0}^{zk} \frac{1}{1 + y^2}\d{\mu(y)} = 0.
+        \]
+    \end{enumerate}
+    \section*{Aufgabe 4.3}
+    \begin{enumerate}[(a)]
+        \item $f$ ist differenzierbar, also stetig. Damit ist auch $f(x + a,y)$ stetig und folglich messbar im ersten Argument. An der Messbarkeit im zweiten Argument ändert sich nichts. Also ist auch
+        \[
+            \frac{f(x + h_k, y) - f(x,y)}{h_k}
+        \]
+        als Linearkombination von messbaren Funktionen messbar.
+        Es gilt $\partial_x f(x,y) = \lim\limits_{k \to \infty} \frac{f(x + h_k, y) - f(x,y)}{h_k}$ für eine Nullfolge $h_k$. Man kann also $\partial_x f(x,y)$ auffassen als Grenzwert einer konvergenten Folge messbarer Funktionen. Daher ist $\partial_x f(x,y)$ selbst messbar.
+        \item Es gilt nach dem Mittelwertsatz $\frac{f(x+h,y) - f(x,y)}{h} = \partial_x f(\xi, y)$ für ein $\xi \in (x, x+h)$.
+        Insbesondere gilt also für $h\in [-1,1]$
+        \[
+            \frac{f(x+h,y) - f(x,y)}{h} \leq \sup_{\xi\in [-1,1]} \partial_x f(\xi, y)\leq g(y).
+        \]
+        \begin{align*}
+            F'(x) &) \lim\limits_{h \to 0} \frac{F(x + h) - F(x)}{h}\\
+            &= \lim\limits_{h \to 0} \frac{1}{h}\left(\int_Y f(x+h,y) \d{\mu(y)} - \int_Y f(x,y) \d{\mu(y)}\right)\\
+            &= \lim\limits_{h \to 0}\int_Y  \frac{f(x+h,y) - f(x,y)}{h}\d{\mu(y)}\\
+            \intertext{Wegen $\frac{f(x+h,y) - f(x,y)}{h} \leq g(y)$ folgt nach dem Satz von der dominierten Konvergenz}
+            &= \int_Y  \lim\limits_{h \to 0} \frac{f(x+h,y) - f(x,y)}{h}\d{\mu(y)}\\
+            &= \int_Y \partial_x f(x,y) \d{\mu(y)}
+        \end{align*}
+    \end{enumerate}
+    \section*{Zusatzaufgabe 4.1}
+    \begin{enumerate}[(a)]
+        \item Es genügt zu zeigen, dass für ein gegebenes $f = \sum_{k = 1}^{n} \alpha_k \chi_{A_k}$ und eine Verfeinerung $f = \sum_{k = 1}^{n-1} \alpha_k \chi_{A_k}  + b \chi_B + c\chi_C$ stets $\int_X f \d \mu = \int_X f'\d \mu$ gilt. Dann kann man zu zwei beliebigen Darstellungen von $f$ eine Darstellung konstruieren, die zu beiden Ausgangsdarstellungen eine Verfeinerung bildet. Somit haben dann alle drei Integrale und insbesondere die Integrale über die Ausgangsdarstellungen denselben Wert.
+        Es gilt also 
+        \[
+            \sum_{k = 1}^{n} \alpha_k \chi_{A_k} = \sum_{k = 1}^{n-1} \alpha_k \chi_{A_k} + b \chi_B + c\chi_C \implies \alpha_k \chi_{A_k} = b \chi_B + c \chi_C
+        \]
+        und wir wollen zeigen, dass gilt
+        \[
+            \sum_{k = 1}^{n} \alpha_k \mu(A_k) = \sum_{k = 1}^{n-1} \alpha_k\mu(A_k) + b \mu(B) + c \mu(C).
+        \]
+        Das ist äquivalent zu
+        \[
+            \alpha_n \mu(A_n) = b \mu(B) + c \mu(C).
+        \]
+        Aus $\alpha_k \chi_{A_k} = b \chi_B + c \chi_C$ folgt wegen $\alpha_k, b, c \neq 0$ sofort $B \cup C \subset A_k$, es gilt nämlich $\forall x \notin A_k\colon \; \chi_{A_k}(x) = 0 \implies b \chi_B(x) + c \chi_C(x) = 0 \implies x \notin B\cup C$.
+        Wir führen eine Fallunterscheidung durch:
+        \begin{enumerate}[1.]
+            \item $c = \alpha_n$. Dann gilt $\alpha_n(\chi_{A_n} - \chi_{C}) = b \chi_B$. Wegen $C \subset A_n$ nimmt die linke Seite genau die Werte $0$ oder $\alpha_n$ an, die rechte Seite hingegen die Werte $0$ und $b$. Daher muss $b = \alpha_n$ sein. Es gilt also $\chi_{A_n} = \chi_B + \chi_C$. Daraus folgt bereits $A_n = B \uplus C$. Dann ist aber $\mu(A_n) = \mu(B) + \mu(C)$ und insbesondere ist die Gleichung $\alpha_n \mu(A_n) = b \mu(B) + c\mu(C)$ erfüllt.
+            \item $c \neq \alpha_n$. Es gilt nun 
+            \[
+                forall x \in C\subset A_n\colon\; \alpha_n = \alpha_n \chi_{A_n}(x) = b \chi_B(x) + c \chi_C(x) = b \chi_B(x) + c,
+            \]
+            insbesondere also $\alpha(n) - c = b \chi_B(x)$. Wegen $\alpha_n \neq c$ muss aber $b \chi_B(x) \neq 0$ sein und damit $x \in B$, $\alpha_n = b + c$. Insgesamt erhalten wir also $C \subset B$ und aus Symmetriegründen folgt $B = C$. Wegen 
+            \[
+                \alpha_n\chi_{A_n} = (b + c) \chi_{A_n} = b \chi_{A_n} + c \chi_{A_n} = b \chi(B) + c \chi(B) = (b + c) \chi(B)
+            \]
+            erhalten wir auch $C = B = A_n$. Damit ist ebenfalls die Gleichung
+            \[
+                \alpha_n \mu(A_n) = b\mu(B) + c\mu(C)  
+            \]
+            erfüllt und insgesamt die Aussage bewiesen.
+        \end{enumerate}
+        \item Sei $g \leq f$ mit $\int_X g \d{\mu} \geq \int_X f \d{\mu}$. Dann wählen wir zu beiden Funktionen eine Darstellung, in der die zu Grunde liegenden Mengen $A_k$ identisch sind. Da beide per Definition eine Darstellung durch endlich viele Mengen besitzen können wir durch geschickte Wahl von Verfeinerungen eine Darstellung mit identischen zu Grunde liegenden Mengen erreichen. Dann gilt also $f = \sum_{k = 1}^{n} \alpha_k \chi_{A_k}$ und $g = \sum_{k = 1}^{n} \beta_k \chi_{A_k}$. Wegen $g \leq f$ gilt $\beta_k \leq \alpha_k \forall k \in \N$. Allerdings gilt auch $\sum_{k = 1}^{n} \alpha_k \mu(A_k) = \int_X f \d \mu \leq \int_X g \d \mu \sum_{k = 1}^{n} \beta_k \mu(A_k)$. Durch Subtraktion erhalten wir also $\sum_{k = 1}^{n} (\alpha_k - \beta_k) \mu(A_k) \leq 0$. Da aber $\alpha \geq \beta$ erhalten wir sofort $\alpha_k = \beta_k \forall 1 \leq k \leq n$. Damit ist aber bereits $f = g$ und $\int_X f \d{\mu} = \int_X g \d{\mu}$ und die beiden Definitionen stimmen überein.
+    \end{enumerate}
+\end{document}
