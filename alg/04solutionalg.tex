@@ -1,0 +1,100 @@
+%\documentclass{../../theo-lecture/lecture}
+\documentclass{article}
+\usepackage{josuamathheader}
+
+\newcommand{\ggT}{\operatorname{ggT}}
+\begin{document}
+\alglayout{4}
+\def\headheight{25pt}
+    \section*{Aufgabe 1}
+    \begin{itemize}
+        \item $\sqrt[5]{3}$. $f \coloneqq X^5 - 3$ ist irreduzibel über $\Q$ nach Eisenstein. 
+        Es gilt $f(\sqrt[5]{3}) = (\sqrt[5]{3})^5 - 3 = 0$. Also ist $f$ das Minimalpolynom zu $\sqrt[3]{5}$.
+        \item $\sqrt{2} + \sqrt{3}$. Es gilt $f \coloneqq X^4 - 10X^2 + 1$ ist primitiv. 
+        In $\Z/3\Z$ gilt $0^4 - 0^2 + 1 = 1 \neq 0$, $1^4 - 1 + 1 = 1 \neq 0$ und $2^4 - 2^2 + 1 = 16 - 4 + 1 = 13 = 1 \neq 0$. 
+        Somit ist $X^4 - X^2 + 1$ irreduzibel in $\Z/3\Z$. 
+        Nach dem Reduktionskriterium für $p = 3$ ist $X^4 - 10X^2 + 1$ daher irreduzibel über $\Q$.
+        Wegen 
+        \begin{align*}
+            (\sqrt{2} + \sqrt{3})^4 - 10(\sqrt{2} + \sqrt{3})^2 + 1 
+            &= (4 + 4 \cdot 2 \cdot \sqrt{6} + 6\cdot 2 \cdot 3 + 4 \cdot 3 \cdot \sqrt{6} + 9) - 10(2 + 2 \sqrt{6} + 3) +1\\
+            &= 49 + 20 \sqrt{6} - 50 - 20 \sqrt{6} + 1\\
+            &= 0
+        \end{align*}
+        ist $f(\sqrt{2} + \sqrt{3}) = 0$. Also ist $f$ das Minimalpolynom zu $\sqrt{2} + \sqrt{3}$.
+        \item $\sin(2\pi /5) = \sqrt{\frac{5}{8} + \frac{\sqrt{5}}{8}}$. Das Polynom $f\coloneqq 16X^4 - 20X^2 + 5$ ist primitiv. In $Z/2Z$ erhalten wir $f = 1$. Nach dem Reduktionskriterium für $p = 2$ folgt also, dass $f$ irreduzibel ist.
+        Es gilt außerdem
+        \begin{align*}
+            f\left( \sqrt{\frac{5}{8} + \frac{\sqrt{5}}{8}}\right) &= 16 \sqrt{\frac{5}{8} + \frac{\sqrt{5}}{8}}^4 - 20 \sqrt{\frac{5}{8} + \frac{\sqrt{5}}{8}}^2 + 5\\
+            &= 16 \left(\frac{5}{8} + \frac{\sqrt{5}}{8}\right)^2 - 20 \left(\frac{5}{8} + \frac{\sqrt{5}}{8}\right) + 5\\
+            &= 16 \left(\frac{25}{64} + \frac{10 \sqrt{5}}{64} + \frac{5}{64}\right) - \frac{50}{4} - \frac{10\sqrt{5}}{4} + \frac{20}{4}\\
+            &= \frac{30}{4} + \frac{10\sqrt{5}}{4} - \frac{50}{4} - \frac{10\sqrt{5}}{4} + \frac{20}{4}\\
+            &= 0.
+        \end{align*}
+        Also ist $f$ das Minimalpolynom von $\sin(2\pi /5)$ über $\Q$.
+        \item $e^{i\pi/6} - \sqrt{3}$. 
+        $f \coloneqq X^4 - X^2 + 1$ ist irreduzibel über $\Z/2\Z$, da $0^4 - 0^2 + 1 \neq 0$ und $1^4 - 1^2 + 1 \neq 0$ gilt.
+        Nach dem Reduktionskriterium für $p = 2$ folgt, dass $f$ irreduzibel über $\Q$ ist.
+        Es gilt $e^{i\pi /6} - \sqrt{3} = \frac{\sqrt{3}}{2} + \frac{i}{2} - \sqrt{3} = \frac{1}{2}(i - \sqrt{3})$.
+        Daher erhalten wir
+        \begin{align*}
+            (e^{i\pi /6} - \sqrt{3})^4  - (e^{i\pi /6} - \sqrt{3})^2 + 1 &= \frac{1}{16}(i - \sqrt{3})^4 - \frac{1}{4}(i - \sqrt{3})^2 + 1\\
+            &= \frac{1}{16}(-1 - 2i\sqrt{3} + 3)^2 - \frac{1}{4}(-1 - 2i\sqrt{3} + 3) + 1\\
+            &= \frac{1}{4}(1 - i\sqrt{3})^2 - \frac{1}{2}(1- i \sqrt{3}) + 1\\
+            &= \frac{1}{4}(1 - 2i\sqrt{3} -3) - \frac{1}{2}(1 - i\sqrt{3}) + 1\\
+            &= - \frac{1}{2} - \frac{i}{2}\sqrt{3} - \frac{1}{2} + \frac{i}{2}\sqrt{3} + 1\\
+            &= 0
+        \end{align*}
+        Also ist $f$ das Minimalpolynom von $e^{i\pi /6} - \sqrt{3}$ über $\Q$.
+    \end{itemize}
+    \section*{Aufgabe 2}
+    \begin{enumerate}[(a)]
+        \item Sei $f = X^4 - 2$. Dann gilt $f(\sqrt[4]{2}) = 0$. 
+        Außerdem ist $f$ nach Eisenstein irreduzibel über $\Q$ und damit Minimalpolynom von $\sqrt[4]{2}$.
+        Es gilt daher $[K\colon \Q] = \deg f = 4$.
+        \item Sei $f = X^2 + 1$. Dann gilt $f(i) = 0$. In $L$ gilt $f = (X - i)(X + i)$. 
+        Wäre $f$ reduzibel über $K$, so gäbe es in $K$ eine Darstellung $f = a\cdot b$ mit $\deg a = \deg b = 1$. Wegen $K \subset L$ wäre dies auch eine Darstellung in $L$. Aufgrund der Eindeutigkeit der Primfaktorzerlegung müsste dann aber o.B.d.A. $a = X-i$ sein. Wegen $i \notin K$ ist dies ein Widerspruch. Also ist $f$ das Minimalpolynom von $i$ über $K$ und $[L:K] = \deg f = 2$.
+        Nach dem Gradsatz gilt außerdem $[L:\Q] = [L:K] \cdot [K:\Q] = 2 \cdot 4 = 8$.
+        \item Es gilt $\sqrt{2} = (\sqrt[4]{2})^2 \in L$. Sei $f = X^2 - 2$. Dann gilt $f(\sqrt{2}) = 0$. Nach Eisenstein ist $f$ aber bereits irreduzibel über $\Q$, also ist $f$ das Minimalpolynom von $\sqrt{2}$ über $\Q$ und es gilt $[\Q(\sqrt{2}):\Q] = \deg f = 2$.
+        Nun ist $X^2 + 1$ aus völlig analogen Gründen wie in Teilaufgabe b das Minimalpolynom von $i$ über $\Q(\sqrt{2})$ und es gilt $[\Q(\sqrt{2}, i)\colon \Q(\sqrt{2})] = \deg X^2 + 1 = 2$. Insgesamt ergibt sich $[\Q(\sqrt{2})\colon\Q] = [\Q(\sqrt{2}, i)\colon \Q(\sqrt{2})] \cdot [\Q(\sqrt{2}):\Q] = 2 \cdot 2 = 4$.
+        \item Sei $f = X^2 - 2\sqrt{2}X + 3 \in \Q(\sqrt{2})$. Dann gilt $f(\sqrt{2} +i) = 1 + 2\sqrt{2}i - 4 - 2\sqrt{2}i + 3 = 0$. Wäre $f$ reduzibel, so gäbe es eine Zerlegung in zwei Linearfaktoren über $\Q(\sqrt{2})$. Dann müsste mindestens einer der beiden Linearfaktoren $X - (\sqrt{2} + i)$ sein. Dann wäre aber $\sqrt{2} + i \in \Q(\sqrt{2})$. Das ist aber nicht der Fall, also muss $f$ irreduzibel und damit das Minimalpolynom von $\sqrt{2} + i$ sein. Daher ist aber $[\Q(\sqrt{2}, \sqrt{2} + i): \Q(\sqrt{2})] = 2$ und nach dem Gradsatz $\Q(\sqrt{2}, \sqrt{2} + i)\colon \Q] = 4$. Wegen $\sqrt{2} = \frac{1}{6}(5(\sqrt{2} + i) - (\sqrt{2} + i)^3)$ ist aber $\sqrt{2} \in \Q(\sqrt{2} + i)$ bereits enthalten. Also ist $\Q(\sqrt{2} + i, \sqrt{2}) = \Q(\sqrt{2} + i)$.
+        Offensichtlich ist $\sqrt{2} + i \in \Q(\sqrt{2}, i)$ und damit $\Q(\sqrt{2} + i) \subset \Q(\sqrt{2},i)$. Wegen $\dim_\Q \Q(\sqrt{2} + i) = \dim_Q \Q(\sqrt{2} + i, \sqrt{2}) = 4 = \dim_\Q \Q(\sqrt{2}, i)$ folgern wir mit LA1, dass dann $\Q(\sqrt{2} + i) = \Q(\sqrt{2}, i)$ gelten muss.
+    \end{enumerate}
+    \section*{Aufgabe 3}
+    \begin{enumerate}[(a)]
+        \item Angenommen, es gäbe kein solches $\alpha$. Da $L/K$ endlich ist, wäre dann $L = K(\alpha_1, \dots, \alpha_n)$. Insbesondere gäbe es einen Körper $K \subsetneq K(\alpha_1) \subsetneq L$. Da $[L\colon K]$ eine Primzahl ist, kann es nach Korollar 3.14 eine solche Inklusionskette von Körpern nicht geben.
+        \item Wir nehmen an, dass $f$ keine Nullstelle in $K$ besitzt. Dann ist $f$ über $K$ irreduzibel. Ist nun $\alpha \in L$ eine Nullstelle von $f$, so ist $f$ das Minimalpolynom von $\alpha$ in $K$. Somit erhalten wir
+        \[
+            2^k = [L\colon K] = [L\colon K(\alpha)]\cdot [K(\alpha) \colon K] = [L\colon K(\alpha)] \cdot 3,  
+        \]
+        das kann aber für $k\in \N$ nicht sein. Also muss $f$ eine Nullstelle in $K$ besitzen.
+        \item Sei $f \in K[X]$ das Minimalpolynom von $\alpha$. Dann gilt $\deg f = 2n + 1$. Jedes Polynom lässt sich in der Form $f(X) = X \cdot g(X^2) + h(X^2)$ schreiben. Wegen $\deg f = 2n+1$, muss $g \neq 0$ sein, sonst wäre $f(X) = h(X^2)$ und der Grad von $f$ wäre gerade. Insbesondere erhalten wir also 
+        \[
+            0 = f(\alpha) = \alpha \cdot g(\alpha^2) + h(\alpha^2)  \implies \alpha = -\frac{h(\alpha^2)}{g(\alpha^2)}.
+        \]
+        Daher gilt $\alpha \in K(\alpha^2)$ und damit $K(\alpha) \subset K(\alpha^2)$. Die Inklusion $K(\alpha^2) \subset K(\alpha)$ ist trivial. Daher gilt $K(\alpha) = K(\alpha^2)$.
+    \end{enumerate}
+    \section*{Aufgabe 4}
+    \begin{enumerate}[(a)]
+        \item Sei $N \coloneqq |\overline{K}|$.
+        Da $\overline{K}$ ein algebraischer Abschluss ist, besitzt jedes $f\in \overline{K}[X]$ eine Nullstelle in $\overline{K}$.
+        Wir betrachten die normierten Polynome vom Grad 2. 
+        Die Anzahl dieser Polynome ist gerade $N^2$, da es sowohl für den ersten als auch für den zweiten $N$ mögliche Wahlen gibt.
+        Da $f$ in Linearfaktoren zerfällt, besitzt jedes $f$ auch eine Darstellung der Form $f(x) = (x - a)(x - b)$. Da die Reihenfolge der beiden Faktoren egal ist, gibt es nur $N^2/2$ Möglichkeiten für eine Darstellung in Produktform. Zu jedem $f = x^2 + ax + b$ gibt es aber eine eindeutige Darstellung in Produktform. Das ist ein Widerspruch. Also muss $|\overline{K}|$ unendlich sein.
+        \item Wir gehen an der Konstruktion im Skript entlang. Ist $K$ abzählbar, so ist auch $K[X]$ abzählbar. Damit ist auch $I = \{f \in K[x],\; \deg f \geq 1\}$ und $\N_0^{(I)}$ abzählbar. Dann muss aber $K[\mathfrak{X}]$ und somit auch $L_1$ abzählbar sein. Führt man diese Konstruktion fort, so ist $L_i$ abzählbar $\forall i \in \N$.
+        Dann ist aber auch die abzählbare Vereinigung $\bigcup_{i = 1}^\infty L_i$ abzählbar.
+        \item Da $\overline{Q}$ abzählbar ist, ist auch $\overline{Q}[X]$ und daher $\overline{Q}[\pi] \cong \overline{Q}(\pi)$ abzählbar. Dann ist auch $\overline{\overline{Q}(\pi)}$ abzählbar. Gäbe es keine transzendenten Zahlen über $\overline{Q}(\pi)$, so wäre $\C \subset \overline{Q}(\pi)$ und daher insbesondere abzählbar. $\C$ ist aber nicht abzählbar. Also muss es komplexe Zahlen geben, die transzendent über $\overline{Q}(\pi)$ sind.
+        \item \textbf{fehlt}
+    \end{enumerate}
+    \section*{Aufgabe 5}
+    \begin{enumerate}[(a)]
+        \item $(K^\times)^2$ ist eine Untergruppe von $K^\times$. Es gilt nämlich $1 = 1^2 \in (K^\times)^2$, $a^2, b^2\in (K^\times)^2 \implies a^2b^2 = (ab)^2 \in (K^\times)^2$ und $a^2 \in (K^\times)^2 \implies (a^{-1})^2 \in (K^\times)^2$ mit $a^2 \cdot (a^{-1})^2 = 1$. Es gilt $\overline{1} = \{a^2\colon\; a \in K^\times\}$. 
+        Es gilt $\ker \varphi = \{a \in K^\times\colon\; a^2 = 1\}$. Wegen $(p-1)^2 = p^2 - 2p + 1 = 1 \mod p$ ist $(p-1)\in \ker \varphi$. Da $K$ ein Körper ist, hat das Polynom $x^2 - a$ höchstens zwei Nullstellen. Daher ist $\ker \varphi = \{1,p-1\}$. Also liefert uns der Homomorphiesatz $K^\times / \ker \varphi \cong \operatorname{im} \varphi = (K^\times)^2$. Eine Äquivalenzklasse in $K^\times / \ker \varphi$ hat dabei stets die Form $\{a,-a\}$ für ein $a\in K^\times$ und damit genau 2 Elemente. Da $K^x$ in die disjunkte Vereinigung der Äquivalenzklassen zerfällt gilt $|K^\times| = |K^\times / \{-1,1\}| \cdot |\{1,-1\}| = |(K^\times)^2| \cdot 2$, also hat $(K^\times)^2$ den Index 2.
+        \item Angenommen, keine der drei Zahlen ist ein Quadrat. Dann liegen alle drei in $K^\times \setminus (K^\times)^2$. Da es sich hierbei um eine Äquivalenzklasse in $K^\times /(K^\times)^2$ handelt, muss $-2 = 2 \cdot -1 = 2 \cdot (-1)^{-1} \in (K^\times)^2$ gelten. Damit haben wir bereits einen Widerspruch konstruiert.
+        \item Ist $-1 = a^2$ für ein $a \in K^\times$, so schreiben wir $X^4 + 1 = X^4 - (-1) = (X^2 - a)(X^2 + a)$.
+        Ist $2 = a^2$ für ein $a \in K^\times$, so schreiben wir $X^4 + 1 = (X^2 + 1)^2 - 2X^2 = (X^2 + 1 + aX)(X^2 + 1 - aX)$.
+        Ist $-2 = a^2$ für ein $a \in K^\times$, so schreiben wir $X^4 + 1 = (X^2 - 1)^2 - (-2)X^2 = (X^2 - 1 + aX)(X^2 - 1 - aX)$.
+        \item Angenommen, $X^4 + 1$ ist reduzibel. Dann existiert eine Zerlegung in Polynome vom Grad $\geq 1$ mit Koeffizienten in $\Q$.
+        Per Inklusion können wir diese Faktoren als Polynome in $\C$ auffassen. Wegen $(\frac{\sqrt{2}}{2} +i \cdot \frac{\sqrt{2}}{2})^4 + 1 = 0$ , muss aufgrund der Eindeutigkeit der Primfaktorzerlegung einer der Faktoren aus $\Q[X]$ assoziert sein zu $(X - (\frac{\sqrt{2}}{2} +i \cdot \frac{\sqrt{2}}{2}))$. Da aber $i \notin \Q$, erhalten wir sofort einen Widerspruch. Also muss $X^4 + 1$ irreduzibel sein.
+    \end{enumerate}
+\end{document}
