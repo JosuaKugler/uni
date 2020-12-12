@@ -1,0 +1,94 @@
+\documentclass{article}
+
+\usepackage{josuamathheader}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+\newcommand{\diam}{\operatorname{diam}}
+\newcommand{\norm}[1]{\lVert #1 \rVert}
+\begin{document}
+\def\headheight{25pt}
+\analayout{5}
+    \section*{Aufgabe 5.1}
+    Da $\sup_k \norm{g_k}_{L^\infty(X, \mu)}$ beschränkt ist, muss auch $\norm{g}_{L^\infty(X, \mu)}$ beschränkt sein. Insbesondere ist also $C \coloneqq \operatorname{ess}\sup_{x\in E_\epsilon} |g_k -g| < \infty$ und es existiert eine integrable Funktion $h_k \geq |f||g_k - g|$.
+    Es gilt
+    \begin{align*}
+        \lim\limits_{k \to \infty} \int_X |f_kg_k - fg| \d{\mu} &= \lim\limits_{k \to \infty} \int_X |f_kg_k - fg_k + fg_k - fg| \d{\mu}\\
+        &\leq \lim\limits_{k \to \infty} \int_X |f_k - f||g_k|\d{\mu} + \lim\limits_{k \to \infty} \int_X |f||g_k - g| \d{\mu}\\
+        \intertext{Wir nutzen die Hölderungleichung}
+        &\leq \lim\limits_{k \to \infty} \norm{f_k-f}_{L^1(X, \mu)} \cdot \norm{g_k}_{L^\infty(X, \mu)} + \int_X |f| \lim\limits_{k \to \infty} |g_k - g|\d{\mu}
+        \intertext{Da $f_k \to f$ in $L^1(X, \mu)$ erhalten wir $\lim\limits_{k \to \infty}  \norm{f_k-f}_{L^1(X, \mu)}  = 0$}
+        &= 0 + \int_X |f| \lim\limits_{k \to \infty} |g_k - g|\d{\mu}\\
+        \intertext{Sei $E_\epsilon \coloneqq \{x \in X\colon |f(x)| < \frac{1}{\epsilon}\}$. Dann gilt nach der Ungleichung von Chebychev $\mu(x \setminus E_\epsilon) \leq \epsilon \int_X f \d{\mu} = \epsilon \cdot C$ für ein $C \in \R$.}
+        &= \lim\limits_{k \to \infty} \int_{E_\epsilon} |f||g_k - g| \d{\mu} + \int_{X \setminus E_\epsilon} |f||g_k - g| \d{\mu}\\
+        \intertext{Der zweite Term geht gegen 0 für $k\to \infty$ nach Lemma 3.34, da $\mu(X\setminus E_\epsilon) < \infty$ ist.}
+        &= \lim\limits_{k \to \infty} \int_{E_\epsilon} |f||g_k - g| \d{\mu}
+        \intertext{Wir benutzen den Satz von der dominierten Konvergenz}
+        &= \int_{E_\epsilon} |f| \lim\limits_{k \to \infty} |g_k - g| \d{\mu}\\
+        &= \int_{E_\epsilon \cap \operatorname{spt}(\lim\limits_{k \to \infty} |g_k - g|)} |f| \lim\limits_{k \to \infty} |g_k - g|\d{\mu}\\
+        \intertext{Wir benutzen die Hölderungleichung}
+        &\leq \int_{E_\epsilon \cap \operatorname{spt}(\lim\limits_{k \to \infty} |g_k - g|)} |f| \cdot \norm{\lim\limits_{k \to \infty} |g_k - g|}_{L_\infty(\operatorname{spt}(\lim\limits_{k \to \infty} |g_k - g|), \mu)}\\
+        &\leq \mu(E_\epsilon \cap \operatorname{spt}(\lim\limits_{k \to \infty} |g_k - g|)) \cdot \sup_{x \in E_\epsilon \cap \operatorname{spt}(\lim\limits_{k \to \infty} |g_k - g|)} |f| \cdot \norm{\lim\limits_{k \to \infty} |g_k - g|}_{L_\infty(\operatorname{spt}(\lim\limits_{k \to \infty} |g_k - g|), \mu)}\\
+        &\leq \mu(\operatorname{spt}(\lim\limits_{k \to \infty} |g_k - g|)) \cdot \epsilon \cdot \norm{\lim\limits_{k \to \infty} |g_k - g|}_{L_\infty(\operatorname{spt}(\lim\limits_{k \to \infty} |g_k - g|), \mu)}\\
+        \intertext{Da $g_k \to g$ punktweise fast überall, ist $\mu(\operatorname{spt}(\lim\limits_{k \to \infty} |g_k - g|)) = 0$}
+        &= 0
+    \end{align*}
+    \section*{Aufgabe 5.2}
+    \begin{enumerate}[(a)]
+        \item Es gilt für $f \in L^1(X, \mu) \cap L^\infty(X, \mu)$ $f_{L^p(X, \mu)}$
+        \begin{align*}
+            \norm{f}_{L^p(X, \mu)} &= \left(\int_X |f|^p \d{\mu}\right)^{\frac{1}{p}}\\
+            &= \left(\int_X |f||f|^{p-1} \d{\mu}\right)^{\frac{1}{p}}\\
+            &\leq \left(\norm{f}_{L^1(X, \mu)} \norm{f^{p-1}}_{L^\infty(X, \mu)}\right)^{\frac{1}{p}}\\
+            &= \norm{f}^{\frac{1}{p}}_{L^1(X, \mu)} \cdot \norm{f}^{\frac{p-1}{p}}_{L^1(X, \mu)}
+        \end{align*}
+        Insbesondere ist also $\norm{f}_{L^p(X, \mu)} < \infty$ und damit $f \in L^p(X, \mu)$. Da $f$ beliebig gewählt war, folgt damit die Aussage.
+        \item Sei $f \in L^q(X, \mu)$. Dann gilt
+        \begin{align*}
+            \int_X |f|^p \d{\mu} &= \int_X |1||f|^p \d{\mu} \\
+            \intertext{Wegen $1\leq \frac{q}{p}$ erhalten wir mit der Hölderungleichung}
+            &\leq \norm{1}_{L^{\frac{q}{q-p}}(X, \mu)} \cdot \norm{f^p}_{L^{\frac{q}{p}}(X, \mu)}\\
+            &= \left(\int_X |1|^{\frac{q}{q-p}} \d{\mu}\right)^\frac{q-p}{q} \cdot \left(\int_X |f^p|^\frac{q}{p}\right)^\frac{p}{q}\\
+            &= \mu(X)^{1- \frac{p}{q}} \cdot \left(\int_X |f|^q\right)^\frac{p}{q}\\
+            \left(\int_X |f|^p \d{\mu}\right)^\frac{1}{p} &= \mu(X)^{\frac{1}{p}- \frac{1}{q}} \cdot \left(\int_X |f|^q\right)^\frac{1}{q}\\
+            \norm{f}_{L^p(X, \mu)} &\leq C(\mu(X), p,q) \cdot \norm{f}_{L^q(X, \mu)}
+        \end{align*}
+        Insbesondere ist also $\norm{f}_{L^p(X, \mu)} < \infty$ und damit $f \in L^p(X, \mu)$. Da $f$ beliebig gewählt war, folgt damit die Aussage.
+    \end{enumerate}
+    \section*{Aufgabe 3}
+    \begin{enumerate}[(a)]
+        \item Es gilt 
+        \[
+            0 = \lim\limits_{k \to \infty} \int_X |f_k-f| \d{\mu} \geq \lim\limits_{k \to \infty} \int_X f_k - f \d{\mu} = \lim\limits_{k \to \infty} \int_X f_k \d{\mu} - \int_X f \d{mu},
+        \]
+        also erhalten wir die Ungleichung $\int_X f\d{\mu} \geq \lim\limits_{k \to \infty} \int_X f_k \d{\mu}$
+        und 
+        \[
+            0 = \lim\limits_{k \to \infty} \int_X |f_k-f| \d{\mu} \geq \lim\limits_{k \to \infty} \int_X f - f_k \d{\mu} = \int_X f \d{mu}  - \lim\limits_{k \to \infty} \int_X f_k \d{\mu}, 
+        \]
+        also erhalten wir die Ungleichung $\lim\limits_{k \to \infty} \int_X f_k \d{\mu} \geq \int_X f \d{\mu}$.
+        Beide Ungleichungen zusammen ergeben $\lim\limits_{k \to \infty} \int_X f_k \d{\mu} = \int_X f \d{\mu}$.
+        Nun verwenden wir die Dreiecksungleichung in der Form $|x-y| \geq ||x| - |y||$
+        Es gilt daher
+        \[
+            \lim\limits_{k \to \infty} \int_X |f_k-f| \d{\mu} \geq \lim\limits_{k \to \infty} \int_X ||f_k|-|f|| \d{\mu}.
+        \]
+        Nun können wir die eben bewiesene Aussage anwenden und erhalten $\lim\limits_{k \to \infty} \int_X |f_k| \d{\mu} = \int_X |f| \d{\mu}$.
+        \item $f_k$ sind messbare Funktionen mit $f_k \to f$ $\mu$-f.ü. und $\forall k\colon |f_k| \leq g$ $\mu$-f.ü., wobei $g$ integrabel, also Insbesondere $g \in L^1(X, \mu)$ ist. Mit Bemerkung 3.27(i) (oder 3.26(i) je nach Version des Skriptes) folgt $f_k \to f$ in $L^1(X, \mu)$
+        \item Sei $E_\epsilon = \{x \in X\colon |f(x) - f_k(x)| \leq \epsilon\}$. Dann gilt 
+        \begin{align*}
+            \int_X |f_k - f| \d{\mu} &= \int_{X\setminus E_\epsilon} |f_k - f| \d{\mu} + \int_{E_\epsilon} |f_k - f| \d{\mu}\\
+            &\leq \mu(X \setminus E_\epsilon) \cdot \sup_{x\in X \setminus E_\epsilon} |f_k - f| + \mu(E_\epsilon) \cdot \sup_{x\in E_\epsilon} |f_k -f|\\
+            \intertext{Da $\sup_k \norm{f_k}_{L^\infty(X, \mu)}$ beschränkt ist, muss auch $\norm{f}_{L^\infty(X, \mu)}$ beschränkt sein. Insbesondere ist also $C \coloneqq \sup_{x\in E_\epsilon} |f_k -f| < \infty$.}
+            &= \mu(\{x \in X\colon |f_k(x) - f(x)| > \epsilon\}) \cdot C + \mu(X) \cdot \epsilon
+        \end{align*}
+        Es gilt $\mu(X) < \infty$, da $\mu$ ein endliches Maß ist. Nun betrachten wir den Grenzwert und erhalten per Definition der Maßkonvergenz
+        \[
+            \lim\limits_{k \to \infty} \mu(\{x \in X\colon |f_k(x) - f(x)| > \epsilon\}) \cdot C + \mu(X) \cdot \epsilon = 0 + \mu(X) \cdot \epsilon.
+        \]
+        Im Limes $\epsilon \to 0$ folgt die Behauptung
+        \[
+            \lim\limits_{k \to \infty} \int_X |f_k - f| \d{\mu} = 0
+        \]
+    \end{enumerate}
+\end{document}
