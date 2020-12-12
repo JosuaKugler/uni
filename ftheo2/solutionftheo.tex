@@ -3,61 +3,50 @@
 \usepackage{josuamathheader}
 
 \begin{document}
-  \section*{Aufgabe 17}
-  $q \in \Q \implies \exists a,c \in \Z$, sodass $a$ und $c$ teilerfremd sind und $q = \frac{a}{c}$.
-  Laut Hinweis auf dem Aufgabenblatt $\exists b,d \in \Z$ mit $ad - bc = 1$. Daher ist 
-  \[
-    \det M \coloneqq \det 
-    \begin{pmatrix}
-    a & b\\ c & d
-    \end{pmatrix} 
-    = 1 \implies M \in \operatorname{SL}(2, \Z).
-  \]
-  Wir betrachten nun $M\langle \tau_n \rangle = \frac{a \tau_n + b}{c \tau_n + d}$.
-  Zunächst gilt $\frac{b}{c \tau_n + d} \to 0$ für $n \to\infty$, da
-  \begin{equation*}
-    \left|\Re \frac{b}{c \tau_n + d}\right|=\left| \frac{\Re b\overline{c \tau_n + d}}{|c \tau_n + d|^2}\right| = b \frac{|\Re c \overline{\tau} + d}{|c \tau_n+ d|^2} \leq b \frac{|c \overline{\tau_n+ d|}}{|c \tau_n+ d|^2}
-  \end{equation*}
-  sowie analog
-  \begin{equation*}
-    \left|\Im \frac{b}{c \tau_n + d}\right|=\left| \frac{\Im b\overline{c \tau_n + d}}{|c \tau_n + d|^2}\right| = b \frac{|\Im c \overline{\tau} + d}{|c \tau_n+ d|^2} \leq b \frac{|c \overline{\tau_n+ d|}}{|c \tau_n+ d|^2}
-  \end{equation*}
-  und schließlich
-  \begin{equation*}
-    b \frac{|c \overline{\tau_n+ d|}}{|c \tau_n+ d|^2} = b \frac{1}{|c \tau_n +d|} \xrightarrow{n \to \infty} 0.
-  \end{equation*}
-  Außerdem gilt $\frac{\tau_n}{\tau_n + \frac{d}{c}} \to 1$ für $n\to \infty$, da
-  \begin{equation*}
-    \left| \frac{\tau_n}{\tau_n + \frac{d}{c}} - 1\right| = \left| \frac{\tau_n^2 - \tau_n (\tau_n + \frac{d}{c})}{(\tau_n + \frac{d}{c})\tau_n}\right| = \left| \frac{\frac{d}{c}}{(\tau_n + \frac{d}{c})}\right| \xrightarrow{n\to \infty},
-  \end{equation*}
-  wobei wir im letzten Schritt analog wie oben schließen.
-  Insgesamt erhalten wir daher
-  \begin{align*}
-    \lim\limits_{n \to \infty} \frac{a \tau_n + b}{c \tau_n + d} &= \lim\limits_{n \to \infty} \frac{a \tau_n}{c \tau_n + d} + \frac{b}{c \tau_n + d}\\
-    &= \lim\limits_{n \to \infty} \frac{a \tau_n}{c \tau_n + d}\\
-    &= \frac{a}{c} \lim\limits_{n \to \infty} \frac{\tau_n}{\tau_n + \frac{d}{c}}\\
-    &= \frac{a}{c}\\
-    &= q.
-  \end{align*}
-  \section*{Aufgabe 18}
-  Laut Skript gilt
-  \begin{equation*}
-    \lim\limits_{\Im \tau \to \infty} e_1(\tau) = -8 \sum_{k = 1}^{\infty} (-1)^kk^{-2}.
-  \end{equation*}
-  und
-  \begin{equation*}
-    \lim\limits_{\Im \tau \to \infty} e_2(\tau) = -\sum_{n \in \Z\setminus\{0\}} n^{-2}
-  \end{equation*}.
-  Beide Reihen konvergieren absolut (siehe Ana1). Daher dürfen wir die Terme umordnen oder umgruppieren. Es gilt daher
-  \begin{align*}
-    \lim\limits_{\Im \tau \to \infty} e_1(\tau) &= -8 \sum_{k = 1}^{\infty} (-1)^kk^{-2}\\
-    &= -8 \sum_{k = 1}^{\infty} \left[(-1)^{2k-1}(2k-1)^{-2} + (-1)^{2k}(2k)^{-2}\right]\\
-    &= -8 \sum_{k = 1}^{\infty} \underbrace{\left[- \frac{1}{(2k-1)^2} + \frac{1}{(2k)^2}\right]}_{< 0}\\
-    &> 0
-  \end{align*}
-  Es gilt aber offensichtlich
-  \begin{equation*}
-    \lim\limits_{\Im \tau \to \infty} e_2(\tau) = -\sum_{n \in \Z\setminus\{0\}} \underbrace{n^{-2}}_{> 0} < 0 .
-  \end{equation*}
-  Also können die beiden Grenzwerte nicht gleich sein.
+  \section*{Aufgabe 22}
+  \begin{enumerate}[(a)]
+    \item Nach VL ist $G_4^a G_6^b$ mit $4a + 6b = 2k$ eine Modulform vom Gewicht $2k$. Es gilt daher
+    \[
+        0 \equiv \sum_{a,b \in \N_0} c_{a,b} G_4^a G_6^b = \sum_{k = 1}^{\infty} \underbrace{\sum_{4a + 6b = 2k} c_{a,b} G_4^a G_6^b}_{\text{Modulform vom Gewicht }2k}
+    \]
+    Da Modulformen vom Gewicht $2k$ gerade die Forderungen von Aufgabe 21 erfüllen und Polynome höchstens endlich viele Koeffizienten $\neq 0$ besitzen, lässt sich aus
+    \[
+        0 \equiv \sum_{k = 1}^{\infty} \sum_{4a + 6b = 2k} c_{a,b} G_4^a G_6^b
+    \]
+    bereits $\forall k \geq 0$
+    \[
+        0 \equiv \sum_{4a + 6b = 2k} c_{a,b} G_4^a G_6^b
+    \]
+    schließen. Für negatives $k$ gilt sowieso $M_k = 0$ und damit auch $\sum_{4a + 6b = 2k} c_{a,b}G_4^aG_6^b \equiv 0 \quad \forall k \in \Z$.
+    \item Es gilt $G_4(\rho) = 0$ und $G_6(i) = 0$. Nach VL sind beides einfache Nullstellen und auch die einzigen Nullstellen von $G_4$ bzw. $G_6$ bis auf $\Gamma$-Äquivalenz.
+    Wir nehmen also an, es gibt eine Linearkombination $\sum_{4a + 6b = 2k} c_{a,b} G_4^a G_6^b$, wobei $a$ als kleinsten Wert $a_1 \geq 0$ annehme. 
+    Betrachtet man nun die Laurententwicklung um den Punkt $\rho$, so erhält man
+    \[
+      c_{a_1,2k - a_1} G_4^{a_1}(z) G_6^{2k-a_1}(z) = c_{a_1,2k - a_1} \alpha z^{a_1} + \mathcal{O}(z^{a_1 + 1})
+    \]
+    für ein $\alpha \neq 0$. Alle anderen Koeffizienten enthalten nun $G_4$ mindestens zur Potenz $a_1 + 1$. Daher gilt
+    \[
+      \sum_{4a + 6b = 2k} c_{a,b} G_4^a(z) G_6^b(z) = c_{a_1,2k - a_1} \alpha z^{a_1} + \mathcal{O}(z^{a_1 + 1}) \neq 0.
+    \]
+    Das ist aber ein Widerspruch, also darf es keine solche Linearkombination geben und die Koeffizienten $c_{a,b}$ müssen alle $0$ sein.
+  \end{enumerate}
+  \section*{Aufgabe 23}
+  \begin{enumerate}[(a)]
+    \item In einem euklidischen Ring $R$ liefert der euklidische Algorithmus für zwei $a, b \in R$ ein bis auf Assoziiertheit eindeutig bestimmtes Element $g$ des Rings zurück mit $(a) + (b) = (g)$,
+    wobei $(x)$ das von $x\in R$ erzeugte Ideal bezeichne (siehe LA2).
+    Für $R = \Z$ ist dieses Element also eindeutig bestimmt bis auf Vorzeichen und es gilt $a\Z + b\Z = g\Z$.
+    \item Seien $a, b, c \in \Z$. Dann gilt $\operatorname{ggT}(a, b, c)\Z = a \Z + b\Z + c\Z = \operatorname{ggT}(a, b) \Z + c\Z = \operatorname{ggT}(\operatorname{ggT}(a,b), c) \Z$. 
+    Daraus folgt bereits die Behauptung
+    \item Es gilt 
+    \begin{align*}
+      \operatorname{ggT}(a, b) = 1 
+      &\implies \exists d, -c \in \Z\colon ad - bc = 1 \\
+      &\implies \begin{pmatrix}
+        a & b \\ c & d
+      \end{pmatrix} \in \operatorname{SL}(2 \Z) \\
+      &\implies ad - bc = 1 \\
+      &\implies a\Z + b \Z = \Z\\
+      &\implies \operatorname{ggT}(a, b) = 1
+    \end{align*}
+  \end{enumerate}
 \end{document}
