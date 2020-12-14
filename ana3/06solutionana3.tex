@@ -1,0 +1,127 @@
+\documentclass{article}
+
+\usepackage{josuamathheader}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+\newcommand{\diam}{\operatorname{diam}}
+\newcommand{\norm}[1]{\lVert #1 \rVert}
+\begin{document}
+\def\headheight{25pt}
+\analayout{6}
+    \section*{Aufgabe 6.1}
+    \begin{enumerate}[(a)]
+        \item Laut Hinweis existiert eine Folge $(f_k)_{k\in \N}$ mit $f_k \in C^0(\Omega) \cap L^1(\Omega)$ mit $f_k \to f$ in $L^1(\Omega)$.
+        Nach Proposition 3.36 existiert daher eine Teilfolge $f_{k_j}$ mit $f_{k_j} \to f$ f. ü. (nach Umnummerierung $f_k$). 
+        Da $\mathscr L^1(\Omega) < \infty$ lässt sich also der Satz von Egorov anwenden und es gibt zu jedem $\epsilon > 0$ eine Menge $E_{\epsilon /3} \in \mathscr B(\R)$ mit $\mathscr L^1 (E_{\epsilon/3}) < \epsilon/3$ und $f_k \rightrightarrows f$ in $\Omega \setminus E_{\epsilon / 3}$. 
+        Es existiert ein $C\in \R$, sodass $\mu(\Omega \cap (-C,C)^c) \leq \epsilon /3$. Wäre dies nicht der Fall, so könnte man eine Folge $C_k$ finden, sodass $\mu(\Omega \cap (-C_k, C_k)^c \cap (-C_{k+1}, C_{k+1})) = \epsilon/3$. Aufgrund der Additivität des Lebesgue-Maßes ist das ein Widerspruch zu $\mu(\Omega) < \infty$. 
+        Wir definieren $K' = \Omega \cap (-C, C) \setminus E_{\epsilon/3}$.
+        Aufgrund der Additivität und Regularität des Lebesgue-Maßes ist $\mathscr L^1(\Omega) - {2\epsilon / 3} \leq \mathscr L^1(\Omega \cap (-C, C) \setminus E_{\epsilon/3}) = \sup \{\mathscr L^1(K)\colon K\subset \Omega \cap (-C, C) \setminus E_{\epsilon/3}, \text{abgeschlossen}\}$. Daher existiert ein abgeschlossenes $K \subset \Omega \cap (-C, C) \setminus E_{\epsilon/3}$ mit $\mu(K) > \mathscr L^1(\Omega) - \epsilon$. $K$ ist wegen $K \subset (-C, C)$ auch beschränkt und daher kompakt. Außerdem gilt $f_k \rightrightarrows f$ auf $K$ als Teilmenge von $\Omega \setminus E_{\epsilon/3}$. $f$ ist als Grenzwert einer gleichmäßig konvergenten Folge von stetigen Funktionen wieder stetig auf der kompakten Menge $K$.
+        \item Sei $(q_i)_{i\in \N}$ eine Abzählung der rationalen Zahlen zwischen 0 und 1, d.h. $0 < q_i < 1 \forall i \in \N$.
+        Wir definieren dann die offene Menge $O = \cup_{i=1}^n (q_i, q_i + \epsilon^{-i})$. Damit ist $O^C$ und folglich $K \coloneqq \Omega \setminus O = \Omega \cap O^c = (0,1) \cap O^c = [0,1] \cap O^c$ abgeschlossen. Als Teilmenge von $(0,1)$ ist $K$ auch kompakt. Wegen $\Q \cap K = \emptyset$ gilt $f|_K \equiv 0$ und damit ist $f|_K$ stetig.
+    \end{enumerate}
+    \section*{Aufgabe 2}
+    \begin{enumerate}[(a)]
+        \item Die Folge konvergiert nicht gleichmäßig, da $\forall c \in \R\colon \exists k \in \N \colon f_k(2^{-k}) = \sqrt{2}^k > c$.
+        Die Folge konvergiert im Maß gegen $f \equiv 0$, da 
+        \[ 
+            \mu(\{x \in \R\colon |f_k(x) - f(x)|> \epsilon\}) = \mu(x \in [2^{-k+1}, 2^k]\colon \frac{1}{\sqrt{x}} > \epsilon) < \mu([2^{-k+1}, 2^k]) = 2^{-k+1} \to 0.
+        \]
+        Die Folge konvergiert punktweise gegen $f\equiv 0$. Sei dazu $x\in \R$. Dann wähle $N = \lceil - \log_2(x) \rceil$. Dann gilt $\forall k > N\colon 2^{-k} < 2^{-N} \leq 2^{\log_2(x)} = x$. Insbesondere ist also $\forall k > N\colon \chi_{I_k}(x) = 0$ und damit $\forall k > N\colon f_k(x) = 0$.
+        \item Konvergiert die Folge in $L^p$, so muss der Grenzwert stets $0$ sein. Wäre nämlich $f_k \to f \neq 0$ in $L^p$, so würde daraus $f_k \to f \neq 0$ im Maß folgen. Das steht aber im Widerspruch zu $f_k \to 0$ im Maß.
+        Es gilt für $p \neq 2$:
+        \begin{align*}
+            \lim\limits_{k \to \infty} \norm{f}_{L^p(\R, \mathscr L^1)} &= \lim\limits_{k \to \infty} \left(\int_\R (\frac{1}{\sqrt{x}}\chi_{I_k}(x))^p \d{\mathscr L^1}\right)^\frac{1}{p}\\
+            &= \lim\limits_{k \to \infty} \left(\int_{I_k} x^{-\frac{p}{2}} \d{\mathscr L^1}\right)^\frac{1}{p}\\
+            &= \lim\limits_{k \to \infty} \left(\int_{2^{-(k+1)}}^{2^{-k}} x^{-\frac{p}{2}} \d{\mathscr L^1}\right)^\frac{1}{p}\\
+            &= \lim\limits_{k \to \infty} \left(\left[ - \frac{2}{p-2} x^{-\frac{p-2}{2}}\right]_{2^{-(k+1)}}^{2^{-k}}\right)^\frac{1}{p}\\
+            &= \lim\limits_{k \to \infty} \left(- \frac{2}{p-2} 2^{k\frac{p-2}{2}} + \frac{2}{p-2} 2^{(k+1)\frac{p-2}{2}}\right)^\frac{1}{p}\\
+            &= \lim\limits_{k \to \infty} \left(\frac{2}{p-2}\right)^\frac{1}{p} \cdot \left(- 2^{k\frac{p-2}{2}} + 2 \cdot 2^{k\frac{p-2}{2}}\right)^\frac{1}{p}\\
+            &= \lim\limits_{k \to \infty} \left(\frac{2}{p-2}\right)^\frac{1}{p} \cdot  \left(2^{k\frac{p-2}{2}}\right)^\frac{1}{p}\\
+            &= \left(\frac{2}{p-2}\right)^\frac{1}{p} \lim\limits_{k \to \infty}  \left(2^{\frac{p-2}{2p}}\right)^k\\
+        \end{align*}
+        Dieser Term divergiert für alle $p > 2$. Für alle $p < 2$ konvergiert er gegen 0, sodass $f_k \to 0$ in $L^p$. Für $p = 2$ gilt
+        \begin{align*}
+            \lim\limits_{k \to \infty} \norm{f}_{L^2(\R, \mathscr L^1)} &= \lim\limits_{k \to \infty} \left(\int_{2^{-k+1}}^{2^{-k}} \frac{1}{x} \d{\mathscr L^1}\right)^\frac{1}{2}\\
+            &= \lim\limits_{k \to \infty} \sqrt{\ln(2^{-k}) - \ln(2^{-(k + 1)})}\\
+            &= \lim\limits_{k \to \infty} \sqrt{-k \ln(2) + (k+1) \ln(2)}\\
+            &= \sqrt{\ln(2)}\\
+        \end{align*}
+        Daher konvergiert die Folge $f_k \to 0$ in $L^p$ für alle $1 \leq p < 2$.
+    \end{enumerate}
+    \section*{Aufgabe 3}
+    \begin{enumerate}[(a)]
+        \item Es gilt $\mathscr B(\R)^n = \sigma(\{A_1 \times \dots \times A_n\colon A_i \in \mathscr B(\R)\})$.
+        Behauptung: $\sigma(\{A_1 \times \dots \times A_n\colon A_i \in \mathscr B(\R)\}) = \sigma(\{A_1 \times \dots \times A_n\colon A_i \text{ offen}\})$
+        \begin{proof}
+            Die Inklusion $\supset$ ist trivial. Es genügt daher für beliebige $A_i \in \mathscr B(\R)$ zu zeigen: $\tilde A_1 \times \dots \times \tilde A_n \in \sigma(\{A_1 \times \dots \times A_n\colon A_i \text{ offen}\})$. Dies ist induktiv leicht einzusehen. Der Induktionsanfang ist trivial. Lässt man nun $A_1 \eqqcolon B_1$ bis $A_{n-1} \eqqcolon B_{n-1}$ fest, so erhält man 
+            \[
+                \sigma(\{B_1 \times \dots \times B_{n-1} \times A_n\colon A_n \text{ offen}\}) = \{B_1 \times \dots \times B_{n-1} \times A\colon A \in \underbrace{\sigma(\{A_n\colon A_n \text{ offen}\})}_{= \mathscr B(\R)}\}.
+            \]
+        \end{proof}
+        Das kartesische Produkt endlich vieler offener Mengen ist stets wieder offen. (Sei $(x_1, \dots, x_n) \in A_1\times \dots A_n$. Dann existieren $\epsilon_1, \dots, \epsilon_n$ mit $U_{\epsilon_i}(x_i) \subset A_i \forall i$. In euklidischer Norm gilt $|(x_1, \dots, x_n) - (y_1, \dots, y_n)| \geq \max_i |x_i - y_i|$. Dann ist $U_{\min_i \epsilon_i}((x_1, \dots, x_n)) \subset U_{\epsilon_1}(x_1) \times \dots \times U_{\epsilon_n}(x_n) \subset A_1 \times \dots \times A_n$. Aufgrund der Äquivalenz von Normen im $\R^n$ folgt daraus bereits die gewünschte Aussage.)
+        Insbesondere ist also $\{A_1 \times \dots \times A_n \subset \R^n\colon A_i \text{ offen}\} \subset \{A \in \R^n\colon A \text{ offen}\}$ und damit auch 
+        \[ 
+            \mathscr B(\R)^n = \sigma(\{A_1 \times \dots \times A_n\colon A_i \in \mathscr B(\R)\}) = \sigma(\{A_1 \times \dots \times A_n\colon A_i \text{ offen}\}) \subset \sigma(\{A \text{ offen}\}) = \mathscr B(\R^n)
+        \]
+        Nun zeigen wir die andere Inklusion. Dazu teilen wir den $\R^n$ in kleine Würfel mit Kantenlänge $\epsilon$ ein. Es gilt
+        \[
+            \R^n = \biguplus_{i_1, \dots, i_n \in \Z} W_{i_1, \dots, i_n}^\epsilon
+        \]
+        mit $W_{i_1, \dots, i_n}^\epsilon = [i_1\epsilon, (i_1 +1)\epsilon) \times \dots \times [i_n\epsilon, (i_n+1)\epsilon)$.
+        Dann gilt 
+        \[
+            \bigcup_{\substack{i_1, \dots, i_n \in \Z\\W_{i_1, \dots, i_n}^\epsilon \subset A}} W_{i_1,\dots, i_n}^\epsilon \subset A. 
+        \]
+        Für eine offene Menge $A$ gilt
+        \[
+            \forall x\in A\colon \exists \epsilon_x > 0, i_1, \dots, i_n \in \Z\colon W_{i_1, \dots, i_n}^\epsilon \subset A.  
+        \]
+        Wählt man nun $m > \frac{1}{\epsilon_x} \implies \epsilon_x > \frac{1}{m}$, so gilt demzufolge
+        \[
+            x \in \bigcup_{\substack{i_1, \dots, i_n \in \Z\\W_{i_1, \dots, i_n}^{1/m} \subset A}} W_{i_1,\dots, i_n}^{1/m}.
+        \]
+        Insbesondere ist also 
+        \[
+            A \subset \bigcup_{m \in \N} \bigcup_{\substack{i_1, \dots, i_n \in \Z\\W_{i_1, \dots, i_n}^{1/m} \subset A}} W_{i_1,\dots, i_n}^{1/m} \subset A
+        \]
+        und damit haben wir $A$ als abzählbare Vereinigung von Würfeln $W_{i_1, \dots, i_n}^\epsilon$ dargestellt. Offensichtlich ist jedes der Intervalle $[i_1\epsilon, (i_1 +1)\epsilon),  \dots,  [i_n\epsilon, (i_n+1)\epsilon) \in \mathscr B(\R)$ und damit $W_{i_1, \dots, i_n}^\epsilon \in \{A_1 \times \dots \times A_n \colon A_i \in \mathscr B(\R)\}$ und folglich $A \in \sigma(\{A_1 \times \dots \times A_n \colon A_i \in \mathscr B(\R)\}) = \mathscr B(\R)^n$, wobei $A$ eine beliebige offene Teilmenge von $\R^n$ war. Da die offenen Mengen gerade $\mathscr B(\R^n)$ erzeugen folgt daraus $\mathscr B(\R^n) \subset \mathscr B(\R)^n$.
+        \item Es gilt $\Omega \in \mathscr B(\R^{n-1}) = \mathscr B(\R)^{n-1}$. Also ist $N \times \Omega \in \mathscr B(\R) \times \mathscr B(\R)^{n-1} = \mathscr B(\R)^n = \mathscr B(\R^n)$. Es gilt nach Satz 4.5
+        \[
+            \mathscr L^n(N \times \Omega) = \mathscr L^1(N) \cdot \mathscr L^{n-1}(\Omega) = 0. 
+        \]
+        \item Sei $A \subset \R^{n-1}$ nicht $(\mathscr L_1)^{n-1}$-messbar (Eine solche Menge existiert stets nach Vitali). Dann gilt auch $N \times A \notin (\mathscr L_1)^n$ für ein $N \subset \R$. Wähle also ein $N \in \mathscr B(\R)$ mit $\mathscr L^1(N) = 0$. Es existiert ein $\Omega \in \mathscr B(\R^{n-1})$ mit $A \subset \Omega$. Nach Teilaufgabe b gilt dann
+        \[
+            \mathscr L^n(N \times A) \leq \mathscr L^n(N \times \Omega) = 0.
+        \]
+        Aufgrund der Vollständigkeit von $\mathscr L^n$ ist $N\times A$ damit messbar, $N\times A \notin (\mathscr L_1)^n$ aber $N\times A \in \mathscr L_n$.
+        Die Inklusion $(\mathscr L_1)^n \subset \mathscr L_n$ folgt aus der Definition von $\mathscr L_n$ als Vervollständigung von $(\mathscr L_1)^n$.
+    \end{enumerate}
+    \section*{Zusatzaufgabe}
+    \begin{enumerate}[(a)]
+        \item Sei $f_k = k \cdot \chi_{[0,\frac{1}{k}]}$. Dann gilt $f_k \to 0$ punktweise fast-überall. Allerdings erhalten wir
+        \[
+            \lim\limits_{k \to \infty} \int_\R f_k \d{\mathscr L^1} = \lim\limits_{k \to \infty} \int_{[0,\frac{1}{k}]} k \d{\mathscr L^1} = 1 \neq 0 = \int_\R 0 \d{\mathscr L^1}. 
+        \]
+        Daher ist diese Aussage falsch.
+        \item \textbf{fehlt}
+        \item Sei $A$ nicht Lebesgue-messbar. Wähle $f_1 = 2e^{-x^2}$ und für $k \geq 2$ $f_k = (\chi_A(x) + \frac{1}{k})e^{-x^2}$. Dann konvergiert $f_k \searrow \chi_A(x)e^{-x^2}$ punktweise fast-überall, es gilt außerdem $f_k \geq 0$ und $f_1 \in L^1(\R)$.
+        Allerdings ist $f$ wegen $f^{-1}([0,1]) = A$ nicht einmal messbar, geschweige denn $f \in L^1(\R)$. Daher ist diese Aussage falsch.
+        \item Sei $a_k \coloneqq \sum_{j = 1}^{k} \frac{1}{j} \mod 1$ und sei $f_k \colon \R \to \R$ definiert durch 
+        \[
+            f_k = \begin{cases}
+                \chi_{a_k, a_{k+1}} &| a_{k+1} > a_k\\
+                0 &| \text{sonst}
+            \end{cases}  
+        \]
+        Dann gilt 
+        \[ 
+            \norm{f_k}_{L^1} = \int_\R f_k \d{\mathscr L^1} = \begin{cases}
+                \int_{a_k}^{a_{k+1}} 1 \d{\mathscr L^1} &| a_{k+1} > a_k\\
+                0 &| \text{sonst}
+            \end{cases} \leq \frac{1}{k+1}.
+        \]
+        Also gilt $f_k \to 0$ in $L^1$. Allerdings konvergiert $f_k$ in keinem Punkt aus $[0,1]$, da es $\forall x\in [0,1]\forall N \in \N$ stets ein $k \geq N$ gibt mit $a_k \leq x \leq a_{k+1} \implies f_k(x) = 1$ (weil die harmonische Reihe divergiert).
+        Damit konvergiert $f_k$ nicht punktweise fast-überall und die Aussage ist falsch.
+    \end{enumerate}
+\end{document}
