@@ -3,50 +3,38 @@
 \usepackage{josuamathheader}
 
 \begin{document}
-  \section*{Aufgabe 22}
+  \section*{Aufgabe 24}
   \begin{enumerate}[(a)]
-    \item Nach VL ist $G_4^a G_6^b$ mit $4a + 6b = 2k$ eine Modulform vom Gewicht $2k$. Es gilt daher
-    \[
-        0 \equiv \sum_{a,b \in \N_0} c_{a,b} G_4^a G_6^b = \sum_{k = 1}^{\infty} \underbrace{\sum_{4a + 6b = 2k} c_{a,b} G_4^a G_6^b}_{\text{Modulform vom Gewicht }2k}
-    \]
-    Da Modulformen vom Gewicht $2k$ gerade die Forderungen von Aufgabe 21 erfüllen und Polynome höchstens endlich viele Koeffizienten $\neq 0$ besitzen, lässt sich aus
-    \[
-        0 \equiv \sum_{k = 1}^{\infty} \sum_{4a + 6b = 2k} c_{a,b} G_4^a G_6^b
-    \]
-    bereits $\forall k \geq 0$
-    \[
-        0 \equiv \sum_{4a + 6b = 2k} c_{a,b} G_4^a G_6^b
-    \]
-    schließen. Für negatives $k$ gilt sowieso $M_k = 0$ und damit auch $\sum_{4a + 6b = 2k} c_{a,b}G_4^aG_6^b \equiv 0 \quad \forall k \in \Z$.
-    \item Es gilt $G_4(\rho) = 0$ und $G_6(i) = 0$. Nach VL sind beides einfache Nullstellen und auch die einzigen Nullstellen von $G_4$ bzw. $G_6$ bis auf $\Gamma$-Äquivalenz.
-    Wir nehmen also an, es gibt eine Linearkombination $\sum_{4a + 6b = 2k} c_{a,b} G_4^a G_6^b$, wobei $a$ als kleinsten Wert $a_1 \geq 0$ annehme. 
-    Betrachtet man nun die Laurententwicklung um den Punkt $\rho$, so erhält man
-    \[
-      c_{a_1,2k - a_1} G_4^{a_1}(z) G_6^{2k-a_1}(z) = c_{a_1,2k - a_1} \alpha z^{a_1} + \mathcal{O}(z^{a_1 + 1})
-    \]
-    für ein $\alpha \neq 0$. Alle anderen Koeffizienten enthalten nun $G_4$ mindestens zur Potenz $a_1 + 1$. Daher gilt
-    \[
-      \sum_{4a + 6b = 2k} c_{a,b} G_4^a(z) G_6^b(z) = c_{a_1,2k - a_1} \alpha z^{a_1} + \mathcal{O}(z^{a_1 + 1}) \neq 0.
-    \]
-    Das ist aber ein Widerspruch, also darf es keine solche Linearkombination geben und die Koeffizienten $c_{a,b}$ müssen alle $0$ sein.
+    \item Es gilt $M_12 = \C \Delta + \C G_4^3$. Daher lässt sich jede Modulform in $M_{12}$ in der Form $f = \alpha \Delta + \beta G_4^3$ schreiben. Es gilt $G_4(a) = 0 \Leftrightarrow a = \rho$ und $\Delta(a) = 0 \Leftrightarrow a = i\infty$. Für $a = \rho$ wähle daher $\alpha = 0, \beta = 1$. Dann ist $f(\rho) = 0 \cdot \Delta(\rho) + G_4^3(\rho) = 0$. Sonst wähle $\beta = \Delta(a)$ und $\alpha = - G_4^3(a)$. Dann gilt $f(a) = - G_4^3(a) \cdot \Delta(a) + \Delta(a) \cdot G_4^3(a) = 0$.
+    \item Besitzt $f$ keine Nullstellen in $\mathbb{H}$, so muss nach der $\frac{k}{12}$-Formel bereits $v_{i\infty}(f) = \frac{k}{12}$ gelten. Insbesondere ist also $k \in 12\Z$. Die Funktion $g = \frac{f}{\Delta^{\frac{k}{12}}}$ ist holomorph auf $\mathbb{H}$ als Quotient zweier holomorpher Funktionen, die keine Nullstellen in $\mathbb{H}$ besitzen. Die Nullstellenordung am Punkt $i\infty$ ist bei beiden Funktionen identisch, sodass $\lim\limits_{z \to i\infty} g(z) = c$ gilt. Insbesondere ist die Funktion also beschränkt auf der Fundamentalmenge.
+    Wegen $g(M\langle z \rangle) = \frac{(cz + d)^{-k}}{(cz + d)^{-k}} g(z) = g(z)$ ist $g$ daher eine Modulform vom Gewicht 0 und es gilt $g \equiv c$, also $f = c \Delta^{k/12}$. 
   \end{enumerate}
-  \section*{Aufgabe 23}
+  \section*{Aufgabe 25}
   \begin{enumerate}[(a)]
-    \item In einem euklidischen Ring $R$ liefert der euklidische Algorithmus für zwei $a, b \in R$ ein bis auf Assoziiertheit eindeutig bestimmtes Element $g$ des Rings zurück mit $(a) + (b) = (g)$,
-    wobei $(x)$ das von $x\in R$ erzeugte Ideal bezeichne (siehe LA2).
-    Für $R = \Z$ ist dieses Element also eindeutig bestimmt bis auf Vorzeichen und es gilt $a\Z + b\Z = g\Z$.
-    \item Seien $a, b, c \in \Z$. Dann gilt $\operatorname{ggT}(a, b, c)\Z = a \Z + b\Z + c\Z = \operatorname{ggT}(a, b) \Z + c\Z = \operatorname{ggT}(\operatorname{ggT}(a,b), c) \Z$. 
-    Daraus folgt bereits die Behauptung
-    \item Es gilt 
-    \begin{align*}
-      \operatorname{ggT}(a, b) = 1 
-      &\implies \exists d, -c \in \Z\colon ad - bc = 1 \\
-      &\implies \begin{pmatrix}
-        a & b \\ c & d
-      \end{pmatrix} \in \operatorname{SL}(2 \Z) \\
-      &\implies ad - bc = 1 \\
-      &\implies a\Z + b \Z = \Z\\
-      &\implies \operatorname{ggT}(a, b) = 1
-    \end{align*}
+    \item Es gilt $T\langle z \rangle = \frac{z + 1}{1} = z+1$ und $S\langle z \rangle = \frac{-1}{z}$. Liegt ein Punkt bereits in $\overline{\mathcal{F}}$, so wählen wir $M = (ST)^3 = -E_2$.
+    Ein Punkt in der komplexen oberen Halbebene kann sonst durch iteriertes Anwenden von $T$ in den Streifen $|\Re(\tau) \le 1/2|$ gebracht werden.
+    Beachte
+    \[
+        \Im(M\langle \tau \rangle) = \frac{\Im(\tau)}{|c\tau + d|^2}.
+    \]
+    Völlig analog zum Beweis im Skript folgt nun, dass die Menge $\{\Im(M\langle \tau \rangle)|M\in \operatorname{SL}(2, \Z)\}$ ein Maximum besitzt. Sei o.B.d.A. $\Im(\tau)$ dieses Maximum und durch Translation sei o.B.d.A. auch $|\Re(\tau)| \leq 1/2$. Der Vergleich von $\Im(\tau) \geq \Im(S\langle \tau \rangle)$ zeigt dann $\Im(\tau) \geq \Im(\tau)/|\tau|^2$. Daher besitzt jeder $\operatorname{SL}(2,\Z)$-Orbit in $\mathbb{H}$ einen Repräsentanten im Bereich $\overline{\mathcal{F}}$, definiert durch
+    \[
+        |\Re(\tau)| \leq 1/2\quad, \quad |\tau| \geq 1.
+    \]
+    \item Wegen
+    \[
+        \Im(M\langle \tau \rangle) = \frac{\Im(\tau)}{|c\tau + d|^2}.
+    \]
+    ist $\Gamma\langle \tau \rangle \in \mathbb{H}\; \forall \tau \in \mathbb{H}$.
+    Nach Teilaufgabe a existiert daher ein $M$ mit $M A \tau \in \overline{\mathcal{F}}$. 
+    \item In der Vorlesung wurde gezeigt, dass $\mathcal{F}$ ein genauer Fundamentalbereich ist. Daher ist $MA\langle \tau \rangle \notin \mathcal{F}$ für ein beliebiges $\tau \in \mathcal{F}$ und $MA \notin \{\pm E_2\}$. Das ist nur dann möglich wenn $\tau' \coloneqq MA \langle \tau \rangle \in \mathcal{F}^c \cap \overline{\mathcal{F}}$, also
+    \begin{enumerate}
+      \item $\Re(\tau') = \frac{1}{2}$ oder
+      \item $|\tau| = 1$ und $\Re(\tau) > 0$.
+    \end{enumerate}
+    Im ersten Fall gilt dann aber $T\langle \tau' - 1\rangle = \tau'$ mit $\tau' - 1 \in \mathcal{F}$ und weil $\mathcal{F}$ ein genauer Fundamentalbereich ist folgt daraus $\tau = \tau'-1 \implies \Re(\tau) = \frac{1}{2} \implies \tau \in \partial F$.
+   Im zweiten Fall gilt $S\langle -\overline{\tau'} \rangle = \frac{1}{\overline{\tau'}} = \frac{\tau'}{|\tau'|^2} = \tau'$ und weil $\mathcal{F}$ ein genauer Fundamentalbereich ist folgt daraus $\tau = -\overline{\tau'}$. 
+   Das kann aber beides nicht sein, da $\tau$ als innerer Punkt von $\mathcal{F}$ gewählt war. Also muss $MA\langle \tau \rangle = \tau$ gelten und $MA \in \{\pm E_2\}$.
+   $- E_2$ ist in $\tilde \Gamma$ enthalten. Angenommen, $E_2 \notin \tilde \Gamma$. Wähle dann $A = - E_2$. Dann gilt $M \cdot -E_2 = -E_2 \implies M = E_2 \in \tilde \Gamma$. Das ist ein Widerspruch, also liegt auch $E_2$ in $\tilde \Gamma$. Insbesondere gilt daher $\forall A \in \Gamma\colon\; A^{-1} \in \tilde \Gamma$ und damit $\tilde \Gamma = \Gamma$.
   \end{enumerate}
 \end{document}
