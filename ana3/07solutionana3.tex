@@ -1,0 +1,257 @@
+\documentclass{article}
+
+\usepackage{josuamathheader}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+\newcommand{\norm}[1]{\lVert #1 \rVert}
+\begin{document}
+\def\headheight{25pt}
+\analayout{7}
+    \section*{Aufgabe 7.1}
+    Es gilt
+    \[
+        \frac{\d{}}{\d{x}}\frac{-x}{x^2 + y^2} = \frac{-1\cdot(x^2 + y^2) +x\cdot 2x}{(x^2 + y^2)^2} = \frac{x^2 - y^2}{(x^2 + y^2)^2}
+    \]
+    Es gilt daher
+    \[
+        \int_{(0,1)} \frac{x^2 - y^2}{(x^2 + y^2)^2} \d{x} \overset{y\neq 0, \mathscr L(\{0,1\}) = 0}{=} \int_0^1  \frac{x^2 - y^2}{(x^2 + y^2)^2} \d{x} = - \frac{x}{x^2 + y^2} \bigg|_0^1 = -\frac{1}{1 + y^2}
+    \]
+    Wegen $y \in (0,1) \implies y \neq 0$ folgern wir
+    \[
+        \int_{(0,1)} \int_{(0,1)} \frac{x^2 - y^2}{(x^2 + y^2)^2} \d{x} \d{y} = - \int_{(0,1)} \frac{1}{1 + y^2} \d{y}.
+    \]
+    Wegen $\frac{\d{}}{\d{y}} \arctan(y) = \frac{1}{1 + y^2}$ erhalten wir mit $\mathscr L(\{0,1\}) = 0$
+    \[
+        - \int_{(0,1)} \frac{1}{1 + y^2} \d{y} = - \int_0^1 \frac{1}{1 + y^2} \d{y} = - \arctan(y)\bigg|_0^1 = - \frac{\pi}{4}.
+    \]
+    Insgesamt ergibt sich
+    \[
+        \int_{(0,1)} \int_{(0,1)} \frac{x^2 - y^2}{(x^2 + y^2)^2} \d{x} \d{y} = - \frac{\pi}{4}
+    \]
+    und mithilfe völlig analoger Überlegungen sowie der Identität
+    \[
+        \frac{\d{}}{\d{y}}\frac{y}{x^2 + y^2} = \frac{1\cdot(x^2 + y^2) -y\cdot 2y}{(x^2 + y^2)^2} = \frac{x^2 - y^2}{(x^2 + y^2)^2}
+    \]
+    erhalten wir
+    \[
+        \int_{(0,1)} \int_{(0,1)} \frac{x^2 - y^2}{(x^2 + y^2)^2} \d{y} \d{x} = \frac{\pi}{4}
+    \]
+    Die beiden Integrale sind offensichtlich verschieden. Eine der Voraussetzungen des Satzes von Fubini muss daher verletzt sein.
+    Es gilt (analog zu oben und unter Benutzung von $y \neq 0$)
+    \begin{align*}
+        \int_{(0,1)} \left|\frac{x^2 - y^2}{(x^2 + y^2)^2}\right|\d{x} &= \int_{(0,y)} - \frac{x^2 - y^2}{(x^2 + y^2)^2} \d{x} + \int_{(0,y)} \frac{x^2 - y^2}{(x^2 + y^2)^2} \d{x}\\
+        &= \frac{x}{x^2 + y^2}\bigg|_0^y - \frac{x}{x^2 + y^2}\bigg|_y^1\\
+        &= \frac{y}{2y^2} + 0 - \frac{1}{1+y^2} + \frac{y}{2y^2}\\
+        &= - \frac{1}{1 + y^2} + \frac{1}{y}.
+    \end{align*}
+    Wegen $\int_{(0,1)} \frac{1}{1 + y^2} \d{y} = \frac{\pi}{4}$ genügt es zu zeigen, dass $\int_{(0,1)} \frac{1}{y} \d{y} \not < \infty$. Dann ist nämlich
+    \[
+        \int_{(0,1)}  \int_{(0,1)} |g(x,y)| \d{x} \d{y} \not < \infty,
+    \] was aber eine Voraussetzung des Satzes von Fubini verletzt.
+    Dies gelingt mittels einer Approximation durch einfache Funktionen, $\forall n \in \N$ sei $f_n$ gegeben durch 
+    \[
+        f_n(x) \coloneqq  \sum_{k = 1}^{n} \chi_{[\frac{1}{k+1}, k)}(x) \cdot k \leq \frac{1}{x} \qquad \forall x \in (0,1).
+    \]
+    Da $f_n$ eine einfache Funktion ist, erhalten wir definitionsgemäß
+    \[
+        \int_{(0,1)} f_n \d{x} = \sum_{k = 1}^{n} \mu([1/(k+1), 1/k)) \cdot k = \sum_{k = 1}^{n} \frac{k+1 - k}{k(k+1)} \cdot k = \sum_{k = 1}^{n} \frac{1}{k+1}.
+    \]
+    Wegen $f_n \leq \frac{1}{x}$ folgt $\forall n \in \N\colon:\;\int_{(0,1)} f_n \d{x} \leq \int_{(0,1)} \frac{1}{x} \d{x}$ und damit im Limes $n\to \infty$
+    \[
+        \int_{(0,1)} \frac{1}{x} \d{x} \geq \lim\limits_{n \to \infty} \int_{(0,1)} f_n \d{x} = \sum_{k = 1}^{\infty} \frac{1}{k+1}.
+    \]
+    Damit folgt das gewünschte Ergebnis aus der Divergenz der harmonischen Reihe.
+    \section*{Aufgabe 7.2}
+    \begin{enumerate}[(a)]
+        \item Behauptung $\Phi(U) = M\coloneqq \R \times \R^\times \times \R_{> 0} \cup \R_{> 0} \times \{0\}\times \R_{> 0}$.
+        \begin{proof}
+            Sei $(a,b,c) \in M$.
+            Es gilt $c = \sqrt{r^2 - 1} \Leftrightarrow \sqrt{c^2 + 1} = r$. Also gibt es für jedes $c \in (0,\infty)$ genau eine Möglichkeit, $r \in (1, \infty)$ zu wählen. Umgekehrt gilt für jedes $r\in (1,\infty)\colon c = \sqrt{r^2 - 1}\in (0, \infty)$.
+            Seien zunächst $a, b \neq 0$. 
+            Dann gilt $a = rt \cos(s) \Leftrightarrow t = \frac{a}{r \cdot \cos(s)}$. Wegen $t, r > 0$ muss das Vorzeichen von $a$ und $\cos(s)$ gleich sein,
+            \[
+                \begin{cases}
+                    \cos(s) > 0 \Leftrightarrow s \in (-\pi/2, \pi/2)  &| a > 0\\
+                    \cos(s) < 0 \Leftrightarrow s \in (-\pi,-\pi/2) \cup (\pi/2, \pi) &| a < 0
+                \end{cases},
+            \] dann gilt auch $t \in (0,\infty)$. 
+            Schließlich gilt $a = rt \cos(s),\; b = rt \sin(s) \Leftrightarrow \frac{b}{a} = \tan(s)$.
+            Wegen $\tan((-\pi, -\pi/2)) = \tan(0, \pi/2) = \R_{> 0}$, $\tan((-\pi/2, 0)) = \tan((\pi/2, \pi)) = \R_{<0}$, weil der Tangens auf diesen Intervallen injektiv ist und wegen $\frac{b}{a} \in R_{>0} \cup R_{<0}$ existiert stets genau ein $s$ mit den Eigenschaften
+            \[
+                \tan(s) = \frac{b}{a}, \qquad
+                \begin{cases}
+                    s \in (-\pi/2, 0) \cup (0, \pi/2)  &| a > 0\\
+                    s \in (-\pi,-\pi/2) \cup (\pi/2, \pi) &| a < 0
+                \end{cases}.
+            \]
+            Ist nun $a = 0$, so folgt wegen $rt > 0$ sofort $\cos(s) = 0 \Leftrightarrow s \in \{\pm \pi/s\}$. Insbesondere ist also $\sin(s) = \pm 1$. Daher erhalten wir $b = rt \sin(s) = \pm rt \Leftrightarrow t = \pm \frac{b}{r}$. Wegen $r, t > 0$ muss daher $\operatorname{sgn}(b) = \operatorname{sgn}(\sin(s)) = \operatorname{sgn}(s)$ gelten. Damit ist $s$ und folglich auch $t$ eindeutig bestimmt.
+            Ist $b = 0$, so folgt wegen $rt > 0$ sofort $\sin(s) = 0 \Leftrightarrow s = 0$. Insbesondere ist also $\cos(s) = 1$. Daher erhalten wir $a = rt \cos(s) = rt \Leftrightarrow t = \frac{a}{r}$. Allerdings muss $t, r > 0$ gelten. Daher existiert nur für $a > 0$ ein $t\in (0,\infty)$, sodass $\Phi(r,s,t) = (a, 0, c)$. Unter dieser Voraussetzung ist $(r,s,t)$ aber eindeutig bestimmt.
+            Wir haben also sogar noch mehr gezeigt als nötig: Für jedes Tripel $(a,b,c) \in M$ existiert genau ein Tripel $(r,s,t) \in U$ mit $\Phi(r,s,t) = (a,b,c)$. Damit ist $\Phi\colon U \to M$ bijektiv.
+        \end{proof}
+        Behauptung: $\det D\Phi = -\frac{tr^3}{\sqrt{r^2 - 1}}$.
+        \begin{proof}
+            \begin{align*}
+                \det D\Phi &= \det \begin{pmatrix}
+                    \frac{\partial \Phi_1}{\partial r} & \frac{\partial \Phi_2}{\partial r} & \frac{\partial \Phi_3}{\partial r}\\[0.3em]
+                    \frac{\partial \Phi_1}{\partial s} & \frac{\partial \Phi_2}{\partial s} & \frac{\partial \Phi_3}{\partial s}\\[0.3em]
+                    \frac{\partial \Phi_1}{\partial t} & \frac{\partial \Phi_2}{\partial t} & \frac{\partial \Phi_3}{\partial t}
+                \end{pmatrix}\\
+                &= \det \begin{pmatrix}
+                    t \cos(s) & t \sin(s) & \frac{r}{\sqrt{r^2-1}}\\
+                    -rt \sin(s) & rt \cos(s) & 0\\
+                    r \cos(t) & r\sin(s) & 0
+                \end{pmatrix}\\
+                &= \frac{r}{\sqrt{r^2 - 1}} \cdot t \cdot r^2 \cdot (-\sin^2(s) - \cos^2(s))\\
+                &= -\frac{tr^3}{\sqrt{r^2 - 1}}
+            \end{align*}
+        \end{proof}
+        \item Alle partiellen Ableitungen sind stetig auf $U$, sodass $\Phi$ differenzierbar ist. Wir hatten bereits oben bewiesen, dass $\Phi$ bijektiv ist. Nun genügt es zu zeigen, dass $0 \notin \det D\Phi(U)$. Das ist aber wegen $\det D\Phi = -\frac{tr^3}{\sqrt{r^2 - 1}}$ offensichtlich.
+        \item Behauptung: $N \coloneqq (1, \sqrt{5}] \times (-\pi, \pi) \times [\frac{\sqrt{2}}{2}, \sqrt{2}] = \Phi^{-1}(H)$.
+        Sei $(r,s,t) \in U$ mit $\Phi(r,s,t) \in H$. Aus $x_3 \in [0,2]$ erhalten wir sofort $r \in (1, \sqrt{5}]$. Außerdem gilt
+        \begin{align*}
+            \frac{1}{2}(1 + x_3^2) &\leq x_1^2 + x_2^2 \leq 2(1 + x_3^2)\\
+            \Leftrightarrow \frac{1}{2} (1 + \sqrt{r^2 - 1}^2) &\leq r^2t^2 (\sin^2(s) + \cos^2(s)) \leq 2 (1 + \sqrt{r^2 - 1}^2)\\
+            \Leftrightarrow \frac{1}{2} r^2 &\leq r^2 t^2 \leq 2r^2\\
+            \Leftrightarrow \frac{1}{\sqrt{2}} & \leq t \leq \sqrt{2}
+        \end{align*}
+        Daher erhalten wir $\Phi^{-1}(H) \subset N$.
+        Sei $(r,s,t) \in N$. Dann sind beide Bedingungen erfüllt (siehe Äquivalenzumformungen im ersten Teil).
+        Es folgt $\Phi^{-1}(H) = N$.
+        \item Es gilt
+        \begin{equation*}
+            \int_{-\pi}^\pi \cos^2(s) \d{s} = \sin(s)\cos(s) \bigg|_{-\pi}^\pi + \int_{-\pi}^\pi \sin^2(s) \d{s} = \int_{-\pi}^\pi \sin^2(s) \d{s}
+        \end{equation*}
+        Zusammen mit
+        \begin{equation*}
+            2\pi = \int_{-\pi}^\pi 1 \d{s} = \int_{-\pi}^\pi \sin^2(s) + \cos^2(s) \d{s} = 2 \int_{-\pi}^\pi \cos^2(s)
+        \end{equation*}
+        erhalten wir
+        \begin{equation*}
+            \int_{-\pi}^\pi \cos^2(s) = \pi
+        \end{equation*}
+        Nun wenden wir uns der eigentlichen Aufgabe zu. Es gilt 
+        \begin{align*}
+            \mathscr L^3(H \setminus \Phi(N)) &= \mathscr L^3(\{x_3 \in [0,2] \setminus (0,2], \frac{1}{2}(1 + x_3^2) \leq x_1^2 + x_2^2 \leq 2(1 + x_3^2)\})\\
+            &= \mathscr L^3 (\{x_3 = 0, \frac{1}{2} \leq x_1^2 + x_2^2 \leq 2\})
+            \intertext{Sei $A \coloneqq \{(x_1, x_2) \in \R^2 \colon \frac{1}{2} \leq x_1^2 + x_2^2 \leq 2\}$}
+            &= \mathscr L^3 (\{0\} \times A)\\
+            &= \mathscr L(\{0\}) \cdot \mathscr L^2(A)\\
+            &= 0
+        \end{align*}
+        $f(x_1, x_2, x_3) \coloneqq x_1^2x_3$ ist als stetige Funktion auf dem Kompaktum $H$ integrierbar. Da das Lebesgue-Integral invariant unter Unterschieden auf Lebesgue-Nullmengen ist, gilt
+        \[
+            \int_H f(x) \d{x} = \int_{\Phi(N)} f(x) \d{x} \overset{(!)}{=} \int_N f(\Phi(x)) |\det D\Phi(x)| \d{x},
+        \] 
+        wobei $(!)$ aus dem Transformationssatz folgt, da es sich bei $\Phi$ um einen $C^1$-Diffeomorphismus handelt.
+        
+        Aus dem Satz von Fubini erhalten wir
+        \begin{align*}
+            \int_N f(\Phi(x)) |\det D\Phi(x)| \d{x} &= \int_1^{\sqrt{5}} \int_{-\pi}^\pi \int_{\sqrt{2}/2}^{\sqrt{2}} (rt\cos(s))^2\sqrt{r^2-1} \left|-\frac{tr^3}{\sqrt{r^2 - 1}}\right| \d{t}\d{s}\d{r}\\
+            &= \int_1^{\sqrt{5}} \int_{-\pi}^\pi \int_{\sqrt{2}/2}^{\sqrt{2}} r^5t^3\cos^2(s) \d{t}\d{s}\d{r}\\
+            &= \int_1^{\sqrt{5}} r^5 \d{r} \int_{-\pi}^\pi \cos^2(s) \d{s} \int_{\sqrt{2}/2}^{\sqrt{2}} t^3 \d{t}\\
+            &= \left(\frac{\sqrt{5}^6}{6} - \frac{1^6}{6}\right) \cdot \pi \cdot \left(\frac{\sqrt{2}^4}{4} - \frac{(\sqrt{2}/2)^4}{4}\right)\\
+            &= \frac{124}{6} \cdot \pi \cdot \frac{15}{16}\\
+            &= \frac{155}{8} \pi
+        \end{align*}
+    \end{enumerate}
+    \section*{Aufgabe 7.3}
+    Es gilt
+    \begin{align*}
+        \int_{\R^n} (f * g)(x) \d{x} &= \int_{\R^n} \int_{\R^n} f(y)g(x-y) \d{y} \d{x}
+        \intertext{Fubini}
+        &= \int_{\R^n} f(y) \int_{\R^n} g(x-y) \d{x} \d{y}
+        \intertext{Anwenden des Transformationssatzes mit $\phi(x) = x + y$ ergibt wegen $\phi(\R^n) = \R^n$ und $\det D\phi = 1$}
+        &= \int_{\R^n} f(y) \int_{\R^n} g(x) \d{x} \d{y}
+        \intertext{Fubini}
+        &= \int_{\R^n} f(y) \d{y} \int_{\R^n} g(x) \d{x}
+    \end{align*}
+    Insbesondere ist das Ergebnis wegen $f, g \in L^1(\R^n)$ endlich und damit $(f * g) \in L^1(\R^n)$.
+    \section*{Zusatzaufgabe 7.1}
+    Offensichtlich ist $V$ abgeschlossen. Damit ist das Komplement von $V$ offen. Es folgt $V \in \mathscr B(\R^n)$.
+    Es gilt
+    \begin{align*}
+        \mathscr L^3(V) &= \int_{\R^n} \chi_V \d{x}
+        \intertext{Fubini}
+        &= \int_a^b \int_{\R^2} \chi_{\{x\in \R^2\colon x_1^2 + x_2^2 \leq f(x_3)^2\}} \d{x} \d{x_3}\\
+        &= \int_a^b \int_{\R^2} \chi_{B_{f(x_3)}} \d{x} \d{x_3}
+        \intertext{Transformationssatz für Polarkoordinaten (siehe Bsp. 4.15)}
+        &= \int_a^b \int_0^{f(x_3)} \int_0^{2\pi} r \d{\phi} \d{r} \d{x_3}
+        \intertext{Fubini}
+        &= \int_a^b 2\pi \int_0^{f(x_3)} r \d{r} \d{x_3}\\
+        &= \int_a^b 2\pi \frac{f(x_3)^2}{2} \d{x_3}\\
+        &= \pi \int_a^b f(x_3)^2 \d{x_3}
+    \end{align*}
+    \section*{Zusatzaufgabe 7.2}
+    \begin{enumerate}[(a)]
+        \item Sei $M = \bigcup_{z \in \Z} [z\pi + \frac{\pi}{6}, z\pi + \frac{5\pi}{6}]$.
+        Dann gilt
+        \begin{align*}
+            \left|\frac{\sin(x)}{x}\right| &\geq \sum_{z \in \Z} \frac{1}{|x|} \cdot \frac{1}{2} \chi_{[z\pi + \frac{\pi}{6}, z\pi + \frac{5\pi}{6}]}(x)\\
+            &\geq \sum_{z \in \N} \frac{1}{|x|} \chi_{[z\pi + \frac{\pi}{6}, z\pi + \frac{5\pi}{6}]}(x)\\
+            &\geq \sum_{z \in \N} \frac{1}{z+1} \chi_{[z\pi + \frac{\pi}{6}, z\pi + \frac{5\pi}{6}]}(x)
+        \end{align*}
+        Daher erhalten wir
+        \[
+            \int_{\R} \left|\frac{\sin(x)}{x}\right| \d{r} \geq \int_{\R} \sum_{z \in \N} \frac{1}{z+1} \chi_{[z\pi + \frac{\pi}{6}, z\pi + \frac{5\pi}{6}]}(x) = \sum_{z = 1}^{\infty} \frac{1}{z+1} \cdot \frac{2\pi}{3}
+        \]
+        Diese Reihe ist aber divergent, da die harmonische Reihe divergiert. Also ist $\left|\frac{\sin(x)}{x}\right|$ nicht Lebesgue-integrierbar.
+        \item Es gilt $\forall \epsilon > 0\colon \forall x', x'' > \frac{1}{\epsilon}$
+        \begin{align*}
+            \int_{x'}^{x''} \frac{\sin(x)}{x} \d{x} \leq \frac{1}{x'} \int_{x'}^{x''} \sin(x)\d{x} \leq \frac{1}{x'} |\cos(x'') - \cos(x')| \leq \frac{2}{x'} \leq 2\epsilon.
+        \end{align*}
+        Nach dem Cauchy-Kriterium ist $f$ uneigentlich Riemann-integrierbar.
+        \item Es gilt
+        \begin{align*}
+            \int_0^R \sin(x) e^{-xt} \d{x} &= - \frac{1}{t} e^{-xt}\sin(x)\bigg|_0^R + \int_0^R\frac{1}{t}e^{-xt}\cos(x)\d{x}\\
+            &= -\frac{1}{t} e^{-Rt}\sin(R) - \frac{1}{t^2} e^{-xt} \cos(x) \bigg|_0^R - \int_0^R \frac{1}{t^2} e^{-xt} \sin(x) \d{x}\\
+            t^2 \int_0^R \sin(x) e^{-xt} \d{x} &= -t e^{-Rt}\sin(R) - e^{-Rt} \cos(R) + 1 - \int_0^R e^{-xt} \sin(x) \d{x}\\
+            (1 + t^2) \int_0^R \sin(x) e^{-xt} \d{x} &= -e^{-Rt} (t\sin(R) - \cos(R)) + 1\\
+            \int_0^R \sin(x) e^{-xt} \d{x} &= -\frac{e^{-Rt}}{1+t^2} (t\sin(R) - \cos(R)) + \frac{1}{1+t^2}
+        \end{align*}
+        Die Folge
+        \[
+            f_n \colon (0, \infty) \to \R, \qquad f_n(t) \coloneqq \int_0^{\frac{\pi}{2} + \pi\cdot n} \sin(x) e^{-xt} \d{x} = - t\frac{e^{-(\pi/2 + \pi\cdot n)t}}{1 + t^2} + \frac{1}{1+t^2}.
+        \]
+        ist eine monoton wachsende Folge messbarer Funktionen mit $f_n \nearrow \frac{1}{1 + t^2}$.
+        \begin{align*}
+            \int_{-\infty}^{\infty} \frac{\sin(x)}{x} \d{x} &= \lim\limits_{R \to \infty} \int_0^R \frac{\sin(x)}{x} \d{x} + \lim\limits_{R \to \infty} \int_{-R}^0 \frac{\sin(x)}{x} \d{x}
+            \intertext{Wir wenden den Transformationssatz für den $C^1$-Diffeomorphismus $x \mapsto -x$ an}
+            &= \lim\limits_{R \to \infty} \int_0^R \frac{\sin(x)}{x} \d{x} + \lim\limits_{R \to \infty} \int_{0}^R \frac{\sin(-x)}{-x} \d{x}\\
+            &= 2 \cdot \lim\limits_{R \to \infty} \int_0^R \frac{\sin(x)}{x} \d{x}\\
+            &= 2\cdot \lim\limits_{R \to \infty} \int_0^R \sin(x) \int_0^\infty e^{-xt} \d{t} \d{x}
+            \intertext{Fubini}
+            &= 2\cdot \lim\limits_{R \to \infty} \int_0^\infty \int_0^R \sin(x) e^{-xt} \d{x} \d{t} 
+            \intertext{Mit dem Satz von der monotonen Konvergenz und unserer Folge $f_n$ erhalten wir}
+            &= 2\cdot \int_0^\infty \frac{1}{1+t^2} \d{t}
+            \intertext{Siehe Aufgabe 1}
+            &= 2\cdot \arctan(t) \bigg|_0^\infty\\
+            &= 2\cdot \frac{\pi}{2}\\
+            &= \pi
+        \end{align*}
+    \end{enumerate}
+    \section*{Zusatzaufgabe 7.3}
+    Es gilt
+    \begin{align*}
+        \norm{f}_{L^r(X, \mu)} &= \left(\int_X |f|^r \d{\mu}\right)^{\frac{1}{r}}\\
+        &= \left(\int_X |f^{r\theta} \cdot f^{r(1-\theta)}| \d{\mu}\right)^{\frac{1}{r}}\\
+        \intertext{Hölder-Ungleichung, wegen $1 = \frac{r\theta}{p} + \frac{r(1-\theta)}{q} \Leftrightarrow \frac{1}{r} = \frac{\theta}{p} + \frac{1-\theta}{q}$ handelt es sich tatsächlich um duale Exponenten. Wegen $r, \theta, p, q > 0$ muss einer der beiden Exponenten im für die Hölder-UGl geforderten Intervall $[1, \infty)$ liegen.}
+        &\leq \left(\left(\int_X |f^{r\theta}|^{\frac{p}{r\theta}} \d{\mu}\right)^\frac{r\theta}{p} \cdot \left(\int_X |f^{r(1-\theta)}|^{\frac{q}{r(1-\theta)}} \d{\mu}\right)^\frac{r(1-\theta)}{q}\right)^{\frac{1}{r}}\\
+        &= \left(\int_X |f^{r\theta}|^{\frac{p}{r\theta}} \d{\mu}\right)^\frac{\theta}{p} \cdot \left(\int_X |f^{r(1-\theta)}|^{\frac{q}{r(1-\theta)}} \d{\mu}\right)^\frac{(1-\theta)}{q}\\
+        &= \norm{f}_{L^p(X, \mu)}^{\theta} \norm{f}_{L^q(X, \mu)}^{1- \theta}
+    \end{align*}
+    Daraus folgt bereits $L^p(X, \mu) \cap L^q(X, \mu) \subset L^r(X, \mu)$.
+    \section*{Zusatzaufgabe 7.4}
+    \begin{enumerate}[(a)]
+        \item Sei $A\in \mathscr P(\R)$ eine beliebige nicht messbare Menge (existiert, da sonst das Maßproblem gelöst wäre). Wähle dann $f(x) = e^{-x^2} \cdot (2\cdot \chi_A(x) -1)$. Sei $x\in A$. Dann gilt $f(x) = e^{-x^2} \in (0,1]$. Sei $x\notin A$. Dann gilt $f(x) = -e^{-x^2} \in [-1, 0)$. Also ist $f$ nicht messbar wegen $f^{-1}([0,1]) = A$. Allerdings ist $|f| = e^{-x^2}$ als stetige Funktion messbar.
+        \item Die Funktion $f$ aus Teilaufgabe $a$ ist nicht messbar, also auch nicht integrierbar. Allerdings ist 
+        \[
+            \int_\R |f| \d{x} = \int_\R e^{-x^2} \d{x} = \sqrt{\pi},
+        \]
+        $|f|$ ist also integrierbar, $f$ aber nicht.
+        \item $\Omega \coloneqq \{1\}$ ist messbar. Allerdings ist jede offene Menge $\Omega_k \subset \Omega$ bereits die leere Menge, $\Omega_k = \emptyset$. Insbesondere ist also die beliebige Vereinigung solcher Mengen wegen $\cup_k \Omega_k = \emptyset \neq \Omega$ nie gleich $\Omega$.
+        \item d
+        \item e
+        \item f
+    \end{enumerate}
+\end{document}
