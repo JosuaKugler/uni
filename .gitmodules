@@ -1,0 +1,3 @@
+[submodule "wtheo-zettel"]
+	path = wtheo-zettel
+	url = https://git.flavigny.de/christian/wtheo-zettel.git
