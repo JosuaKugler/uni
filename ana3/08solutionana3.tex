@@ -1,0 +1,166 @@
+\documentclass{article}
+
+\usepackage{josuamathheader}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\begin{document}
+\def\headheight{25pt}
+\analayout{8}
+    \section*{Aufgabe 8.1}
+    \begin{enumerate}[(a)]
+        \item Seien $p_j, q_j$ mit $j\in J$ Polynomfunktionen mit Koeffizienten in $\R$ und $J$ eine endliche Indexmenge. 
+        Dann gilt nach Produktregel für $|x| < 1$
+        \begin{align*}
+            \frac{\partial}{\partial x_i} e^{\frac{1}{|x|^2 - 1}} \sum_{j\in J}  p_j\left((|x|^2 -1)^{-1}\right) q_j(x_1, \dots, x_n) 
+            =&\ \sum_{j\in J} e^{\frac{1}{|x|^2 - 1}} \cdot \underbrace{p_j((|x|^2 -1)^{-1}) \cdot -(1/(|x|^2 -1))^2}_{\tilde p_{j,i,1}(1/(|x|^2-1))} \cdot \underbrace{q_j(x_1, \dots, x_n)  \cdot 2x_i}_{\tilde q_{j,i,1}(x_1,\dots, x_n)}\\
+            &+ e^{\frac{1}{|x|^2 - 1}} \cdot \underbrace{p_j'((|x|^2 -1)^{-1})}_{\tilde p_{j,i,2}} \cdot \underbrace{(2 x_i) \cdot q_j(x_1, \dots, x_n)}_{\tilde q_{j,i,2}}\\
+            &+ e^{\frac{1}{|x|^2 - 1}} \underbrace{p_j((|x|^2 -1)^{-1})}_{\tilde p_{j,i,3}} \underbrace{\frac{\partial q_j(x_1, \dots, x_n)}{\partial x_i}}_{\tilde q_{j,i,3}}\\
+            &= e^{\frac{1}{|x|^2 - 1}} \sum_{j, \iota, \nu \in \tilde J} \tilde p_{j, \iota, \nu}((|x|^2-1)^{-1}) \tilde q_{j, \iota, \nu}(x_1, \dots, x_n)\\
+        \end{align*}
+        Außerdem gilt
+        \begin{align*}
+            \lim\limits_{|x| \nearrow 1} e^{\frac{1}{|x|^2 - 1}} \sum_{j\in J}  p_j\left((|x|^2 -1)^{-1}\right) \underbrace{q_j(x_1, \dots, x_n)}_{\text{beschränkt}} &= C \lim\limits_{|x| \nearrow 1} e^{\frac{1}{|x|^2 - 1}} P\left(\frac{1}{|x|^2-1}\right)\\
+            &= C \lim\limits_{h \to -\infty} e^{h} P(h)\\
+            &= 0,
+            \end{align*}
+        da die Exponentialfunktion im Limes immer schneller wächst als ein Polynom.
+        Insgesamt folgt per Induktion, dass $\phi$ beliebig oft stetig partiell differenzierbar ist (in dem man die obigen Ableitungen stetig durch 0 auf $|x| \geq 1$ fortsetzt). Wir erhalten $\phi \in C^\infty_c(\R^n)$.
+        \item Es gilt 
+        \begin{align*}
+            |(f * \varphi_\epsilon)(x) - f(x)| &= \left|\int_{\R^n} f(x-y)\varphi_\epsilon(y) \d{y} - f(x) \right|\\
+            &= \left|\int_{\R^n} (f(x-y) - f(x)) \frac{1}{\epsilon^n} \frac{\phi(y/\epsilon)}{\norm{\phi}_{L^1(\R^n)}}\right|\\
+            &= \frac{1}{\epsilon^n} \frac{\left|\int_{\R^n} (f(x - \epsilon z) - f(x)) \phi(z) \cdot \epsilon \d{z}\right|}{\int_{\R^n} \phi(z)  \d{z}}\\
+            &\leq \frac{1}{\epsilon^n} \frac{\left|\int_{B_1(0)} (f(x - \epsilon z) - f(x)) \sup_{z\in B_1(0)}\phi(z) \cdot \epsilon \d{z}\right|}{\int_{B_1(0)} \phi(z)  \d{z}}\\
+            \intertext{Es gilt $\sup_{z\in B_1(0)}\phi(z) = \sup_{0 < |z| < 1} e^\frac{1}{|x|^2-1} = e^{-1}$}
+            &\leq \frac{e^{-1}}{\epsilon^n} \frac{\left|\int_{B_\epsilon(x)} (f(y) - f(x)) \cdot -\d{y}\right|}{\int_{B_{1/2}(0)} \inf_{|z| < 1/2}\phi(z) \d{z}}\\
+            \intertext{Es gilt $\inf_{|z| < 1/2 \phi(z) = \inf_{|z| < 1/2} e^\frac{1}{|z|^2 - 1}} = e^{-4/3}$}
+            &\leq \frac{2^n \cdot e^{\frac{1}{3}}}{\epsilon^n}  \frac{\left|\int_{B_\epsilon(x)} (f(y) - f(x)) \cdot -\d{y}\right|}{\int_{B_{1}(0)} \d{z}}
+            \intertext{Wir bezeichnen mit $V_n$ das Maß der $n$-dimensionalen Einheitskugel und fassen die Konstanten durch $C \coloneqq \frac{2^n e^{\frac{1}{3}}}{V_n}$ zusammen}
+            &\leq \frac{C}{\epsilon^n} \int_{B_\epsilon(x)} |f(x) - f(y)| \d{y}
+        \end{align*}
+        Sei nun $\delta > 0$. Nach Definition der gleichmäßigen Stetigkeit existiert dann ein $\epsilon > 0$ mit
+        \begin{align*}
+            \sup_{y \in B_\epsilon(x)} |f(y) - f(x)| < \delta \qquad \forall x \in \R^n
+        \end{align*}
+        Daraus folgt
+        \begin{align*}
+            |(f * \varphi_\epsilon)(x) - f(x)|  &\leq \frac{C}{\epsilon^n} \int_{B_\epsilon(x)} |f(x) - f(y)| \d{y}\\
+            &\leq \frac{C}{\epsilon^n} \int_{B_\epsilon(x)} \sup_{y \in B_\epsilon(x)} |f(x) - f(y)| \d{y}\\
+            &= \frac{C \delta}{\epsilon^n} \int_{B_\epsilon(x)} \d{y}\\
+            &= C \delta \int_{B_1(0)} \d{y}\\
+            &= C V_n \delta
+        \end{align*}
+        Zu jedem $\delta > 0$ existiert also ein $\epsilon > 0$ mit $\sup_{x \in \R^n} |(f * \varphi_\epsilon)(x) - f(x)| < \delta$, also
+        \begin{align*}
+            f* \varphi_\epsilon \to f \qquad \text{in } L^\infty(\R^n).
+        \end{align*}
+    \end{enumerate}
+    \section*{Aufgabe 8.2}
+    Analog zur Vorgehensweise im Beweis von Satz 4.23 wählen wir $F \in C^0_c(\R^n)$ mit $\norm{F - f}_1 <\frac{\epsilon}{2}$.
+    Dann wählen wir $\varphi \in C_c^\infty (\R^n)\cap L^1(\R^n)$ mit $\int_{\R^n} \varphi \d{x} = 1$. Wie in Satz 4.23 definieren wir $\varphi_\delta \coloneqq \frac{1}{\delta^n}(x/\delta)$. Offensichtlich ist auch $\varphi_\delta \in C_c^\infty(\R^n)$.
+    Da beide Funktionen kompakten Träger besitzen, besitzt auch die Faltung kompakten Träger. Zusammen mit Lemma 4.22 folgt daraus
+    \begin{align*}
+        (F * \varphi_\delta)(x) \in C_c^\infty(\R^n).
+    \end{align*}
+    Nach Satz 4.23 folgt nun $F * \varphi_\delta \xrightarrow{\delta \to 0} F$ in $L^1(\R^n)$. 
+    Insbesondere existiert ein $\delta > 0$ mit
+    \begin{align*}
+        \norm{(F * \varphi_\delta) - F}_1 < \frac{\epsilon}{2}.
+    \end{align*}
+    Setzen wir nun $f_\epsilon \coloneqq F * \varphi_\delta$, so erhalten wir
+    \begin{align*}
+        \norm{f - f_\epsilon}_1 \leq \norm{f - F}_1 + \norm{F - F * \varphi_\delta}_1 \leq \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon.
+    \end{align*}
+    \section*{Aufgabe 8.3}
+    Es gilt $\forall \epsilon > 0 \exists f_\delta \in C_c^\infty(\R^n)$ mit $\norm{f - f_\delta} < \frac{\epsilon}{3}$.
+    Dann folgt unter Benutzung des Integraltransformationssatzes $\norm{f_h - f_{\delta, h}}_1 = \norm{f(x + h) - f_\delta(x+h)}_1 < \frac{\epsilon}{3}$.
+    Außerdem gilt
+    \begin{align*}
+        \norm{f_{\delta, h} - f_\delta} &= \norm{f_\delta(x + h) - f_\delta(x)}\\
+        \intertext{Mittelwertsatz}
+        &= \norm{\left(\int_0^1 \nabla f_\delta(x + sh) \d{s}\right)^T \cdot h}_1\\
+        &= \norm{\sum_{i = 1}^{n} h_i \int_0^1 \partial_i f_\delta(x + sh_i) \d{s}}\\
+        &\leq \sum_{i = 1}^{n} h_i \int_{\R^n} \int_0^1 \partial_i f_\delta(x + sh_i) \d{s} \d{x}\\    
+        &\leq \sum_{i = 1}^{n} h_i  \int_0^1 \int_{\R^n} \partial_i f_\delta(x + sh_i) \d{x} \d{s}\\
+        \intertext{$\partial_i f_\delta(x + sh_i) \in C_c^\infty(\R^n)$. O.B.d.A daher $\operatorname{supp} \partial_i f_\delta(x + sh_i) \subset K$ Kompaktum.}
+        &\leq \sum_{i = 1}^{n} h_i \int_0^1 \int_K \partial_i f_\delta(x + sh_i) \d{x} \d{s}\\
+        \intertext{Sei $C_i \coloneqq \sup_{s\in [0,1]} \sup_{x\in K} \partial_i f_\delta(x + sh_i)$ (beschränkt, weil $[0,1] \times K$ kompakt ist.)}
+        &\leq \sum_{i = 1}^{n} |h_i| \int_0^1 \int_K C_i \d{x}\d{s}\\
+        &\leq \sum_{i = 1}^{n} |h_i| C_i'\\
+        &\leq \hat{C_i'} \sum_{i = 1}^{n} |h_i|\\
+        &= C \norm{h}_1\\
+        \intertext{Es existiert also ein geeignetes $h \in \R^n$, sodass gilt}
+        \norm{f_{\delta, h} - f_\delta} &< \frac{\epsilon}{3}
+    \end{align*}
+    Insgesamt erhalten wir daher für geeignetes $h$
+    \begin{align*}
+        \norm{f - f_h}_1 \leq \norm{f - f_\delta}_1 + \norm{f_\delta - f_{\delta, h}}_1 + \norm{f_{\delta, h} - f_h} \leq 3 \frac{\epsilon}{3} = \epsilon
+    \end{align*}
+    und es folgt die Behauptung.
+    \section*{Zusatzaufgabe 8.1}
+    \begin{enumerate}[(a)]
+        \item Es gilt 
+        \begin{align*}
+            \mathrm{D} T &= \begin{pmatrix}
+                \frac{\partial \frac{y^2}{x}}{\partial x} & \frac{\partial \frac{x^2}{y}}{\partial x}\\[0.3em]
+                \frac{\partial \frac{y^2}{x}}{\partial y} & \frac{\partial \frac{x^2}{y}}{\partial y}\\
+            \end{pmatrix} = \begin{pmatrix}
+                -\frac{y^2}{x^2} & 2 \frac{x}{y}\\[0.3em]
+                2 \frac{y}{x} & - \frac{x^2}{y^2}
+            \end{pmatrix}
+        \end{align*}
+        Für $x, y > 0$ ist $T$ daher differenzierbar. Es gilt offensichtlich
+        \begin{align*}
+            T(\R_+^2) \subset \R_+^2
+        \end{align*}
+        Sei
+        \begin{align*}
+            S\colon \R_+^2 &\to \R_+^2\\
+            (w, z) &\mapsto (\sqrt[3]{wz^2}, \sqrt[3]{w^2z}).
+            \intertext{Insbesondere gilt dann}
+            \left(\frac{y^2}{x}, \frac{x^2}{y}\right) &\mapsto (\sqrt[3]{\frac{y^2}{x}\frac{x^4}{y^2}}, \sqrt[3]{\frac{y^4}{x^2}\frac{x^2}{y}}) = (\sqrt[3]{x^3}, \sqrt[3]{y^3}) = (x,y).
+        \end{align*}
+        Wegen
+        \begin{align*}
+            \left(\frac{\sqrt[3]{w^2z}^2}{\sqrt[3]{wz^2}}, \frac{\sqrt[3]{wz^2}^2}{\sqrt[3]{w^2z}}\right) &= (\sqrt[3]{w^3}, \sqrt[3]{z^3}) = (w,z)
+        \end{align*}
+        ist durch $S$ die eindeutig bestimmte Umkehrabbildung zu $T$ gegeben.
+        Es gilt
+        \begin{align*}
+            \mathrm{D} S &= \begin{pmatrix}
+                \frac{\partial \sqrt[3]{wz^2}}{\partial w} & \frac{\partial \sqrt[3]{w^2z}}{\partial w}\\[0.3em]
+                \frac{\partial \sqrt[3]{wz^2}}{\partial z} & \frac{\partial  \sqrt[3]{w^2z}}{\partial z}\\
+            \end{pmatrix} = \begin{pmatrix}
+                \frac{1}{3} (wz^2)^{-\frac{2}{3}} & \frac{2}{3} w (w^2z)^{-\frac{2}{3}}\\[0.3em]
+                \frac{2}{3} z (wz^2)^{-\frac{2}{3}} & \frac{1}{3} (w^2z)^{-\frac{2}{3}}
+            \end{pmatrix}
+        \end{align*}
+        und (wird benötigt für die c)
+        \begin{align*}
+            \det \mathrm{D} S &= \frac{1}{3} (wz^2)^{-\frac{2}{3}} \cdot \frac{1}{3} (w^2z)^{-\frac{2}{3}} - \frac{2}{3} z (wz^2)^{-\frac{2}{3}} \cdot \frac{2}{3} w (w^2z)^{-\frac{2}{3}}\\
+            &= \frac{1}{9} (w^3z^3)^{-\frac{2}{3}} \left(1 - 4zw\right)\\
+            &= \frac{1}{9} ((wz)^{-2} - 4 (wz)^{-1}
+        \end{align*}
+        Für $w, z > 0$ ist $S$ daher überall stetig partiell differenzierbar, also insbesondere total differenzierbar und somit ist $T$ ein $C^1$-Diffeomorphismus.
+        \item Es gilt
+        \begin{align*}
+            T(M) &= T\left(\{(x,y) \in \R_+^2\colon a < y \frac{y^2}{x} < b,\; p < \frac{x^2}{y} < q\}\right)\\
+            &= \{(w,z) \in T(M)\colon a < w < b,\; p < z < q\}\\
+            &= (a,b) \times (p,q)
+        \end{align*}
+        $(a,b) \times (p,q)$ ist messbar.
+        Da $S$ eine differenzierbare, also insbesondere stetige Abbildung ist, handelt es sich bei $M = S(T(M)) = S((a,b) \times (p,q))$ wieder um eine messbare Menge.
+        \item 
+        \begin{align*}
+            \int_M \mathbbm{1}_{\R^2}\d{\mathscr{L}^2} &= \int_{S(T(M))} \mathbbm{1}_{\R^2}\d{\mathscr L^2}\\
+            &= \int_{T(M)} \mathbbm{1}_{\R^2} \circ S |\det \mathrm{D}S| \d{\mathscr L^2}\\
+            &= \int_a^b \int_p^q \frac{1}{9} ((wz)^{-2} - 4 (wz)^{-1} \d{z}\d{w}\\
+            &= \frac{1}{9} \int_a^b \left[\frac{1}{-w^2}z^{-1} - \frac{4}{w} \ln(z)\right]_{z = p}^q \d{w}\\
+            &= \frac{1}{9} \int_a^b \left(\frac{1}{-w^2}(p^{-1} - q^{-1})  - \frac{4}{w} \ln(p/q)\right) \d{w}\\
+            &= \frac{1}{9} \left[(p^{-1} - q^{-1}) \frac{1}{w} - 4\ln(w)\ln(p/q) \right]_{w=a}^b\\
+            &= \frac{1}{9} \left((p^{-1} - q^{-1}) (a^{-1} - b^{-1}) - 4 \ln(a/b)\ln(p/q)\right)
+        \end{align*}
+    \end{enumerate}
+\end{document}
