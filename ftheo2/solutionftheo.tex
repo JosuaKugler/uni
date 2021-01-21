@@ -3,74 +3,103 @@
 \usepackage{josuamathheader}
 
 \begin{document}
-  \section*{Aufgabe 32}
+  \section*{Aufgabe 35}
   \begin{enumerate}[(a)]
-    \item Es gilt nach Skript $\Im M\langle z\rangle = \frac{\Im(z)}{|cz+d|^2}$. Daher gilt
-    \[
-        f(M\langle z\rangle) \overline{g(M\langle z\rangle)} (\Im M\langle z\rangle)^k = (cz + d)^k f(z) \overline{(cz+d)^kg(z)} \frac{y^k}{|cz+d|^{2k}} = f(z)\overline{g(z)}y^k.
+    \item Wir stellen im Folgenden $\wp(\alpha \omega_1 + \beta\omega_2)$ durch $(\alpha, \beta)$ dar.
+    Für $\tau = \frac{\omega_1}{\omega_2}$ gilt 
+    \[ 
+      M\langle\tau\rangle = \frac{a\omega_1 + b\omega_2}{c\omega_1 + d\omega_2}.
     \]
-    \item Sei OE $f$ die Spitzenform. Sei außerdem $\Gamma(N) \subset \Lambda$. Dann gilt
+    Die Wirkung von $M$ auf das Gitter ist also gegeben durch $\omega_1 \mapsto a\omega_1 + b\omega_2$ und $\omega_2 \mapsto c\omega_1 + d\omega_2$. Insbesondere erhalten wir
+    \[ 
+    \alpha \omega_1 + \beta \omega_2 \mapsto \alpha(a \omega_1 + b\omega_2) + \beta(c \omega_1 + d\omega_2) = (a\alpha + c\beta) \omega_1 + (b\alpha + d\beta) \omega_2.
+    \]
+    Es gilt daher $\phi(M) (\alpha, \beta) = (\alpha, \beta) \cdot M$.
+    Aufgrund der Periodizität von $\wp$ ist 
+    \[ 
+    (\alpha, \beta) \sim (a + \alpha, b + \beta)\qquad  \forall a,b \in \Z.
+    \]
+    Wir erhalten also
     \begin{align*}
-      \langle f, g\rangle &= \int_{\mathcal{F}} f(z)\overline{g(z)}y^k \frac{\d{x}\d{y}}{y^2}\\
-      &\leq \int_{\mathcal{F}} \left|f(z)\overline{g(z)}y^{k-2} \right|\d{x}\d{y}
-      \intertext{$g(z)$ ist auf dem gesamten Fundamentalbereich beschränkt, $|\overline{g(z)}| \leq C$.}
-      &\leq C \cdot \int_{\mathcal{F}} \left|f(z)y^{k-2} \right|\d{x}\d{y}
-      \intertext{Es gilt $\mathcal{F} \subset [0,N] \times i(0, \infty)$}
-      &\leq C \cdot \int_0^N \int_0^\infty \left|f(x + iy)y^{k-2} \right| \d{y}\d{x}
-      \intertext{$f$ Spitzenform $\implies \lim\limits_{y \to i\infty} \left| y^kf(z) \right| = \lim\limits_{y \to i\infty} \left|y^k\sum_{n = 1}^{\infty} a_n e^{\frac{2\pi i n z}{N}}\right| \leq \sum_{n = 1}^{\infty} |a_n| \lim\limits_{y \to i\infty} y^k e^{-\frac{2\pi n}{N} y} = 0$}
-      &\leq C \cdot \int_0^N \left[\int_0^D \left|f(x + iy)y^{k-2} \right| \d{y} + \int_D^\infty \frac{\d{y}}{y^2}\right]\d{x}\\
-      &\leq C \int_0^N \int_0^D \left|f(x + iy)y^{k-2} \right| \d{y} \d{x} + \frac{CN}{D}
-      \intertext{Das Integral über eine stetige Funktion auf einem Kompaktum ist endlich}
-      &< \infty
+      \phi(T)e_1 &= (1/2, 0)\begin{pmatrix}
+        1 & 1\\ 0&1
+      \end{pmatrix}  = (1/2, 1/2) &&= e_3\\
+      \phi(T)e_2 &= (0,1/2)\begin{pmatrix}
+        1 & 1\\ 0&1
+      \end{pmatrix} = (0,1/2) &&= e_2\\
+      \phi(T)e_3 &= (1/2, 1/2)\begin{pmatrix}
+        1 & 1\\ 0&1
+      \end{pmatrix} = (1/2, 1) \overset{\mod \text{Gitter}}{\equiv} (1/2,0) &&= e_1\\
+      \phi(S)e_1 &= (1/2,0)\begin{pmatrix}
+        0 & 1\\
+        -1 & 0
+      \end{pmatrix} = (0,1/2) &&= e_2\\
+      \phi(S)e_2 &= (0,1/2)\begin{pmatrix}
+        0 & 1\\
+        -1 & 0
+      \end{pmatrix} = (-1/2, 0) \overset{\mod \text{Gitter}}{\equiv}  (1/2, 0) &&= e_1\\
+      \phi(S)e_3 &= (1/2, 1/2)\begin{pmatrix}
+        0 & 1\\
+        -1 & 0
+      \end{pmatrix} = (-1/2, 1/2) \overset{\mod \text{Gitter}}{\equiv}  (1/2, 1/2) &&= e_3\\
     \end{align*}
-    \item Die Sesquilinearität folgt sofort aus der Kommutativität der Multiplikation und der Linearität des Integrals.
-    Wir verwenden nun den Integraltransformationssatz.
-    Es gilt 
-    \begin{align*}
-      \int_{M\mathcal{F}} f(z) \overline{g(z)}y^k \frac{\d{x}\d{y}}{y^2} &= \int_\mathcal{F} f(M\langle z\rangle) \overline{g(M\langle z\rangle)} (\Im M\langle z\rangle)^k |\det \mathrm{D}(M\langle z\rangle)|\frac{\d{x}\d{y}}{(\Im M\langle z\rangle)^2}\\
-      &= \int_\mathcal{F} f(z) \overline{g(z)} y^k \left|\frac{a(cz + d) - c(az + d)}{(cz+d)^2}\right|^2 (|cz + d|^2)^2\frac{\d{x}\d{y}}{y^2}\\
-      &= \int_\mathcal{F} f(z)\overline{g(z)}y^k \frac{1}{|cz + d|^4}|cz + d|^4 \frac{\d{x}\d{y}}{y^2}\\
-      &= \int_\mathcal{F} f(z) \overline{g(z)}y^k \frac{\d{x}\d{y}}{y^2}
-    \end{align*}
-  \end{enumerate}
-  \section*{Aufgabe 34}
-  \begin{enumerate}[(a)]
+    Also gilt $\phi(T) = (13)$ und $\phi(S) = (12)$ (Permutationen können auf kanonische Weise als Element von $\operatorname{Bij}(\{e_1, e_2, e_3\}))$ aufgefasst werden).
     \item Es gilt 
     \begin{align*}
-      \sum_{n = 0}^{\infty} \left|\chi(n)n^{-s}\right| &= \sum_{n = 0}^{\infty} 1 \cdot n^{-\Re s},
+      (132) &= (12)(13) = \phi(S)\phi(T) = \phi(ST)\\
+      (123) &= (13)(12) = \phi(T)\phi(S) = \phi(TS)\\
+      (23)  &= (12)(123) = \phi(T)\phi(ST) = \phi(TST)\\
+      () &= (12)(12) = \phi(S)\phi(S) = \phi(S^2)
     \end{align*}
-    da die Werte eines Charakters im Einheitskreis liegen. Für $\alpha > 1$ gilt
+    Damit sind für alle 6 Elemente von $\Gamma/\Gamma[2]$ Vertreter bestimmt.
+    \item $\lambda|_0 M$ erhalten wir einfach, indem wir die $e_i$ gemäß der von $M$ induzierten Permutation auf $\{e_1, e_2, e_3\}$ vertauschen. Es genügt daher, wenn $M$ das Vertretersystem durchläuft. Dann erhalten wir
     \begin{align*}
-      \int_0^\infty n^{-\alpha} \d{n} &= \frac{1}{1 - \alpha} n^{1-\alpha}\bigg|_0^\infty = 0.
+      \lambda|_0 T &= (13)\frac{e_3 - e_2}{e_1 - e_2} = \frac{e_1 - e_2}{e_3-e_2} &&= \lambda^{-1}\\
+      \lambda|_0 S &= (12)\frac{e_3 - e_2}{e_1 - e_2} = \frac{e_3 - e_1}{e_2-e_1} &&= 1- \lambda\\
+      \lambda|_0 ST &= (132)\frac{e_3 - e_2}{e_1 - e_2} = \frac{e_2 - e_1}{e_3-e_1} &&= \frac{1}{1-\lambda}\\
+      \lambda|_0 TS &= (123)\frac{e_3 - e_2}{e_1 - e_2} = \frac{e_1 - e_3}{e_2-e_3} &&= 1- \lambda^{-1}\\
+      \lambda|_0 TST &= (23)\frac{e_3 - e_2}{e_1 - e_2} = \frac{e_2 - e_3}{e_1-e_3} &= \frac{1}{1-\lambda^{-1}} &= \frac{\lambda}{\lambda - 1}\\
+      \lambda|_0 S^2 &= ()\frac{e_3 - e_2}{e_1 - e_2} = \frac{e_3 - e_2}{e_1-e_2} &&= \lambda\\
     \end{align*}
-    Nach dem Integralkriterium ist die Dirichletreihe $L(s, \chi)$ daher für jedes $s > 1$ absolut konvergent.
-    Sei $K$ ein Kompaktum in $\{s\in \C | \Re s > 1\}$. Dann ist aufgrund der Kompaktheit $\min_{s\in K} s > 1$.
-    Für $\Re s < \Re s'$ gilt schließlich $n^{-\Re s} > n^{-\Re s'}$, woraus die kompakte Konvergenz von $L(s, \chi)$ folgt.
-    \item Zunächst zeigen wir, dass das Produkt absolut konvergent ist.
+  \end{enumerate}
+  \section*{Aufgabe 36}
+  Alle Reihen in dieser Aufgabe sind absolut konvergent, da der Ausdruck $P(n) \cdot e^{2\pi i \tau n} \xrightarrow{n \to  \infty} \to 0$ geht für ein beliebigies Polynom $P$, solange $\Im \tau > 0$. Das ist aber nach Voraussetzung gegeben.
+  \begin{enumerate}[(a)]
+    \item Wir reduzieren die Aussage für $k=2$ mittels Äquivalenzumformungen auf die triviale Gleichung $0=0$.
     \begin{align*}
-      \sum_{\operatorname{ggT}(p, N) = 1} \left| 1 - \frac{1}{1 - \frac{\chi(p)}{p^s}}\right| &\leq  \sum_{\operatorname{ggT}(p, N) = 1} \left| \frac{1 - \frac{\chi(p)}{p^s} - 1}{1 - \frac{\chi(p)}{p^s}}\right|\\
-      &\leq  \sum_{\operatorname{ggT}(p, N) = 1}  \frac{|\chi(p)|}{\left|p^s - \chi(p)\right|}\\
-      &\leq \sum_{\operatorname{ggT}(p, N) = 1}  \frac{|\chi(p)|}{|p^s|- |\chi(p)|}\\
-      &= \sum_{\operatorname{ggT}(p, N) = 1}  \frac{1}{p^{\Re s} - 1}
-      \intertext{$p \geq 2, \Re s > 1$}
-      &\leq \sum_{\operatorname{ggT}(p, N) = 1} \frac{2}{p^{\Re s}}
-      &< 2 \cdot L(s, 1) < \infty
+      \sum_{n = -\infty}^{\infty} (\tau + n)^{-2} &= (2\pi i)^2 \sum_{n = 1}^{\infty} n e^{2\pi i n \tau}
+      \intertext{Wegen Aufgabe 48 folgt}
+      \frac{\pi^2}{\sin^2(\pi \tau)} &= (2\pi i )^2 \sum_{n = 1}^{\infty} ne^{2\pi i n \tau}
+      \intertext{Exponentialzerlegung des Sinus}
+      \frac{(2\pi i)^2}{(e^{i\pi \tau} - e^{-i\pi \tau})^2} &= (2\pi i )^2 \sum_{n = 1}^{\infty} ne^{2\pi i n \tau}\\
+      1 &= \sum_{n = 1}^{\infty} ne^{2\pi i n\tau}\left[e^{2\pi i \tau} - 2 + e^{-2\pi i \tau}\right]\\
+      1 &= \sum_{n = 1}^{\infty} ne^{2\pi i (n+1)\tau}  + \sum_{n = 1}^{\infty} - 2ne^{2\pi i n \tau} + \sum_{n = 1}^{\infty} ne^{2\pi i (n-1) \tau}\\
+      1 &= \sum_{n = 2}^{\infty} (n-1)e^{2\pi i n \tau} + \sum_{n = 1}^{\infty} -2ne^{2\pi i n\tau} + \sum_{n = 0}^{\infty} (n+1)e^{2\pi i n \tau}\\
+      1 &= 1 - 2e^{2\pi i \tau} + 2e^{2\pi i \tau} + \sum_{n = 2}^{\infty} [(n-1) - 2n + (n+1)]e^{2\pi i n\tau}\\
+      1 &= 1 + \sum_{n = 2}^{\infty} 0
     \end{align*}
-    Nun zeigen wir noch, dass der Wert des Produkts mit $L(s, \chi)$ übereinstimmt. 
-    Sei $\mathcal{M} = \{p \in \N\colon p \text{ prim, } \operatorname{ggT}(p, N) = 1\}$. 
-    Sei $p_\nu$ das Element von $\mathcal M$, für das es genau $\nu - 1$ kleinere Elemente in $\mathcal M$ gibt.
-    Zunächst benutzen wir hier die geometrische Reihenentwicklung
+    Die Aussage für $k\geq 3$ folgt per Induktion. Sei die Identität für festes $k$ bewiesen.
+    Dann gilt
     \begin{align*}
-      \prod_{\operatorname{ggT}(p, N) = 1} \frac{1}{1 - \frac{\chi(p)}{p^s}} &= \lim\limits_{M \to \infty} \prod_{\nu = 1}^M \frac{1}{1 - \frac{\chi(p_\nu)}{p_\nu^s}}\\
-      &= \lim\limits_{M \to \infty} \prod_{\nu = 1}^M \sum_{n_\nu = 0}^{\infty} \left(\frac{\chi(p_\nu)}{p_\nu^s}\right)^n\\
-      \intertext{Nach dem Reihenmultiplikationssatz von Cauchy gilt}
-      &= \lim\limits_{M \to \infty}\sum_{n_1, \dots, n_\nu = 0}^{\infty} \prod_{\nu = 1}^M \left(\frac{\chi(p_\nu)}{p_\nu^s}\right)^{n_\nu}\\
-      &= \lim\limits_{M \to \infty} \sum_{n_1, \dots, n_\nu = 0}^{\infty} \frac{\chi\left(\prod_{\nu = 1}^M p_\nu^{n_\nu}\right)}{\left(\prod_{\nu = 1}^M p_\nu^{n_\nu}\right)^s}
-      \intertext{Genau die Zahlen $n$, die in ihrer Primfaktorzerlegung nur Primzahlen $p \in \mathcal M$ enthalten, erhalten wir durch $\prod_{\nu = 1}^\infty p_\nu^{n_\nu}$. Für solche $n$ gilt aber $\operatorname{ggT}(n, N) = 1$.}
-      &= \sum_{\operatorname{ggT}(n, N) = 1} \frac{\chi(n)}{n^s}\\
-      \intertext{Für $\operatorname{ggT}(n, N) \neq 1$ gilt aber bereits $\chi(n) = 0$, da $n$ in $\Z/N\Z$ dann nicht mehr invertierbar ist.}
-      &= \sum_{n = 1}^{\infty} \chi(n)n^{-2}\\
-      &= L(s, \chi)
+      (-1)^k \sum_{n = -\infty}^{\infty} (\tau + n)^{-k} &= \frac{(2\pi i)^k}{(k-1)!} \sum_{n = 1}^{\infty} n^{k-1}e^{2\pi i n \tau}
+      \intertext{Ableiten ergibt}
+      (-1)^{k+1}\cdot k \cdot \sum_{n = -\infty}^{\infty} (\tau + n)^{-(k+1)} &= \frac{(2\pi i)^k}{(k-1)!} \sum_{n = 1}^{\infty} n^{k-1} (2\pi i n) e^{2\pi i n \tau}\\
+      (-1)^{k+1} \sum_{n = -\infty}^{\infty} (\tau + n)^{-(k+1)} &= \frac{(2\pi i)^{k+1}}{k!} \sum_{n = 1}^{\infty} n^k e^{2\pi i n \tau}
+    \end{align*}
+    \item Es gilt
+    \begin{align*}
+      G_k(\tau) &= \sum_{(c,d) \in \{0\}\times \Z\setminus \{0\}} (c\tau + d)^{-k} + \sum_{(c,d) \in \Z\setminus\{0\}\times \Z} (c\tau + d)^{-k}\\
+      \intertext{$k$ gerade}
+      &= 2 \cdot \sum_{d = 1}^{\infty} d^{-k} + \sum_{c \in \Z\setminus \{0\}} \sum_{d = -\infty}^{\infty} (c\tau + d)^{-k}
+      \intertext{Für negatives $c$ substituieren wir $d = -d$, da $d$ über ganz $\Z$ summiert wird. Wegen $k$ gerade ändert sich aber der Wert der Reihe dadurch nicht. Außerdem können wir noch $(-1)^k = 1$ einfügen}
+      &= 2 \zeta(k)  + 2 \sum_{c = 1}^{\infty} (-1)^k\sum_{d = -\infty}^{\infty} (c \tau + d)^{-k}\\
+      \intertext{Mit Aufgabenteil (a) folgt}
+      &= 2\zeta(k) + 2 \sum_{c = 1}^{\infty} \frac{(2\pi i)^k}{(k-1)!}\sum_{n = 1}^{\infty} n^{k-1}e^{2\pi i n (c\tau)}\\
+      &= 2\zeta(k) + \frac{2(2\pi i)^k}{(k-1)!}\sum_{n, c = 1}^{\infty} n^{k-1}e^{2\pi i \tau (nc)}
+      \intertext{Wir betrachten nun alle Summanden mit $(nc) = N$ und summieren dann über $N$.}
+      &= 2\zeta(k) + \frac{2(2\pi i)^k}{(k-1)!} \sum_{N = 1}^{\infty} \sum_{nc = N, n, c\in \N} n^{k-1}e^{2\pi i N\tau}\\
+      &= 2\zeta(k) + \frac{2(2\pi i)^k}{(k-1)!} \sum_{N = 1}^{\infty} \sum_{n | N} n^{k-1}e^{2\pi i N\tau}\\
+      &= 2\zeta(k) + \frac{2(2\pi i)^k}{(k-1)!} \sum_{N = 1}^{\infty} \sigma_{k-1}(N) e^{2\pi i N\tau}
     \end{align*}
   \end{enumerate}
 \end{document}
