@@ -1,0 +1,130 @@
+\documentclass{article}
+
+\usepackage{josuamathheader}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\begin{document}
+\def\headheight{25pt}
+\analayout{9}
+    \section*{Aufgabe 9.1}
+    \begin{enumerate}[(a)]
+        \item $\mathscr S(\R^n)$ ist eine Teilmenge des Vektorraums $\C^\infty(\R^n, \C)$. Daher genügt es, die lineare Abgeschlossenheit zu zeigen.
+        Seien dafür $z \in \C, f, g\in \mathscr S(\R^n)$. Dann ist $zf + g$ nach Faktor- bzw. Summenregel immer noch beliebig oft differenzierbar. Außerdem ist $\sup |x^\alpha \partial_\beta (zf + g)| \leq z \cdot \sup |x^\alpha \partial_\beta f| + \sup |x^\alpha \partial_\beta g| < \infty$.
+        \item Wegen $\sup |x^\alpha f| <\infty$ erhalten wir für $\alpha = (2, \dots, 2)$ und $p < \infty$
+        \begin{align*}
+            \int_{\R^n} |f|^p \d[n]{x} &= \int_{B^n_1(0)} |f|^p \d[x]{x} + \int_{\R^n \setminus B^n_1(0)} \left|\frac{x^\alpha f}{x^\alpha}\right|^p \d[n]{x}\\
+            &\leq C + \sup |x^\alpha f| \int_{\R^n \setminus B^n_1(0)} |x^{-\alpha}|^p \d[n]{x}\\
+            &= C + \sup |x^\alpha f| \prod_{i = 1}^n \int_{R\setminus B^1_1(0)} x_i^-2p \d{x_i}\\
+            &\leq C + \sup |x^\alpha f| \prod_{i = 1}^n 2 \cdot \int_1^\infty \frac{1}{x_i^2} \d{x_i}\\
+            &= C + \sup |x^\alpha f| \prod_{i = 1}^n 2 \cdot 1\\
+            &= C + 2^n \cdot \sup |x^\alpha f|
+            &< \infty
+        \end{align*}
+        Sei nun $p = \infty$. Dann gilt
+        \begin{align*}
+            \norm{f}_\infty = \sup |f| < \infty
+        \end{align*}
+        Also ist $\forall p \in [1, \infty] \colon f \in L^p(\R^n)$.
+        \item Aufgrund der Produktregel gilt $fg \in C^\infty(\R^n, \C)$. 
+        Durch iteriertes Anwenden der Produktregel erhalten wir
+        \begin{align*}
+            \partial_i^{\alpha_i} (fg) &= \sum_{k = 0}^{alpha_i} \binom{\alpha_i}{k} (\partial_i^k f) \cdot (\partial_i^{\alpha_i - k}g)
+        \end{align*}
+        Durch iteriertes Anwenden dieser Gleichung erhält man allgemein 
+        \begin{align*}
+            \partial^\alpha (fg) &= \sum_{\alpha' + \alpha'' = \alpha} \nu_{\alpha', \alpha''} \partial^{\alpha'} f \partial^{\alpha''} g
+        \end{align*}.
+        Daraus folgern wir
+        \begin{align*}
+            \sup |x^\beta \partial^\alpha (fg)| &\leq \sum_{\alpha' + \alpha'' = \alpha} \nu_{\alpha', \alpha''} \sup |x^\beta \partial^{\alpha'} f \partial^{\alpha''} g|\\
+            &\leq \sum_{\alpha' + \alpha'' = \alpha} \nu_{\alpha', \alpha''} \sup |x^\beta \partial^{\alpha'} f| \cdot \sup |\partial^{\alpha''} g|
+            &< \infty
+        \end{align*}
+        Insgesamt erhalten wir $fg \in \mathscr S (\R^n)$.
+    \end{enumerate}
+    \section*{Aufgabe 9.2}
+    Es gilt
+    \begin{align*}
+        2 xH_j(x) - H_j'(x) &= 2x (-1)^j e^{x^2} \frac{\d[j]}{\d{x^j}}e^{x^2} - (-1)^j 2xe^{x^2} \frac{\d[j]}{\d{x^j}}e^{x^2} - (-1)^j e^{x^2} \frac{\d[j+1]}{\d{x^{j+1}}}e^{x^2}\\
+        &= (-1)^{j+1} e^{x^2} \frac{\d[j+1]}{\d{x^{j+1}}}e^{x^2}\\
+        &= H_{j+1}(x).
+    \end{align*}
+    Weiter gilt
+    \begin{align*}
+        x\psi_j(x) - \psi_j'(x) &= x H_j(x) e^{-\frac{x^2}{2}} - H_j'(x)e^{-\frac{x^2}{2}} - H_j(x) (-x)e^{-\frac{x^2}{2}}\\
+        &= (2x H_j(x) - H_j'(x))e^{-\frac{x^2}{2}}\\
+        &= H_{j+1}(x)e^{-\frac{x^2}{2}}\\
+        &= \psi_{j+1}(x).
+    \end{align*}
+    $\psi_j(x) \in C^\infty(\R, \R)$, da die Ableitung von $\psi_j$ durch $\psi_j$ und $\psi_{j+1}$ ausgedrückt werden kann.
+    Außerdem ist $H_j(x)$ nach Auswertung der hinteren Ableitung von der Form $H_j(x) = e^{x^2} \cdot P(x) \cdot e^{-x^2} = P(x)$ für ein Polynom $P$. Wegen $e^{-\frac{x^2}{2}} \in \mathscr S(\R)$ folgt daraus $\psi_j \in \mathscr S(\R)$.
+    Insbesondere ist die Fouriertransformation der folgenden Funktionen wohldefiniert.
+    \begin{align*}
+        -i(\xi \widehat \psi_j(\xi) - (\widehat \psi_j)'(\xi)) &= - \widehat{\partial_x \psi_j}(\xi) -i (- \partial_\xi \widehat \psi_j)(\xi)\\
+        &=- \widehat{\partial_x \psi_j}(\xi) -i \widehat{ix\psi_j}(\xi)\\
+        &= \widehat{(x \psi_j - \psi_j')}(\xi)\\
+        &= \widehat{\psi}_{j+1}(\xi)
+    \end{align*}
+    Wir zeigen die verbleibende Aussage per Induktion. 
+    Es gilt nach VL $\widehat{\psi}_0(x) = 1\cdot \psi_0(x)$ und damit ist der Induktionsanfang mit $\lambda_0 = 1$ bewiesen.
+    Sei also $\widehat{\psi}_j(x) = \lambda_j \psi_j(x)$. Dann gilt
+    \begin{align*}
+        \widehat{\psi}_{j+1}(x) &= -i(x \widehat{\psi}_j(x) - (\widehat{\psi_j})'(x))\\
+        \intertext{Induktionsvoraussetzung}
+        &= -i(x \lambda_j \psi_j(x) - (\lambda_j \psi_j)'(x))\\
+        &= -i(\lambda_j x\psi_j(x) - \lambda_j \psi_j'(x))\\
+        &= -i\lambda_j (x\psi_j(x) - \psi_j'(x))\\
+        &= - i\lambda_j \psi_{j+1}(x).
+    \end{align*}
+    Also ist $\widehat{\psi}_{j+1}(x) = \lambda_{j+1} \psi_{j+1}(x)$ mit $\lambda_{j+1} = -i\lambda_j$. Damit ist die Aussage bewiesen.
+    \section*{Aufgabe 9.3}
+    \begin{enumerate}[(a)]
+        \item Es gilt
+        \begin{align*}
+            \widehat{\tau_y f}(\xi) &= \frac{1}{(2\pi)^\frac{n}{2}} \int_{\R^n} (\tau_y f)(x) e^{- i\xi \cdot x} \d{x}\\
+            &= \frac{1}{(2\pi)^\frac{n}{2}} \int_{\R^n} f(x-y) e^{- i\xi \cdot x} \d{x}
+            \intertext{Transformationssatz für $x \mapsto x + y$}
+            &= \frac{1}{(2\pi)^\frac{n}{2}} \int_{\R^n} f(x) e^{- i\xi \cdot (x + y)} \d{x}\\
+            &= e^{-i \xi \cdot y} \frac{1}{(2\pi)^\frac{n}{2}} \int_{\R^n} f(x) e^{- i\xi \cdot x} \d{x}\\
+            &= e^{-i \xi \cdot y} \widehat{f}(\xi)
+        \end{align*}
+        \item Es gilt
+        \begin{align*}
+            \widehat{\delta_\alpha f}(\xi) &= \frac{1}{(2\pi)^\frac{n}{2}} \int_{\R^n}(\delta_\alpha f)(x) e^{- i\xi \cdot x} \d{x}\\
+            &= \frac{1}{(2\pi)^\frac{n}{2}} \int_{\R^n} f(\alpha x) e^{- i\xi \cdot x} \d{x}
+            \intertext{Transformationssatz für $x \mapsto \alpha^{-1}x$}
+            &= \frac{1}{(2\pi)^\frac{n}{2}} \int_{\R^n} f(x) e^{- i\xi \cdot \frac{x}{\alpha}} |\det \alpha^{-1} E_n|\d{x}\\
+            &= \frac{1}{\alpha^n}  \frac{1}{(2\pi)^\frac{n}{2}} \int_{\R^n} f(x) e^{- i\frac{\xi}{\alpha} \cdot x} \d{x}\\
+            &= \frac{1}{\alpha^n} \widehat{f}\left(\frac{\xi}{\alpha}\right)
+        \end{align*}
+        \item Es gilt
+        \begin{align*}
+            \widehat{f * g}(\xi) &= \frac{1}{(2\pi)^\frac{n}{2}} \int_{\R^n}(f * g)(x) e^{- i\xi \cdot x} \d{x}\\
+            &= \frac{1}{(2\pi)^\frac{n}{2}} \int_{\R^n}\int_{\R^n}f(x - y)g(y) \d{y} e^{- i\xi \cdot x} \d{x}\\
+            \intertext{Fubini}
+            &= \frac{1}{(2\pi)^\frac{n}{2}} \int_{\R^n}\int_{\R^n}f(x - y)g(y) e^{- i\xi \cdot x} \d{x}\d{y}\\
+            \intertext{Transformationssatz für $x\mapsto x + y$}
+            &= \frac{1}{(2\pi)^\frac{n}{2}} \int_{\R^n}\int_{\R^n}f(x)g(y) e^{- i\xi \cdot (x + y)} \d{x}\d{y}\\
+            &= \frac{1}{(2\pi)^\frac{n}{2}} \int_{\R^n}\int_{\R^n}f(x) e^{- i\xi \cdot x} \d{x} g(y)e^{- i\xi \cdot y}\d{y}
+            \intertext{Fubini}
+            &= (2\pi)^{\frac{n}{2}} \cdot \left[\frac{1}{(2\pi)^\frac{n}{2}} \int_{\R^n}f(x) e^{- i\xi \cdot x} \d{x} \right]\left[\int_{\R^n} g(y)e^{- i\xi \cdot y}\d{y}\right]\\
+            &= (2\pi)^{\frac{n}{2}} \cdot \widehat{f}\widehat{g}
+        \end{align*}
+    \end{enumerate}
+    \section*{Zusatzaufgabe 9.1}
+    Es gilt $\partial_\beta f(x) = \prod_{i=1}^n \partial_i^{\beta_i} f_i(x_i)$. Daher ist $f \in \C^\infty(\R^n, \C)$.
+    Außerdem gilt 
+    \[
+        \sup |x^\alpha \partial_\beta f| = \sup \left|\prod_{i= 1}^n x_i^{\alpha_i} \partial_i^{\beta_i} f_i\right| \leq \prod_{i = 1}^n \sup |x_i^{\alpha_i} \partial_i^{\beta_i} f_i| < \infty.
+    \]
+    Also ist $f \in \mathscr S(\R^n)$.
+    Wir schließen weiter
+    \begin{align*}
+        \widehat{f}(\xi) &=  \frac{1}{(2\pi)^{\frac{n}{2}}}\int_\R \dots \int_\R \prod_{i = 1}^n f_i(x_i) e^{-i \sum_{i = 1}^{n} \xi_i x_i} \d{x_1} \dots \d{x_n}\\
+        \intertext{Fubini}
+        &= \prod_{i = 1}^n \frac{1}{\sqrt{2\pi}} \int_\R f_i(x_i)e^{-i \xi_i x_i} \d{x_i}\\
+        &= \prod_{i = 1}^n \widehat{f_i}(\xi_i).
+    \end{align*}
+\end{document}
