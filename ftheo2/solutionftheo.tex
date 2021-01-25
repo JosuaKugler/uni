@@ -3,103 +3,76 @@
 \usepackage{josuamathheader}
 
 \begin{document}
-  \section*{Aufgabe 35}
+  \section*{Aufgabe 40}
   \begin{enumerate}[(a)]
-    \item Wir stellen im Folgenden $\wp(\alpha \omega_1 + \beta\omega_2)$ durch $(\alpha, \beta)$ dar.
-    Für $\tau = \frac{\omega_1}{\omega_2}$ gilt 
-    \[ 
-      M\langle\tau\rangle = \frac{a\omega_1 + b\omega_2}{c\omega_1 + d\omega_2}.
-    \]
-    Die Wirkung von $M$ auf das Gitter ist also gegeben durch $\omega_1 \mapsto a\omega_1 + b\omega_2$ und $\omega_2 \mapsto c\omega_1 + d\omega_2$. Insbesondere erhalten wir
-    \[ 
-    \alpha \omega_1 + \beta \omega_2 \mapsto \alpha(a \omega_1 + b\omega_2) + \beta(c \omega_1 + d\omega_2) = (a\alpha + c\beta) \omega_1 + (b\alpha + d\beta) \omega_2.
-    \]
-    Es gilt daher $\phi(M) (\alpha, \beta) = (\alpha, \beta) \cdot M$.
-    Aufgrund der Periodizität von $\wp$ ist 
-    \[ 
-    (\alpha, \beta) \sim (a + \alpha, b + \beta)\qquad  \forall a,b \in \Z.
-    \]
-    Wir erhalten also
-    \begin{align*}
-      \phi(T)e_1 &= (1/2, 0)\begin{pmatrix}
-        1 & 1\\ 0&1
-      \end{pmatrix}  = (1/2, 1/2) &&= e_3\\
-      \phi(T)e_2 &= (0,1/2)\begin{pmatrix}
-        1 & 1\\ 0&1
-      \end{pmatrix} = (0,1/2) &&= e_2\\
-      \phi(T)e_3 &= (1/2, 1/2)\begin{pmatrix}
-        1 & 1\\ 0&1
-      \end{pmatrix} = (1/2, 1) \overset{\mod \text{Gitter}}{\equiv} (1/2,0) &&= e_1\\
-      \phi(S)e_1 &= (1/2,0)\begin{pmatrix}
-        0 & 1\\
-        -1 & 0
-      \end{pmatrix} = (0,1/2) &&= e_2\\
-      \phi(S)e_2 &= (0,1/2)\begin{pmatrix}
-        0 & 1\\
-        -1 & 0
-      \end{pmatrix} = (-1/2, 0) \overset{\mod \text{Gitter}}{\equiv}  (1/2, 0) &&= e_1\\
-      \phi(S)e_3 &= (1/2, 1/2)\begin{pmatrix}
-        0 & 1\\
-        -1 & 0
-      \end{pmatrix} = (-1/2, 1/2) \overset{\mod \text{Gitter}}{\equiv}  (1/2, 1/2) &&= e_3\\
-    \end{align*}
-    Also gilt $\phi(T) = (13)$ und $\phi(S) = (12)$ (Permutationen können auf kanonische Weise als Element von $\operatorname{Bij}(\{e_1, e_2, e_3\}))$ aufgefasst werden).
-    \item Es gilt 
-    \begin{align*}
-      (132) &= (12)(13) = \phi(S)\phi(T) = \phi(ST)\\
-      (123) &= (13)(12) = \phi(T)\phi(S) = \phi(TS)\\
-      (23)  &= (12)(123) = \phi(T)\phi(ST) = \phi(TST)\\
-      () &= (12)(12) = \phi(S)\phi(S) = \phi(S^2)
-    \end{align*}
-    Damit sind für alle 6 Elemente von $\Gamma/\Gamma[2]$ Vertreter bestimmt.
-    \item $\lambda|_0 M$ erhalten wir einfach, indem wir die $e_i$ gemäß der von $M$ induzierten Permutation auf $\{e_1, e_2, e_3\}$ vertauschen. Es genügt daher, wenn $M$ das Vertretersystem durchläuft. Dann erhalten wir
-    \begin{align*}
-      \lambda|_0 T &= (13)\frac{e_3 - e_2}{e_1 - e_2} = \frac{e_1 - e_2}{e_3-e_2} &&= \lambda^{-1}\\
-      \lambda|_0 S &= (12)\frac{e_3 - e_2}{e_1 - e_2} = \frac{e_3 - e_1}{e_2-e_1} &&= 1- \lambda\\
-      \lambda|_0 ST &= (132)\frac{e_3 - e_2}{e_1 - e_2} = \frac{e_2 - e_1}{e_3-e_1} &&= \frac{1}{1-\lambda}\\
-      \lambda|_0 TS &= (123)\frac{e_3 - e_2}{e_1 - e_2} = \frac{e_1 - e_3}{e_2-e_3} &&= 1- \lambda^{-1}\\
-      \lambda|_0 TST &= (23)\frac{e_3 - e_2}{e_1 - e_2} = \frac{e_2 - e_3}{e_1-e_3} &= \frac{1}{1-\lambda^{-1}} &= \frac{\lambda}{\lambda - 1}\\
-      \lambda|_0 S^2 &= ()\frac{e_3 - e_2}{e_1 - e_2} = \frac{e_3 - e_2}{e_1-e_2} &&= \lambda\\
-    \end{align*}
+    \item Angenommen, eine Folge in einem separierten Raum $(X, \mathfrak{U}_X)$ hätte zwei verschiedene Grenzwerte $x \neq x'$. 
+    Aufgrund der Separiertheit existieren Umgebungen $U, U' \in \mathfrak{U}_X$ mit $x \in U, x'\in U'$ und $U \cap U' = \emptyset$.
+    Dann liegen alle bis auf endlich viele Folgenglieder in $U$. Insbesondere liegen höchstens endlich viele Folgenglieder in $U'$.
+    Das ist aber ein Widerspruch dazu, dass $x'$ ein Grenzwert der Folge ist.
+    \item Wir betrachten die Menge $\R \cup \{0'\}$ und 
+    statten sie aus mit der Standardtopologie, wobei jede Umgebung der $0$ auch $0'$ enthalten soll.
+    Dann besitzt die Folge $(1/n)_{n\in \N}$ die beiden Grenzwerte $0$ und $0'$. 
+    Sowohl jede Umgebung von $0$ als auch jede Umgebung von $0'$ enthält nämlich alle bis auf endlich viele Folgenglieder. 
   \end{enumerate}
-  \section*{Aufgabe 36}
-  Alle Reihen in dieser Aufgabe sind absolut konvergent, da der Ausdruck $P(n) \cdot e^{2\pi i \tau n} \xrightarrow{n \to  \infty} \to 0$ geht für ein beliebigies Polynom $P$, solange $\Im \tau > 0$. Das ist aber nach Voraussetzung gegeben.
-  \begin{enumerate}[(a)]
-    \item Wir reduzieren die Aussage für $k=2$ mittels Äquivalenzumformungen auf die triviale Gleichung $0=0$.
-    \begin{align*}
-      \sum_{n = -\infty}^{\infty} (\tau + n)^{-2} &= (2\pi i)^2 \sum_{n = 1}^{\infty} n e^{2\pi i n \tau}
-      \intertext{Wegen Aufgabe 48 folgt}
-      \frac{\pi^2}{\sin^2(\pi \tau)} &= (2\pi i )^2 \sum_{n = 1}^{\infty} ne^{2\pi i n \tau}
-      \intertext{Exponentialzerlegung des Sinus}
-      \frac{(2\pi i)^2}{(e^{i\pi \tau} - e^{-i\pi \tau})^2} &= (2\pi i )^2 \sum_{n = 1}^{\infty} ne^{2\pi i n \tau}\\
-      1 &= \sum_{n = 1}^{\infty} ne^{2\pi i n\tau}\left[e^{2\pi i \tau} - 2 + e^{-2\pi i \tau}\right]\\
-      1 &= \sum_{n = 1}^{\infty} ne^{2\pi i (n+1)\tau}  + \sum_{n = 1}^{\infty} - 2ne^{2\pi i n \tau} + \sum_{n = 1}^{\infty} ne^{2\pi i (n-1) \tau}\\
-      1 &= \sum_{n = 2}^{\infty} (n-1)e^{2\pi i n \tau} + \sum_{n = 1}^{\infty} -2ne^{2\pi i n\tau} + \sum_{n = 0}^{\infty} (n+1)e^{2\pi i n \tau}\\
-      1 &= 1 - 2e^{2\pi i \tau} + 2e^{2\pi i \tau} + \sum_{n = 2}^{\infty} [(n-1) - 2n + (n+1)]e^{2\pi i n\tau}\\
-      1 &= 1 + \sum_{n = 2}^{\infty} 0
-    \end{align*}
-    Die Aussage für $k\geq 3$ folgt per Induktion. Sei die Identität für festes $k$ bewiesen.
-    Dann gilt
-    \begin{align*}
-      (-1)^k \sum_{n = -\infty}^{\infty} (\tau + n)^{-k} &= \frac{(2\pi i)^k}{(k-1)!} \sum_{n = 1}^{\infty} n^{k-1}e^{2\pi i n \tau}
-      \intertext{Ableiten ergibt}
-      (-1)^{k+1}\cdot k \cdot \sum_{n = -\infty}^{\infty} (\tau + n)^{-(k+1)} &= \frac{(2\pi i)^k}{(k-1)!} \sum_{n = 1}^{\infty} n^{k-1} (2\pi i n) e^{2\pi i n \tau}\\
-      (-1)^{k+1} \sum_{n = -\infty}^{\infty} (\tau + n)^{-(k+1)} &= \frac{(2\pi i)^{k+1}}{k!} \sum_{n = 1}^{\infty} n^k e^{2\pi i n \tau}
-    \end{align*}
-    \item Es gilt
-    \begin{align*}
-      G_k(\tau) &= \sum_{(c,d) \in \{0\}\times \Z\setminus \{0\}} (c\tau + d)^{-k} + \sum_{(c,d) \in \Z\setminus\{0\}\times \Z} (c\tau + d)^{-k}\\
-      \intertext{$k$ gerade}
-      &= 2 \cdot \sum_{d = 1}^{\infty} d^{-k} + \sum_{c \in \Z\setminus \{0\}} \sum_{d = -\infty}^{\infty} (c\tau + d)^{-k}
-      \intertext{Für negatives $c$ substituieren wir $d = -d$, da $d$ über ganz $\Z$ summiert wird. Wegen $k$ gerade ändert sich aber der Wert der Reihe dadurch nicht. Außerdem können wir noch $(-1)^k = 1$ einfügen}
-      &= 2 \zeta(k)  + 2 \sum_{c = 1}^{\infty} (-1)^k\sum_{d = -\infty}^{\infty} (c \tau + d)^{-k}\\
-      \intertext{Mit Aufgabenteil (a) folgt}
-      &= 2\zeta(k) + 2 \sum_{c = 1}^{\infty} \frac{(2\pi i)^k}{(k-1)!}\sum_{n = 1}^{\infty} n^{k-1}e^{2\pi i n (c\tau)}\\
-      &= 2\zeta(k) + \frac{2(2\pi i)^k}{(k-1)!}\sum_{n, c = 1}^{\infty} n^{k-1}e^{2\pi i \tau (nc)}
-      \intertext{Wir betrachten nun alle Summanden mit $(nc) = N$ und summieren dann über $N$.}
-      &= 2\zeta(k) + \frac{2(2\pi i)^k}{(k-1)!} \sum_{N = 1}^{\infty} \sum_{nc = N, n, c\in \N} n^{k-1}e^{2\pi i N\tau}\\
-      &= 2\zeta(k) + \frac{2(2\pi i)^k}{(k-1)!} \sum_{N = 1}^{\infty} \sum_{n | N} n^{k-1}e^{2\pi i N\tau}\\
-      &= 2\zeta(k) + \frac{2(2\pi i)^k}{(k-1)!} \sum_{N = 1}^{\infty} \sigma_{k-1}(N) e^{2\pi i N\tau}
-    \end{align*}
+  \section*{Aufgabe 41}
+  Wir zeigen zunächst die Implikation (a) $\implies$ (b). Es gilt
+  \begin{enumerate}[(1)]
+    \item Sei $x\in X$ und $g\in G\setminus\{e\}$. Da die Operation frei ist, existiert eine offene Menge $U_x$ mit $x\in U_x$ derart, 
+    dass $g(U_x) \cap U_x \neq \emptyset \implies g = e$. Für $g\neq e$ erhalten wir daher
+    $g(U_x) \cap U_x = \emptyset$.
+    \item 
+  \end{enumerate}
+  Nun zeigen wir die Implikation (b) $\implies$ (a). Es gilt
+  \begin{enumerate}[(1)]
+    \item Z.Z.: $\forall x \in X: \exists U_x$ offen mit $x\in U_x$ und $g(U_x) \cap U_x \neq \emptyset \implies g = e$.
+    \begin{proof}
+      Sei $x \in X$. Wähle dann eine Umgebung $U_0$ von $x$ derart, dass ein Kompaktum $K$ mit $U_0 \subset K$ existiert.
+      Sei dann
+      \begin{align*}
+        M \coloneqq \{g \in G\colon K\cap g(K) \neq \emptyset\}.
+      \end{align*}
+      Wegen Eigenschaft (2) muss diese Menge endlich sein.
+      Aufgrund der Separiertheit existieren für beliebiges $g \in M$ Umgebungen $U_g, U_x^g$ mit $gx \in U_g, x\in U_x^g$ derart, 
+      dass $U_g \cap U_x^g \neq \emptyset \implies g = e$. Da $M$ nur eine endliche Menge ist, handelt es sich bei 
+      \begin{align*}
+        U_x' \coloneqq \bigcap_{g\in M} U_x^g
+      \end{align*}
+      wieder um eine offene Menge.
+      Es gilt nun für alle $g\in M$: 
+      \begin{align*}
+        U_g \cap U_x' \neq \emptyset \implies g = e.
+      \end{align*}
+      Definiere schließlich
+      \begin{align*}
+        U_x \coloneqq \bigcap_{g\in M} g^{-1}(U_g) \cap U_x' \cap U_0
+      \end{align*}
+      Als endlicher Schnitt offener Mengen ist auch $U_x$ offen und es gilt
+      \begin{align*}
+        g(U_x) \cap U_x \neq \emptyset &\implies g(K) \cap K \neq \emptyset\\
+        &\implies g \in M\\
+        &\implies g(U_x) = g\left(\bigcap_{g\in M} g^{-1}(U_g) \cap U_x' \cap U_0\right)\subset g(g^{-1}(U_g)) = U_g
+      \end{align*}
+      Außerdem gilt $U_x \subset U_x'$. Daher erhalten wir $g(U_x) \cap U_x \subset U_g \cap U_x'$.
+      Wegen $\emptyset \neq g(U_x) \cap U_x$ folgt $\emptyset \neq U_g \cap U_x' \implies g = e$.
+    \end{proof}
+    \item Z.Z.: $x \not \sim_G y \implies \exists U_x, U_y \in \mathfrak{U}_X$ mit $x\in U_x, y\in U_y$ und $U_y \cap g(U_x) = \emptyset \forall g\in G$.
+    \begin{proof}
+      Seien $x, y \in X$ gegeben mit $x\not \sim_G y$. 
+      Aufgrund der Separiertheit können wir Umgebungen $U_x'$ und $U_y'$ wählen mit $x \in U_x'$ und 
+      $y\in U_y'$, $U_x' \cap U_y' = \emptyset$ und $U_x' \subset K_1, U_y' \subset K_2$ für Kompakta $K_1, K_2 \subset X$.
+      Sei $M \coloneqq \{g \in G\colon g(K_1) \cap K_2 \neq \emptyset\}$. Dann ist $M$ wegen (2) endlich.
+      Analog wie im letzten Beweis finden wir aufgrund der Separiertheit und der Endlichkeit von $M$ offene Umgebungen $U_y''$ und $U_x''$, 
+      mit $U_y'' \cap g(U_x'') = \emptyset \forall g\in M$.
+      Schließlich definieren wir $U_x \coloneqq U_x' \cap U_x''$ und $U_y \coloneqq U_y' \cap U_y''$.
+      Dann gilt für $g \in G\setminus M$
+      \begin{align*}
+        U_y \cap g(U_x) \subset U_y' \cap g(U_x') \subset K_2 \cap g(K_1) = \emptyset
+      \end{align*}
+      und für $g\in M$
+      \begin{align*}
+        U_y \cap g(U_x) \subset U_y'' \cap g(U_x'') = \emptyset.
+      \end{align*}
+      Damit ist die Behauptung bewiesen.
+    \end{proof}
   \end{enumerate}
 \end{document}
