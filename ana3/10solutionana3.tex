@@ -58,6 +58,15 @@
         Damit ist auch die zweite Bedingung erfüllt und $K^{n-1}$ ist eine $C^1$-Mannigfaltigkeit.
         \item Sei $x^* = 0$. Wir betrachten eine beliebige Umgebung von $0$, o.B.d.A $U = U_{\epsilon}(0)$ für ein $\epsilon >0$.
         Dann gilt $K^{n-1} \cap U = \{x \in \R^n\colon x_n^2 = \sum_{k = 1}^{n-1} x_k^2, \norm{x} < \epsilon\}$.
+        Bezeichne $e^i$ den $i$-ten Einheitsvektor.
+        Definiere $v_\pm^i \coloneqq \pm e^i + e^n$
+        Für $t\in (-\epsilon, \epsilon)$ und gilt dann $t v_\pm \in K^{n-1} \cap U$.
+        Insbesondere erhalten wir 
+        \[
+            \pm \partial_i f + \partial_n f = (\nabla f, v_\pm^i) = \lim\limits_{t \to 0} \frac{f(v_\pm^i\cdot t) - f(0)}{t} = \lim\limits_{t \to 0} \frac{0}{t} = 0
+        \]
+        Daraus folgt $\forall i \in \{1,\dots, n-1\} \partial_i f = \partial_n f = -\partial_i f$, also $\partial_i f = 0\forall i\in \{1,\dots, n\}$.
+        Daher gilt $\operatorname{rang} Df(0) = 0 \neq 1$. Folglich kann $K^{n-1}$ keine Mannigfaltigkeit sein.
     \end{enumerate}
     \section*{Aufgabe 10.3}
     \begin{enumerate}[(a)]
