@@ -1,0 +1,114 @@
+\documentclass{article}
+
+\usepackage{josuamathheader}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\begin{document}
+\def\headheight{25pt}
+\analayout{10}
+    \section*{Aufgabe 10.1}
+    Sei $\emptyset \neq \Omega \subset \R^n$ offen. 
+    Aufgrund der Offenheit existiert zu jedem $x^* \in \Omega$ eine Umgebung $U \subset \Omega$ mit $x^* \in U$.
+    Wähle dann $\varphi = \operatorname{id}$. 
+    Dann ist $\varphi \in C^1(U, \R^n)$, $\operatorname{rang} D\varphi(x) = n$ und $\varphi\colon U \to \Omega \cap U = U$ 
+    ist offensichtlich ein Homöomorphismus.
+    Also ist Eigenschaft (iii) aus Satz 5.2 erfüllt und $\Omega$ ist eine $C^1$-Mannigfaltigkeit.
+    Um die Rückrichtung zu zeigen, betrachten wir eine nichtleere $C^1$-Mannigfaltigkeit $\emptyset \neq \Omega \subset \R^n$ der Dimension $n$.
+    Dann existiert für jedes $x^* \in \Omega$ eine Umgebung $U$ und eine Abbildung $f \colon U \to \R^{n-n} = \R^0 = \{0\}$ mit 
+    $\Omega \cap U = f^{-1}(0)$. Wegen $f(U) = \{0\}$ ist aber $f^{-1}(0) = U$. 
+    Daher muss $\Omega \cap U = U$ gelten, also $U \subset \Omega$. 
+    Folglich existiert zu jedem $x^* \in \Omega$ eine Umgebung $U$ mit $U \subset \Omega$, also ist $\Omega$ offen.
+    \section*{Aufgabe 10.2}
+    \begin{enumerate}[(a)]
+        \item Betrachte die Abbildung
+        \begin{align*}
+            f\colon \R^n &\to \R\\
+            (x_1, \dots, x_n) &\mapsto \left(\sum_{i = 1}^{n} x_i^2\right) - 1
+        \end{align*}
+        Man sieht durch partielles Ableiten sofort, dass $f \in C^1(\R^n, \R)$.
+        Es gilt $Df(x) = 2x^T$. Für $x \neq 0$ ist daher $\operatorname{rang} Df(x) = 1 = k = n- (n-1)$, 
+        wie in der Definition einer $n-1$-dimensionalen Mannigfaltigkeit gefordert.
+        Wir können also für jeden Punkt $x^*$ die offene Kugel $\Omega = U_{1/2}(x^*)$ als Umgebung wählen.
+        Wir haben $f$ gerade so gewählt, dass Bedingung (i) aus Definition 5.1 für eine beliebige Teilmenge des $\R^n$ erfüllt ist,
+        also insbesondere für $U_{1/2}(x^*)$.
+        Es gilt
+        \[ 
+            x \in U_{1/2}(x^*) \implies \norm{x - x^*} \leq 1/2 \xRightarrow{\norm{x} = 1} \norm{x} \geq 1/2 > 0 \implies x \neq 0.
+        \]
+        Insbesondere hat also $Df(x)$ vollen Rang für alle $x\in U_{1/2}(x^*)$.
+        Damit ist auch die zweite Bedingung erfüllt und $\mathbbm{S}$ ist eine $C^1$-Mannigfaltigkeit.
+        \item Betrachte die Abbildung
+        \begin{align*}
+            f\colon \R^n &\to \R\\
+            (x_1, \dots, x_n) &\mapsto x_n^2 - \sum_{i = 1}^{n-1} x_i^2
+        \end{align*}
+        Man sieht durch partielles Ableiten sofort, dass $f \in C^1(\R^n, \R)$.
+        Darüberhinaus sieht man leicht, dass $Df(x) = (-2x_1, \dots, -2x_{n-1}, 2x_n)$. Für $x \neq 0$ ist daher $\operatorname{rang} Df(x) = 1 = k = n- (n-1)$, 
+        wie in der Definition einer $n-1$-dimensionalen Mannigfaltigkeit gefordert.
+        Wir können also für jeden Punkt $x^*$ die offene Kugel $\Omega = U_{1/2\norm{x^*}}(x^*)$ als Umgebung wählen.
+        Wir haben $f$ gerade so gewählt, dass Bedingung (i) aus Definition 5.1 für eine beliebige Teilmenge des $\R^n$ erfüllt ist,
+        also insbesondere für $U_{1/2}(x^*)$.
+        Wegen $0\notin K^{n-1}\setminus\{0\}$ gilt
+        \[ 
+            x \in U_{1/2\norm{x^*}}(x^*) \implies \norm{x - x^*} \leq 1/2\norm{x^*} \implies \norm{x} \geq 1/2\norm{x^*} > 0 \implies x \neq 0
+        \]
+        Insbesondere hat also $Df(x)$ vollen Rang für alle $x\in U_{1/2}(x^*)$.
+        Damit ist auch die zweite Bedingung erfüllt und $K^{n-1}$ ist eine $C^1$-Mannigfaltigkeit.
+        \item Sei $x^* = 0$. Wir betrachten eine beliebige Umgebung von $0$, o.B.d.A $U = U_{\epsilon}(0)$ für ein $\epsilon >0$.
+        Dann gilt $K^{n-1} \cap U = \{x \in \R^n\colon x_n^2 = \sum_{k = 1}^{n-1} x_k^2, \norm{x} < \epsilon\}$.
+    \end{enumerate}
+    \section*{Aufgabe 10.3}
+    \begin{enumerate}[(a)]
+        \item Sei $v\in T_\xi(M)$. 
+        Dann existiert ein $\gamma \in C^1((-\epsilon, \epsilon), M)$ mit $\gamma(0) = \xi$ und $\gamma'(0) = v$.
+        Weil $F$ in $\xi$ ein lokales Minimum annimmt, nimmt die Funktion 
+        $F\circ \gamma \colon \R \to \R^n, t \mapsto F(\gamma(t))$ ein Minimum bei $t = 0$ an.
+        Daher gilt 
+        \[
+            0 = \frac{\partial F\circ \gamma}{\partial t}\bigg|_{t = 0} 
+            \overset{\text{Kettenregel}}{=} (\nabla F(\gamma(t)), \frac{\partial \gamma}{\partial t})\bigg|_{t=0} 
+            = (\nabla F(\xi), v).
+        \]
+        Da $v \in T_\xi (M)$ völlig beliebig war, folgt $\nabla F(\xi) \in T_\xi (M)^{\bot} = N_{\xi}M$.
+        \item $f$ erfüllt genau die in Definition 5.1 geforderten Eigenschaften. 
+        Daher lässt sich Satz 5.6 (ii) anwenden und wir erhalten
+        \[ 
+            \nabla F(\xi) \in N_\xi M = \operatorname{span} \langle \nabla f_1(x), \dots, \nabla f_{m-n}(x)\rangle,
+        \]
+        also 
+        \[
+            \nabla F(\xi) = \sum_{k = 1}^{n-m} y_k \nabla f_k(\xi)  
+        \]
+        für ein geeignetest $y \in \R^{n-m}$.
+    \end{enumerate}
+    \section*{Zusatzaufgabe 10.1}
+    Wir nutzen im Folgenden häufig aus, dass $f \in \mathscr S(\R)$ gilt, ohne das jedes Mal dazuzuschreiben.
+    Definiere 
+    \begin{align*}
+        u &= -\mathcal{F}^* \frac{1}{k^2 + \lambda} \mathcal{F} f
+    \end{align*}
+    Wegen $0 < \frac{1}{k^2 + \lambda} < \frac{1}{\lambda}$ und $\mathcal{F} f \in \mathscr S(\R)$ gilt 
+    $\frac{1}{k^2 + \lambda} \mathcal{F} f \in \mathscr S(\R)$ und damit auch 
+    $u = -\mathcal{F}^* \frac{1}{k^2 + \lambda} \mathcal{F} f \in \mathscr S(\R)$.
+    Daher gilt
+    \begin{align*}
+        \mathcal{F} u &= - \frac{1}{k^2 + \lambda} \mathcal{F} f\\
+        -k^2 \mathcal{F} u - \lambda \mathcal{F} u &= \mathcal{F} f\\
+        \mathcal{F} u'' - \mathcal{F} \lambda u &= \mathcal{F} f\\
+        \mathcal{F}^* \mathcal{F} u'' - \mathcal{F}^* \mathcal{F} \lambda u &= \mathcal{F}^* \mathcal{F} f\\
+        u'' - \lambda u &= f
+    \end{align*}
+    Angenommen, es existiert eine Lösung $u \in \mathscr S(\R)$. Dann gilt
+    \begin{align*}
+        u''(x) - \lambda u(x) &= f(x)\\
+        \mathcal{F} u'' - \mathcal{F} \lambda u &= \mathcal{F} f\\
+        -k^2 \mathcal{F} u - \lambda \mathcal{F} u &= \mathcal{F} f\\
+    \intertext{Es gilt $k^2 + \lambda \neq 0$ wegen $\lambda > 0$.}
+        \mathcal{F} u &= -\frac{1}{k^2 + \lambda}\mathcal{F} f\\
+        \mathcal{F}^*\mathcal{F} u &= -\mathcal{F}^* \frac{1}{k^2 + \lambda} \mathcal{F} f\\
+        u &= -\mathcal{F}^* \frac{1}{k^2 + \lambda} \mathcal{F} f\\
+    \end{align*}
+    und $u$ ist eindeutig bestimmt.
+\end{document}
