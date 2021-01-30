@@ -2,77 +2,139 @@
 
 \usepackage{josuamathheader}
 
+
 \begin{document}
-  \section*{Aufgabe 40}
+
+  \newcommand{\norm}[1]{\lVert #1 \rVert}
+  \section*{Aufgabe 47}
   \begin{enumerate}[(a)]
-    \item Angenommen, eine Folge in einem separierten Raum $(X, \mathfrak{U}_X)$ hätte zwei verschiedene Grenzwerte $x \neq x'$. 
-    Aufgrund der Separiertheit existieren Umgebungen $U, U' \in \mathfrak{U}_X$ mit $x \in U, x'\in U'$ und $U \cap U' = \emptyset$.
-    Dann liegen alle bis auf endlich viele Folgenglieder in $U$. Insbesondere liegen höchstens endlich viele Folgenglieder in $U'$.
-    Das ist aber ein Widerspruch dazu, dass $x'$ ein Grenzwert der Folge ist.
-    \item Wir betrachten die Menge $\R \cup \{0'\}$ und 
-    statten sie aus mit der Standardtopologie, wobei jede Umgebung der $0$ auch $0'$ enthalten soll.
-    Dann besitzt die Folge $(1/n)_{n\in \N}$ die beiden Grenzwerte $0$ und $0'$. 
-    Sowohl jede Umgebung von $0$ als auch jede Umgebung von $0'$ enthält nämlich alle bis auf endlich viele Folgenglieder. 
+    \item Es gilt
+    \begin{align*}
+      (0,0) * (a_1, a_2) = (a_1, a_2) \forall (a_1, a_2) \in \Z^2
+    \end{align*}
+    Damit ist $(0,0)$ das neutrale Element.
+    Weiter ist durch
+    \begin{align*}
+      ((-1)^{-a_2 + 1}a_1, -a_2) * (a_1, a_2) = ((-1)^{-a_2 + 1}a_1 + (-1)^{-a_2}a_1, -a_2 + a_2) = (0,0)
+    \end{align*}
+    das Inverse zu $(a_1, a_2)$ bestimmt.
+    Die Assoziativität folgt durch
+    \begin{align*}
+      ((a_1, a_2) * (b_1, b_2))*(c_1, c_2) &= (a_1 + (-1)^{a_2}b_1, a_2 + b_2)* (c_1, c_2)\\
+      &= (a_1 + (-1)^{a_2}b_1 + (-1)^{a_2 + b_2}c_1, (a_2 + b_2) + c_2)\\
+      &= (a_1 + (-1)^{a_2}(b_1 + (-1)^{b_2}c_1), a_2 + (b_2 + c_2))\\
+      &= (a_1, a_2) * (b_1 + (-1)^{b_2}c_1, b_2 + c_2)\\
+      &= (a_1, a_2) * ((b_1, b_2) * (c_1, c_2))
+    \end{align*}
+    Offensichtlich ist jedes Produkt wieder in $\Z^2$ enthalten. Dadurch wird $(\Z^2, *)$ zu einer Gruppe. Wegen
+    \begin{align*}
+      (1, 2)*(2, 1) &= (1 + (-1)^{2}2, 2 + 1) = (3, 3)\\
+      (2, 1)*(1, 2) &= (2 + (-1)^{1}1, 1 + 2) = (1, 3)
+    \end{align*}
+    ist die Gruppe nicht abelsch.
+    $(0, 0) * (x_1, x_2) = (x_1, x_2)$ mit $(x_1, x_2) \in \R^2$ folgt analog zum Beweis, dass $(0,0)$ neutrales Element von $(\Z^2, *)$ ist.
+    $(a_1, a_2) * ((b_1, b_2) * (x_1, x_2)) = ((a_1, a_2) * (b_1, b_2)) * (x_1, x_2)$ folgt analog zum Beweis der Assoziativität.
+    Daher handelt es sich um eine Linksoperation. Diese ist wegen
+    \[ 
+      D [(a_1, a_2) * (b_1, b_2)] = \begin{pmatrix}
+        (-1)^{a_2} & 0\\ 0 & 1
+      \end{pmatrix}
+    \]
+    differenzierbar. Offensichtlich sind alle höheren partiellen Ableitungen $0$.
+    Daher handelt es sich um eine glatte Gruppenoperation. 
+    \item Wir zeigen die beiden Eigenschaften einer freien Operation.
+    \begin{enumerate}[(1)]
+      \item Wähle zu $x \in \R^2$ die offene Umgebung $U_{1/2}(x)$.
+      Man sieht (u.a. aus Symmetriegründen) schnell ein, dass $(a_1, a_2) * U_{\epsilon}(x) = U_{\epsilon}((a_1, a_2) * x)$ gelten muss.
+      Daher erhalten wir
+      \begin{align*}
+        (a_1, a_2) * U_{1/2}(x) \cap U_{1/2}(x) \neq \emptyset &\Leftrightarrow U_{1/2}((a_1, a_2) * x) \cap U_{1/2}(x)\neq \emptyset\\
+        &\implies U_{1/2}((a_1 + (-1)^{a_2}x_1, a_2 + x_2)) \cap U_{1/2}((x_1, x_2))\neq \emptyset\\
+        &\implies |a_1 + (-1)^{a_2}x_1 - x_1|^2 + |a_2 + x_2 - x_2|^2 < 1\\
+        &\implies |a_1 + (-1)^{a_2}x_1 - x_1|^2 + |a_2|^2 < 1\\
+        &\xRightarrow{a_2 \in \Z} |a_1 + (-1)^{a_2}x_1 - x_1|^2 < 1 \land a_2 = 0\\
+        &\implies |a_1 + x_1 - x_1|^2 < 1 \land a_2 = 0\\
+        &\implies |a_1|^2 < 1 \land a_2 = 0\\
+        &\xRightarrow{a_1 \in \Z} a_1 = a_2 = 0
+      \end{align*}
+      \item Seien $(x_1, x_2) \not \sim (y_1, y_2) \in \R^2$ gegeben. 
+      Wieder nutzen wir $(a_1, a_2) * U_{\epsilon}(x) = U_{\epsilon}((a_1, a_2) * x)$.
+      Daher genügt es zu zeigen, dass $\norm {(a_1, a_2) * (x_1, x_2) - (y_1, y_2)} \geq 2 \epsilon$ gilt.
+      Dann sind nämlich beliebig Translate der $\epsilon$-Umgebungen von $x$ und $y$ disjunkt.
+      Wir unterscheiden drei Fälle
+      \begin{enumerate}
+        \item $x_2 - y_2 \notin \Z$. Setze $\epsilon = \frac{x_2-y_2 \mod \Z}{2}$.
+        Wegen 
+        \[ 
+          \norm{(a_1, a_2) * (x_1, x_2) - (y_1, y_2)} \geq \sqrt{|a_2 + x_2 - y_2|^2} \geq \sqrt{(x_2 - y_2 \mod \Z)^2}
+          \geq 2 \cdot \epsilon
+        \]
+        folgt die Aussage für diesen Fall.
+        \item $x_2 - y_2 \in 2\Z$. Setze $\epsilon = \frac{x_1 - y_1 \mod \Z}{2}$.
+        Insbesondere ist $\epsilon < \frac{1}{2}$. Angenommen, $\epsilon = 0$. Dann wäre
+        $y_1 - x_1, y_2 - x_2)*(x_1, x_2) = (y_1 - x_1 + (-1)^{x_2 - y_2}x_1, y_2 - x_2 + x_2) = (y_1, y_2)$, Widerspruch.
+        Also $0 < \epsilon < \frac{1}{2}$.
+        Daher gilt für alle $(a_1, a_2)* (x_1, x_2) = (a_1 + (-1)^{a_2}x_1, a_2 + x_2)$ mit $a_2 + x_2 \neq y_2$ bereits
+        \[ 
+          \norm{(a_1, a_2) * (x_1, x_2) - (y_1, y_2)} \geq \sqrt{|a_2 + x_2 - y_2|^2} \geq 1
+          \geq 2 \cdot \epsilon.
+        \]
+        Wir müssen also nur $(a_1, a_2)$ betrachten mit $a_2 + x_2 = y_2$. 
+        Aufgrund der Voraussetzung gilt $y_2 - x_2 \in 2\Z$.
+        Es folgt $(a_1, y_2 - x_2) * (x_1, x_2) = (a_1 + (-1)^{y_2 - x_2}x_1, y_2) = (a_1 + x_1, y_2)$.
+        Schließlich erhalten wir
+        \[
+            \norm{(a_1, y_2 - x_2) * x - y} = |a_1 + x_1 - y_1| \geq x_1 - y_1 \mod \Z \geq 2\epsilon.
+        \]
+        \item $x_2 - y_2 \in 2\Z + 1$. Setze $\epsilon = \frac{x_1 + y_1 \mod \Z}{2}$.
+        Insbesondere ist $\epsilon < \frac{1}{2}$. Angenommen, $\epsilon = 0$. Dann wäre
+        $y_1 + x_1, y_2 - x_2)*(x_1, x_2) = (y_1 + x_1 + (-1)^{x_2 - y_2}x_1, y_2 - x_2 + x_2) = (y_1, y_2)$, Widerspruch.
+        Also $0 < \epsilon < \frac{1}{2}$.
+        Daher gilt für alle $(a_1, a_2)* (x_1, x_2) = (a_1 + (-1)^{a_2}x_1, a_2 + x_2)$ mit $a_2 + x_2 \neq y_2$ bereits
+        \[ 
+          \norm{(a_1, a_2) * (x_1, x_2) - (y_1, y_2)} \geq \sqrt{|a_2 + x_2 - y_2|^2} \geq 1
+          \geq 2 \cdot \epsilon.
+        \]
+        Wir müssen also nur $(a_1, a_2)$ betrachten mit $a_2 + x_2 = y_2$. 
+        Aufgrund der Voraussetzung gilt $y_2 - x_2 \in 2\Z$.
+        Es folgt $(a_1, y_2 - x_2) * (x_1, x_2) = (a_1 + (-1)^{y_2 - x_2}x_1, y_2) = (a_1 - x_1, y_2)$.
+        Schließlich erhalten wir 
+        \[
+            \norm{(a_1, y_2 - x_2) * x - y} = |a_1 - x_1 - y_1| \geq x_1 + y_1 \mod \Z \geq 2\epsilon.
+        \]
+      \end{enumerate}
+    \end{enumerate}
+    \item Wir haben oben bereits gesehen, dass die Gruppenoperation glatt ist wegen \[ 
+      D [(a_1, a_2) * (b_1, b_2)] = \begin{pmatrix}
+        (-1)^{a_2} & 0\\ 0 & 1
+      \end{pmatrix}.
+      \]
+      Identifiziert man $\R^2 \cong \C$, so verstößt diese Jacobimatrix für ungerade $a_2$ gegen die 
+      Cauchy-Riemann-Differentialgleichungen.
+      Daher ist die Gruppenoperation nicht holomorph. 
+      Insbesondere wird $G\backslash \C$ nicht zu einer Riemannschen Fläche.
   \end{enumerate}
-  \section*{Aufgabe 41}
-  Wir zeigen zunächst die Implikation (a) $\implies$ (b). Es gilt
-  \begin{enumerate}[(1)]
-    \item Sei $x\in X$ und $g\in G\setminus\{e\}$. Da die Operation frei ist, existiert eine offene Menge $U_x$ mit $x\in U_x$ derart, 
-    dass $g(U_x) \cap U_x \neq \emptyset \implies g = e$. Für $g\neq e$ erhalten wir daher
-    $g(U_x) \cap U_x = \emptyset$.
-    \item 
-  \end{enumerate}
-  Nun zeigen wir die Implikation (b) $\implies$ (a). Es gilt
-  \begin{enumerate}[(1)]
-    \item Z.Z.: $\forall x \in X: \exists U_x$ offen mit $x\in U_x$ und $g(U_x) \cap U_x \neq \emptyset \implies g = e$.
-    \begin{proof}
-      Sei $x \in X$. Wähle dann eine Umgebung $U_0$ von $x$ derart, dass ein Kompaktum $K$ mit $U_0 \subset K$ existiert.
-      Sei dann
-      \begin{align*}
-        M \coloneqq \{g \in G\colon K\cap g(K) \neq \emptyset\}.
-      \end{align*}
-      Wegen Eigenschaft (2) muss diese Menge endlich sein.
-      Aufgrund der Separiertheit existieren für beliebiges $g \in M$ Umgebungen $U_g, U_x^g$ mit $gx \in U_g, x\in U_x^g$ derart, 
-      dass $U_g \cap U_x^g \neq \emptyset \implies g = e$. Da $M$ nur eine endliche Menge ist, handelt es sich bei 
-      \begin{align*}
-        U_x' \coloneqq \bigcap_{g\in M} U_x^g
-      \end{align*}
-      wieder um eine offene Menge.
-      Es gilt nun für alle $g\in M$: 
-      \begin{align*}
-        U_g \cap U_x' \neq \emptyset \implies g = e.
-      \end{align*}
-      Definiere schließlich
-      \begin{align*}
-        U_x \coloneqq \bigcap_{g\in M} g^{-1}(U_g) \cap U_x' \cap U_0
-      \end{align*}
-      Als endlicher Schnitt offener Mengen ist auch $U_x$ offen und es gilt
-      \begin{align*}
-        g(U_x) \cap U_x \neq \emptyset &\implies g(K) \cap K \neq \emptyset\\
-        &\implies g \in M\\
-        &\implies g(U_x) = g\left(\bigcap_{g\in M} g^{-1}(U_g) \cap U_x' \cap U_0\right)\subset g(g^{-1}(U_g)) = U_g
-      \end{align*}
-      Außerdem gilt $U_x \subset U_x'$. Daher erhalten wir $g(U_x) \cap U_x \subset U_g \cap U_x'$.
-      Wegen $\emptyset \neq g(U_x) \cap U_x$ folgt $\emptyset \neq U_g \cap U_x' \implies g = e$.
-    \end{proof}
-    \item Z.Z.: $x \not \sim_G y \implies \exists U_x, U_y \in \mathfrak{U}_X$ mit $x\in U_x, y\in U_y$ und $U_y \cap g(U_x) = \emptyset \forall g\in G$.
-    \begin{proof}
-      Seien $x, y \in X$ gegeben mit $x\not \sim_G y$. 
-      Aufgrund der Separiertheit können wir Umgebungen $U_x'$ und $U_y'$ wählen mit $x \in U_x'$ und 
-      $y\in U_y'$, $U_x' \cap U_y' = \emptyset$ und $U_x' \subset K_1, U_y' \subset K_2$ für Kompakta $K_1, K_2 \subset X$.
-      Sei $M \coloneqq \{g \in G\colon g(K_1) \cap K_2 \neq \emptyset\}$. Dann ist $M$ wegen (2) endlich.
-      Analog wie im letzten Beweis finden wir aufgrund der Separiertheit und der Endlichkeit von $M$ offene Umgebungen $U_y''$ und $U_x''$, 
-      mit $U_y'' \cap g(U_x'') = \emptyset \forall g\in M$.
-      Schließlich definieren wir $U_x \coloneqq U_x' \cap U_x''$ und $U_y \coloneqq U_y' \cap U_y''$.
-      Dann gilt für $g \in G\setminus M$
-      \begin{align*}
-        U_y \cap g(U_x) \subset U_y' \cap g(U_x') \subset K_2 \cap g(K_1) = \emptyset
-      \end{align*}
-      und für $g\in M$
-      \begin{align*}
-        U_y \cap g(U_x) \subset U_y'' \cap g(U_x'') = \emptyset.
-      \end{align*}
-      Damit ist die Behauptung bewiesen.
-    \end{proof}
-  \end{enumerate}
+
+  \section*{Aufgabe 48}
+    Offensichtlich ist $p_1 \times p_2 \colon X_1 \times X_2 \to Y_1 \times Y_2$ surjektiv.
+    Sei $(x^1, x^2) \in X_1 \times X_2$. Dann existieren nach Definition der Überlagerung Umgebungen $x^1 \in U^1, x^2 \in U^2$ mit
+    \begin{align*}
+      p_k^{-1}(U^k) = \biguplus_{i\in F^k}U^k_i,
+    \end{align*}
+    sodass alle Einschränkungen $p_k|_{U^k_i}\colon U_k^i \overset{\sim}{\to} U^k$ bistetig sind für $k \in \{1,2\}$.
+    Daher gilt
+    \begin{align*}
+      (p_1 \times p_2)^{-1}(U^1 \times U^2) &= \{(x_1, x_2) | p(x_1) \in U^1, p(x_2) \in U^2\}\\
+      &= \{(x_1, x_2) | x_1 \in \biguplus_{i\in F^1}U^1_i, x_2 \in \biguplus_{j\in F^2}U^2_j\}\\
+      &= \biguplus_{i\in F^1} \{(x_1, x_2) | x_1 \in U^1_i, x_2 \in \biguplus_{j\in F^2}U^2_j\}\\
+      &= \biguplus_{i\in F^1} \biguplus_{j\in F^2} \{(x_1, x_2) | x_1 \in U^1_i, x_2 \in U^2_j\}\\
+      &= \biguplus_{(i,j) \in F^1\times F^2} U^1_i \times U^2_j
+    \end{align*}
+    Wegen $p_k|_{U^k_i}\colon U_k^i \overset{\sim}{\to} U^k$ bistetig für $K \in \{1,2\}$ folgt, dass
+    \[
+        p_1 \times p_2|_{U^1_i\times U^2_j} \colon U^1_i \times U^2_j \to U^1 \times U^2
+    \]
+    bezüglich der Produkttopologie bistetig sein muss.
+    Damit handelt es sich bei $p_1 \times p_2$ ebenfalls um eine Überlagerung.
+
 \end{document}
