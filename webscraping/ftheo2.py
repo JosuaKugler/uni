@@ -42,7 +42,7 @@ def getZettel(number):
     blattlink = ""
 
     for a in alist:
-        if "Übungsblatt " + str(number) in a.text and "Lösungen" not in a.text:
+        if "latt " + str(number) in a.text and "Lösungen" not in a.text:
             blattlink = a["href"]
     print(blattlink)
     if blattlink != "":

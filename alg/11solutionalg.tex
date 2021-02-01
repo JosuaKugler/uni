@@ -310,16 +310,23 @@
     \item Es gilt $43 < 47$ und $43 \not | 47-1$. Nach Korollar 5.34 ist jede Gruppe der Ordnung $2021 = 43\cdot 47$ zyklisch 
     und insbesondere abelsch. Nach dem Hauptsatz für endliche abelsche Gruppen ist daher jede Gruppe der Ordnung 2021
     isomorph zu $\Z/2021\Z$.
-    \item Die Anzahl $s$ der $3$-Sylowgruppen teilt $36 = 2^2\cdot 3^2$. Außerdem gilt $s \equiv 1 \mod 4$.
-    Daher gilt $3 \not | s$. Wir erhalten die zwei Möglichkeiten $s = 1$ oder $s = 4$. Für $s = 1$ argumentieren wir analog wie
+    \item Die Anzahl $s$ der $3$-Sylowgruppen teilt $36 = 2^2\cdot 3^2$. Außerdem gilt $s \equiv 1 \mod 3$.
+    Daher gilt $3 \not | s$. Wir erhalten die zwei Möglichkeiten $s = 1$ oder $s = 4$. 
+
+    Für $s = 1$ argumentieren wir analog wie
     in Teilaufgabe (a): Wir bezeichnen die eindeutig bestimmte $3$-Sylowgruppe mit $S$, dann gilt
     $S \in \operatorname{Fix}_G(\{H \text{ Untergruppe in } G\}) \Leftrightarrow S \triangleleft G$.
     $S$ hat die Ordnung $9$, da $36 = 4\cdot 9$ mit $(4,9) = 1$. In diesem Fall existiert also ein 
     nicht-trivialer Normalteiler.
+    
     Ist nun $s = 4$, so gibt es vier verschiedene $3$-Sylowgruppen. 
     Wie oben bewiesen ist für eine $p$-Sylowgruppe $S$ auch $gSg^{-1}$ eine $p$-Sylowgruppe.
     Daher operiert $G$ vermöge der Konjugation auf der Menge ihrer $3$-Sylowgruppen.
-    \textbf{noch nicht vollständig}
+    Wäre die Gruppe abelsch, so wäre die Operation durch Konjugation trivial.
+    Dies ist hier aber nicht der Fall, da es vier verschiedene zueinander konjugierte Untergruppen gibt.
+    Insbesondere ist also die Kommutatorgruppe $[G, G]$ nicht trivial.
+    Nach Lemma 5.42(i) ist aber die Kommutatorgruppe ein Normalteiler.
+    Somit haben wir auch in diesem Fall einen nichttrivialen Normalteiler gefunden.
 \end{enumerate}
 
 \section*{Aufgabe 4}
