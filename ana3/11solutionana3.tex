@@ -1,0 +1,204 @@
+\documentclass{article}
+
+\usepackage{josuamathheader}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\begin{document}
+\def\headheight{25pt}
+\analayout{11}
+\section*{Aufgabe 11.1}
+    Wir ändern das Koordinatensystem derart, dass der Ursprung nach $p$ verschoben wird. 
+    Eine Koordinatentranslation ändert nichts an $\operatorname{dist}(x,y)$.
+    \begin{align*}
+        \frac{1}{r}\operatorname{sup}\{\operatorname{dist}(x, p + T_pM): x\in M\cap B_r(p)\} 
+        \to \frac{1}{r}\operatorname{sup}\{\operatorname{dist}(x, 0 + T_0M): x\in M\cap B_r(0)\}
+    \end{align*}
+    Wähle gemäß Satz 5.2(iii) eine offene Umgebung $\Omega$ von $0 \in M$ (nach der Koordinatentranslation), 
+    eine offene Umgebung $U\in \R^m$ und ein $\varphi \in C^1(U, \R^m)$ derart, dass $\operatorname{rg} D\varphi(u) = k \forall u \in U$
+    und $\varphi U \to M\cap \Omega$ ein Homöomorphismus ist. O.b.d.A. können wir $\varphi(0) = 0$ fordern.
+    Nun gilt nach Satz 5.6 $T_0M = \operatorname{im} D\varphi(0)$.
+    Wir erhalten daher
+    \begin{align*}
+        \frac{1}{r}\operatorname{sup}\{\operatorname{dist}(x, T_0M): x\in M\cap B_r(0)\}
+        &= \frac{1}{r}\operatorname{sup}\{\operatorname{dist}(x, \operatorname{im} D\varphi(0)): x\in M, |x| < r\}\\
+        &= \frac{1}{r}\operatorname{sup}\{\inf\limits_{y \in \R^n}|x - D\varphi(0)y|: x\in M, |x| < r\}.
+        \intertext{Wegen $\varphi(x) - \varphi(0) = D\varphi(0)x + o(|x|)$ folgern wir weiter}
+        &= \frac{1}{r}\operatorname{sup}\{\inf\limits_{y \in \R^n}|x - \varphi(y) - \varphi(0) - o(|x|)|: x\in M, |x| < r\}\\
+        &\leq \frac{1}{r}\operatorname{sup}\{|x - \varphi(\varphi^{-1}(x)) - 0 - o(|x|)|: x\in M, |x| < r\}\\
+        &\leq \frac{1}{r}\operatorname{sup}\{o(|x|): x\in M, |x| < r\}\\
+        &\leq \frac{1}{r} o(r)\\
+        &\xrightarrow{r \searrow 0} 0
+    \end{align*}
+    nach Definition von $o(r)$.
+\section*{Aufgabe 11.2}
+    \begin{enumerate}[(a)]
+        \item Behauptung $\varphi \colon U \to M;\; x \mapsto (x, g(x))$ ist eine Parametrisierung gemäß Satz 5.2(iii).
+        \begin{proof}
+            Nach Definition des Graphen ist $M = \operatorname{im}\varphi$. Wegen $(x, g(x)) = (y, g(y)) \implies x = y$
+            handelt es sich um eine bijektive Abbildung. Stetigkeit und Differenzierbarkeit folgen sofort aus Stetigkeit
+            und Differenzierbarkeit von $g$ auf $U$. Für die Umkehrabbildung, die ja nur noch eine Projektionsabbildung ist,
+            sind beide Eigenschaften trivial. Es gilt weiter
+            \begin{align*}
+                D\varphi(p) &= \begin{pmatrix}
+                    1 & 0 & \cdots & 0\\
+                    0 & 1 & & \vdots\\
+                    \vdots & & \ddots & &\\
+                    0 & \cdots & & 1\\
+                    \partial_1 g & \cdots & & \partial_n g
+                \end{pmatrix} = (\mathbbm{1}_n | \nabla g(p))^T
+            \end{align*}
+            Wegen $\operatorname{rg} \mathbbm{1}_n = n$ und $\operatorname{rg} D\varphi \leq n$ folgt 
+            $\operatorname{rg} D\varphi = n$.
+            Damit sind alle Eigenschaften einer Karte nachgewiesen.
+        \end{proof}
+        Für $p = \varphi(x) = (x, g(x))$ folgern wir mit Satz 5.6
+        \begin{align*}
+            T_p(M) &= \operatorname{im} D\varphi(x)\\
+            &= \left\{D\varphi(x) \cdot a: a \in \R^n\right\}\\
+            &= \left\{\begin{pmatrix}
+                a\\
+                \nabla g \cdot a
+            \end{pmatrix}: a \in \R^n\right\}.
+        \end{align*}
+        Natürlich könnte man für den Normalraum jetzt einfach das orthogonale Komplement berechnen.
+        Schöner ist es aber, wenn man die Funktion 
+        $f\colon \R^n \to \R;\; (x_1, \dots, x_{n+1}) \mapsto x_{n+1} - g(x_1, \dots, x_n)$ betrachtet.
+        Diese ist offensichtlich differenzierbar und es gilt $M = f^{-1}(\{0\})$ sowie $\nabla f = \begin{pmatrix}
+            -\nabla g\\
+            1
+        \end{pmatrix}$.
+        Offensichtlich ist damit $\operatorname{rg} Df = 1$ und $f$ genügt den Forderungen von Satz 5.2.
+        Mit Satz 5.6(ii) folgern wir dann 
+        \begin{align*}
+            N_p(M) &= \operatorname{span}\langle \begin{pmatrix}
+                -\nabla g\\1
+            \end{pmatrix}
+        \end{align*}
+        \item Sei $v\in \R^n$. Ergänze $v$ zu einer Orthogonalbasis $(v, v^{(2)}, \dots v^{(n)}$. 
+        Bilde dann die $n\times n$-Matrix  
+        $V = (v | v^{(2)} | \dots v^{(n)})$
+        , deren Spalten gerade den Basisvektoren entsprechen.
+        Da es sich um eine Orthogonalbasis handelt, erhalten wir als Produkt eine Diagonalmatrix.
+        \begin{align*}
+            V^T V = \operatorname{diag}(v^Tv, (v^{(2)})^T v^{(2)}, \dots, (v^{(n)})^T v^{(n)}) 
+            = \operatorname{diag}(|v|^2, |v^{(2)}|^2, \dots, |v^{(n)}|^2)
+        \end{align*}
+        Mit
+        \begin{align*}
+            D = \operatorname{diag}(|v|^{-2}, |v^{(2)}|^{-2}, \dots, |v^{(n)}|^{-2})
+        \end{align*}
+        erhalten wir $V^TVD = \mathbbm{1}_n$.
+        Daher gilt
+        \begin{align*}
+            \det(\mathbbm{1}_n + vv^T) &= \det(V^T (\mathbbm{1}_n + vv^T)V D)\\
+            &= \det (V^T \mathbbm{1}_n VD + (V^Tv)(v^TV) D)
+            \intertext{Aufgrund der Orthogonalität gilt $V^Tv = (v^Tv, 0, \dots, 0)^T$}
+            &= \det (\mathbbm{1}_n + (v^Tv, 0, \dots, 0)^T \cdot (v^Tv, 0, \dots, 0) \cdot D)\\
+            &= \det(\operatorname{diag}(1, \dots, 1) + \operatorname{diag}(|v|^4, 0, \dots, 0) \cdot \operatorname{diag}(|v|^{-2}, \dots))\\
+            &= \det(\operatorname{diag}(1 + |v|^2, 1, \dots, 1))\\
+            &= 1 + |v|^2
+        \end{align*}
+        Wir erhalten daher 
+        \begin{align*}
+            \det(D^t\varphi(x) D\varphi(x)) = \det (\mathbbm{1}_n + \nabla g(x) \cdot (\nabla g(x))^T) = 1 + |\nabla g(x)|^2.
+        \end{align*}
+        Wir haben bereits in Teilaufgabe (a) bewiesen, dass durch $\varphi$ eine Karte gegeben ist.
+        Nach Definition 5.13 ist daher
+        \begin{align*}
+            \int_M f \d{\mathscr H^n} &= \int_U f(\varphi(x))\sqrt{\det(D^t\varphi(x) D\varphi(x))}\d{\mathscr L^n(x)}\\
+            &= \int_U f(x, g(x)) \sqrt{1 + |\nabla g(x)|^2} \d{\mathscr L^n}.
+        \end{align*}
+        \item Wir erhalten nach der Formel aus Teilaufgabe (b)
+        \begin{align*}
+            \int_M F\cdot \nu \d{\mathscr H^2} &= \int_U F(x, g(x)) \cdot \begin{pmatrix}
+                -\partial_1 g(x)\\ - \partial_2 g(x) \\1
+            \end{pmatrix} \cdot \frac{\sqrt{1 + |\nabla g(x)|^2}}{\sqrt{1 + |\nabla g(x)|^2}} \d{\mathscr L^2(x)}\\
+            &= \int_U - x_1 \frac{\partial 3(1 - x_1^2 - x_2^2)}{\partial x_1} \d{\mathscr L^2(x)}\\
+            &= \int_U 6 x_1^2 \d{\mathscr L^2(x)}
+            \intertext{Wir verwenden ebene Polarkoordinaten und erhalten}
+            &= 6 \cdot \int_0^{1}\int_0^{2\pi} (r\sin(\varphi))^2  r\d{\varphi} \d{r}\\
+            &= 6 \cdot \int_0^1 r^3 \d{r} \cdot \int_0^{2\pi} \sin^2(\varphi)
+            \intertext{Aufgrund der Periodizität gilt $\int_0^{2\pi} \sin^2(\varphi) \d{\varphi} = \int_0^{2\pi} \cos^2(\varphi) \d{\varphi}$. 
+            Nutzen wir nun noch $\sin^2(\varphi) + \cos^2(\varphi) = 1$, 
+            so ergibt sich $\int_0^{2\pi} \sin^2(\varphi) \d{\varphi} = \frac{1}{2} \int_0^{2\pi} \d{\varphi} = \pi$.}
+            &= 6 \frac{1}{4} \cdot \pi\\
+            &= \frac{3\pi}{2}
+        \end{align*}
+    \end{enumerate}
+\section*{Aufgabe 11.3}
+    \begin{enumerate}[(a)]
+        \item Es gilt $\mathbbm{S}^{m-1} = f^{-1}(0)$ für $f = \sum_{i = 1}^{m} x_i^2 - 1$.
+        Der Normalraum $N_x(\mathbbm{S}^{m-1})$ ist nach Satz 5.6(ii)
+        gegegeben durch $\operatorname{span}(\nabla f(x)) = \operatorname{span}(2x) = \operatorname{span}(x)$.
+        Daher gilt für die äußere Normale $\nu(x) = ax, a\in \R$ und $1 = |ax| = |a| |x| = |a| \implies a = \pm 1$.
+        Wegen $|x - tx| = (1-t)|x| = (1-t) < 1 \forall t \in (0,\epsilon)$ und weil $(x - t\nu(x)) = (x - tx)$ nicht im Innern
+        der Einheitskugel $\{x \in \R^m| |x| \leq 1\}$ liegen darf, erhalten wir $\nu(x) = x$ und damit $\nu = \operatorname{id}$.
+        \item Mit dem Satz von Gauss folgt
+        \begin{align*}
+            \int_{\partial \Omega} x \cdot \nu(x) \d{\mathscr H^{m-1}} = \int_\Omega \operatorname{div} x \d{\mathscr L^m(x)} 
+            = \sum_{i = 1}^{m} \partial_i x_i \int_\Omega \d{\mathscr L^m(x)} = m \mathscr L^m(\Omega)
+        \end{align*}
+        Wegen $x \in \mathbbm{S}^{m-1} \Leftrightarrow |x| = 1$ folgern wir daraus
+        \begin{align*}
+            \mathscr H^{m-1}(\mathbbm{S}^{m-1}) &= \int_{\mathbbm{S}^{m-1}} 1 \d{\mathscr H^{m-1}(x)}\\
+            &= \int_{\mathbbm{S}^{m-1}} |x|^2 \d{\mathscr H^{m-1}(x)}\\
+            &= \int_{\mathbbm{S}^{m-1}} x \cdot x \d{\mathscr H^{m-1}(x)}\\
+            &= \int_{\partial B} x \cdot \nu(x) \d{\mathscr H^{m-1}(x)}\\
+            &= m\mathscr L^m(B)
+        \end{align*}
+        \item Es gilt
+        \begin{align*}
+            \int_{\mathbbm{S}^2} x_1^4 \d{\mathscr H^2(x)} &= \int_{\mathbbm{S}^2} \begin{pmatrix}
+                x_1^3\\0\\0
+            \end{pmatrix} \cdot \begin{pmatrix}
+                x_1\\x_2\\x_3
+            \end{pmatrix} \d{\mathscr H^2(x)}\\
+            &= \int_{\{x \in \R^3: |x| \leq 1\}} \operatorname{div} \begin{pmatrix}
+                x_1^3\\0\\0
+            \end{pmatrix} \d{\mathscr L^3(x)}\\
+            \intertext{Es gilt $\partial_1 x_1^3 = 3x_1^2$}
+            &= 3\int_{\{x \in \R^3: |x| \leq 1\}} x_1^2 \d{\mathscr L^3(x)}\\
+            \intertext{Wir benutzen Kugelkoordinaten}
+            &= 3 \int_0^1\int_0^{2\pi} \int_0^{\pi} (r\sin(\varphi)\sin(\theta))^2 r^2 \sin(\theta) \d{\theta}\d{\varphi}\d{r}
+            \intertext{Wir wenden den Satz von Fubini an und folgern weiter}
+            &= 3 \int_0^1 r^4 \d{r} \cdot \int_0^{2\pi} \sin^2(\varphi) \d{\varphi} \cdot \int_0^{\pi} \sin^3(\theta) \d{\theta}
+            \intertext{Wie oben begründet gilt $\int_0^{2\pi} \sin^2(\varphi) \d{\varphi} = \pi$}
+            &= \frac{3\pi}{5} \cdot \int_0^\pi \sin^3(\theta) \d{\theta}
+            \intertext{Mit partieller Integration folgt}
+            &= \frac{3\pi}{5} \cdot \left[-\sin^2(\varphi) \cos(\varphi)\right]_0^\pi + \frac{3\pi}{5} \int_0^\pi 2\cos^2(\varphi) \sin(\varphi) \d{\varphi}\\
+            \intertext{Wir substituieren $u = \cos(\varphi)$.}
+            &= \frac{3\pi}{5} \cdot \int_{-1}^1 2u^2 \d{u}\\
+            &= \frac{3\pi}{5} \left[\frac{2u^3}{3}\right]_{-1}^1\\
+            &= \frac{4\pi}{5}
+        \end{align*}
+    \end{enumerate}
+\section*{Zusatzaufgabe 11.1}
+\begin{enumerate}[(a)]
+    \item Es gilt
+    \begin{salign*}
+        \int_{\partial \Omega} \partial_\nu \varphi \d{\mathscr H^{n-1}} 
+        &= \int_{\partial \Omega} \nabla \varphi \cdot \nu \d{\mathscr H^{n-1}}\\
+        &\stackrel{\text{Gauß}}{=} \int_\Omega \operatorname{div} (\nabla \varphi) \d{x}\\
+        &= \int_\Omega \operatorname{div} \Delta \varphi \d{x}\\
+    \end{salign*}
+    \item Es gilt
+    \begin{salign*}
+        \int_{\partial \Omega} \varphi \partial_\nu \psi \d{\mathscr H^{n-1}}
+        &= \int_{\partial \Omega} \varphi \nabla \psi \cdot \nu \d{\mathscr H^{n-1}}\\
+        &\stackrel{\text{Gauß}}{=} \int_{\Omega} \operatorname{div}(\varphi \nabla \psi) \d{x}\\
+        &= \int_\Omega \sum_{i = 1}^{n} \partial_i (\varphi \cdot \partial_i \psi) \d{x}\\
+        &= \int_\Omega \sum_{i = 1}^{n} \varphi \cdot \partial_i\partial_i \psi + \partial \varphi \cdot \partial \psi \d{x}\\
+        &= \int_\Omega \varphi \cdot \sum_{i = 1}^{n} \partial_i(\partial_i \psi) + \nabla \varphi \cdot \nabla \psi \d{x}\\
+        &= \int_\Omega \varphi \Delta \psi + \nabla \varphi \cdot \nabla \psi \d{x}
+    \end{salign*}
+    \item Es gilt
+    \begin{align*}
+        \int_{\partial \Omega} \varphi \partial_\nu \psi - \psi \partial_\nu \varphi \d{\mathscr H^{n-1}}
+        &= \int_{\partial \Omega} \varphi \partial_\nu \psi\d{\mathscr H^{n-1}} - \int_{\partial \Omega} \psi \partial_\nu \varphi \d{\mathscr H^{n-1}}\\
+        &\stackrel{\text{(b)}}{=} \int_\Omega \varphi \Delta \psi + \nabla \varphi \cdot \nabla \psi \d{x} - \int_\Omega \psi \Delta \varphi + \nabla \psi \cdot \nabla \varphi \d{x}\\
+        &= \int_\Omega \varphi \Delta \psi - \psi \Delta \varphi \d{x}
+    \end{align*}
+\end{enumerate}
+\end{document}
