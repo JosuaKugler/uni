@@ -5,6 +5,7 @@
 \newcommand{\id}{\operatorname{id}}
 \newcommand{\ord}{\operatorname{ord}}
 \newcommand{\mychar}{\operatorname{char}}
+\newcommand{\im}{\operatorname{im}}
 
 \begin{document}
 \alglayout{11}
@@ -321,12 +322,17 @@
     
     Ist nun $s = 4$, so gibt es vier verschiedene $3$-Sylowgruppen. 
     Wie oben bewiesen ist für eine $p$-Sylowgruppe $S$ auch $gSg^{-1}$ eine $p$-Sylowgruppe.
-    Daher operiert $G$ vermöge der Konjugation auf der Menge ihrer $3$-Sylowgruppen.
-    Wäre die Gruppe abelsch, so wäre die Operation durch Konjugation trivial.
-    Dies ist hier aber nicht der Fall, da es vier verschiedene zueinander konjugierte Untergruppen gibt.
-    Insbesondere ist also die Kommutatorgruppe $[G, G]$ nicht trivial.
-    Nach Lemma 5.42(i) ist aber die Kommutatorgruppe ein Normalteiler.
-    Somit haben wir auch in diesem Fall einen nichttrivialen Normalteiler gefunden.
+    Daher operiert $G$ vermöge der Konjugation auf der Menge $X$ ihrer $3$-Sylowgruppen.
+    Wir betrachten daher den analog zu Beispiel 5.2 3) von der Konjugation induzierten Homomorphismus
+    \begin{align}
+        \varphi\colon G &\to \mathfrak{S}(X) \cong \mathfrak{S}_4\\
+        g \mapsto \tau_g
+    \end{align}
+    Nun gilt wegen $\im \varphi \subset \mathfrak{S}(X)$ auch $\# \im \varphi < 24$, $\varphi$ kann also nicht injektiv sein
+    und wir erhalten $\ker \varphi \neq \{1\}$.
+    Wäre $\ker \varphi = G$, so wäre $\im \varphi = \id$. Da es aber vier verschiedene zueinander konjugierte Untergruppen gibt,
+    können wir diesen Fall auch ausschließen.
+    Damit ist $\ker \varphi$ der gesuchte nichttriviale Normalteiler.
 \end{enumerate}
 
 \section*{Aufgabe 4}
