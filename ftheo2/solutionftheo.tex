@@ -1,140 +1,73 @@
 \documentclass{article}
 
 \usepackage{josuamathheader}
+%\usetikzlibrary{quotes}
+\usetikzlibrary{babel}
+\usepackage{tikz-cd}
 
 
 \begin{document}
 
-  \newcommand{\norm}[1]{\lVert #1 \rVert}
-  \section*{Aufgabe 47}
-  \begin{enumerate}[(a)]
-    \item Es gilt
-    \begin{align*}
-      (0,0) * (a_1, a_2) = (a_1, a_2) \forall (a_1, a_2) \in \Z^2
-    \end{align*}
-    Damit ist $(0,0)$ das neutrale Element.
-    Weiter ist durch
-    \begin{align*}
-      ((-1)^{-a_2 + 1}a_1, -a_2) * (a_1, a_2) = ((-1)^{-a_2 + 1}a_1 + (-1)^{-a_2}a_1, -a_2 + a_2) = (0,0)
-    \end{align*}
-    das Inverse zu $(a_1, a_2)$ bestimmt.
-    Die Assoziativität folgt durch
-    \begin{align*}
-      ((a_1, a_2) * (b_1, b_2))*(c_1, c_2) &= (a_1 + (-1)^{a_2}b_1, a_2 + b_2)* (c_1, c_2)\\
-      &= (a_1 + (-1)^{a_2}b_1 + (-1)^{a_2 + b_2}c_1, (a_2 + b_2) + c_2)\\
-      &= (a_1 + (-1)^{a_2}(b_1 + (-1)^{b_2}c_1), a_2 + (b_2 + c_2))\\
-      &= (a_1, a_2) * (b_1 + (-1)^{b_2}c_1, b_2 + c_2)\\
-      &= (a_1, a_2) * ((b_1, b_2) * (c_1, c_2))
-    \end{align*}
-    Offensichtlich ist jedes Produkt wieder in $\Z^2$ enthalten. Dadurch wird $(\Z^2, *)$ zu einer Gruppe. Wegen
-    \begin{align*}
-      (1, 2)*(2, 1) &= (1 + (-1)^{2}2, 2 + 1) = (3, 3)\\
-      (2, 1)*(1, 2) &= (2 + (-1)^{1}1, 1 + 2) = (1, 3)
-    \end{align*}
-    ist die Gruppe nicht abelsch.
-    $(0, 0) * (x_1, x_2) = (x_1, x_2)$ mit $(x_1, x_2) \in \R^2$ folgt analog zum Beweis, dass $(0,0)$ neutrales Element von $(\Z^2, *)$ ist.
-    $(a_1, a_2) * ((b_1, b_2) * (x_1, x_2)) = ((a_1, a_2) * (b_1, b_2)) * (x_1, x_2)$ folgt analog zum Beweis der Assoziativität.
-    Daher handelt es sich um eine Linksoperation. Diese ist wegen
-    \[ 
-      D [(a_1, a_2) * (b_1, b_2)] = \begin{pmatrix}
-        (-1)^{a_2} & 0\\ 0 & 1
-      \end{pmatrix}
-    \]
-    differenzierbar. Offensichtlich sind alle höheren partiellen Ableitungen $0$.
-    Daher handelt es sich um eine glatte Gruppenoperation. 
-    \item Wir zeigen die beiden Eigenschaften einer freien Operation.
-    \begin{enumerate}[(1)]
-      \item Wähle zu $x \in \R^2$ die offene Umgebung $U_{1/2}(x)$.
-      Man sieht (u.a. aus Symmetriegründen) schnell ein, dass $(a_1, a_2) * U_{\epsilon}(x) = U_{\epsilon}((a_1, a_2) * x)$ gelten muss.
-      Daher erhalten wir
-      \begin{align*}
-        (a_1, a_2) * U_{1/2}(x) \cap U_{1/2}(x) \neq \emptyset &\Leftrightarrow U_{1/2}((a_1, a_2) * x) \cap U_{1/2}(x)\neq \emptyset\\
-        &\implies U_{1/2}((a_1 + (-1)^{a_2}x_1, a_2 + x_2)) \cap U_{1/2}((x_1, x_2))\neq \emptyset\\
-        &\implies |a_1 + (-1)^{a_2}x_1 - x_1|^2 + |a_2 + x_2 - x_2|^2 < 1\\
-        &\implies |a_1 + (-1)^{a_2}x_1 - x_1|^2 + |a_2|^2 < 1\\
-        &\xRightarrow{a_2 \in \Z} |a_1 + (-1)^{a_2}x_1 - x_1|^2 < 1 \land a_2 = 0\\
-        &\implies |a_1 + x_1 - x_1|^2 < 1 \land a_2 = 0\\
-        &\implies |a_1|^2 < 1 \land a_2 = 0\\
-        &\xRightarrow{a_1 \in \Z} a_1 = a_2 = 0
-      \end{align*}
-      \item Seien $(x_1, x_2) \not \sim (y_1, y_2) \in \R^2$ gegeben. 
-      Wieder nutzen wir $(a_1, a_2) * U_{\epsilon}(x) = U_{\epsilon}((a_1, a_2) * x)$.
-      Daher genügt es zu zeigen, dass $\norm {(a_1, a_2) * (x_1, x_2) - (y_1, y_2)} \geq 2 \epsilon$ gilt.
-      Dann sind nämlich beliebig Translate der $\epsilon$-Umgebungen von $x$ und $y$ disjunkt.
-      Wir unterscheiden drei Fälle
-      \begin{enumerate}
-        \item $x_2 - y_2 \notin \Z$. Setze $\epsilon = \frac{x_2-y_2 \mod \Z}{2}$.
-        Wegen 
-        \[ 
-          \norm{(a_1, a_2) * (x_1, x_2) - (y_1, y_2)} \geq \sqrt{|a_2 + x_2 - y_2|^2} \geq \sqrt{(x_2 - y_2 \mod \Z)^2}
-          \geq 2 \cdot \epsilon
-        \]
-        folgt die Aussage für diesen Fall.
-        \item $x_2 - y_2 \in 2\Z$. Setze $\epsilon = \frac{x_1 - y_1 \mod \Z}{2}$.
-        Insbesondere ist $\epsilon < \frac{1}{2}$. Angenommen, $\epsilon = 0$. Dann wäre
-        $y_1 - x_1, y_2 - x_2)*(x_1, x_2) = (y_1 - x_1 + (-1)^{x_2 - y_2}x_1, y_2 - x_2 + x_2) = (y_1, y_2)$, Widerspruch.
-        Also $0 < \epsilon < \frac{1}{2}$.
-        Daher gilt für alle $(a_1, a_2)* (x_1, x_2) = (a_1 + (-1)^{a_2}x_1, a_2 + x_2)$ mit $a_2 + x_2 \neq y_2$ bereits
-        \[ 
-          \norm{(a_1, a_2) * (x_1, x_2) - (y_1, y_2)} \geq \sqrt{|a_2 + x_2 - y_2|^2} \geq 1
-          \geq 2 \cdot \epsilon.
-        \]
-        Wir müssen also nur $(a_1, a_2)$ betrachten mit $a_2 + x_2 = y_2$. 
-        Aufgrund der Voraussetzung gilt $y_2 - x_2 \in 2\Z$.
-        Es folgt $(a_1, y_2 - x_2) * (x_1, x_2) = (a_1 + (-1)^{y_2 - x_2}x_1, y_2) = (a_1 + x_1, y_2)$.
-        Schließlich erhalten wir
-        \[
-            \norm{(a_1, y_2 - x_2) * x - y} = |a_1 + x_1 - y_1| \geq x_1 - y_1 \mod \Z \geq 2\epsilon.
-        \]
-        \item $x_2 - y_2 \in 2\Z + 1$. Setze $\epsilon = \frac{x_1 + y_1 \mod \Z}{2}$.
-        Insbesondere ist $\epsilon < \frac{1}{2}$. Angenommen, $\epsilon = 0$. Dann wäre
-        $y_1 + x_1, y_2 - x_2)*(x_1, x_2) = (y_1 + x_1 + (-1)^{x_2 - y_2}x_1, y_2 - x_2 + x_2) = (y_1, y_2)$, Widerspruch.
-        Also $0 < \epsilon < \frac{1}{2}$.
-        Daher gilt für alle $(a_1, a_2)* (x_1, x_2) = (a_1 + (-1)^{a_2}x_1, a_2 + x_2)$ mit $a_2 + x_2 \neq y_2$ bereits
-        \[ 
-          \norm{(a_1, a_2) * (x_1, x_2) - (y_1, y_2)} \geq \sqrt{|a_2 + x_2 - y_2|^2} \geq 1
-          \geq 2 \cdot \epsilon.
-        \]
-        Wir müssen also nur $(a_1, a_2)$ betrachten mit $a_2 + x_2 = y_2$. 
-        Aufgrund der Voraussetzung gilt $y_2 - x_2 \in 2\Z$.
-        Es folgt $(a_1, y_2 - x_2) * (x_1, x_2) = (a_1 + (-1)^{y_2 - x_2}x_1, y_2) = (a_1 - x_1, y_2)$.
-        Schließlich erhalten wir 
-        \[
-            \norm{(a_1, y_2 - x_2) * x - y} = |a_1 - x_1 - y_1| \geq x_1 + y_1 \mod \Z \geq 2\epsilon.
-        \]
-      \end{enumerate}
-    \end{enumerate}
-    \item Wir haben oben bereits gesehen, dass die Gruppenoperation glatt ist wegen \[ 
-      D [(a_1, a_2) * (b_1, b_2)] = \begin{pmatrix}
-        (-1)^{a_2} & 0\\ 0 & 1
-      \end{pmatrix}.
-      \]
-      Identifiziert man $\R^2 \cong \C$, so verstößt diese Jacobimatrix für ungerade $a_2$ gegen die 
-      Cauchy-Riemann-Differentialgleichungen.
-      Daher ist die Gruppenoperation nicht holomorph. 
-      Insbesondere wird $G\backslash \C$ nicht zu einer Riemannschen Fläche.
-  \end{enumerate}
-
-  \section*{Aufgabe 48}
-    Offensichtlich ist $p_1 \times p_2 \colon X_1 \times X_2 \to Y_1 \times Y_2$ surjektiv.
-    Sei $(x^1, x^2) \in X_1 \times X_2$. Dann existieren nach Definition der Überlagerung Umgebungen $x^1 \in U^1, x^2 \in U^2$ mit
-    \begin{align*}
-      p_k^{-1}(U^k) = \biguplus_{i\in F^k}U^k_i,
-    \end{align*}
-    sodass alle Einschränkungen $p_k|_{U^k_i}\colon U_k^i \overset{\sim}{\to} U^k$ bistetig sind für $k \in \{1,2\}$.
-    Daher gilt
-    \begin{align*}
-      (p_1 \times p_2)^{-1}(U^1 \times U^2) &= \{(x_1, x_2) | p(x_1) \in U^1, p(x_2) \in U^2\}\\
-      &= \{(x_1, x_2) | x_1 \in \biguplus_{i\in F^1}U^1_i, x_2 \in \biguplus_{j\in F^2}U^2_j\}\\
-      &= \biguplus_{i\in F^1} \{(x_1, x_2) | x_1 \in U^1_i, x_2 \in \biguplus_{j\in F^2}U^2_j\}\\
-      &= \biguplus_{i\in F^1} \biguplus_{j\in F^2} \{(x_1, x_2) | x_1 \in U^1_i, x_2 \in U^2_j\}\\
-      &= \biguplus_{(i,j) \in F^1\times F^2} U^1_i \times U^2_j
-    \end{align*}
-    Wegen $p_k|_{U^k_i}\colon U_k^i \overset{\sim}{\to} U^k$ bistetig für $K \in \{1,2\}$ folgt, dass
-    \[
-        p_1 \times p_2|_{U^1_i\times U^2_j} \colon U^1_i \times U^2_j \to U^1 \times U^2
-    \]
-    bezüglich der Produkttopologie bistetig sein muss.
-    Damit handelt es sich bei $p_1 \times p_2$ ebenfalls um eine Überlagerung.
-
+\section*{Aufgabe 51}
+\begin{enumerate}[(a)]
+  \item Die Verknüpfung auf $Y$ ist eine stetige Abbildung $+ \colon Y \times Y \to Y$. 
+  Dabei ist $Y \times Y$ als Mannigfaltigkeit isomorph zu $Y$ via der offensichtlich bistetigen Abbildung 
+  $Y \times Y \xrightarrow{\sim} Y, (x,x) \mapsto x$.
+  Analog ist auch $X\times X$ eine Mannigfaltigkeit. Nach Aufgabe 48 erhalten wir eine Überlagerung 
+  $X \times X \xrightarrow{p\times p}Y\times Y$.
+  Unser Ziel ist nun eine stetige Abbildung $\tilde{+}\colon X\times X \to X$ mit $p(\tilde{+}(x_1, x_2)) = +(p(x_1), p(x_2))$, d.h.
+  eine stetige Abbildung, sodass das folgende Diagramm kommutiert 
+  \[
+      \begin{tikzcd}
+         & & X \arrow[d, "p"]\\
+         X \times X\arrow[urr, "\tilde{+}", bend left, dashed] \arrow[r, "(p\times p)"] & Y \times Y\arrow[r, "+"]  & Y
+      \end{tikzcd}
+  \]
+  Völlig analog zum Beweis des Liftungssatzes folgern wir die Existenz einer stetigen Abbildung 
+  $\tilde{\tilde{+}} \colon X \times X \to \tilde X$ mit $\tilde X$ der universellen Überlagerung von $X$.
+  \[
+      \begin{tikzcd}
+         & & \tilde X \arrow[dd, bend left, "\tilde p"]\\
+         & & X \arrow[d, "p"]\\
+         X \times X\arrow[uurr, bend left, "\tilde{\tilde{+}}"] \arrow[urr, "\tilde{+}", bend left, dashed] \arrow[r, "(p\times p)"] & Y \times Y\arrow[r, "+"]  & Y
+      \end{tikzcd}
+  \]
+  Aufgrund der universellen Eigenschaft der universellen Überlagerung existiert eine Überlagerung 
+  $\tilde{\tilde{p}} \colon \tilde{X} \to X$ derart, dass das folgende Diagramm kommutiert.
+  \[
+      \begin{tikzcd}
+         & & \tilde X \arrow[d, "\tilde{\tilde{p}}"]\arrow[dd, bend left=50, "\tilde p"]\\
+         & & X \arrow[d, "p"]\\
+         X \times X\arrow[uurr, bend left, "\tilde{\tilde{+}}"] \arrow[urr, "\tilde{+}", bend left, dashed] \arrow[r, "(p\times p)"] & Y \times Y\arrow[r, "+"]  & Y
+      \end{tikzcd}
+  \]
+  Wir erhalten durch $\tilde{+} \coloneqq \tilde{\tilde{p}} \circ \tilde{\tilde{+}}$ die gesuchte stetige Abbildung.
+  \item Völlig analog zum Nachweis der Stetigkeit im Beweis des Liftungssatzes argumentieren wir, dass es sich bei 
+  Differenzierbarkeit um eine lokale Eigenschaft handelt. Da die Werte von $\tilde{\tilde{+}}$ einer genügend kleinen Umgebung
+  aus Stetigkeitsgründen in einem Blatt liegen müssen und unter der Überlagerung $\tilde{\tilde{p}}$ auch wieder in einem Blatt
+  landen. Unter der Voraussetzung, dass $Y$ und $X$ differenzierbare Mannigfaltigkeiten sind, ist dann $\tilde{+}$ als 
+  Komposition differenzierbarer Abbildungen differenzierbar.
+\end{enumerate}
+\section*{Aufgabe 54}
+Es gilt $X^3 - 1 = (X - 1)(X - \zeta_2)(X- \zeta_3)$ wobei $1, \zeta_2, \zeta_3$ die dritten Einheitswurzeln seien.
+Diese Identität werden wir für $X = \frac{f}{-g}$ verwenden.
+\begin{align*}
+  f^3 + g^3 &= 1\\
+  \frac{f^3}{(-g)^3} - 1 &= \frac{1}{(-g)^3}\\
+  (\frac{f}{-g} - 1)(\frac{f}{-g} - \zeta_2)(\frac{f}{-g}- \zeta_3) &= \frac{1}{(-g)^3}\\
+  (\frac{f}{g} + 1)(\frac{f}{g} + \zeta_2)(\frac{f}{g} + \zeta_3) &= \frac{1}{g^3}
+\end{align*}
+Wegen $g \in \mathcal{O}(\C)$ ist $\frac{1}{g^3}\neq 0$. Daraus folgt aber sofort 
+\begin{align*}
+  \frac{f}{g} \notin \{-1, - \zeta_2,-\zeta_3\}
+\end{align*}
+Als Quotient zweier holomorpher Funktionen ist $\frac{f}{g}$ meromorph. Nach Aufgabe 52 muss $\frac{f}{g}$ konstant sein.
+Also gilt $f = g$ und wir folgern
+\begin{align*}
+  f^3 + g^3 &= 1\\
+  f^3 &= \frac{1}{2}\\
+\end{align*}
+Es gibt nun drei mögliche Werte, die $f$ annehmen kann. Angenommen, $f$ wäre nicht konstant.
+Dann müsste $f$ als holomorphe Funktion nach dem Satz von Picard alle Werte in $\C$ bis auf 2 annehmen.
+Da $\C$ mehr als 5 Elemente enthält, ist dies ein Widerspruch. Folglich ist $f$ und damit auch $g$ konstant.
 \end{document}
