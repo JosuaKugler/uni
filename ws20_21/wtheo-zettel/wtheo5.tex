@@ -1,0 +1,203 @@
+\documentclass[uebung]{lecture}
+
+\title{Wtheo 0: Übungsblatt 5}
+\author{Josua Kugler, Christian Merten}
+\usepackage[]{bbm}
+
+\begin{document}
+
+\punkte[17]
+
+\begin{aufgabe}
+    Beh.: $\varphi = \mathbbm{1}_{A_k}$ mit $ k \in \R^{+}$ ist bester Test
+    zum Niveau $\mathbb{P}_0(A_k) \in [0,1]$.
+    \begin{proof}
+        Sei $\tilde{\varphi} = \mathbbm{1}_{\tilde{A}}$ ein Test zum Niveau $\mathbb{P}_0(A_k)$, d.h.
+        $\mathbb{P}_0(\tilde{\varphi} = 1) = \mathbb{P}_0(\tilde{A}) \le \mathbb{P}_{0}(A_k) =
+        \mathbb{P}_0(\varphi = 1)$ $(**)$.
+
+        Z.z.: $\mathbb{P}_1(\tilde{\varphi} = 0) = \mathbb{P}_1(\tilde{A}^{c}) \ge \mathbb{P}_1(A_k^{c}) =
+        \mathbb{P}_1(\varphi = 0)$.
+
+        Es ist $x \in A_{k} \iff \mathbbm{f}_1(x) - k \mathbbm{f}_0(x) \ge 0$, also
+        $x \in A_k^{c} \iff \mathbbm{f}_1(x) - k \mathbbm{f}_0(x) < 0$ $(*)$. Damit folgt
+        \begin{salign*}
+            \mathbb{P}_1(A_k) - k \mathbb{P}_0(A_k) &= \int_{A_k}^{} \left[ \mathbbm{f}_1(x) - k \mathbbm{f}_0(x) \right]  \d{x} \\
+            &\ge \int_{A_k \cap \tilde{A}}^{} \left[ \mathbbm{f}_1(x) - k \mathbbm{f}_0(x) \right]  \d{x} \\
+            &\ge \int_{A_k \cap \tilde{A}}^{} \left[ \mathbbm{f}_1(x) - k \mathbbm{f}_0(x) \right]  \d{x} 
+            + \int_{A_k^{c} \cap \tilde{A}}^{} \underbrace{\left[ \mathbbm{f}_1(x) - k \mathbbm{f}_0(x) \right]  }_{< 0 \; (*)}\d{x} \\
+            &= \int_{\tilde{A}}^{} \left[ \mathbbm{f}_1(x) - k \mathbbm{f}_0(x) \right]  \d{x} \\
+            &= \mathbb{P}_1(\tilde{A}) - k \mathbb{P}_0(\tilde{A})
+        .\end{salign*}
+        Also folgt
+        \[
+        \mathbb{P}_1(A_k) - \mathbb{P}_1(\tilde{A}) \ge k (\mathbb{P}_0(A_k) - \mathbb{P}_0(\tilde{A}))
+        \stackrel{\text{(**)}}{\ge } 0
+    .\] Es ist also $\mathbb{P}_1(A_k) \ge \mathbb{P}_1(\tilde{A})$, insgesamt
+    \[
+        \mathbb{P}_1(A_k^{c}) = 1 - \mathbb{P}_1(A_k) \le 1 - \mathbb{P}_1(\tilde{A})
+        = \mathbb{P}_1(\tilde{A}^{c})
+    .\] Also Fehler $2$. Art minimiert und damit $\varphi$ bester Test zum Niveau $\mathbb{P}_0(A_k)$.
+    \end{proof}
+\end{aufgabe}
+
+\begin{aufgabe}[]
+    \begin{enumerate}[(a)]
+        \item Der Neyman-Pearson-Test $\varphi \colon \R \to \{1,0\}$ ist gegeben durch $\mathbbm{1}_{A_{k_\alpha}}$ mit 
+        \[
+            A_{k_\alpha} = \{x \in \R | \mathbbm{f}_1(x) \geq k_\alpha \mathbbm{f}_0(x)\} = \{x \in \R | \mathbbm{f}_1(x) / \mathbbm{f}_0(x) \geq k_\alpha\},
+        \] wobei wir zeigen werden, dass ein $k_\alpha$ existiert mit $\mathbbm{P}_0(A_{k_\alpha}) = \alpha$.
+        Dabei ist der Likelihoodquotient $L(x) = \frac{\mathbbm{f}_1(x)}{\mathbbm{f}_0(x)} = \frac{\lambda_0}{\lambda_1} e^{\left(\frac{1}{\lambda_0} - \frac{1}{\lambda_1}\right) x}$ stetig und wegen $\lambda_0 < \lambda_1 \implies \frac{1}{\lambda_0} > \frac{1}{\lambda_1}$ auch monoton wachsend. Insbesondere existiert zu jedem $k_\alpha$ genau ein $c_\alpha$ mit
+        \[
+            A_{k_\alpha} = [c_\alpha, \infty). 
+        \]
+        Dann gilt
+        \[
+            \alpha \overset{!}{=} \mathbbm{P}_0(A_{k_\alpha}) = \int_{A_{k_\alpha}} \mathbbm{f}_0(x) \d{x} = \int_{c_\alpha}^\infty \frac{1}{\lambda_0}e^{- \frac{1}{\lambda_0} x} \d{x} = e^{- \frac{1}{\lambda_0} c_\alpha}
+        \]
+        Daher gilt $c_\alpha = -\lambda_0 \log(\alpha)$ und damit $\varphi = \mathbbm{1}_{[-\lambda_0\log(\alpha), \infty)}$
+        \item Offensichtlich ist also $\varphi$ unabhängig von $\lambda_1$.
+        Sei $\lambda < \lambda_0$. Dann gilt
+        \[
+            \mathbbm{P}_\lambda(A_{k_\alpha}) = \int_{-\lambda_0\log(\alpha)}^\infty \frac{1}{\lambda}e^{-\frac{1}{\lambda}x} \d{x} = e^{\frac{\lambda_0}{\lambda}\log(\alpha)} = \alpha^{\frac{\lambda_0}{\lambda}} < \alpha,
+        \]
+        da $\alpha < 1$. 
+        Damit hält $\varphi$ für $H_0: \lambda \le \lambda_0$ das Signifikanzniveau $\alpha$ ein und ist folglich gleichmäßig bester Test mit $H_1: \lambda > \lambda_0$, da für alle $\lambda_1 > \lambda_0$ nach dem Neyman-Pearson-Lemma $\varphi$ ein bester Test ist.
+        \item Die Forscher liegen falsch, wenn die Nullhypothese $\lambda \leq \lambda_0$ wahr ist und sie diese ablehnen. Das ist also gerade ein Fehler erster Art und wir erhalten $\alpha = 0.05$. Damit ist $\varphi = \mathbbm{1}_{[- \lambda_0 \log(\alpha), \infty)} = \mathbbm{1}_{[15,7917, \infty]}$. Wegen $\varphi(X) = \varphi(13) = 0$ publizieren sie ihre Ergebnisse nicht.
+        \item Es gilt $\mathcal{R}_\lambda = \mathcal F_\lambda^c = (0,\lambda)^c = [\lambda, \infty)$. Die assoziierte Familie von Partitionen ist 
+        \[ 
+            \mathscr H_\lambda^0 \coloneqq \{\tilde \lambda \in \R^+ \colon \lambda \in \mathcal R_{\tilde \lambda}\} 
+            = \{\tilde \lambda \in \R^+ \colon \lambda \geq \tilde \lambda\} = (-\infty, \tilde \lambda]
+        \] und analog
+        \[ 
+            \mathscr H_\lambda^1 \coloneqq \{\tilde \lambda \in \R^+ \colon \lambda \in \mathcal F_{\tilde \lambda}\} 
+            = \{\tilde \lambda \in \R^+ \colon \lambda < \tilde \lambda\} = (\tilde \lambda, \infty).
+        \]
+        Nach Aufgabe $b$ wissen wir, dass $\varphi_\lambda = \mathbbm{1}_{[-\lambda \log(\alpha)]}$ ein gleichmäßig bester Test zum Niveau $\alpha$ mit Nullhypothese $\mathscr H_\lambda^0$ gegen die Alternative $\mathscr H_\lambda^1$ ist. Nach Satz 12.33 muss damit die assoziierte Bereichsschätzfunktion $B$ ein gleichmäßig bester $(1-\alpha)$-Konfidenzbereich sein. Die assoziierte Bereichsschätzfunktion ist gegeben durch
+        \begin{align*}
+            B(x) &= \{\lambda \in \R^+ \colon \varphi_\lambda(x) = 0\}\\
+            &= \{\lambda \in \R^+\colon \mathbbm{1}_{[-\lambda\log(\alpha), \infty)} = 0\}\\
+            &= \{\lambda \in \R^+\colon x  < -\lambda\log(\alpha)\}
+            \intertext{$\log(\alpha) < 0$}
+            &= \{\lambda \in \R^+\colon -x/\log(\alpha)  < \lambda\}\\
+            &= \left(-\frac{x}{\log(\alpha)}, \infty\right)
+        \end{align*}
+    \end{enumerate}
+\end{aufgabe}
+\begin{aufgabe}[]
+    \begin{enumerate}[(a)]
+        \item Beh.: $\hat{\theta}_n(x) = (\overline{x}_n, \frac{1}{n} \sum_{i=1}^{n} (x_i - \overline{x}_n)^2)$.
+            \begin{proof}
+                Betrachte für $\sigma^2 > 0$:
+                \begin{salign*}
+                    L(x, \mu, \sigma^2) &= (2 \pi \sigma^2)^{-\frac{n}{2}} \exp\left( -\frac{1}{2\sigma^2}
+                    \sum_{i=1}^{n} (x_i - \mu)^2\right) \\
+                    l(x, \mu, \sigma^2) &= \log L \\
+                                        &= -\frac{1}{2 \sigma^2} \sum_{i=1}^{n} (x_i - \mu)^2
+                                        - \frac{n}{2} \log(2 \pi \sigma^2)
+                    \intertext{Es genügt die Maxima von $l = \log L$ zu betrachten, da der Logarithmus
+                    streng monoton wachsend ist. Betrachte den Gradienten bezüglich $\mu$ und $\sigma^2$:}
+                    \nabla l(x, \mu, \sigma^2) &= \begin{pmatrix} 
+                        \frac{1}{2 \sigma^2} \sum_{i=1}^{n} 2 (x_i - \mu) \\
+                        \frac{1}{2 \sigma ^{4}} \sum_{i=1}^{n} (x_i - \mu)^2 - \frac{n}{2} \frac{1}{\sigma^2}
+                    \end{pmatrix} 
+                        \stackrel{!}{=} 0
+                .\end{salign*}
+                Damit folgt
+                \[
+                    \frac{1}{\sigma ^{4}} \sum_{i=1}^{n} (x_i - \mu)^2 = \frac{n}{\sigma^2}
+                    \implies \sigma^2 = \frac{1}{n} \sum_{i=1}^{n} (x_i - \mu)^2
+                .\] Eingesetzt in die zweite Gleichung ergibt:
+                \[
+                    n \frac{\sum_{i=1}^{n} (x_i - \mu)}{\sum_{i=1}^{n} (x_i - \mu)^2} = 0
+                    \implies \sum_{i=1}^{n} (x_i - \mu) = 0
+                    \implies \sum_{i=1}^{n} x_i = n \mu \implies \mu = \overline{x}_n
+                .\] Damit folgt
+                \[
+                    \sigma^2 = \frac{1}{n} \sum_{i=1}^{n} (x_i - \overline{x}_n)^2
+                .\]
+                Die Determinante der Hessematrix von $l$ bezüglich $\mu$ und $\sigma^2$
+                ausgewertet bei $\mu = \overline{x}_n$ ist
+                $\forall \sigma^2 > 0$:
+                \begin{salign*}
+                    \text{det}\left[\begin{pmatrix} -\frac{n}{\sigma^2} & -\frac{1}{\sigma ^{4}} \sum_{i=1}^{n} (x_i - \mu) \\
+                        - \frac{1}{\sigma ^{4}} \sum_{i=1}^{n} (x_i - \mu) &
+                        - \frac{1}{\sigma ^{6}} \sum_{i=1}^{n} (x_i - \mu)^2 + \frac{n}{2} \frac{1}{\sigma ^{4}}
+                    \end{pmatrix}\Big|_{\mu = \overline{x}_n} \right]
+                    &= \text{det} \left[\begin{pmatrix}
+                        - \frac{n}{\sigma ^2} & 0 \\
+                        0 & \frac{n}{2 \sigma ^{4}}
+                \end{pmatrix} \right] \\
+                          &= - \underbrace{\frac{n^2}{2 \sigma ^{6}}}_{> 0} < 0
+                .\end{salign*}
+                Es liegt also ein (lokales) Maximum bei
+                $\theta = (\overline{x}_n, \frac{1}{n} \sum_{i=1}^{n} (x_i - \overline{x}_n)^2)$ vor.
+                Damit folgt die Behauptung.
+            \end{proof}
+        \item Beh.: $\hat{\theta}_n(x) = \frac{\overline{x}_n}{m}$.
+            \begin{proof}
+                Sei $m \in \N$ fest. Betrachte wieder den Logarithmus der Likelihoodfunktion:
+                \begin{salign*}
+                    L(x, p) &= \prod_{i=1}^{n} p^{x_i} (1 - p)^{m - x_i} \\
+                    &= p^{n \overline{x}_n} (1-p)^{nm - n \overline{x}_n} \\
+                    l(x, p) &= n \overline{x}_n \log(p) + n(m - \overline{x}_n) \log(1-p)
+                    \intertext{Dann folgt}
+                    \frac{\partial l}{\partial p} &= \frac{n \overline{x}_n}{p} - \frac{n(m - \overline{x}_n)}{1-p} \stackrel{!}{=} 0\\
+                    \intertext{Damit folgt direkt}
+                    p &= \frac{\overline{x}_n}{m}
+                    \intertext{Dieses ist auch lokales Maximum da wegen $0 \le x_i \le m$ $\forall i \in \N$
+                    auch $0 \le \overline{x_n} \le m$ gilt und damit}
+                    \frac{\partial l^2}{\partial p^2} \Big|_{p = \frac{\overline{x}_n}{m}}
+                    &= - \frac{n \overline{x}_n}{p^2} - \frac{n(m - \overline{x}_n)}{(1-p)^2}
+                    \Big|_{p = \frac{\overline{x}_n}{m}} = - n \frac{m^2}{\overline{x}_n}
+                    - \frac{n(\overbrace{m - \overline{x}_n}^{\ge 0})}{\left( 1 - \frac{\overline{x}_n}{m} \right)^2} < 0
+                .\end{salign*}
+                Da $\frac{\overline{x}_n}{m}$ einzige Nullstelle von $\frac{\partial l}{\partial p}$, ist
+                dieses auch globales Maximum. Damit folgt die Behauptung.
+            \end{proof}
+    \end{enumerate}
+\end{aufgabe}
+\begin{aufgabe}
+    \begin{enumerate}[(a)]
+        \item Für die Zähldichte $\mathbbm p_{X_i}$ gilt
+        \[
+            \mathbbm p_{X_i} = \begin{cases}
+                \mathbbm p_{\text{Poi}_\lambda}(0) &| X_i = 0\\
+                \sum_{i = 1}^{\infty} \mathbbm p_{\text{Poi}_\lambda}(i) &| X_i = 1
+            \end{cases}  = \begin{cases}
+                e^{-\lambda} & |X_i = 0\\
+                1 - e^{-\lambda} & | X_i = 1
+            \end{cases}
+        \]
+        Für die Produktzähldichte erhalten wir daher
+        \[
+            \prod_{i=1}^n \mathbbm p_{X_i} = (1 - e^{-\lambda})^{\sum_{i = 1}^{n} X_i} (e^{-\lambda})^{n - \sum_{i = 1}^{n} X_i}
+            = (1 - e^{-\lambda})^{n \overline{X_n}} (e^{-\lambda})^{n - n \overline{X_n}}
+            %(1 - e^{-\lambda})^{\sum_{i = 1}^{n} X_i} \cdot e^{-n\lambda} \cdot e^{\lambda \sum_{i = 1}^{n} X_i} = (e^{\lambda} - 1)^{\sum_{i = 1}^{n} X_i} \cdot e^{-n\lambda}
+        \]
+        Daraus ergibt sich die Likelihoodfunktion
+        \[
+            L(X, \lambda) = (1 - e^{-\lambda})^{n \overline{X_n}} e^{-n\lambda} e^{n \lambda \overline{X_n}} = (e^{\lambda} - 1)^{n \overline{X_n}} \cdot e^{-n\lambda},
+        \]
+        die log-Likelihoodfunktion
+        \[
+            l(X,\lambda) = n \overline{X_n} \log(e^\lambda - 1) - n\lambda,
+        \]  
+        sowie deren Ableitung
+        \[
+            \frac{\partial}{\partial \lambda}  l(X, \lambda) = n \overline{X_n} \frac{e^\lambda}{e^\lambda - 1} - n \overset{!}{=} 0,
+        \]
+        von der wir direkt die Nullstellen berechnen um Extremstellen in $L(X, \lambda)$ zu finden.
+        Daraus folgern wir
+        \begin{align*}
+            \overline{X_n} e^{\hat \lambda_n} &= e^{\hat \lambda_n} - 1\\
+            1 - \overline{X_n}  &= e^{-\hat \lambda_n}\\
+            \hat \lambda_n &= -\log(1 - \overline{X_n}).
+        \end{align*}
+        \item Der Schätzer $ \hat \lambda_n$ existiert genau dann nicht, wenn $\overline{X_n} = 1 \Leftrightarrow X_i = 1 \forall 1\le i\le n$. Es gilt 
+        \[ 
+            \mathbbm P(X_1 = \dots = X_n = 1) = \prod_{i=1}^n \mathbbm P_i(X_i = 1) = \prod_{i=1}^n (1 - e^{-\lambda}) = e^{-n\lambda} > 0.
+        \]
+    \end{enumerate}
+\end{aufgabe}
+\end{document}

@@ -1,0 +1,226 @@
+\documentclass[uebung]{lecture}
+
+\title{Wtheo 0: Übungsblatt 4}
+\author{Josua Kugler, Christian Merten}
+
+\begin{document}
+
+\punkte[13]
+
+\begin{aufgabe}
+    \begin{enumerate}[(a)]
+        \item Beh.: $\mathbb{P}^{X}$ ist ein Wahrscheinlichkeitsmaß auf $(\mathcal{X}, \mathscr{B})$.
+            \begin{proof}
+                \begin{enumerate}[(i)]
+                    \item Es ist $\mathbb{P}^{X} \ge 0$, da $\mathbb{P} \ge 0$.
+                    \item $\mathbb{P}^{X}(\mathcal{X}) = \mathbb{P}(X^{-1}(\mathcal{X})) = \mathbb{P}(\Omega) = 1$, da $\mathbb{P}$ W-Maß.
+                    \item Zunächst ist für $A, B \subseteq \mathcal{X}$ mit $A \cap B = \emptyset$ auch $X^{-1}(A) \cap X^{-1}(B) =X^{-1}(A \cap B) = X^{-1}(\emptyset) = \emptyset$.
+                        Also bleiben disjunkte Vereinigungen unter Urbildbildung disjunkt $(*)$.
+
+                        Seien nun $B_i \in \mathscr{B}$ für $i \in \N$ und paarweise verschieden. Dann folgt
+                        \begin{salign*}
+                            \mathbb{P}^{X}\left( \bigcupdot_{i \in \N} B_i \right)
+                            &= \mathbb{P}\left( X^{-1}\left( \bigcupdot_{i \in \N} B_i \right)  \right) \\
+                            &\stackrel{(*)}{=} \mathbb{P}\Big( \bigcupdot_{i \in \N} \underbrace{X^{-1}(B_i)}_{\in \mathscr{A}}  \Big)  \\
+                            &\stackrel{\mathbb{P} \text{ Maß}}{=}
+                            \sum_{i \in \N} \mathbb{P}(X^{-1}(B_i)) \\
+                            &= \sum_{i \in \N} \mathbb{P}^{X}(B_i)
+                        .\end{salign*}
+                \end{enumerate}
+            \end{proof}
+        \item Beh.: $\left( \mathbb{P}^{X} \right)^{Y} = \mathbb{P}(Y \circ X)$.
+            \begin{proof}
+                Sei $C \in \mathscr{C}$.
+                \begin{salign*}
+                    Y^{-1}(X^{-1}(C)) &= \{ x \in \Omega  \mid X(x) \in \{ y \in \mathcal{X}  \mid Y(y) \in C\} \}  \\
+                    &= \{ x \in \Omega  \mid Y(X(x)) \in C\} \\
+                    &= (Y \circ X)^{-1}(C)
+                .\end{salign*}
+                Damit folgt
+                \[
+                    (\mathbb{P}^{X})^{Y}(C) = \mathbb{P}^{X}(Y^{-1}(C)) = \mathbb{P}(X^{-1}(Y^{-1}(C)))
+                    = \mathbb{P}((Y \circ X)^{-1}(C)) = \mathbb{P}^{(Y \circ X)}
+                .\] 
+            \end{proof}
+        \item Beh.: Es ist
+            \[
+                \mathbb{P}^{X}(\{0\}) = \frac{4}{7} \qquad \mathbb{P}^{X}(\{1\}) = \frac{2}{7}
+                \qquad \mathbb{P}^{X}(\{2\}) = \frac{1}{7}
+            .\] Damit ist $\mathbb{P}^{X}$ eindeutig festgelegt.
+            \begin{proof}
+                Es ist $\text{Bild}(X) = \{0, 1, 2\}$. Damit ist
+                $(\text{Bild}(X), 2^{\text{Bild}(X)}, \mathbb{P}^{X})$ diskreter
+                Wahrscheinlichkeitsraum. Es genügt also $\mathbb{P}^{X}$ für
+                alle Elementarereignisse zu bestimmen.
+
+                Damit folgt mit geometrischer Reihe
+                \begin{salign*}
+                    \mathbb{P}^{X}(\{0\}) &= \mathbb{P}(X^{-1}(\{0\}))
+                    = \mathbb{P}(3 \N_0) = \sum_{k \in \N_0} 2^{-3k-1}
+                    = \frac{1}{2} \sum_{k \in \N_0} \left( \frac{1}{8} \right)^{k}
+                    = \frac{1}{2} \frac{1}{1 - \frac{7}{8}} = \frac{4}{7} \\
+                    \mathbb{P}^{X}(\{1\}) &= \mathbb{P}(3 \N_0 + 1)
+                    = \sum_{k \in \N_0} 2^{-3k-1-1} = \frac{2}{7} \\
+                    \mathbb{P}^{X}(\{2\}) &= \mathbb{P}(3 \N_0 + 2)
+                    = \sum_{k \in \N_0} 2^{-3k-2-1} = \frac{1}{7}
+                .\end{salign*}
+            \end{proof}
+    \end{enumerate}
+\end{aufgabe}
+
+\begin{aufgabe}
+    \begin{enumerate}[(a)]
+        \item Wir benutzen den Dichtetransformationssatz. Es gilt $Y = h(X)$ mit $h(x) = -2 \log(x)$, also $h'(x) = -\frac{2}{x}$ und $h^{-1}(y) = e^{-\frac{1}{2}y}$. Wir benötigen noch die Identität
+        \[
+            \mathbbm{f}^X(e^{-\frac{1}{2}y}) = \begin{cases}
+                1 & 0 \leq e^{-\frac{1}{2}y} \leq 1\\
+                0 & \text{sonst}
+            \end{cases} = \begin{cases}
+                1 & y \geq 0\\
+                0 & y < 0
+            \end{cases}
+            = \mathbbm{1}_{\R_+}(y)
+        \]
+        Daher erhalten wir
+        \[
+            \mathbbm{f}^Y(y) = \frac{\mathbbm{f}^X(e^{-\frac{1}{2}y})}{\left|-\frac{2}{e^{-\frac{1}{2}y}}\right|} = \mathbbm{1}_{\R_+}(y) \frac{1}{2}e^{-\frac{1}{2}y} = \mathbbm{f}_{\text{Exp}_\frac{1}{2}}(y)
+        \]
+        \item Erneut können wir den Dichtetransformationssatz anwenden, da $Y = h(X)$ mit $h(x) = \alpha x$, also $h'(x) = \alpha$ und $h^{-1}(y) = \frac{1}{\alpha}y$. Daher erhalten wir
+        \[
+            \mathbbm{f}^Y(y) 
+            = \frac{\mathbbm{f}^X(\alpha^{-1}y)}{\left| h'(\alpha^{-1}y)\right|} = \frac{\mathbbm{f}^X(\alpha^{-1}y)}{\left| \alpha\right|}
+            = \mathbbm{1}_{[0,\infty]}(y) \cdot \frac{\lambda}{\alpha} \cdot e^{-\lambda \frac{y}{\alpha}} 
+            = \mathbbm{f}_{\text{Exp}_\frac{\lambda}{\alpha}}(y)
+        \]
+        \item Da $x^2$ nicht bijektiv ist, können wir den Dichtetransformationssatz nicht anwenden. Es gilt aber
+        \[
+            \int_0^y \mathbbm{f}^Y(y') \d{y'} 
+            = \mathbbm{F}^Y(y) 
+            = \mathbbm{P}^Y([0,y]) 
+            = \mathbbm{P}(Y^{-1}([0,y])) 
+            = \mathbbm{P}([-\sqrt{y}, \sqrt{y}]) 
+            = \int_{-\sqrt{y}}^{\sqrt{y}} \mathbbm{f}^X(x) \d{x} 
+            = \frac{1}{2}x \bigg|_{-\sqrt{y}}^{\sqrt{y}} = \sqrt{y}.
+        \]
+        Nach dem Haupsatz der Differenzial- und Integralrechnung gilt daher 
+        \[
+            \mathbbm{f}^Y(y) = \frac{\d{}}{\d{y}} \int_0^y \mathbbm{f}^Y(y') \d{y'} = \frac{\d{}}{\d{y}} \sqrt{y} = \frac{1}{2\sqrt{y}}
+        \]
+    \end{enumerate}
+\end{aufgabe}
+
+\begin{aufgabe}
+    \begin{enumerate}[(a)]
+        \item Beh.: $\forall y \in [0,1], z \in \R$ gilt $\mathbb{F}^{*}(y) \le z \iff y \le \mathbb{F}(z)$.
+            \begin{proof}
+                Sei $y \in [0,1]$ und $z \in \R$.
+                \begin{itemize}
+                    \item ,,$\implies$''. Sei also $\mathbb{F}^{*}(y) \le z$.
+                Da $\mathbb{F}$ monoton wachsend, folgt direkt
+                $\mathbb{F}(\mathbb{F}^{*}(y)) \le \mathbb{F}(z)$.
+
+                Also genügt es z.z.: $y \le \mathbb{F}(\mathbb{F}^{*}(y))$.
+                Betrachte dazu $x_n \coloneqq \mathbb{F}^{*}(y) + \frac{1}{n}$ für $n \in \N$. Nach
+                der Definition von $\mathbb{F}^{*}(y)$ folgt $\mathbb{F}(x_n) \ge y$ $\forall n \in \N$.
+                Außerdem gilt $x_n \downarrow \mathbb{F}^{*}(y)$ für $n \to \infty$. Mit
+                der Rechtsstetigkeit von $\mathbb{F}$ folgt damit
+                $\mathbb{F}(x_n) \downarrow \mathbb{F}(\mathbb{F}^{*}(y))$.
+
+                Das heißt für $\epsilon > 0$ ex. ein $n_0 \in \N$, s.d. $\forall n \ge n_0$ gilt, dass
+                $|\mathbb{F}(x_n) - \mathbb{F}(\mathbb{F}^{*}(y))| < \epsilon$. Da
+                $\mathbb{F}$ monoton wachsend und $x_n \ge \mathbb{F}^{*}(y)$ folgt
+                \begin{salign*}
+                    \mathbb{F}(x_n) &= \mathbb{F}(\mathbb{F}^{*}(y)) + \epsilon
+                    \intertext{Also da $y \le \mathbb{F}(x_n)$ $\forall n \in \N$}
+                    y &\le \mathbb{F}(\mathbb{F}^{*}(y)) + \epsilon
+                .\end{salign*}
+                Mit $\epsilon \to \infty$ folgt $y \le \mathbb{F}(\mathbb{F}^{*}(y))$ und damit die
+                Behauptung.
+            \item ,, $\impliedby$'': Sei also $y \le \mathbb{F}(z)$. Dann
+                folgt direkt
+                \[
+                    \mathbb{F}^{*}(y) = \inf \{ x \in \R  \mid \mathbb{F}(x) \ge y\} \le z
+                .\] 
+                \end{itemize}
+            \end{proof}
+        \item Beh.: Ist $Y \sim U[0,1]$ dann hat $\mathbb{F}^{*}(Y)$ dieselbe Verteilung wie $X$.
+            \begin{proof}
+                Sei $Y \sim U[0,1]$. Dann ist $Y(\omega) \in [0,1]$ $\forall \omega \in \Omega$ und
+                es folgt für $z \in \R$ aus (a), dass
+                $\mathbb{F}^{*}(Y(\omega)) \le z \iff Y(\omega) \le \mathbb{F}(z)$ $\forall \omega \in \Omega$
+                und damit
+                \[
+                    \mathbb{F}^{*}(Y) \le z \iff Y \le \mathbb{F}(z) \quad (*)
+                .\] 
+                Außerdem gilt für $y \in [0,1]$ da $Y \sim U[0,1]$
+                \[
+                    \mathbb{P}(Y \le y) = y \qquad (**)
+                .\]
+                Damit folgt für $x \in \R$:
+                \[
+                    \mathbb{P}(\mathbb{F}^{*}(Y) \le x)
+                    \stackrel{(*)}{=} \mathbb{P}(Y \le \mathbb{F}(x))
+                    \; \stackrel{(**)}{=} \; \mathbb{F}(x)
+                .\] Also sind $\mathbb{F}^{*}(Y)$ und $\mathbb{F}$ identisch verteilt.
+            \end{proof}
+        \item Sei $\lambda > 0$. Beh.:
+            \[
+                G(x) \coloneqq \begin{cases}
+                    -\frac{1}{\lambda} \ln(1-x) & x \in [0,1) \\
+                    \infty & x = 1
+                \end{cases}
+            .\] 
+            \begin{proof}
+                Es ist $X \sim \text{Exp}_{\lambda}$. Also definiere
+                \begin{salign*}
+                    \mathbb{F}\colon (0, \infty) &\to [0,1) \\
+                    x &\mapsto \mathbb{F}^{X}(x) = \mathbb{F}_{\text{Exp}_\lambda}(x) = 1 - \exp(-\lambda x)
+                .\end{salign*}
+                Dann ist $\mathbb{F}$ invertierbar und es gilt $\mathbb{F}^{*} = \mathbb{F}^{-1}$
+                auf $(0,1)$. Weiter ist
+                \begin{salign*}
+                    \mathbb{F}^{-1}(x) = -\frac{1}{\lambda} \ln(1-x) \qquad x \in [0,1)
+                .\end{salign*}
+                Wähle dann $G$ wie in Beh. Dann ist $G = \mathbb{F}^{*}$ auf $(0,1)$ und
+                $G(0) = 0 = \inf \{x \in \R^{+}_0 \mid \mathbb{F}(x) \ge 0\} = \mathbb{F}^{*}(0)$.
+                Außerdem gilt $\mathbb{F}^{*}(1) = \inf \{ x \in \R^{+}_0  \mid \mathbb{F}(x) = 1\}
+                = \infty = G(1)$. Damit folgt die Behauptung aus (b).
+            \end{proof}
+    \end{enumerate}
+\end{aufgabe}
+
+\begin{aufgabe}
+    \begin{enumerate}[(a)]
+        \item Aufgrund der Normierungsbedingung muss gelten
+        \begin{align*}
+            1 &= \int_Y \int_X \mathbbm{f}^{X,Y}(x,y) \d{x}\d{y}\\
+            &= \int_Y \int_X C_\lambda e^{-\lambda y}\mathbbm{1}_{0\leq x\leq y} \d{x}\d{y}\\
+            &= \int_Y \int_0^y C_\lambda e^{-\lambda y}\mathbbm{1}_{0\leq y} \d{x}\d{y}\\
+            &= \int_Y C_\lambda \left[x \cdot e^{-\lambda y}\mathbbm{1}_{0\leq y}\right]_{x=0}^y \d{y}\\
+            &= \int_0^\infty C_\lambda y e^{-\lambda y} \d{y}\\
+            &= \left[-C_\lambda \frac{y}{\lambda}e^{-\lambda y}\right]_{y=0}^\infty - \int_0^infty -C_\lambda\frac{1}{\lambda} e^{-\lambda y}\d{y}\\
+            &= 0 - 0 + \left[-C_\lambda\frac{1}{\lambda^2}e^{-\lambda y}\right]_{y = 0}^\infty\\
+            &= 0 - (- C_\lambda\frac{1}{\lambda^2} e^0)\\
+            &= \frac{C_\lambda}{\lambda^2}
+        \end{align*}
+        Also gilt $C_\lambda = \lambda^2$.
+        \item Es gilt
+        \begin{equation*}
+            \mathbbm{f}^X(x) = \int_\R \mathbbm{f}^{X,Y}(x,y) \d{y} = \int_\R \lambda^2 e^{-\lambda y} \mathbbm{1}_{0\leq x\leq y} \d{y} = \int_x^\infty \lambda^2 e^{-\lambda y} \d{y} = \left[-\lambda e^{-\lambda y}\right]_x^\infty = \lambda e^{-\lambda x}
+        \end{equation*}
+        und
+        \begin{equation*}
+            \mathbbm{f}^Y(y) = \int_\R \mathbbm{f}^{X,Y}(x,y) \d{x} = \int_\R \lambda^2 e^{-\lambda y} \mathbbm{1}_{0\leq x\leq y} \d{x} = \int_0^y \lambda^2 e^{-\lambda y} \d{x} = \left[\lambda^2 e^{-\lambda y} x\right]_0^y = \lambda^2 y e^{-\lambda x}
+        \end{equation*}
+        \item Es gilt
+        \begin{equation*}
+            \mathbbm{P}(X \geq Y) = \int_0^\infty\int_y^\infty \mathbbm{f}^{X,Y}(x,y) \d{x}\d{y} = \int_0^\infty\int_y^\infty \lambda^2 e^{-\lambda y} \underbrace{\mathbbm{1}_{0\leq x \leq y}}_{=0} \d{x}\d{y} = 0
+        \end{equation*}
+        und
+        \begin{equation*}
+            \mathbbm{P}(2X \leq Y) = \int_0^\infty\int_0^{\frac{y}{2}} \mathbbm{f}^{X,Y}(x,y) \d{x}\d{y} = \int_0^\infty\int_0^{\frac{y}{2}} \lambda^2 e^{-\lambda y} \underbrace{\mathbbm{1}_{0\leq x \leq y}}_{=1} \d{x}\d{y} = \int_0^{\infty} \left[\lambda^2 e^{-\lambda y}x\right]_{x = 0}^{\frac{y}{2}} = \frac{1}{2}\int_0^\infty y\lambda^2 e^{-\lambda y} =\frac{1}{2}
+        \end{equation*}
+    \end{enumerate}
+\end{aufgabe}
+
+\end{document}

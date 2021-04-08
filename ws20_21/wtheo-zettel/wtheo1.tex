@@ -1,0 +1,275 @@
+\documentclass[uebung]{lecture}
+
+\title{Wtheo 0: Übungsblatt 1}
+\author{Josua Kugler, Christian Merten}
+
+\newcommand{\IP}{\mathbb{P}}
+
+\usepackage[]{mathrsfs}
+\begin{document}
+
+\punkte
+
+\begin{aufgabe}
+    \begin{enumerate}[(a)]
+        \item Seien $\mathcal{A}_i, i \in I$ $\sigma$-Algebren über $\Omega$.
+            Beh.: $\bigcap_{i \in  I} \mathcal{A}_i$ $\sigma$-Algebra über $\Omega$.
+            \begin{proof}
+                \begin{enumerate}[(i)]
+                    \item $\Omega \in \bigcap_{i \in  I} \mathcal{A}_i$, denn
+                        $\forall i \in I\colon \Omega \in \mathcal{A}_i$, da $\mathcal{A}_i$ $\sigma$-Algebra.
+                    \item Sei $A \in \bigcap_{i \in  I} \mathcal{A}_i$. Dann ist für $i \in I$:
+                        $A \in \mathcal{A}_i$. Da $\mathcal{A}_i$ $\sigma$-Algebra,
+                        ist $A^{c} \in \mathcal{A}_i$. Damit folgt
+                        $A^{c} \in \bigcap_{i \in  I} \mathcal{A}_i$.
+                    \item Sei $A_j \in \bigcap_{i \in  I} \mathcal{A}_i$ $\forall j \in \N$. Da
+                        für alle $i \in I$, $\mathcal{A}_i$ $\sigma$-Algebra, ist
+                        $\bigcap_{j \in  \N} A_j \in \mathcal{A}_i$. Also auch
+                        $\bigcap_{j \in \N} A_j \in \bigcap_{i \in I} \mathcal{A}_i$.
+                \end{enumerate}
+            \end{proof}
+        \item Beh.: Die Aussage ist falsch.
+            \begin{proof}
+                Es sei $\Omega \coloneqq \{ 0, 1, 2\} $,
+                $\mathcal{A}_1 \coloneqq \sigma(\{0\}) = \{ \Omega, \emptyset, \{0\} , \{1, 2\} \} $ und \\
+                $\mathcal{A}_2 \coloneqq \sigma(\{2\} ) = \{\Omega, \emptyset, \{2\}, \{0, 1\} \} $.
+                Dann sind $\mathcal{A}_1$ und $\mathcal{A}_2$ nach VL $\sigma$-Algebren über $\Omega$, aber
+                $\mathcal{A}_1 \cup \mathcal{A}_2 = \{\Omega, \emptyset, \{0\} , \{2\} , \{1,2\} , \{0,1\} \} $
+                nicht, da $\{0\}  \cup \{2\} = \{0, 2\} \not\in \mathcal{A}_1 \cup \mathcal{A}_2$.
+            \end{proof}
+        \item Sei $\mathcal{A}$ $\sigma$-Algebra über $\Omega$ und $f\colon \mathcal{X} \to \Omega$ Abbildung.
+            Beh.: $f^{-1}(\mathcal{A}) \coloneqq \{ f^{-1}(A) \colon A \in \mathcal{A}\} $ ist $\sigma$-Algebra.
+            \begin{proof}
+                \begin{enumerate}[(i)]
+                    \item $\mathcal{X} \in f^{-1}(\mathcal{A})$, denn $f^{-1}(\Omega) = \mathcal{X}$.
+                    \item Sei $B \in f^{-1}(\mathcal{A})$. Dann ex. ein $A \in \mathcal{A}$, s.d.
+                        $f^{-1}(A) = B$. Da $\mathcal{A}$ $\sigma$-Algebra ist $A^{c} \in \mathcal{A}$.
+                        Damit folgt
+                        \[
+                            B^{c} = f^{-1}(A)^{c} = f^{-1}(A^{c}) \in f^{-1}(\mathcal{A})
+                        .\]
+                    \item Seien $B_i \in f^{-1}(\mathcal{A})$ $\forall i \in \N$. Dann ex. $\forall i \in \N$
+                        ein $A_i \in \mathcal{A}$, s.d. $f^{-1}(A_i) = B_i$. Da
+                        $\mathcal{A}$ $\sigma$-Algebra ist $\bigcup_{i \in \N} A_i \in \mathcal{A}$.
+                        Damit folgt
+                        \[
+                            \bigcup_{i \in \N} B_i = \bigcup_{i \in \N} f^{-1}(A_i)
+                            = f^{-1} \left( \bigcup_{i \in \N} A_i \right) \in f^{-1}(\mathcal{A})
+                        .\] 
+                \end{enumerate}
+            \end{proof}
+        \item Sei $T \subseteq \Omega$ mit $T \neq \emptyset$ und sei $\mathcal{A}$ $\sigma$-Algebra über
+            $\Omega$. Beh.: $A|_T \coloneqq \{ A \cap T \colon A \in \mathcal{A}\} $ $\sigma$-Algebra.
+            \begin{proof}
+                Betrachte die kanonische Inklusion $\iota \colon T \xhookrightarrow{} \Omega$. Dann
+                gilt
+                \begin{align*}
+                    \iota^{-1}(\mathcal{A}) &= \{ \iota^{-1}(A) \colon A \in \mathcal{A}\} \\
+                    &= \{ \{ x \in T \colon \iota(x) \in A \} \colon A \in \mathcal{A}\} \\
+                    &= \{ \{ x \in T \colon x \in A \} \colon A \in \mathcal{A}\} \\
+                    &= \{ A \cap T \colon A \in \mathcal{A}\} 
+                .\end{align*}
+                Damit folgt die Behauptung mit (c).
+            \end{proof}
+    \end{enumerate}
+\end{aufgabe}
+
+\begin{aufgabe}
+    Sei $(\Omega, \mathcal{A}, \mathbb{P})$ Wahrscheinlichkeitsraum und $A, B, A_n \in \mathcal{A}$ für
+    $n \in \N$.
+    \begin{enumerate}[(a)]
+        \item Beh.: $A \subseteq B \implies \mathbb{P}(A) \le \mathbb{P}(B)$.
+            \begin{proof}
+                Sei $A \subseteq B$. Dann ist
+                \begin{salign*}
+                    \mathbb{P}(B) = \mathbb{P}(A \cupdot B \setminus A)
+                    &\stackrel{\sigma \text{-Additivität}}{=} \mathbb{P}(A) +
+                    \underbrace{\mathbb{P}(B \setminus A)}_{\ge 0} \ge \mathbb{P}(A)
+                .\end{salign*}
+            \end{proof}
+        \item Beh.: $| \mathbb{P}(A) - \mathbb{P}(B)| \le  \mathbb{P}(A \triangle B)$.
+            \begin{proof}
+                Es ist zunächst
+                \begin{salign*}
+                    \mathbb{P}(A \triangle B) &= \mathbb{P}(A \setminus B \cupdot B \setminus A) \\
+                    &\stackrel{\sigma \text{-Additivität}}{=} \mathbb{P}(A \setminus B) + \mathbb{P}(B \setminus A) \\
+                    &= \mathbb{P}(A) - \mathbb{P}(A \cap B) + \mathbb{P}(B) - \mathbb{P}(A \cap B) \\
+                \intertext{
+                    Sei o.E. $\mathbb{P}(A) \ge \mathbb{P}(B)$ (sonst analog durch Hinzufügen von
+                $\mathbb{P}(A) - \mathbb{P}(A)$). Dann folgt}
+                \mathbb{P}(A \triangle B) &= \mathbb{P}(A) - \mathbb{P}(B) + \mathbb{P}(B) - \mathbb{P}(A \cap B) + \mathbb{P}(B) - \mathbb{P}(A \cap B) \\
+                &= |\mathbb{P}(A) - \mathbb{P}(B)| + \underbrace{2 \mathbb{P}(B \setminus A)}_{\ge 0} \\
+                &\ge | \mathbb{P}(A) - \mathbb{P}(B)|
+                .\end{salign*}
+            \end{proof}
+        \item Beh.: $\mathbb{P}(\bigcup_{k \in \N} A_k) \le \sum_{k=1}^{\infty} \mathbb{P}(A_k)$.
+            \begin{proof}
+                Betrachte $B_n \coloneqq A_n \setminus \left(\bigcup_{k=1}^{n-1}A_k\right)$. Dann
+                ist $\forall n \in \N: B_n \subseteq A_n$ also mit (a) $\mathbb{P}(B_n) \le \mathbb{P}(A_n)$.
+                Damit folgt
+                \begin{salign*}
+                    \mathbb{P}\left( \bigcup_{n \in \N} A_n \right)
+                    = \mathbb{P}\left( \bigcupdot_{n \in \N} B_n \right)
+                    &\stackrel{\sigma \text{Additivität}}{=}
+                    \sum_{n=1}^{\infty} \mathbb{P}(B_n) \le \sum_{n=1}^{\infty} \mathbb{P}(A_n)
+                .\end{salign*}
+            \end{proof}
+        \item Beh.: $A_n \subseteq A_{n+1} \forall n \in \N \implies \mathbb{P}(\bigcup_{n \in \N} A_n)
+            = \lim_{n \to \infty} \mathbb{P}(A_n)$.
+            \begin{proof}
+                Sei $A_n \subseteq A_{n+1}$ $\forall n \in \N$. Betrachte
+                $B_n \coloneqq A_n \setminus \left( \bigcup_{k=1}^{n-1} A_k \right) $. Da $A_n$ monoton
+                wachsend, ist für $n \ge 2\colon B_n = A_n \setminus A_{n-1}$. Damit folgt
+                \begin{salign*}
+                    \mathbb{P}(\bigcup_{n \in \N} A_n) &= \mathbb{P}\left( \bigcupdot_{n \in \N} B_n \right)\\
+                    &\stackrel{\sigma \text{Additivität}}{=} \sum_{n=1}^{\infty} \mathbb{P}(B_n)  \\
+                    &= \mathbb{P}(B_1) + \sum_{n=2}^{\infty} \left( \mathbb{P}(A_n) - \mathbb{P}(A_n \cap A_{n-1}) \right) \\
+                    &\stackrel{A_n \subseteq A_{n+1}}{=}
+                    \mathbb{P}(B_1) + \sum_{n=2}^{\infty} \left( \mathbb{P}(A_n) - \mathbb{P}(A_{n-1}) \right) \\
+                    &\stackrel{\text{Teleskopsumme}}{=} \mathbb{P}(B_1) - \mathbb{P}(A_1) + \lim_{n \to \infty} \mathbb{P}(A_n) \\
+                    &\stackrel{B_1 = A_1}{=} \lim_{n \to \infty} \mathbb{P}(A_n)
+                .\end{salign*}
+            \end{proof}
+    \end{enumerate}
+\end{aufgabe}
+
+\begin{aufgabe}
+    Sei $(\Omega, \mathcal{A}, \mathbb{P})$ ein Wahrscheinlichkeitsraum.
+    \begin{enumerate}[(a)]
+        \item Der Induktionsanfang ist offensichtlich wahr, $\IP(A_1) = (-1)^0 \cdot \IP(A_1)$. Gelte die Behauptung also für ein $n\in \N$. Dann folgern wir
+            \begin{align*}
+                \IP\left(\bigcup_{j=1}^{n+1} A_j\right) =& \IP\left(\bigcup_{j=1}^{n} A_j\right) + \IP(A_{n+1}) - \IP\left(\bigcup_{j=1}^{n} A_j \cap A_{n+1}\right)\\
+                =& \sum_{j = 1}^{n} \left((-1)^{j-1} \cdot \sum_{\{k_1, \dots, k_n\} \subset \{1,\dots, n\}} \IP(A_{k_1} \cap \dots \cap A_{k_j})\right) + \IP(A_{n+1})\\
+                &- \IP\left(\bigcup_{j=1}^{n} (A_j \cap A_{n+1})\right)\\
+                =& \sum_{j = 1}^{n} \left((-1)^{j-1} \cdot \sum_{\{k_1, \dots, k_n\} \subset \{1,\dots, n\}} \IP(A_{k_1} \cap \dots \cap A_{k_j})\right) + \IP(A_{n+1})\\
+                &- \sum_{j = 1}^{n} \left((-1)^{j-1} \cdot \sum_{\{k_1,\dots, k_j\} \subset \{1,\dots, n\}} \IP((A_{k_1} \cap A_{n+1}) \cap \dots \cap (A_{k_j} \cap A_{n+1}))\right)\\
+                =& \sum_{j = 1}^{n} \left((-1)^{j-1} \cdot \sum_{\{k_1, \dots, k_n\} \subset \{1,\dots, n\}} \IP(A_{k_1} \cap \dots \cap A_{k_j})\right) + \IP(A_{n+1})\\
+                &- \sum_{j = 1}^{n} \left((-1)^{j-1} \cdot \sum_{\{k_1, \dots, k_j\} \subset \{1,\dots, n\}} \IP(A_{k_1} \cap \dots \cap A_{k_j} \cap A_{n+1})\right)\\
+                =& \sum_{j = 1}^{n} \left((-1)^{j-1} \cdot \sum_{\substack{\{k_1, \dots, k_n\} \subset \{1,\dots, n+1\}\\\forall i\colon k_i \neq n+1}} \IP(A_{k_1} \cap \dots \cap A_{k_j})\right) + \IP(A_{n+1})\\
+                &+ \sum_{j = 2}^{n+1} \left((-1)^{j-1} \cdot \sum_{\substack{\{k_1, \dots, k_j\} \subset \{1,\dots, n+1\}\\\exists i\colon k_i = n+1}} \IP(A_{k_1} \cap \dots \cap A_{k_j})\right)\\
+                =& \sum_{j = 1}^{n} \left((-1)^{j-1} \cdot \sum_{\substack{\{k_1, \dots, k_n\} \subset \{1,\dots, n+1\}\\\forall i\colon k_i \neq n+1}} \IP(A_{k_1} \cap \dots \cap A_{k_j})\right)\\
+                &+ \sum_{j = 1}^{n+1} \left((-1)^{j-1} \cdot \sum_{\substack{\{k_1, \dots, k_j\} \subset \{1,\dots, n+1\}\\\exists i\colon k_i = n+1}} \IP(A_{k_1} \cap \dots \cap A_{k_j})\right)\\
+            \end{align*}
+            Für $j = n+1$ gilt $\{k_1,\dots, k_j\} = \{1,\dots, n+1\}$. Daher können wir die beiden Summen im letzten Schritt einfach zusammenfassen und erhalten
+            \[
+                \IP\left(\bigcup_{j=1}^{n+1} A_j\right) =  \sum_{j = 1}^{n+1} \left((-1)^{j-1} \cdot \sum_{\{k_1, \dots, k_n\} \subset \{1,\dots, n\}} \IP(A_{k_1} \cap \dots \cap A_{k_j})\right),
+            \]
+            was zu zeigen war.
+%        \item Sei $n \in \N$ und $A_1, \ldots, A_n \in \mathcal{A}$.
+%            Beh.:
+%            \[
+%                \mathbb{P}\left( \bigcup_{j=1}^{n} A_n \right)
+%                = \sum_{j=1}^{n} \left( (-1)^{j-1} \cdot \sum_{\{k_1, \ldots, k_j\} \subseteq \{1, \ldots, n\} }
+%                \mathbb{P}(A_{k_1} \cap \ldots \cap A_{k_j}) \right)
+%            .\]
+%            \begin{proof}
+%                Per Induktion über $n$. Sei $n=1$: Dann ist $\mathbb{P}(\bigcup_{j=1}^{1} A_j) = \mathbb{P}(A_1)$.
+%                Sei nun $n \in \N$ und Behauptung gezeigt für $k \le n$. Dann gilt
+%                \begin{salign*}
+%                    \mathbb{P}\left( \bigcup_{j=1}^{n+1} A_j \right)
+%                    =& \mathbb{P}\left(\bigcup_{j=1}^{n} A_j \cup A_{n+1}\right) \\
+%                    \stackrel{(*)}{=}& \mathbb{P}\left( \bigcup_{j=1}^{n} A_j \right)
+%                    + \mathbb{P}(A_{n+1}) - \mathbb{P}\left( \bigcup_{j=1}^{n} A_j \cap A_{n+1} \right) \\
+%                    \stackrel{\text{I.V.}}{=}&
+%                    \sum_{j=1}^{n} \left( (-1)^{j-1} \sum_{\{k_1, \ldots, k_j\} \subseteq \{1, \ldots, n\}}
+%                    \mathbb{P}(A_{k_1} \cap \ldots \cap A_{k_j})\right)
+%                    + \mathbb{P}(A_{n+1}) \\
+%                    &- \sum_{j=1}^{n} \left( (-1)^{j-1} \sum_{\{k_1, \ldots, k_j\} \subseteq \{1, \ldots, n\} }
+%                    \mathbb{P}(A_{k_1} \cap A_{n+1} \cap \ldots \cap A_{k_j} \cap A_{n+1}) \right) \\
+%                    =& \sum_{j=1}^{n+1} \left( (-1)^{j-1} \sum_{\{k_1, \ldots, k_j\}\subseteq \{1, \ldots, n\} }
+%                    \mathbb{P}(A_{k_1} \cap \ldots \cap A_{k_j})\right)
+%                .\end{salign*}
+%            \end{proof}
+        \item Beh.: Die Wahrscheinlichkeit für $n \to \infty$ ist $1 - \frac{1}{e}$.
+            \begin{proof}
+                Setze $\Omega \coloneqq \{ (g_1, \ldots, g_n)  \mid g_1, \ldots, g_n \in \{1, \ldots, n\},
+                g_i \neq g_j \text{ für } i \neq j\} $. Dabei bezeichnet ein Ergebnis
+                $(g_1, \ldots, g_n) \in \Omega$: ,,Roter Marsmensch $i$ tanzt mit grünem Marsmensch $g_i$
+                für $i \in \{1, \ldots, n\} $''. Die ursprüngliche Paarung
+                sei dabei $(1, 2, \ldots, n) \in \Omega$.
+                Es folgt direkt $\# \Omega = n!$.
+                Definiere weiter
+                \begin{align*}
+                    \mathbb{P}\colon 2^{\Omega} &\to [0,1] \\
+                    A &\mapsto \frac{\#A}{n!}
+                .\end{align*}
+                Wegen $\mathbb{P}(\Omega) = \frac{n!}{n!} = 1$ und $\mathbb{P}(\emptyset) = 0$
+                ist $(\Omega, 2^{\Omega}, \mathbb{P})$ ein Wahrscheinlichkeitsraum.
+
+                Damit ist für $i \in \{1, \ldots, n\} $:
+                \begin{align*}
+                A_i &= \text{,,Roter Marmensch }i\text{ tanzt mit der ursprünglichen Begleitung zusammen''} \\
+                    &= \{ (g_1, \ldots, g_n) \in \Omega  \mid g_i = i\} 
+                .\end{align*}
+                Sei $A_n =$ ,,Mindestens ein ursprüngliches von insgesamt $n$ Paaren tanzt gemeinsam ''.
+                Damit folgt
+                \begin{salign*}
+                    \mathbb{P}(A_n) &= \mathbb{P}\left( \bigcup_{i=1}^{n} A_i \right) \\
+                    &\stackrel{\text{(a)}}{=} \sum_{j=1}^{n} \left((-1)^{j-1}
+                    \sum_{\{k_1, \ldots, k_j\} \subseteq \{1, \ldots, n\} } \mathbb{P}(A_k \cap \ldots \cap A_{k_j}) \right) \\
+                    &= \sum_{j=1}^{n} (-1)^{j-1} \binom{n}{j} \frac{(n-j)!}{n!} \\
+                    &= \sum_{j=1}^{n} (-1)^{j-1} \frac{n!}{(n-j)! j!} \frac{(n-j)!}{n!} \\
+                    &= \sum_{j=1}^{n} \frac{(-1)^{j-1}}{j!} \\
+                    \intertext{Für $n \to \infty$ folgt}
+                    \mathbb{P}(A_{\infty}) &= \sum_{j=1}^{\infty} \frac{(-1)^{j-1}}{j!} \\
+                    &= - \left( \sum_{j=1}^{\infty} \frac{(-1)^{j}}{j!} \right) \\
+                    &= - \left( \sum_{j=0}^{\infty} \frac{(-1)^{j}}{j!} - 1 \right) \\
+                    &= - \left( \frac{1}{e} - 1 \right) \\
+                    &= 1 - \frac{1}{e}
+                .\end{salign*}
+            \end{proof}
+    \end{enumerate}
+\end{aufgabe}
+
+\begin{aufgabe}
+    Sei $(\R, \mathscr{B}, \mathbb{P})$ Wahrscheinlichkeitsraum und
+    $\mathbb{F}\colon \R \to [0,1]$, $\mathbb{F}(x) \coloneqq \mathbb{P} ((-\infty, x])$ für $x \in \R$.
+    \begin{enumerate}[(a)]
+        \item Beh.: $\mathbb{F}$ monoton wachsend.
+            \begin{proof}
+                Seien $x_1, x_2 \in \R$ mit $x_1 \le x_2$. Dann ist
+                $(-\infty, x_1] \subseteq (-\infty, x_2]$. Mit 2(a) folgt damit
+                $\mathbb{F}(x_1) = \mathbb{P}((-\infty, x_1]) \le \mathbb{P}((-\infty, x_2]) = \mathbb{F}(x_2)$.
+            \end{proof}
+        \item Beh.: $\lim_{x \to \infty} \mathbb{F}(x) = \R$.
+            \begin{proof}
+                Sei $(x_n)_{n \in \N}$ Folge mit $x_n \xrightarrow{n \to \infty} \infty$. Dann ist
+                $A_n \coloneqq \bigcup_{j=1}^{n} (-\infty, x_n]$ monoton wachsende Folge
+                mit $A_n \uparrow \R$. Damit folgt da $\mathbb{P}$ Wahrscheinlichkeitsmaß
+                \[
+                    \lim_{n \to \infty} \mathbb{F}(x_n) = \lim_{n \to \infty} \mathbb{P}(A_n)
+                    \; \stackrel{\text{2(d)}}{=} \;\mathbb{P}(\R) = 1
+                .\]
+            \end{proof}
+            Beh.: $\lim_{x \to -\infty} \mathbb{F}(x) = 0$.
+            \begin{proof}
+                Analog, betrachte nun $A_n \coloneqq \bigcap_{j=1}^{n} (-\infty, x_n] \downarrow \emptyset$.
+            \end{proof}
+        \item Beh.: $\mathbb{F}$ rechtsseitig stetig.
+            \begin{proof}
+                Sei $(x_n)_{n \in \N}$ in $\R$ mit $x_n \downarrow x$. Dann betrachte
+                $A_n \coloneqq (-\infty, x_n]$. Es gilt sofort $A_n \downarrow
+                \bigcap_{k \in \N} (-\infty, x_k] = (-\infty, x]$. Damit folgt
+                \[
+                    \lim_{n \to \infty} \mathbb{F}(x_n) = \lim_{n \to \infty} \mathbb{P}(A_n)
+                    \stackrel{\text{2(d)}}{=} \mathbb{P}((-\infty, x]) = \mathbb{F}(x)
+                .\]
+            \end{proof}
+        \item Beh.: $\mathbb{F}$ hat höchstens abzählbar viele Sprungstellen.
+            \begin{proof}
+                Sei $a \in \R$ beliebig. Dann betrachte
+                \begin{salign*}
+                    \lim_{x \searrow a} \mathbb{F}(x) - \lim_{x \nearrow a} \mathbb{F}(x)
+                    &\stackrel{\text{(c) und Hinweis}}{=} \mathbb{P}((-\infty, a])
+                    - \mathbb{P}((-\infty, a)) \\
+                    &= \mathbb{P}((-\infty, a]) - \mathbb{P}((-\infty, a] \cap (-\infty, a)) \\
+                    &= \mathbb{P}((-\infty, a] \setminus (-\infty, a)) \\
+                    &= \mathbb{P}( \{ a\} )
+                .\end{salign*}
+                Die Sprungstellen von $F$ sind also gerade die Atome von $\mathbb{P}$. Da $\mathbb{P}$
+                nach VL nur höchstens abzählbar viele Atome auf $\R$ hat, folgt die Behauptung.
+            \end{proof}
+    \end{enumerate}
+\end{aufgabe}
+
+\end{document}

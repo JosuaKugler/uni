@@ -1,0 +1,192 @@
+\documentclass[uebung]{lecture}
+
+\title{Wtheo 0: Übungsblatt 8}
+\author{Josua Kugler, Christian Merten}
+\newcommand{\E}{\mathbb{E}}
+\renewcommand{\P}{\mathbbm{P}}
+\usepackage[]{mathrsfs}
+\newcommand{\cov}{\mathbb{C}\text{ov}}
+\newcommand{\var}{\mathbb{V}\text{ar}}
+
+\begin{document}
+
+\punkte[29]
+
+\begin{aufgabe}[]
+    \begin{enumerate}[(i)]
+        \item Es ist $|X_n| \in \mathcal{A}^{+}$, damit folgt
+            \[
+                \E\left(\sum_{n \in \N} |X_n|\right) = \sum_{n \in \N} \E(|X_n|) < \infty
+            .\] Damit folgt mit 20.13. $\mathbb{P}\left( \sum_{n \in \N} |X_n| = \infty \right) = 0$ und
+            damit
+            \[
+                \mathbb{P}\left( \sum_{n \in \N} |X_n| < \infty \right) = 1
+            .\] 
+        \item Es ist analog zu (i)
+            \[
+                \E\left( \left| \sum_{n \in \N} X_n \right| \right)
+                \le \E\left( \sum_{n \in \N} |X_n| \right)
+                = \sum_{n \in \N} \E(|X_n|) < \infty
+            .\] Also $\sum_{n \in \N} X_n \mathscr{L}_1$ und $\sum_{n \in \N} |X_n| \in \mathscr{L}_1$.
+        \item Setze $S_n \coloneqq \sum_{k=1}^{n} X_k$. Es gilt
+            $\lim_{n \to \infty} S_n = \sum_{n \in \N} X_k \in \overline{\mathcal{A}}$ und
+            \[
+            |S_n| = \left| \sum_{k=1}^{n} X_k \right| \le \sum_{k=1}^{n} |X_k|
+            \le \sum_{n \in \N} |X_n| \in \mathscr{L}_1
+            .\] Insbesondere folgt $\sup_{n \in \N} |X_n| \le \sum_{n \in \N} |X_n| \in \mathscr{L}_1$.
+
+            Wegen Monotonie der Erwartung
+            \[
+                \E(|S_n|) \le \E\left( \sum_{k \in \N} |X_k| \right)
+                = \sum_{k \in \N} \E(|X_k|) < \infty
+            .\]
+            Also ist $S_n \in \mathscr{L}_1$ für $n \in \N$. Damit folgt mit dominierter Konvergenz im letzten
+            Schritt:
+            \begin{salign*}
+                \sum_{n \in \N} \E(X_n)
+                &= \lim_{n \to \infty} \sum_{k=1}^{n} \E(X_n) \\
+                &\stackrel{\text{Linearität}}{=} \lim_{n \to \infty} \E\left( \sum_{k=1}^{n} X_n \right)  \\
+                &= \lim_{n \to \infty} \E(S_n) \\
+                &= \E\left( \sum_{n \in \N} X_n \right) 
+            .\end{salign*}
+    \end{enumerate}
+\end{aufgabe}
+
+\begin{aufgabe}
+    \begin{enumerate}[(a)]
+        \item Es gilt
+        \begin{align*}
+            \int_0^\infty \P(X > y) \d{y} &= \int_0^\infty \int_y^\infty \mathbbm{f}^X(x) \d{x} \d{y}\\
+            &= \int_0^\infty \int_0^\infty \mathbbm{f}^X(x)\mathbbm{1}_{x>y} \d{x} \d{y}\\
+            \intertext{Fubini}
+            &= \int_0^\infty \int_0^\infty \mathbbm{f}^X(x)\mathbbm{1}_{x>y} \d{y} \d{x}\\
+            &= \int_0^\infty \int_0^x \mathbbm{f}^X(x) \d{y} \d{x}\\
+            &= \int_0^\infty x\mathbbm{f}^X(x) \d{x}\\
+            &= \int_\Omega X(\omega) \mathbbm{f}(\omega) \d{\omega}\\
+            &= \E(X)
+        \end{align*}
+        \item Es gilt
+        \begin{align*}
+            \E(X) &= \int_0^\infty \P(X > y) \d{y}\\
+            &= \int_0^\infty \int_y^\infty \mathbbm{f}^X(\omega) \d{\omega}\d{y}\\
+            &= \int_0^\infty \int_y^\infty \lambda e^{-\lambda x} \d{x} \d{y}\\
+            &= \int_0^\infty e^{-\lambda y} \d{y}\\
+            &= \frac{1}{\lambda}
+        \end{align*}
+        \item Es gilt
+        \begin{align*}
+            \E(X) &= \sum_{n = 1}^{\infty} \P(X \geq n)\\
+            &= \sum_{n = 1}^{\infty} \sum_{k = n}^{\infty} \mathbbm{p}^X(k) \\
+            &= \sum_{n = 1}^{\infty} \sum_{k = n}^{\infty} (1-p)^{k - 1}p\\
+            &= \sum_{n = 1}^{\infty} p(1-p)^{n-1}\sum_{k = 0}^{\infty} (1-p)^k
+            \intertext{geometrische Reihe}
+            &= \sum_{n = 1}^{\infty} p(1-p)^{n-1} \frac{1}{1-(1-p)}\\
+            &= \sum_{n = 1}^{\infty} (1-p)^{n-1}\\
+            \intertext{geometrische Reihe}
+            &= \frac{1}{1 - (1-p)}\\
+            &= \frac{1}{p}
+        \end{align*}
+    \end{enumerate}
+\end{aufgabe}
+
+\begin{aufgabe}
+    \begin{enumerate}[(a)]
+        \item Es ist
+            \begin{salign*}
+                & \quad\qquad\var(X) = \E\left[ (X - \E(X))^2 \right] = 0 \\
+                \stackrel{(X- \E(X))^2 \in \overline{\mathcal{A}}^{+}}{\iff}&
+                1 = \mathbb{P}\left( (X - \E(X))^2 = 0 \right) = \mathbb{P}\left( X - \E(X) = 0 \right)
+                = \mathbb{P}( X = \E(X))
+            .\end{salign*}
+        \item
+            \begin{itemize}
+                \item Es gilt nach Definition
+                    \begin{salign*}
+                        \cov(X,Y) &= \E \left[ (X - \E(X))(Y - \E(Y)) \right] \\
+                                  &= \E \left[ (Y - \E(Y)) (X - \E(X)) \right] \\
+                                  &= \cov(Y,X)
+                    .\end{salign*}
+                \item Mit Linearität der Erwartung folgt direkt
+                    \begin{salign*}
+                        \cov(aX + bY, Z) &= \E\left[ (aX + bY - \E(aX + bY)(Z - \E(Z)) \right] \\
+                                         &= \E\left[ (a(X - \E(X)) + b(Y - \E(Y)))(Z - \E(Z))  \right] \\
+                                         &= a\E[ (X - \E(X))(Z - \E(Z)) ] + b \E[(Y - \E(Y))(Z - \E(Z))] \\
+                                         &= a \cov(X, Z) + b \cov(Y, Z)
+                    .\end{salign*}
+                \item Mit Monotonie der Erwartung im letzten Schritt folgt
+                    \begin{salign*}
+                        \cov(X, X) = \E[(X - \E(X))(X - \E(X))] = \E[\underbrace{(X - \E(X))^2}_{\ge 0}] \ge 0
+                    .\end{salign*}
+                \item Es gilt $\E(a) = a$, also
+                    \begin{salign*}
+                        \cov(a, X) = \E\left[ (a - \E(a))(X - \E(X)) \right] = \E(0) = 0
+                    .\end{salign*}
+            \end{itemize}
+        \item
+            \begin{itemize}
+                \item Mit der Linearität der Kovarianz und der letzten Eigenschaft in (b) folgt sofort
+                    \begin{salign*}
+                        \var(aX + b) &= \cov(aX + b, aX + b) \\
+                                     &\stackrel{\text{linear}}{=} a \cov(X, aX + b) + \underbrace{\cov(b, aX + b)}_{= 0 \text{ (b.4)}} \\
+                                     &\stackrel{\text{linear}}{=} a^2 \cov(X, X) + \underbrace{\cov(X, b)}_{= 0\text{ (b.4)}} \\
+                                     &= a^2\var(X)
+                    .\end{salign*}
+                \item Mit Linearität und Symmetrie folgt
+                    \begin{salign*}
+                        \var(X + Y) &= \cov(X + Y, X + Y) \\
+                                    &= \cov(X, X) + \cov(X, Y) + \cov(Y, X) + \cov(Y, Y) \\
+                                    &= \var(X) + \var(Y) + 2 \cov(X, Y)
+                    .\end{salign*}
+            \end{itemize}
+    \end{enumerate}
+\end{aufgabe}
+
+\begin{aufgabe}
+    \begin{enumerate}[(a)]
+        \item Wir definieren den Wahrscheinlichkeitsraum $\Omega = \{(i_1, \dots, i_n)|i_j \in \{1,\dots, m\}\}$ als die Menge aller $n$-Tupel mit Werten zwischen 1 und $m$, wobei das $j$-te Element eines Tupels angibt, welche Ente der $j$-te Jäger gewählt hat. Dann enthält das Ereignis 
+        \begin{align*}
+            A_i \coloneqq \{(i_1, \dots, i_n)\in \Omega, i\neq i_l \forall l \in \{1,\dots, n\}\}
+        \end{align*}
+        alle Elementarereignisse, in denen die $i$-te Ente nicht getroffen wird.
+        Die Zufallsvariable $X_i \colon \Omega \to \{0,1\}, \omega \mapsto \mathbbm{1}_{A_i}$ gibt an, ob die $i$-te Ente überlebt (1) oder nicht (0). Dann ist durch $X \coloneqq \sum_{i = 1}^{m} X_i$ gerade die Anzahl der überlebenden Enten gegeben.
+        Es gilt aufgrund der Linearität des Erwartungswerts
+        \begin{align*}
+            \E(X) &= \E\left(\sum_{i = 1}^{m} X_i\right)\\
+            &= \sum_{i = 1}^{m} \E(X_i)\\
+            &= \sum_{i = 1}^{m} \E(\mathbb{1}_{A_i})\\
+            &= \sum_{i = 1}^{m} \P(A_i)\\
+            &= \sum_{i = 1}^{m} \frac{\# A_i}{\# \Omega}\\
+            &= \sum_{i = 1}^{m} \frac{(m-1)^n}{m^n}\\
+            &= m \cdot \left(\frac{m-1}{m}\right)^n
+        \end{align*}
+        \item Wir bestimmen zunächst
+        \begin{align*}
+            \E(X_iX_j) &= \E(\mathbbm{1}_{A_i} \cdot \mathbbm{1}_{A_j})\\
+            &= \E(\mathbbm{1}_{A_i \cap A_j})\\
+            &= \P(A_i \cap A_j)\\
+            \intertext{Für $i = j$ gilt $\P(A_i \cap A_j) = \P(A_i) = m\left(\frac{m-1}{m}\right)^n$. Sei also $i\neq j$}
+            &= \frac{\# A_i \cap A_j}{\# \Omega}\\
+            &= \left(\frac{m-2}{m}\right)^2
+        \end{align*}
+        Es gilt daher
+        \begin{align*}
+            \var(X) &= \E(X^2) - \E(X)^2\\
+            &= \E\left(\sum_{i = 1}^{m} X_i \sum_{j = 1}^{m} X_j\right)- \E(X)^2\\
+            &= \E\left(\sum_{i, j = 1}^m X_iX_j\right)- \E(X)^2\\
+            &= \sum_{i,j = 1}^{m} \E(X_iX_j)- \E(X)^2\\
+            &= \sum_{i = 1}^{m} \E(X_iX_i) + \sum_{i \neq j, 1\leq i, j \leq m} \E(X_iX_j)- \E(X)^2\\
+            &= m \cdot \left(\frac{m-1}{m}\right)^n + (m^2 - m) \left(\frac{m-2}{m}\right)^2 - m^2 \cdot \left(\frac{m-1}{m}\right)^{2n}
+        \end{align*}
+        \item Für $n = m = 50$ gilt $7^{-2}\var(X) \approx 0.0996$ und $\E(X) \approx 18.2$. Für $m_1 = 11, m_2 = 26$ erhalten wir
+        \begin{align*}
+            \P(X \in [m_1, m_2]) &\geq \P(|X - \E(X)| \leq 7)\\
+            &= 1 - \P(|X - \E(X)| > 7)\\
+            \intertext{Ungleichung von Tschebycheff}
+            &\geq 1 - 7^{-2}\var(X)\\
+            &\geq 1 - 0.0996\\
+            &\geq 0.9
+        \end{align*}
+    \end{enumerate}
+\end{aufgabe}
+
+\end{document}

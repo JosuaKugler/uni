@@ -1,0 +1,217 @@
+\documentclass[uebung]{lecture}
+
+\title{Wtheo 0: Übungsblatt 7}
+\author{Josua Kugler, Christian Merten}
+
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
+\usepackage{stmaryrd}
+\begin{document}
+
+\newcommand{\indep}{\perp \!\!\! \perp}
+
+\punkte[25]
+
+\begin{aufgabe}[]
+    \begin{enumerate}[(a)]
+        \item Beh.: $\mathbbm{p}(k) = e^{-\lambda p } \frac{(\lambda p)^{k}}{k!}$.
+            \begin{proof}
+                Sei $(\Omega, \mathscr{A}, \mathbb{P})$ W-Raum mit Ereignissen
+                \begin{align*}
+                    A_n &\colon \text{,,Anzahl 7-Meter pro Spiel''} \\
+                    B_n &\colon \text{,,Anzahl Treffer per 7-Meter pro Spiel''}
+                \end{align*}
+                mit $\mathbb{P}(A_n) = \frac{\lambda ^{n}}{n!} e^{-\lambda}$ und
+                $\mathbb{P}(B_k  \mid A_n) = \binom{n}{k} p^{k} (1-p)^{n-k}$, wobei
+                $\binom{n}{k} = 0$ für $k > n$.
+
+                Dann ist $(A_n)_{n \in \N}$ eine Partition von $\Omega$. Damit folgt
+                mit Satz von der totalen Wahrscheinlichkeit:
+                \begin{salign*}
+                    \mathbbm{p}(k) &= \mathbb{P}(A_n) \\
+                    &= \mathbb{P}(A_n \cap \Omega) \\
+                    &= \sum_{n \in \N_0} \mathbb{P}(A_n) \mathbb{P}(B_k  \mid A_n) \\
+                    &= \sum_{n \in \N_0} \frac{\lambda^{n}}{n!} e^{-\lambda} \binom{n}{k} p^{k} (1-p)^{n-k} \\
+                    &= e^{-\lambda} p^{k} \sum_{n=k}^{\infty} \frac{\lambda^{k}\lambda^{n-k}}{n!} \frac{n!}{k!(n-k)!} (1-p)^{n-k} \\
+                    &= e^{-\lambda} \frac{(\lambda p)^{k}}{k!} \sum_{n=k}^{\infty} \frac{\lambda^{n-k}}{(n-k)!}
+                    (1-p)^{n-k} \\
+                    &= e^{-\lambda} \frac{(\lambda p)^{k}}{k!} \sum_{n=0}^{\infty} \frac{\lambda^{n}}{n!}
+                    (1-p)^{n} \\
+                    &= e^{-\lambda} \frac{(\lambda p)^{k}}{k!} e^{\lambda(1-p)} \\
+                    &= e^{-\lambda p} \frac{(\lambda p)^{k}}{k!}
+                .\end{salign*}
+            \end{proof}
+        \item Seien $X$ bzw. $Y$ die Lebensdauer in Tagen von Lampe 1 bzw. Lampe 2 mit
+            $X \sim \text{Poi}_{\lambda_1}$ und $Y \sim \text{Poi}_{\lambda_2}$. Nach Vorraussetzung
+            ist $X \indep Y$, also
+            $X + Y \sim \text{Poi}_{\lambda_1} * \text{Poi}_{\lambda_2}$.
+            Nach VL hat $\text{Poi}_{\lambda_1} * \text{Poi}_{\lambda_2}$ die Zähldichte
+            \begin{salign*}
+                (\mathbbm{p}_1 * \mathbbm{p}_2)(n)
+                &= \sum_{k=0}^{n} \mathbbm{p}_1(n-k) \mathbbm{p}_2(k) \\
+                &= \sum_{k=0}^{n} \frac{\lambda_1^{n-k}}{(n-k)!} e^{- \lambda_1}
+                \frac{\lambda_2^{k}}{k!} e^{- \lambda_2} \\
+                &= e^{-(\lambda_1 + \lambda_2)} \frac{1}{n!} \sum_{k=0}^{n}
+                \underbrace{\frac{n!}{(n-k)!k!}}_{= \binom{n}{k}} \lambda_1^{n-k}
+                \lambda_2^{k} \\
+                &= e^{-(\lambda_1 + \lambda_2)} \frac{(\lambda_1 + \lambda_2)^{n}}{n!}
+            .\end{salign*}
+            Also folgt $X + Y \sim \text{Poi}_{\lambda_1 + \lambda_2}$.
+    \end{enumerate}
+\end{aufgabe}
+
+\begin{aufgabe}
+    \begin{enumerate}[(a)]
+        \item Es gilt 
+        \begin{align*}
+            \mathbbm{f}^{X + Y}(z) &= [\mathbbm{f}^X * \mathbbm{f}^Y](z)\\
+            &= \int_{-\infty}^\infty \mathbbm{f}^X(z-x) \mathbbm{f}^Y(x)\d {x}\\
+            &= \int_{-\infty}^\infty \frac{1}{\sqrt{2\pi \sigma_1^2}}e^{-\frac{1}{2\sigma_1^2}((z- x) - \mu_1)^2}\frac{1}{\sqrt{2\pi \sigma_2^2}}e^{-\frac{1}{2\sigma_2^2}(x - \mu_2)^2} \d{x}\\
+            \intertext{Durch die Substitution $x \mapsto x + \mu_2$ erhalten wir}
+            &= \frac{1}{2\pi\sigma_1\sigma_2} \int_{-\infty}^\infty e^{-\frac{1}{2\sigma_1^2}((z- x) - (\underbrace{\mu_1 + \mu_2}_{\eqqcolon \mu}))^2 -\frac{1}{2\sigma_2^2}x^2} \d{x}\\
+            &= \frac{1}{2\pi\sigma_1\sigma_2} \int_{-\infty}^\infty e^{-\frac{1}{2\sigma_1^2}(x - z + \mu)^2 -\frac{1}{2\sigma_2^2}x^2} \d{x}\\
+            \intertext{Wir substituieren $z = z - \mu$. }
+            \mathbbm{f}^{X + Y}(z + \mu) &= \frac{1}{2\pi\sigma_1\sigma_2} \int_{-\infty}^\infty e^{-\frac{1}{2\sigma_1^2}(x - z)^2 -\frac{1}{2\sigma_2^2}x^2} \d{x}\\
+            &= \frac{1}{2\pi\sigma_1\sigma_2} \int_{-\infty}^\infty e^{-\frac{1}{2} \left[\left(\frac{1}{\sigma_1^2} + \frac{1}{\sigma_2^2}\right)x^2 - 2\frac{1}{\sigma_1^2} xz + \frac{1}{\sigma_1^2}z^2 \right]} \d{x}\\
+            &= \frac{1}{2\pi\sigma_1\sigma_2} \int_{-\infty}^\infty e^{-\frac{1}{2}\frac{\sigma_1^2 + \sigma_2^2}{\sigma_1^2\cdot \sigma_2^2}\left[x^2 - 2\frac{\sigma_2^2}{\sigma_1^2 + \sigma_2^2} xz + \frac{\sigma_2^2}{\sigma_1^2 + \sigma_2^2}z^2 \right]} \d{x}\\
+            &= \frac{1}{2\pi\sigma_1\sigma_2} \int_{-\infty}^\infty e^{-\frac{1}{2}\frac{\sigma_1^2 + \sigma_2^2}{\sigma_1^2\cdot \sigma_2^2}\left[\left(x - \frac{\sigma_2^2}{\sigma_1^2 + \sigma_2^2} z\right)^2 - \frac{\sigma_2^4}{(\sigma_1^2 + \sigma_2^2)^2}z^2 + \frac{\sigma_2^2}{\sigma_1^2 + \sigma_2^2}z^2\right] } \d{x}\\
+            &= \frac{1}{2\pi\sigma_1\sigma_2} \int_{-\infty}^\infty e^{-\frac{1}{2}\frac{\sigma_1^2 + \sigma_2^2}{\sigma_1^2\cdot \sigma_2^2}\left[\left(x - \frac{\sigma_2^2}{\sigma_1^2 + \sigma_2^2} z\right)^2\right]} \cdot e^{- \frac{1}{2} \left[- \frac{\sigma_2^2}{\sigma_1^2(\sigma_1^2 + \sigma_2^2)} + \sigma_1^2\right]z^2} \d{x}
+            \intertext{Subsitution $x \coloneqq x + \frac{\sigma_2^2}{\sigma_1^2 + \sigma_2^2}z$ und erhalten}
+            &= \frac{1}{2\pi\sigma_1\sigma_2} \int_{-\infty}^\infty e^{-\frac{1}{2}\frac{\sigma_1^2 + \sigma_2^2}{\sigma_1^2 \sigma_2^2} x^2} \d{x} \cdot e^{- \frac{1}{2} \left[- \frac{\sigma_2^2}{\sigma_1^2(\sigma_1^2 + \sigma_2^2)} + \frac{1}{\sigma_1^2}\right]z^2} \\
+            &= \frac{1}{2\pi\sigma_1\sigma_2} \cdot \frac{\sigma_1\sigma_2}{\sqrt{\sigma_1^2 + \sigma_2^2}}\int_{-\infty}^\infty e^{-\frac{1}{2}x^2} \d{x}\cdot e^{- \frac{1}{2} \left[- \frac{\sigma_2^2}{\sigma_1^2(\sigma_1^2 + \sigma_2^2)} + \frac{\sigma_1^2 + \sigma_2^2}{\sigma_1^2(\sigma_1^2 + \sigma_2^2)}\right]z^2} \\
+            &= \frac{1}{\sqrt{2\pi(\sigma_1^2 + \sigma_2^2)}} \cdot e^{- \frac{1}{2(\sigma_1^2 + \sigma_2^2)}z^2}
+        \intertext{Resubstitution $z \coloneqq z + \mu = z+\mu_1 + \mu_2$}
+        \mathbbm{f}^{X + Y}(z) &= \frac{1}{\sqrt{2\pi(\sigma_1^2 + \sigma_2^2)}} \cdot e^{- \frac{1}{2(\sigma_1^2 + \sigma_2^2)}(z - (\mu_1 + \mu_2))^2}
+        \end{align*}
+        Daraus folgt $X + Y = N_{(\mu_1+ \mu_2, \sigma_1^2 + \sigma_2^2)}$.
+        \item Es ist bekannt, dass $n \cdot \overline{X_n} = \sum_{i = 1}^{n} X_i \sim N_{(n\mu, n\sigma^2)}$ für $X_i \sim N_{(\mu, \sigma^2)}$.
+        Wir betrachten nun $h(X) = \frac{1}{\sqrt{n\sigma^2}} X - \frac{\sqrt{n}\mu}{\sigma}$. Nach dem Transformationssatz gilt dann für $Z_n = h(n \cdot \overline{X_n})$:
+        \begin{align*}
+            \mathbbm{f}^{Z_n}(y) &= \sqrt{n\sigma^2} \frac{1}{2\pi n\sigma^2}e^{-\frac{1}{2n \sigma^2}(\sqrt{n\sigma^2}(y + \sqrt{n}\sigma^{-1} \mu) - n\mu)^2}\\
+            &= \frac{1}{2\pi} e^{-\frac{1}{2n \sigma^2}(\sqrt{n\sigma^2}y + n\mu - n\mu)^2}\\
+            &= \frac{1}{2\pi} e^{-\frac{1}{2n \sigma^2}\cdot n\sigma^2y^2}\\
+            &= \frac{1}{2\pi} e^{-\frac{1}{2}y^2}\\
+        \end{align*}
+        Daher gilt $Z_n \sim N_{(0,1)}$.
+   \end{enumerate}
+\end{aufgabe}
+
+\begin{aufgabe}
+    (i)-(iii) bezeichne im Folgenden die Eigenschaften von $\E$ aus Satz 20.01.
+    \begin{enumerate}[(a)]
+        \item Sei $(X_n)_{n \in \N}$ mit $X_n \in \overline{\mathscr{A}}^{+}$. Dann setze
+            $S_n \coloneqq \sum_{k=1}^{n} X_k$. Dann ist $S_n \in \overline{\mathscr{A}}^{+}$ und
+            $S_n \uparrow \sum_{n \in \N} X_n$.  Damit folgt
+            \begin{salign*}
+                \E\left( \sum_{n \in \N} X_n\right) &\stackrel{\text{(ii)}}{=}
+                \lim_{n \to \infty} \E(S_n) \\
+                &= \lim_{n \to \infty} \E\left( \sum_{k=1}^{n} X_n \right) \\
+                &\stackrel{\text{(i)}}{=}
+                \lim_{n \to \infty} \sum_{k=1}^{n} \E(X_n) \\
+                &= \sum_{n \in \N} \E(X_n)
+            .\end{salign*}
+        \item
+            \begin{itemize}
+                \item ,,$\implies$'': Sei $\indep_{i \in I} \mathcal{A}_i$ und
+                    $(X_i)_{i \in I}$ mit $X_i \in \overline{\mathcal{A}}_i^{+}$ für $i \in I$. Sei weiter
+                    $\emptyset \neq J \subseteq I$ endlich.
+
+                    \begin{enumerate}[(1)]
+                        \item Seien $X_i$ Bernoulli ZV mit $X_i = \mathbbm{1}_{A_i}$ und
+                            $A_i \in \mathcal{A}_i$ für $i \in I$. Da
+                            $\indep_{i \in I} \mathcal{A}_i \implies \indep_{i \in I} A_i$.
+                            Dann gilt
+                            \begin{salign*}
+                                \E\left( \prod_{j \in J}^{} X_j  \right)
+                                &= \E\left( \prod_{j \in J}^{} A_j  \right) \\
+                                &= \E( \mathbbm{1}_{\bigcap_{j \in J} A_j} ) \\
+                                &\stackrel{\text{(iii)}}{=} \mathbb{P}(\bigcap_{j \in J}  A_j) \\
+                                &\stackrel{\indep_{i \in I} A_i}{=}
+                                \prod_{j \in J}^{} \mathbb{P}(A_j) \\
+                                &\stackrel{\text{(iii)}}{=} \prod_{j \in J}^{} \E(\mathbbm{1}_{A_j}) \\
+                                &= \prod_{j \in J}^{} \E(X_j) 
+                            .\end{salign*}
+                        \item Seien nun $X_i$ einfache positive numerische ZV. Dann ist
+                            $\prod_{j \in J}^{} X_j $ eine Summe von Produkten aus skalierten
+                            Bernoulli-ZV. Mit (a), (ii) und Schritt (1) folgt die Behauptung für
+                            $(X_i)_{i \in I}$.
+                        \item Seien nun $X_i \in \overline{\mathcal{A}}_i^{+}$ für $i \in I$. Für
+                            $i \in I$ ex. dann eine Folge $(X_{in})_{n \in \N}$ mit $X_{in} \uparrow X_i$
+                            und $X_{in}$ einfach positiv numerische ZV.
+                            Da $J$ endlich folgt dann
+                            \begin{salign*}
+                            \prod_{i \in J} X_i = \prod_{i\in J}^{} \lim_{n \to \infty}
+                            X_{in} = \lim_{n \to \infty} \prod_{i \in J}^{} X_{in}
+                            .\end{salign*}
+                            Also folgt $\prod_{j \in J} X_{in} \uparrow \prod_{j \in J}^{} X_i $. Damit folgt
+                            \begin{salign*}
+                                \E \left( \prod_{j \in J}^{} X_j  \right) &=
+                                \E\left( \prod_{j \in J}^{} \lim_{n \to \infty} X_{jn}  \right) \\
+                                &= \E \left( \lim_{n \to \infty} \prod_{j \in J}^{} X_{jn}  \right) \\
+                                &\stackrel{\text{(ii)}}{=} \lim_{n \to \infty}
+                                \E\left( \prod_{j \in J}^{} X_{jn}  \right)  \\
+                                &\stackrel{\text{(2)}}{=} \lim_{n \to \infty} \prod_{j \in J}^{} \E(X_{jn}) \\
+                                &= \prod_{j \in J}^{} \lim_{n \to \infty} \E(X_{jn}) \\
+                                &\stackrel{\text{(ii)}}{=} \prod_{j \in J}^{} \E(X_j) 
+                            .\end{salign*}
+                    \end{enumerate}
+                \item ,,$\impliedby$'': Sei $(A_i)_{i \in I}$ mit $A_i \in \mathcal{A}_i$ für $i \in I$.
+                    Z.z.: $\indep_{ i \in I} A_i$. Dazu sei $\emptyset \neq J \subseteq I$ endlich.
+                    Betrachte $X_i \coloneqq \mathbbm{1}_{A_i}$. Dann ist nach Vorraussetzung
+                    \begin{salign*}
+                        \mathbb{P}\left( \bigcap_{i \in J} A_i \right)
+                        &\stackrel{\text{(iii)}}{=}
+                        \E \left( \mathbbm{1}_{\bigcap_{i \in J} A_i} \right) \\
+                        &= \E\left( \prod_{i \in J}^{} \mathbbm{1}_{A_i}  \right)  \\
+                        &\stackrel{\text{Vorr.}}{=} \prod_{i \in J}^{} \E(\mathbbm{1}_{A_i})  \\
+                        &\stackrel{\text{(iii)}}{=} \prod_{i \in J}^{} \mathbb{P}(A_i) 
+                    .\end{salign*}
+            \end{itemize}
+    \end{enumerate}
+\end{aufgabe}
+
+\begin{aufgabe}
+    \begin{enumerate}[(a)]
+        \item Nach dem Dichtetransformationssatz gilt 
+        \begin{align*}
+            \mathbbm{f}^{AX + b}(y) &= \frac{1}{|\det(A)|} \mathbbm{f}^{X}(A^{-1}(y-b))\\
+            &= \det{AA^t}^{-\frac{1}{2}} \cdot (2\pi)^{-\frac{n}{2}} \det{\Sigma}^{-\frac{1}{2}} e^{-\frac{1}{2}\langle \Sigma^{-1}(A^{-1}(y-b)- \mu), A^{-1}(y-b) - \mu \rangle}\\
+            &= \det{A\Sigma A^t}^{-\frac{1}{2}} (2\pi)^{-\frac{n}{2}} e^{-\frac{1}{2}\langle\Sigma^{-1}A^{-1}(y - (A\mu + b)), A^{-1}(y - (A\mu + b))\rangle}\\
+            &= \det{A\Sigma A^t}^{-\frac{1}{2}} (2\pi)^{-\frac{n}{2}} e^{-\frac{1}{2}\langle A^{-t}\Sigma^{-1}A^{-1}(y - (A\mu + b)), (y - (A\mu + b))\rangle}\\
+            &= \det{A\Sigma A^t}^{-\frac{1}{2}} (2\pi)^{-\frac{n}{2}} e^{-\frac{1}{2}\langle (A\Sigma A^t)^{-1}(y - (A\mu + b)), (y - (A\mu + b))\rangle}
+        \end{align*}
+        Daher gilt $AX + b \sim N_{A\mu + b, A\Sigma A^t}$. 
+        \item Wir definieren $E_{ij}$ mit $(E_{ij})_{kl} = \delta_{ik}\delta_{jl}$.
+        Dann erhalten wir durch $P_{ij} = \sum_{i = 1}^{n} E_{ii} - E_{ii} - E_{jj} + E_{ij} + E_{ji}$ eine Permutationsmatrix. 
+        Für $Y = P_{1i}X$ gilt $Y \sim N_{(P_{1i}\mu, P_{1i}\Sigma P_{i1})}$.
+        Wegen $P_{1i}\Sigma P_{i1} = LDL^t$ für eine normierte untere Dreiecksmatrix $L$ und eine Diagonalmatrix $D$, erhalten wir
+        \[
+            L^{-1}P_{1i}X - L^{-1}P_{1i}\mu \sim N_{(L^{-1} P_{1i}\mu - L^{-1}P_{1i}\mu, L^{-1}L D L^t L^{-t})} = N_{(0, D)}
+        \]
+        Da $L$ und somit auch $L^{-1}$ normierte untere Dreiecksmatrizen sind, gilt $(L^{-1}\cdot A)_{11} = A_{11}$ für beliebiges $A$. Daher erhalten wir für die Randverteilung
+        \begin{align*}
+            \mathbbm{f}^{(L^{-1}P_{1i}X - L^{-1}P_{1i}\mu)_1}(x_1) &= \int_{-\infty}^\infty \cdots \int_{-\infty}^\infty \mathbbm{f}^{L^{-1}P_{1i}X - L^{-1}P_{1i}\mu}(x_1, \dots, x_n) \d{x_n} \d{x_2}\\
+            \mathbbm{f}^{(P_{1i}X)_1 - (P_{1i}\mu)_1}(x_1)&= \int_{-\infty}^\infty \cdots \int_{-\infty}^\infty \frac{1}{(2\pi)^{\frac{n}{2}}} \cdot (\det D)^{-\frac{1}{2}} e^{-\frac{1}{2}\langle D^{-1}x, x\rangle} \d{x_n} \cdots \d{x_2}\\
+            \mathbbm{f}^{X_i - \mu_i}(x_1)&= (\det D)^{-\frac{1}{2}} \cdot \frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}D_{11}^{-1}x_1^2}\prod_{i = 2}^{n} \int_{-\infty}^\infty \frac{1}{\sqrt{2\pi}} e^{-\frac{1}{2}D_{ii}^{-1}x_i^2}\\
+            &= \frac{\sqrt{D_{22}\cdot \dots \cdot D_{nn}}}{\sqrt{\det D}} \cdot \frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}D_{11}^{-1} x_1^2}\\
+            &= \frac{1}{\sqrt{2\pi D_{11}}}e^{-\frac{1}{2D_{11}} x_1^2}\\
+            \implies \mathbbm{f}^{X_i - \mu_i}(x_i)&\sim N_{(0, D_{11})}  = N_{(0, (P_{1i}\Sigma P_{i1})_{11})} = N_{(0, \Sigma_{ii})}\\
+            \mathbbm{f}^{X_i}(x_i) &\sim N_{(\mu_i, \Sigma_{ii})}
+        \end{align*}
+        \item Durch die Permutation $P_{1i}P_{2j}$ können wir (analog zur Aufgabe (b)) o.B.d.A. $i= 1$, $j = 2$ annehmen. Wir wenden erneut die Cholesky-Zerlegung an und erhalten $\Sigma = LDL^t$, wobei wegen $\Sigma_{12} = \Sigma_{21}$ auch $L_{21} = 0$ gelten muss.
+        Daher ist auch $D_{11} = \Sigma_{11}$ und $D_{22} = \Sigma_{22}$.
+        Wir berechnen nun die Randverteilung für $(X_1, X_2)$.
+        \begin{align*}
+            \mathbbm{f}^{(L^{-1}X - L^{-1}\mu)_{(1,2)}}(x_1, x_2) &= \int_{-\infty}^\infty \cdots \int_{-\infty}^\infty \mathbbm{f}^{L^{-1}X - L^{-1}\mu}(x_1, \dots, x_n) \d{x_n} \d{x_3}
+            \intertext{Nun nutzen wir $L_{21} = 0$}
+            \mathbbm{f}^{(X_1, X_2) - (\mu_1, \mu_2)}(x_1, x_2)&= \int_{-\infty}^\infty \cdots \int_{-\infty}^\infty \frac{1}{(2\pi)^{\frac{n}{2}}} \cdot (\det D)^{-\frac{1}{2}} e^{-\frac{1}{2}\langle D^{-1}x, x\rangle} \d{x_n} \cdots \d{x_3}\\
+            \mathbbm{f}^{(X_1 - \mu_1, X_2 - \mu_2)}(x_1, x_2)&= (\det D)^{-\frac{1}{2}} \cdot \frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}D_{11}^{-1}x_1^2}\frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}D_{22}^{-1}x_2^2}\cdot \prod_{i = 3}^{n} \int_{-\infty}^\infty \frac{1}{\sqrt{2\pi}} e^{-\frac{1}{2}D_{ii}^{-1}x_i^2}\\
+            &= \frac{\sqrt{D_{33}\cdot \dots \cdot D_{nn}}}{\sqrt{\det D}} \cdot \frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}D_{11}^{-1} x_1^2} \cdot \frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}D_{22}^{-1} x_2^2}\\
+            &= \frac{1}{\sqrt{2\pi D_{11}}}e^{-\frac{1}{2D_{11}} x_1^2}\cdot \frac{1}{\sqrt{2\pi D_{22}}}e^{-\frac{1}{2D_{22}} x_2^2}\\
+            \mathbbm{f}^{(X_1, X_2)}(x_1, x_2)&= \frac{1}{\sqrt{2\pi \Sigma_{11}}}e^{-\frac{1}{2\Sigma_{11}} (x_1 - \mu_1)^2}\cdot \frac{1}{\sqrt{2\pi \Sigma_{22}}}e^{-\frac{1}{2\Sigma_{22}} (x_2 - \mu_2)^2}\\
+            &= \mathbbm{f}^{X_1}(x_1) \cdot \mathbbm{f}^{X_2}(x_2)
+        \end{align*}
+        Also sind $X_1$ und $X_2$ unabhängig.
+    \end{enumerate}
+\end{aufgabe}
+\end{document}

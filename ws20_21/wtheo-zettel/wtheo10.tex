@@ -1,0 +1,174 @@
+\documentclass[uebung]{lecture}
+
+\title{Wtheo 0: Übungsblatt 10}
+\author{Josua Kugler, Christian Merten}
+\usepackage[]{mathrsfs}
+\newcommand{\E}{\mathbb{E}}
+\renewcommand{\P}{\mathbb{P}}
+
+
+\begin{document}
+
+\punkte[36]
+
+\begin{aufgabe}
+    Sei $X \in \mathscr{A}^{n}$ die Flughöhe von $n$ Barock-Raketen und $Y \in \mathscr{A}^{m}$ die Flughöhe
+    von $m$ Renaissance-Raketen. Laut
+    Aufgabenstellung ist $(X,Y) \sim (N_{(\mu_B, \sigma^2)}^{n} \otimes N_{(\mu_R, \sigma^2)}^{m})$.
+    Sei außerdem $\mathscr{H}_0\colon \mu_B \ge \mu_R$. Nach Satz 26.43 hält dann
+    der linksseitige Test
+    \[
+        \varphi_c^{l} = \mathbbm{1}_{ \{ \overline{X}_n - \overline{Y}_{m} \le -c \frac{\sqrt{n + m} }{\sqrt{nm} } \hat{S}_{n,m}\}} = \mathbbm{1}_{\left\{ - \frac{\overline{X}_n - \overline{X}_m}{\hat{S}_{n,m}} \frac{\sqrt{nm} }{\sqrt{n+m} } \ge c\right\} }
+    \] mit $c = t_{(n+m-2),(1-\alpha)}$ das Niveau $\alpha$ ein.
+    Einsetzen aller Werte ergibt
+    \[
+    - \frac{\overline{X}_n - \overline{X}_m}{\hat{S}_{n,m}} \frac{\sqrt{nm} }{\sqrt{n+m} }
+    \approx 0.941 < 1.734 = t_{18,0.95}
+    .\] Also kann $\mathscr{H}_0$ nicht zum Signifikanzniveau $0.05$ abgelehnt werden.
+\end{aufgabe}
+
+\begin{aufgabe}
+    \begin{enumerate}[(a)]
+        \item Für alle $\delta > 0$ gilt per Definition
+        \begin{align*}
+            \lim\limits_{n \to \infty} \lim\limits_{m \to \infty} \P(|Y_n - y| > \delta) &= 0\\
+            \lim\limits_{n \to \infty} \lim\limits_{m \to \infty} \P(|Z_n - z| > \delta) &= 0
+        \end{align*}
+        Da $h$ eine stetige Funktion ist und $y$ und $z$ bereits feststehen gilt
+        \begin{align*}
+            \forall \epsilon > 0 \exists \delta > 0: \lVert(Y_n, Z_n) - (y,z)\rVert_1 \leq \delta &\implies |h(Y_n, Z_n) - h(y, z)| \leq \epsilon\\
+            |Y_n - y| + |Z_n -z| \leq \delta &\implies |h(Y_n, Z_n) - h(y, z)| \leq \epsilon\\
+            \{|h(Y_n, Z_n) - h(y, z)| \leq \epsilon\}&\supset \{|Y_n - y| + |Z_n -z| \leq \delta\}\\
+            \{|h(Y_n, Z_n) - h(y, z)| > \epsilon\}&\subset \{|Y_n - y| + |Z_n -z| > \delta\}\\
+            \P(|h(Y_n, Z_n) - h(y, z)| > \epsilon) &\leq P(|Y_n - y| + |Z_n -z| > \delta)\\
+            \P(|h(Y_n, Z_n) - h(y, z)| > \epsilon) &\leq P(|Y_n - y| > \delta) + \P(|Z_n -z| > \delta)
+            \intertext{$Y_n \xrightarrow{\P} y$,$Z_n \xrightarrow{\P} z$}
+            \lim\limits_{n \to \infty} \P(|h(Y_n, Z_n) - h(y, z)| > \epsilon) &= 0.
+        \end{align*}
+        \item Auch $(a_n)_{n\in \N}$ kann als eine Folge von (konstanten) Zufallsvariablen aufgefasst werden. 
+        Weil $h(a,X) = aX$ eine stetige Funktion ist, gilt $a_nX_n \xrightarrow{\P} aX$.
+        Weil $h(X, Y) = X + Y$ eine stetige Funktion ist, gilt $a_nX_n + Y_n \xrightarrow{\P} aX +Y$.
+    \end{enumerate}
+\end{aufgabe}
+
+\begin{aufgabe}
+    Sei $X, X_n\colon \Omega \to \R$ für $n \in \N$.
+    $X_n \xrightarrow{\mathbb{P}\text{ f.s.}} X \implies X_n \xrightarrow{\mathbb{P}} X$ nach VL.
+    Sei also $X_n \xrightarrow{\mathbb{P}} X$. Sei weiter
+    $\mathcal{X} \coloneqq \{ \omega \in \Omega  \mid \mathbb{P}(\omega) > 0\} $. Dann
+    ist $\mathbb{P}(\Omega \setminus \mathcal{X}) = 0$. Es genügt also
+    zu zeigen, dass $\lim_{n \to \infty} |X_n(\omega) - X(\omega)| = 0$ für $\omega \in \mathcal{X}$.
+    Sei dazu $\epsilon > 0$ und $\omega \in \mathcal{X}$.
+    Da $\lim_{n \to \infty} \mathbb{P}(|X_n - X| > \epsilon) = 0$ ex.
+    ein $n_0 \in \N$, s.d. $\forall n \ge n_0$:
+    \[
+        \mathbb{P}(|X_n - X| > \epsilon) < \mathbb{P}(\omega)
+    .\] Damit folgt $w \not\in \{|X_n - X| > \epsilon \} $, also
+    $|X_n(\omega) - X(\omega)| = 0$.
+\end{aufgabe}
+
+\begin{aufgabe}
+    Zunächst berechne für $n \in \N$:
+    \begin{salign*}
+        \mathbb{P}^{U}([n, \infty)) &= 1 - \mathbb{P}^{U}((-\infty, n))
+        = 1 - \int_{0}^{n} \exp(-v) \d{v} = \exp(-n) \\
+        \mathbb{P}^{V}([n, \infty)) &= 1 - \mathbb{P}^{V}((-\infty, n))
+        = 1 - \int_{1}^{n} \frac{1}{v^2} \d{v} = \frac{1}{n}
+    .\end{salign*}
+    \begin{enumerate}[(a)]
+        \item Sei $\epsilon > 0$ und $n \in \N$ mit $n > \epsilon$. Dann gilt
+            \begin{salign*}
+                \mathbb{P}(|X_n| > \epsilon) = \mathbb{P}(n \mathbbm{1}_{[n, \infty)}(U) > \epsilon) \;
+                \stackrel{n > \epsilon}{=} \; \mathbb{P}(\mathbbm{1}_{[n, \infty)}(U) > 0 )
+                = \mathbb{P}^{U}([n, \infty)) = \exp(-n)
+            .\end{salign*}
+            Also folgt $\lim_{n \to \infty} \mathbb{P}(|X_n| > \epsilon) = 0$ also
+            $X_n \xrightarrow{\mathbb{P}} 0$.
+
+            Sei nun $\sqrt{n}  > \epsilon$. Dann gilt
+            \begin{salign*}
+                \mathbb{P}(|Y_n| > \epsilon) = \mathbb{P}(\sqrt{n}  \mathbbm{1}_{[n, \infty)}(V) > \epsilon)
+                \; \stackrel{\sqrt{n} > \epsilon}{=}
+                \mathbb{P}^{V}([n, \infty)) = \frac{1}{n}
+            .\end{salign*}
+            Also folgt $\lim_{n \to \infty} \mathbb{P}(|Y_n| > \epsilon) = 0$ also
+            $Y_n \xrightarrow{\mathbb{P}} 0$.
+        \item Betrachte
+            \begin{salign*}
+                \E(|X_n|^2) = \E(n^2 \mathbbm{1}_{[n, \infty)}(U))
+                = n^2 \int_{\R}^{} \mathbbm{1}_{[n, \infty)}(v) f^{U}(v) \d{v}
+                = n^2 \mathbb{P}^{U}((n, \infty))
+                = n^2 \exp(-n)
+            .\end{salign*}
+            Betrachte $f(x) \coloneqq x^2 \exp(-x) \in C^{\infty}(\R)$.
+            Dann ist durch mehrfache Anwendung von de l'Hospital
+            ($*$):
+            \[
+                \lim_{x \to \infty} f(x) = \lim_{x \to \infty} x^2 \exp(-x) = \lim_{x \to \infty} \frac{x^2}{\frac{1}{\exp(-x)}}
+            \stackrel{(*)}{=} \lim_{x \to \infty} \frac{2x}{\exp(x)}
+            \stackrel{(*)}{=} \lim_{x \to \infty} \frac{2}{\exp(x)} = 0
+            .\] 
+            Mit der Folge $(a_n)_{n \in \N}$ mit $a_n \coloneqq n$ folgt also
+            $\lim_{n \to \infty} n^2\exp(-n) = f(n) = \lim_{x \to \infty} f(x) = 0$.
+            Also folgt insgesamt $\lim_{n \to \infty} \Vert X_n \Vert_{L^2} = 0$ und damit
+            $X_n \xrightarrow{\mathscr{L}_2} 0$.
+
+            Weiter folgt
+            \begin{salign*}
+                \E(|Y_n|^2) = \E(n\mathbbm{1}_{[n, \infty)}(V))
+                = n \int_{\R}^{} \mathbbm{1}_{[n, \infty)}(v) f^{V}(v) \d{v}
+                = n \mathbb{P}^{V}((n, \infty))
+                = n \frac{1}{n} = 1
+            .\end{salign*}
+            Damit folgt $\lim_{n \to \infty} \Vert Y_n \Vert_{L^2} = \sqrt{1} = 1 \neq 0$. Da
+            $Y_n \xrightarrow{\mathbb{P}} 0$ konvergiert $Y_n$ nicht in $\mathscr{L}_2$ gegen
+            ein $Y \in \overline{\mathscr{A}}$ mit $Y \neq 0$ $\mathbb{P}$ f.s., da
+            sonst auch $Y_n \xrightarrow{\mathbb{P}} Y \neq 0$ und
+            stochastische Grenzwerte $\mathbb{P}$ f.s. übereinstimmen.
+            Also konvergiert $Y_n$ nicht in $\mathscr{L}_2$.
+    \end{enumerate}
+\end{aufgabe}
+
+\begin{aufgabe}
+    \begin{enumerate}[(a)]
+        \item Es gilt für $ 0 <\epsilon < 1$
+        \begin{align*}
+            \lim\limits_{n \to \infty} \P(X_n > \epsilon) &= \lim\limits_{n \to \infty} \P(\sqrt{n}\mathbbm{1}_{[0,\frac{1}{n}]}(U) > \epsilon)\\
+            &= \lim\limits_{n \to \infty} \P(\mathbbm{1}_{[0,\frac{1}{n}]}(U))\\
+            &= \lim\limits_{n \to \infty} \frac{1}{n}\\
+            &= 0.
+        \end{align*}
+        Also gilt $X_n \xrightarrow{\P} 0$
+        Gleichzeitig erhalten wir
+        \begin{align*}
+            \E(|X_n|^2) &= \lim\limits_{n \to \infty} \int_\R (X_n)^2 \P(\d{x}) \\
+            &=  \lim\limits_{n \to \infty} \int_\R n \mathbbm{1}_{[0,\frac{1}{n}]}(U)\P(\d{x})\\
+            &= \lim\limits_{n \to \infty} n \frac{1}{n}\\
+            &= 1\\
+            &\neq 0.
+        \end{align*}
+        Daraus folgt $X_n \not \xrightarrow{L^2} 0$.
+        \item Es gilt
+        \begin{align*}
+            \E(|X - X_n|^2) &= \E(|X- X_n|^2 \mathbbm{1}_{|X_n-X| > \epsilon}) + \E(|X- X_n|^2 \mathbbm{1}_{|X_n-X| \leq \epsilon})\\
+            \intertext{Wir nutzen die Hölder-Ungleichung $\E(|X_nX|) \leq \sqrt{\E(|X|^2)\E(|X_n|^2)}$ und erhalten}
+            &= \E(|X|^2\mathbbm{1}_{|X_n-X| > \epsilon}) + \E(|X_n|^2\mathbbm{1}_{|X_n-X| > \epsilon}) - 2\E(|XX_n|\mathbbm{1}_{|X_n-X| > \epsilon}) +  \E(|X- X_n|^2 \mathbbm{1}_{|X_n-X| \leq \epsilon})
+            \intertext{Wegen $X_n \xrightarrow{\P} X$ ist $\{|X_n - X| > \epsilon\}$ eine Nullmenge und es gilt}
+            &= 0 +  \E(|X- X_n|^2 \mathbbm{1}_{|X_n-X| \leq \epsilon})\\
+            &= \epsilon^2 \E(\mathbbm{1}_{|X_n-X| \leq \epsilon})\\
+            &= \epsilon^2 (1 - \P(|X_n - X| > \epsilon))\\
+            &= \epsilon^2
+        \end{align*}
+        Für $\epsilon \to 0$ erhalten wir daraus die Behauptung.
+        \item Betrachte 
+        \begin{align*}
+            \limsup\limits_{n \to \infty} \E(|X_n|^{2 + \alpha}) &= \limsup\limits_{n \to \infty} \int_\R \sqrt{n}^{2 + \alpha} \cdot \mathbbm{1}_{[0,1]}(U) \P^U(\d x)\\
+            &= \limsup\limits_{n \to \infty}  n \cdot n^{\frac{\alpha}{2}} \cdot \frac{1}{n}\\
+            &= \limsup\limits_{n \to \infty}  n^{\frac{\alpha}{2}}\\
+            &= \infty
+        \end{align*}
+
+    \end{enumerate}
+\end{aufgabe}
+
+\end{document}

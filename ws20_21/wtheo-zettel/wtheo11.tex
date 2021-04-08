@@ -1,0 +1,243 @@
+\documentclass[uebung]{lecture}
+
+\title{Wtheo 0: Übungsblatt 11}
+\author{Josua Kugler, Christian Merten}
+\usepackage[]{mathrsfs}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\F}{\mathbbm{F}}
+\newcommand{\var}{\mathbb{V}\text{ar}}
+\newcommand{\indep}{\perp \!\!\! \perp}
+
+\begin{document}
+
+\punkte[40]
+
+\begin{aufgabe}[]
+    \begin{enumerate}[(a)]
+        \item In der $i$-ten Runde wird das Kapital mit $1 + (-0.5)^k_i$ multipliziert, wobei $k_i = 0$ für Kopf stehe
+        und $k_i = 1$ bedeute, dass in der $i$-ten Runde Zahl geworfen wird. Offenbar ist $k_i$ Bernoulli-verteilt mit
+        $n = 1$, $p = 0.5$. Daher gilt $R_i \overset{i.i.d}{\sim} 1 + (-0.5)^{B_{0.5}}$.
+        \item Es gilt
+        \begin{salign*}
+            \E(K_n) &= \E\left(\prod_{i = 1}^n R_i\right)\\
+            &\stackrel{\indep R_i}{=} \prod_{i=1}^n \E(R_i)\\
+            &\stackrel{R_i \sim 1 + (-0.5)^{B_{0.5}}}{=} \E(1 + (-0.5)^{B_{0.5}})^n\\
+            &= (0.5(1.5 + 0.5))^n\\
+            &= 1
+        \end{salign*}
+        \item Es gilt
+        \begin{align*}
+            \E(\ln R_1) = 0.5 \cdot \ln(0.5) + 0.5 \cdot \ln(1.5) = \frac{\ln(3)}{2} - \ln(2) < 0. 
+        \end{align*}
+        Insbesondere ist $\ln(R_1) \in \mathscr L_1$. Außerdem ist $(\ln R_i)_{i\in \N}$ eine unabhängig und identisch verteilte
+        Folge reeller Zufallsvariablen. Daher sind die Voraussetzungen fürs SGGZ erfüllt und wir erhalten 
+        \begin{salign*}
+            \lim\limits_{n \to \infty} \frac{1}{n} \ln K_n &= \lim\limits_{n \to \infty} \frac{1}{n} \sum_{i = 1}^{\infty} \ln R_i\\
+            &= \lim\limits_{n \to \infty} \overline{\ln R_i}\\
+            &\stackrel{\text{SGGZ}}{=} \E(R_1)\\
+            &= \frac{\ln(3)}{2} - \ln(2) < 0.
+            \intertext{Wir schließen daraus}
+            \lim\limits_{n \to \infty} \ln K_n &= -\infty.
+            \intertext{Schlussendlich folgt}
+            \lim\limits_{n \to \infty} K_n &= \lim\limits_{n \to \infty} e^{\ln K_n}\\
+            &\stackrel{\operatorname{exp} \text{ stetig}}{=} e^{\lim\limits_{n \to \infty} \ln K_n}\\
+            &= 0.
+        \end{salign*}
+    \end{enumerate}
+\end{aufgabe}
+
+\begin{aufgabe}[]
+    \begin{enumerate}[(a)]
+        \item Aus dem ZGWS folgt mit Korollar 31.04: $\sqrt{n}[\overline{X_n}-\mu] \xrightarrow{D} N_{(0,\sigma^2)}$.
+        Daraus erhalten wir für $a_n = \sqrt{n}, X_n = \overline{X_n}$ und $x = \mu$ mit Satz 29.19 
+        $\overline{X}_n \xrightarrow{\mathbbm{P}} \mu = \E(X_1)$. Das ist genau die Aussage des schwachen Gesetzes
+        der großen Zahlen.
+        \item Wir zeigen $X_n \xrightarrow{\mathbbm{P}} 0$. Daraus folgt dann die Behauptung.
+        
+        Sei $\epsilon > 0$. 
+        Es gilt wegen $\sqrt[n]{n} \xrightarrow{n \to \infty} 1$
+        \begin{align*}
+            \lim\limits_{n \to \infty} \sqrt[n]{\frac{2\epsilon}{n+1}} = 1.
+        \end{align*}
+        Für beliebiges $x \in (-1, 1)$ existiert daher ein $n\in \N$ mit $|x| < \sqrt[n]{\frac{2\epsilon}{n+1}}$.
+        Insbesondere ist 
+        \begin{align*}
+            \limsup\limits_{n \to \infty} \left\{|\frac{n+1}{2} |x|^n \mathbbm{1}_{(-1,1)}| > \epsilon\right\}
+            &= \limsup\limits_{n \to \infty} \left\{x \in (-1, 1), |x| > \sqrt[n]{\frac{2\epsilon}{n+1}}\right\}= \emptyset
+        \end{align*}
+        und damit auch $\limsup\limits_{n \to \infty} \mathbbm{P}(\{|X_n| > \epsilon\}) = 0$.
+        Das ist gerade die Definition von $X_n \xrightarrow{\mathbbm{P}} 0$, die Behauptung ist also bewiesen.
+        \item \begin{enumerate}
+            \item Es gilt $\forall x < 0\colon \F_n(x) = 0 \implies \F(x) = 0$,
+            $\forall x \in [0,1]\colon \F_n(x) = \frac{x}{1 + 1/n} \implies \F(x) = x$ und
+            $\forall x \geq 1\colon \F_n(x) = \frac{x}{1+1/n}$ für $x < 1+ 1/n \Leftrightarrow n < \frac{1}{x-1}$. 
+            Für $n > \frac{1}{x-1}$ gilt $\F_n(x) = 0$. Daraus folgt $\F(x) = 0$.
+            Wir erhalten als Grenzwert der Verteilungsfunktionen 
+            \begin{align*}
+                \lim\limits_{n \to \infty} \F_n(x) = \F(x) \coloneqq \begin{cases}
+                    0 &| x < 0\\
+                    x &| 0 \leq x \leq 1\\
+                    1 &| 1 < x
+                \end{cases}
+            \end{align*}
+            Dies ist genau die Verteilungsfunktion von $U_{[0,1]}$, also wähle gilt $X_n \xrightarrow{D} U_{[0,1]}$.
+            \item Es gilt
+            \begin{align*}
+                \lim\limits_{n \to \infty} \F_n(x) &= \lim\limits_{n \to \infty} \begin{cases}
+                    \int_0^x ne^{-n\tilde{x}}\d{\tilde{x}} = 1 - e^{-nx} &| x > 0\\
+                    0 &| x \leq 0
+                \end{cases}\\
+                &= \begin{cases}
+                    1 - \lim\limits_{n \to \infty} e^{-nx} &| x > 0\\
+                    0&|x \leq 0
+                \end{cases}\\
+                &= \mathbbm{1}_{\R_{\setminus 0}^+}
+            \end{align*}
+            Es gilt aber $\lim\limits_{x \searrow 0} \mathbbm{1}_{\R_{\setminus 0}^+}(x) = 1 \neq 0 = \mathbbm{1}_{\R_{\setminus 0}^+}(0)$.
+            Daher ist der Grenzwert der Verteilungsfunktion nicht rechtsstetig. Es kann daher keine Zufallsvariable mit dieser Verteilung
+            existieren.
+            \item Es gilt
+            \begin{align*}
+                \lim\limits_{n \to \infty} \F_n(x) &= \lim\limits_{n \to \infty} \begin{cases}
+                    \int_0^x \frac{1}{n}e^{-\frac{1}{n}\tilde{x}}\d{\tilde{x}} = 1 - e^{-\frac{1}{n}x} &| x > 0\\
+                    0 &| x \leq 0
+                \end{cases}\\
+                &= \begin{cases}
+                    1 - \lim\limits_{n \to \infty} e^{-\frac{1}{n}x} = 0 &| x > 0\\
+                    0&|x \leq 0
+                \end{cases}\\
+                &\equiv 0
+            \end{align*}
+            Es gilt aber $\lim\limits_{x \to \infty} 0 = 0\neq 1$. Es kann daher keine Zufallsvariable mit dieser Verteilung
+            existieren.
+        \end{enumerate}
+    \end{enumerate}
+\end{aufgabe}
+
+\begin{aufgabe}
+    \begin{enumerate}[(a)]
+        \item Sei $t \in \R$ beliebig. Dann rechne
+            \begin{salign*}
+                \E(\cos(tX)) &= \int_{a}^{b} \cos(tx) \frac{1}{b-a}\d{x}
+                = \frac{1}{b-a} \frac{1}{t} \sin(tx) \Big|_{a}^{b} = \frac{1}{t(b-a)}(\sin(tb) - \sin(ta)) \\
+                \E(\sin(tX)) &= \int_{a}^{b} \sin(tx) \frac{1}{b-a} \d{x}
+                = \frac{1}{t(b-a)} (\cos(ta) - \cos(tb))
+                \intertext{Insgesamt ergibt sich}
+                \varphi_X(t) &= \frac{1}{t(b-a)} \left[ \sin(tb) - \sin(ta) + i \cos(ta) - i\cos(tb) \right]
+                = \frac{1}{it(b-a)} \left[ \exp(tai) - \exp(tbi) \right] 
+            .\end{salign*}
+        \item Da $Y$ und $Z$ unabhängig, sind auch $\exp(itY)$ und $\exp(itZ)$ unabhängig. Damit folgt
+            für $t \in \R$:
+            \begin{salign*}
+                \varphi_{Y+Z}(t) &= \E(\exp(i t(Y + Z))) = \E(\exp(itY) \exp(itZ))
+                = \E(\exp(itY)) \E(\exp(itZ)) = \varphi_Y(t) \varphi_Z(t)
+            .\end{salign*}
+            Es gilt nach VL $\E(\overline{Z}) = \overline{\E(Z)}$, also folgt
+            \begin{salign*}
+                \varphi_{-Y}(t) = \E(\exp(-itY)) = \E(\overline{e^{itY}}) = \overline{\E(e^{itY})}
+                = \overline{\varphi_{Y}(t)}
+            .\end{salign*}
+            Seien nun $Y, Z$ identisch verteilt. Dann ist $\varphi_Y = \varphi_{Z}$ und
+            es folgt für $t \in \R$
+            \[
+                \varphi_{Y-Z}(t) = \varphi_{Y} \varphi_{-Y}(t) = \varphi_Y(t) \overline{\varphi_Y(t)}
+                = |\varphi_Y(t)|^2 \ge 0
+            .\] Aber $\varphi_{X}(t) = \frac{\sin(t)}{t}$ für $X \sim U_{[-1, 1]}$ und
+            für $t = \frac{3}{2} \pi$ folgt $\varphi_X(\frac{3}{2}\pi) = - \frac{2}{3 \pi} < 0$.
+            Also ist $\varphi_X(t) \neq \varphi_{Y-Z}(t)$, also
+            ist $Y - Z$ nicht $U_{[-1,1]}$ verteilt.
+        \item Es gilt für $t \in \R$
+            \[
+                \varphi_{X_2}(t) = \varphi_{X_1}(t) = \varphi_{X_1 + X_2}(t) = \varphi_{X_1}(t) \varphi_{X_2}(t)
+            .\] Da $\varphi_{X_1}(t) = \varphi_{X_2}(t) \neq 0$, folgt
+            \[
+                \varphi_{X_1}(t) = \varphi_{X_2}(t) = 1
+            .\] Setze $Z \coloneqq 0$. Dann ist $\varphi_{Z}(t) = 1$ $\forall t \in \R$, also
+            folgt
+            \[
+                \varphi_{X_1}(t) = \varphi_{X_2}(t) = \varphi_{Z}(t)
+            .\] Betrachte nun $Y_n \coloneqq X_1$ $\forall n \in \N$. Dann
+            ist $Y_n \xrightarrow{D} Z$. Da $Z$ konstant, folgt damit auch
+            $Y_n \xrightarrow{\mathbb{P}} Z$. Also $\forall \epsilon > 0$
+            \[
+                \mathbb{P}(|X_2| > \epsilon) = \mathbb{P}(|X_1| > \epsilon) = \lim_{n \to \infty} \mathbb{P}(|Y_n - Z| > \epsilon) = 0
+            .\] Da $\epsilon$ beliebig, folgt $\mathbb{P}(X_1 = 0) = \mathbb{P}(X_2 = 0) = 1$. Also
+            $X_1 = 0 = X_2$ $\mathbb{P}$ f.s.
+    \end{enumerate}
+\end{aufgabe}
+
+\begin{aufgabe}
+    \begin{enumerate}[(a)]
+        \item Setze $Y_i(x) \coloneqq \mathbbm{1}_{\{X_i \le x\}}$. Dann
+            ist $Y_i(x) \sim \text{Bernoulli}_{p}$ mit:
+            \[
+            p := \mathbb{P}(X_i \le x) =\mathbb{P}(X_1 \le x) = \mathbb{F}(x)
+            .\] 
+            Dann
+            ist $n \hat{\mathbb{F}}_n(x) = \sum_{i=1}^{n} Y_i(x)$ und damit
+            $n \hat{\mathbb{F}}_n(x) \sim \text{Bin}_{n,p}$  mit $p = \mathbb{P}(X_1 \le x) = \mathbb{F}(x)$.
+            Damit folgt
+            \begin{salign*}
+                \E(\hat{\mathbb{F}}_n(x)) &= \frac{1}{n} \E(n\hat{\mathbb{F}}_n(x))
+                = \frac{1}{n} n p = p = \mathbb{F}(x)\\
+                \var(\hat{\mathbb{F}}_n(x)) &= \frac{1}{n^2} \var(n \hat{\mathbb{F}}_n(x)) = \frac{p(1-p)}{n}
+                = \frac{\mathbb{F}(x)(1 - \mathbb{F}(x)}{n}
+            .\end{salign*}
+        \item Es ist $\hat{\mathbb{F}}_n(x) = \overline{Y}_n(x)$. Also folgt
+            \begin{salign*}
+                \lim_{n \to \infty} \hat{\mathbb{F}}_n(x) =
+                \lim_{n \to \infty} \overline{Y}_n(x)
+                &\stackrel{\text{SGGZ}}{=} \E(Y_1) = \mathbb{F}(x)
+            .\end{salign*}
+        \item Es gilt da $\var(Y_1) = p(1-p) = \mathbb{F}(x)(1 - \mathbb{F}(x))$:
+            \begin{salign*}
+                \sqrt{n} (\hat{\mathbb{F}}_n(x) - \mathbb{F}(x))
+                = \sqrt{n} (\overline{Y}_n(x) - \mathbb{F}(x))
+                \xrightarrow[\text{ZGWS}]{D} N_{(0, \var(Y_1(x))}
+                = N_{(0, \mathbb{F}(x)(1 - \mathbb{F}(x))}
+            .\end{salign*}
+    \end{enumerate}
+\end{aufgabe}
+
+\begin{aufgabe}
+    \begin{enumerate}[(a)]
+        \item Sei $b \in \R^{+}$. Dann ist
+            \begin{salign*}
+                \text{Bias}_b(\hat{b}_n) &= \E_b(\hat{b}_n - b) = 2 \E_b(\overline{X}_n) - b =
+                2 \E_b(X_1) - b = 0 \\
+                \var_b(\hat{b}_n) &= 4 \var_b(\overline{X}_n) = \frac{4}{n} \var_b(X_1) = \frac{b^2}{3n}
+            .\end{salign*}
+            Setze $Y_i \coloneqq 2 X_i$. Dann ist $\overline{Y}_n = 2 \overline{X}_n = \hat{b}_n$. Damit
+            folgt mit ZGWS direkt
+            \[
+                \sqrt{n} (\hat{b}_n - b) = \sqrt{n} (\overline{Y}_n - \E(Y_1))
+                \xrightarrow{D} N_{(0, \var(Y_1)} = N_{(0, b^2/3)}
+            .\] 
+        \item Es ist $\hat{b}_n$ nach (a) $\sqrt{n} $-konsistent. Außerdem ist mit (a), dass
+            \[
+                \frac{\sqrt{3n} }{b} (\hat{b}_n - b) \xrightarrow{D} N_{(0, 1)}
+            .\] Also ist $\frac{b}{\sqrt{3} }$ Störparameter. Da $\hat{b}_n = \overline{Y}_n$
+            und $\E(Y_1) = b$, folgt mit dem SGGZ, dass
+            \[
+                \hat{b}_n = \overline{Y}_n \xrightarrow{\mathbb{P} \text{ f.s.}} \E(Y_1) = b
+            .\] Also insbesondere $\hat{b}_n$ konsistenter Schätzer für $b$ und damit
+            auch $\frac{\hat{b}_n}{\sqrt{3} }$ konsistenter Schätzer für den Störparameter
+            $\frac{b}{\sqrt{3} }$. Damit folgt nach VL, dass
+            $C_n^{(b)} \coloneqq [\hat{b}_n - \frac{\hat{b}_n}{\sqrt{3n} }q_{1-\alpha}, \infty)$
+            ein $1-\alpha$ KB für die richtigen Parameter $\mathcal{R}_{b} = [b, \infty)$ ist, wobei
+            $q_{1-\alpha}$ das $1-\alpha$ Quantil der Standardnormalverteilung ist.
+        \item $H_0$ ist die assoziierte Nullhypothese zu $\mathcal{R}_{b_0}$. Damit folgt nach
+            VL, da $C_n^{(b)}$ asympt. $1-\alpha$-KB, dass
+            \[
+                \phi_n^{(b)} = \mathbbm{1}_{\{b_0 \not\in C_{n}^{(b)}\} }
+                = \mathbbm{1}_{\{ \hat{b}_n - \frac{\hat{b}_n}{\sqrt{3n} } q_{1-\alpha} > b_0\} }
+            \] ein asympt. $1-\alpha$ Test ist.
+        \item Ausrechnen ergibt $\overline{X}_n = 50.88$ und damit
+            \[
+            \hat{b}_{10} - \frac{\hat{b}_{10}}{\sqrt{3 \cdot 10} } 1.64 = 71.28 < 100
+            \qquad C_{10}^{(b)} = [71.28, \infty)
+            .\] Also sollte $H_0$ nicht abgelehnt werden.
+    \end{enumerate}
+\end{aufgabe}
+
+\end{document}

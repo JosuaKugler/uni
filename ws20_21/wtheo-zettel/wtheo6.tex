@@ -1,0 +1,156 @@
+\documentclass[uebung]{lecture}
+
+\title{Wtheo 0: Übungsblatt 6}
+\author{Josua Kugler, Christian Merten}
+
+\renewcommand{\P}{\mathbb{P}}
+\usepackage{stmaryrd}
+\begin{document}
+
+\punkte[21]
+
+\begin{aufgabe}
+    \begin{enumerate}[(a)]
+        \item Beh.: $\mathbb{P}(\cdot  \mid B)$ ist Wahrscheinlichkeitsmaß auf $(\Omega, \mathcal{A})$.
+            \begin{proof}
+                \begin{enumerate}[(i)]
+                    \item Es ist für $A \in \mathcal{A}$:
+                        $\mathbb{P}(A | B) = \frac{\mathbb{P}(A|B)}{\mathbb{P}(B)} \ge 0$,
+                        da $\mathbb{P}$ W'maß.
+                    \item $\mathbb{P}(\Omega | B) = \frac{\mathbb{P}(\Omega \cap  B)}{\mathbb{P}(B)}
+                            = \frac{\mathbb{P}(B)}{\mathbb{P}(B)} = 1$.
+                    \item Seien $A_i \in \mathcal{A}$ mit $A_i$ paarweise disjunkt. Dann folgt
+                        \begin{salign*}
+                            \mathbb{P}\left( \bigcupdot_{i \in \N} A_i \right)
+                            &= \frac{\mathbb{P}\left( \left( \bigcupdot_{i \in  \N} A_i \right) \cap B \right) }{\mathbb{P}(B)} \\
+                            &= \frac{\mathbb{P}\left( \bigcupdot_{i \in  \N} (A_i \cap B)  \right) }{\mathbb{P}(B)} \\
+                            &= \sum_{i \in \N} \frac{\mathbb{P}(A_i \cap B)}{\mathbb{P}(B)} \\
+                            &= \sum_{i \in \N} \mathbb{P}(A_i|B)
+                        ,\end{salign*}
+                        wobei im 3. Schritt die $\sigma$-Additivität von $\mathbb{P}$ ausgenutzt wurde.
+                \end{enumerate}
+            \end{proof}
+        \item Es ist beispielsweise mit
+            $A = \emptyset\colon \mathbb{P}(\emptyset | \Omega) = \frac{\mathbb{P}(\emptyset \cap  \Omega)}{\mathbb{P}(\Omega)} = \frac{0}{1} = 0 \neq 1$.
+    \end{enumerate}
+\end{aufgabe}
+
+\begin{aufgabe}
+    Ist $X$ ein Ereignis, so bezeichne $\overline{X}$ das Gegenereignis zu $X$.
+    Wir definieren $R, V$ und $S$ wie im Hinweis. Nach Aufgabenstellung gilt $\P(R) = \frac{1}{2},\P(V|R) = \frac{2}{3}$ und  $\P(V|\overline R) = \frac{2}{3}$. Sei $A$ das Ereignis, dass Regen vorhergesagt wird.
+    $A$ tritt genau dann ein, wenn es regnet und die Wettervorhersage recht hat oder wenn es nicht regnet und die Wettervorhersage falsch liegt. Es gilt daher
+    $A = R \cap V \cup \overline R \cap \overline V$ und nach den De Morganschen Regeln 
+    \[
+        \overline{A} = \overline{R \cap V} \cap \overline{\overline{R} \cap \overline{V}} = (\overline{R} \cup \overline{V}) \cap (R \cup V) = \overline{R} \cap V \cup \overline{V} \cap R
+    \]
+    Weiter gilt $\P(S|A) = 1$ und $\P(S|\overline A) = \frac{1}{3}$. 
+    %Die Wahrscheinlichkeit, dass Mr. Pickwick einen Schirm mitnimmt, obwohl kein Regen vorhergesagt wurde, ist unabhängig davon, ob es dann tatsächlich regnet oder nicht stets $\frac{1}{3}$.
+    %Daher sind die Ereignisse $S \cap \overline{A}$ und $R$ stochastisch unabhängig.
+    Da Mr. Pickwick nicht weiß, ob es regnen wird oder nicht, gilt sogar $\P(S|A\cap R) = \P(S|A\cap \overline R) = 1 $ und $\P(S|\overline A \cap R) = \P(S| \overline A \cap \overline R)$.
+    Daraus erhalten wir
+    \begin{align*}
+        1 = \P(S|A\cap R) = \frac{\P(S \cap A \cap R)}{\P(A \cap R)} &\implies \P(S \cap A \cap R) = \P(A \cap R),\\
+        1 = \P(S|A\cap \overline R) = \frac{\P(S \cap A \cap \overline R)}{\P(A \cap \overline R)} &\implies \P(S \cap A \cap \overline R) = \P(A \cap \overline R),\\
+        \frac{1}{3} = \P(S|\overline A\cap R) = \frac{\P(S \cap \overline A \cap R)}{\P(\overline A \cap R)} &\implies \P(S \cap \overline A \cap R) = \frac{1}{3}\P(\overline A \cap R),\\
+        \frac{1}{3} = \P(S|\overline A\cap \overline R) = \frac{\P(S \cap \overline A \cap \overline R)}{\P(\overline A \cap \overline R)} &\implies \P(S \cap \overline A \cap \overline R) = \frac{1}{3}\P(\overline A \cap \overline R),\\
+    \end{align*}
+    Zudem gilt
+    \begin{align*}
+        \frac{2}{3} = \P(V | R) = \frac{\P(V \cap R)}{\P(R)} = 2 P(V\cap R) &\implies P(V\cap R) = \frac{1}{3}\\
+        \frac{2}{3} = \P(V | \overline R) = \frac{\P(V \cap \overline R)}{\P(\overline R)} = 2 P(V\cap \overline R) &\implies P(V\cap \overline R) = \frac{1}{3}\\
+    \end{align*}
+    Daraus erhalten wir wegen $\P(X \cap Y + \P(X \cap \overline{Y}) = \P(X)$ sofort
+    \begin{align*}
+        \P(\overline V\cap R) &= \P(R) - \P(V\cap R) = \frac{1}{2} - \frac{1}{3} = \frac{1}{6}\\ 
+        \P(\overline{V} \cap \overline{R}) &= \P(\overline{R}) - \P(V \cap \overline{R}) = \frac{1}{2} - \frac{1}{3} = \frac{1}{6}
+    \end{align*} 
+    \begin{enumerate}[(a)]
+        \item Gesucht ist $\P(\overline{S}|R)$. 
+        Wir berechnen zunächst
+        \begin{align*}
+            \P(S \cap R) &= \P(S \cap R \cap A) + \P(S \cap R\cap \overline{A})\\
+            &= \P(S\cap A \cap R) + \P(S \cap \overline{A} \cap R)\\
+            &= \P(A \cap R) + \frac{1}{3} \P(\overline{A} \cap R)\\
+            &= \P((R \cap V \cup \overline R \cap \overline V) \cap R) + \frac{1}{3}\P((\overline{R} \cap V \cup \overline{V} \cap R) \cap R)\\
+            &= \P(R\cap V) + \frac{1}{3} \P(R \cap \overline{V})\\
+            &= \frac{1}{3} + \frac{1}{3} \frac{1}{6} = \frac{7}{18}
+        \end{align*}
+        Es gilt daher
+        \begin{align*}
+            \P(\overline{S}|R) &= \frac{\P(\overline{S}\cap R)}{\P(R)}\\
+            &= 2 \cdot (\P(R) - \P(S \cap R))\\
+            &= 1 - 2 \P(S \cap R)\\
+            &= 1 - 2 \frac{7}{18} = \frac{18}{18} - \frac{14}{18} = \frac{2}{9}
+        \end{align*}
+        \item Gesucht ist $\P(S| \overline{R})$.
+        Wir berechnen zunächst
+        \begin{align*}
+            \P(S \cap \overline R) &= \P(S \cap \overline R \cap A) + \P(S \cap \overline R\cap \overline{A})\\
+            &= \P(S\cap A \cap \overline R) + \P(S \cap \overline{A} \cap \overline R)\\
+            &= \P(A \cap \overline R) + \frac{1}{3} \P(\overline{A} \cap \overline R)\\
+            &= \P((R \cap V \cup \overline R \cap \overline V) \cap \overline R) + \frac{1}{3}\P((\overline{R} \cap V \cup \overline{V} \cap R) \cap \overline R)\\
+            &= \P(\overline R\cap \overline V) + \frac{1}{3} \P(\overline R \cap V)\\
+            &= \frac{1}{6} + \frac{1}{3} \frac{1}{3} = \frac{5}{18}
+        \end{align*}
+        Es gilt daher
+        \begin{align*}
+            \P(S|\overline R) &= \frac{\P(S\cap \overline R)}{\P(\overline{R})}\\
+            &= 2 \cdot \P(S \cap \overline R)\\
+            &= 2 \frac{5}{18} = \frac{10}{18} = \frac{5}{9}
+        \end{align*}
+    \end{enumerate}
+\end{aufgabe}
+
+\begin{aufgabe}
+    \begin{enumerate}[(a)]
+        \item Sei $A \in \mathcal{A}$. Dann ist $\mathbb{P}(\Omega \cap A) = \mathbb{P}(A) = 1 \cdot \mathbb{P}(A) = \mathbb{P}(\Omega) \mathbb{P}(A)$. Außerdem
+            gilt $\mathbb{P}(\emptyset \cap A) = \mathbb{P}(\emptyset) = 0 = 0 \cdot \mathbb{P}(A) =
+            \mathbb{P}(\emptyset) \mathbb{P}(A)$.
+        \item Seien $A, B, C$ gemeinsam stochastisch unabhängig. Dann ist
+            $\mathbb{P}((A \cap B) \cap C) = \mathbb{P}(A \cap B \cap C)
+            = \mathbb{P}(A) \mathbb{P}(B) \mathbb{P}(C) = \mathbb{P}(A \cap B) \mathbb{P}(C)$.
+            Außerdem gilt
+            $\mathbb{P}((A \cup B) \cap C) = \mathbb{P}((A \cap B) \cup (B \cap C))
+            = \mathbb{P}(A \cap C) + \mathbb{P}(B \cap C) - \mathbb{P}(A \cap C) \cap (B \cap C)
+            = \mathbb{P}(A)\mathbb{P}(C) + \mathbb{P}(B) \mathbb{P}(C) - \mathbb{P}(A \cap B \cap C)
+            = \mathbb{P}(C) (\mathbb{P}(A) + \mathbb{P}(B) - \mathbb{P}(A \cap B))
+            = \mathbb{P}(C) \mathbb{P}(A \cup B)$.
+        \item Da der Würfel Laplace verteilt angenommen ist, folgt direkt
+            $\mathbb{P}(A) = \frac{1}{2}$ und $\mathbb{P}(B) = \frac{1}{2}$. Da
+            die Summe der Augenzahlen genau dann gerade ist, wenn einer der Würfe eine gerade
+            und einer der Würfe eine ungerade Zahl ergibt, folgt $\mathbb{P}(C) = \frac{1}{2}$.
+            Dabei gilt $\mathbb{P}(A \cap B \cap C) = 0$, da die Summe der Augenzahlen gerade ist, falls
+            beide Würfe gerade Augenzahlen ergeben.
+
+            Die Ereignisse $A, B, C$ sind paarweise unabhängig, denn
+            \begin{salign*}
+                \mathbb{P}(A \cap C) &= \mathbb{P}(\text{,,1. Wurf gerade, 2. ungerade''}) = \frac{1}{4}
+                = \mathbb{P}(A) \mathbb{P}(C) \\
+                \mathbb{P}(A \cap B) &= \mathbb{P}(\text{,,1. und 2. Wurf gerade''})
+                = \frac{1}{4} = \mathbb{P}(A) \mathbb{P}(B) \\
+                \mathbb{P}(B \cap C) &= \mathbb{P}(\text{,,1. Wurf ungerade, 2. gerade''})
+                = \frac{1}{4} = \mathbb{P}(B) \mathbb{P}(C)
+            .\end{salign*}
+
+            Aber $\mathbb{P}(A \cap B \cap C) = 0 \neq \frac{1}{8} = \mathbb{P}(A) \mathbb{P}(B) \mathbb{P}(C)$
+    \end{enumerate}
+\end{aufgabe}
+
+\begin{aufgabe}
+    Sei $N$ die Anzahl der (nicht notwendigerweise verschiedenen) Zeichen in Goethes Faust und $M$ die Menge der verschiedenen Zeichen in Goethes Faust. 
+    Sei $\Omega = M^\N$.
+    Sei dann 
+    \[ 
+        A_{n} \coloneqq \{\omega \in \Omega \colon \forall i \in \llbracket n, n+N-1 \rrbracket \colon \omega_i = G_{i-n}\},
+    \]
+    wobei $G_i$ das $i$-te Zeichen von Goethes Faust bezeichne.
+    Die Ereignisse $(A_{kN})_{k\in \N}$ sind dann offensichtlich stochastisch unabhängig (analog zu Beispiel 14.8(b)) und es gilt 
+    $\P(A_i) = \frac{1}{(\# M)^N}$, also insbesondere 
+    \[
+        \sum_{k\in \N} \P(A_{kN}) =  \sum_{k\in \N} \frac{1}{(\# M)^N} = \infty.
+    \]
+    Nach dem Lemma von Borel-Cantelli gilt daher $\P(\limsup\limits_{k \to \infty} A_{kN}) = 1$. $(A_{kN})_{k \in \N}$ ist eine Teilfolge von $(A_n)_{n\in \N}$, also gilt auch $\P(\limsup\limits_{n \to \infty} A_n) = 1$.
+    Die Menge $\limsup\limits_{n \to \infty} A_n$ enthält gerade die $\omega \in \Omega$, die in unendlich vielen $A_n$ enthalten sind, also genau die Zeichenfolgen, in denen der Affe unendlich oft Goethes Faust tippt. Eines dieser Ereignisse tritt mit Wahrscheinlichkeit 1 ein.
+\end{aufgabe}
+
+\end{document}

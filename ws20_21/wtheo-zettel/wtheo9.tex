@@ -1,0 +1,299 @@
+\documentclass[uebung]{lecture}
+
+\title{Wtheo 0: Übungsblatt 9}
+\author{Josua Kugler, Christian Merten}
+\newcommand{\E}{\mathbb{E}}
+\renewcommand{\P}{\mathbb{P}}
+\usepackage[]{mathrsfs}
+\newcommand{\cov}{\mathbb{C}\text{ov}}
+\newcommand{\var}{\mathbb{V}\text{ar}}
+\newcommand{\tageq}{\stepcounter{equation}\tag{\theequation}}
+\newcommand{\indep}{\perp \!\!\! \perp}
+
+\begin{document}
+
+\punkte[33]
+
+\begin{aufgabe}
+    \begin{enumerate}[(a)]
+        \item Anwenden der Formel der VL ergibt sofort für $x \in \R$:
+            \begin{salign*}
+                f^{X}(x) &= \int_{\R}^{} f^{X,Y}(x,y) \d{y} \\
+                &= \int_{\R}^{} \frac{1}{\pi} \mathbbm{1}_{\{(x,y) \in E\} } \d{y} \\
+                &= \mathbbm{1}_{\{|x| \le 1\}} \int_{-\sqrt{1-x^2} }^{\sqrt{1-x^2} } \frac{1}{\pi} \d{y}  \\
+                &= \frac{2}{\pi} \sqrt{1-x^2} \mathbbm{1}_{\{|x| \le 1\}}
+                \intertext{
+                Ganz analog folgt für $y \in \R$:}
+                f^{Y}(y) &= \frac{2}{\pi} \sqrt{1-y^2} \mathbbm{1}_{\{|y| \le 1\} }
+            .\end{salign*}
+        \item Anwenden der Formel der VL ergibt zunächst mit Anwendung des Transformationssatzes
+            \begin{salign*}
+                \E(X) &= \int_{\R}^{} x f^{X}(x) \d{x} \\
+                &= \frac{1}{\pi} \int_{-1}^{1} 2x \sqrt{1-x^2}  \d{x} \\
+                &= \frac{1}{\pi} \left[ \int_{-1}^{0} 2x \sqrt{1-x^2}  \d{x}
+                + \int_{0}^{1} 2x \sqrt{1-x^2}  \d{x} \right] \\
+                &\stackrel{z = 1-x^2}{=} \frac{1}{\pi} \left[ \int_{0}^{1} - \sqrt{z}  \d{z}
+                + \int_{1}^{0} - \sqrt{z}  \d{z} \right] \\
+                &= 0
+                \intertext{Unter erneuter Formelanwendung folgt}
+                \E(X^2) &= \int_{\R}^{} x^2 f^{X}(x) \d{x} \\
+                &= \frac{2}{\pi} \int_{-1}^{1} x^2 \sqrt{1-x^2}  \d{x} \\
+                &\stackrel{x = \sin(\varphi)}{=} \frac{2}{\pi} \int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}
+                \sin^2(\varphi) \cos^2(\varphi)\d{\varphi} \\
+                &= \frac{2}{\pi} \int_{-\frac{\pi}{2}}^{\frac{\pi}{2}} \frac{1}{4} \sin^2(2\varphi) \d{\varphi} \\
+                &\stackrel{\psi = 2 \varphi}{=}
+                \frac{1}{2\pi} \int_{-\pi}^{\pi} \sin^2(\psi) \frac{1}{2} \d{\psi} \\
+                &= \frac{1}{4 \pi} \int_{-\pi}^{\pi} \frac{1}{2}(\sin^2(\psi) + \cos^2(\psi)) \d{\psi} \\
+                &= \frac{1}{8 \pi} 2 \pi \\
+                &= \frac{1}{4}
+                \intertext{Damit folgt}
+                \var(X) &= \frac{1}{4}
+                \intertext{Ganz analog}
+                \var(Y) &= \frac{1}{4}
+                \intertext{Betrachte nun zunächst}
+                \int_{0}^{2\pi} \sin(\varphi) \cos(\varphi)\d{\varphi}
+                &\stackrel{\text{part. Integrat.}}{=} \underbrace{\sin^2\varphi \Big|_{0}^{2\pi}}_{= 0}
+                - \int_{0}^{2\pi} \sin\varphi \cos\varphi \d{\varphi} \\
+                \intertext{Damit folgt}
+                    \int_{0}^{2\pi} \sin\varphi \cos\varphi \d{\varphi} &= 0
+                    \tageq \label{eq:1}
+                \intertext{Es ist $\int_{\R^2}^{} \left|\frac{xy}{\pi} \right| \mathbbm{1}_{\{(x,y) \in E\}}
+                    \d{(x,y)} \le \frac{1}{\pi}\mathscr{L}^{2}(E) = 1 < \infty$,
+                    d.h. Fubini ist anwendbar. Damit folgt}
+                \E(XY) &= \int_{\R^2}^{} xy f^{X,Y}(x,y) \d{(x,y)} \\
+                &= \int_{\R}^{} \int_{\R}^{} \frac{xy}{\pi} \mathbbm{1}_{\{(x,y) \in E\} } \d{x}  \d{y} \\
+                &\stackrel{\text{Trafosatz}}{=}
+                \frac{1}{\pi}\int_{0}^{1}  \d{r} \int_{0}^{2\pi}  \d{\varphi} r^{3} \cos(\varphi) \sin(\varphi) \\
+                &= \frac{1}{4\pi} \int_{0}^{2\pi} \cos(\varphi) \sin(\varphi)\d{\varphi} \\
+                &\stackrel{\text{(\ref{eq:1})}}{=} 0
+                \intertext{Da $\E(X) = \E(Y) = 0$ folgt also}
+                \cov(X,Y) &= 0
+                \intertext{Und damit}
+                \rho(X,Y) &= 0
+            .\end{salign*}
+        \item Es gilt nach VL: $X \indep Y \iff f^{X,Y}(x,y) = f^{X}(x) f^{Y}(y)$ $\mathscr{L}$-f.ü. Nun
+            betrachte $A \coloneqq (-1,1)^2 \setminus E$. Dann ist
+            \[
+                \mathscr{L}^2(A) = \mathscr{L}^2(A) - \mathscr{L}^2(E) = 2^2 - \pi = 4 - \pi > 0
+            .\] Also ist $A$ keine $\mathscr{L}$-Nullmenge. Jedoch gilt $\forall (x,y) \in A$:
+            \[
+                f^{X,Y}(x,y) = 0 \neq  \frac{4}{\pi^2} \underbrace{\sqrt{1-x^2}}_{> 0} \underbrace{\sqrt{1-y^2} }_{> 0}
+            .\] Also folgt $X$ und $Y$ nicht unabhängig.
+    \end{enumerate}
+\end{aufgabe}
+
+\begin{aufgabe}
+    \begin{enumerate}[(a)]
+        \item Es gilt
+        \begin{salign*}
+            \mathbb{F}^{Z_p}(x) &= \P^{Z_p}((-\infty, x])\\
+            &= \P^{(-1)^{V_p}\cdot Y}((-\infty, x] \cap \{V_p = 0\}) + \P^{(-1)^{V_p}\cdot Y}((-\infty, x] \cap \{V_p = 1\})\\
+            &= \P^Y((-\infty, x] \cap \{V_p = 0\}) + \P^{-Y}((-\infty, x] \cap \{V_p = 1\})\\
+            &\stackrel{Y \indep V_p}{=} \P(\{Y \leq x\}) \cdot \P(\{V_p = 0\}) + \P(\{-Y \leq x\}) \cdot \P(\{V_p = 1\})\\
+            &\stackrel{\text{Symmetrie } N_{(0,1)}}{=} \P(\{Y \leq x\}) \cdot \P(\{V_p = 0\}) + \P(\{Y \leq x\}) \cdot \P(\{V_p = 1\})\\
+            &= \P(\{Y \leq x\}) \cdot \P(\{V_p = 0\}\cup \{V_p = 1\})\\
+            &= \P(\{Y \leq x\})\\
+            &= \mathbb{F}^{Y}(x)\\
+        \end{salign*}
+        Daher gilt $Z_p \sim Y \sim N_{(0,1)}$.
+        \item Es gilt
+        \begin{salign*}
+            \P(\{Y < -1, Z_p < -1\}) &= \P(\{Y < -1\} \cap \{V_p = 0\})
+            &\stackrel{Y \indep V_p}{=} \P(\{Y < -1\}) \cdot \P(\{V_p = 0\})\\
+            &= (1-p) \cdot \P(\{Y < -1\})
+        \end{salign*} und völlig analog
+        \begin{salign*}
+            \P(\{Y < -1, Z_p > 1\}) &= \P(\{Y < -1\} \cap \{V_p = 1\})
+            &\stackrel{Y \indep V_p}{=} \P(\{Y < -1\}) \cdot \P(\{V_p = 1\})\\
+            &= p \cdot \P(\{Y < -1\})
+        \end{salign*}
+        Angenommen, $Y \indep Z_p$. Dann gilt
+        \begin{salign*}
+            \P(\{Y < -1, Z_p < -1\}) &= \P(\{Y< -1\})\P(\{Z_p < -1\})\\
+            (1-p) \cdot \P(\{Y < -1\}) &\stackrel{\text{(a)}}{=} \P(\{Y < -1\})^2\\
+            (1-p) &= \P(\{Y < -1\})
+        \end{salign*} und völlig analog
+        \begin{salign*}
+            \P(\{Y < -1, Z_p > 1\}) &= \P(\{Y< -1\})\P(\{Z_p > 1\})\\
+            p \cdot \P(\{Y < -1\}) &\stackrel{\text{(a), Symmetrie } N_{(0,1)}}{=} \P(\{Y < -1\})^2\\
+            p &= \P(\{Y < -1\})
+        \end{salign*} 
+        Nun führen wir eine Fallunterscheidung durch. 
+        Für $p = \frac{1}{2}$ folgt $\P(\{Y < -1\}) < \P(\{Y < 0\}) \leq \frac{1}{2}$, Widerspruch zu $p = \P(\{Y < -1\})$.
+        Für $p \neq \frac{1}{2}$ erhalten wir aus $p = \P(\{Y < -1\}) = (1-p)$ ebenfalls einen Widerspruch.
+        Daher ist $Y \not \indep Z_p$.
+        \item Es gilt
+        \begin{salign*}
+            \E(YZ_p) &= \int_\R \int_\R yz \mathbbm{f}^{Y, Z_p}(y, z) \d{y}\d{z}\\
+            &\stackrel{Z_p = (-1)^{V_p}Y}{=} \int_{0,1} \int_\R y^2 (-1)^v \mathbbm{f}^{Y, V_p}(y, v) \d{y}\d{v}\\
+            &\stackrel{Y \indep V_p}{=} (1-p) \cdot \int_\R y^2 \mathbbm{f}^Y(y) \d{y} + p\cdot \int_\R -y^2 \mathbbm{f}^Y(y) \d{y}\\
+            &= (1 - 2p) \int_\R y^2 \mathbbm{f}^Y(y) \d{y}
+        \end{salign*}
+        Außerdem gilt
+        \begin{salign*}
+            \E(y)\E(Z_p) &= \int_\R y\mathbbm{f}^Y(y) \d{y} \int_\R z\mathbbm{f}^{Z_p}(z) \d{z}\\
+            &\stackrel{Z_p = (-1)^{V_p}Y}{=} \int_\R y\mathbbm{f}^Y(y) \d{y} \cdot \int_{0,1} \int_\R y (-1)^v \mathbbm{f}^{Y, V_p}(y, v) \d{y}\d{v}\\
+            &\stackrel{Y \indep V_p}{=} (1-p) \cdot \left(\int_\R y \mathbbm{f}^Y(y) \d{y}\right)^2 - p\cdot \left(\int_\R y^2 \mathbbm{f}^Y(y) \d{y}\right)^2\\
+            &= (1 - 2p) \left(\int_\R y \mathbbm{f}^Y(y) \d{y}\right)^2
+        \end{salign*}
+        Für $p = \frac{1}{2}$ erhalten wir daher
+        \begin{align*}
+            \cov(Y, Z_p) = \E(YZ_p) - \E(Y)\E(Z_p) = 0 - 0 = 0.
+        \end{align*}
+    \end{enumerate}
+\end{aufgabe}
+
+\begin{aufgabe}
+    \begin{enumerate}[(a)]
+        \item Rechnen ergibt für $z \in \R$
+            \begin{salign*}
+                \mathbb{F}^{M_1}(z) &= \mathbb{P}\left( \{M_1 \le z\}  \right) \\
+                &= \mathbb{P}\left( \left\{ \min_{i \in \{1, \ldots, n\} }{X_i} \le z\right\} \right) \\
+                &= 1 - \mathbb{P}\left( \bigcap_{i=1}^{n} \{X_i > z\}  \right) \\
+                &\stackrel{\text{unabh.}}{=}
+                1 - \prod_{i=1}^{n} \mathbb{P}(\{X_i > z\}) \\
+                &\stackrel{\text{idv}}{=} 1 - (1 - \mathbb{F}^{X}(z))^{n} \\
+                \mathbb{F}^{M_2}(z) &= \mathbb{P}\left( \{M_2 \le z\}  \right) \\
+                &= \mathbb{P}\left( \prod_{i=1}^{n} \{X_i \le z\}   \right) \\
+                &\stackrel{\text{unabh.}}{=} \prod_{i=1}^{n} \mathbb{P}(\{X_i \le z\}) \\
+                &\stackrel{\text{idv}}{=} \mathbb{F}^{X}(z)^{n}
+            .\end{salign*}
+        \item Für $X_1 \sim \text{Exp}_{\lambda}$ ist $\mathbb{F}^{X_1} = (1 - \exp(- \lambda z))\mathbbm{1}_{\R^{+}}$. Damit folgt
+            \begin{salign*}
+                \mathbb{F}^{M_1}(z) &= 1 - (1 - \mathbb{F}_{\text{Exp}_{\lambda}}(z))^{n} \\
+                &= 1 - \left[ 1 - \left( 1 - \exp(-\lambda z) \right) \mathbbm{1}_{\R^{+}(z)} \right]^{n} \\
+                &= 1 - \left[ 1 - \mathbbm{1}_{\R^{+}}(z) + \exp(- \lambda z) \mathbbm{1}_{\R^{+}}(z)\right]^{n}\\
+                &= 1 - \begin{cases}
+                    \exp(- \lambda n z) & z \in \R^{+} \\
+                    1 & z \not\in \R^{+}
+                \end{cases}\\
+                &= (1 - \exp(- \lambda n z)) \mathbbm{1}_{\R^{+}} \\
+                &= \mathbb{F}_{\text{Exp}_{n\lambda}}
+            .\end{salign*}
+            Da die Verteilungsfunktion das W-Maß eindeutig festlegt, folgt
+            $M_1 \sim \text{Exp}_{n\lambda}$.
+        \item Für $X_1 \sim U_{[0, \theta]}$ ist die Dichte $f(x) = \frac{1}{\theta} \mathbbm{1}_{[0, \theta]}$
+            gegeben. Damit folgt
+            \begin{salign*}
+                \E_{\theta}(X_1) &= \int_{\R}^{} \frac{x}{\theta} \mathbbm{1}_{[0, \theta]} \d{x} \\
+                &= \frac{1}{\theta} \int_{0}^{\theta} x \d{x} \\
+                &= \frac{\theta}{2} \\
+                \E_{\theta}(X_1^2) &= \int_{\R}^{} \frac{x^2}{\theta} \mathbbm{1}_{[0, \theta]} \d{x} \\
+                &= \frac{1}{\theta} \int_{0}^{\theta} x^2 \d{x} \\
+                &= \frac{\theta^2}{3} \\
+                \var_{\theta}(X_1) &= \E_{\theta}(X_1^2) - \E_{\theta}(X_1)^2 \\
+                &= \frac{\theta^2}{3} - \frac{\theta^2}{4} \\
+                &= \frac{\theta^2}{12}
+            .\end{salign*}
+            Es gilt $f^{M_{2}} = (\mathbb{F}^{M_{2}})'$. Damit folgt für $z \in \R$:
+            \begin{salign*}
+                f^{M_2}(z) &= (\mathbb{F}^{M_2})'(z) \\
+                &= (\mathbb{F}^{X}(z)^{n})' \\
+                &= n (\mathbb{F}^{X}(z)^{n-1}) f^{X}(z) \\
+                &= n \left( \frac{(z \land \theta) \lor \theta}{\theta} \right)^{n-1}
+                \frac{1}{\theta} \mathbbm{1}_{[0, \theta]}(z) \\
+                &= \frac{n}{\theta^{n}} z^{n-1} \mathbbm{1}_{[0, \theta]}(z)
+                \intertext{Damit folgt}
+                \E_{\theta}(M_2) &= \int_{\R}^{} x \frac{n x^{n-1}}{\theta ^{n}} \mathbbm{1}_{[0, \theta]}
+                \d{x}  \\
+                &= \frac{n}{\theta^{n}} \int_{0}^{\theta} x^{n} \d{x} \\
+                &= \frac{n}{n+1} \theta
+            .\end{salign*}
+        \item Rechnen ergibt
+            \begin{salign*}
+                \E_{\theta}(\overline{X}_n) &= \E_{\theta}\left( \frac{1}{n} \sum_{k=1}^{n} X_k \right) \\
+                &\stackrel{\text{lin.}}{=} \frac{1}{n} \sum_{k=1}^{n} \E_{\theta}(X_k) \\
+                &\stackrel{\text{idv}}{=} \E_{\theta}(X_1) \\
+                &= \frac{\theta}{2}
+                \intertext{Damit folgt}
+                \text{Bias}_{\theta}(\hat{\theta}_1) &= \E_{\theta}(\hat{\theta}_1 - \theta) \\
+                &= 2 \E_{\theta}(\overline{X}_n) - \theta \\
+                &= 2 \frac{\theta}{2} - \theta \\
+                &= 0 \\
+                \text{Bias}_{\theta}(\hat{\theta}_2)
+                &= \E_{\theta}(\hat{\theta}_2 - \theta) \\
+                &= \E_{\theta}(M_2) - \theta \\
+                &= \frac{n}{n+1} \theta - \theta \\
+                &= - \frac{\theta}{n+1}
+                \intertext{Nun rechne}
+                \E_{\theta}(M_2^2) &= \int_{\R}^{} x^2 \frac{n x^{n-1}}{\theta^{n}} \mathbbm{1}_{[0, \theta]}(x) \d{x} \\
+                &= \frac{n}{\theta ^{n}} \int_{0}^{\theta} x^{n+1} \d{x} \\
+                &= \frac{n}{n+2} \theta^2 \tageq \label{eq:2}
+                \intertext{
+                Es ist offensichtlich $\hat{\theta}_3$ nun erwartungstreu. Damit folgt für $n > 1$}
+                \var_{\theta}(\hat{\theta}_1) &= 4 \var_{\theta}(\overline{X}_n) \\
+                &\stackrel{\text{unabh.}}{=} \frac{4}{n^2} \sum_{k=1}^{n} \var_{\theta}(X_k) \\
+                &\stackrel{\text{idv}}{=} \frac{4}{n} \var_{\theta}(X_1) \\
+                &= \frac{\theta^2}{3n} \\
+                &> \frac{\theta^2}{n(n+2)} \\
+                &= \left( \frac{n+1}{n} \right)^2 \frac{n}{n+2} \theta^2 - \theta^2 \\
+                &\stackrel{\text{(\ref{eq:2})}}{=} \left( \frac{n+1}{n} \right)^2 \E_{\theta}(M_2^2) - \E_{\theta}\left( \frac{n+1}{n} M_2 \right)^2 \\
+                &= \E_{\theta} (\hat{\theta}_3^2) - \E_{\theta}(\hat{\theta}_3)^2 \\
+                &= \var_{\theta}(\hat{\theta}_3)
+                \intertext{Schlussendlich ergibt sich}
+                \text{MSE}_{\theta}(\hat{\theta}_1) &= \E_{\theta}(|\hat{\theta}_1 - \theta|^2) \\
+                &= 4 \E_{\theta}(\overline{X}_n^2) - \theta^2 \\
+                &= 4 \var_{\theta}(\overline{X}_n) + 4 \E_{\theta}(\overline{X}_n)^2 - \theta^2 \\
+                &\stackrel{\text{iid}}{=} \frac{4}{n} \var_{\theta}(X_1) \\
+                &= \frac{\theta^2}{3n} \\
+                \text{MSE}_{\theta}(\hat{\theta}_2) &= \E_{\theta}(\hat{\theta}_2^2) - 2 \theta \E_{\theta}(M_2)
+                + \theta^2 \\
+                &= \frac{n}{n+2} \theta^2 - 2 \frac{n}{n+1} \theta^2 
+                + \theta^2 \\
+                &= \frac{2 \theta^2}{(n+2)(n+1)} \\
+                \text{MSE}_{\theta}(\hat{\theta}_3) &= \E_{\theta}(\hat{\theta}_3^2) - 2 \theta \E_{\theta}
+                (\hat{\theta}_3) + \theta^2 \\
+                &= \left( \frac{n+1}{n} \right)^2 \frac{n}{n+2} \theta^2 - \theta^2 \\
+                &= \frac{\theta^2}{n(n+2)}
+            .\end{salign*}
+    \end{enumerate}
+\end{aufgabe}
+
+\begin{aufgabe}
+    \begin{enumerate}[(a)]
+        \item Wir wählen die Hypothesen $H_0 \colon \mu \leq \mu_0$ und $H_1 \colon \mu > \mu_0$. 
+        Der Student-$t$-Test ist dann gegeben durch
+        \[
+            \phi_c^r = \mathbbm{1}_{\sqrt{n}(\overline{X_n} - \mu_0) \geq c \hat{S}_n}  
+        \]
+        mit $ c= t_{(n-1), (1-\alpha)}$.
+        Wir berechnen also zunächst
+        \[
+            \overline{X_n} = \frac{1}{n}\sum_{i = 1}^{n} X_i = 103.64,
+        \]
+        \[
+            \hat{S}_n = \sqrt{\frac{1}{n-1} \sum_{i = 1}^{n} (X_i - \overline{X}_n)^2} \approx 5.22
+        \]
+        und
+        \[
+            c = t_{(n-1, 1-\alpha)} = t_{9, 0.95} = 1.833.  
+        \]
+        Daraus folgt
+        \[
+            \phi_c^r = \mathbbm{1}_{\sqrt{10}(103.64-100) \geq 1.833 \cdot 5.22} = \mathbbm{1}_{11.51 \geq 9.57} = 1,
+        \]
+        wir lehnen also ab.
+        \item Wir wollen als Partition in richtige und falsche Parameter $\mathcal{R}_\mu = \{\mu\}$ und $\mathcal{F}_\mu = \R\setminus\{\mu\}$.
+        Dann erhalten wir als assoziierte Familie von Partitionen und Null- und Alternativhypothesen
+        $\mathscr H_\mu^0 = \{\mu\}$ und $\mathscr H_\mu^1 = \R \setminus \{\mu\}$.
+        Da der beidseitige Student-$t$-Test ein $\alpha$-Test der Nullhypothese $H_0\colon \mathscr H_\mu^0$ gegen die 
+        Alternative $H_1 \colon \mathscr H_\mu^1$ für jedes $\mu \in \R$ ist, muss die assoziierte Bereichsschätzfunktion
+        für $(\{\mathcal R_\mu, \mathcal F_\mu\})_{\mu \in \R}$ ein $(1-\alpha)$-Konfidenzbereich sein.
+        Die assoziierte Bereichsschätzfunktion zum beidseitigen Student-$t$-Test 
+        $\phi^b_{t_{(n-1), (1 - \alpha/2)}, \mu}(X_1, \dots X_n)$ ist gegeben durch
+        \begin{align*}
+            B(X_1, \dots, X_n) &= \{\mu \in \R: \phi^b_{t_{(n-1), (1 - \alpha/2)}, \mu}(X_1, \dots X_n) = 0\}\\
+            &= \{\mu \in \R: \sqrt{n}|\overline{X_n} - \mu| \leq t_{(n-1), (1-\alpha/2)} S\}\\
+            &= \{\mu \in \R: |\overline{X_n} - \mu| \leq \frac{S}{\sqrt{n}} t_{(n-1), (1-\alpha/2)}\}\\
+            &= \left[\overline{X_n} - \frac{S}{\sqrt{n}} t_{(n-1), (1-\alpha/2)}, \overline{X_n} + \frac{S}{\sqrt{n}} t_{(n-1), (1-\alpha/2)}\right]
+        \end{align*}
+        Das war zu zeigen.
+        \item Mithilfe unserer numerischen Resultate aus der (a) sowie der Aussage von Teilaufgabe (b) folgern wir, dass
+        \begin{align*}
+            [103.64 - \frac{5.22}{\sqrt{10}}t_{9, 0.975}, 103.64 + \frac{5.22}{\sqrt{10}}t_{9, 0.975}] &\subset [99.90, 107.38]
+        \end{align*}
+        ein 95\%-Konfidenzintervall ist.
+    \end{enumerate}
+\end{aufgabe}
+
+\end{document}

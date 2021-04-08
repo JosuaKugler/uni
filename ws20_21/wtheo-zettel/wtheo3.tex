@@ -1,0 +1,215 @@
+\documentclass[uebung]{lecture}
+
+\title{Wtheo 0: Übungsblatt 3}
+\author{Josua Kugler, Christian Merten}
+\usepackage[]{bbm}
+\usepackage[]{mathrsfs}
+
+\begin{document}
+
+\punkte[9]
+
+\begin{aufgabe}
+
+    \begin{enumerate}[(a)]
+        \item Beh.: $C_{\alpha, x_m} = \alpha x_m^{\alpha}$.
+            \begin{proof}
+                Es muss gelten
+                \begin{salign*}
+                    \int_{-\infty}^{\infty} \mathbbm{f}(x) \d x &= 1
+                    \intertext{Damit folgt}
+                    \int_{-\infty}^{\infty} C_{\alpha, x_m} x^{-(\alpha +1)} \mathbbm{1}_{\{x \ge x_m\} } \d x
+                    &= \int_{x_m}^{\infty} C_{\alpha,x_m} x^{-(\alpha + 1)} \d x \\
+                    &= C_{\alpha, x_m} \int_{x_m}^{\infty} x^{-(\alpha +1)} \d x \\
+                    &\stackrel{\alpha + 1 > 1}{=} - C_{\alpha, x_m} \frac{1}{\alpha} x^{-\alpha} \Big|_{x_m}^{\infty} \\
+                    &= - \frac{C_{\alpha,x_m}}{\alpha} \lim_{z \to \infty} \left[ z^{-\alpha} - x_m^{-\alpha} \right]  \\
+                    &\stackrel{\alpha > 0}{=} \frac{C_{\alpha, x_m}}{\alpha} x_m^{-\alpha} \\
+                    &\stackrel{!}{=} 1
+                    \intertext{Damit folgt dann}
+                    C_{\alpha,x_m} &= \alpha x_m^{\alpha}
+                .\end{salign*}
+            \end{proof}
+        \item Beh.: $\mathbbm{F}(x) = \left( 1 - \left( \frac{x_m}{x} \right)^{\alpha} \right) \mathbbm{1}_{\{x \ge x_m > 0\} }$
+            \begin{proof}
+                Falls $x < x_m$ ist $\mathbbm{f}(y) = 0$ $\forall y \le x$, also $\mathbb{F}(x) = 0$.
+                Sei also $x \ge x_m$. Dann folgt
+                \begin{salign*}
+                    \mathbb{F}(x) &= \int_{x_m}^{x} \alpha x_m^{\alpha} y^{-(\alpha + 1)} \d y  \\
+                    &= - x_m^{\alpha} y^{-\alpha} \Big|_{x_m}^{x} \\
+                    &= - x_m^{\alpha} \left[ x^{-\alpha} - x_m^{-\alpha} \right]  \\
+                    &= -x_m^{\alpha} x^{-\alpha} + x_m^{\alpha} x_m^{-\alpha} \\
+                    &= 1 - \left( \frac{x_m}{x} \right)^{\alpha}
+                    \intertext{Insgesamt folgt}
+                    \mathbb{F}(x) &= \left( 1 - \left( \frac{x_m}{x} \right)^{\alpha} \right) \mathbbm{1}_{\{x \ge x_m > 0\} }
+                .\end{salign*}
+            \end{proof}
+        \item Beh.: $\mathbb{P}([1,2]) = \frac{1}{2} = \mathbb{P}((2, \infty))$.
+            \begin{proof}
+                Mit $\alpha = x_m = 1$ folgt $\mathbb{F}(x) = \left( 1 - \frac{1}{x} \right) \mathbbm{1}_{\{x \le 1\} }$. Damit folgt
+                \begin{salign*}
+                    \mathbb{P}([1,2]) &= \mathbb{F}(2) - \mathbb{F}(1) = 1 - \frac{1}{2} - 1 + 1 = \frac{1}{2} \\
+                    \mathbb{P}((2, \infty)) &= 1 - \mathbb{P}((-\infty, 2]) = 1 - \mathbb{F}(2) = 1 - 1 +\frac{1}{2} = \frac{1}{2}
+                .\end{salign*}
+            \end{proof}
+    \end{enumerate}
+\end{aufgabe}
+
+\begin{aufgabe}
+    \begin{enumerate}[(a)]
+        \item Ein Neyman-Pearson-Test für dieses Testproblem ist gegeben durch die Funktion $\mathbbm{1}_{A_k}$ mit 
+        \begin{align*}
+            A_k &= \{x \colon \mathbbm{p}_{\mathrm{Poi}_{\lambda_1}} (x) \geq \mathbbm{p}_{\mathrm{Poi}_{\lambda_0}} (x)\}\\
+            &= \{x \colon e^{-\lambda_1} \frac{\lambda_1^x}{x!} \geq k e^{-\lambda_0} \frac{\lambda_0^x}{x!}\}\\
+            &= \{x \colon e^{\lambda_0 -\lambda_1} \frac{\lambda_1^x}{\lambda_0^x} \geq k\}
+        \end{align*}
+        Damit einer dieser Tests ein bester Test zum Niveau $\alpha \in (0,1)$ ist, muss $\mathbbm{P}_{\lambda_0}(A_k) = \alpha$ gelten.
+        \item Da $e^{\lambda_0 -\lambda_1} \frac{\lambda_1^x}{\lambda_0^x}$ für $\lambda_1 > \lambda_0$ und $x > 0$ 
+        stets streng monoton wachsend ist und $\mathbbm{P}_{\lambda_0}(A_k) = \alpha$ völlig unabhängig von $\lambda_1$ ist, 
+        muss jeder beste Test zum Niveau $\alpha$ auch ein gleichmäßig bester Test für $H_0$ gegen $H_1'$ sein.
+        \item Wählen wir $A = [9157, \infty)$ als Ablehnungsbereich, so erhalten wir 
+        \[
+            \mathbbm P_0 (A) = \sum_{k = 9157}^{\infty} \frac{\lambda_0^k}{k!} e^{-\lambda_0} \leq 0.05.
+        \]
+        Für ein beliebiges $\lambda_1$ existiert jetzt ein $k$ derart, dass wir diesen Ablehnungsbereich als Neyman-Pearson-Test schreiben können.
+        \[
+            \{x \colon e^{\lambda_0 -\lambda_1} \frac{\lambda_1^x}{\lambda_0^x} \geq k\} = \{9157,\dots\}.
+        \]
+    \end{enumerate}
+\end{aufgabe}
+
+\begin{aufgabe}
+    Zunächst ist zu bemerken, dass mit $\mathscr{E} := \{ (a, \infty]  \mid a \in \R\} $ nach VL
+    gilt $\sigma(\mathscr{E}) = \overline{\mathscr{B}}$. Damit ist
+    $f\colon \Omega \to \overline{\R}$ genau dann $(\mathscr{A}, \overline{\mathscr{B}})$ messbar,
+    wenn $f^{-1}(\mathscr{E}) \subseteq \mathscr{A}$.
+    \begin{enumerate}[(a)]
+        \item
+            \begin{enumerate}[(1)]
+                \item Sei $m \in \N$. Beh.: Folgende Abbildungen sind $(\mathscr{A}, \overline{\mathscr{B}})$
+                    messbar:
+                    \begin{enumerate}[(i)]
+                        \item $\sup_{n \ge m} X_n \colon \Omega \to \overline{\R}$
+                        \item $\inf_{n \ge m} X_n \colon \Omega \to \overline{\R}$
+                    \end{enumerate}
+                    \begin{proof}
+                        \begin{enumerate}[(i)]
+                            \item Sei $a \in \R$ bel. Für $x \in \R$ gilt dann
+                                \[
+                                \sup_{n \ge m} X^{n}(x) > a \iff \exists n \ge m\colon X^{n}(x) > a
+                                .\]
+                                Damit folgt da $X^{n}$ $(\mathscr{A}, \overline{\mathscr{B}})$-messbar
+                                und $\mathscr{A}$ $\sigma$-Algebra:
+                                \begin{salign*}
+                                    (\sup_{n \ge m} X_n)^{-1}((a, \infty]))
+                                    &= \{ x \in \Omega  \mid \sup_{n \ge m} X^{n}(x) > a\} \\
+                                    &= \{ x \in \Omega  \mid \exists n \ge m\colon X^{n} > a\} \\
+                                    &= \bigcup_{n \ge m} \{ x \in \Omega  \mid X^{n}(x) > a\} \\
+                                    &= \bigcup_{n \ge m} \underbrace{(X^{n})^{-1}((a, \infty])}_{\in \mathscr{A}}
+                                    \in \mathscr{A}
+                                .\end{salign*}
+                                Also $\sup_{n \ge m} X^{n}$ $(\mathscr{A}, \overline{\mathscr{B}})$-messbar.
+                            \item Sei $a \in \R$. Für $x \in \R$ gilt dann
+                                \[
+                                    \inf_{n \ge m} X^{n}(x) < a \iff \exists n \ge m\colon X^{n}(x) < a
+                                .\]
+                                Damit folgt da $X^{n}$ $(\mathscr{A}, \overline{\mathscr{B}})$-messbar
+                                und $\mathscr{A}$ $\sigma$-Algebra:
+                                \begin{salign*}
+                                    (\inf_{n \ge m} X_n)^{-1}([-\infty, a))
+                                    &= \{ x \in \Omega  \mid \inf_{n \ge m} X^{n}(x) < a\} \\
+                                    &= \{ x \in \Omega  \mid \exists n \ge m\colon X^{n} < a\} \\
+                                    &= \bigcup_{n \ge m} \{ x \in \Omega  \mid X^{n}(x) < a\} \\
+                                    &= \bigcup_{n \ge m} \underbrace{(X^{n})^{-1}([-\infty, a))}_{\in \mathscr{A}}
+                                    \in \mathscr{A}
+                                .\end{salign*}
+                                Da auch $\sigma(\{ [-\infty, a)  \mid a \in \R \}) = \overline{\mathscr{B}}$
+                                folgt 
+                                also $\inf_{n \ge m} X^{n}$ $(\mathscr{A}, \overline{\mathscr{B}})$-messbar.
+                        \end{enumerate}
+                    \end{proof}
+                \item Beh.: $\limsup_{n \to \infty} X^{n}$ und $\liminf_{n \to \infty} X^{n}$ sind
+                    $(\mathscr{A}, \overline{\mathscr{B}})$-messbar.
+
+                    \begin{proof}
+                    Definiere $f_m \coloneqq \sup_{n \ge m} X_n$. Dann ist $f_m$ messbar nach (1)(i)
+                    und
+                    \[
+                    \limsup_{n \to \infty} X_n = \inf_{m \ge 1} \sup_{n \ge m} X_n = \inf_{m \ge 1} f_m
+                    \] $(\mathscr{A}, \overline{\mathscr{B}})$-messbar nach (1)(ii).
+
+                    Definiere nun $h_m \coloneqq \inf_{n \ge m} X_n$. $h_m$ messbar nach (1) (ii)
+                    $\forall m \in \N$. Dann ist auch
+                    \[
+                        \liminf_{n \to \infty} X_n = \sup_{m \ge 1} \inf_{n \ge m} X_n = \sup_{m \ge 1} h_m
+                    \] $(\mathscr{A}, \overline{\mathscr{B}})$-messbar nach (1)(i).
+                    \end{proof}
+                \item Beh.: $\lim_{n \to \infty} X_n$ $(\mathscr{A}, \overline{\mathscr{B}})$-messbar.
+                    \begin{proof}
+                        Sei $X = \lim_{n \to \infty} X_n$. Dann ist
+                        $X = \liminf_{n \to \infty} X_n = \limsup_{n \to \infty} X_n$, also
+                        $X$ $(\mathscr{A}, \overline{\mathscr{B}})$-messbar nach (2).
+                    \end{proof}
+            \end{enumerate}
+        \item Beh.: $Y$ $(\mathscr{A}, \mathscr{B})$-messbar.
+            \begin{proof}
+                Beachte, dass es für $\mathscr{B}$ genügt, die offenen Intervalle
+                $(a, \infty)$ für $a \in \R$ zu betrachten.
+
+                Sei $a \in \R$ bel.
+                \begin{itemize}
+                    \item Falls $a \le 0$, dann ist $0, 1 \in (a, \infty)$, also 
+                        $Y^{-1}((a, \infty)) = \Omega \in \mathscr{A}$.
+                    \item Falls $0 < a < 1$: Dann ist $1 \in (a, \infty)$ und $0 \not\in (a, \infty)$. Damit
+                        folgt
+                        \begin{salign*}
+                            Y^{-1}((a, \infty)) &= \{ \omega \in \Omega  \mid X_1(\omega) > X_2(\omega) \} \\
+                                                &= \{ \omega \in \Omega  \mid X_1(\omega) - X_2(\omega) > 0\} \\
+                                                &= \{ \omega \in \Omega  \mid (X_1 - X_2)(\omega) \in (0, \infty]\} \\
+                                                &= (X_1 - X_2)^{-1}((0, \infty])
+                        .\end{salign*}
+                        Da $X_1, X_2$ $(\mathscr{A}, \overline{\mathscr{B}})$-messbar, ist
+                        nach VL auch $X_1 - X_2$ $(\mathscr{A}, \overline{\mathscr{B}})$ messbar.
+                        Da weiter $(0, \infty] \in \overline{\mathscr{B}}$, folgt also
+                        $(X_1 - X_2)^{-1}((0, \infty]) \in \mathscr{A}$.
+                    \item Falls $a \ge 1$, dann ist $0, 1 \not\in (a, \infty)$, also
+                        $Y^{-1}((a, \infty)) = \infty \in \mathscr{A}$.
+                \end{itemize}
+            \end{proof}
+    \end{enumerate}
+\end{aufgabe}
+
+\begin{aufgabe}
+    \begin{enumerate}[(a)]
+        \item Sei $[a,b]$ ein Intervall in $\mathscr B(\R)$. 
+        Sei dann $A \coloneqq f^{-1}([a,n])$ und $\alpha \in U_\epsilon(\inf A) \cap A$ sowie $\beta \in U_\epsilon(\sup A) \cap A$.
+        Für beliebiges $\alpha \le x \le \beta$ folgt aufgrund der Monotonie $a \leq f(\alpha) \le f(x) \le f(\beta) \le b$, 
+        also $f(x) \in [a,b]$ und damit $x\in A$.
+        Also muss $A$ ein Intervall sein und damit wieder in $\mathscr B(\R)$ liegen.
+        Da die Menge aller Intervalle $[a,b]$ bereits ein Erzeuger von $\mathscr B(\R)$ ist, folgt daraus bereits die Messbarkeit.
+        \item Da $g(s,x)$ Riemann-integrierbar in $x$ ist, konvergiert die Folge 
+        \[
+            S_{Z_n}(s) = \sum_{k = 1}^{n} g(s, x^n_k)(x^n_k - x^n_{k-1}) \xrightarrow{n \to \infty} \int_0^1g(s,x) \d x,
+        \]
+        wobei $Z_n = (x^n_1, \dots, x^n_n), x^j_i \in \R \forall i, j$ eine Partition sei, sodass 
+        $\max_{i\in [2,n]\cap \N} |x^n_i - x^n_{i-1}| \xrightarrow{n \to \infty} 0$ gilt.
+        Wegen $g(s,x^n_k)$ stetig $\forall n, k\in\N$ muss auch $S_{Z_n}$ stetig und damit $(\mathscr B, \mathscr B)$-messbar sein.
+        Nach Aufgabe 11 ist damit $\lim\limits_{n \to \infty} S_{Z_n}$ $(\mathscr B, \mathscr B)$-messbar.
+        \item Wähle ein $A \in 2^\R$ sodass $A \notin \mathscr B(\R)$ und 
+        \[
+            \kappa\colon x \mapsto \begin{cases}
+            x - \lfloor x\rfloor &x \in A\\
+            x + 1 &x \in [0,1)\\
+            x &\text{sonst}
+        \end{cases}
+        \]
+        Dann gilt $\forall c \in [0,1)\colon\kappa ^{-1}(c) = \{c, c+1, c-1,\dots\} \cap A$, 
+        insbesondere ist $\kappa^{-1}(c)$ abzählbar.
+        Für $x \in [1,2)$ ist $\kappa^{-1}(c) \subset \{c, c-1\}$.
+        Für $x \in A \cap [0,2)^c$ ist $\kappa^{-1}(c)$ einfach die leere Menge.
+        Für $x\in A^c \cap [0,2)^c$ ist $\kappa^{-1}(c) = \{c\}$. 
+        Damit liegt $\kappa^{-1}(c)$ stets in $\mathscr B(\R)$ und die Bedingung an $\kappa$ ist erfüllt. 
+        Dennoch ist $\kappa^{-1}([0,1)) = A$ und $A \notin \mathscr B(\R)$.
+    \end{enumerate}
+\end{aufgabe}
+
+\end{document}
