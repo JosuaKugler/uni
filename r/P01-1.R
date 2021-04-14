@@ -1,3 +1,5 @@
+# Christian Merten, Josua Kugler
+
 x <- c(1.3, .5, 42, -8e-5)
 x[1:4] <- x[4:1]
 x[x < 1] <- -2

@@ -1,3 +1,5 @@
+# Christian Merten, Josua Kugler
+
 eucl_dist <- function(x, y) {
   A <- length(x); B <- length(y); 
   if (A == B) {

@@ -1,3 +1,5 @@
+# Christian Merten, Josua Kugler
+
 # create data --------------------------------------------------------
 beta <- c(1, 2)
 n <- 20
