@@ -1,0 +1,102 @@
+\documentclass{article}
+\usepackage{josuamathheader}
+
+\begin{document}
+    \section*{Aufgabe 2}
+    \begin{enumerate}[(a)]
+        \item Es muss gelten
+        \[
+                \begin{pmatrix}
+                    a & b\\c & d
+                \end{pmatrix} = \begin{pmatrix}
+                    \overline{a} & \overline{c}\\ \overline{b} & \overline{d}
+                \end{pmatrix}
+        \]
+        Daraus erhalten wir $a = \overline{a} \implies a \in \R$ und analog $d\in \R$. 
+        Desweiteren muss gelten $c = \overline{b}$. Diese Bedingungen sind offensichtlich notwendig, wegen 
+        \[
+                \begin{pmatrix}
+                    a & b\\\overline{b} & d
+                \end{pmatrix} = \begin{pmatrix}
+                    \overline{a} = a & \overline{\overline{b}} = b\\ \overline{b} & \overline{d} = d
+                \end{pmatrix}
+        \] aber auch hinreichend.
+        \item Für $M =  \begin{pmatrix}
+            a  & b\\ \overline{b} & d
+        \end{pmatrix}$ gilt
+        \begin{align*}
+            \det \begin{pmatrix}
+                a - \lambda & b\\ \overline{b} & d - \lambda 
+            \end{pmatrix} &= (a-\lambda)(d-\lambda) - b\overline{b}\\
+            &= \lambda^2 - (a+d)\lambda + ad - b\overline{b}\\
+            &= \lambda^2 - (\operatorname{Sp} M) \lambda + \det M
+        \end{align*}
+        Daraus folgt via $p-q$-Formel für die Nullstellen
+        \[
+            \lambda_{1/2} = \frac{\operatorname{Sp} M}{2} \pm \sqrt{\left(\frac{\operatorname{Sp} M}{2}\right)^2 - \det M}  
+        \]
+        Diese sind genau dann reell, wenn die Diskriminante nichtnegativ ist,
+        \begin{align*}
+            \left(\frac{\operatorname{Sp} M}{2}\right)^2 - \det M &\geq 0\\
+            (\operatorname{Sp} M)^2 &\geq 4 \det M\\
+            a^2 + d^2 + 2ad &\geq 4 (ad - b\overline{b})\\
+            a^2 + d^2 - 2ad &\geq -4 |b|^2\\
+            (a- d)^2 + 4 |b|^2 &\geq 0.
+        \end{align*}
+        Die letzte Ungleichung ist offensichtlich wahr
+        \item \begin{enumerate}[i.]
+            \item Es gilt
+            \[
+                \sigma_1^\dagger = \begin{pmatrix}
+                    0 & \overline{1} \\ \overline{1} & 0 
+                \end{pmatrix} = \sigma_1,\qquad \sigma_2^\dagger = \begin{pmatrix}
+                    0 & \overline{i}\\ \overline{-i} & 0 
+                \end{pmatrix} = \sigma_2,\qquad \sigma_3^\dagger = \begin{pmatrix}
+                    \overline{1} & 0\\0&\overline{-1}
+                \end{pmatrix} = \sigma_3.
+            \]
+            \item Nachrechnen
+            \item Wegen i. und ii. gilt $\sigma_i^\dagger \sigma_i = \sigma_i^2 = I$, die Pauli-Matrizen sind also unitär. Allerdings gilt $\det \sigma_1 = -1, \det \sigma_2 = -i(-i) = -1, \det \sigma_3 = -1$ und damit $\det \sigma_i \neq 1 \implies \sigma_i \notin \operatorname{SU}(2)$.
+            \item Für $i = j$ folgern wir aus ii. sofort $\sigma_i\sigma_j = I$, wegen $\epsilon_{ijk} = 0$ folgt daraus die Behauptung für $i = j$. Für $i \neq j$ ist $\delta_{ij} = 0$ und wir rechnen nach:
+            \begin{align*}
+                \sigma_1 \sigma_2 &= \begin{pmatrix}
+                    i & 0\\
+                    0 & -i
+                \end{pmatrix} = i\sigma_3\\
+                \sigma_2 \sigma_3 &= \begin{pmatrix}
+                    0 & i\\
+                    i & 0
+                \end{pmatrix} = i \sigma_1\\
+                \sigma_3\sigma_1 &= \begin{pmatrix}
+                    0 & 1\\
+                    -1 & 0
+                \end{pmatrix} = i \sigma_2
+            \end{align*}
+            Allgemein gilt $\sigma_i \sigma_j = \sigma_i^\dagger \sigma_j^\dagger = (\sigma_j\sigma_i)^\dagger = (i\sigma_k)^\dagger = - i \sigma_k$.
+            Für die ungeraden Permutationen folgt also aus obiger Rechnung $\sigma_2\sigma_1 = -i\sigma_3, \sigma_3\sigma_2 = -i\sigma_1, \sigma_1 \sigma_3 = -i\sigma_2$.
+
+            Damit ist die Relation bewiesen.
+        \end{enumerate} 
+        \item Jede hermitesche $2\times 2$-Matrix hat nach Aufgabe a die Form
+        \[
+            \begin{pmatrix}
+                a & b + ic\\
+                b - ic & d
+            \end{pmatrix} 
+        \] mit $a,b,c,d \in \R$.
+        Der $\R$-Vektorraum der hermiteschen $2\times 2$-Matrizen besitzt somit die Dimension 4. Durch
+        \[
+            \begin{pmatrix}
+                a & b + ic\\
+                b - ic & d
+            \end{pmatrix} = \frac{a+d}{2}\sigma_0  + b \sigma_1 - c \sigma_2 +  \frac{a-d}{2}\sigma_3 
+        \]
+        ist eine Darstellung in der Form $\sum_{i = 0}^{3} a_i \sigma_i$ gegeben. Die $\sigma_i$ bilden also eine Basis.
+
+        Es gilt unter Anwendung von i.-iii.
+        \[
+            \langle \sigma_i, \sigma_j \rangle = \operatorname{Sp}(\sigma_i^\dagger \sigma_j) = \operatorname{Sp}(\sigma_i \sigma_j) = \operatorname{Sp}(\delta_{ij}\sigma_0 + i \epsilon_{ijk} \sigma_k) = \delta_{ij} \cdot 2,
+        \]
+        die Basis ist also orthogonal.
+    \end{enumerate}
+\end{document}
