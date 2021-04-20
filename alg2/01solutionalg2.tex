@@ -1,0 +1,58 @@
+\documentclass{article}
+
+\usepackage{josuamathheader}
+\newcommand{\ann}{\operatorname{Ann}}
+
+\begin{document}
+    \section*{Aufgabe 2}
+    \begin{enumerate}[(a)]
+        \item Sei $x \in \ann(N + P)$. Dann gilt $x \cdot (n + p) = 0 \forall n \in N, p \in P$. Für $p = 0$ erhalten wir daraus $xn = 0 \forall n \in N$, also $x \in \ann(N)$. Analog folgt $x \in \ann(P)$. Insgesamt folgt $x \in \ann(P) \cap \ann(N)$.
+        
+        Sei andererseits $x \in \ann(P) \cap \ann(N)$. Dann gilt $x(n+p) = xn + xp = 0 \forall n\in N, p \in P$, also $x \in \ann(N+P)$.
+        \item 
+        %Sei $x \in (N\colon P)$. Dann gilt $xp \in N \forall p \in P$. Insbesondere ist auch $x(n+p) \in N \forall n \in N, p \in P$, also $x \overline{(n + p)} = \overline{0} \in (N + P)/N$ und damit $x \in \ann((N + P)/N)$.
+        Sei $x \in \ann((N + P)/N)$. Das ist äquivalent zu $\forall n \in N, p \in P:x (n+p) \in N$. Da $xn \in N$ sowieso in $N$ liegt, ist dies äquivalent zu $\forall p \in P: xp \in N$, also $p \in (N:P)$.
+    \end{enumerate}
+    \section*{Aufgabe 4}
+    \begin{enumerate}[(a)]
+        \item Das Nullelement ist gegeben durch $(0, \dots, 0)$ und das Einselement durch $(1, \dots, 1)$. $(A, 0_A,+_A)$ erbt die Eigenschaften der abelschen Gruppen $(A_i, 0, +)$ und wird damit zur abelschen Gruppe. Assoziativität und Distributivität werden ebenfalls komponentenweise vererbt.
+        \item Es gilt $\pi_i(0_A) = 0$, $\pi_i(x + y) = \pi_i(x) + \pi_i(y)$ und $\pi_i(x \cdot y) = \pi_i(x) \cdot \pi_i(y)$ per Definition der komponentenweisen Addition/Multiplikation.
+        \item Seien $x, y\in \mathfrak{a}_1 \times \dots \times \mathfrak{a}_n$. Dann gilt $x + y = (x_1 + y_1, \dots, x_n + y_n) \in \mathfrak{a}_1 \times \dots \times \mathfrak{a}_n$. Sei außerdem $r \in A$. Dann gilt wegen $r_ix_i \in \mathfrak{a}_i$ auch $rx = (r_1x_1, \dots, r_nx_n) \in \mathfrak{a}_1 \times \dots \times \mathfrak{a}_n$.
+        \item Wir betrachten ein Ideal $I \subset A$. Sei dann $r_i \in A_i$ und $x_i \neq y_i \in \pi_i(I)$ (besitzt $\pi_i(I)$ nur ein Element, so muss es sich wegen $(0,\dots, 0) \in \mathfrak{a}_1 \times \dots \times \mathfrak{a}_n$ um die 0 handeln und $\pi_i(I)$ ist das Nullideal).
+        Wähle dann $r \in A$ mit $r_i = \pi_i(r)$ sowie $x \in \pi_i^{-1}(x_i) \cap I$ und analog $y \in \pi_i^{-1}(y_i)\cap I$. Beide Mengen sind wegen $x_i, y_i \in \pi_i(I)$ nichtleer. Dann gilt $x + y \in I$ und dementsprechend $\pi_i(x + y) = x_i + y_i \in \pi_i(I)$. Insbesondere handelt es sich bei $\pi_i(I)$ um ein Ideal.
+        Offensichtlich ist außerdem $I \subset \pi_1(I) \times \dots \times \pi_n(I)$.
+
+        Sei nun $e_i = (0, \dots, 0,1,0 \dots, 0) \in A$, wobei die $1$ an der $i$-ten Stelle stehe.
+        Wähle nun $\forall 1\leq i \leq n: x_i \in \pi_i(I)$ beliebig.
+        Dann existiert für jedes $i$ ein $a\in I$ mit $\pi_i(a) = x_i$, also $(0, \dots, 0, x_i, 0, \dots, 0) = e_i \cdot a$. Es gilt
+        \[
+            (x_1, \dots, x_n) = \sum_{i = 1}^{n} \underbrace{e_i \cdot a}_{\in A\cdot I = I} \in I.
+        \]
+        Daher gilt auch $\pi_1(I) \times \dots \times \pi_n(I) \subset I$ und es folgt die Gleichheit.
+        \item Sei $\mathfrak{p}$ ein Primideal von $A$. Wir zeigen zunächst, dass $\pi_i(\mathfrak{p})$ stets ein Primideal oder der gesamte Ring ist.
+        Wäre dem nicht so, gäbe es $x_i, y_i$ derart, dass 
+        \[ 
+            (x_1, \dots, x_{i-1}, x_iy_i, x_{i+1}, \dots, x_n) = (x_1, \dots, x_{i-1}, x_i, x_{i+1}, \dots, x_n) \cdot (x_1, \dots, x_{i-1}, y_i, x_{i+1}, \dots, x_n)
+        \]
+        mit $x_i, y_i \notin \pi_i(\mathfrak{p})$. Dann gilt aber auch
+        \[
+            (x_1, \dots, x_{i-1}, x_i, x_{i+1}, \dots, x_n), (x_1, \dots, x_{i-1}, y_i, x_{i+1}, \dots, x_n) \notin \mathfrak{p},
+        \]
+        Widerspruch.
+        
+        Mit Teilaufgabe (d) folgern wir $\mathfrak{p} = \mathfrak{a}_1 \times \dots \times \mathfrak{a}_n$, wobei es sich bei $\mathfrak{a}_i$ entweder um ein Primideal oder um den gesamten Ring $A_i$ handelt.
+        Wir behaupten nun, dass $\mathfrak{a}_i \subsetneq A_i$ für genau ein $i$ gelten muss.
+        Wäre stets $\mathfrak{a}_i = A_i$, so erhielten wir $\mathfrak{p} = A$, was im Widerspruch dazu steht, dass $\mathfrak{p}$ ein Primideal ist.
+        Sei O.B.d.A. $\mathfrak{a}_1 \subsetneq A_1$ und $\mathfrak{a}_2 \subsetneq A_2$. Wähle dann $x_i \in \mathfrak{a}_i$ und für $i = 1,2$ $r_i \in A_i \setminus \mathfrak{a}_i$. Es gilt
+        \[
+            (r_1x_1, r_2x_2, x_3, \dots, x_n) (x_1, \dots, x_n) = (r_1x_1^2, r_2x_2^2,x_3^2,\dots x_n^2) = (r_1, x_2^2, \dots, x_n^2) (x_1^2, r_2, x_3^2, \dots, x_n^2).  
+        \]
+        Offensichtlich ist $(r_1, x_2^2, \dots, x_n^2),  (x_1^2, r_2, x_3^2, \dots, x_n^2) \notin \mathfrak{p}$, da $r_1 \notin \mathfrak{a}_1$ und $r_2 \notin \mathfrak{a}_2$.
+        Das ist ein Widerspruch und es folgt 
+        \[ 
+            \mathfrak{p} = A_1 \times \dots \times A_{i-1} \times \mathfrak{p}_i \times A_{i+1} \times \dots \times A_n = \pi_i^{-1}(\mathfrak{p}_i)
+            ,
+        \]
+        wobei $\mathfrak{p}_i$ ein Primideal ist.
+    \end{enumerate}
+\end{document}
