@@ -1,0 +1,49 @@
+\documentclass{article}
+
+\usepackage{josuamathheader}
+\newcommand{\ann}{\operatorname{Ann}}
+
+\begin{document}
+\section*{Aufgabe 2}
+Wir nehmen $n > m$ an und erzeugen einen Widerspruch.
+Gilt $A^m \cong A^n$, so auch $A^m \otimes_A A/\mathfrak{m} \cong A^n \otimes_A A/\mathfrak{m}$.
+Nach Korollar 3.8 folgt $(A/\mathfrak{m})^m \cong (A/\mathfrak{m})^n$.
+Das Standarderzeugendensystem $(a_i)_{i = 1}^m$ von $A^m$ ist auch ein Erzeugendensystem von $(A/\mathfrak{m})^m$.
+Sei also ein Isomorphismus $\phi \colon (A/\mathfrak{m})^m \xrightarrow{\sim} (A/\mathfrak{m})^n$ gegeben.
+Dann gilt $x = \phi(y) = \phi(\sum_{i = 1}^{m} \alpha_i a_i) = \sum_{i = 1}^{m} \alpha_i \phi(a_i)$. 
+Insbesondere ist also durch $\phi(a_i)_{i = 1}^m$ ein Erzeugendensystem von $(A/\mathfrak{m})^n$ gegeben.
+Dieses Erzeugendensystem ist dann auch ein $m$-elementiges Erzeugendensystem von $(A/\mathfrak{m})^n$ als $A/\mathfrak{m}$-Vektorraum
+($A/\mathfrak{m}$ ist ein Körper, da $\mathfrak{m}$ ein maximales Ideal ist).
+Der $A/\mathfrak{m}$-Vektorraum $(A/\mathfrak{m})^n$ hat aber bekanntlich die Dimension $n > m$, Widerspruch.
+\section*{Aufgabe 4}
+\begin{enumerate}[(a)]
+    \item Sei $M \subset \mathfrak{p}$ für ein Primideal $\mathfrak{p}$. 
+    Das von $M$ erzeugte Ideal $\mathfrak{a}$ ist das kleinste Ideal, das $M$ enthält und daher gilt $\mathfrak{a} \subset \mathfrak{p}$.
+    Insbesondere ist also $V(M) \subset V(\mathfrak{a})$. 
+    Die andere Richtung, also $V(\mathfrak{a}) \subset V(M)$, ist klar, da jedes Primideal, das $\mathfrak{a}$ enthält, sofort auch $M$ enthalten muss.
+    Sei nun $\mathfrak{p}$ ein Primideal mit $\mathfrak{a}\subset \mathfrak{p}$.
+    Wir zeigen, dass dann auch $r(\mathfrak{a}) \subset \mathfrak{p}$ gilt.
+
+    Sei $x \in r(\mathfrak{a})$. Dann $\exists n \in\N$ mit $x^n \in \mathfrak{a} \subset \mathfrak{p}$.
+    Nun gilt $x^n \in \mathfrak{p} \xRightarrow{\mathfrak{p} \text{ prim}} x \in \mathfrak{p}$.
+    Insgesamt erhalten wir $r(\mathfrak{a}) \subset \mathfrak{p}$. 
+    Es folgt
+    \[
+        \mathfrak{p} \in V(\mathfrak{a}) \implies \mathfrak{a} \subset \mathfrak{p} \implies r(\mathfrak{a}) \subset \mathfrak{p} \implies \mathfrak{p} \in V(r(\mathfrak{a})),
+    \]
+    also $V(\mathfrak{a}) \subset V(r(\mathfrak{a}))$.
+    Die andere Richtung, also $V(r(\mathfrak{a})) \subset V(\mathfrak{a})$, ist klar, da jedes Primideal, das $r(\mathfrak{a})$ enthält, sofort auch $\mathfrak{a}$ enthalten muss.
+    \item Für ein beliebiges Primideal $\mathfrak{p}$ gilt per Definition $0 \subset \mathfrak{p}$.
+    Also ist $V(0) = \operatorname{Spec}(A)$. Wegen $\mathfrak{p} \neq A$ für ein Primideal $\mathfrak{p}$, aber $1 \in \mathfrak{p} \implies \mathfrak{p} = A$ folgt $V(1) = \emptyset$.
+    \item Es gilt
+    \[
+        V\left( \bigcup_{i \in I} M_i\right) = \left\{\mathfrak{p} \colon \bigcup_{i\in I} M_i \subset \mathfrak{p}\right\} = \{\mathfrak{p} \colon \forall i \colon M_i \subset \mathfrak{p}\} = \bigcap_{i\in I} \{\mathfrak{p} \colon  M_i\subset \mathfrak{p}\} = \bigcap_{i\in I} V(M_i)
+    \]
+    \item Wir zeigen zunächst $\mathfrak{a}\cap \mathfrak{b} \subset \mathfrak{p} \Leftrightarrow \mathfrak{ab} \subset \mathfrak{p}$.
+    Nach VL gilt $\mathfrak{ab} \subset \mathfrak{a}\cap \mathfrak{b}$, also ist "$\Rightarrow$" bereits klar.
+    Sei nun $x \in \mathfrak{a}\cap \mathfrak{b}$. Dann gilt $x^2 \in \mathfrak{a}\mathfrak{b} \subset \mathfrak{p} \implies x \in \mathfrak{p}$.
+    Damit ist auch "$\Leftarrow$" bewiesen.
+    Wir schließen sofort $V(\mathfrak{a} \cap\mathfrak{b}) = V(\mathfrak{a}\mathfrak{b})$.
+    Die Aussage $V(\mathfrak{a} \cap\mathfrak{b}) = V(\mathfrak{a}) \cup V(\mathfrak{b})$ folgt aus Aufgabe (c).
+\end{enumerate}
+\end{document}
