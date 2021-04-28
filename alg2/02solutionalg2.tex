@@ -5,16 +5,15 @@
 
 \begin{document}
 \section*{Aufgabe 2}
-Wir nehmen $n > m$ an und erzeugen einen Widerspruch.
 Gilt $A^m \cong A^n$, so auch $A^m \otimes_A A/\mathfrak{m} \cong A^n \otimes_A A/\mathfrak{m}$.
 Nach Korollar 3.8 folgt $(A/\mathfrak{m})^m \cong (A/\mathfrak{m})^n$.
-Das Standarderzeugendensystem $(a_i)_{i = 1}^m$ von $A^m$ ist auch ein Erzeugendensystem von $(A/\mathfrak{m})^m$.
-Sei also ein Isomorphismus $\phi \colon (A/\mathfrak{m})^m \xrightarrow{\sim} (A/\mathfrak{m})^n$ gegeben.
-Dann gilt $x = \phi(y) = \phi(\sum_{i = 1}^{m} \alpha_i a_i) = \sum_{i = 1}^{m} \alpha_i \phi(a_i)$. 
-Insbesondere ist also durch $\phi(a_i)_{i = 1}^m$ ein Erzeugendensystem von $(A/\mathfrak{m})^n$ gegeben.
-Dieses Erzeugendensystem ist dann auch ein $m$-elementiges Erzeugendensystem von $(A/\mathfrak{m})^n$ als $A/\mathfrak{m}$-Vektorraum
-($A/\mathfrak{m}$ ist ein Körper, da $\mathfrak{m}$ ein maximales Ideal ist).
-Der $A/\mathfrak{m}$-Vektorraum $(A/\mathfrak{m})^n$ hat aber bekanntlich die Dimension $n > m$, Widerspruch.
+Da $\mathfrak{m}$ ein maximales Ideal ist, handelt es sich bei $A/\mathfrak{m}$ um einen Körper.
+Wir zeigen, dass jeder $A$-Modulhomomorphismus $\phi \colon (A/\mathfrak{m})^m \to (A/\mathfrak{m})^n$ ein $A/\mathfrak{m}$-Vektorraumhomomorphismus ist.
+Offensichtlich bleibt $\phi$ ein Gruppenhomomorphismus $\phi\colon (A/\mathfrak{m})^m \to (A/\mathfrak{m})^n$, wenn man die Modulstruktur vergisst.
+Weiter folgt aus $f(ax) = af(x) \forall a\in A, x\in (A/\mathfrak{m})^m$ auch $f(ax) = af(x) \forall a\in A/\mathfrak{m}, x \in (A/\mathfrak{m})^m$.
+Ein Modulisomorphismus liegt genau dann vor, wenn es zwei zueinander inverse Modulhomomorphismus gibt.
+Diese sind dann beide auch Vektorraumhomomorphismen, sodass wir einen Vektorraumisomorphismus erhalten.
+Insbesondere ist also der Modulisomorphismus $(A/\mathfrak{m})^m \cong (A/\mathfrak{m})^n$ auch ein $A/\mathfrak{m}$-Vektorraumisomorphismus. Nach LA1 folgt daraus $m = n$.
 \section*{Aufgabe 4}
 \begin{enumerate}[(a)]
     \item Sei $M \subset \mathfrak{p}$ für ein Primideal $\mathfrak{p}$. 
