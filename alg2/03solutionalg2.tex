@@ -1,0 +1,146 @@
+\documentclass{article}
+
+\usepackage{josuamathheader}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\coker}{\operatorname{coker}}
+\usepackage{tikz}
+\usetikzlibrary{babel}
+\usetikzlibrary{cd}
+
+\begin{document}
+\section*{Aufgabe 3}
+\begin{enumerate}[(a)]
+    \item Behauptung: Die Folge $\ker(\phi') \xrightarrow{\overline{\alpha'}} \ker(\phi) \xrightarrow{\alpha} \ker(\phi'')$ ist exakt.
+    \begin{proof}
+        Dazu definieren wir zunächst $\overline{\alpha'} \colon \ker(\phi') \to \ker(\phi),\; x \mapsto \alpha'(x)$ und 
+        $\overline{\alpha} \colon \ker(\phi) \to \ker(\phi''),\; x \mapsto \alpha(x)$.
+        \begin{enumerate}[(i)]
+            \item Die Abbildungen sind wohldefiniert.
+            Sei dazu $x \in \ker(\phi')$. Dann gilt $0 = \phi'(x) \implies 0 = \beta'(\phi'(x)) = \phi(\alpha'(x)) \implies \alpha'(x) \in \ker(\phi)$.
+            Analog erhalten wir auch $x \in \ker(\phi) \implies \alpha(x) \in \ker(\phi'')$.
+            \item Wegen $\alpha \circ \alpha' = 0$ folgt auch $\overline{\alpha} \circ \overline{\alpha'} = 0$ und damit 
+            $\im \overline{\alpha'} \subset \ker  \overline{\alpha}$.
+            \item Sei nun $x \in \ker \overline{\alpha} \subset \ker \alpha$.
+            Aufgrund der Exaktheit von $M' \xrightarrow{\alpha'} M \xrightarrow{\alpha} M''$ existiert ein $x_1 \in M'$ mit $\alpha'(x_1) = x$.
+            Es gilt $0 = \phi(x_0) = \phi(\alpha'(x_1)) = \beta'(\phi'(x_1))$. Da $\beta'$ injektiv ist, folgt $x_1 \in \ker \phi'$.
+            Daher gilt $\overline{\alpha'}(x_1) = x_0$ und damit $\ker \overline{\alpha} \subset \im \overline{\alpha'}$.
+        \end{enumerate}
+        Insgesamt folgt $\ker \overline{\alpha} = \im \overline{\alpha'}$.
+    \end{proof}
+    \item Behauptung: Die Folge $\coker(\phi') \xrightarrow{\overline{\beta'}} \coker(\phi) \xrightarrow{\overline{\beta}} \coker(\phi'')$ ist exakt.
+    \begin{proof}
+        \begin{enumerate}[(i)]
+            \item \[
+                \begin{tikzcd}
+                    M' \arrow[d, "\phi'"] \arrow[r, "\alpha'"]          & M \arrow[d, "\phi"] \arrow[r, "\alpha"]           & M'' \arrow[d, "\phi''"]\\
+                    N' \arrow[d, "\pi'"] \arrow[r, "\beta'"]            & N \arrow[d, "\pi"] \arrow[r, "\beta"]             & N'' \arrow[d, "\pi''"]\\
+                    \coker \phi' \arrow[r, dashed, "\overline{\beta'}"] & \coker \phi \arrow[r, dashed, "\overline{\beta}"] & \coker \phi''
+                \end{tikzcd}
+            \]
+            Sei $x \in \im \phi'$, d.h. $x = \phi'(x_0)$. Dann gilt $\pi(\beta'(x_1)) = \pi(\beta'(\phi'(x_0))) = \pi(\phi(\alpha'(x_0))) = 0$, 
+            da $\pi\circ \phi = 0$ aufgrund der Definition des Cokerns. Es gilt also $\im \phi' \subset \ker \pi \circ \beta'$.
+            Folglich faktorisiert $\pi \circ \beta'$ über $N/\im \phi' = \coker \phi'$ und es existiert eine eindeutig bestimmte Abbildung 
+            $\overline{\beta'}\colon \coker \phi' \to \coker \phi$, sodass die linke Hälfte des obigen Diagramms kommutiert. 
+            Analog folgern wir die Existenz einer eindeutig bestimmten Abbildung $\overline{\beta} \colon \coker \phi \to \coker \phi''$,
+            sodass die rechte Hälfte des obigen Diagramms kommutiert.
+            \item Sei $x \in \coker \phi'$. Dann existiert aufgrund der Surjektivität der kanonischen Projektion $\pi'$ ein $x_0 \in N'$ mit $\pi'(x_0) = x$.
+            Es gilt 
+            \[ 
+                (\overline{\beta}\circ \overline{\beta'})(x) = \overline{\beta}(\overline{\beta'}(\pi'(x_0))) = \pi''((\beta\circ\beta')(x_0)) = \pi''(0) = 0.
+            \]
+            aufgrund der Kommutativität des Diagramms und der Exaktheit der mittleren Zeile.
+            Insbesondere ist $\overline{\beta}\circ \overline{\beta'} = 0$ und damit $\im \overline{\beta'} \subset \ker \overline{\beta}$.
+            \item Sei nun $x \in \ker \overline{\beta}$. Wie oben bereits gezeigt, gilt $x = \pi'(x_0)$ für ein $x_0\in N'$.
+            Es folgt
+            \[
+                0 = \overline{\beta}(x) = \overline{\beta}(\pi(x_0)) = \pi''(\beta(x_0)) \implies \beta(x_0) \in \im \phi''
+            \]
+            nach Definition des Cokerns bzw. der Projektion $\pi''\colon N'' \to \coker \phi''$, also $\beta(x_0) = \phi''(x_1)$ für ein $x_1 \in M''$.
+            Aufgrund der Surjektivität von $\alpha$ existiert ein $x_2 \in M$ mit $\alpha(x_2) = x_1$, 
+            insgesamt erhalten wir dann unter Ausnutzung der Linearität von $\beta$
+            \[
+               \beta(x_0 - \phi(x_2)) = \beta(x_0) - \beta(\phi(x_2)) = \beta(x_0) - \phi''(\alpha(x_2)) = \beta(x_0) - \phi''(x_1) = \beta(x_0) - \beta(x_0) = 0.
+            \]
+            Da die mittlere Zeile exakt ist, $\ker \beta = \im \beta'$ existiert ein $x_4 \in N'$ mit $\beta'(x_4) = x_0 - \phi(x_2)$.
+            Sei nun $y = \pi'(x_4) \in \coker \phi'$. Dann folgt mit Linearität der Abbildungen und Kommutativität des Diagramms
+            \[ 
+                \overline{\beta'}(y) = \overline{\beta'}(\pi'(x_4)) = \pi(\beta'(x_4)) = \pi(x_0 - \phi(x_2)) = \pi(x_0) - \underbrace{\pi\circ \phi}_{=0}(x_2) = \pi(x_0) = x
+            \]
+            Für ein beliebiges $x \in \ker \overline{\beta}$ existiert also ein $y \in \coker \phi'$ mit $\overline{\beta'}(y) = x$,
+            also $\ker \overline{\beta} \subset \im \overline{\beta'}$.
+        \end{enumerate}
+        Insgesamt folgt $\ker \overline{\beta} = \im \overline{\beta'}$.
+    \end{proof}
+    \item Behauptung: Die Folge $\ker(\phi) \xrightarrow{\overline{\alpha}} \ker(\phi'') \xrightarrow{\delta} \coker(\phi') \xrightarrow{\overline{\beta'}} \coker(\phi)$ ist exakt.
+    \begin{proof}
+        Wir haben bereits gezeigt, dass $\overline{\alpha}$ und $\overline{\beta'}$ wohldefiniert sind, in der VL wurde bewiesen, dass $\delta$ wohldefiniert ist.
+        \begin{enumerate}[(i)]
+            \item Sei $m \in \ker \phi$ gegeben. Dann lässt sich $\delta(\overline{\alpha})(m))$ nach Vorlesung konstruieren, indem $n = \phi(m)$ gewählt wird.
+            Nun ist aber $\phi(m) = 0$. Insbesondere ist das eindeutige Urbild von $n$ unter $\beta'$ auch $0$ und damit auch $\delta(\alpha(m)) = 0 + \im \phi'$.
+            Daraus folgt $\delta \circ \overline{\alpha} = 0$, $\im \overline{\alpha} \subset \ker \delta$.
+            \item Sei $x \in \ker \delta$. Z.Z.: $\exists m \in \ker \phi$ mit $x = \overline{\alpha}(m)$. 
+            %Es gilt dann $\delta(x) = 0 + \im \phi'$, 
+            %also $\exists m' \in M'$ mit $\pi'(\phi'(m')) = \delta(x)$. Aufgrund der Exaktheit der ersten Zeile gilt dann $\alpha(\alpha'(m')) = 0$.
+            Betrachte zunächst ein beliebiges $m\in M$ mit $\alpha(m) = x$. Es gilt $\beta(\phi(m)) = \phi''(\alpha(m)) = \phi''(x) = 0$. 
+            Daher existiert ein $n' \in N'$ mit $\phi(m) = \beta'(n')$. 
+            Per Definition der Abbildungsvorschrift von $\delta$ in der VL und wegen $\alpha(m) = x \in \ker \delta$ gilt $n' \in \im \phi'$,
+            also $n' = \phi'(m')$ für ein $m' \in M'$. Betrachte nun $\tilde m = m - \alpha'(m')$.
+            Wegen $\alpha(\tilde m) = \alpha(m) - \alpha(\alpha'(m')) = \alpha(m)$ ist mit $m$ auch $\tilde m$ ein Urbild von $x$.
+            Es gilt 
+            $$\phi(\tilde m) = \phi(m) - \phi(\alpha'(m')) = \phi(m) - \beta'(\phi'(m')) = \phi(m) - \beta'(n') = 0,$$
+            also $\tilde m \in \ker \phi$.
+            Daher folgt $\ker \delta \subset \im \overline{\alpha}$.
+            \item Sei $x \in \ker \phi''$. Wir betrachten nun $\overline{\beta'(\delta(x))}$. In der Vorlesung wurde die Abbildungsvorschrift von $\delta$
+            angegeben als $n' + \im \phi'$ mit $\beta'(n') = n = \phi(m)$ und $\alpha(m) = x$. 
+            Da das obige Diagramm kommutativ ist, gilt 
+            \[ 
+                \overline{\beta'}(n' + \im \phi) = \beta'(n') + \im \phi = n + \im \phi = \phi(m) + \im \phi = 0 + \im \phi,
+            \]
+            also $\overline{\beta'}\circ \delta = 0$ und damit $\im \delta \subset \ker \overline{\beta'}$.
+            \item Sei $x \in \ker \overline{\beta'}$. Es gilt $x = \pi'(n')$ und 
+            $$0 = \overline{\beta'}(\pi'(n')) = \pi(\beta'(n')) \implies \beta'(n') \in \im \phi$$
+            Sei also $m\in M$ mit $\phi(m) = \beta'(n')$ und sei $y = \alpha(m)$.
+            Wir nutzen nun die Konstruktion aus der VL, um $\delta(y)$ zu berechnen. Zunächst gilt $\alpha(m) = y$. 
+            Dann nutzen wir $\phi(m) = \beta'(n')$ und erhalten $\delta(y) = n' + \im \phi' = \pi'(n') = x$. 
+            Es gilt also $\ker \overline{\beta'} \subset \im \delta$.
+        \end{enumerate}
+        Insgesamt folgt $\im \overline{\alpha} = \ker \delta$ und $\im \delta = \ker \overline{\beta'}$ und damit die Exaktheit der Folge.
+    \end{proof}
+\end{enumerate}
+\section*{Aufgabe 3}
+\begin{enumerate}[(a)]
+    \item $0 \neq A[T] \cong \bigoplus_{n\in \N_0} A\cdot T^n$ ist frei mit Erzeugendensystem $(1, T, T^2, \dots)$ und damit nach Beispiel 5.11 treuflach.
+    \item $\Q$ ist offensichtlich ein flacher $\Z$-Modul.
+    Sei $\phi\colon M' \hookrightarrow M$ eine injektive Abbildung. Z.Z.: $M' \otimes_\Z \Q \to M \otimes_\Z \Q$ ist injektiv.
+    \begin{proof}
+        Sei $M$ ein $\Z$-Modul. Dann ist auf $M \times \Z^\times$ durch 
+        $$(x_1, r_1) \sim (x_2, r_2) \Leftrightarrow \exists s \in \Z^\times\colon sr_1x_2 = sr_2x_1$$
+        eine Äquivalenzrelation gegeben. Wir definieren $Q(M) \coloneqq M \times \Z^\times /\sim$ und schreiben $\frac{x}{r}$ für 
+        die Äquivalenzklasse von $(x,r)$. Es gilt $\frac{x}{r} = 0 \Leftrightarrow (x,r) \sim (0,1) \Leftrightarrow \exists s\in \Z^\times\colon sx = 0$.
+        %Via
+        %$$ \frac{x_1}{r_1} + \frac{x_2}{r_2} \coloneqq \frac{r_2x_1 + r_1x_2}{r_1r_2}$$ und $$\frac{r}{s} \cdot \frac{x}{t} \coloneqq \frac{rx}{st}$$
+        %wird $Q(M)$ ein 
+        Via $r\cdot \frac{x}{t} \coloneqq \frac{rx}{t}$ wird $Q(M)$ zu einem $\Z$-Modul.
+        Betrachte die offensichtlich bilineare Abbildung $\beta\colon \Q \times M \to Q(M)$ mit $\left(x, \frac{r}{s}\right) \mapsto \frac{rx}{s}$.
+        Die UE des Tensorprodukts liefert einen eindeutigen $\Z$-Modulhomomorphismus $f_M \colon M \otimes_\Z \Q \to Q(M)$ mit $f_M(x \otimes r/s) = \frac{rx}{s}$.
+        $f$ ist offensichtlich surjektiv mit $\frac{x}{r} = f_M\left( x \otimes \frac{1}{r} \right)$.
+        Da sich jedes Element aus $M \otimes_\Z \Q$ schreiben lässt als $x \otimes \frac{1}{s}$,
+        $$\sum_{i = 1}^{k} x_i \otimes \frac{r_i}{s_i} = \sum_{i = 1}^{k} x_i \otimes \frac{r_is_1\cdots\widehat{s_i}\cdots s_k}{s_1\cdots s_k} = \sum_{i = 1}^{k} \sum_{i = 1}^{k} r_is_1\cdots\widehat{s_i}\cdots s_k \otimes \frac{1}{s_1\cdots s_k}$$ 
+        können wir OE schreiben 
+        $$x\otimes \frac{1}{s} \in \ker f_M \implies \frac{x}{s} = 0 \implies \exists \tilde s \colon \tilde s x = 0 \implies x \otimes \frac{1}{s} = \underbrace{\tilde s x}_{= 0} \otimes \frac{1}{s\tilde s}$$
+        Insgesamt erhalten wir einen Isomorphismus $f_M\colon M \otimes_\Z \Q \xrightarrow{\sim} Q(M)$. 
+
+        Betrachte die Abbildung $g\colon Q(M') \to Q(M),\; \frac{x}{r} \mapsto \frac{\phi(x)}{r}$.
+        Es gilt für $\frac{x}{r} \in \ker g$
+        $$0 = g\left(\frac{x}{r}\right) =  \frac{\phi(x)}{r} \implies \exists s \in \Z^\times\colon 0 = sf(x) \overset{\text{linear}}{=} \phi(sx) \xRightarrow{\text{injektiv}} sx = 0,$$
+        was wiederum äquivalent dazu ist, dass bereits $\frac{x}{r} = 0$ sein muss. $g$ ist also injektiv.
+        Insgesamt erhalten wir eine injektive Abbildung $\psi \coloneqq f_M^{-1} \circ g \circ f_{M'} \colon M' \otimes_\Z \Q \to M \otimes_\Z \Q$.
+        Diese erfüllt auf reinen Tensoren 
+        $$\psi \left(x \otimes \frac{r}{s}\right) = f_M^{-1} \circ g \left( \frac{rx}{s} \right) = f_M^{-1}\left( \frac{\phi(rx)}{s}\right) = f_M^{-1}\left( \frac{r\phi(x)}{s}\right) = \phi(x) \otimes \frac{r}{s},$$
+        es gilt also
+        $\psi = \phi \otimes \operatorname{id}_\Q$.
+    \end{proof}
+    $(2)$ ist ein maximales Ideal in $\Z$. $\Q$ wird zur $\Z$-Algebra via $f: \Z \to \Q, z \mapsto z$. Daher ist $0.5 \cdot f(2) = 0.5 \cdot 2 = 1 \in (2)^e$,
+    es folgt $2^e = (1)$. Daher kann $\Q$ keine treuflache $\Z$-Algebra sein.
+\end{enumerate}
+\end{document}
