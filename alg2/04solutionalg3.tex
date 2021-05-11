@@ -1,0 +1,102 @@
+\documentclass{article}
+
+\usepackage{josuamathheader}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\spec}{\operatorname{Spec}}
+\usepackage{tikz}
+\usetikzlibrary{babel}
+\usetikzlibrary{cd}
+
+\begin{document}
+\section*{Aufgabe 3}
+Nach Definition 6.4 existieren natürliche Abbildungen $\varphi_i\colon A\to A[f^{-1}]$ für alle $i\in I$ und 
+es gilt für $i\leq j$, dass $\varphi_j\circ \varphi_{ij} = \varphi_i$.
+\begin{enumerate}[(a)]
+    \item Nach Definition 6.4 ist $A[f^{-1}]$ als direkter Limes von $A$-Moduln wieder ein $A$-Modul. 
+    Insbesondere ist durch $(A[f^{-1}], +, \varphi_0(0_A))$ eine abelsche Gruppe gegeben.
+    Seien $m, n \in A[f^{-1}]$. Dann existieren $i, j \in I$ mit $\varphi_i(m_i) = m, \varphi_j(n_j) = n$ für $m_i, n_j \in A$.
+    Wir definieren das Produkt $m \cdot n \coloneqq \varphi_{i+j}(m_i \cdot n_j)$.
+    
+    Dies ist wohldefiniert. Seien nämlich $k, l \in I$ mit $\varphi_k(m_k) = m, \varphi_l(n_l) = n$ für $m_k, n_l \in A$.
+    Dann existieren per Definition der Gleichheit in $A[f^{-1}]$ größere Indizes $y, z \in I$ 
+    mit $f^{y-i}m_i = \varphi_{i, y}(m_i) = \varphi_{k, y}(m_k) = f^{y-k}m_k$ und $f^{z-j}n_j = \varphi_{j,z}(n_j) = \varphi_{l, z}(n_l) = f^{z-l}n_l$.
+    Es gilt nun
+    \begin{align*}
+        \varphi_{i+j}(m_i \cdot n_j) &= \varphi_{y+z}(\varphi_{i+j, y+z}(m_i\cdot n_j)) = \varphi_{y+z}(f^{y+z-(i+j)} \cdot m_i\cdot n_j)\\
+        &= \varphi_{y+z}(f^{y-i}m_i\cdot f^{z-j} n_j) = \varphi_{y+z}(f^{y-k}m_k \cdot f^{z-l} n_l)\\
+        &= \varphi_{y+z}(f^{y+z-(k+l)} m_kn_l) = \varphi_{y+z}(\varphi_{k+l, y+z}(m_k\cdot n_l))\\
+        &= \varphi_{k+l}(m_k\cdot n_l)
+    \end{align*}
+
+    Die Distributivität erbt $A[f^{-1}]$ von $A$. Wir erhalten also eine Ringstruktur auf $A[f^{-1}]$.
+    Es gilt nun $\varphi_0( a+b) = \varphi_0(a) + \varphi_0(b)$ (siehe Definition 6.4).
+    Außerdem gilt $\varphi_0(a) \cdot \varphi_0(b) = \varphi_{0+0}(ab)$.
+    Sei $x \in A[f^{-1}]$. Dann existiert ein $i \in I$ mit $\varphi_i(a) = x$ für ein $a \in  A$. 
+    Daher gilt $\varphi_0(1) \cdot x = \varphi_0(1) \cdot \varphi_i(a) = \varphi_{0+i}(1\cdot a) = \varphi_i(a) = x$, also $\varphi_0(1_A) = 1_{A[f^{-1}]}$.
+    Daher ist $\varphi_0$ ein Ringhomomorphismus.
+    \item Wir nutzen zunächst die universelle Eigenschaft des direkten Limes und definieren
+    \begin{align*}
+        \psi_i \colon A &\to A_f\\
+        x \mapsto \frac{x}{f_i}
+    \end{align*}
+    Sei $a \in A$. 
+    Dann gilt 
+    $$\psi_j \circ \varphi_{i,j}(a) = \psi_j(f^{j-i}a) = \frac{f^{j-i}a}{f^j} = \frac{f^{j-i}a}{f^{j-i}f^i} = \frac{a}{f^i} = \psi_i(a),$$
+    also $\psi_i = \psi_j \circ \varphi_{i,j}$. Nach der universellen Eigenschaft des direkten Limes excistiert dann ein eindeutig bestimmter 
+    $A$-Modulhomomorphismus $\psi\colon M\to A_f$ mit $\psi_i = \psi \circ \varphi_i$, 
+    also $\psi(\varphi_i(a)) = \psi_i(a) = \frac{a}{f^i}$ für ein $a \in A$.
+
+    Nun möchten wir die universelle Eigenschaft der Lokalisierung nutzen und zeigen dafür $\varphi_0(f^i) \in A[f^{-1}]^\times$.
+    Es gilt 
+    $$\varphi_0(f^i)\cdot \varphi_i(1) =  \varphi_i(f^i \cdot 1) = \varphi_i(\varphi_{0,i}(1)) = \varphi_0(1),$$
+    also $\varphi_0(f^i)^{-1} = \varphi_i(1) \forall i \in I$ und damit $\varphi_0(f^i) \in A[f^{-1}]^\times$.
+    Wir erhalten daher nach der universellen Eigenschaft der Lokalisierung einen eindeutig bestimmten $A$-Modulhomomorphismus 
+    $g \colon A_f \to A[f^{1}]$ mit der Abbildungsvorschrift 
+    $$g\left( \frac{a}{f^i} \right) = \varphi_0(f^i)^{-1} \cdot \varphi_0(a) = \varphi_i(1) \cdot \varphi_0(a) = \varphi_i(a).$$
+    
+    $\psi$ und $g$ sind invers.
+    Sei dafür $\frac{a}{f^i}$ in $A_f$. Dann gilt
+    \begin{align*}
+        (\psi \circ g)\left( \frac{a}{f^i} \right) = \psi(\varphi_i(a)) = \frac{a}{f^i}
+    \end{align*}
+    Sei $x \in A[f^{-1}]$. Es existiert ein $i \in I$ und $a \in A$  mit $\varphi_i(a) = x$.
+    Dann gilt
+    \begin{align*}
+        (g\circ \psi)(x) = g(\psi(\varphi_i(a))) = g\left( \frac{a}{f^i} \right) = \varphi_i(a) = x.
+    \end{align*}
+    Wir erhalten also zwei inverse $A$-Modulhomomorphismen zwischen $A[f^{-1}]$ und $A_f$. Damit sind beide als $R$-Moduln isomorph.
+\end{enumerate}
+\section*{Aufgabe 4}
+\begin{enumerate}[(a)]
+    \item Das Komplement jeder offenen Menge lässt sich als abgeschlossene Menge schreiben und damit nach Blatt 2, Aufgabe 4 in der Form $V(M)$ für ein $M \subset A$.
+    Sei $U$ offen. Dann gilt
+    \begin{align*}
+        U &= A^c &&A \text{ abgeschlossen}\\
+        &= V(M)^c\\
+        &= \spec A \setminus \{\mathfrak{p} \in \spec A\colon M \subset \mathfrak{p}\}\\
+        &= \spec A \setminus \{\mathfrak{p} \in \spec A\colon f \in \mathfrak{p} \forall f \in M\}\\
+        &= \left( \bigcap_{f\in M} \{\mathfrak{p} \in \spec A\colon f \in \mathfrak{p}\}\right)^c\\
+        &= \left( \bigcap_{f\in M} V(f)\right)^c\\
+        &= \bigcup_{f\in M} V(f)^c\\
+        &= \bigcup_{f\in M} D(f)
+    \end{align*}
+    \item Es gilt 
+    \begin{align*}
+        D(f) \cap D(g) &= V(f)^c \cap V(g)^c\\
+        &= (V((f)) \cup V((g)))^c
+        \intertext{Zettel 2}
+        &= (V((f) \cdot (g)))^c\\
+        &= V((f\cdot g))^c\\
+        &= V(fg)^c\\
+        &= D(fg)
+    \end{align*}
+    Sei $D(f) = \emptyset$. Das ist äquivalent zu $V(f) = \spec A$. Das ist äquivalent zu 
+    $$\forall \mathfrak{p}\in \spec A\colon f \in \mathfrak{p} \Leftrightarrow f\in \bigcap_{\mathfrak{p} \in \spec A} = \mathfrak{N},$$
+    also liegt $f$ in dem von Nullteilern erzeugten Ideal. Da Summe und Produkt von Nullteilern wieder Nullteiler sind, 
+    ist dies also äquivalent dazu dass $f$ Nullteiler ist.
+    Ist $f$ eine Einheit, so folgt $1 \in (f)$ und damit $V(f) = \emptyset \implies D(f) = \spec A$ nach Zettel 2, Aufgabe 4b.
+    Sei andererseits $D(f) = \spec A \Leftrightarrow V(f) = \emptyset$. 
+    Angenommen, $f$ wäre keine Einheit. Dann wäre $f$ in mindestens einem Maximalideal enthalten. Jedes Maximalideal ist ein Primideal.
+    Also wäre $f$ in einem Primideal enthalten. Das steht aber im Widerspruch zu $V(f) = \emptyset$. Also muss $f$ eine Einheit sein.
+\end{enumerate}
+\end{document}
