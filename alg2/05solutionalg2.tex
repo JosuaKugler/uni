@@ -1,0 +1,87 @@
+\documentclass{article}
+
+\usepackage{josuamathheader}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\spec}{\operatorname{Spec}}
+\usepackage{tikz}
+\usetikzlibrary{babel}
+\usetikzlibrary{cd}
+
+%\item Sei $A$ reduziert und $x \in A_\mathfrak{p}$ nilpotent. Es gilt $x = \frac{a}{s}$ für ein $s \in A\setminus\mathfrak{p}$.
+    %Es existiert also ein $n \in \N$ mit 
+    %$$0 = x^n = \frac{a^n}{s^n} \Leftrightarrow \exists t \colon ta^n = 0 \implies (ta)^n = t^n a^n = 0.$$
+    %Da $A$ reduziert war und $ta$ nilpotent ist, folgt $ta = 0 \Leftrightarrow x = \frac{a}{s} = 0$. Folglich ist auch $A_\mathfrak{p}$ reduziert.
+    %
+    %Sei andererseits $A_\mathfrak{p}$ reduziert $\forall \mathfrak{p} \in \spec A$.
+    %Sei $a^n = 0$ für $a\in A, n\in \N$. Nach Satz 1.13 ist dann $a\in \mathfrak{p} \forall \mathfrak{p} \in \spec A$.
+    %Es gilt nun 
+    %$$\left(\frac{a}{1}\right)^n = \frac{a^n}{1} = 0 \xLeftrightarrow{A_\mathfrak{p}\text{ reduziert}}
+    %\frac{a}{1} = 0 \Leftrightarrow \exists t \in A\setminus \mathfrak{p}\colon ta = 0.$$
+
+\begin{document}
+\section*{Aufgabe 3}
+\begin{enumerate}[(a)]
+    \item Ein Ring ist genau dann reduziert, wenn das Nilradikal $\mathfrak{N} = 0$ ist.
+    Wir fassen das Nilradikal $\mathfrak{N}$ als $A$-Modul auf. Dann gilt nach Satz 7.19
+    $$\mathfrak{N} = 0 \Leftrightarrow (A\setminus \mathfrak{p})^{-1} \mathfrak{N} = 0 \forall \mathfrak{p} \in \spec A.$$
+    Nach Korollar 7.8 ist $(A\setminus \mathfrak{p})^{-1} \mathfrak{N}$ das Nilradikal von $A_\mathfrak{p}$.
+    Insbesondere ist das Nilradikal von $A$ genau dann 0, wenn das Nilradikal für alle $A_\mathfrak{p}$ 0 ist.
+    \item $\Z/6\Z$ ist nicht nullteilerfrei. Es ist $(\Z/6\Z)/(3) \cong \Z/3\Z$ nullteilerfrei, also ist $(3)$ ein Primideal.
+    Analog ist auch $(\Z/6\Z)/(2) \cong \Z/2\Z$ nullteilerfrei, also ist $(2)$ ein Primideal. 
+    Wegen $(4) = (2)$ und $(5) = (1)$ sind das die beiden Primideale von $\Z/6\Z$.
+    Es ist
+    $$\Z/6\Z_{(2)} = \{1,3,5\}^{-1}\Z/6\Z $$%= \{\frac{1}{1}, \frac{3}{1}, \frac{5}{1}, \frac{1}{3}, \frac{5}{3}, \frac{1}{5}, \frac{3}{5}\}
+    Würde eine gerade Zahl $2x$ im Zähler stehen, so wäre $3 \cdot 2x = 6x = 0$ und damit $\frac{2x}{s} = 0$.
+    Da alle ungeraden Zahlen von $\Z/6\Z$ bereits in $\{1,3,5\}$ enthalten sind, sind alle Elemente von $\Z/6\Z_{(2)}$ außer 0 
+    bereits Einheiten und insbesondere keine Nullteiler.
+    
+    Völlig analog ist
+    $$\Z/6\Z_{(3)} = \{1,2,4,5\}^{-1}\Z/6\Z $$%= \{\frac{1}{1}, \frac{3}{1}, \frac{5}{1}, \frac{1}{3}, \frac{5}{3}, \frac{1}{5}, \frac{3}{5}\}
+    Würde eine durch 3 teilbare Zahl $3x$ im Zähler stehen, so wäre $2 \cdot 3x = 6x = 0$ und damit $\frac{3x}{s} = 0$.
+    Da alle nicht durch drei teilbaren Zahlen von $\Z/6\Z$ bereits in $\{1,2,4,5\}$ enthalten sind, 
+    sind alle Elemente von $\Z/6\Z_{(3)}$ außer 0 bereits Einheiten und insbesondere keine Nullteiler.
+
+    Damit ist für jedes $\mathfrak{p} \in \spec \Z/6\Z$ der Ring $\Z/6\Z_\mathfrak{p}$ nullteilerfrei, aber
+    wegen $2 \cdot 3 = 0$ ist $\Z/6\Z$ nicht nullteilerfrei.
+\end{enumerate}
+\section*{Aufgabe 4}
+\begin{enumerate}[(a)]
+    \item Jede offene Menge lässt sich nach Blatt 4, Aufgabe 4a als Vereinigung von Mengen der Form $D(f_i)$ schreiben.
+    Ist also eine Überdeckung von $D(f)$ durch offene Mengen $(U_i)_{i\in I_0}$ gegeben, so gilt $U_i = \bigcup_{j \in J_i} D(f_j)$
+    und insgesamt 
+    $$D(f) = \bigcup_{i \in I_0} \bigcup_{j \in J_i} D(f_j) = \bigcup_{j\in I \coloneqq \bigcup_{i \in I_0} J_i} D(f_i).$$ 
+    Wir werden zeigen, dass eine endliche Teilmenge $J \subset I$ bereits ausreicht.
+    Dann erhalten wir die ebenfalls endliche Menge $J_0 = \{i \in I_0\colon \exists j \in J\colon j \in J_i\} \subset I_0$
+    und damit eine endliche Teilüberdeckung.
+
+    Wir müssen nur noch zeigen, dass für $D(f) = \bigcup_{i\in I} D(f_i)$ eine endliche Teilmenge $J \subset I$ bereits genügt.
+    Es gilt $V(f) = \bigcap_{i\in I} V(f_i) = V(\{f_i | i \in I\})$.
+    Das bedeutet
+    $$\forall \mathfrak{p} \in \spec A\colon \quad f \in \mathfrak{p} \Leftrightarrow f_i \in \mathfrak{p} \forall i.$$
+    Sei nun $\mathfrak{a}$ das von den $f_i$ erzeugte Ideal. Dann ist $r(\mathfrak{a}) \in \spec A$ und es gilt 
+    $\forall i \in I\colon f_i \in \mathfrak{p}$.
+    Also folgt 
+    $$f \in r(\mathfrak{a}) \implies \exists n \in \N \colon f^n \in \mathfrak{a} \implies f^n = \sum_{i \in J} g_if_i$$
+    für $g_i \in A \forall i\in J$, wobei $J$ eine endliche Teilmenge von $I$ ist. 
+    Es gilt also $$f \in \mathfrak{p}\in \spec A \implies \{f_i| i\in J\} \in \mathfrak{p}$$ und 
+    $$\{f_i| i \in J\} \in \mathfrak{p} \in \spec A \implies f^n \im \mathfrak{p} = r(\mathfrak{p}) \implies f \in \mathfrak{p}.$$
+    Wir erhalten
+    $$V(f) = V(\{f_i | i \in J\}) = \bigcap_{i\in J} V(f_i)$$
+    und durch Bildung des Komplements
+    $$D(f) = \bigcup_{i\in J} D(f_i).$$
+    Da $J$ endlich ist folgt daraus die Behauptung.
+    \item Nach Blatt 4, Aufgabe 4a lässt sich jede offene Menge $O$ von $\spec A$ als Vereinigung von 
+    Mengen der Form $D(f)$ schreiben. Ist $O$ quasikompakt, so besitzt diese Überdeckung eine endliche Teilüberdeckung
+    und $O$ lässt sich als endliche Vereinigung von offenen Mengen der Form $D(f)$ schreiben.
+    
+    Sei nun $O = \bigcup_{j = 1}^n D(f_j)$ und sei $O = \bigcup{i \in I} U_i$ eine offene Überdeckung von $O$.
+    Dann gilt 
+    $$O = \bigcup_{j = 1}^n D(f_j) = \bigcup_{j = 1}^n \bigcup_{i \in I} (D(f_j) \cap U_i)$$
+    Durch $\bigcup_{i \in I} (D(f_j) \cap U_i)$ ist eine Überdeckung für $D(f_j)$ gegeben.
+    Diese besitzt nach Teilaufgabe a eine endliche Teilüberdeckung $D(f_j) = \bigcup_{i \in J_j} (D(f_j) \cap U_i)$.
+    Es folgt
+    $$O = \bigcup_{j = 1}^n \bigcup_{i \in J_j} (D(f_j) \cap U_i) \subset \bigcup_{i \in \bigcup_{j=1}^n J_j} U_i.$$
+    Da $\bigcup_{j=1}^n J_j$ als endliche Vereinigung endlicher Mengen wieder endlich ist, haben wir damit die gesuchte
+    endliche Teilüberdeckung gefunden und $O$ ist quasikompakt.
+\end{enumerate}
+\end{document}
