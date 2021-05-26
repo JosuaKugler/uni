@@ -1,0 +1,73 @@
+\documentclass{article}
+
+\usepackage{josuamathheader}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\spec}{\operatorname{Spec}}
+\usepackage{tikz}
+\usetikzlibrary{babel}
+\usetikzlibrary{cd}
+\newcommand{\ggt}{\operatorname{ggT}}
+\renewcommand{\hom}{\operatorname{Hom}}
+
+\begin{document}
+\section*{Aufgabe 1}
+\begin{enumerate}[(a)]
+    \item Gilt $\ggt(d, \frac{n}{d}) = 1$, so erhalten wir nach dem chinesichen Restsatz $\Z/n \Z \cong \Z/d\Z \oplus \Z/\frac{n}{d} \Z$.
+    Damit ist $\Z/d\Z$ direkter Summand in einem freien Modul ($\Z/n\Z$ ist als $\Z/n\Z$-Modul offensichtlich frei).
+    Sei nun $\Z/d\Z$ projektiv.
+    Die Folge
+    $$0 \to \Z/\frac{n}{d}\Z \xrightarrow{\cdot d} \Z/n\Z \xrightarrow{\pi} \Z/d\Z \to 0$$
+    ist exakt, da Multiplikation mit $d$ injektiv ist, die kanonische Projektion $\pi\colon \Z/n\Z \to \Z/d\Z$ trivialerweise 
+    surjektiv ist und $\im (\cdot d) = \ker \pi$ gilt.
+    Ist nun $\Z/d\Z$ projektiv, so zerfällt diese Folge und es gilt $\Z/n\Z \cong \Z/\frac{n}{d}\Z \oplus \Z/d\Z$.
+    Nach dem chinesichen Restsatz ist das äquivalent zu $\ggt(d, \frac{n}{d}) = 1$.
+    Ist $n$ keine Primpotenz, so gilt $n = p^k \cdot d$ mit $\ggt(p^k, d) = 1$ für geeignete $p, k, d$.
+    $\Z/d\Z$ ist als $\Z/n\Z$-Modul nicht frei. Ein beliebiges einelementiges System $(x)$ in $\Z/d\Z$ ist linear abhängig wegen
+    $d\cdot x = 0$. Somit existiert kein nichtleeres linear unabhängiges System und insbesondere keine Basis.
+    Da $(1)$ ein Erzeugendensystem von $\Z/d\Z$ über $\Z/n\Z$ ist, handelt es sich bei $\Z/d\Z$ wegen $\ggt(d, p^k) = 1$
+    um einen endlich erzeugten und projektiven, aber nicht freien $\Z/n\Z$-Modul.
+
+    Sei $n = p_1^{e_1} \cdots p_r^{e_r}$. Sei $M$ ein endlich erzeugter, projektiver $\Z/n\Z$-Modul.
+    Via der kanonischen Projektion $\pi\colon \Z\to \Z/n\Z$ können wir $M$ als $\Z$-Modul auffassen.
+    $M$ besitzt endlich viele Elemente, ist also als $\Z$-Modul endlich erzeugt und nach dem Hauptsatz 
+    über endlich erzeugt $\Z$-Moduln gilt
+    $$M \cong \Z^m \oplus \bigoplus_{i = 1}^k \Z/d_i\Z$$
+    für Primpotenzen $d_i$.
+    Da $M$ nur endlich viele Elemente enthält, ist $m=0$. Aus der Anzahl der Elemente können wir 
+    $d_1 \cdots d_k = n$ folgern, woraus $d_i = p_{\phi(i)}^{g_i}$ folgt für geeignet gewählte $\phi, g_i$.
+    Nach VL ist $\bigoplus_{i = 1}^k \Z/(p_{\phi(i)}^{g_i})\Z$ genau dann projektiv, 
+    wenn $\Z/p_{\phi(i)}^{g_i}\Z$ projektiv ist $\forall i$.
+    Daraus folgt mit dem ersten Teil $\ggt(p_{\phi(i)}^{g_i}, \frac{n}{p_{\phi(i)}^{g_i}}) = 1$.
+    Wegen $\frac{n}{p_{\phi(i)}^{g_i}} = p_1^{e_1} \cdots p_{\phi(i)}^{e_{\phi(i)} - g_i} \cdots p_r^{e_r}$
+    muss $g_i = e_{\phi(i)}$ gelten, da sonst $p_{\phi(i)} | \ggt(p_{\phi(i)}^{g_i}, \frac{n}{p_{\phi(i)}^{g_i}})$.
+    Es gilt also 
+    $$M = \bigoplus_{i=1}^k \Z/p_{\phi(i)}^{e_{\phi(i)}}\Z.$$
+    Identische Werte für $\phi(i)$ können wir zusammenfassen und erhalten
+    $$M = \bigoplus_{i=1}^r (\Z/p_i^{e_i})^{f_i}.$$
+    \item Z.Z.: $\Z/n\Z \cong \hom_\Z(\Z/n\Z, \Q/\Z)$.
+    \begin{proof}
+        Wir betrachten die Abbildungen
+        $$\Phi \colon \Z/n\Z \to \hom_\Z(\Z/n\Z, \Q/\Z),\; a \mapsto \phi_a \coloneqq (\overline{x} \mapsto \frac{ax}{n})$$
+        und 
+        $$\Psi \colon \hom_\Z(\Z/n\Z, \Q/\Z) \to \Z/n\Z,\; \phi \mapsto n \cdot \phi(1)$$
+        $\Psi$ ist offensichtlich wohldefiniert.
+        Wir müssen zeigen, dass $\phi_a \in \hom_\Z(\Z/n\Z, \Q/\Z)$ liegt.
+        $\phi_a(\overline{x})$ ist unabhängig von der Wahl des Vertreters $x \in \Z$. Sei nämlich $\overline{x} = \overline{y}$, 
+        also $x-y \in n\Z$, so gilt 
+        $$\phi_a(x) - \phi_a(y) = \frac{ax}{n} - \frac{ay}{n} = \frac{a(x-y)}{n}.$$
+        Da $x-y$ in $n\Z$ liegen, ist dies eine ganze Zahl und somit gleich 0 in $\Q/\Z$. Weiter gilt
+        $$r \phi_a(\overline{x}) = r \cdot \frac{ax}{n} = \frac{a(rx)}{n} = \phi_a(\overline{rx}) = \phi_a(r\overline{x})$$
+        und $$\phi_a(\overline{x}) + \phi_a(\overline{y}) = \frac{ax}{n} + \frac{ay}{n} = \frac{a(x + y)}{n} 
+        = \phi_a(\overline{x+y}) = \phi_a(\overline{x} + \overline{y}).$$
+        Es gilt $\forall x \in \Z/n\Z$
+        $$ [(\Phi \circ \Psi)(\phi)](x) = \Phi(n \cdot \phi(1))(x) = \phi_{n\cdot \phi(1)}(x) = \frac{n \cdot \phi(1)x}{n} = \phi(1) \cdot x = \phi(x)$$
+        und
+        $$ (\Psi \circ \Phi)(x) = \Psi(\phi_x) = n \cdot \phi_x(1) = n \cdot \frac{x \cdot 1 }{n} = x$$
+
+    \end{proof}
+\end{enumerate}
+\section*{Aufgabe 4}
+\begin{enumerate}[(a)]
+    \item 
+\end{enumerate}
+\end{document}
