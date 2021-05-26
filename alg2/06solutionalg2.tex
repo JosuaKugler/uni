@@ -8,11 +8,12 @@
 \usetikzlibrary{cd}
 \newcommand{\ggt}{\operatorname{ggT}}
 \renewcommand{\hom}{\operatorname{Hom}}
+\newcommand{\rg}{\operatorname{rg}}
 
 \begin{document}
 \section*{Aufgabe 1}
 \begin{enumerate}[(a)]
-    \item Gilt $\ggt(d, \frac{n}{d}) = 1$, so erhalten wir nach dem chinesichen Restsatz $\Z/n \Z \cong \Z/d\Z \oplus \Z/\frac{n}{d} \Z$.
+    \item Gilt $\ggt(d, \frac{n}{d}) = 1$, so erhalten wir nach dem chinesischen Restsatz $\Z/n \Z \cong \Z/d\Z \oplus \Z/\frac{n}{d} \Z$.
     Damit ist $\Z/d\Z$ direkter Summand in einem freien Modul ($\Z/n\Z$ ist als $\Z/n\Z$-Modul offensichtlich frei).
     Sei nun $\Z/d\Z$ projektiv.
     Die Folge
@@ -20,7 +21,7 @@
     ist exakt, da Multiplikation mit $d$ injektiv ist, die kanonische Projektion $\pi\colon \Z/n\Z \to \Z/d\Z$ trivialerweise 
     surjektiv ist und $\im (\cdot d) = \ker \pi$ gilt.
     Ist nun $\Z/d\Z$ projektiv, so zerfällt diese Folge und es gilt $\Z/n\Z \cong \Z/\frac{n}{d}\Z \oplus \Z/d\Z$.
-    Nach dem chinesichen Restsatz ist das äquivalent zu $\ggt(d, \frac{n}{d}) = 1$.
+    Nach dem chinesischen Restsatz ist das äquivalent zu $\ggt(d, \frac{n}{d}) = 1$.
     Ist $n$ keine Primpotenz, so gilt $n = p^k \cdot d$ mit $\ggt(p^k, d) = 1$ für geeignete $p, k, d$.
     $\Z/d\Z$ ist als $\Z/n\Z$-Modul nicht frei. Ein beliebiges einelementiges System $(x)$ in $\Z/d\Z$ ist linear abhängig wegen
     $d\cdot x = 0$. Somit existiert kein nichtleeres linear unabhängiges System und insbesondere keine Basis.
@@ -59,15 +60,108 @@
         $$r \phi_a(\overline{x}) = r \cdot \frac{ax}{n} = \frac{a(rx)}{n} = \phi_a(\overline{rx}) = \phi_a(r\overline{x})$$
         und $$\phi_a(\overline{x}) + \phi_a(\overline{y}) = \frac{ax}{n} + \frac{ay}{n} = \frac{a(x + y)}{n} 
         = \phi_a(\overline{x+y}) = \phi_a(\overline{x} + \overline{y}).$$
-        Es gilt $\forall x \in \Z/n\Z$
+        Es gilt $\forall x \in \Z/n\Z, \phi \in \hom_\Z(\Z/n\Z, \Q/\Z)$
         $$ [(\Phi \circ \Psi)(\phi)](x) = \Phi(n \cdot \phi(1))(x) = \phi_{n\cdot \phi(1)}(x) = \frac{n \cdot \phi(1)x}{n} = \phi(1) \cdot x = \phi(x)$$
         und
-        $$ (\Psi \circ \Phi)(x) = \Psi(\phi_x) = n \cdot \phi_x(1) = n \cdot \frac{x \cdot 1 }{n} = x$$
+        $$ (\Psi \circ \Phi)(x) = \Psi(\phi_x) = n \cdot \phi_x(1) = n \cdot \frac{x \cdot 1 }{n} = x.$$
 
+        Es gilt für einen endlich erzeugten projektiven $\Z/n\Z$-Modul
+        \begin{align*}
+            M&=(\Z/p_1^{e_1}\Z)^{f_1} \oplus \dots \oplus (\Z/p_r^{e_r}\Z)^{f_r} \oplus (\Z/\frac{n}{p_1^{e_1}}\Z)^{f_1} \oplus \dots \oplus (\Z/\frac{n}{p_r^{e_r}}\Z)^{f_r}\\
+            &=(\Z/p_1^{e_1}\Z \oplus \Z/\frac{n}{p_1^{e_1}}\Z)^{f_1} \oplus \dots \oplus (\Z/p_r^{e_r}\Z \oplus \Z/\frac{n}{p_r^{e_r}}\Z)^{f_r}
+            \intertext{Nach dem chinesischen Restsatz folgt}
+            &=(\Z/n\Z)^{f_1} \oplus \dots \oplus (\Z/n\Z)^{f_r}\\
+            &=(\Z/n\Z)^{\sum_{i = 1}^{r} f_i}
+        \end{align*}
+        $(\Z/n\Z)^m$ ist kofrei, da $\Z/n\Z$ kofrei ist.
+        Insbesondere ist also $M$ direkter Faktor in einem kofreien Modul und damit injektiv.
     \end{proof}
 \end{enumerate}
 \section*{Aufgabe 4}
 \begin{enumerate}[(a)]
-    \item 
+    \item Sei 
+    \begin{align*}
+                &\mathfrak{p}\in (\phi^*)^{-1}(D(f)).
+                \intertext{Dann folgt}
+        \implies&\phi^*(\mathfrak{p}) \in D(f)\\
+        \implies&\phi^{-1}(\mathfrak{p}) \notin V(f)\\
+        \implies&f \notin \phi^{-1}(\mathfrak{p})\\
+        \implies&\phi(f) \notin \mathfrak{p}\\
+        \implies&\mathfrak{p} \in D(\phi(f)).
+        \intertext{Sei andererseits}
+                &\mathfrak{p}\in D(\phi(f)).
+                \intertext{Dann folgt}
+        \implies&\phi(f) \notin \mathfrak{p}\\
+        \implies&f \notin \phi^{-1}(\mathfrak{p})\\
+        \implies&\phi^*(\mathfrak{p}) \notin V(f)\\
+        \implies&\mathfrak{p} \in (\phi^*)^{-1}(D(f)).
+    \end{align*}
+    \item Sei
+    \begin{align*}
+                &\mathfrak{p}\in (\phi^*)^{-1}(V(\mathfrak{a})).
+                \intertext{Dann folgt}
+        \implies&\phi^*(\mathfrak{p}) \in V(\mathfrak{a})\\
+        \implies&\mathfrak{a} \subset \phi^{-1}(\mathfrak{p})\\
+        \implies&\phi(\mathfrak{a}) \subset \mathfrak{p}\\
+        \implies&B \cdot \phi(\mathfrak{a}) \subset \mathfrak{p}\\
+        \implies&\mathfrak{a}^e \subset \mathfrak{p}\\
+        \implies&\mathfrak{p} \in V(\mathfrak{a}^e).
+        \intertext{Sei andererseits}
+                &\mathfrak{p} \in V(\mathfrak{a}^e).
+                \intertext{Dann folgt}
+        \implies&\mathfrak{a}^e \subset \mathfrak{p}\\
+        \implies&B\phi(\mathfrak{a}) \subset \mathfrak{p}\\
+        \implies&\phi(\mathfrak{a}) \subset \mathfrak{p}\\
+        \implies&\mathfrak{a} \subset \phi^{-1}(\mathfrak{p})\\
+        \implies&\phi^*(\mathfrak{p}) \in V(\mathfrak{a})\\
+        \implies&\mathfrak{p} \in (\phi^*)^{-1}(V(\mathfrak{a})).
+    \end{align*}
+    \item Es gilt nach vorhergegangen Aufgaben und VL
+    \begin{align*}
+        \overline{\phi^*(V(\mathfrak{b}))} &= V(I(\phi^*(V(\mathfrak{b}))))\\
+        &= V\left( \bigcap_{\mathfrak{p} \in V(\mathfrak{b})} \phi^*(\mathfrak{p})\right)\\
+        &= V\left( \bigcap_{\substack{\mathfrak{p} \in \spec B\\\mathfrak{b}\in \mathfrak{p}}}\phi^{-1}(\mathfrak{p})\right)\\
+        &= V\left(\phi^{-1}\left(\bigcap_{\substack{\mathfrak{p}\in\spec B\\\mathfrak{b}\in\mathfrak{p}}}\mathfrak{p}\right)\right)\\
+        &= V\left(\phi^{-1}(r(\mathfrak{b}))\right)\\
+        &= V\left( r(\mathfrak{b})^c \right)\\
+        &= V\left( r(\mathfrak{b}^c) \right)\\
+        &= V\left( \mathfrak{b}^c \right).
+    \end{align*}
 \end{enumerate}
+\section*{Aufgabe 5}
+Projektive Moduln über einem Hauptidealring sind frei.
+Jeder freie $A$-Modul ist isomorph zu $A^n$ für geeignetes $n$.
+Insbesondere ist durch $\{A, A^2, \dots\}$ ein Vertretersystem für $\operatorname{Proj}(A)^{\cong}$ gegeben,
+
+$$\bigoplus_{[P] \in \operatorname{Proj}(A)^{\cong}} \Z \cdot [P] \cong \bigoplus_{i\in \N} \Z \cdot [A^i].$$
+Die Rangabbildung $\rg\colon \operatorname{Proj}(A)^{\cong} \to \Z,\; [P] \mapsto \rg P$ ist wohldefiniert, da isomorphe freie Moduln denselben Rang haben.
+Betrachte nun
+\[
+    f_i \colon \Z \cdot [A^i] \to \Z,\; n \cdot [A^i] \mapsto n \cdot \rg [A^i] = n \cdot i.
+\]
+Nach der universellen Eigenschaft der direkten Summe erhalten wir eine eindeutig bestimmte und offensichtlich surjektive Abbildung
+\[
+    f \colon K(A) \to \Z.
+\]
+Sei $0 \to P' \to P \to P'' \to 0$ eine exakte Folge. Da $P''$ projektiv ist, können wir äquivalent fordern $P = P' \oplus P''$
+oder weil alle drei Moduln frei sind $\rg P = \rg P' + \rg P''$.
+Für jeden Erzeuger $[P] - [P'] - [P''] \in \operatorname{Exakt}$ gilt daher $rg P - \rg P' - \rg P'' = 0$
+und insbesondere $f([P] - [P'] - [P'']) = F([P]) - f([P']) - f([P'']) = \rg P - \rg P' - \rg P'' = 0$, 
+also $\operatorname{Exakt}\subset \ker f$.
+Es gilt weiter $[A^i] + [A^j] - [A^{i+j}] \in \operatorname{Exakt}$ wegen $\rg A^i + \rg A^j = i+j = \rg A^{i+j}$
+und per vollständiger Induktion $n[A^i] - [A^{n\cdot i}] \in \operatorname{Exakt}$.
+Daraus erhalten wir auch 
+$$(n_1[A], n_2[A^2], \dots) - A^{\sum_{i = 1}^{\infty} i\cdot n_i} = \sum_{i = 1}^{\infty} n_i[A^i] - A^{\sum_{i = 1}^{\infty} i\cdot n_i} \in \operatorname{Exakt}.$$
+Sei $(n_1[A], n_2[A^2], \dots) \in \ker f$. Dann gilt
+\[
+    0 = \sum_{i = 1}^{\infty} f_i(n_i [A^i]) = \sum_{i = 1}^{\infty} i\cdot n_i.
+\]
+Es gilt
+\[
+    (n_1[A], n_2[A^2], \dots) - A^{\sum_{i = 1}^{\infty} i\cdot n_i} = (n_1[A], n_2[A^2], \dots) - A^0 = (n_1[A], n_2[A^2], \dots) \in \operatorname{Exakt}.
+\]
+Wir haben also gezeigt, dass $\ker f = \operatorname{Exakt}$. Mit dem Homomorphiesatz folgt
+\[
+    K(A) \cong \Z.
+\]
 \end{document}
