@@ -1,0 +1,124 @@
+\documentclass{article}
+
+\usepackage{josuamathheader}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\spec}{\operatorname{Spec}}
+\usepackage{tikz}
+\usetikzlibrary{babel}
+\usetikzlibrary{cd}
+\newcommand{\ggt}{\operatorname{ggT}}
+\renewcommand{\hom}{\operatorname{Hom}}
+\newcommand{\rg}{\operatorname{rg}}
+
+\begin{document}
+\section*{Aufgabe 1}
+\begin{enumerate}[(a)]
+    \item Sei $f$ ein Monomorphismus. Für ein beliebiges $T$ und zwei Abbildungen $t, t'$ mit $r \coloneqq f't = f't'$ genügt es zu zeigen, dass $t = t'$.
+          Wir erhalten $s = g't$ und $s' = g't'$. Es gilt $fs' = gr = fs$. Weil $f$ ein Monomorphismus ist, folgt daraus $s' = s$.
+          Es gilt also $r = f't$ und $s= g't$, aber auch $r = f't'$ und $s = g't'$. Nach der universellen Eigenschaft des Faserprodukts
+          ist $t$ aber eindeutig bestimmt, es folgt $t = t'$.
+          Folglich ist $f'$ ein Monomorphismus.
+    \item Behauptung: $(D, f', g')$ erfüllt die universelle Eigenschaft des Faserprodukts für
+          $$D \coloneqq \bigcup_{a\in A} f^{-1}(a)\times g^{-1}(a), \qquad
+              \underset{(x,y) \mapsto x}{g'\colon D \to B}, \qquad
+              \underset{(x,y) \mapsto y}{f'\colon D \to C}.$$
+          \begin{proof}
+              Sei $(x,y) \in D$. Das ist äquivalent zu $f(x) = g(y) \in A$.
+              \[
+                  g\circ f' (x,y) = g(y) = f(x) = f \circ g' (x,y).
+              \]
+              Seien nun eine Menge $T$ und Abbildungen $r \colon T \to C$ und $s\colon T \to B$ mit $gr = fs$ gegeben.
+              Sei eine beliebige Abbildung $$t \colon T \to D\qquad x \mapsto (a_x,b_x)$$ gegeben,
+              die der Forderung der universellen Eigenschaft genügt.
+              Dann muss $r(x) = f'((a_x,b_x)) = a_x$ und $s(x) = g'((a_x,b_x)) = b_x$ sein, es folgt
+              $$t \colon T \to D\qquad x\mapsto (r(x), s(x)).$$
+              Diese Abbildung ist wohldefiniert wegen $g(r(x)) = f(s(x))$.
+              Es existiert also genau ein Morphismus $t\colon T \to D$ mit der gewünschten Eigenschaft.
+          \end{proof}
+    \item Behauptung: $(D, f'=p_2m, g'=p_1m)$ erfüllt die universelle Eigenschaft des Faserprodukts.
+          \begin{proof}
+              Es gilt
+              \[
+                  fg' - gf' = fp_1m - gp_2m  = (fp_1 - gp_2) m = qm = 0,
+              \]
+              wegen $m = \ker q$, also $fg' = gf'$.
+              Seien nun ein Objekt $T$ und Abbildungen $r \colon T \to C$ und $s\colon T \to B$ mit $gr = fs$ gegeben.
+              Falls ein $t$ existiert, gilt $g't = p_1mt = s$ und $f't = p_2mt = r$.
+              Sollte es also ein $t$ mit der gewünschten Eigenschaft geben, so gilt
+              $mt \overset{!}{=} \langle s, r\rangle\colon T \to B \oplus C,\qquad x \mapsto (s(x), r(x))$.
+              Es gilt
+              $$q\langle s, r\rangle = (fp_1 - gp_2)\langle s, r\rangle = fp_1\langle s, r\rangle - gp_2\langle s, r\rangle
+                  = fs - gr = 0.$$
+              Nach der universellen Eigenschaft des Kerns faktorisiert $\langle s, r\rangle$ also über $D$,
+              es existiert eine eindeutig bestimmte Abbildung $t \colon T \to D$ mit $mt = \langle s, r\rangle$,
+              also $g't = p_1mt = s$ und $f't = p_2mt = r$.
+          \end{proof}
+    \item
+\end{enumerate}
+\section*{Aufgabe 3}
+\begin{enumerate}[(a)]
+    \item OE existieren $\chi(A^\bullet)$ und $\chi(B^\bullet)$.
+          Es verschwinden also nur endlich viele der $H^i(A^\bullet)$ und $H^i(B^\bullet)$ nicht.
+          Insbesondere existiert ein $n \in \Z$ mit $H^i(A^\bullet) = H^i(B^\bullet) = 0\forall i \geq n$.
+          Wir betrachten nun die lange exakte Kohomologiesequenz, die sich aus dem verallgemeinerten Schlangenlemma ergibt.
+          Für jedes $i \geq n$ erhalten wir die exakte Folge $\dots \to H^i(B^\bullet) \to H^i(C^\bullet) \to H^{i+1}(A^\bullet) \to \dots$.
+          Da nun aber $H^i(B^\bullet) = H^{i+1}(A^\bullet) = 0$ gilt, ergibt sich die exakte Folge $0 \to H^i(C^\bullet) \to 0 \implies H^i(C^\bullet) = 0$.
+          Analog existiert ein $m \in \Z$ mit $H^i(A^\bullet) = H^i(B^\bullet) = 0\forall i \leq n$.
+          Insgesamt folgern wir $H^i(C^\bullet) = 0 \forall i < m \lor i > n$,
+          es verschwinden also nur endlich viele der $H^i(C^\bullet)$ nicht und $\chi(C^\bullet)$ existiert.
+          Wir definieren
+          \[
+              K_A^i = \ker(H^i(A^\bullet) \to H^i(B^\bullet)) = \im(H^{i-1}(C^\bullet) \to H^i(A^\bullet))
+          \]
+          und analog
+          \[
+              K_B^i = \ker(H^i(B^\bullet) \to H^i(C^\bullet)) = \im(H^i(A^\bullet) \to H^i(B^\bullet))
+          \]
+          sowie
+          \[
+              K_C^i = \ker(H^i(C^\bullet) \to H^{i+1}(A^\bullet)) = \im(H^i(B^\bullet) \to H^i(C^\bullet)).
+          \]
+          Wir erhalten $\forall i \in \Z$ kurze exakte Folgen
+          \begin{align*}
+              0 & \to K_A^i \to H^i(A^\bullet) \to K_B^i \to 0     \\
+              0 & \to K_B^i \to H^i(B^\bullet) \to K_C^i \to 0     \\
+              0 & \to K_C^i \to H^i(C^\bullet) \to K_A^{i+1} \to 0 \\
+          \end{align*}
+          Nach dem Rangsatz für kurze exakte Folgen ergeben sich daraus die Gleichungen
+          \begin{align*}
+              \dim_K H^i(A^\bullet) & = \dim_K K_A^i + \dim_K K_B^i     \\
+              \dim_K H^i(B^\bullet) & = \dim_K K_B^i + \dim_K K_C^i     \\
+              \dim_K H^i(C^\bullet) & = \dim_K K_C^i + \dim_K K_A^{i+1} \\
+          \end{align*}
+          Schließlich erhalten wir
+          \begin{align*}
+                & \chi(A^\bullet) -\chi(B^\bullet) + \chi(C^\bullet)                                                                               \\
+              = & \sum_{i \in \Z} (-1)^i \left[ \dim_K H^i(A^\bullet) - \dim_K H^i(B^\bullet) + \dim_K H^i(C^\bullet) \right]                      \\
+              = & \sum_{i \in \Z} (-1)^i \left[ \dim_K K_A^i + \dim_K K_B^i - \dim_K K_B^i - \dim_K K_C^i +\dim_K K_C^i + \dim_K K_A^{i+1} \right] \\
+              = & \sum_{i \in \Z} (-1)^i \left[ \dim_K K_A^i + \dim_K K_A^{i+1} \right]                                                            \\
+              = & 0,
+          \end{align*}
+          da es sich um eine Teleskopsumme handelt, bei der sich alle Terme kürzen.
+    \item Wir erhalten $\forall i \in \Z$ kurze exakte Folgen
+          \begin{align*}
+              0 & \to B^i \to Z^i \to H^i \to 0     \\
+              0 & \to Z^i \to A^i \to B^{i+1} \to 0
+          \end{align*}
+          Mit dem Rangsatz für kurze exakte Folgen erhalten wir daraus
+          \begin{align*}
+              \dim_K Z^i & = \dim_K B^i + \dim_K H^i     \\
+              \dim_K A^i & = \dim_K Z^i + \dim_K B^{i+1}
+          \end{align*}
+          Es folgt
+          \[
+              \dim_K A^i = \dim_K Z^i + \dim_K B^{i+1} = \dim_K B^i + \dim_K B^{i+1} + \dim_K H^i,
+          \]
+          eingesetzt in $\chi(A^\bullet)$ ergibt sich
+          \begin{align*}
+              \chi(A^\bullet) & = \sum_{i \in \Z} (-1)^i \dim_K H^i(A^\bullet)                                            \\
+                              & = \sum_{i \in \Z} (-1)^i \dim_K A^i - \sum_{i\in \Z} (-1)^i (\dim_K B^i + \dim_K B^{i+1}) \\
+              \intertext{Der rechte Term ist eine Teleskopsumme, bei der sich alle Terme kürzen}
+                              & = \sum_{i \in \Z} (-1)^i \dim_K A^i
+          \end{align*}
+\end{enumerate}
+\end{document}
