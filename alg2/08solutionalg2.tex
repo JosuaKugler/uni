@@ -1,0 +1,168 @@
+\documentclass{article}
+
+\usepackage{josuamathheader}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\spec}{\operatorname{Spec}}
+\usepackage{tikz}
+\usetikzlibrary{babel}
+\usetikzlibrary{cd}
+\newcommand{\ggt}{\operatorname{ggT}}
+\renewcommand{\hom}{\operatorname{Hom}}
+\newcommand{\rg}{\operatorname{rg}}
+\newcommand{\tor}{\operatorname{Tor}}
+
+
+\begin{document}
+\section*{Aufgabe 1}
+\begin{enumerate}[(a)]
+    \item Zunächst benötigen wir eine projektive Auflösung von $\Z/m\Z$. Als $\Z$-Modul ist $\Z$ frei und damit projektiv.
+          Insbesondere ist $P_\bullet \coloneqq 0 \to \Z \xrightarrow{\cdot m} \Z \to 0$ eine projektive Folge.
+          Es gilt $H_0(P_\bullet) = \ker (\Z \to 0) / \im (\Z \xrightarrow{\cdot m} \Z) = \Z/m\Z$,
+          $H_1(P_\bullet) = \ker (\Z \xrightarrow{\cdot m} \Z)/\im (0\to \Z) = 0 /0 = 0$ und $H_{\geq 2}(P_\bullet) = 0 /0 = 0$.
+          Folglich handelt es sich um eine projektive Auflösung von $\Z/mZ$.
+
+          Es gilt $\tor_i^{\Z}(\Z/m\Z, \Z/n\Z) = L_i(\bar \otimes_\Z \Z/n\Z)(\Z/m\Z) = H_n(P_\bullet \otimes_\Z \Z/n\Z)$.
+          Es gilt \begin{align*}
+              P_\bullet \otimes_\Z \Z/n\Z & = 0 \to \Z\otimes_Z \Z/n\Z \xrightarrow{\cdot m \otimes 1_{\Z/n\Z}} \Z \otimes \Z/n\Z \to 0 \\
+                                          & \cong 0 \to \Z/n\Z \xrightarrow{\cdot m} \Z/n\Z \to 0,
+          \end{align*}
+          wobei die zweite Zeile kanonisch isomorph zur ersten ist, insbesondere also die selben Homologiegruppen besitzt.
+          Es folgt
+          \begin{align*}
+              \tor_0^{\Z}(\Z/m\Z, \Z/n\Z) & = H_0(P_\bullet \otimes_\Z \Z/n\Z)                   \\
+                                          & = (\Z/n\Z)/\im (\Z/n\Z \xrightarrow{\cdot m} \Z/n\Z) \\
+                                          & = (\Z/n\Z)/(m\Z/n\Z)                                 \\
+                                          & = \Z/((n)+(m))                                       \\
+                                          & = \Z/\ggt(n,m)\Z
+          \end{align*}
+          und
+          \begin{align*}
+              \tor_1^{\Z}(\Z/m\Z, \Z/n\Z) & = H_1(P_\bullet \otimes_\Z \Z/n\Z)           \\
+                                          & = \ker (\Z/n\Z \xrightarrow{\cdot m} \Z/n\Z) \\
+                                          & = (n):(m)/(n)                                \\
+                                          & = \frac{n}{\ggt(n,m)}\Z/n\Z
+          \end{align*}
+          Für alle weiteren Homologiegruppen gilt, $i \geq 2:$
+          \begin{align*}
+              \tor_i^{\Z}(\Z/m\Z, \Z/n\Z) & = H_i(P_\bullet \otimes_\Z \Z/n\Z) \\
+                                          & = \ker(0)/\im(0)                   \\
+                                          & = 0
+          \end{align*}
+    \item Wir konstruieren zunächst wieder eine projektive Auflösung von $\Z/d\Z$. Fallunterscheidung:
+          \begin{enumerate}[1)]
+              \item $\ggt(d, n/d) = 1$ oder $\ggt(e, n/e) = 1$ (vertausche dann OE $e$ und $d$).\\
+                    \textbf{Behauptung:} $\tor_0^{\Z/n\Z}(\Z/d\Z, \Z/e\Z) = \Z/\ggt(e,d)\Z$ und
+                    $\tor_i^{\Z/n\Z}(\Z/d\Z, \Z/e\Z) = 0 \forall i \geq 1$.
+                    \begin{proof}
+                        $\Z/d\Z$ ist in diesem Fall ein projektiver $\Z/n\Z$-Modul und durch $0 \to \Z/d\Z \to 0$ ist eine
+                        projektive Auflösung gegeben, da $H_0 = \Z/d\Z$ und $H_{i} = 0/0 = 0 \forall i \geq 1$.
+                        Durch tensorieren mit $\Z/e\Z$ erhalten wir die Folge $0 \to \Z/\d\Z \otimes_\Z \Z/e\Z \to 0$.
+                        Dabei ist $\Z/\d\Z \otimes_\Z \Z/e\Z$ kanonisch isomorph zu $\Z/((d) + (e)) = \Z/\ggt(e,d)\Z$.
+                        Insbesondere gilt $\tor_0^{\Z/n\Z} = \ker (\Z/\ggt(e,d)\Z \to 0)/ \im 0 = \Z/\ggt(e,d)\Z$ und
+                        $\tor_i^{\Z/n\Z}(\Z/d\Z, \Z/e\Z) = 0/0 = 0 \forall i \geq 1$.
+                    \end{proof}
+              \item $\ggt(d, n/d) \neq 1$ und $\ggt(e, n/e) \neq 1$.
+              Behauptung: Der folgende Komplex ist eine projektive Auflösung für $\Z/d\Z$ als $\Z/n\Z$-Modul.
+              \begin{equation}
+              	\cdots \xrightarrow{\cdot d} \Z/n\Z \xrightarrow{\cdot n/d} \Z/n\Z \xrightarrow{\cdot d} \Z/n\Z \to 0\label{zdz}
+              \end{equation}
+          \begin{proof}
+          	Wir berechnen die Homologiegruppen.
+          	Es gilt
+          	\[
+          		H_0 = (\Z/n\Z) / d(\Z/n\Z) = \Z/d\Z,
+          	\]
+          	sowie
+          	\[
+          		H_1 = (\ker \Z/n\Z \xrightarrow{\cdot d} \Z/n\Z)/(n/d\Z/n\Z) = (n/d\Z/n\Z)/(n/d\Z/n\Z) = 0
+          	\]
+          	und
+          	\[
+          		H_2 = (\ker \Z/n\Z \xrightarrow{\cdot n/d} \Z/n\Z)/(d\Z/n\Z) = (d\Z/n\Z)/(d\Z/n\Z) = 0.
+          	\]
+          	Aufgrund der Periodizität der Auflösung sind auch alle weiteren Homologiegruppen 0.
+          \end{proof}
+      	Wir tensorieren den Komplex \ref{zdz} mit $\Z/e\Z$ und erhalten 
+      	 \begin{equation}
+      		\cdots \xrightarrow{\cdot d\otimes 1_{\Z/e\Z}} \Z/n\Z\otimes_{\Z/n\Z} \Z/e\Z \xrightarrow{\cdot n/d\otimes 1_{\Z/e\Z}} \Z/n\Z \otimes_{\Z/n\Z} \Z/e\Z \xrightarrow{\cdot d\otimes 1_{\Z/e\Z}} \Z/n\Z \otimes_{\Z/n\Z} \Z/e\Z \to 0\label{zdzez}
+      	\end{equation}
+      Es existiert ein kanonischer Komplexisomorphismus zu folgendem Komplex
+       \begin{equation}
+      	\cdots \xrightarrow{\cdot d} \Z/e\Z \xrightarrow{\cdot n/d} \Z/e\Z \xrightarrow{\cdot d} \Z/e\Z \to 0\label{zez}
+      \end{equation}
+  	Daraus berechnen wir nun die gesuchten Werte des Tor-Funktors.
+  	Es gilt
+  	\begin{align*}
+  		\tor_0^{\Z/n\Z}(\Z/d\Z, \Z/e\Z) &= (\Z/e\Z)/d(\Z/e\Z) = \Z/((d) + (e)) = \Z/\ggt(e,d)\Z,
+  	\end{align*} für alle weiteren $i$ ist der Komplex periodisch, also auch die Homologiegruppen. Es gilt $\forall k \in \N$
+  	\begin{align*}
+  		\tor_{2k-1}^{\Z/n\Z}(\Z/d\Z, \Z/e\Z) &= \ker (\Z/e\Z \xrightarrow{\cdot d} \Z/e\Z) / \im (\Z/e\Z \xrightarrow{\cdot n/d} \Z/e\Z)\\
+  		&= \frac{((e):(d))/(e))}{(n/d)\cdot (\Z/e\Z)}\\
+  		&= \frac{\left(\frac{e}{\ggt(e,d)}\right)/(e)}{((n/d) + (e))/(e)}\\
+  		&= \frac{\left(\frac{e}{\ggt(e,d)}\right)}{(\ggt(n/d, e))}
+  	\end{align*}
+  	 und
+  	 \begin{align*}
+  	 	\tor_{2k}^{\Z/n\Z}(\Z/d\Z, \Z/e\Z) &= \ker (\Z/e\Z \xrightarrow{\cdot n/d} \Z/e\Z) / \im (\Z/e\Z \xrightarrow{\cdot d} \Z/e\Z)\\
+  	 	&= \frac{((e):(n/d))/(e))}{(d)\cdot (\Z/e\Z)}\\
+  	 	&= \frac{\left(\frac{e}{\ggt(e,n/d)}\right)/(e)}{((d) + (e))/(e)}\\
+  	 	&= \frac{\left(\frac{e}{\ggt(e,n/d)}\right)}{(\ggt(d, e))}.
+  	 \end{align*}
+          \end{enumerate}
+\end{enumerate}
+\section*{Aufgabe 2}
+\begin{enumerate}[(a)]
+    \item $\C[X,Y]$ und $\C[X,Y]^2$ sind frei als $\C[X,Y]$-Moduln, also insbesondere projektiv.
+          \begin{equation}
+              0 \to \C[X,Y] \xrightarrow{\alpha} \C[X,Y]^2 \xrightarrow{\beta} \C[X,Y] \xrightarrow{\varepsilon} \C \to 0\label{folge}
+          \end{equation}
+          Daher genügt es Exaktheit der Folge~\ref{folge} nachzuweisen.
+          Es gilt $\alpha(x) = 0 \implies x(X, -Y) = 0 \implies Xx = 0 \implies x = 0$. Insbesondere ist $\ker \alpha = 0$.
+          Weiter gilt $\beta \circ \alpha(x) = \beta(x \cdot (X, -Y)) = xYX - xXY = 0$. Sei $(f,g) \in \ker \beta$.
+          Dann ist $Yf = -gX$. Insbesondere ist $f \in (X)$ und $g \in (Y)$, also $f = \tilde f X, g = \tilde g Y$
+          und wir erhalten
+          $$\tilde f XY = - \tilde g YX \implies \tilde f = -\tilde g \implies (f,g) = \tilde f (X, -Y) = \alpha(\tilde f) \in \im \alpha.$$
+          Desweiteren ist $\im \beta = (X,Y)$, da $\beta(0,1) = Y$ und $\beta(1,0) = X$ gilt.
+          Wegen $\varepsilon(X) = \varepsilon(Y) = 0$ und $\varepsilon|_\C = \operatorname{id}_\C$ ist $\ker \varepsilon = (X,Y) = \im \beta$.
+          Schließlich ist $\im \varepsilon = \C = \ker (\C \to 0)$.
+          Damit ist die Exaktheit von \ref{folge} gezeigt und es handelt sich bei
+          \begin{equation}
+              0 \to \C[X,Y] \xrightarrow{\alpha} \C[X,Y]^2 \xrightarrow{\beta} \C[X,Y] \to 0\label{aufl}
+          \end{equation}
+          wegen $H_0(\ref{aufl}) = \C[X,Y]/(X,Y) = \C$ um eine projektive Auflösung von $\C$.
+    \item Wir tensorieren \ref{aufl} mit $\C$ und erhalten
+          \begin{equation}
+              0 \to \C[X,Y] \otimes_{\C[X,Y]} \C \xrightarrow{\alpha} \C[X,Y]^2\otimes_{\C[X,Y]} \C \xrightarrow{\beta} \C[X,Y]\otimes_{\C[X,Y]} \C \to 0
+          \end{equation}
+          Es gilt $\C = \C[X,Y]/(X,Y)$. Behauptung: Das Diagramm
+          \begin{equation}
+              \begin{tikzcd}
+                  0 \arrow[r] & \C[X,Y] \otimes_{\C[X,Y]} \C \arrow[d, "\phi"] \arrow[r, "\alpha \otimes 1_\C"] & \C[X,Y]^2\otimes_{\C[X,Y]} \C \arrow[d, "\psi"] \arrow[r, "\beta \otimes 1_\C"] & \C[X,Y]\otimes_{\C[X,Y]} \C \arrow[d, "\phi"]\arrow[r] & 0 \\
+                  0 \arrow[r] & \C \arrow[r, "0"] & \C^2 \arrow[r, "0"] &  \C \arrow[r] & 0
+              \end{tikzcd}
+          \end{equation}
+          kommutiert, wobei $\phi$ jeweils den kanonischen Isomorphismus aus Satz 3.9 bezeichne und $\psi$ den Isomorphismus aus Korollar 3.8.
+          \begin{proof}
+            Wir zeigen zunächst $\psi \circ (\alpha \otimes 1_\C) = 0$. Sei $x = \sum_{i = 1}^{n} f_i \otimes c_i \in \C[X,Y] \otimes_{\C[X,Y]} \C$.
+            Dann gilt 
+            $$\psi((\alpha \otimes 1_\C)(x)) = \psi(\sum_{i = 1}^{n} f_i(X, Y) \otimes c_i) = \sum_{i = 1}^{n} (f_ic_iX, f_ic_iY) = \sum_{i = 1}^{n} (0,0) = 0,$$
+            da die $\C[X,Y]$-Modulstruktur gegeben ist durch $X \cdot c = \varepsilon(X) \cdot c = 0, Y \cdot c = \varepsilon(Y) \cdot c = 0$.
+            Außerdem gilt $\phi \circ (\beta \otimes 1_\C) = 0$. Sei nämlich $x = \sum_{i = 1}^{n} (f_i,g_i) \otimes c_i$.
+            Dann gilt
+            $$\phi((\beta \otimes 1_\C)(x)) = \phi(\sum_{i = 1}^{n} (Yf_i + Xg_i) \otimes c_i) = \sum_{i = 1}^{n} (Yf_ic_i + Xg_ic_i) = 0,$$
+            da die $\C[X,Y]$-Modulstruktur gegeben ist durch $X \cdot c = \varepsilon(X) \cdot c = 0, Y \cdot c = \varepsilon(Y) \cdot c = 0$.
+        \end{proof}
+        Insgesamt erhalten wir also einen Isomorphismus von Komplexen, die demnach insbesondere dieselben Homologiegruppen besitzen.
+        Daraus folgern wir
+        \begin{align*}
+            \tor_0^{\C[X,Y]}(\C, \C) &= \ker( \C \to 0 )/\im (\C^2 \xrightarrow{0} \C) = \C/0 = \C\\
+            \tor_1^{\C[X,Y]}(\C, \C) &= \ker( \C^2 \to 0 )/\im (\C \xrightarrow{0} \C^2) = \C^2/0 = \C^2\\
+            \tor_2^{\C[X,Y]}(\C, \C) &= \ker( \C \to 0 )/\im (0 \to \C) = \C/0 = \C\\
+            \tor_i^{\C[X,Y]}(\C, \C) &= \ker( 0 \to 0 )/\im (0 \to 0) = 0/0 = 0 \forall i \geq 3
+        \end{align*}
+    \item Da es sich bei $\tor_i^{\C[X,Y]}$ um einen Funktor handelt, sind die Werte $\tor_i^{\C[X,Y]}(\C, \C)$ 
+    unabhängig von der Wahl der Auflösung. Gäbe es eine kürzere projektive Auflösung $P_\bullet$ von $\C$ als $\C[X,Y]$-Modul, so wäre 
+    für diese Auflösung $H_2(P_\bullet \otimes \C) = \ker (0 \to P_1) /\im (0 \to 0) = 0$, Widerspruch.
+    Daher gibt es keine kürzere projektive Auflösung von $\C$ als $\C[X,Y]$-Modul.
+\end{enumerate}
+\end{document}
