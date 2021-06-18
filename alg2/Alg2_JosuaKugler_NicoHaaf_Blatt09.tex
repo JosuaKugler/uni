@@ -1,0 +1,417 @@
+\documentclass{nico_zettelsose21}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% page geometry
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{
+	left=20mm,
+	right=20mm,
+	top=25mm,
+	bottom=20mm
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pgfplotsset{compat=1.16}
+
+\newcommand{\xqed}[1]{%
+  \leavevmode\unskip\penalty9999 \hbox{}\nobreak\hfill
+  \quad\hbox{\ensuremath{#1}}}
+
+\algII{9}
+
+\renewcommand{\a}{\mathfrak{a}}
+\renewcommand{\b}{\mathfrak{b}}
+\newcommand{\p}{\mathfrak{p}}
+\newcommand{\q}{\mathfrak{q}}
+\newcommand{\ann}{\operatorname{Ann}}
+\newcommand{\m}{\mathfrak{m}}
+\newcommand{\spec}{\operatorname{Spec}}
+
+\newcommand{\Zpp}[1]{\Z/p^{#1}\Z}
+
+%\usepackage{josuamathheader}
+\newcommand{\coker}{\operatorname{coker}}
+\usepackage{tikz}
+\usetikzlibrary{babel}
+\usetikzlibrary{cd}
+
+\newcommand{\coeff}{\operatorname{coeff}}
+
+\newcommand{\A}{A^{\wedge \m}}
+
+\renewcommand{\hom}{\operatorname{Hom}}
+
+\newcommand{\ob}{\operatorname{ob}}
+\newcommand{\mor}{\operatorname{Mor}}
+\newcommand{\Mor}{\operatorname{Mor}}
+\newcommand{\Kat}{\operatorname{Kat}}
+\renewcommand{\op}{\operatorname{op}}
+\newcommand{\ggt}{\operatorname{ggT}}
+\renewcommand{\hom}{\operatorname{Hom}}
+\renewcommand{\rg}{\operatorname{rg}}
+\newcommand{\Am}{\operatorname{A-Mod}}
+\newcommand{\Bm}{\operatorname{B-Mod}}
+\newcommand{\Ab}{\mathcal{A}b}
+\renewcommand{\O}{\operatorname{Offen}}
+\newcommand{\Ox}{\O(X)}
+\newcommand{\Ps}{\operatorname{PSh}_{\Ab}(X)}
+\newcommand{\Fun}{\operatorname{Fun}}
+\newcommand{\D}{\mathcal{D}}
+\newcommand{\Func}{\Fun(\C,\D)}
+\newcommand{\FunC}{\Fun(\C^{\op},\operatorname{Set})}
+\newcommand{\Set}{\operatorname{Set}}
+\newcommand{\Zp}{\Z/p\Z}
+\newcommand{\Zn}{\Z/n\Z}
+\newcommand{\Zm}{\Z/m\Z}
+\newcommand{\Ze}{\Z/e\Z}
+\newcommand{\Zd}{\Z/d\Z}
+\newcommand{\Spec}{\operatorname{Spec}}
+\newcommand{\Ext}{\operatorname{Ext}}
+\newcommand{\limD}{\operatorname{lim}}
+
+\renewcommand{\im}{\operatorname{im}}
+\usepackage{tikz}
+\usetikzlibrary{babel}
+\usetikzlibrary{cd}
+\newcommand{\tor}{\operatorname{Tor}}
+\newcommand{\Mod}{\operatorname{Mod}}
+
+\usepackage{tikz-cd}
+
+\begin{document}
+
+
+\section*{Aufgabe 1}
+\begin{lemma*}
+    Es gilt $S^{-1}M \cong M$ für einen $S^{-1}A$-Modul $M$.
+\end{lemma*}
+\begin{proof}
+    Betrachte die Abbildung
+    \[
+        \Phi \colon M \cong M \to S^{-1}M, m \mapsto \frac{m}{1}.
+    \]
+    Diese Abbildung ist wegen 
+    \[
+        \Phi(\underbrace{\frac{1}{s}}_{\in S^{-1}A} \cdot m) = \frac{1}{s} \cdot m = \frac{m}{s}
+    \] 
+    surjektiv und wegen
+    \[ 
+        0 = \Phi(m) = \frac{m}{1} \Leftrightarrow m = 0
+    \] auch injektiv.
+\end{proof}
+Nach Satz 16.7 gilt
+\[
+    S^{-1}\tor_i^A(M,N) \cong \tor_i^{S^{-1}A}(S^{-1}M, S^{-1}N)
+\]
+Mit Lemma 1 folgt
+\[
+    S^{-1}\tor_i^A(M,N) \cong \tor_i^{S^{-1}A}(M, N)
+\]
+Bei $M$ und $N$ handelt es sich um $S^{-1}A$-Moduln.
+Insbesondere existiert für beide eine projektive Auflösung in der Kategorie der $S^{-1}A$-Moduln, 
+da diese genügend viele Projektive besitzt.
+Ein $A$-Tensorprodukt zweier $S^{-1}A$-Moduln ist stets auch wieder ein $S^{-1}A$-Modul.
+Die Kohomologiegruppen lassen sich daher ebenfalls in $S^{-1}A$ bilden, da es eine abelsche Kategorie ist
+(Kerne, Kokerne etc. existieren).
+Insbesondere kann auch $\tor_i^A(M,N)$ als $S^{-1}A$-Modul aufgefasst werden und wir erhalten mit Lemma 1
+einen Isomorphismus $S^{-1}\tor_i^A(M,N) \cong \tor_i^A(M,N)$.
+Insgesamt folgt die Behauptung.
+
+\section*{Aufgabe 2}
+\begin{lemma*}
+    Sei $A$ ein kommutativer Ring (mit Eins) und $M$ ein $A$-Modul, für $n \in \N$ existiert ein natürlicher Isomorphismus von $A$-Moduln:
+    \[
+        \Hom_{A}(A^{n},M) \cong M^{n}.
+    \]
+\end{lemma*}
+\begin{proof}
+    $A^{n}$ ist frei als $A$-Modul mit Basis $(e_{i})_{i = 1}^{n}$, wobei $e_{i} \in A^{n}$ das Element mit $1$ an der Stelle $i$ und
+    an allen anderen Stellen $0$ bezeichnet. Sei
+    \[
+       \psi \colon \Hom_{A}(A^{n},M) \to M^{n}, \ \ \  \psi(\varphi) \coloneqq (\varphi(e_{i}))_{i=1}^{n}.
+    \]
+    $\psi$ ist ein $A$-Modulhomomorphismus, dies folgt aus der Elementweisen Addition in $M^{n}$ und aus $\varphi(am) = a\varphi(m)$ 
+    für $\varphi \in \Hom_{A}(A^{n},M)$, $a \in A$ und $m \in M$. Sei 
+    \[
+        \theta\colon M^{n} \to \Hom_{A}(A^{n},M), \ \ \ \theta((m_{i})_{i=1}^{n}) \coloneqq (e_{i} \mapsto m_{i}).
+    \]
+    Die Existenz von $\theta(m)$ alle $m \in M$ folgt aus der universellen Eigenschaft der direkten Summe. Dass $\theta$
+    ein $A$-Modulhomomorphismus ist, folgt aus der Elementweisen Addition in $M^{n}$ und aus der Definition von $\theta$. \\
+    $\theta$ und $\psi$ sind invers zueinander (insbesondere folgt die Behauptung):
+    \begin{align*}
+        \psi(\theta((m_{i})_{i=1}^{n})) &= (\theta(e_{i}))_{i=1}^{n} \\
+        &= (m_{i})_{i=1}^{n} \\
+        \theta(\psi(\varphi)) &= \theta((\varphi(e_{i}))_{i=1}^{n}) \\
+        &= (e_{i} \mapsto \varphi(e_{i})) \\
+        &= \varphi.
+    \end{align*}
+\end{proof}
+\begin{enumerate}[(a)]
+    \item   \textbf{Behauptung:} Im folgenden wird $\Ext_{i}^{\Z}(\Zm,\Zn)$ bestimmt. 
+            \begin{proof}
+                Nach 8.1 ist eine projektive Auflösung von $\Zm$ als $\Z$-Modul gegeben durch:
+                \[
+                \begin{tikzcd}
+                    0 \arrow[r] &\Z \arrow[r, "m\cdot"] &\Z \arrow[r] &0.
+                \end{tikzcd}
+                \]
+                Wobei $m\cdot \colon \Z \to \Z$ gegeben ist durch $z \mapsto mz$. 
+                Anwenden des $\Hom_{\Z}(-,\Zn)$ Funktors liefert:
+                \[
+                \begin{tikzcd}
+                    0 \arrow[r] &\Hom_{\Z}(\Z,\Zn) \arrow[rr, "(\varphi \mapsto \varphi \circ m\cdot)"] &&\Hom_{\Z}(\Z,\Zn) \arrow[r] &0.
+                \end{tikzcd}
+                \]
+                Nutzen des Lemmas liefert einen Quasiisomorphismus von Komplexen:
+                \[
+                \begin{tikzcd}
+                    0 \arrow[r] &\Hom_{\Z}(\Z,\Zn) \arrow[rr, "(\varphi \mapsto \varphi \circ m\cdot)"] \arrow[d, "(\varphi \mapsto \varphi(1))"] &&\Hom_{\Z}(\Z,\Zn) \arrow[r] \arrow[d, "(\varphi \mapsto \varphi(1))"] &0 \\
+                    0 \arrow[r] &\Zn \arrow[rr, "m\cdot"] &&\Zn \arrow[r] &0
+                \end{tikzcd}
+                \]
+                $\Zn$ ist $\Z$ Modul (bspw. via der kanonischen Projektion $\Z \to \Zn$), insbesondere ist $\Zn \to \Zn$ mit 
+                $\overline{n} \mapsto m \overline{n}$ wohldefiniert. Das Diagramm kommutiert, denn $m\phi(1) = \phi(m)$.
+                Insbesondere folgt die Gleichheit der Homologiergruppen der beiden Komplexe und wir erhalten:
+                \begin{align*}
+                    \Ext_{0}^{\Z}(\Zm,\Zn) &= \ker(\Zn \stackrel{m \cdot}{\rightarrow} \Zn)/\im(0 \to \Zn) \\
+                    &= \{\overline{k} \in \Zn \ | \ mk \in n\Z\}/0 \\
+                    &= \{k \in \Z \ | \ k \cdot m\Z \subset n\Z\}/n\Z \\
+                    &= (n\Z : m\Z)/n\Z \\
+                    &= \left( \frac{n}{\ggt(m,n)}\Z \right)/n\Z \\
+                    \Ext_{1}^{\Z}(\Zm,\Zm) &= \ker(\Zn \to 0)/\im(\Zn \stackrel{m \cdot}{\rightarrow} \Zn) \\
+                    &= (\Zn)/(m \dot \Zn) \\
+                    &= (\Zn)/(\ggt(n,m)\Z/n\Z) \\
+                    &= \Z/\ggt(m,n)\Z.
+                \end{align*}
+                Für $i\geq 2$ gilt somit $\Ext_{i}^{\Z}(\Zm,\Zn) = 0/0 = 0$. 
+            \end{proof}
+    
+    \item   \textbf{Behauptung:} Im folgenden wird $\Ext_{i}^{\Z}(\Zd,\Ze)$ bestimmt.
+            \begin{proof}
+                Nach 8.1 erhalten wir eine projektive Auflösung $P_{\bullet}$ von $\Zd$ als $\Zn$-Modul durch: 
+                \[
+                \begin{tikzcd}
+                    \cdots \arrow[r] &\Zn \arrow[r, "d\cdot"] &\Zn \arrow[r, "\frac{n}{d}\cdot"] &\Zn \arrow[r, "d\cdot"] &\Zn \arrow[r] &0.
+                \end{tikzcd}
+                \]
+                Anwenden des $\Hom_{\Zn}(-,\Ze)$ Funktors liefert:
+                \[
+                    \begin{tikzcd}
+                        0 \to \Hom_{\Zn}(\Zn,\Ze) \arrow[r, "(d \cdot)^{*}"] &\Hom_{\Zn}(\Zn,\Ze) \arrow[r, "(\frac{n}{d}\cdot)^{*}"] &\Hom_{\Zn}(\Zn,\Ze) \arrow[r, "(d\cdot)"] &\cdots
+                    \end{tikzcd}
+                \]
+                Nutzen des Lemmas liefert einen Quasiisomorphismus von Komplexen (vollkommen analog zu (a)) 
+                $\Hom_{\Zn}(P_{\bullet},\Ze) \to R_{\bullet}$ wobei $R_{i} = \Ze$ für $i \in \N_{0}$ mit Differentailen
+                $d_{2j} = (\overline{k} \mapsto d\overline{k})$ und $d_{2j+1} = (\overline{k} \mapsto \frac{n}{d}\overline{k})$ 
+                für $j \in \N_{0}$:
+                \[
+                \begin{tikzcd}
+                    0 \arrow[r] &\Ze \arrow[r, "d\cdot"] &\Ze \arrow[r, "\frac{n}{d} \cdot"] &\Ze \arrow[r, "d \cdot"] &\Ze \arrow[r, "\frac{n}{d}"] &\cdots
+                \end{tikzcd}
+                \]
+                Insbesondere folgt die Gleichheit der Homologiergruppen und wir erhalten für $j \in \N$:
+                \begin{align*}
+                    \Ext_{0}^{\Zn}(\Zd,\Ze) &= \ker(\Ze \stackrel{d \cdot}{\rightarrow} \Ze)/\im(0 \to \Ze) \\
+                    &= (d \cdot \Ze)/0 \\
+                    &= \ggt(d,e)\Z/e\Z \\
+                    \Ext_{2j-1}^{\Zn}(\Zd,\Ze) &= \ker(\Ze \stackrel{\frac{n}{d} \cdot}{\rightarrow} \Ze)/\im(\Ze \stackrel{d \cdot}{\rightarrow} \Ze) \\
+                    &= (\{k \in \Z \ | \ \frac{n}{d} k \in e\Z \}/e\Z)/(d \cdot \Ze) \\
+                    &= ((e\Z : \frac{n}{d}\Z)/e\Z)/(\ggt(d,e)\Z/e\Z) \\
+                    &= (e\Z : \frac{n}{d}\Z)/\ggt(d,e)\Z \\
+                    &= \left( \frac{e}{\ggt(e,\frac{n}{d})}\Z \right)/\ggt(d,e)\Z \\
+                    \Ext_{2j}^{\Zn}(\Zd,\Ze) &= \ker(\Ze \stackrel{d \cdot}{\rightarrow} \Ze)/\im(\Ze \stackrel{\frac{n}{d} \cdot}{\rightarrow} \Ze)\\
+                    &= \left( \frac{e}{\ggt(e,d)}\Z \right)/\ggt\left(\frac{n}{d}, e\right)\Z
+                \end{align*}
+            \end{proof}
+    
+    \item   \textbf{Behauptung:} Im folgenden wird $\Ext_{i}^{\C[X,Y]}(\C,\C)$ bestimmt.
+            \begin{proof}
+                Nach 8.2 erhalten erhalten wir eine projektive Auflösung von $\C$ als $\C[X,Y]$-Modul durch:
+                \[
+                \begin{tikzcd}
+                    0 \arrow[r] &\C[X,Y] \arrow[r,"\alpha"] &\C[X,Y]^{2} \arrow[r,"\beta"] & \C[X,Y] \arrow[r] &0.
+                \end{tikzcd} 
+                \]
+                Anwenden des $\Hom_{\C[X,Y]}(-,\C)$ Funktors liefert: (Zur Vereinfachung der Notation $\Hom_{C[X,Y]}) = \Hom$)
+                \[
+                \begin{tikzcd}
+                    0 \arrow[r] &\Hom(\C[X,Y],\C) \arrow[r, "\beta^{*}"] &\Hom(\C[X,Y],\C) \arrow[r, "\alpha^{*}"] &\Hom(\C[X,Y],\C) \arrow[r] &0.
+                \end{tikzcd}
+                \]
+                Anwenden des Lemmas liefert einen Quasiisomorphismus von Komplexen:
+                \[
+                \begin{tikzcd}
+                    0 \arrow[r] &\Hom(\C[X,Y],\C) \arrow[r, "\beta^{*}"] \arrow[d, "\psi_{1}"] &\Hom(\C[X,Y]^{2},\C) \arrow[r, "\alpha^{*}"] \arrow[d, "\psi_{2}"] &\Hom(\C[X,Y],\C) \arrow[r] \arrow[d, "\psi_{1}"] &0 \\
+                    0 \arrow[r] &\C \arrow[r, "0"] &\C^{2} \arrow[r, "0"] &\C \arrow[r] &0
+                \end{tikzcd} 
+                \]
+                Die Existenz der Isomorphismen $\psi_{1},\psi_{2}$ folgt aus dem Lemma, es gilt zu zeigen, dass obiges Diagramm kommutiert: \\
+                sei $\varphi \in \Hom(\C[X,Y],\C)$, dann gilt:
+                \begin{align*}
+                    \psi_{2}(\beta^{*}(\varphi)) &= \psi_{2}(\varphi \circ \beta) \\
+                    &= (\varphi(\beta(1,0)),\varphi(\beta(1,0))) \\
+                    &= (\varphi(Y),\varphi(X)) \\
+                    &= (Y\varphi(1),X\varphi(1)) \\
+                    &= ((Y)(Y = 0, X = 0) \cdot \varphi(1),(X)(Y = 0, X = 0) \cdot \varphi(1)) \\
+                    &= (0,0).
+                \end{align*}
+                Insbesondere kommutiert das erste Quadrat. Sei $\varphi \in \Hom(\C[X,Y]^{2},\C)$, dann gilt:
+                \begin{align*}
+                    \psi_{1}(\alpha^{*}(\varphi)) &= \psi_{1}(\varphi \circ \alpha) \\
+                    &= \varphi(\alpha(1)) \\
+                    &= \varphi(X,-Y) \\
+                    &= X\varphi(1,0) - Y\varphi(0,1) \\
+                    &= 0 \cdot \varphi(1,0) - 0 \cdot \varphi(0,1) \\
+                    &= 0.
+                \end{align*}
+                Insbesondere kommutiert das zweite Quadrat und somit das ganze Diagramm. Aus dem Quasiisomorphismus folgt die Gleichheit 
+                der Homologiergruppen und wir erhalten:
+                \begin{align*}
+                    \Ext_{0}^{\C[X,Y]}(\C,\C) &= \ker(\C \stackrel{0}{\rightarrow} \C^{2})/\im(0 \to \C) \\
+                    &= \C/0 = \C \\
+                    \Ext_{1}^{\C[X,Y]}(\C,\C) &= \ker(\C^{2} \stackrel{0}{\rightarrow} \C)/\im(\C \stackrel{0}{\rightarrow} \C^{2}) \\
+                    &= \C^{2}/0 = \C^{2} \\
+                    \Ext_{2}^{\C[X,Y]}(\C,\C) &= \ker(\C \to 0)/\im(\C^{2} \stackrel{0}{\rightarrow} \C) \\
+                    &= \C/0 = \C
+                \end{align*}
+                sowie $\Ext_{i}^{\C[X,Y]}(\C,\C) = 0/0 = 0$ für alle $i \geq 3$. 
+            \end{proof}
+\end{enumerate}
+
+\section*{Aufgabe 3}
+\begin{enumerate}[(a)]
+    \item   \textbf{Behauptung:} Für ein projektives System $(A_{n})_{n \in \N}$ endlicher abelscher Gruppen ist $\lim_{n \in \N}^{1} A_{n}$.
+            \begin{proof}
+                Abelsche Gruppen sind genau die $\Z$-Moduln, insbesondere ist der projektive Limes als projektiver Limes von $\Z$-Moduln
+                zu verstehen. Nach VL genügt es zu zeigen, dass $(A_{n})_{n \in \N}$ die Mittag-Leffler Eigenschaft (ML) erfüllt: \\
+                Sei $n \in \N$. Für $j\geq n$ sei \[D_{j} \coloneqq \im(d_{j,n} \colon A_{j} \to A_{n}) \subset A_{n}.\]
+                Da $A_{n}$ endlich ist, gilt $\# A_{n} < \infty$. Es gilt:
+                \begin{align*}
+                    D_{j+1} &= \im(d_{j+1,n}) = \im(d_{j,n} \circ d_{j+1,j}) \subset \im(d_{j,n}) = D_{j}.
+                \end{align*}
+                Insbesondere folgt $\# D_{j+1} \leq \# D_{j} \leq A_{n}$ für alle $j \geq n$. Offensichtlich gilt $\# D_{j} \geq 0$. \\
+                Insbesondere ist die Folge $(\# D_{j})_{j \geq n} \subset \N_{0}^{\N} \subset \R^{\N}$ monoton fallend und beschränkt
+                nach oben durch $\# A_{n}$ von unten durch $0$, insbesondere konvergent. Da $\N_{0}$ abgeschlossen, existiert 
+                ($\varepsilon = \frac{1}{2}$) ein $N \geq n$ sodass für alle $m \geq N$ gilt $|x_{m} - x_{N}| < \frac{1}{2}$, da
+                $x_{m},x_{N} \in \N_{0}$ folgt $x_{m} = x_{N}$ und da $D_{m} \subset D_{N}$ also $D_{m} = D_{N}$. 
+                Somit erfüllt $(A_{n})_{n \in \N}$ ML.
+            \end{proof} 
+    
+    \item   \textbf{Behauptung:} Für eine Primzahl $p$ ist $\lim_{n \in \N}^{1} p^{n}\Z \neq 0$, wobei die Übergangsabbildungen 
+            die Übergangsabbildungen sind.
+            \begin{proof}
+                Wir definieren folgende projektive Systeme: (bei $A$ mit den Übergangsabbildungen und bei $C$ mit den kanonischen Projektionen)
+                \begin{align*}
+                    A &\coloneqq \left( \cdots \rightarrow p^{3}\Z \rightarrow p^{2}\Z \rightarrow p\Z \right), \\
+                    B &\coloneqq \left( \cdots \rightarrow \Z \stackrel{\id}{\rightarrow} \Z \stackrel{\id}{\rightarrow} \Z \right) \\
+                    C &\coloneqq \left( \cdots \rightarrow \Zpp{3} \rightarrow \Zpp{2} \rightarrow \Z/p\Z \right).
+                \end{align*}
+                Wir erhalten eine exakte Folge von projektiven Systemen in $\Z$-$\operatorname{Mod}^{\N}$ durch:
+                \[
+                \begin{tikzcd}
+                    0 \arrow[r] &A \arrow[r, "f"] &B \arrow[r, "g"] &C \arrow[r] &0.
+                \end{tikzcd}
+                \]  
+                Wobei $f$ und $g$ gegeben sind durch: für $k \in \N$ sei $f_{k}\colon p^{k}\Z \to \Z$ die kanonische Inklusion und
+                $g_{k} \colon \Z \to \Zpp{k}$ die kanonische Projektion. Dann kommutiert obiges Diagramm offensichtlich, hier in ausführlich:
+                \[
+                \begin{tikzcd}
+                    & \vdots \arrow[d] & \vdots \arrow[d] & \vdots \arrow[d] & \\
+                    0 \arrow[r] & p^{3}\Z \arrow[r, hookrightarrow, "f_{3}"] \arrow[d, hookrightarrow] & \Z \arrow[r, twoheadrightarrow, "g_{3}"] \arrow[d, "\id"] &\Zpp{3} \arrow[r] \arrow[d] &0 \\
+                    0 \arrow[r] & p^{2}\Z \arrow[r, hookrightarrow, "f_{2}"] \arrow[d, hookrightarrow] & \Z \arrow[r, twoheadrightarrow, "g_{2}"] \arrow[d, "\id"] &\Zpp{2} \arrow[r] \arrow[d] &0 \\
+                    0 \arrow[r] & p\Z \arrow[r, hookrightarrow, "f_{1}"] & \Z \arrow[r, twoheadrightarrow, "g_{1}"] &\Z/p\Z \arrow[r] &0
+                \end{tikzcd}
+                \]
+                Aus (unten) folgenden Lemma folgt: da $f_{k}$ für alle $k \in \N$ injektiv folgt die Exaktheit bei $A$. Da $g_{k}$ surjektiv für
+                alle $k \in \N$ folgt die Exaktheit bei $C$. Es gilt die Exaktheit bei $B$ zu zeigen: \\
+                Sei $k \in \N$, dann gilt:
+                \[
+                    \im(f_{k}) = p^{k}\Z = \ker(\Z \twoheadrightarrow \Zpp{k}) = \ker(g_{k}).
+                \] 
+                Bilder und Kerne in $\Z$-$\Mod^{\N}$ entstehen stufenweise, daher folgt $\im(f) = \ker(g)$. Also gilt Exaktheit bei $B$. \\
+                Aus den bisherigen Ergebnissen ist bekannt, dass 
+                \[
+                    \limD B = \Z, \ \ \ \limD C = \Z_{p}.
+                \]
+                Da $B$ offensichtlich ML erfüllt folgt:
+                \[
+                    \limD^{1} B = 0.
+                \]
+                Da $A$ genau die Inklusion von $\Z$-Untermodul $p\Z \supset p^{2}\Z \supset p^{3}\Z \supset \cdots$ ist folgt:
+                \[
+                   \limD A = \limD p^{n}\Z = \bigcap_{k \in \N} p^{k}\Z = 0
+                \]
+                wobei die letzte Gleichheit wie folgt folgt: sei $0 \neq a \in \Z$, oE $a>0$, dann existiert ein $N \in \N$
+                sodass $a < p^{N}$. Da $p^{N}$ das kleinste positive Element aus $p^{N}\Z$ ist, folgt $a \notin p^{N}\Z$ und somit
+                $a \notin \bigcap_{k \in \N} p^{k}\Z$. 
+                
+                Aus der Vorlesung ist bekannt, dass $\limD^{i} K = 0$ für $i \geq 2$ und $K \in \{A,B,C\}$. Wir erhalten also
+                folgende lange exakte Folge:
+                \[
+                \begin{tikzcd}
+                    0 \arrow[r] &\limD A \arrow[r] \arrow[d, equal] & \limD B \arrow[r] \arrow[d, equal] &\limD C \arrow[r] \arrow[d, equal] & \limD^{1} A \arrow[r] \arrow[d, equal] & \limD^{1} B \arrow[r] \arrow[d, equal] &\limD^{1} C \arrow[r] \arrow[d, equal]& 0 \\
+                    0 \arrow[r] &0 \arrow[r] &\Z \arrow[r] &\Z_{p} \arrow[r] &\limD^{1}A \arrow[r] &0 \arrow[r] &\limD^{1} C \arrow[r] &0.
+                \end{tikzcd}
+                \]
+                Insbesondere erhalten wir die exakte Folge:
+                \[
+                \begin{tikzcd}
+                    0 \arrow[r] &\Z \arrow[r] &\Z_{p} \arrow[r] &\limD^{1} p^{k}\Z \arrow[r] &0.
+                \end{tikzcd}
+                \]
+                Aus der Exaktheit folgt via Homomorphiesatz: ($\neq 0$ folgt aus 4.1)
+                \[
+                    \limD^{1} p^{k}\Z = \Z_{p}/\Z \neq 0
+                \]
+
+            \end{proof}
+\end{enumerate}
+\begin{lemma*}
+    Sei $A$ ein kommutativer Ring mit Eins, und $\D = A$-$\Mod^{\N}$. Dann sind die Epimorphismen (Monomorphismen) in $\D$ genau die kommutiven
+    Diagramme, die auf jeder Stufe surjektiv (bzw. injektiv) sind. 
+\end{lemma*}
+\begin{proof}
+    Sei $M = (M_{n})_{n \in \N}, N = (N_{n})_{n \in \N} \in \D$ und $f \colon (M_{n})_{n \in \N} \circ (N_{n})_{n \in \N}$ ein Epimorphismus.
+    Angenommen es existiert ein $k \in \N$ sodass $f_{k}$ nicht surjektiv ist, dann gilt $\im(f_{k}) \neq N_{k}$, also 
+    $N_{k}/\im(f_{k}) \neq 0$. Wir erahlten ein $A \in \D$ durch $A_{k} = N_{k}/\im(f_{k})$ und $A_{n} = 0$ sonst mit den Nullabbildungen 
+    als Übergangsabbildungen. Wir erhalten einen Morphismus $g \colon N \to A$ durch $g_{k} \colon N_{k} \to N_{k}/\im(A_{k})$ die 
+    kanonische Projektion und $g_{k} = 0$ sonst. Dann gilt nach Definition $gf = 0$ aber $g \neq 0$. Ein Widerspruch.
+    Also ist für $k \in \N$ $f_{k}$ surjektiv. \\
+    Sei $f \colon M \to N$ ein Morphismus und $f_{n}$ surjektiv für alle $n \in \N$. Sei $g \colon N \to S$ ein Morphismus mit
+    $gf = 0$. Dann ist $g_{n}f_{n} = 0$, also $g_{n} = 0$ für alle $n \in \N$, also $g=0$. Somit ist $f$ ein Epimorphismus. \\
+    Die Aussage über Monomorphismen folgt durch Umdrehen aller Pfeile. 
+\end{proof}
+
+\section*{Aufgabe 4}
+\begin{enumerate}[(a)]
+    \item Wir betrachten $\overline{\im \phi^*}$. Es gilt 
+    \begin{align*}
+        \overline{\im \phi^*} &= V(I(\im \phi^*))\\
+        &= V\left( \bigcap_{\mathfrak{p} \in \spec B} \phi^{-1}(\mathfrak{p})\right)
+        \intertext{$\{0\} \in \spec B$ ist ein Primideal. Ist $\phi$ injektiv, so ist $\phi^{-1}(\{0\}) = \{0\}$}
+        &= V\left( \{0\}\right)\\ 
+        &= \{ \mathfrak{p} \in \spec A \colon \{0\} \subset \mathfrak{p}\}\\
+        &= \spec A
+    \end{align*}
+    \item In diesem Fall sind die Bedingungen von Satz 5.12(iii) erfüllt und jedes Primideal von $A$ ist zurückgezogen, d.h.
+    \[
+       \forall \mathfrak{p} \in \spec A \exists \mathfrak{q} \in \spec B \colon \quad \mathfrak{p} = \mathfrak{q}^c = \phi^{-1}(\mathfrak{q}) = \phi^*(q) 
+    \] 
+    Insbesondere ist also $\phi^*$ surjektiv.
+\end{enumerate}
+
+\section*{Zusatzaufgabe 5}
+\begin{enumerate}[(a)]
+    \item   \textbf{Behauptung:} Es ist $(M_{i},\varphi_{ij})_{i \in I}$ ein projektives System nicht leerer Mengen.
+            \begin{proof}
+                Sei $i \in I$. Wenn $i = \emptyset$, dann besteht $M_{\emptyset}$ genau aus der leeren Abbildung, also $M_{\emptyset} \neq \emptyset$.
+                Sei nun $i \neq \emptyset$, da $\# i < \infty$, existiert eine Bijektion $g \colon i \to \{1,...,\# i\}$. Komposition 
+                mit der injektiven Inklusion $\iota \colon \{1,...,\# i\} \to \Q$ liefert $f = \iota g \in M_{i}$. Also $M_{i} \neq \emptyset$. \\
+                Sei $i \in I$, dann gilt: $\varphi_{ii}(f) = f|_{i} = f$ für alle $f \in M_{i}$, da $f \colon i \to \Q$. \\
+                Seien $i \subset j \subset k \in I$, dann gilt für alle $f \in M_{k}$, dass:
+                \[
+                    \varphi_{ik}(f) = f|_{k} = (f|_{j})|_{k} = \varphi_{jk}(\varphi_{ij}(f)).
+                \]
+            \end{proof}
+\end{enumerate}
+
+\end{document}
