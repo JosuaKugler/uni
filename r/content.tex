@@ -1,0 +1,150 @@
+\documentclass{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage{enumitem}
+\setlist{noitemsep}
+
+\begin{document}
+\section{Basics}
+\begin{enumerate}
+    \item (1) Intro
+    \item (2) Operatoren
+    \item (4) Variablen (typen, gültige Namen)
+    \item (6) atomare vektoren (seq, rep, indizierung, NA)
+    \item (11) text (print, cat)
+    \item (12) funktionen
+    \item (13) listen (str, c, unlist, as.list)
+    \item (16) if, while, for (seq\_along, letters)
+    \item (18) Zufall
+    \item (20) summary statistics (mean, median, var, sd, max, which.max, summary)
+    \item (21) Matrizen
+    \item (23) basegraphics plot
+    \item (26) pakete
+    \item (27) tibble (erstellung, indizierung, 
+    \item (28) apply Funktionen (lapply, sapply, apply(mat, 1/2, f)
+    \item (29) Statistik
+\end{enumerate}
+
+
+\section{Datenstrukturen}
+\begin{enumerate}
+    \item (1) Objekte (typeof, class, length)
+    \item (2) Vektoren 
+    \begin{itemize}
+        \item atomare (basistypen, initialisierung BASETYPE(n), typtest)
+        \item logical(3), integer(4), double(4), character(6) (letters, month.name)
+        \item coercion(8)
+        \item listen(8) (initialisierung list()
+    \end{itemize}
+    \item (10) Attribute (attr, attributes, structure, str)
+    \subitem names (11) (atomare vektoren oder listen)
+    \item (14) Matrizen und Arrays (dim, nrow, ncol, rbind, cbind, abind::abind())
+    \item (19) S3-Objekte (factor, date time zeug)
+    \item (22) Tibbles
+    \item (25) Na zeug
+\end{enumerate}
+
+
+\section{Subsetting}
+\begin{enumerate}
+    \item (1) Intro
+    \item (1) mehrere Elemente
+    \begin{itemize}
+    \item 2.1(1) atomare Vektoren
+    \item 2.2(4) Arrays	
+    \item 2.3(8) Tibbles
+    \end{itemize}
+    \item (9) einzelne Elemente ([[, \$]])
+    \item (11) fehlende indizes
+    \item (12) subsetting und zuweisung, out-of-bounds-zuweisung 
+    \item (15) Anwendungen
+    \begin{itemize}
+        \item (15) Matching und Merging
+        \item (16) Random Samples
+        \item (17) Sortieren (sort, order, rank)
+        \item (18) Aggregierte Zeilen expandieren
+        \item (18) Spalten aus Tibble entfernen
+        \item (19) Konditionales Subsetting
+        \item (19) Boolean/Integer Subsetting (which)
+    \end{itemize}
+\end{enumerate}
+
+\section{Funktionen}
+\begin{enumerate}
+\item (1) nomenklatur, syntax
+\item (3) Funktionsaufruf (präfix, infix, ersetzungsfunktionen, vordefinierte spezialfunktionen, do.call)
+\item (7) Klassifizierung (class function, typeof closure/builtin/special)
+\item (8) Komponenten
+\item (9) Funktionsargumente (lazy evaluation, default arguments, missing arguments, ...)
+\item (12) Beenden einer Funktion
+\end{enumerate}
+
+\section{stringr}
+\begin{enumerate}
+    \item (1) Intro
+    \item (1) Basics (str\_length, str\_c, str\_sub, str\_trim, str\_squish, str\_to\_upper, ...)
+    \item (3) Formatieren (str\_glue, str\_glue\_data, ...)
+    \item (4) regexp (str\_view, str\_view\_all)
+        \subitem (5) Funktionen (str\_detect, str\_subset, str\_which, str\_count)
+        \subitem (7) Syntax (siehe stringr\_cheatsheet.pdf)
+\end{enumerate}
+
+
+
+\section{tibble}
+\begin{enumerate}
+    \item (1) Tabellen (erstellen, as\_tibble, add\_column, add\_row, subsetting, bind\_rows, bind\_cols)
+    \item (6) Relationale Datenbanken (union, intersect, setdiff, crossing)
+\end{enumerate}
+
+\section{dplyr}
+\begin{enumerate}
+    \item (1) Verben für eine Tabelle (filter, arrange, select, mutate, summarize, pipe, group\_by, column/row-wise operations: across/rowwise, non-standard-evaluation)
+    \item (23) Verben für zwei Tabellen (mutating: left/right/full/inner\_join, filtering: semi/anti\_join)
+    \item (28) Relationale Datenbanken
+\end{enumerate}
+
+\section{tidyr}
+\begin{itemize}
+    \item 1.1(3) pivoting
+    \item 1.2(5) separate and unite
+    \item 1.3(7) Fehlende Werte
+    \item 2(9) Normalisierung Relationaler Datenbanken (mega unnötig)
+\end{itemize}
+
+\section{Umgebungen}
+\begin{enumerate}
+\item (2) Umgebungsobjekte (rlang ist auch klausurrelevant)
+\item (6) Umgebungsdiagramme
+\item (8) Funktionsumgebungen (funktions-, aufrufende, ausführungs-)
+\item (14) Scoping-Prinzipien (überdeckung, dynamic lookup, ausführungsumgebung)
+\item (17) Zuweisungsoperatoren (<-, <<-, ->, ->>, =)
+\item (18) Elternumgebungen, suchpfad
+\item (19) paketumgebungen
+\item (22) Übersicht
+\item (22) Lazy evaluation
+\end{enumerate}
+
+\section{Funktionale Programmierung}
+\begin{enumerate}
+    \item (1) Funktionale Programmierung, rein(3), 
+    \item (5) Funktionale (apply-funktionen, rep, outer(12), integrate, optim)
+    \item (15) Funktionsfabriken (Counter, MLS, Interpolation)
+    \item (22) Funktionsoperatoren
+\end{enumerate}
+
+\section{Objektorientierte Programmierung}
+\begin{enumerate}
+\item (1) Intro
+\item (3) S3
+\item (13)S4
+\item (18)R6
+\end{enumerate}
+
+\section{Meta-Programmierung}
+\begin{enumerate}
+    \item (2) Ausdrücke, Syntaxbaum, parse, base-R 
+    \item (7) Ausdrücke verwenden, enexpr, eval (mit Umgebung), quosures(9)
+    \item (11)Anwendung
+    \item (12)tidy-eval-framework, !!, !!!, {{}}, :=
+\end{enumerate}
+\end{document}
