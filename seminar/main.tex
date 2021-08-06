@@ -1,0 +1,208 @@
+\documentclass{beamer}
+\usetheme{Berlin}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, amsfonts, amsthm, mathtools, amssymb, mathrsfs}
+\usepackage{tikz}
+\usepackage{marvosym}
+
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\E}{\mathbb{E}}
+\renewcommand{\Re}{\operatorname{Re}}
+\renewcommand{\Im}{\operatorname{Im}}
+
+\title{Uniformisierungstheorie}
+\author{Josua Kugler}
+\date{03.11.2020}
+
+\begin{document}
+\titlepage
+\section{Ziel}
+    \begin{frame}
+        \begin{theorem}[Uniformisierungssatz]
+            Jede einfach zusammenhängende Riemann'sche Fläche ist biholomorph äquivalent zur Einheitskreisscheibe $\E$ oder zur Zahlebene $\C$ oder zur Zahlkugel $\overline{\C}$.
+        \end{theorem}
+    \end{frame}
+    \begin{frame}
+        Beweisstrategie: 
+        \begin{itemize}
+            \item Fallunterscheidung je nach Eigenschaften des Randes (positiv berandet / nullberandet).
+            \item \textbf{Konstruiere jeweils eine injektive holomorphe Funktion $f\colon X \to \overline{\C}$.}
+            \item Erhalte eine biholomorphe Abbildung $X \cong f(X) \subseteq \C$. 
+            \item Ist $X \subsetneq \C$, so folgt mit dem Riemann'schen Abbildungssatz $X \cong \C$ oder $X\cong \E$.
+        \end{itemize}
+    \end{frame}
+    \section{Grundlagen}
+    \begin{frame}
+        $\mathcal{M}_a(X)$ sei die Menge aller harmonischen Funktionen $u \colon X \setminus \{a\} \to \R$ mit $u \geq 0$ und $u$ ist logarithmisch singulär bei $a$, d.h.
+        $u(z) + \log |z|$ ist harmonisch auf ganz $X$.
+        \begin{definition}[Greensche Funktion]
+            Ist $\mathcal{M}_a$ nichtleer, so besitzt sie ein minimales Element $G_a$, die Green'sche Funktion von $X$ in Bezug auf $a$. (nicht trivial!)
+        \end{definition}
+    \end{frame}
+    \input{def_berandung.tex}
+    \input{lem_nullberandet.tex}
+    \input{elementar.tex}
+    \section{Fall 1 (positiv berandet)}
+    \input{vorgehen_fall1.tex}
+    \begin{frame}
+        \begin{lemma}
+            Es existiert eine holomorphe Funktion $F_a\colon X \to \C$ mit $|F_a(x)| = e^{-G_a(x)}$ für $x \neq a$, $G_a\colon X \setminus \{a\} \to \R$ Greensche Funktion.
+        \end{lemma}
+        \begin{itemize}
+            \item Greensche Funktion existiert stets.
+            \item Es genügt, zu jedem Punkt $b$ mit Umgebung $U(b)$ eine holomorphe Funktion $F$ mit $|F(x)| = e^{-G_a(x)} \forall x \in U(b), x \neq a$ anzugeben. Nach Garbenaxiom 2 kann man diese zusammenkleben
+        \end{itemize}
+    \end{frame}
+    \begin{frame}
+        \begin{lemma}
+            Es existiert eine holomorphe Funktion $F_a\colon U(b) \to \C$ mit $|F_a(x)| = e^{-G_a(x)}$ für $a \neq x \in U(b) \forall b \in X$.
+        \end{lemma}
+        \begin{itemize} 
+            \item Fall 1:$b \neq a$.
+            \begin{itemize}
+                \item[$\implies$] OE $U(b)$ Elementargebiet
+                \item[$\implies$] $\exists f$ mit $G_a = \Re f$
+                \item[$\implies$] Wähle $F_a \coloneqq e^{-f}$
+            \end{itemize}
+            \item Fall 2: $b = a$. 
+            \begin{itemize}
+                \item[$\implies$] OE $U(b) = \E$
+                \item[$\implies$] $G_a(z) = -\log|z|$
+                \item[$\implies$] Wähle $F_a \coloneqq z$
+            \end{itemize}
+            %(kleine Umgebung um $a$, die sich konform auf eine Kreisscheibe abbildet). 
+        \end{itemize}
+    \end{frame}
+    \begin{frame}
+        \begin{lemma}
+            Es existiert eine holomorphe Funktion $F_a\colon X \to \C$ mit $|F_a(x)| = e^{-G_a(x)}$ für $x \neq a$, $G_a\colon X \setminus \{a\} \to \R$ Greensche Funktion.
+        \end{lemma}
+        Insbesondere:
+        \begin{itemize}
+            \item $\lim\limits_{x \to a} |F_a(x)| = \lim\limits_{x \to a} e^{-G_a(x)} = 0$, also $F_a(a) = 0$
+            \item $G_a(x) > 0 \implies |F_a(x)| < 1$.
+        \end{itemize}
+    \end{frame}
+    \input{vorgehen_fall1.tex}
+    \begin{frame}
+        \begin{lemma}
+            $F_a$ ist injektiv.
+        \end{lemma}
+        Betrachte $$F_{a,b}(x) \coloneqq \frac{F_a(x) - F_a(b)}{1 - \overline{F_a(b)}F_a(x)}.$$ Diese Funktion erfüllt folgende Eigenschaften.
+        \begin{itemize}
+            \item $|F_{a,b}| < 1$. (Rechnung)
+            \item $F_{a,b}$ ist als Quotient analytischer Funktionen meromorph. Aufgrund der Beschränktheit muss $F_{a,b}$ aber sogar analytisch in $X$ sein.
+            \item $|F_a(b)|^2 < 1 \implies F_{a,b}(b) = 0$, Ordnung $k$.
+            \item $F_a(a) = 0 \implies F_{a,b}(a) = -F_a(b)$.
+        \end{itemize}
+    \end{frame}
+    \begin{frame}
+        \textbf{Behauptung.} $|F_{a,b}(x)| = |F_b(x)| \forall x\in X$.
+        \begin{proof}
+            \begin{itemize}
+                \item $u(x) \coloneqq - \frac{1}{k} \log|F_{a,b}(x)|$ ist außerhalb einer diskreten Teilmenge $\geq 0$ und harmonisch mit einer logarithmischen Singularität bei $x = b$.
+                \item Greensche Funktion: $G_b(x) \leq u(x)$.
+                \item $e^{G_b(x)} \leq e^{u(x)}$. Umformen ergibt $\frac{|F_{a,b}(x)|}{|F_b(x)|} \leq 1$.
+                \item Für $x = a$ folgt $|F_a(b)| \leq |F_b(a)|$. Symmetrie $\implies$ $\frac{|F_{a,b}(x)|}{|F_b(x)|}$ nimmt an einer Stelle ein Maximum an, nach dem Maximumprinzip erhalten wir die Behauptung.
+            \end{itemize}
+        \end{proof}
+    \end{frame}
+    \begin{frame}
+        \begin{lemma}
+            $F_a$ ist injektiv.
+        \end{lemma}
+        \begin{proof}
+            Betrachte $$F_{a,b}(x) \coloneqq \frac{F_a(x) - F_a(b)}{1 - \overline{F_a(b)}F_a(x)}.$$
+            Es gilt $|F_{a,b}(x)| = |F_b(x)| \forall x\in X$.
+            Daraus folgt $F_{a,b} \neq 0$ für $x \neq b$, also $F_a(x) \neq F_a(b)$ für $x\neq b$. $b$ war beliebig $\implies F_a$ injektiv.
+        \end{proof}
+    \end{frame}
+    \input{vorgehen_fall1.tex}
+    \section{Zusammenfassung}
+    \begin{frame}
+        \begin{theorem}[Uniformisierungssatz]
+            Jede einfach zusammenhängende Riemann'sche Fläche ist biholomorph äquivalent zur Einheitskreisscheibe $\E$ oder zur Zahlebene $\C$ oder zur Zahlkugel $\overline{\C}$.
+        \end{theorem}
+        Wir haben gezeigt:
+        \begin{lemma}
+            Jede positiv berandete einfach zusammenhängende Riemann'sche Fläche ist biholomorph äquivalent zur Einheitskreisscheibe $\E$.
+        \end{lemma}
+    \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PART II %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \section{Wiederholung}
+    \input{def_berandung.tex}
+    \input{lem_nullberandet.tex}
+    \section{Fall 2 (nullberandet)}
+    \begin{frame}
+        \begin{lemma}
+            Wähle $a\neq b \in X$. Dann existiert eine holomorphe Funktion 
+            $$f_{a,b} \colon X \setminus \{a,b\} \to \C$$ mit folgenden Eigenschaften
+            \begin{enumerate}
+                \item $f_{a,b}$ hat in $a$ bzw. $b$ eine Null- bzw. Polstelle 1. Ordnung
+                \item $U(a), U(b)$ Umgebungen. $\exists C$ mit $$C^{-1} \leq |f_{a,b}(x)| \leq C$$ für $x \neq U(a) \cup U(b)$, d.h. $f_{a,b}$ hat außer $a$ und $b$ weder Pole noch Nullstellen.
+            \end{enumerate}
+        \end{lemma}
+    \end{frame}
+    \begin{frame}
+        \begin{lemma}
+            Auf einer beliebigen Riemann'schen Fläche existiert eine harmonische Funktion $u \coloneqq u_{a,b} \colon X \setminus \{a, b\} \to \C$ mit folgenden Eigenschaften:
+            \begin{itemize}
+                \item $u$ ist logarithmisch singulär bei $a$.
+                \item $-u$ ist logarithmisch singulär bei $b$.
+                \item $u$ ist beschränkt im Unendlichen, d.h. in $X \setminus [U (a) \cup U (b)]$, wobei $U(a)$ und $U(b)$ zwei beliebige Umgebungen von $a, b$ seien.
+            \end{itemize}
+        \end{lemma}
+    \end{frame}
+    \begin{frame}
+        \begin{itemize}
+            \item Lokal ist $u_{a,b}$ Realteil einer analytischen Funktion $f$. 
+            \item Wähle also $f_{a,b} = e^f$ für eine Umgebung $U(c)$ mit $c \notin \{a,b\}$.
+            \item $X$ elementar, also $f_{a,b} \colon X\setminus \{a,b\} \to \C$ analytisch.
+            \item $u_{a,b}$ ist beschränkt auf $X \setminus [U (a) \cup U (b)]$. Folglich gilt 
+            $e^{-C} \leq f_{a,b} \leq e^C$ auf $X \setminus [U (a) \cup U (b)]$.
+            \item $f_{a,b}$ hat in $a$ eine Nullstelle und in $b$ eine Polstelle (jeweils 1. Ordnung), sonst aber werde Pol- noch Nullstellen.
+        \end{itemize}
+    \end{frame}
+    \begin{frame}
+        \begin{lemma}
+            $f_{a,b}$ ist injektiv.
+        \end{lemma}
+        \begin{itemize}
+            \item Als Quotient analytischer Funktionen ist $$g(z) \coloneqq \frac{f_{a,b}(z)-f_{a,b}(c)}{f_{c,b}(z)}.$$ meromorph und beschränkt außerhalb einer gewissen Umgebung um $a,b,c$. 
+            \item Wegen $\lim\limits_{z \to c} g(z) = \lim\limits_{z \to c} \frac{f_{a,b}(z) - f_{a,b}(c)}{f_{c,b}(z)} = \mathrm{const}$ ist $g$ analytisch und beschränkt auf ganz $X$ und damit nach dem Satz von Liouville für nullberandete RF konstant.
+            \item $f_{a,b}(z) - f_{a,b}(c) = \lambda f_{c,b}(z)$. Insbesondere hat $f_{a,b}(z) - f_{a,b}(c)$ genau eine Nullstelle bei $z = c$, d.h. $f_{a,b}$ ist injektiv.
+        \end{itemize}
+    \end{frame}
+    \begin{frame}
+        \begin{itemize}
+            \item Wir erhalten eine bijektive holomorphe (und damit direkt biholomorphe nach Funktheo 1) Abbildung von $X$ auf $f_{a,b}(X) \subset \overline{\C}$.
+            \item $f_{a,b}(X)$ nicht kompakt $\implies f_{a,b}(X) \neq \overline{\C}$  OE $f_{a,b}(X) \subset \C$. Riemann'scher Abbildungssatz $\implies$  $X \cong \C$ oder $X \cong \E$
+            \item $X \cong \E \implies X$ positiv berandet \Lightning, weil $G_0$ existiert und die konformen Selbstabbildungen von $\E$ transitiv operieren.
+        \end{itemize}
+    \end{frame}
+    %\section{Klassifikation}
+    %\begin{frame}
+    %    \begin{itemize}
+    %        \item Sehr schönes Resultat :D etc.
+    %        \item Einfach zusammenhängende Flächen kennen wir jetzt, allgemeine Flächen sind aber einfach zusammenhängende Flächen modulo einer frei operierenden Gruppe von konformen Selbstabbildungen (Überlagerungstheorie)
+    %    \end{itemize}
+    %\end{frame}
+    %\begin{frame}
+    %    \begin{itemize}
+    %        \item Zahlkugel als universelle Überlagerung: Möbiustransformationen haben immer einen Fixpunkt, also besteht die einzige frei operierende Gruppe nur aus der Identität.
+    %        \item Ebene als universelle Überlagerung: Selbstabbildungen $z \mapsto az + b$. Diese besitzen für $a \neq 1$ einen Fixpunkt, also $a = 1$. Es gibt drei Möglichkeiten für eine frei operierende Gruppe.
+    %        \begin{itemize}
+    %            \item $\{0\}$, $X \cong \C$.
+    %            \item zyklische Untergruppen $L = \{z \mapsto z + \tilde{b}, \tilde{b} \in \Z b\}$. Dann ist $\C/L \xrightarrow{z \mapsto e^{2\pi i z/b}} \C^*$ eine konforme Äquivalenz
+    %            \item $L$ ist ein Gitter, d.h. $\C/L$ ist ein Torus. Wann sind zwei Tori äquivalent?
+    %        \end{itemize}
+    %        \item Einheitskreis/obere Halbebene: Untergruppen $\Gamma \subset \operatorname{SL}(2,\R)$, die $-1$ enthalten. Welche operieren frei? Wann gilt $\mathbb{H}/\Gamma \cong \mathbb{H}/\Gamma'$? (zum Teil einfach VL von letztem Semester)
+    %    \end{itemize}
+    %\end{frame}
+\end{document}
