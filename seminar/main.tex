@@ -12,6 +12,7 @@
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\E}{\mathbb{E}}
+
 \renewcommand{\Re}{\operatorname{Re}}
 \renewcommand{\Im}{\operatorname{Im}}
 
@@ -27,21 +28,17 @@
             Jede einfach zusammenhängende Riemann'sche Fläche ist biholomorph äquivalent zur Einheitskreisscheibe $\E$ oder zur Zahlebene $\C$ oder zur Zahlkugel $\overline{\C}$.
         \end{theorem}
     \end{frame}
-    \begin{frame}
-        Beweisstrategie: 
-        \begin{itemize}
-            \item Fallunterscheidung je nach Eigenschaften des Randes (positiv berandet / nullberandet).
-            \item \textbf{Konstruiere jeweils eine injektive holomorphe Funktion $f\colon X \to \overline{\C}$.}
-            \item Erhalte eine biholomorphe Abbildung $X \cong f(X) \subseteq \C$. 
-            \item Ist $X \subsetneq \C$, so folgt mit dem Riemann'schen Abbildungssatz $X \cong \C$ oder $X\cong \E$.
-        \end{itemize}
-    \end{frame}
     \section{Grundlagen}
     \begin{frame}
-        $\mathcal{M}_a(X)$ sei die Menge aller harmonischen Funktionen $u \colon X \setminus \{a\} \to \R$ mit $u \geq 0$ und $u$ ist logarithmisch singulär bei $a$, d.h.
-        $u(z) + \log |z|$ ist harmonisch auf ganz $X$.
+        \begin{definition}
+            $u(z)$ logarithmisch singulär bei $a \colon\!\!\!\!\Leftrightarrow u(z) + \log |z-a|$ harmonisch. %entsprechend für RF mit Karten, rein technische Sache
+        \end{definition}
+        \begin{definition}
+            \[\mathcal{M}_a(X) \coloneqq \{u \colon X \setminus \{a\} \to \R|\; u \geq 0, u \text{ logarithmisch singulär bei } a\}\]
+        \end{definition}
         \begin{definition}[Greensche Funktion]
-            Ist $\mathcal{M}_a$ nichtleer, so besitzt sie ein minimales Element $G_a$, die Green'sche Funktion von $X$ in Bezug auf $a$. (nicht trivial!)
+            $\mathcal{M}_a \neq \emptyset \implies$ es existiert ein minimales Element $G_a$ (nicht trivial)
+            $G_a$ heißt die Green'sche Funktion von $X$ in Bezug auf $a$.
         \end{definition}
     \end{frame}
     \input{def_berandung.tex}
@@ -105,7 +102,7 @@
         \textbf{Behauptung.} $|F_{a,b}(x)| = |F_b(x)| \forall x\in X$.
         \begin{proof}
             \begin{itemize}
-                \item $u(x) \coloneqq - \frac{1}{k} \log|F_{a,b}(x)|$ ist außerhalb einer diskreten Teilmenge $\geq 0$ und harmonisch mit einer logarithmischen Singularität bei $x = b$.
+                \item $u(x) \coloneqq - \frac{1}{k} \log|F_{a,b}(x)|$ ist $\geq 0$ und harmonisch auf $X \setminus \{b\}$ mit einer logarithmischen Singularität bei $x = b$.
                 \item Greensche Funktion: $G_b(x) \leq u(x)$.
                 \item $e^{G_b(x)} \leq e^{u(x)}$. Umformen ergibt $\frac{|F_{a,b}(x)|}{|F_b(x)|} \leq 1$.
                 \item Für $x = a$ folgt $|F_a(b)| \leq |F_b(a)|$. Symmetrie $\implies$ $\frac{|F_{a,b}(x)|}{|F_b(x)|}$ nimmt an einer Stelle ein Maximum an, nach dem Maximumprinzip erhalten wir die Behauptung.
@@ -186,23 +183,43 @@
             \item $X \cong \E \implies X$ positiv berandet \Lightning, weil $G_0$ existiert und die konformen Selbstabbildungen von $\E$ transitiv operieren.
         \end{itemize}
     \end{frame}
-    %\section{Klassifikation}
-    %\begin{frame}
-    %    \begin{itemize}
-    %        \item Sehr schönes Resultat :D etc.
-    %        \item Einfach zusammenhängende Flächen kennen wir jetzt, allgemeine Flächen sind aber einfach zusammenhängende Flächen modulo einer frei operierenden Gruppe von konformen Selbstabbildungen (Überlagerungstheorie)
-    %    \end{itemize}
-    %\end{frame}
-    %\begin{frame}
-    %    \begin{itemize}
-    %        \item Zahlkugel als universelle Überlagerung: Möbiustransformationen haben immer einen Fixpunkt, also besteht die einzige frei operierende Gruppe nur aus der Identität.
-    %        \item Ebene als universelle Überlagerung: Selbstabbildungen $z \mapsto az + b$. Diese besitzen für $a \neq 1$ einen Fixpunkt, also $a = 1$. Es gibt drei Möglichkeiten für eine frei operierende Gruppe.
-    %        \begin{itemize}
-    %            \item $\{0\}$, $X \cong \C$.
-    %            \item zyklische Untergruppen $L = \{z \mapsto z + \tilde{b}, \tilde{b} \in \Z b\}$. Dann ist $\C/L \xrightarrow{z \mapsto e^{2\pi i z/b}} \C^*$ eine konforme Äquivalenz
-    %            \item $L$ ist ein Gitter, d.h. $\C/L$ ist ein Torus. Wann sind zwei Tori äquivalent?
-    %        \end{itemize}
-    %        \item Einheitskreis/obere Halbebene: Untergruppen $\Gamma \subset \operatorname{SL}(2,\R)$, die $-1$ enthalten. Welche operieren frei? Wann gilt $\mathbb{H}/\Gamma \cong \mathbb{H}/\Gamma'$? (zum Teil einfach VL von letztem Semester)
-    %    \end{itemize}
-    %\end{frame}
+    \section{Klassifikation}
+    \begin{frame}
+        \begin{itemize}
+            \item Einfach zusammenhängende Flächen $\checkmark$
+            \item allgemeine Flächen: $X \cong \tilde{X}/\Gamma$, $\tilde{X}$ einfach zshgd.
+            \item $\Gamma \subset \operatorname{Bihol}(\tilde{X}, \tilde{X})$ operiert frei auf $\tilde{X}$
+        \end{itemize}
+    \end{frame}
+    \begin{frame}
+        \frametitle{Universelle Überlagerung $\overline{\C}$}
+        \begin{itemize}
+            \item konforme Selbstabbildungen: Möbiustransformationen
+            \item Möbiustrafos haben stets Fixpunkt auf $\overline{\C}$
+            \item[$\implies$] Gruppen von Möbiustrafos operieren nicht frei, außer die triviale Gruppe
+            \item[$\implies$] $X \cong \overline{\C}$  
+        \end{itemize}
+    \end{frame}
+    \begin{frame}
+            \frametitle{Universelle Überlagerung $\C$}
+            \begin{itemize}
+                \item konforme Selbstabbildungen: $z \mapsto az + b$ (Funktionentheorie I VL) 
+                \item Besitzen für $a \neq 1$ einen Fixpunkt, also $a = 1$. 
+                \item[$\implies$] Es gibt drei Möglichkeiten für eine frei operierende Gruppe.
+            \begin{itemize}
+                \item $\{0\}$, $X \cong \C$.
+                \item zyklische Untergruppen $L = \{z \mapsto z + \tilde{b}, \tilde{b} \in \Z b\}$. Dann ist $\C/L \xrightarrow{z \mapsto e^{2\pi i z/b}} \C^*$ eine konforme Äquivalenz.
+                \item $L$ ist ein Gitter, d.h. $L$ wird von den Abbildungen $z \mapsto z + 1$ und $z \mapsto z + \tau$ erzeugt $\implies$ $\C/L$ ist ein Torus.
+                \item Zwei Tori sind äquivalent gdw $j(\tau)$ gleich ist
+            \end{itemize}
+        \end{itemize}
+    \end{frame}
+    \begin{frame}
+        \frametitle{Universelle Überlagerung $\E \cong \mathbb{H}$}
+        \begin{itemize}
+            \item konforme Selbstabbildungen: $\operatorname{SL}(2, \R)/{\pm E}$
+            \item freie Operation $\Leftrightarrow$ $\Gamma$ diskret und fixpunktfrei
+            \item $\mathbb{H}/\Gamma \cong \mathbb{H}/\Gamma' \Leftrightarrow \Gamma = L\Gamma'L^{-1}$ mit $L \in \operatorname{SL}(2,\R)$. 
+        \end{itemize}
+    \end{frame}
 \end{document}
