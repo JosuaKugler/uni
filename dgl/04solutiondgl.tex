@@ -1,0 +1,155 @@
+\documentclass{article}
+\usepackage{josuamathheader}
+\begin{document}
+    \section*{Aufgabe 3}
+    Wir zeigen per Induktion für $n \geq 1$ die Identität
+    $\begin{pmatrix}
+        i\pi & 1\\
+        0 & i\pi
+    \end{pmatrix}^n = \begin{pmatrix}
+        (i\pi)^n & n (i\pi)^{n-1}\\
+        0 & (i\pi)^n
+    \end{pmatrix}$.
+    Der Induktionsanfang ist offensichtlich.
+    Gelte die Behauptung für $n$. Dann ist
+    \begin{align*}
+        \begin{pmatrix}
+            i\pi & 1\\
+            0 & i\pi
+        \end{pmatrix}^{n+1} &= \begin{pmatrix}
+            i\pi & 1\\
+            0 & i\pi
+        \end{pmatrix}^{n} \cdot \begin{pmatrix}
+            i\pi & 1\\
+            0 & i\pi
+        \end{pmatrix}\\
+        &= \begin{pmatrix}
+            (i\pi)^n & n (i\pi)^{n-1}\\
+            0 & (i\pi)^n
+        \end{pmatrix} \cdot \begin{pmatrix}
+            i\pi & 1\\
+            0 & i\pi
+        \end{pmatrix}\\
+        &= \begin{pmatrix}
+            (i\pi)^{n+1} & (i\pi)^n + n(i\pi)^n\\
+            0 & (i\pi)^{n+1}
+        \end{pmatrix}\\
+        &= \begin{pmatrix}
+            (i\pi)^{n+1} & (n+1)(i\pi)^n\\
+            0 & (i\pi)^{n+1}
+        \end{pmatrix}\\
+    \end{align*}
+    Es folgt
+    \begin{align*}
+        e^A &= \sum_{k = 0}^{\infty} \frac{A^k}{k!}\\
+        &= \sum_{k = 0}^{\infty} \frac{1}{k!} \cdot \begin{pmatrix}
+            (i\pi)^k & k (i\pi)^{k-1}\\
+            0 & (i\pi)^k
+        \end{pmatrix}\\
+        &= \begin{pmatrix}
+            \sum_{k = 0}^{\infty} \frac{(i\pi)^k}{k!} & \sum_{k = 0}^{\infty} \frac{k(i\pi)^{k-1}}{k!}\\
+            0 & \sum_{k = 0}^{\infty} \frac{(i\pi)^k}{k!}
+        \end{pmatrix}\\
+        &= \begin{pmatrix}
+            e^{i\pi} & \sum_{k = 1}^{\infty} \frac{(i\pi)^{k-1}}{(k-1)!}\\
+            0 & e^{i\pi}
+        \end{pmatrix}\\
+        &= \begin{pmatrix}
+            -1 & \sum_{k = 0}^{\infty} \frac{(i\pi)^k}{k!}\\
+            0 & -1
+        \end{pmatrix}\\
+        &= \begin{pmatrix}
+            -1 & -1\\
+            0 & -1
+        \end{pmatrix}
+    \end{align*}
+    Es gilt $B^2 = I_2$.
+    Daraus folgt
+    \begin{align*}
+        e^B &= \sum_{k = 0}^{\infty} \frac{B^k}{k!}\\
+        &= I_2 \sum_{k = 0}^{\infty} \frac{1}{(2k)!} + B \cdot \sum_{k = 0}^{\infty} \frac{1}{(2k+1)!}\\
+        &= I_2 \cosh(1) + B \sinh(1)\\
+        &= \frac{1}{2} \begin{pmatrix}
+            e + e^{-1} & e - e^{-1}\\
+            e - e^{-1} & e + e^{-1}
+        \end{pmatrix}
+    \end{align*}
+\section*{Aufgabe 4}
+\begin{enumerate}[(a)]
+    \item Es gilt (wie durch elementares Nachrechnen leicht zu verifizieren ist) $A = SJS^{-1}$ mit
+    \[
+        S = \begin{pmatrix}
+            0 & 0 & 1 & 0\\
+            1 & 0 & 0 & 1\\
+            1 & 0 & 0 & 0\\
+            0 & 1 & 0 & 0\\
+        \end{pmatrix}  
+    \]
+    und 
+    \[
+        J = \begin{pmatrix}
+            1 & 1 & 0 & 0\\
+            0 & 1 & 0 & 0\\
+            0 & 0 & 1 & 1\\
+            0 & 0 & 0 & 1
+        \end{pmatrix}.
+    \]
+    \item Die allgemeine Lösung ist gegeben durch $Y = C \cdot e^{At}$.
+    Gelte 
+    \[
+        \begin{pmatrix}
+            1 & 1\\0 & 1
+        \end{pmatrix}^n = \begin{pmatrix}
+            1 & n\\0 & 1
+        \end{pmatrix}.
+    \]
+    Dann erhalten wir 
+    \[
+        \begin{pmatrix}
+            1 & 1\\0 & 1
+        \end{pmatrix}^{n+1} = \begin{pmatrix}
+             1 & n\\ 0 & 1
+        \end{pmatrix} \cdot \begin{pmatrix}
+            1 & 1\\0 & 1
+        \end{pmatrix} = \begin{pmatrix}
+            1 & n+1\\ 0 & 1
+       \end{pmatrix},
+    \]
+    womit wir den Induktionsschritt gezeigt haben. Der Induktionsanfang ist trivial.
+    Durch Zusammensetzung zweier solcher Matrizen und unter Ausnutzung elementarer Eigenschaften für Blockmatrizen erhalten wir
+    \[
+        J^n = \begin{pmatrix}
+            1 & n & 0 & 0\\
+            0 & 1 & 0 & 0\\
+            0 & 0 & 1 & n\\
+            0 & 0 & 0 & 1
+        \end{pmatrix}.
+    \]
+    Weiter berechnen wir
+    \[
+        \sum_{k = 0}^{\infty} \frac{kt^k}{k!} = \sum_{k = 1}^{\infty} \frac{t^k}{(k-1)!} = t \cdot \sum_{k = 0}^{\infty} \frac{1}{k!} = t e^t
+    \]
+    Es folgt 
+    \begin{align*}
+        e^{At} &= S e^{Jt} S^{-1}\\
+        &= S \sum_{k = 0}^{\infty} \frac{J^kt}{k!} S^{-1}\\
+        &= S \begin{pmatrix}
+            e^t & \sum_{k = 0}^{\infty} \frac{k}{k!} & 0 & 0\\
+            0 & e^t & 0 & 0\\
+            0 & 0 & e^t & \sum_{k = 0}^{\infty} \frac{k}{k!} & 0 & 0\\
+            0 & 0 & 0 & e^t
+        \end{pmatrix} S^{-1}\\
+        &= e^t S \begin{pmatrix}
+            1 & t & 0 & 0\\
+            0 & 1 & 0 & 0\\
+            0 & 0 & 1 & t\\
+            0 & 0 & 0 & 1
+        \end{pmatrix} S^{-1} = e^t \begin{pmatrix}
+            1 & t & -t & 0\\
+            0 & 1 & 0 & t\\
+            0 & 0 & 1 & t\\
+            0 & 0 & 0 & 1
+        \end{pmatrix}
+    \end{align*}
+\end{enumerate}
+\end{document}

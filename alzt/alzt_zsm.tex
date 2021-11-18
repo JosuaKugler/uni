@@ -1,0 +1,75 @@
+\documentclass{article}
+\usepackage{josuamathheader}
+
+\begin{document}
+\section{Elementare Zahlentheorie}
+
+\paragraph{Eulersche \(\varphi\)-Funktion}\ \\
+\underline{Definition}:
+$$\varphi(n) = \#(\mathbb{Z}/n\mathbb{Z})^\times$$
+\underline{Multiplikativität}:
+$$(n,m) = 1 \implies \varphi(nm) = \varphi(n)\varphi(m)$$
+\underline{Für $p$ Primzahl gilt}:
+$$\varphi(p^k) = (p-1)p^{k-1}$$
+\underline{Es gilt}:
+$$\sum_{d|m} \varphi(d) = m$$
+
+\paragraph{Kleiner Fermatscher Satz}
+$$(a,m) = 1 \implies a^{\varphi(m)} \equiv 1\qquad \text{mod } m$$
+
+\paragraph{Primitive Wurzel}\ \\
+\underline{Definition $a$ primitive Wurzel modulo $p$}:\\
+Die Restklassen $\overline a, \overline a^2, \dots, \overline a^{p-1} = 1$ durchlaufen alle Restklassen $\neq 0$ mod $p$.\\
+\underline{Satz von Gauß}:\\
+Es existieren primitive Wurzeln modulo $p$.\\
+\underline{Legendre für primitive Wurzeln}:\\
+Sei $a$ eine primitive Wurzel modulo $p$ . Dann gilt für $r\in \mathbb{N}$ 
+$$ \left(\frac{a^r}{p} \right)= (-1)^r .$$
+
+\section{Das Quadratische Reziprozitätsgesetz}
+\paragraph{Quadratisches Reziprozitätsgesetz}
+Es seien $p,q> 2$ Primzahlen. Dann gilt
+$$\left(\frac{p}{q}\right) = (-1)^{\frac{p-1}{2}\frac{q-1}{2}} \left(\frac{q}{p}\right).$$
+
+\paragraph{1. Ergänzungssatz zum Quadratischen Reziprozitätsgesetz}
+$$\left(\frac{-1}{p}\right) = (-1)^{\frac{p-1}{2}}.$$
+
+\paragraph{2. Ergänzungssatz zum Quadratischen Reziprozitätsgesetz}
+$$\left(\frac{2}{p}\right) = (-1)^{\frac{p^2 -1}{8}}.$$
+
+\paragraph{Primzahlen mit $a$ Quadratischer Rest}
+Zu jeder ganzen Zahl $a \neq 0$ existieren unendlich viele Primzahlen $p$ , 
+so dass $a$ quadratischer Rest modulo $p$ ist.
+
+\paragraph{Primzahlen mit $a$ Quadratischer Nichtrest}
+Sei $a \in \Z$ kein Quadrat. Dann existieren unendlich viele Primzahlen $p$ , 
+so dass $a$ quadratischer Nichtrest modulo $p$ ist.
+
+\paragraph{Norm von Primelementen in \(\mathbb{Z}[i]\)}
+Sei $\pi \in \mathbb{Z}[i]$ prim. Dann gilt entweder $N(\pi) = p^2, \pi \hat = p$ oder $N(\pi) = \pi\overline \pi = p$. 
+
+\paragraph{Zerlegungsgesetz in \(\Z[i]\)}
+Eine Primzahl $p$ ist in $\mathbb{Z}[i]$\\
+\begin{tabular}{lcl}
+    Produkt zweier assoziierter Primelemente & $\Leftrightarrow$ & $p = 2,$\\
+    Produkt zweier nicht assoziierter Primelemente & $\Leftrightarrow$ & $p \equiv 1 \mod 4,$\\
+    Primelement & $\Leftrightarrow$ & $p \equiv 3 \mod 4$.
+\end{tabular}
+
+\section*{Ringe ganzer Zahlen}
+\paragraph{Ganzheit}
+\begin{enumerate}[(i)]
+    \item $f(b) = 0$ für ein normiertes Polynom $f\in A[X]$.
+    \item $A[b] \subset B$ ist als $A$-Modul endlich erzeugt.
+    \item $\exists \mathrm{e.e.} A$-Untermodul $M \subset B$ mit $1 \in M$, $bM \subset M$.
+\end{enumerate}
+
+Endlichkeit $\implies$ Ganzheit, 
+faktoriell $\implies$ ganzabgeschlossen.
+
+\paragraph{Diskriminante}
+Sei $\alpha_1, \dots, \alpha_n, n = [L:K]$ eine $K$-Basis von $L$. Dann ist die Diskriminante definiert durch $d(\alpha_1, \dots, \alpha_n) = \operatorname{det}(\operatorname{Sp}(\alpha_i\alpha_j)) = (\operatorname{det}(\sigma_i\alpha_j)_{ij})^2$.
+
+
+
+\end{document}

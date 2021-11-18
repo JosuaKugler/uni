@@ -1,0 +1,107 @@
+\documentclass{article}
+\usepackage{josuamathheader}
+
+\begin{document}
+    \section*{Aufgabe 2}
+    Es gilt 
+    \[
+        \frac{1}{b} \left(\frac{1}{u} + \frac{1}{b-u}\right) = \frac{1}{b} \left(\frac{b-u}{u(b-u)} + \frac{u}{u(b-u)}\right) = \frac{b}{b}\frac{1}{u(b-u)}
+    \]
+    Wir benutzen Separation der Variablen
+    \begin{align*}
+        \frac{\mathrm{d} u}{u(b-u)} &= a\mathrm{d}t\\
+        \left(\frac{1}{u} + \frac{1}{b-u}\right) \mathrm{d} u &= ab \mathrm{d}t
+        \intertext{Durch Integrieren erhalten wir}
+        \mathrm{ln} u - \mathrm{ln} (b-u) &= c \cdot ab t\\
+        \frac{u}{b-u} &= C \cdot e^{abt}\\
+        u &= (b-u) C \cdot e^{abt}\\
+        u(1 + Ce^{abt})&= C \cdot e^{abt}\\
+        u &= C \cdot \frac{be^{abt}}{1 + Ce^{abt}}
+    \intertext{Wir setzen die Anfangsbedingung ein und erhalten aus der zweiten Zeile}
+        \frac{u_0}{b-u_0} &= C \cdot e^{ab \cdot 0} = C\\
+        u&= \frac{u_0}{b-u_0} \cdot \frac{be^{abt}}{1 + \frac{u_0}{b-u_0}e^{abt}}
+    \end{align*}
+    \section*{Aufgabe 4}
+    \begin{enumerate}[(a)]
+        \item Wir lösen zunächst die homogene Gleichung
+        \begin{align*}
+            y' &= - 2y\\
+            \intertext{Separation der Variablen und Integration ergibt}
+            y  &= C \cdot e^{-2x}
+        \end{align*}
+        Durch Variation der Konstanten erhalten wir
+        \begin{align*}
+            C'(x) e^{-2x} -2 C(x) e^{-2x} &= -2C(x) e^{-2x} + x\\
+            C'(x) &= xe^{2x}
+        \end{align*}
+        Wir lösen das Integral für $C(x)$
+        \begin{align*}
+            \int_{-\infty}^x te^{2t} &= \frac{1}{2}te^{2t}\big|_{-\infty}^x - \int_{-\infty}^x \frac{1}{2} e^{2x}\\
+            &= \frac{1}{2}xe^{2x} - \frac{1}{4}e^{2x}\\
+            &= \frac{(2x - 1)}{4}e^{2x}
+        \end{align*}
+        und erhalten als allgemeine Lösung
+        \[
+            y(x) = \frac{(2x - 1)}{4} + C \cdot e^{-2x}
+        \]
+        Durch Einsetzen der Anfangsbedingung ergibt sich
+        \[
+            0 = -\frac{1}{4} + C \implies C = \frac{1}{4}
+        \]
+        \item Wir lösen zunächst die homogene Gleichung
+        \begin{align*}
+            y' + y\sin(x) &= 0\\
+            \intertext{Separation der Variablen und Integration ergibt}
+            \ln(y) &= \cos(x)\\
+            y &= C \cdot e^{\cos(x)}
+        \end{align*}
+        Durch Variation der Konstanten erhalten wir
+        \begin{align*}
+            -C(x) \sin(x) e^{\cos(x)} + \sin(x) C(x) e^{\cos(x)} + C'(x) \cdot e^{\cos(x)} &= \sin(2x)\\
+            C'(x) &= \sin(2x)e^{-\cos(x)}
+        \end{align*}
+        Wir lösen das Integral für $C(x)$
+        \begin{align*}
+            \int \sin(2t)e^{-\cos(t)} \mathrm{d}t &= \int 2\sin(t)\cos(t)e^{-\cos(t)} \mathrm{d}t
+            \intertext{Substitution $u = \cos(x)$, $\mathrm{d}u = -\sin(x)$}
+            &= -\int 2ue^{-u} \mathrm{d}u\\
+            &= (2u +2)e^{-u}
+            \intertext{Resubstitution ergibt}
+            &= (2\cos(x) + 2)e^{-\cos(x)}
+        \end{align*}
+        und erhalten als allgemeine Lösung
+        \[
+            y = (2\cos(x) + 2) + C\cdot e^{\cos(x)}.
+        \]
+        \item Wir lösen zunächst die homogene Gleichung
+        \begin{align*}
+            y' &= y\\
+            \intertext{Durch Hinschauen sieht man}
+            y &= C(x) \cdot e^x
+        \end{align*}
+        Durch Variation der Konstanten erhalten wir
+        \begin{align*}
+            C'(x) e^x + C(x)e^x&= C(x)e^x + \cos(x)\\
+            C'(x) &= \cos(x)e^{-x}
+        \end{align*}
+        Wir lösen das Integral für $C(x)$
+        \begin{align*}
+            \int_{0}^x \cos(t)e^{-t} \mathrm{d}t &= -\sin(t)e^{-t} \big|_{0}^x - \int_0^x \sin(t)e^{-t} \mathrm{d} t\\
+            &= -\sin(x)e^{-x} - \left[-\cos(t)e^{-t}\right]_0^x - \int_0^x \cos(t)e^{-t} \mathrm{d}t\\
+            2\int_{0}^x \cos(t)e^{-t} \mathrm{d}t &= -\sin(x)e^{-x} + \cos(x)e^{-x}\\
+            \int_{0}^x \cos(t)e^{-t} \mathrm{d}t &= \frac{\cos(x) - \sin(x)}{2}e^{-x}
+        \end{align*}
+        und erhalten als allgemeine Lösung
+        \[
+            y = \frac{\cos(x) - \sin(x)}{2} + C\cdot e^x
+        \]
+        Durch Einsetzen der Anfangsbedingung ergibt sich
+        \[
+            y_0 = \frac{1}{2} + C \implies C = y_0 - \frac{1}{2}
+        \]
+        und damit
+        \[
+            y = \frac{\cos(x) - \sin(x)}{2} + \left(y_0 -\frac{1}{2}\right)\cdot e^x
+        \]
+    \end{enumerate}
+\end{document}

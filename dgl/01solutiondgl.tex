@@ -1,0 +1,32 @@
+\documentclass{article}
+\usepackage{josuamathheader}
+
+\begin{document}
+    \section*{Aufgabe 3}
+    Es gitl 
+    \[
+        \frac{\lVert t + y_1 - (t + y_2)\rVert}{\lVert y_1 - y_2\rVert} = 1 < \infty,
+    \]
+    insbesondere ist $t + y$ lokal Lipschitz-stetig bzgl. $y$ und Picard-Lindelöf ist anwendbar.
+    Es gilt $K(y)(t) = 0 + \int_0^t y + s\mathrm{d} s = \int_0^t y\mathrm{d}s + \frac{t^2}{s}$.
+    \paragraph{Induktionsanfang:} Es gilt $y_1(t) = \frac{t^2}{2}$.
+    \paragraph{Induktionsannahme:} $y_n = \sum_{k = 2}^{n+1} \frac{t^k}{k!}$.
+    \paragraph{Induktionsschluss:} $y_{n+1} = \int_0^t \sum_{k = 2}^{n+1} \frac{s^k}{k!} \mathrm{d} s + \frac{t^2}{2} = \sum_{k = 2}^{n+2} \frac{t^k}{k!}$.
+    Es folgt $\lim\limits_{n \to \infty} y_n = e^t - t - 1$.
+    \section*{Aufgabe 4}
+    \begin{enumerate}[(a)]
+        \item Ist das nicht genau die Definition von Lipschitz-stetig?
+        \item Seien $\pi_1$ bzw. $\pi_2$ die Projektionen auf die $t$-Komponente von $D$ bzw. die $y$-Komponente von $D$.
+        Wähle $U$ derart, dass $U \subset K \subset D$ für ein Kompaktum $K$. Sei $K_t$ die Ableitung von $f$ an der Stelle $t$. Dann nimmt $K(t)$ als stetige Abbildung auf einem Kompaktum ein Maximum an, $\sup_{t\in \pi_1(U)} K_t \leq C$.
+        Wähle ein $U$ derart, dass $\forall t$
+        $$\sup_{y_1\neq y_2 \in \pi_2(U)} \frac{\lVert f(t, y_1) - f(t, y_2) - K_t(y_1-y_2)\rVert}{\lVert y_1 - y_2\rVert} \leq 1.$$ Ein solches $U$ existiert, weil nach Definition der Ableitung für eine Folge von offenen Mengen $U_i$ mit absteigendem Durchmesser $\lim\limits_{i \to \infty} \operatorname{diam}(U_i) = 0$ dieser Ausdruck gegen 0 geht.
+        Wir erhalten dann insgesamt
+        \begin{align*}
+            L^* &= \sup_{(t, y_1)\neq (t,y_2) \in U} \frac{\lVert f(t, y_1) - f(t, y_2)\rVert}{\lVert y_1 - y_2\rVert}\\
+            &= \sup_{t\in \pi_1(U)} \sup_{y_1\neq y_2 \in \pi_2(U)} \frac{\lVert f(t, y_1) - f(t, y_2)\rVert}{\lVert y_1 - y_2\rVert}\\
+            &\overset{\Delta-\text{UGL}}{\leq} \sup_{t\in \pi_1(U)} \sup_{y_1\neq y_2 \in \pi_2(U)} \underbrace{\frac{\lVert f(t, y_1) - f(t, y_2) - K_t(y_1-y_2)\rVert}{\lVert y_1 - y_2\rVert}}_{< 1} + \frac{\lVert K_t (y_1 - y_2)\rVert}{\lVert y_1 - y_2\rVert}\\
+            &< \sup_{t\in \pi_1(U)} 1 + \lVert K_t\rVert \leq 1 + C\\
+            &< \infty
+        \end{align*}
+    \end{enumerate}
+   \end{document}

@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{josuamathheader}
+
+\begin{document}
+\section*{Aufgabe 2}
+\begin{enumerate}[(a)]
+    \item \begin{enumerate}
+        \item[$\implies$] Unterscheiden sich zwei Matrizen \[M = \begin{pmatrix}
+        a & b\\c&d
+    \end{pmatrix}, M' = \lambda \begin{pmatrix}
+        a & b\\c&d
+    \end{pmatrix} \in \operatorname{GL}_2(\C)\] um einen skalaren Faktor $\lambda$, 
+    so erhalten wir für die assoziierten Möbiustransformationen
+    \[
+        \varphi_M = \frac{az + b}{cz + d}, \qquad \varphi_{M'} = \frac{\lambda a z + \lambda b}{\lambda cz + \lambda d} = \frac{az + b}{cz+ d},
+    \]
+    also $\varphi_M = \varphi_{M'}$.
+    \item[$\Longleftarrow$] Gegeben zwei identische Möbiustransformationen $\varphi_M$ und $\varphi_{N}$ mit nicht notwendigerweise identischen assoziierten Matrizen $M, N \in \operatorname{GL}_2$, so erhalten wir $\varphi_{MN^{-1}} = \varphi_M \circ \varphi_N^{-1} = \operatorname{id}$. Wir bezeichnen $MN^{-1} \eqqcolon I = \begin{pmatrix}
+        a&b\\c&d
+    \end{pmatrix}$ und erhalten $\forall z \colon I\langle z \rangle = \frac{az + b}{cz + d} \overset{!}{=} z$.
+    Durch Umformen erhalten wir $0 = cz^2 + (d-a)z - b \forall z$. Koeffizientenvergleich ergibt $c = b = 0, d = a$.
+    Es gilt also $I = \lambda \operatorname{id} \in \operatorname{GL}_2(\C)$ (mit $\lambda \in C\setminus\{0\}$).
+    Wegen $MN^{-1} = \lambda I \implies M = \lambda N$ folgt auch die Rückrichtung der Behauptung.
+    \end{enumerate}
+    \item \begin{enumerate}[(i)]
+        \item $f$ ist ein Automorphismus, also bijektiv und $f$ sowie $f^{-1}$ sind holomorph auf $\overline{\C}$ als Riemannscher Fläche. Eine holomorphe Funktion $f\colon \overline{\C} \to \overline{\C}$ ist meromorph als Funktion $f\colon \overline{\C} \to \C$. Gäbe es nämlich einen Häufungspunkt von Polstellen, so wäre die Kartenabbildung $z \to \frac{1}{z}$ auf dieser Karte nach dem Identitätssatz 0, also wäre $f$ (weil die Riemannsche Zahlenkugel zusammenhängend ist) konstant im Widerspruch zur Bijektivität. Insbesondere ist die Singularitätenmenge $S$ diskret. Holomorphie auf $\overline{\C} \setminus S$ ist eine lokale Eigenschaft, die an den Verklebungsstellen aus der Biholomorphie der Kartenwechselabbildungen folgt. Die Eigenschaft, dass $|f(z)| \to \infty$ für $z \to s \in S$ folgt aus der Stetigkeit von $f \circ \frac{1}{z}$ auf der entsprechenden Umgebung um $s$.
+        \item Die Inklusion $\mathfrak{M} \subset \operatorname{Aut}(\overline{\C})$ ist klar, da jede Möbiustransformation eine meromorphe Funktion ist, deren Umkehrfunktion stets existiert und ebenfalls eine Möbiustransformation und damit auch meromorph ist (1.1, 1.3b)
+        
+        Sei nun $f \in \operatorname{Aut}(\overline{\C})$. Dann sind $f$ und seine Umkehrfunktion meromorph.
+        Nach Funktheo1 sind $f$ und $f^{-1}$ beide rational.
+        Ist $f(\overline{\C}) \subset \overline{\C}$, so ist $f$ bereits konstant.
+        Für die eindeutig gegebene Möbiustransformation $M$ mit $M \langle f(\infty) \rangle = \infty, M\langle f(1) \rangle = 1$ und $M\langle f(0) \rangle = 0$ betrachten wir $g \coloneqq \varphi_M \circ f - z$. 
+        $g$ ist eine meromorphe bijektive Funktion und besitzt damit genau eine Singularität. Diese befindet sich bei $\infty$. Insbesondere ist also für $z\neq \infty$ auch $M \langle f(\infty) \rangle \neq \infty$.
+        Es gilt für $z \neq \infty$ auch $\varphi_M \circ f \neq \infty$, also ist für $z\neq \infty$ auch $g \neq \infty$.
+        Für $z = \infty$ erhalten wir $g(z) = 0$. Daher gilt $g(\overline{\C}) \subset \C$, d.h. $g$ ist konstant.
+        Es gilt also $g(\overline{\C}) = g(1) = M\langle f(1) \rangle - 1 = 1 - 1 = 0$.
+        Daher ist $\varphi_M \circ f (z) = z \implies f = \varphi_M^{-1} = \varphi_{M^{-1}}$.
+    \end{enumerate}
+\end{enumerate}
+\end{document}
