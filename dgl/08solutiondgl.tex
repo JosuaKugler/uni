@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage{josuamathheader}
+\begin{document}
+\noindent
+    Für das linearisierte System gilt
+    \[
+        \begin{cases}
+            r' &= \frac{1}{2} r\\
+            \theta' &= 1
+        \end{cases}
+    \]
+    Beide Differentialgleichungen besitzen offensichtlich eine eindeutige Lösung, wir erhalten
+    \[
+        \psi_t \begin{pmatrix}
+            r\\\theta
+        \end{pmatrix} = \begin{pmatrix}
+            r \cdot e^{\frac{1}{2}t}\\
+            \theta + t
+        \end{pmatrix}.
+    \]
+    Da hier stets $r \in (0,1)$ liegt, ist $\tau(r, \theta)$ wohldefiniert.
+    Wir führen eine kurze Nebenrechnung durch:
+    \begin{align*}
+        \tau(\phi_t(r, \theta)) &= \log \left(\frac{1 - \frac{r^2e^t}{1 - r^2 + r^2e^t}}{3\frac{r^2e^t}{1 - r^2 + r^2e^t}}\right)\\
+        &= \log \left(\frac{1 - r^2 + r^2e^t - r^2 e^t}{3r^2e^t}\right)\\
+        &= \log\left(\frac{1 - r^2}{3r^2}\right) - \log(e^t)\\
+        &= \tau(r, \theta) - t
+    \end{align*}
+    Insbesondere ist auch $\tau(\phi_t(r, \theta))$ ein sinnvoller Wert.
+    Es gilt nun
+    \begin{align*}
+        h \circ \phi_t &= \psi_{- \tau(\phi_t(r, \theta))} \circ \phi_{\tau(\phi_t(r, \theta))} \left( \phi_t(r, \theta)\right)\\
+        \intertext{Nach Teilaufgabe (iv) und (iii) folgt}
+        &= \psi_{- \tau(\phi_t(r, \theta))} \begin{pmatrix}
+            \frac{1}{2}\\ \tau(\phi_t(r, \theta)) + t + \theta
+        \end{pmatrix}\\
+        &= \begin{pmatrix}
+            \frac{1}{2}e^{-\frac{1}{2}\tau(\phi_t(r, \theta))}\\
+            - \tau(\phi_t(r, \theta)) + \tau(\phi_t(r, \theta)) + t + \theta
+        \end{pmatrix}
+        \intertext{Unter Benutzung der Nebenrechung erhalten wir}
+        &= \begin{pmatrix}
+            \frac{1}{2}e^{-\frac{1}{2}\tau(r, \theta) + \frac{1}{2}t}\\
+            t + \theta
+        \end{pmatrix}\\
+        &= \psi_t\begin{pmatrix}
+            \frac{1}{2}e^{-\frac{1}{2}\tau(r, \theta)}\\
+            \theta
+        \end{pmatrix}\\
+        &= \psi_t\circ \psi_{-\tau(r, \theta)}\begin{pmatrix}
+            \frac{1}{2}\\
+            \tau(r, \theta) + \theta
+        \end{pmatrix}
+        \intertext{Wieder nutzen wir Teilaufgabe 4}
+        &= \psi_t \circ \psi_{-\tau(r, \theta)} \circ \phi_{\tau(r, \theta)}(r, \theta)\\
+        &= \psi_t \circ h
+    \end{align*}
+    Folglich sind $\psi_t$ und $\phi_t$ auf der Einheitskreisscheibe konjugiert.
+\end{document}
