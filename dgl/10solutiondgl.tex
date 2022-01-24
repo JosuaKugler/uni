@@ -1,0 +1,46 @@
+\documentclass{article}
+
+\usepackage{josuamathheader}
+
+\begin{document}
+    \section*{Aufgabe 1}
+    \begin{enumerate}[(i)]
+        \item Für $f(x,y) = \begin{pmatrix}
+            -x^3\\ -y + x^2
+        \end{pmatrix}$ erhalten wir
+        \[
+            \mathrm{D}f|_{(0,0)} =  \begin{pmatrix}
+                0 & 0\\0&-1
+            \end{pmatrix}.
+        \]
+        Es folgt $$E^0 = \left\{ \begin{pmatrix}
+            x\\0
+        \end{pmatrix},\; x\in \R\right\}, E^+ = \left\{ \begin{pmatrix}
+            0\\y
+        \end{pmatrix},\; y\in \R\right\}.$$
+        \item Es gilt in der Notation von Satz 3.29 $A = -1, f(x,y) = x^2, B = 0, g(x,y) = -x^3$ mit $y = \Psi(x)$. 
+        Wir erhalten wie in Satz 3.29 (iv) die folgende Gleichung
+        \[
+            \Psi'(x) \cdot (-x^3) = -\Psi(x) + x^2.  
+        \]
+        \item Angenommen, $\Psi(x) = \sum_{n = 0}^{\infty} a_nx^n$. Dann gilt $\Psi'(x) = \sum_{n = 0}^{\infty} a_{n+1}(n+1)x^n$.
+        Eingesetzt in die Gleichung aus (ii) ergibt sich
+        \begin{align*}
+            \sum_{n = 0}^{\infty} a_{n+1}(n+1)x^{n+3} &= \sum_{n = 0}^{\infty} a_nx^n - x^2\\
+            \sum_{n = 3}^{\infty} a_{n-2} (n-2)x^n &= \sum_{n = 0}^{\infty} a_nx^n -x^2
+        \end{align*}
+        Wir folgern daher $a_0 = a_1 = 0, a_2 = 1$ und für $n \geq 3$ gilt $a_n = (n-2)\cdot a_{n-2}$.
+        Rekursiv ergibt sich $a_{2n} = (n-1)! \cdot 2^{n-1}$.
+        Für den Konvergenzradius erhalten wir schließlich
+        \[
+            \rho = \frac{1}{\limsup\limits_{n \to \infty} \sqrt[n]{a_n}} \leq \frac{1}{\limsup\limits_{n \to \infty} \sqrt[2n]{(n-1)! \cdot 2^{n-1}}} = 0.
+        \]
+        \item Nach Satz 3.30 und wegen $\sigma(A) = \{-1\} \subset (-\infty, 0)$ genügt es, das Stabilitätsverhalten von $0$ bezüglich der reduzierten Gleichung $x' = -x^3$ zu untersuchen. 
+        Die allgemeine Lösung dieser Differentialgleichung kann durch Trennung der Variablen ermittelt werden.
+        \[
+            \int \frac{\mathrm{d} x}{-x^3} = \int \mathrm{d}t \Leftrightarrow \frac{1}{2x^2} = t + C \Leftrightarrow x = \frac{1}{\sqrt{2t + C}}
+        \]
+        Für den Anfangswert $x_0$ erhalten wir $x_0 = x(0) = \frac{1}{\sqrt{C}} \implies C = x_0^{-2}$, wir erhalten $\phi(x_0, t) = \frac{1}{\sqrt{2t + x_0^{-2}}}$.
+        
+    \end{enumerate}
+\end{document}

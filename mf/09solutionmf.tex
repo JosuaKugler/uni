@@ -1,0 +1,287 @@
+\documentclass{article}
+\usepackage{josuamathheader}
+
+\begin{document}
+\section*{Aufgabe 1}
+\begin{enumerate}[(a)]
+    \item a
+    \item Für Spitzenformen haben wir auf Blatt 3 gezeigt: $|a_n| \leq Cn^{k/2}$. Es gilt $|a_n(E_k)| = C \cdot \sigma_{k-1}(n) \leq C \cdot \sigma_1^{k-1}(n) \leq C n^{k-1}$. 
+    Wegen $M_k = \C E_k \oplus S_k$ folgt die Behauptung.
+    \item Es gilt
+    \begin{align*}
+        \left|\sum_{n = 1}^{\infty} a_n e^{2\pi i n z} e^{\beta y}\right|
+         &\leq \sum_{n = 1}^{\infty} |a_n| e^{(-2\pi n + \beta)y}\\
+         &\leq C \cdot \sum_{n = 1}^{\infty} n^{k-1} e^{(-2\pi n + \beta)y}\\
+         \intertext{Wähle $\beta < 1$. Dann gilt $-2\pi n + \beta < 0$ und es folgt}
+         &\leq C \cdot \sum_{n = 1}^{\infty} n^{k-1} e^{(-2\pi n + \beta)y_0}\\
+         \intertext{Außerdem gilt wegen $n \geq 1, \beta < 1$ auch $-2\pi n + \beta \leq -n$}
+         &\leq C \cdot \sum_{n = 1}^{\infty} n^{k-1} e^{-y_0\cdot n}
+         \intertext{Nun ist $\lim\limits_{n \to \infty} n^{k+1}e^{-y_0 \cdot n} = 0$ und daher existiert ein $N \in \N$ mit $n^{k-1}e^{-y_0 \cdot n} \neq n^{-2}$}
+         &\leq C \cdot \left(\sum_{n = 1}^N  n^{k-1} e^{-y_0\cdot n} + \sum_{n = N+1}^{\infty} n^{-2}\right)\\
+         &\leq C \cdot \left(D + \frac{\pi^2}{6}\right)\\
+         &\leq E
+    \end{align*}
+    \item Es gilt 
+    \begin{align*}
+        - E_6(i) &= -1 - \sum_{(c, d) \in \Z^2, (c,d) = 1, c > 0}(c\cdot i + d)^{-6}
+        \intertext{Für $d = 0$ gilt $c = 1$ und daher $(ci + d)^{-6} = -1$}
+        &= -1 + 1 + \sum_{(c, d) \in \Z^2, (c,d) = 1, c> 0, d \neq 0}(i \cdot ci + i \cdot d)^{-6}\\
+        &= \sum_{(c, d) \in \Z^2, (c,d) = 1, c> 0, d \neq 0}(d\cdot i - c)^{-6}\\
+        \intertext{Ist $d < 0$, so betrachte $(-d \cdot i + c)^{-6}$. Wegen $(-1)^6 = 1$ ändert sich dadurch am Wert der Summe nichts und wir erhalten}
+        &= \sum_{(\tilde c, \tilde d) \in \Z^2, (\tilde c,\tilde d) = 1, \tilde c \neq 0, \tilde d > 0}(\tilde d\cdot i - \tilde c)^{-6}\\
+        &= 1 - 1 + \sum_{(\tilde c, \tilde d) \in \Z^2, (\tilde c,\tilde d) = 1, \tilde c \neq 0, \tilde d > 0}(\tilde d\cdot i - \tilde c)^{-6}\\
+        \intertext{Wegen $(\tilde c, \tilde d) = 1$ folgt $\tilde d = 1$ für $\tilde c = 0$, mit $-1 = (i)^{-6}$ erhalten wir}
+        &= 1 + \sum_{(\tilde c, \tilde d) \in \Z^2, (\tilde c,\tilde d) = 1, \tilde d > 0}(\tilde d\cdot i - \tilde c)^{-6}\\
+        &= E_6(i),
+    \end{align*}
+    also $E_6(i) = 0$.
+    Es folgt $j(i) = 1728 \frac{E_4^3(i)}{E_4^3(i) - E_6^2(i)} = 1728$. 
+    \item Es gilt $g\in V_l = \C(j) \cdot \frac{E_4^k}{E_6^{k/2}}$. Nun ist $E_4$ holomorph auf $\mathbb H$ und $E_6$ besitzt eine Nullstelle bei $i$ (siehe Aufgabe d). Nach der Valenzformel ist diese eine einfache Nullstelle (Grade fällt mir auf: Aufgabe d hätte man deutlich einfacher über die Valenzformel argumentieren können).
+    
+    Sei $g = \frac{P(j)}{Q(j)} \cdot \frac{E_4^k}{E_6^{k/2}}$.
+    Betrachte $\varphi \coloneqq (j - 1728)^{k/2} \cdot Q(j)$. Dann gilt $g \cdot \varphi = P(j) \cdot E_4^k \cdot \left(\frac{j-1728}{E_6}\right)^\frac{k}{2}$. Nun hat $j - 1728$ eine Nullstelle in $i$, sodass $\frac{j-1728}{E_6}$ holomorph auf $\mathbb H$ ist. Folglich ist $g\cdot \varphi$ ebenfalls holomorph auf $\mathbb H$.
+    \item f
+    \item Für gerades $n$ gilt $n = 2^r \cdot m$ mit $r \geq 1$ und $(2^r, m) = 1$. Also folgt nach Beispiel 4.28 $\tau(n) = \tau(2^r)\tau(m)$. Auch wieder mit Beispiel 4.28 folgt $\tau(2^r) = \tau(2^{r-1})\tau(2) - 2^11\tau(2^{r-1})$ für $r\geq 1$.
+    Wegen $\tau(2) = 24$ nach Skript gilt $8 | \tau(2), 8|2^11$ und damit $8 | \tau(2^r)$, also auch $8|\tau(n)$.
+    \item Es gilt $\dim_\C M_{10} = 1$. Wegen $E_4 \cdot E_6 \in M_{10}$ und $a_1(E_4E_6) = 1 \cdot 1 = a_1(E_{10})$ folgt die Gleichheit $E_4E_6 = E_{10}$.
+    Wir setzen die Definitionen ein und erhalten
+    \begin{align*}
+        E_10 &= E_4 \cdot E_6\\
+        1 - \frac{20}{B_{10}}\sum_{n = 1}^{\infty} \sigma_9(n)q^n &= \left(1 + 240 \sum_{n = 1}^{\infty} \sigma_3(n)q^n\right)\left(1 - 504\sum_{n = 1}^{\infty} \sigma_5(n)q^n\right)\\
+        8 \cdot 3 \cdot 11 \sum_{n = 1}^{\infty} \sigma_9(n) q^n &= 8 \cdot 7 \cdot 9 \sum_{n = 1}^{\infty} \sigma_5(n)q^n -16\cdot 3\cdot 5 \sum_{n = 1}^{\infty} \sigma_3(n)q^n + 2^7 \cdot 3^3 \cdot 5 \cdot 7\left(\sum_{n = 1}^{\infty} \sigma_3(n)q^n\right)\left(\sum_{n = 1}^{\infty} \sigma_5(n)q^n\right)\\
+        \intertext{Betrachten wir die Koeffizienten für $q^n$ und teilen durch 24, so ergibt sich}
+        11 \sigma_9(n) &= 21\sigma_5(n) - 10\sigma_3(n) + \sum_{m = 1}^{n-1} \sigma_3(m)\sigma_5(n-m)
+    \end{align*}
+\end{enumerate}
+\section*{Aufgabe 2}
+\begin{enumerate}[(a)]
+    \item Es gilt $\dim_\C S_{18} = \lfloor \frac{k}{12} \rfloor = 1$. Da $S_k$ eine Orthogonalbasis aus Hecke-Eigenformen besitzt, ist auch $E_6 \cdot \Delta$ Vielfaches einer Hecke-Eigenform und erfüllt damit die schwache Multiplikativitätseigenschaft.
+    \item Es gilt $\dim_\C S_{24} = 2$. Da $f$ und $\tilde f$ offensichtlich linear unabhängig sind, ist dadurch also bereits eine Basis gegeben.
+    \item Nach Satz 4.32 gilt
+    \begin{align*}
+        f|_{24}T_2(z) &= \sum_{m = 0}^{\infty} \left(\sum_{a|(m,2), a >0} a^{23} a_\frac{2m}{a^2}(f)\right)q^m
+        \intertext{Es folgt wegen $(1,2) = 1$ und $(2,2) = 2$}
+        &= a_\frac{2}{1^2}(f)q + (a_{\frac{4}{1}}(f) + 2^{23}a_\frac{4}{2^2}) q^2 + \mathcal{O}(q^3)\\
+        &= a_2(f) \cdot q + (a_4(f) + 2^{23}a_1(f))q^2 + \mathcal{O}(q^3)
+    \end{align*}
+    Wir erhalten
+    \begin{align*}
+        f|_{24}T_2 &= -1032q + (2^23 - 22.072.640)q^2 = -1032 f + (2^23 - 22.072.640 - 1032^2) \tilde f\\
+        \tilde f|_{24}T_2 &= q + 1080q^2 = f + (1080 + 1032) \tilde f
+    \end{align*}
+    Als Darstellungsmatrix erhalten wir
+    \[
+        \begin{pmatrix}
+            -1032 & -14749056\\
+            1 & 2112
+        \end{pmatrix}  
+    \]
+\end{enumerate}
+\section*{Aufgabe 3}
+\begin{enumerate}[(a)]
+    \item Aus $|a_p(f)|^2 \leq 4 p^{k-1}$ folgt sofort $|a_p(f)| \leq 2 p^{\frac{k-1}{2}}$. Es gilt demnach $a_p(f) = 2p^\frac{k-1}{2} \cdot x_p$ mit $|x_p| \leq 1$, also $x_p \in [-1,1]$. Nun ist $\cos\colon [0,\pi] \xrightarrow{\sim} [-1, 1]$ eine Bijektion, da stetig und streng monoton.
+    Insbesondere existiert also ein eindeutig bestimmtest $\theta_p$ mit $\cos(\theta_p) = x_p$. Offensichtlich ist $|\cos \theta_p| < 1$ für $\theta_p \notin \{0, \pi\}$, also $|a_p(f)| = | 2p^\frac{k-1}{2} \cos \theta_p| < |2p^\frac{k-1}{2}|$, d.h. $a_p(f) \neq 2p^\frac{k-1}{2}$.
+    \item Induktion nach $r$.\\
+    Induktionsanfang, $r = 1$: Wegen $A^0 = I$ und $a_1(f) = 1$ bei einer normierten Hecke-Eigenform $f$ gilt
+    \[
+          \begin{pmatrix}
+              a_p(f)\\
+              a_1(f)
+          \end{pmatrix} = A^0 \begin{pmatrix}
+              a_p(f)\\
+              1
+          \end{pmatrix}
+    \]
+    Induktionsschritt: Gelte die Behauptung für $r = n$. Wir erhalten für $r = n+1$ folgende Gleichung
+    \begin{salign*}
+        A^n \cdot \begin{pmatrix}
+            a_p(f)\\1
+        \end{pmatrix}
+        &= A \cdot A^{n-1} \begin{pmatrix}
+            a_p(f)\\1
+        \end{pmatrix}\\
+        &= A \cdot \begin{pmatrix}
+            a_{p^n}(f)\\
+            a_{p^{n-1}}(f)
+        \end{pmatrix}\\
+        &= \begin{pmatrix}
+            a_p(f) & -p^{k-1}\\
+            1 & 0
+        \end{pmatrix} \begin{pmatrix}
+            a_{p^n}(f)\\
+            a_{p^{n-1}}(f)
+        \end{pmatrix}\\
+        &= \begin{pmatrix}
+            a_p(f) \cdot a_{p^n}(f) - p^{k-1} \cdot a_{p^{n-1}}(f)\\
+            a_{p^n}(f)
+        \end{pmatrix}\\
+        &\stackrel{\text{4.26(ii)}}{=} \begin{pmatrix}
+            a_{p^{n+1}}(f)\\
+            a_{p^n}(f)
+        \end{pmatrix}
+    \end{salign*}
+    \item Als charakteristisches Polynom erhalten wir $(a_p(f) - \lambda) \cdot (-\lambda) + p^{k-1} = \lambda^2 - a_p(f) \lambda + p^{k-1}$. Durch Anwenden der $p-q$-Formel erhalten wir als mögliche Eigenwerte
+    \[
+        \lambda_{1/2} = \frac{a_p(f) \pm \sqrt{a_p(f)^2 - 4p^{k-1}}}{2}  
+    \]
+    Insbesondere erhalten wir aus dem Satz von Vieta die Identitäten $\lambda_1 + \lambda_2 = a_p(f)$ und $\lambda_1 \cdot \lambda_2 = p^{k-1}$.
+    Für den Eigenraum zu $\lambda_1$ erhalten wir
+    \[
+        \ker \begin{pmatrix}
+            a_p(f) - \lambda_1 & -p^{ k-1}\\
+            1 & -\lambda_1
+        \end{pmatrix} = \ker \begin{pmatrix}
+            \lambda_2 & -p^{ k-1}\\
+            \lambda_2 & -\underbrace{\lambda_1 \cdot \lambda_2}_{p^{k-1}}
+        \end{pmatrix}
+        = \ker \begin{pmatrix}
+            \lambda_2 & -p^{k-1}\\
+            0 & 0
+        \end{pmatrix} = \operatorname{Lin} \begin{pmatrix}
+            p^{k-1}\\
+            \lambda_2
+        \end{pmatrix}.
+    \]
+    Für den Eigenraum von $\lambda_2$ hingegen ergibt sich völlig analog
+    \[
+        \ker \begin{pmatrix}
+            a_p(f) - \lambda_2 & -p^{k-1}\\
+            1 & - \lambda_2
+        \end{pmatrix}
+        = \ker \begin{pmatrix}
+            \lambda_1 & - p^{k-1}\\
+            0 & 0
+        \end{pmatrix} = \operatorname{Lin} \begin{pmatrix}
+            p^{k-1}\\ \lambda_1
+        \end{pmatrix}.
+    \]
+    Durch $\begin{pmatrix}
+        p^{k-1}\\
+        \lambda_2
+    \end{pmatrix}, \begin{pmatrix}
+        p^{k-1}\\ \lambda_1
+    \end{pmatrix}$ ist demnach eine Basis aus Eigenvektoren gegeben,
+    wir erhalten als Transformationsmatrix
+    \[
+        M =   \begin{pmatrix}
+            p^{k-1} & p^{k-1}\\
+            \lambda_2 & \lambda_1
+        \end{pmatrix},\qquad M^{-1} = \frac{1}{p^{k-1}\cdot (\lambda_1 - \lambda_2)} \begin{pmatrix}
+            \lambda_1 & -p^{k-1}\\
+            - \lambda_2 & p^{k-1}
+        \end{pmatrix}
+    \]
+    Es folgt unter massiver Ausnutzung von $a_p(f) = \lambda_1 + \lambda_2$ und $p^{k-1} = \lambda_1\lambda_2$
+    \begin{align*}
+        M^{-1} A M &= \frac{1}{p^{k-1}(\lambda_1 - \lambda_2)}\begin{pmatrix}
+            \lambda_1 & -p^{k-1}\\
+            - \lambda_2 & p^{k-1}
+        \end{pmatrix} \begin{pmatrix}
+            a_p(f) & -p^{k-1}\\
+            1 & 0 
+        \end{pmatrix} \begin{pmatrix}
+            p^{k-1} & p^{k-1}\\
+            \lambda_2 & \lambda_1
+        \end{pmatrix}\\
+        &= \frac{1}{p^{k-1}(\lambda_1 - \lambda_2)}\begin{pmatrix}
+            \lambda_1 (\lambda_1 + \lambda_2) - \lambda_1\lambda_2 & \lambda_1 (-\lambda_1 \lambda_2)\\
+            -\lambda_2 (\lambda_1 + \lambda_2) + \lambda_1\lambda_2 & \lambda_2 (\lambda_1\lambda_2)
+        \end{pmatrix} \begin{pmatrix}
+            p^{k-1} & p^{k-1}\\
+            \lambda_2 & \lambda_1
+        \end{pmatrix}\\
+        &= \frac{1}{\lambda_1\lambda_2(\lambda_1 - \lambda_2)}\begin{pmatrix}
+            \lambda_1^2 & -\lambda_1^2 \lambda_2)\\
+            -\lambda_2^2& \lambda_2^2 \lambda_1
+        \end{pmatrix} \begin{pmatrix}
+            \lambda_1 \lambda_2 & \lambda_1\lambda_2\\
+            \lambda_2 & \lambda_1
+        \end{pmatrix}\\
+        &= \frac{1}{\lambda_1\lambda_2(\lambda_1 - \lambda_2)}\begin{pmatrix}
+            \lambda_1^3\lambda_2 - \lambda_1^2 \lambda_2^2 & \lambda_1^3\lambda_2  - \lambda_1^3\lambda_2\\
+            -\lambda_2^3\lambda_1 + \lambda_2^3\lambda_1 & - \lambda_2^3\lambda_1 + \lambda_2^2\lambda_1^2
+        \end{pmatrix}\\
+        &= \frac{1}{\lambda_1 - \lambda_2}\begin{pmatrix}
+            \lambda_1 (\lambda_1 - \lambda_2) & 0\\
+            0 & \lambda_2 (\lambda_1 - \lambda_2)
+        \end{pmatrix}\\
+        &= \begin{pmatrix}
+            \lambda_1 & 0\\
+            0 & \lambda_2
+        \end{pmatrix},
+    \end{align*}
+    wie erwartet.
+    Wir erhalten
+    \begin{align*}
+        \begin{pmatrix}
+            a_{p^r}(f)\\
+            a_{p^{r-1}}(f)
+        \end{pmatrix} &= A^{r-1} \begin{pmatrix}
+            a_p(f)\\1
+        \end{pmatrix}
+        = MM^{-1}A^{r-1}MM^{-1} \begin{pmatrix}
+            a_p(f)\\1
+        \end{pmatrix} = M (M^{-1}AM)^{r-1}M^{-1} \begin{pmatrix}
+            a_p(f)\\1
+        \end{pmatrix}\\
+        &= M\begin{pmatrix}
+            \lambda_1^{r-1} & 0\\
+            0 & \lambda_2^{r-1}
+        \end{pmatrix} M^{-1} \begin{pmatrix}
+            a_p(f)\\1
+        \end{pmatrix}\\
+        &= \frac{1}{\lambda_1\lambda_2(\lambda_1-\lambda_2)} 
+        \begin{pmatrix}
+            \lambda_1\lambda_2 & \lambda_1\lambda_2\\
+            \lambda_2 & \lambda_1
+        \end{pmatrix} \begin{pmatrix}
+            \lambda_1^{r-1} & 0\\
+            0 & \lambda_2^{r-1}
+        \end{pmatrix} \begin{pmatrix}
+            \lambda_1 & -\lambda_1\lambda_2\\
+            -\lambda_2&  \lambda_1\lambda_2
+        \end{pmatrix}\begin{pmatrix}
+            \lambda_1 + \lambda_2\\1
+        \end{pmatrix}\\
+        &= \frac{1}{\lambda_1\lambda_2(\lambda_1-\lambda_2)} \begin{pmatrix}
+            \lambda_1^{r}\lambda_2 &\lambda_2^{r}\lambda_1\\
+            \lambda_1^{r-1}\lambda_2 & \lambda_2^{r-1}\lambda_1
+        \end{pmatrix}\begin{pmatrix}
+            \lambda_1^2 + \lambda_1\lambda_2 - \lambda_1\lambda_2\\
+            -\lambda_1\lambda_2 - \lambda_2^2 + \lambda_1\lambda_2
+        \end{pmatrix}\\
+        &= \frac{1}{\lambda_1\lambda_2(\lambda_1-\lambda_2)}\begin{pmatrix}
+            \lambda_1^{r}\lambda_2 &\lambda_2^{r}\lambda_1\\
+            \lambda_1^{r-1}\lambda_2 & \lambda_2^{r-1}\lambda_1
+        \end{pmatrix}\begin{pmatrix}
+            \lambda_1^2\\
+            - \lambda_2^2
+        \end{pmatrix}\\
+        &= \frac{1}{\lambda_1\lambda_2(\lambda_1-\lambda_2)}\begin{pmatrix}
+            \lambda_1^{r+2}\lambda_2 - \lambda_2^{r+2}\lambda_1\\
+            \lambda_1^{r+1}\lambda_2 - \lambda_2^{r+1}\lambda_1
+        \end{pmatrix}\\
+        &= \frac{1}{\lambda_1 - \lambda_2}\begin{pmatrix}
+            \lambda_1^{r+1} - \lambda_2^{r+1}\\
+            \lambda_1^{r} - \lambda_2^{r}
+        \end{pmatrix}
+    \end{align*}
+    \item Wir nutzen $a_p(f) = 2p^\frac{k-1}{2}\cos \theta_p$ und erhalten 
+    \[
+        \lambda_{1/2} = \frac{2p^\frac{k-1}{2}\cos \theta_p \pm \sqrt{4p^{k-1} (\cos^2\theta_p - 1)}}{2} = p^\frac{k-1}{2} (\cos \theta_p \pm \sqrt{- \sin^2 \theta_p}) = p^\frac{k-1}{2}(\cos \theta_p \pm i \sin \theta_p)
+    \]
+    Es folgt $\lambda_1 = p^\frac{k-1}{2}e^{i\theta_p}$ und $\lambda_2 = p^\frac{k-1}{2}e^{-i\theta_p}$ und insbesondere verschieden für $\theta_p \notin \{0, \pi\}$.
+    Aus Aufgabe (c) erhalten wir
+    \begin{align*}
+        a_{p^r} &= \frac{\lambda_1^{r+1} - \lambda_2^{r+1}}{\lambda_1 - \lambda_2}\\
+        &= p^{r \cdot \frac{k-1}{2}}\frac{e^{i(r+1)\theta_p} - e^{-i(r+1)\theta_p}}{2i\sin \theta_p}\\
+        &= p^{r \cdot \frac{k-1}{2}}\frac{\cos((r+1)\theta_p) + i\sin((r+1)\theta_p) - \cos(-(r+1)\theta_p) -i \sin(-(r+1)\theta_p)}{2i\sin \theta_p}\\
+        &= p^{r \cdot \frac{k-1}{2}}\frac{2i\sin((r+1)\theta_p)}{2i\sin \theta_p}\\
+        &= p^{r \cdot \frac{k-1}{2}}\frac{\sin((r+1)\cdot\theta_p)}{\sin \theta_p}\\
+    \end{align*}
+    \item Es genügt zu zeigen, dass die Folge $\sin((r+1)\theta_p)_{r\in \N}$ unendlich viele positive wie negative Glieder enthält.
+    Angenommen, es gibt ein maximales $R$, für das $\sin((R+1)\theta_p)$ negativ ist. Wegen $\theta_p \notin 2\pi\Q$ ist also $\sin((r+1)\theta_p) \neq 0$ und damit positiv $\forall r > R$, also $(R + 2) \theta_p \equiv x \mod 2\pi$ mit $0 < x < \pi$.
+    Es existiert aber ein $N \in \N$ mit $\pi< Nx < 2\pi$. Dann ist 
+    $N (R + 2)\theta_p \equiv Nx \mod 2\pi$, also $\sin(N(R+2)\theta_p) = \sin(Nx) < 0$, Widerspruch.
+\end{enumerate}
+\end{document}
