@@ -1,0 +1,12 @@
+Spektrum eines Ringes: topologischer Raum der Primideale mit folgender Garbe:
+Spec A -> Rng
+    U |-> komplizierter Ausdruck mit Funktionen
+ alternativ: D(f) |-> A_f
+geringter Raum: topologischer Raum mit Ringgarbe
+lokal geringeter Raum: Die Halme sind lokale Ringe
+affines Schema: Als lokal geringter Raum isomorph zum Spektrum eines Ringes
+
+analog für Moduln, 
+M A-Modul induziert Modulgarbe über Spec A
+quasikohärent heißt, dass die Modulgarbe isomorph zu einer solchen assoziierten Modulgarbe ist
+kohärent ist sie dann, wenn der dafür benötigte Modul M endlich erzeugt ist
