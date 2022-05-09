@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
+%\usepackage{fancyhdr}
+
+
+\newtheorem*{satz}{Satz}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{definition}{Definition}
+
+\title{Endliche separable $K$-Algebren}
+\author{}
+\date{\vspace*{-1cm}28.04.2022}
+
+\begin{document}
+    \maketitle
+    \begin{satz}[Struktur endlicher $K$-Algebren]
+        Sei $B$ eine endlichdimensionale $K$-Algebra. Dann gilt
+        \[
+            B \cong \prod_{i=1}^t B_i
+        \]
+        für ein $t \geq 0$ und lokale $K$-Algebren $B_i$ mit nilpotentem Maximalideal.
+    \end{satz}
+    \begin{definition}
+        Eine endliche $K$-Algebra $B$ heißt separabel, wenn der Homomorphismus
+        \begin{align*}
+            \phi\colon B &\to \hom_K(B, K)\\
+            x &\mapsto (y \mapsto \operatorname{Sp}(xy))
+        \end{align*}
+        ein Isomorphismus ist.
+    \end{definition}
+    \begin{satz}[Struktur separabler Algebren]
+        Sei $K$ ein Körper mit algebraischen Abschluss $\overline{K}$ und $B$ eine endlichdimensionale $K$-Algebra.
+        Wir definieren außerdem die $K$-Algebra $\overline B \coloneqq B \otimes_K \overline K$.
+        Dann sind die folgenden Aussagen äquivalent:
+        \begin{enumerate}
+            \item $B$ ist separabel über $K$
+            \item $\overline{B}$ ist separabel über $\overline{K}$
+            \item $\overline{B} \cong \overline{K}^n$ als $K$-Algebren für ein $n \geq 0$
+            \item $B \cong \prod_{i=1}^t B_i$ als $K$-Algebren für ein $t \geq 0$ und endlich separablen Körpererweiterungen $B_i/K$.
+        \end{enumerate}
+    \end{satz}
+    \begin{definition}
+        Eine $\pi$-Menge ist eine endliche Menge $E$ mit einer stetigen Gruppenwirkung $\pi \curvearrowright E$.
+        Dabei trägt $\pi$ die proendliche und $E$ die diskrete Topologie. 
+    \end{definition}
+    Das Hauptresultat dieses Vortrags deutet schon auf die Kategorienantiäquivalenz hin, die wir insgesamt im Seminar zeigen wollen:
+    \begin{theorem}
+        Sei $K$ ein Körper und $\pi = \operatorname{Gal}(K_s/K)$ die absolute Galoisgruppe. Dann sind die Kategorien $\operatorname{SepAlg}_K$ und $\pi-\operatorname{Fin}$ antiäquivalent.
+    \end{theorem}
+\end{document}
