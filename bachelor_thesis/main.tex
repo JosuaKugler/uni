@@ -1,0 +1,134 @@
+\documentclass{article}
+\usepackage{amsmath, amsthm, amsfonts, amssymb}
+\usepackage{mathtools}
+\usepackage{tikz-cd}
+\usepackage{enumerate}
+
+\theoremstyle{plain}% default
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}
+\newtheorem*{corollary}{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{conjecture}{Conjecture}[section]
+\newtheorem{example}{Example}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{note}{Note}
+\newtheorem{case}{Case}
+
+
+
+\newcommand{\cob}{\mathcal{C}_\mathcal{O}^\bullet}
+\newcommand{\co}{\mathcal{C}_\mathcal{O}}
+\newcommand{\ann}{\operatorname{Ann}}
+
+\title{Fermat's Last Theorem}
+\author{Josua Kugler}
+
+\begin{document}
+    \maketitle
+    \tableofcontents
+    \section{Introduction}
+    \section{An Overview of Wiles' proof}
+    \newpage
+    \section{Wiles' numerical criterion}
+    Wiles has discovered a criterion for two rings in a specific category to be isomorphic that only depends on some numerical invariants
+    of these rings. The aim of this section is to prove that criterion in its purely algebraic form. 
+    %TODO: Explain how this fits into the rest of the proof.
+    
+    \subsection{Preliminaries}
+    Let \(\mathcal{O}\) be the ring of integers of a finite extension \(K\) of \(\mathbb Q_\ell\). 
+    As \(K\) is a local field, its ring of integers is a discrete valutation ring (DVR), i.e. 
+    \(\mathcal O\) is a local, noetherian Dedekind ring with maximal ideal \(\lambda\). 
+    It is complete with respect to the \(\lambda\)-adic topology, a principal ideal domain (PID) 
+    and has residue field \(k \coloneqq \mathcal{O}/\lambda\)  to name some properties that we will use in the course of the proof.
+    
+    \(\mathbb Z_\ell\) is the ring of integers of \(\mathbb Q_\ell\) and \(\mathbb F_\ell = \mathbb Z_\ell/\ell \mathbb Z_\ell\) its residue field. 
+    As \(K/\mathbb{Q}_\ell\) is finite, the residue field of \(\mathcal{O}\) is a finite extension of $\mathbb F_\ell$ and therefore finite. 
+    %Not entirely clear to me
+
+    \paragraph{The categories \(\co\) and \(\cob\)}
+    In this section, we will mostly deal with very specific rings. Therefore we define the category \(\co\) where objects of \(\co\) are
+    local complete noetherian \(\mathcal O\)-algebras with residue field \(k\) and the morphisms are local \(\mathcal{O}\)-algebra morphisms.
+    Often, we even need some extra structure. 
+    We obtain the category \(\cob\) from \(\co\) by equipping an object \(A\) with an additional surjective map
+    \[\pi_A \colon A \twoheadrightarrow \mathcal{O},\]
+    the so-called augmentation map. Objects in \(\cob\) are often called \textit{augmented rings}.
+    The morphisms in \(\cob\) are local \(\mathcal{O}\)-algebra morphisms that respect the augmentation map structure, i.e. for a morphism
+    \(f \colon A \to B\) we have the commutative diagram
+    \[
+    \begin{tikzcd}[column sep=small]
+        A \arrow[rr, "f"] \arrow [dr, "\pi_A", swap, twoheadrightarrow] & & B \arrow [dl, "\pi_B", twoheadrightarrow]\\
+        & \mathcal{O} &
+    \end{tikzcd}.
+    \]
+
+    In order to state Wiles' criterion, we need some more definitions.
+    \begin{definition}
+        \(A \in \co\) is \textit{finite flat}, if \(A\) is finitely generated and torsion-free as an \(\mathcal{O}\)-module.
+        Note that \(\mathcal{O}\) is a PID and therefore being torsion-free is equivalent to being flat as an \(\mathcal{O}\)-module.
+    \end{definition}
+    
+    \begin{definition}[complete intersection]
+        A finite flat ring \(A \in \co\) is called a \textit{complete intersection}, if \(A\) is isomorphic as an \(\mathcal{O}\)-algebra
+        to a quotient
+        \[A \cong \mathcal{O}[[X_1, \dots, X_n]]/(f_1, \dots, f_n),\] where there are as many relations as there are variables.
+        %Why is this a good definition? Where does the name come from? see probably remark 5.2
+    \end{definition}
+
+    \begin{definition}
+        Let \(A \in \cob\). Then
+        \[\phi_A \coloneqq (\ker \pi_A)/(\ker \pi_A)^2.\]
+        %is the following helpful?
+        The reader with background in algebraic geometry might notice that this can be though of as a tangent space, 
+        in particular it is the cotangent space of the scheme \(\operatorname{spec}(A)\) at the point \(\ker \pi_A\).
+        However this point of view is not necessary in the following, 
+        it might be more a hint of how Wiles came to investigate this specific invariant.
+    \end{definition}
+
+    \begin{definition}
+        Let \(A \in \cob\). Then
+        \[\eta_A \coloneqq \pi_A(\ann_A (\ker \pi_A))\] is an ideal in \(\mathcal{O}\).
+    \end{definition}
+
+    \begin{lemma}
+        Let \(A \in \cob\).
+        \[\eta_A \neq 0 \implies \mathcal{O}/\eta_A \text{ finite}.\]
+    \end{lemma}
+    \begin{proof}
+        As \(0 \neq \eta_A\) is an ideal in the DVR \(\mathcal{O}\), \(\eta_A = \lambda^n\) for some \(n \in \mathbb N\) 
+        where \(\lambda\) is the maximal ideal in \(O\).
+        Therefore, \(\mathcal{O}/\eta_T = \mathcal{O}/\lambda^n.\)
+
+        Using the fact that \(\lambda = (t)\) for some uniformizer \(t\), we get \(\forall i \ge 1\) 
+        the isomorphism \(\lambda^i/\lambda^{i+1} \cong \mathcal{O}/\lambda = k\) and thereby also the short exact sequence 
+        \[0 \to \mathcal{O}/\lambda \cong \lambda^i/\lambda^{i+1} \to \mathcal{O}/\lambda^{i+1} \to \mathcal{O}/\lambda^{i} \to 0.\]
+        As \(k = \mathcal{O}/\lambda\) is finite, we can use induction
+        \[\# \mathcal{O}/\lambda^{i+1} = \# \mathcal{O}/\lambda \cdot \# \mathcal{O}/\lambda^i = \# k \cdot (\# k)^i = (\# k)^{i+1}\]
+        and get \(\# \mathcal{O}/\eta_A = \# \mathcal{O}/\lambda^n = (\# k)^n\).
+    \end{proof}
+
+    With these definitions at hand, we can state 
+    \begin{theorem}[Wiles' numerical criterion]\label{thm:wiles_numerical_criterion}
+        Let \(R \twoheadrightarrow T\) a surjective morphism of augmented rings, \(T\) finite flat and \(\eta_T \neq 0\).
+        Then the following are equivalent
+        \begin{enumerate}[(a)]
+            \item \(\# \phi_R \le \#(\mathcal{O}/\eta_T)\),
+            \item \(\# \phi_R = \#(\mathcal{O}/\eta_T)\),
+            \item \(R\) and \(T\) are complete intersections, and \(R \to T\) is an isomorphism.
+        \end{enumerate}
+    \end{theorem}
+
+    \subsection{Basic properties of \(\phi_A\) and \(\eta_A\)}
+    In this subsection we prove the equivalence (a) \(\Leftrightarrow\) (b) in Theorem~\ref{thm:wiles_numerical_criterion}
+    by investigating the invariants \(\phi_A\) and \(\eta_A\) that we defined last week.
+
+
+    %phi_A is a finitely generated O-module
+
+
+\end{document}
