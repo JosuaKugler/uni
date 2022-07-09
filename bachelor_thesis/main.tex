@@ -44,7 +44,7 @@
     Let \(\mathcal{O}\) be the ring of integers of a finite extension \(K\) of \(\mathbb Q_\ell\). 
     As \(K\) is a local field, its ring of integers is a discrete valutation ring (DVR), i.e. 
     \(\mathcal O\) is a local, noetherian Dedekind ring with maximal ideal \(\lambda\). 
-    It is complete with respect to the \(\lambda\)-adic topology, a principal ideal domain (PID) 
+    It is complete with resp server usedect to the \(\lambda\)-adic topology, a principal ideal domain (PID) 
     and has residue field \(k \coloneqq \mathcal{O}/\lambda\)  to name some properties that we will use in the course of the proof.
     
     \(\mathbb Z_\ell\) is the ring of integers of \(\mathbb Q_\ell\) and \(\mathbb F_\ell = \mathbb Z_\ell/\ell \mathbb Z_\ell\) its residue field. 
@@ -80,6 +80,90 @@
         %Why is this a good definition? Where does the name come from? see probably remark 5.2
     \end{definition}
 
+    Let's take a look at an example.
+    \begin{example}\label{ex:first_1}
+        \(A = \{(a,b) \in \mathcal{O}\times\mathcal{O},\; a \equiv b\; (\operatorname{mod} \lambda^n)\} 
+        \cong \mathcal{O}[[T]]/(T(T-\lambda^n))\) is a finite flat complete intersection in \(\cob\).
+        The projection \(\pi_A\) is given by \(\pi_A(a,b) = a\).
+        \begin{proof}
+            Consider the map
+            \begin{align*}
+                \phi\colon \mathcal{O}[[T]]/(T(T-\lambda^n)) &\to A\\
+                f &\mapsto (f(0), f(\lambda^n)).
+            \end{align*}
+            \subparagraph*{\(\phi\) is welldefined and respects the \(\mathcal{O}\)-algebra structure:}
+            Let \(f_0\) be the constant term of a polynomial \(f\) and \(f_1 \coloneqq T^{-1}(f-f_0)\), s.t. \(f = f_0 + T\cdot f_1(T)\).
+            Because of
+            \[f(0) - f(\lambda^n) = (f_0 + 0\cdot f_1(0)) - (f_0 + \lambda^n \cdot f_1(\lambda^n)) = -\lambda^n \cdot f_1(\lambda^n),\]
+            \(f(0) \equiv f(\lambda^n)\; (\operatorname{mod} \lambda^n)\) as required.
+            Furthermore, \[\phi(T(T-\lambda^n)) = (0(-\lambda^n), \lambda^n(\lambda^n - \lambda^n)) = (0,0).\]
+            Finally, we need to think about series in \(\mathcal{O}[[T]]\) with infinitely many terms.
+            For the first component \(f(0)\) this doesn't matter, as \(\phi\) just takes the constant term. 
+            As \(\mathcal{O}\) is complete with respect to the \(\lambda\)-adic topology, 
+            the map \(\tilde\phi_2\colon \mathcal{O}[[T]] \to \mathcal{O},\; f \mapsto f(\lambda^n)\) is clearly welldefined and thus \(\phi\)
+            is welldefined.
+            %O-algebra structure:
+            Let \(o \in \mathcal{O}\). Then 
+            \[\phi(of) = ((of)(0),(of)(\lambda^n)) = (of(0), of(\lambda^n)) = o(f(0), f(\lambda^n)) = o\phi(f)\]
+            \subparagraph*{Injectivity:}
+            Let \(\phi(f) = 0\). Then \(f(0) = 0 \implies T | f\) and \(f(\lambda^n) = 0 \implies (T - \lambda) | f\).
+            As a result, \(f \in T(T-\lambda)\).
+            \subparagraph{Surjectivity:}
+            Let \((a,b) \in A\).
+            As \(a \equiv b \operatorname{mod} \lambda^n,\) we can write \(b = a + b' \cdot \lambda^n\). Because of
+            \[\phi(\overline{a + b'T}) = (a, a + b' \lambda^n) = (a,b),\] \(\phi\) is surjective.
+            \subparagraph*{\(A\in \cob\):}
+            \(\mathcal{O}\) is noetherian, so \(\mathcal{O}[T]/(T(T-\lambda^n))\) is noetherian as well.
+            \((\lambda, T)\) is a maximal ideal in \(\mathcal{O}[T]/(T(T-\lambda^n))\), because
+            \[\left(\mathcal{O}[T]/(T(T-\lambda^n))\right)/(\lambda, T) = \mathcal{O}/(\lambda) = k.\]
+            %Korollar 24.13 Alg II
+            Therefore, the completion \(\mathcal{O}[T]/(T(T-\lambda^n))^{\wedge(\lambda, T)}\) 
+            of \(\mathcal{O}[T]/(T(T-\lambda^n))\) with respect to \((\lambda, T)\) is a local ring with maximal ideal
+            \(\widehat{(\lambda, T)}\).
+            Consider the SES of finitely generated \(\mathcal{O}\)-modules
+            \[
+                0 \to (T(T - \lambda^n)) \mathcal{O}[T] \to \mathcal{O}[T] \to \mathcal{O}[T]/(T(T-\lambda^n)) \to 0.
+            \]
+            %Theorem 24.9
+            As completion of finitely generated \(\mathcal{O}\)-modules is exact (because \(\mathcal{O}\) is noetherian), we get the SES
+            \[
+                0 \to (T(T-\lambda^n))\mathcal{O}[[T]] \to \mathcal{O}[[T]] \to \mathcal{O}[T]/(T(T-\lambda^n))^{\wedge (\lambda, T)}  \to 0.
+            \]
+            by completing with respect to \((\lambda, T)\).
+            As a result, we have
+            \[
+                \mathcal{O}[T]/(T(T-\lambda^n))^{\wedge (\lambda, T)} = \mathcal{O}[[T]]/(T(T-\lambda^n)).
+            \]
+            As a result, \(\mathcal{O}[[T]]/(T(T-\lambda^n))\) is a local ring with maximal ideal \((\lambda, T)\).
+            Therefore, its residue field is
+            \[
+                \mathcal{O}[[T]]/(T(T-\lambda^n))/(\lambda, T) = \mathcal{O}[T]/(T(T-\lambda^n))/(\lambda, T) = \mathcal{O}/(\lambda) = k.
+            \]
+            %Theorem 10.26 in Atiyah-MacDonald
+            As \(\mathcal{O}[T]/(T(T-\lambda^n))\) is noetherian, its \((\lambda, T)\)-completion \(\mathcal{O}[[T]]/(T(T-\lambda^n))\)
+            is again noetherian.
+
+            In total, we get that \(A \cong \mathcal{O}[[T]]/(T(T-\lambda^n))\) is a local, complete, noetherian \(\mathcal{O}\)-algebra 
+            with residue field \(k\; \implies A \in \co\). 
+            \subparagraph{\(A\) is a finite flat complete intersection:}
+            \(A\) is generated by \((1,1)\) and \(0, \lambda^n\) because
+            \[
+                (a,b) = a(1,1) + (0, \underbrace{b-a}_{\in \lambda^n}) = a(1,1) + c(0, \lambda^n).
+            \]
+            Also, \(A\) is torsion-free because \(\mathcal{O}\) is an integral domain. 
+            As there is one variable and one relation in \(A \cong \mathcal{O}[[T]]/(T(T-\lambda^n))\), \(A\) is a complete intersection.
+        \end{proof}
+    \end{example}
+
+    \begin{remark}
+        In example~\ref{ex:first_1} we could write \(A\) as a quotient of \(\mathcal{O}[[x]]\). 
+        This is possible in a more general setting, in fact every \(A \in \co\) can be written as a quotient of
+        \(U = \mathcal{O}[X_1, \dots, X_n]\) for suitable \(n\).
+    \end{remark}
+    \begin{proof}
+        
+    \end{proof}
+
     \begin{definition}
         Let \(A \in \cob\). Then
         \[\phi_A \coloneqq (\ker \pi_A)/(\ker \pi_A)^2.\]
@@ -90,31 +174,41 @@
         it might be more a hint of how Wiles came to investigate this specific invariant.
     \end{definition}
 
+    \begin{remark}
+        Write \(A\) as a quotient 
+    \end{remark}
+    \begin{proof}
+        
+    \end{proof}
+
     \begin{definition}
         Let \(A \in \cob\). Then
         \[\eta_A \coloneqq \pi_A(\ann_A (\ker \pi_A))\] is an ideal in \(\mathcal{O}\).
     \end{definition}
 
+    
+
     \begin{lemma}
-        Let \(A \in \cob\).
-        \[\eta_A \neq 0 \implies \mathcal{O}/\eta_A \text{ finite}.\]
+        Let \(\mathfrak a \subset \mathcal{O}\) be an ideal. Then
+        \[\mathfrak a \neq 0 \implies \mathcal{O}/\mathfrak a \text{ finite}.\]
     \end{lemma}
     \begin{proof}
-        As \(0 \neq \eta_A\) is an ideal in the DVR \(\mathcal{O}\), \(\eta_A = \lambda^n\) for some \(n \in \mathbb N\) 
-        where \(\lambda\) is the maximal ideal in \(O\).
-        Therefore, \(\mathcal{O}/\eta_T = \mathcal{O}/\lambda^n.\)
+        As \(\mathcal{O}\) is a DVR, \(\mathfrak a = \lambda^n\) for some \(n \in \mathbb N\) 
+        where \(\lambda\) is the maximal ideal in \(\mathcal{O}\).
+        Therefore, \(\mathcal{O}/\mathfrak{a} = \mathcal{O}/\lambda^n.\)
 
         Using the fact that \(\lambda = (t)\) for some uniformizer \(t\), we get \(\forall i \ge 1\) 
         the isomorphism \(\lambda^i/\lambda^{i+1} \cong \mathcal{O}/\lambda = k\) and thereby also the short exact sequence 
         \[0 \to \mathcal{O}/\lambda \cong \lambda^i/\lambda^{i+1} \to \mathcal{O}/\lambda^{i+1} \to \mathcal{O}/\lambda^{i} \to 0.\]
         As \(k = \mathcal{O}/\lambda\) is finite, we can use induction
         \[\# \mathcal{O}/\lambda^{i+1} = \# \mathcal{O}/\lambda \cdot \# \mathcal{O}/\lambda^i = \# k \cdot (\# k)^i = (\# k)^{i+1}\]
-        and get \(\# \mathcal{O}/\eta_A = \# \mathcal{O}/\lambda^n = (\# k)^n\).
+        and get \(\# \mathcal{O}/\mathfrak{a} = \# \mathcal{O}/\lambda^n = (\# k)^n\).
     \end{proof}
 
     With these definitions at hand, we can state 
     \begin{theorem}[Wiles' numerical criterion]\label{thm:wiles_numerical_criterion}
-        Let \(R \twoheadrightarrow T\) a surjective morphism of augmented rings, \(T\) finite flat and \(\eta_T \neq 0\).
+        Let \(R \twoheadrightarrow T\) a surjective morphism of augmented rings, \(T\) finite flat and \(\eta_T \neq 0\) 
+        (i.e. \(\mathcal{O}/\eta_T\) finite).
         Then the following are equivalent
         \begin{enumerate}[(a)]
             \item \(\# \phi_R \le \#(\mathcal{O}/\eta_T)\),
@@ -125,9 +219,9 @@
 
     \subsection{Basic properties of \(\phi_A\) and \(\eta_A\)}
     In this subsection we prove the equivalence (a) \(\Leftrightarrow\) (b) in Theorem~\ref{thm:wiles_numerical_criterion}
-    by investigating the invariants \(\phi_A\) and \(\eta_A\) that we defined last week.
+    by investigating the invariants \(\phi_A\) and \(\eta_A\) that we defined last section.
 
-
+    
     %phi_A is a finitely generated O-module
 
 
