@@ -8,6 +8,7 @@
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}{Lemma}[section]
 \newtheorem{proposition}{Proposition}
+\newtheorem{remark}{Remark}
 \newtheorem*{corollary}{Corollary}
 
 \theoremstyle{definition}
@@ -16,7 +17,6 @@
 \newtheorem{example}{Example}[section]
 
 \theoremstyle{remark}
-\newtheorem*{remark}{Remark}
 \newtheorem*{note}{Note}
 \newtheorem{case}{Case}
 
@@ -156,6 +156,8 @@
         \end{proof}
     \end{example}
 
+    %probably add more examples
+
     \begin{example}\label{ex:last_1}
         \(U = \mathcal{O}[[X_1, \dots, X_n]]\) with projection \(\pi_U\colon U \to \mathcal{O},\; f \mapsto f(0)\) lies in \(\cob\).
         \begin{proof}
@@ -209,21 +211,47 @@
         it might be more a hint of how Wiles came to investigate this specific invariant.
     \end{definition}
 
+    \begin{example}\label{ex:last_phi}
+        Remember the definition of \(U\) in example \ref{ex:last_1}.
+        The tangent space \(\phi_U = \ker \pi_U/(\ker \pi_U)^2\) is
+        \[
+            \mathcal{O}X_1 \oplus \dots \oplus \mathcal{O}X_n.
+        \]
+        Indeed, elements of \(f \in \ker \pi_U\) have no constant term as \(f(0) = 0\) and therefore are multiples of \(X\).
+        Elements in \(\ker \pi_U^2\) are multiples of \(X^2\). As a result, we receive elements \(\overline{f} \in \phi_U\) by
+        cutting of all higher terms of a power series \(f \in \ker \pi_U\).
+    \end{example}
+
     \begin{remark}
         %compute ker phi_A as a quotient of ker phi_U
-        Write \(A\) as a quotient of \(U\). Then
-
+        Write \(A\) as a quotient of \(U,\; A = U/(f_1, \dots, f_n)\).
+        We then get \(\phi_A = \phi_U/(\overline{f_1}, \dots, \overline{f_n})\).
+        As a quotient of \(\phi_U\) its a finitely generated \(\mathcal{O}\)-module.
     \end{remark}
     \begin{proof}
-        
+        \[\phi_A = \frac{\ker \pi_A}{\ker \pi_A^2} = \frac{\ker \pi_U/(f_1, \dots, f_n)}{(\ker \pi_U/(f_1, \dots, f_n))^2}
+         = \frac{\ker \pi_U/(\ker \pi_U)^2}{(\overline{f_1}, \dots, \overline{f_n})}??\]
     \end{proof}
+
+    \begin{example}\label{ex:first_phi}
+        We now compute \(\phi_A\) where \(A\) was defined in example \ref{ex:first_1}.
+        Remember that \(f = T(T-\lambda^n) = -\lambda^n T + T^2\). Therefore,
+        \[\phi_A = \mathcal{O}T/(-\lambda^n T) = \mathcal{O}/\lambda^n.\]
+    \end{example}
 
     \begin{definition}
         Let \(A \in \cob\). Then
         \[\eta_A \coloneqq \pi_A(\ann_A (\ker \pi_A))\] is an ideal in \(\mathcal{O}\).
     \end{definition}
 
-    
+    \begin{example}
+        We now compute \(\eta_U\) for \(U\) from example \ref{ex:last_1}.
+        \begin{align*}
+            \eta_U &= \pi_U(\ann \ker \pi_U)\\
+            &= \pi_U(\ann \mathcal{O}X_1 \oplus \dots \oplus \mathcal{O}X_n)\\
+            &= \pi_U(0) = 0.
+        \end{align*}
+    \end{example}
 
     \begin{lemma}
         Let \(\mathfrak a \subset \mathcal{O}\) be an ideal. Then
@@ -242,7 +270,18 @@
         and get \(\# \mathcal{O}/\mathfrak{a} = \# \mathcal{O}/\lambda^n = (\# k)^n\).
     \end{proof}
 
-    With these definitions at hand, we can state 
+    \begin{example}\label{ex:first_eta}
+        We now compute \(\eta_A\) for \(A\) from example \ref{ex:first_1}.
+        \begin{align*}
+            \eta_A &= \pi_A(\ann \ker \pi_A)\\
+            &= \pi_A(\ann \{(0, b) \subset \mathcal{O}\times \mathcal{O} | b \equiv 0 \mod \lambda^n\})\\
+            &= \pi_A(\{(a, 0) \subset \mathcal{O}\times \mathcal{O} | a \equiv 0 \mod \lambda^n\})\\
+            &= \pi_A((\lambda^n) \times \mathcal{O})\\
+            &= (\lambda^n)
+        \end{align*}
+    \end{example}
+
+    With these results at hand, we can state 
     \begin{theorem}[Wiles' numerical criterion]\label{thm:wiles_numerical_criterion}
         Let \(R \twoheadrightarrow T\) a surjective morphism of augmented rings, \(T\) finite flat and \(\eta_T \neq 0\) 
         (i.e. \(\mathcal{O}/\eta_T\) finite).
@@ -257,9 +296,5 @@
     \subsection{Basic properties of \(\phi_A\) and \(\eta_A\)}
     In this subsection we prove the equivalence (a) \(\Leftrightarrow\) (b) in Theorem~\ref{thm:wiles_numerical_criterion}
     by investigating the invariants \(\phi_A\) and \(\eta_A\) that we defined last section.
-
-    
-    %phi_A is a finitely generated O-module
-
 
 \end{document}
