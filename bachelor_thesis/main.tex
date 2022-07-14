@@ -7,9 +7,9 @@
 \theoremstyle{plain}% default
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}{Lemma}[section]
-\newtheorem{proposition}{Proposition}
-\newtheorem{remark}{Remark}
-\newtheorem*{corollary}{Corollary}
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{remark}{Remark}[section]
+\newtheorem{corollary}{Corollary}[section]
 
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
@@ -296,5 +296,108 @@
     \subsection{Basic properties of \(\phi_A\) and \(\eta_A\)}
     In this subsection we prove the equivalence (a) \(\Leftrightarrow\) (b) in Theorem~\ref{thm:wiles_numerical_criterion}
     by investigating the invariants \(\phi_A\) and \(\eta_A\) that we defined last section.
+
+    \begin{lemma}\label{lem:surjectivity_phi}
+        A morphism \(f\colon A \to B \in \cob\) induces a homomorphism \(\phi_A \to \phi_B\) of \(\mathcal{O}\)-modules.
+        This induced map is surjective if and only if the morphism \(A \to B\) is surjective.
+    \end{lemma}
+    \begin{proof}
+        %TODO
+        %see written notes and workflowy citations from matsumura etc.
+        We have the commutative diagram
+        \[
+        \begin{tikzcd}[column sep=small]
+            A \arrow[rr, "f"] \arrow [dr, "\pi_A", swap, twoheadrightarrow] & & B \arrow [dl, "\pi_B", twoheadrightarrow]\\
+            & \mathcal{O} &
+        \end{tikzcd}.
+        \]
+        It follows from the diagram that the restriction of \(f\) to \(\ker \phi_A\) maps to \(\ker \phi_B\),
+        because \(\forall x \in \ker \phi_A\colon\; \pi_B(f(x)) = \pi_A(x) = 0\).
+        Concatenating this with the projection to the tangent space, we get a map
+        \[
+            \tilde f\colon \ker \pi_A \to \ker \pi_B/(\ker \pi_B)^2 = \phi_B.
+        \]
+        In order to see that \(\tilde f\colon \phi_A \to \phi_B\) is welldefined, we need to show 
+        \[
+            f(\ker \pi_A)^2 \subset (\ker \pi_B)^2,
+        \]
+        however this follows from the fact that \(f(\ker \pi_A) \subset \ker \pi_B\) and that \(f\) is an algebra
+        homomorphism:
+        \[
+            f(x^2) = \underbrace{f(x)}_{\in \ker \pi_B}\underbrace{f(x)}_{\in \ker \pi_B} \in (\ker \pi_B)^2 
+        \]
+        for any \(x \in \ker \pi_A\).
+
+        First, let us assume that \(A \to B\) is a surjective map.
+        In this case, every element \(x \in \ker \phi_B\) has a preimage in \(\ker \pi_A\). Indeed, \(\forall y \in f^{-1}(x)\subset A\colon\)
+        \[
+            \pi_A(y) = \pi_B(f(y)) = \pi_B(x) = 0.
+        \]
+        As a result, the induced map \(f\colon \ker \pi_A \to \ker \pi_B\) and its concatenation with
+        the projection to \(\phi_B\), \(\tilde f\colon \ker \pi_A \to \ker \pi_B/(\ker \pi_B)^2\) are both surjective.
+        In total, we obtain a surjective homomorphism \(\tilde f\colon \phi_A \to \phi_B\).
+        
+        Now, let the induced map \(\phi_A \to \phi_B\) be surjective. 
+        \textbf{This part is unclear.}
+    \end{proof}
+
+    \begin{corollary}\label{cor:surjectivity_phi}
+        \(A \to B\) is surjective if and only if \[\phi_A \geq \phi_B.\]
+    \end{corollary}
+
+    \begin{lemma}
+        If \(f \colon A \to B\) is surjective, then
+        \begin{equation}
+            \eta_A \subset \eta_B, \quad \text{i.e.,}\quad \#(\mathcal{O}/\eta_A) \geq \#(\mathcal{O}/\eta_B).  
+        \end{equation}
+    \end{lemma}
+    \begin{proof}
+        As we have seen in the proof of lemma~\ref{lem:surjectivity_phi}, a surjective map \(f\) induces a surjective
+        map on the kernels, \(f\colon \ker \pi_A \to \ker\pi_B\).
+        Now let \(x \in \ann_A \ker \pi_A\), i.e. \(x \cdot a = 0\;\; \forall a \in \ker \pi_A\).
+        For all \(b \in \ker \pi_B\) and any preimage \(a \in \ker \pi_A\) we have
+        \[
+            f(x) \cdot b = f(x) \cdot f(a) = f(x \cdot a) = f(0) = 0.
+        \]
+        As a result, \(f(x) \in \ann_B\ker \pi_B\) and we obtain a map
+        \[
+            \tilde f\colon\ann_A\ker \pi_A \to \ann_B \ker \pi_B.  
+        \]
+        In order to show \(\eta_A \subset \eta_B\), let \(x \in \eta_A = \pi_A(\ann_A \ker \pi_A)\), i.e.
+        \(x = \pi_A(y)\) for some \(y \in \ann_A \ker \pi_A\). By the commutative diagram
+        \[
+        \begin{tikzcd}[column sep=small]
+            \ann_A \ker \pi_A \arrow[rr, "\tilde f"] \arrow [dr, "\pi_A", swap, twoheadrightarrow] & & \ann_B \ker \pi_B \arrow [dl, "\pi_B", twoheadrightarrow]\\
+            & \mathcal{O} &
+        \end{tikzcd},
+        \]
+        we get
+        \[
+            x = \pi_A(y) = \pi_B(\tilde f(y)) \in \pi_B(\ann_B \ker \pi_B) \implies x \in \eta_B,
+        \]
+        as desired.
+    \end{proof}
+
+    \begin{lemma}\label{lem:standard_ineq}
+        Let \(A \in \co\). Then \[\#\phi_A \geq \#(\mathcal{O}/\eta_A).\]
+    \end{lemma}
+    \begin{proof}
+        %TODO
+    \end{proof}
+
+    \begin{proposition}
+        (a) \(\Leftrightarrow\) (b) in Theorem~\ref{thm:wiles_numerical_criterion}.
+    \end{proposition}
+    \begin{proof}
+        By assumption, \(R \to T\) is a surjective morphism in \(\cob\).
+        With corollary~\ref{cor:surjectivity_phi} it follows that \(\#\phi_R \geq \#\phi_T\).
+        Lemma~\ref{lem:standard_ineq} tells us that \(\#\phi_T \geq \#(\mathcal{O}/\eta_T)\).
+        The inequalities combine to \[\#\phi_R \geq \#(\mathcal{O}/\eta_T).\]
+        \begin{itemize}
+            \item[(a)\(\implies\)(b)] (a) gives us \(\#\phi_R \leq \#(\mathcal{O}/\eta_T)\), so combined with the 
+            inequality \(\#\phi_R \geq \#(\mathcal{O}/\eta_T)\) we have just proven we conclude that (b) must hold.
+            \item[(b)\(\implies\)(a)] Obvious.
+        \end{itemize}      
+    \end{proof}
 
 \end{document}
