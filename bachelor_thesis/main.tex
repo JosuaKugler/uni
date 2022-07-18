@@ -21,6 +21,7 @@
 \theoremstyle{remark}
 \newtheorem*{note}{Note}
 \newtheorem{case}{Case}
+\newtheorem*{notation}{Notation}
 
 
 
@@ -45,7 +46,7 @@
     of these rings. The aim of this section is to prove that criterion in its purely algebraic form. 
     %TODO: Explain how this fits into the rest of the proof.
     
-    \subsection{Preliminaries}
+    \subsection{Preliminaries and examples}
     Let \(\mathcal{O}\) be the ring of integers of a finite extension \(K\) of \(\mathbb Q_\ell\). 
     As \(K\) is a local field, its ring of integers is a discrete valutation ring (DVR), i.e. 
     \(\mathcal O\) is a local, noetherian Dedekind ring with maximal ideal \(\lambda\). 
@@ -326,8 +327,6 @@
         This induced map is surjective if and only if the morphism \(A \to B\) is surjective.
     \end{lemma}
     \begin{proof}
-        %TODO
-        %see written notes and workflowy citations from matsumura etc.
         We have the commutative diagram
         \[
         \begin{tikzcd}[column sep=small]
@@ -460,7 +459,6 @@
         \end{itemize}      
     \end{proof}
 
-
     \subsection{Regular sequences and the Koszul complex}
     Let \(A\) be a finite flat complete intersection. Hence we can write 
     \[A = \mathcal{O}[[X_1, \dots, X_n]]/(f_1, \dots, f_n).\]
@@ -509,17 +507,18 @@
         \]
         As \(\lambda/\lambda^2 \cong k\) (cf. \cref{lem:ideals}), the above expression evaluates to \(n+1\) and
         taking both inequalities together we obtain \(\dim U = n + 1\).
-        It remains to show that \(f_1, \dots, f_n, \lambda\) generate a primary ideal of \(U\).
-        \(U\) is local and therefore the quotient ring \(\tilde{U} \coloneqq U/(f_1, \dots, f_n, \lambda)\) 
+        It remains to show that \((f_1, \dots, f_n, \lambda)\) generate a primary ideal of \(U\).
+        \(U\) is local and therefore the quotient ring 
+        \[\tilde{U} \coloneqq U/(f_1, \dots, f_n, \lambda)\] 
         is local as well.
-        Also, \(\tilde U\) is a \(k\)-vector space (because it's an \(\mathcal{O}-module\) and \(\lambda\)-operation
+        Also, \(\tilde U\) is a \(k\)-vector space (because it's an \(\mathcal{O}\)-module and \(\lambda\)-operation
         annihilates it). As \(A = U/(f_1, \dots, f_n)\) is a finitely generated \(\mathcal{O}\)-module, we can find
         \((x_1, \dots, x_N)\) that generate \(A\) as \(\mathcal{O}\)-module.
         These \(x_i\) then generate \(\tilde U\) as a \(k\)-vector space.
         Every element in the maximal ideal of \(\tilde U\) is nilpotent \textbf{because ??}
     \end{proof}
     
-    \begin{lemma}
+    \begin{lemma}\label{lem:reg_seq}
         The sequence \((f_1, \dots, f_n)\) is a regular sequence for \(U\).
     \end{lemma}
     \begin{proof}
@@ -532,7 +531,7 @@
         In total we get \(\operatorname{depth} U \geq \dim U\), because \((\lambda, X_1, \dots, X_n)\) 
         is a system of parameters as well.
         %source?
-        In general, we have \(\operatorname{depth} R \leq \dim R\) for a \textbf{noetherian?} ring \(R\), 
+        In general, we have \(\operatorname{depth} R \leq \dim R\) for a noetherian local ring \(R\), 
         so combined we have
         \[
             \operatorname{depth} U = \dim U  
@@ -544,10 +543,9 @@
         A fortiori, the sequence \((f_1, \dots, f_n)\) is also a regular sequence.
     \end{proof}
 
-
     \subsection{Complete intersections and the Gorenstein condition}
-    The goal of this section is to show that finite flat complete intersection rings in \(\cob\) 
-    satisfy a Gorenstein condition, i.e. a specific form of self-duality.
+    Let \(A\) be a finite flat complete intersection in \(\cob\). The goal of this section is to show that \(A\)
+    satisfies a Gorenstein condition, i.e. a specific form of self-duality.
     This fact can then be used to show (c) \(\implies\) (b) in \cref{thm:wiles_numerical_criterion}.
     Although there is a very general notion of Gorenstein rings, for
     the purpose of this proof we only need a special case,
@@ -558,4 +556,59 @@
         \]
     \end{definition}
     
+    Our goal therefore reduces to constructing an \(A\)-module isomorphism
+    \[
+        \hom_\mathcal{O}(A, \mathcal{O}) \to A.
+    \]
+
+    We start with some useful constructions and conventions.
+    \begin{notation}
+        For any ring \(R\) write \(R[[\underline{X}]] \coloneqq R[[X_1, \dots, X_n]]\).
+    \end{notation}
+
+    Let \(a_1, \dots, a_n\) be the images in \(A\) of \(X_1, \dots, X_n\) by the natural map
+    \[
+        \alpha \colon \mathcal{O}[[\underline{X}]] \to A = \mathcal{O}[[\underline{X}]]/(f_1, \dots, f_n),
+    \]
+    and let
+    \[
+        \beta \colon A[[\underline{X}]] \to A  
+    \]
+    be the natural map which sends \(X_i\) to \(a_i\). The sequence \(g_i =  (X_i - a_i)\) 
+    generates the kernel of \(\beta\). \textbf{Why?}
+    View the \(f_i\) as polynomials in \(A[[\underline{X}]]\) via the inclusion \(O \hookrightarrow A\). Then \(\forall i = 1, \dots, n\colon\)
+    \[
+        \beta(f_i) = f_i(a_1, \dots, a_n) = 0 \in \mathcal{O}[[\underline{X}]]/(f_1, \dots, f_n).
+    \]
+    Therefore every of the \(f_i\) is element of \(\ker \beta\) and hence can be written as 
+    an \(A[[X]]\)-linear combination of the \(g_i\),
+    \[
+        (f_1, \dots, f_n) = (g_1, \dots, g_n)M,  
+    \]
+    where \(M\) is an \(n \times n\) matrix with coefficients in \(A[[\underline{X}]]\). 
+    Let \(D = \det(M) \in A[[\underline{X}]]\).
+    
+    %unnecessary:
+    %We begin by constructing a surjective (\(\mathcal{O}\)-linear) map
+    %\[
+    %    \hom_\mathcal{O}[[\underline{X}]](A[[\underline{X}]], \mathcal{O}[[\underline{X}]]) \to A.
+    %\]
+
+    The projection \(\mathcal{O}[[\underline{X}]] \to A\) induces an \(\mathcal{O}[[\underline{X}]]\)-module 
+    structure on \(A\).
+
+    \begin{lemma}
+        The map
+        \begin{align*}
+            \Phi\colon \hom_\mathcal{O}[[\underline{X}]](A[[\underline{X}]], \mathcal{O}[[\underline{x}]]) &\to A\\
+            f &\mapsto \alpha(f(D))
+        \end{align*}
+        is an \(\mathcal{O}[[\underline{X}]]\)-linear surjection.
+    \end{lemma}
+    \begin{proof}
+        As shown in \cref{lem:reg_seq}, \((\underline{f}) = (f_1, \dots, f_n)\) 
+        is a regular sequence for \(\mathcal{O}[[\underline{X}]]\).
+        In the ring \(A[[\underline{X}]]/(X_1 - a_1, \dots, X_{i-1} - a_{i-1})\)
+    \end{proof}
+
 \end{document}
