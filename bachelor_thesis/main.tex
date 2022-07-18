@@ -491,7 +491,7 @@
     \end{definition}
 
     \begin{lemma}
-        The sequence \(f_1, \dots, f_n, \lambda\) is a system of parameters for \(U\) (cf. \cref{ex:last_1}).
+        The sequence \((f_1, \dots, f_n, \lambda)\) is a system of parameters for \(U\) (cf. \cref{ex:last_1}).
     \end{lemma}
     \begin{proof}
         First, we show that \(\dim U = n + 1\).
@@ -520,7 +520,7 @@
     \end{proof}
     
     \begin{lemma}
-        The sequence \(f_1, \dots, f_n\) is a regular sequence for \(U\).
+        The sequence \((f_1, \dots, f_n)\) is a regular sequence for \(U\).
     \end{lemma}
     \begin{proof}
         The sequence \((\lambda, X_1, \dots, X_n)\) is a regular sequence for \(U\) because
@@ -532,13 +532,16 @@
         In total we get \(\operatorname{depth} U \geq \dim U\), because \((\lambda, X_1, \dots, X_n)\) 
         is a system of parameters as well.
         %source?
-        However in general we have \(\operatorname{depth} R \leq \dim R\) for a \textbf{noetherian?} ring \(R\), 
+        In general, we have \(\operatorname{depth} R \leq \dim R\) for a \textbf{noetherian?} ring \(R\), 
         so combined we have
         \[
             \operatorname{depth} U = \dim U  
         \]
         and hence, \(U\) is Cohen-Macaulay.
-        \textbf{This part is unfinished}.
+        %Matsumura, Theorem 17.4
+        As \((f_1, \dots, f_n, \lambda)\) is a system of parameters and \(U\) is Cohen-Macaulay
+        it follows by [Matsumura, Theorem 17.4] that \((f_1, \dots, f_n, \lambda)\) is a regular sequence.
+        A fortiori, the sequence \((f_1, \dots, f_n)\) is also a regular sequence.
     \end{proof}
 
 
