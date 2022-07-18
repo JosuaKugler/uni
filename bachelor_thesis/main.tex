@@ -3,6 +3,8 @@
 \usepackage{mathtools}
 \usepackage{tikz-cd}
 \usepackage{enumerate}
+\usepackage[hidelinks]{hyperref}
+\usepackage{cleveref}
 
 \theoremstyle{plain}% default
 \newtheorem{theorem}{Theorem}[section]
@@ -176,7 +178,7 @@
     \end{example}
 
     \begin{remark}
-        In example~\ref{ex:first_1} we could write \(A\) as a quotient of \(\mathcal{O}[[X]]\). 
+        In \cref{ex:first_1} we could write \(A\) as a quotient of \(\mathcal{O}[[X]]\). 
         This is possible in a more general setting, in fact every \(A \in \co\) can be written as a quotient of
         \(U = \mathcal{O}[[X_1, \dots, X_n]]\) for suitable \(n\).
     \end{remark}
@@ -214,7 +216,7 @@
     \end{definition}
 
     \begin{example}\label{ex:last_phi}
-        Remember the definition of \(U\) in example \ref{ex:last_1}.
+        Remember the definition of \(U\) in \cref{ex:last_1}.
         The tangent space \(\phi_U = \ker \pi_U/(\ker \pi_U)^2\) is
         \[
             \mathcal{O}X_1 \oplus \dots \oplus \mathcal{O}X_n.
@@ -256,7 +258,7 @@
     \end{proof}
 
     \begin{example}\label{ex:first_phi}
-        We now compute \(\phi_A\) where \(A\) was defined in example \ref{ex:first_1}.
+        We now compute \(\phi_A\) where \(A\) was defined in \cref{ex:first_1}.
         Remember that \(f = T(T-\lambda^n) = -\lambda^n T + T^2\). Therefore,
         \[\phi_A = \mathcal{O}T/(-\lambda^n T) = \mathcal{O}/\lambda^n.\]
     \end{example}
@@ -267,7 +269,7 @@
     \end{definition}
 
     \begin{example}
-        We now compute \(\eta_U\) for \(U\) from example \ref{ex:last_1}.
+        We now compute \(\eta_U\) for \(U\) from \cref{ex:last_1}.
         \begin{align*}
             \eta_U &= \pi_U(\ann \ker \pi_U)\\
             &= \pi_U(\ann \mathcal{O}X_1 \oplus \dots \oplus \mathcal{O}X_n)\\
@@ -275,7 +277,7 @@
         \end{align*}
     \end{example}
 
-    \begin{lemma}
+    \begin{lemma}\label{lem:ideals}
         Let \(\mathfrak a \subset \mathcal{O}\) be an ideal. Then
         \[\mathfrak a \neq 0 \implies \mathcal{O}/\mathfrak a \text{ finite}.\]
     \end{lemma}
@@ -293,7 +295,7 @@
     \end{proof}
 
     \begin{example}\label{ex:first_eta}
-        We now compute \(\eta_A\) for \(A\) from example \ref{ex:first_1}.
+        We now compute \(\eta_A\) for \(A\) from \cref{ex:first_1}.
         \begin{align*}
             \eta_A &= \pi_A(\ann \ker \pi_A)\\
             &= \pi_A(\ann \{(0, b) \subset \mathcal{O}\times \mathcal{O} | b \equiv 0 \mod \lambda^n\})\\
@@ -315,8 +317,8 @@
         \end{enumerate}
     \end{theorem}
 
-    \subsection{Basic properties of \(\phi_A\) and \(\eta_A\)}
-    In this subsection we prove the equivalence (a) \(\Leftrightarrow\) (b) in Theorem~\ref{thm:wiles_numerical_criterion}
+    \subsection{Basic properties of the invariants}
+    In this subsection we prove the equivalence (a) \(\Leftrightarrow\) (b) in \cref{thm:wiles_numerical_criterion}
     by investigating the invariants \(\phi_A\) and \(\eta_A\) that we defined last section.
 
     \begin{lemma}\label{lem:surjectivity_phi}
@@ -382,7 +384,7 @@
         \end{equation}
     \end{lemma}
     \begin{proof}
-        As we have seen in the proof of lemma~\ref{lem:surjectivity_phi}, a surjective map \(f\) induces a surjective
+        As we have seen in the proof of \cref{lem:surjectivity_phi}, a surjective map \(f\) induces a surjective
         map on the kernels, \(f\colon \ker \pi_A \to \ker\pi_B\).
         Now let \(x \in \ann_A \ker \pi_A\), i.e. \(x \cdot a = 0\;\; \forall a \in \ker \pi_A\).
         For all \(b \in \ker \pi_B\) and any preimage \(a \in \ker \pi_A\) we have
@@ -444,12 +446,12 @@
     \end{proof}
 
     \begin{proposition}
-        (a) \(\Leftrightarrow\) (b) in Theorem~\ref{thm:wiles_numerical_criterion}.
+        (a) \(\Leftrightarrow\) (b) in \cref{thm:wiles_numerical_criterion}.
     \end{proposition}
     \begin{proof}
         By assumption, \(R \to T\) is a surjective morphism in \(\cob\).
-        With corollary~\ref{cor:surjectivity_phi} it follows that \(\#\phi_R \geq \#\phi_T\).
-        Lemma~\ref{lem:standard_ineq} tells us that \(\#\phi_T \geq \#(\mathcal{O}/\eta_T)\).
+        With \cref{cor:surjectivity_phi} it follows that \(\#\phi_R \geq \#\phi_T\).
+        \cref{lem:standard_ineq} tells us that \(\#\phi_T \geq \#(\mathcal{O}/\eta_T)\).
         The inequalities combine to \[\#\phi_R \geq \#(\mathcal{O}/\eta_T).\]
         \begin{itemize}
             \item[(a)\(\implies\)(b)] (a) gives us \(\#\phi_R \leq \#(\mathcal{O}/\eta_T)\), so combined with the 
@@ -460,9 +462,11 @@
 
 
     \subsection{Regular sequences and the Koszul complex}
+    Let \(A\) be a finite flat complete intersection. Hence we can write 
+    \[A = \mathcal{O}[[X_1, \dots, X_n]]/(f_1, \dots, f_n).\]
     The goal of this section is to prove some technical lemmata and to introduce
     the Koszul complex that we will use to construct two \(\mathcal{O}[[X]]\)-free resolutions for \(A\).
-    This will turn out to be very crucial in the next section.
+    This will turn out to be crucial in the next section.
 
     We start with a few definitions from commutative algebra.
     \begin{definition}[primary ideal]
@@ -479,12 +483,69 @@
         Let \(x_1, \dots, x_n\) generate a primary ideal of \(R\). If \(n = \dim R\) then \(x_1, \dots, x_n\) is called 
         a system of parameters.
     \end{definition}
+
+    \begin{definition}[regular sequence]
+        A sequence \((x_1, \dots, x_n)\) is said to be a regular sequence 
+        if \(\forall\; i = 1, \dots, n\colon\)
+        \[x_i \text{ is not a zero-divisor in } R/(x_1, \dots, x_{i-1}).\]
+    \end{definition}
+
+    \begin{lemma}
+        The sequence \(f_1, \dots, f_n, \lambda\) is a system of parameters for \(U\) (cf. \cref{ex:last_1}).
+    \end{lemma}
+    \begin{proof}
+        First, we show that \(\dim U = n + 1\).
+        We have an ascending chain of prime ideals
+        \[
+            (0) \subsetneq (\lambda) \subsetneq \dots \subsetneq (\lambda, X_1, \dots, X_n),  
+        \]
+        so by definition of the dimension we get \(\dim U \geq n + 1\).
+        %Corollary 26.18 of Prof. Schmidt's Algebra script
+        Let \(\mathfrak{m} = (\lambda, X_1, \dots, X_n)\). We have seen that this is the maximal ideal in \(U\).
+        Now we can conclude
+        \[
+            \dim U \leq \dim_{U/\mathfrak{m}}(\mathfrak{m}/\mathfrak{m}^2) 
+            = \dim_k(\lambda/\lambda^2 \oplus k X_1 \oplus \dots \oplus k X_n).
+        \]
+        As \(\lambda/\lambda^2 \cong k\) (cf. \cref{lem:ideals}), the above expression evaluates to \(n+1\) and
+        taking both inequalities together we obtain \(\dim U = n + 1\).
+        It remains to show that \(f_1, \dots, f_n, \lambda\) generate a primary ideal of \(U\).
+        \(U\) is local and therefore the quotient ring \(\tilde{U} \coloneqq U/(f_1, \dots, f_n, \lambda)\) 
+        is local as well.
+        Also, \(\tilde U\) is a \(k\)-vector space (because it's an \(\mathcal{O}-module\) and \(\lambda\)-operation
+        annihilates it). As \(A = U/(f_1, \dots, f_n)\) is a finitely generated \(\mathcal{O}\)-module, we can find
+        \((x_1, \dots, x_N)\) that generate \(A\) as \(\mathcal{O}\)-module.
+        These \(x_i\) then generate \(\tilde U\) as a \(k\)-vector space.
+        Every element in the maximal ideal of \(\tilde U\) is nilpotent \textbf{because ??}
+    \end{proof}
     
+    \begin{lemma}
+        The sequence \(f_1, \dots, f_n\) is a regular sequence for \(U\).
+    \end{lemma}
+    \begin{proof}
+        The sequence \((\lambda, X_1, \dots, X_n)\) is a regular sequence for \(U\) because
+        \(U/\lambda = k[[X_1, \dots, X_n]]\) and \(U/(\lambda, X_1, \dots, X_{i-1}) = k[[X_i, \dots, X_n]]\) 
+        are integral domains (hence obviously \(X_i\) can't be a zero-divisor in these rings).
+        As we have seen in the previous lemma, it's as well a system of parameters.
+        Therefore, the depth of \(U\) (i.e. the maximal lenth of any regular sequence in \(U\)) is bigger than
+        the length of the particular regular sequence \((\lambda, X_1, \dots, X_n)\).
+        In total we get \(\operatorname{depth} U \geq \dim U\), because \((\lambda, X_1, \dots, X_n)\) 
+        is a system of parameters as well.
+        %source?
+        However in general we have \(\operatorname{depth} R \leq \dim R\) for a \textbf{noetherian?} ring \(R\), 
+        so combined we have
+        \[
+            \operatorname{depth} U = \dim U  
+        \]
+        and hence, \(U\) is Cohen-Macaulay.
+        \textbf{This part is unfinished}.
+    \end{proof}
+
 
     \subsection{Complete intersections and the Gorenstein condition}
     The goal of this section is to show that finite flat complete intersection rings in \(\cob\) 
     satisfy a Gorenstein condition, i.e. a specific form of self-duality.
-    This fact can then be used to show (c) \(\implies\) (b) in Theorem~\ref{thm:wiles_numerical_criterion}.
+    This fact can then be used to show (c) \(\implies\) (b) in \cref{thm:wiles_numerical_criterion}.
     Although there is a very general notion of Gorenstein rings, for
     the purpose of this proof we only need a special case,
     \begin{definition}
