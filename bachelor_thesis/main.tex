@@ -669,7 +669,23 @@
         \end{enumerate}
         \begin{enumerate}
             \item \textbf{\(\Phi\) is a morphism of complexes.}
-            
+            It is clear by definition that \(\Phi\) is welldefined on every level.
+            We have to show that \(\Phi\) commutes with the differentials of the complex,
+            \begin{align*}
+                \Phi_{p-1}(d(u_{i_1}\!\wedge\!\dots\!\wedge\!u_{i_p})) 
+                &= \Phi_{p-1}\left(\sum_{t=1}^p(-1)^t x_{i_t} 
+                u_{i_1}\!\wedge\!\dots\!\wedge\!\widehat{u_{i_t}}\!\wedge\!\dots\!\wedge\!u_{i_p}\right)\\
+                &= \sum_{t=1}^p(-1)^t x_{i_t}\Phi_1(u_{i_1})\!\wedge\!\dots\!
+                \wedge\widehat{\Phi_1(u_{i_t})}\!\wedge\!\dots\!\wedge\!\Phi_1(u_{i_p})\\
+                &= d(\Phi_1(u_{i_1})\wedge\dots\wedge \Phi_1(u_{i_p}))\\
+                &= d(\Phi_p(u_{i_1}\wedge\dots\wedge u_{i_p})).
+            \end{align*}
+            \item \textbf{\(\Phi\) induces the identity on \(H_0(\underline{f}, \mathcal{O}[[\underline{X}]])\)}
+            this is a little bit harder, see notes on paper
+            \item \textbf{\(\Phi\) satisfies the following equality}
+            \begin{align*}
+                \Phi_n(u_1 \wedge \dots \wedge u_n) &= x
+            \end{align*}
         \end{enumerate}
     \end{proof}
 
