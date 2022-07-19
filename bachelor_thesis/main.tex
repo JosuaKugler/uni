@@ -661,7 +661,7 @@
         In the following we proof that \(\Phi\)
         \begin{enumerate}
             \item is a morphism of complexes,
-            \item induces the identity on \(H_0\), i.e. \(\operatorname{id}\colon A \to A\)
+            \item induces the identity on \(A = H_0(\underline{f}, \mathcal{O}[[\underline{X}]])\)
             \item and satisfies
             \[
                 \Phi_n(u_1 \wedge \dots \wedge u_n) = D \cdot v_1 \wedge \dots \wedge v_n.  
@@ -680,12 +680,24 @@
                 &= d(\Phi_1(u_{i_1})\wedge\dots\wedge \Phi_1(u_{i_p}))\\
                 &= d(\Phi_p(u_{i_1}\wedge\dots\wedge u_{i_p})).
             \end{align*}
-            \item \textbf{\(\Phi\) induces the identity on \(H_0(\underline{f}, \mathcal{O}[[\underline{X}]])\)}
-            this is a little bit harder, see notes on paper
-            \item \textbf{\(\Phi\) satisfies the following equality}
+            \item \textbf{\(\Phi\) induces the identity on \(A = H_0(\underline{f}, \mathcal{O}[[\underline{X}]])\)}\\
+            We have the following commutative diagram
+            \[
+                \begin{tikzcd}
+                    \bigoplus_{i=1}^n u_i \mathcal{O}[[\underline{X}]] = K_1(\underline{f}, \mathcal{O}[[\underline{X}]]) 
+                    \arrow[r, "d_1"] \arrow[d, "\Phi_1"] & K_0(\underline{f}, \mathcal{O}[[\underline{X}]]) \arrow[r, "d_0"] \arrow[d, hook, "\Phi_0"] = \mathcal{O}[[\underline{X}]] & 0\\
+                    \bigoplus_{i=1}^n v_i A[[\underline{X}]] = K_1(\underline{g}, A[[\underline{X}]]) 
+                    \arrow[r, "d_1"] & K_0(\underline{g}, A[[\underline{X}]]) = A[[\underline{X}]] \arrow[r, "d_0"] & 0
+                \end{tikzcd}.
+            \]
+            \item Let \(M = (M_{i,j})_{i,j}\). Then we have
             \begin{align*}
-                \Phi_n(u_1 \wedge \dots \wedge u_n) &= x
+                \Phi_n(u_1 \wedge \dots \wedge u_n) &= \Phi(u_1) \wedge \dots \wedge \Phi(u_n)\\
+                &= \sum_{j=1}^n v_jM_{j,1} \wedge \dots \wedge \sum_{j=1}^n v_jM_{j,n}\\
+                &= \underbrace{\sum_{\sigma \in \mathfrak{S}(n)} (-1)^{\operatorname{sgn}(\sigma)} \prod_{i=1}^n M_{i,\sigma(i)}}_{= \det M} \cdot v_1 \wedge \dots \wedge v_n\\
+                &= D \cdot v_1 \wedge \dots \wedge v_n,
             \end{align*}
+            where \(\mathfrak{S}(n)\) may denote the group of permutations.
         \end{enumerate}
     \end{proof}
 
