@@ -690,6 +690,27 @@
                     \arrow[r, "d_1"] & K_0(\underline{g}, A[[\underline{X}]]) = A[[\underline{X}]] \arrow[r, "d_0"] & 0
                 \end{tikzcd}.
             \]
+            As 
+            \[
+                H_0(\underline{f}, \mathcal{O}[[\underline{X}]]) = \frac{\ker d_0}{\im d_1} 
+                = \frac{\mathcal{O}[[\underline{X}]]}{(f_1, \dots, f_n)}
+            \] and
+            \[
+                H_0(\underline{g}, A[[\underline{X}]]) = \frac{\ker d_0}{\im d_1} 
+                = \frac{A[[\underline{X}]]}{(g_1, \dots, g_n)}
+            \]
+            we can take a look at the map
+            \[
+                \mathcal{O}[[\underline{X}]] \to \frac{A[[\underline{X}]]}{(X_1 - a_1, \dots, X_n - a_n)} = A.
+            \]
+            This map sends \(X_i\) to \(a_i \in A\).
+            By definition of \(A = \mathcal{O}[[\underline{X}]]/(f_1, \dots, f_n)\) and \(a_i\) as image of \(X_i\)
+            under \(\alpha\) this is exactly the map \(\alpha\). \textbf{Really?} Hence, the induced map
+            \[
+                A = \mathcal{O}[[\underline{X}]]/(f_1, \dots, f_n) \to 
+                \frac{A[[\underline{X}]]}{(X_1 - a_1, \dots, X_n - a_n)} = A
+            \]
+            is identity.
             \item Let \(M = (M_{i,j})_{i,j}\). Then we have
             \begin{align*}
                 \Phi_n(u_1 \wedge \dots \wedge u_n) &= \Phi(u_1) \wedge \dots \wedge \Phi(u_n)\\
