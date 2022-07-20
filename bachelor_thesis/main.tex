@@ -897,13 +897,32 @@ structure on \(A\).
             \arrow[r] \arrow[u, "\Phi_{n}^*"] & 0
         \end{tikzcd}.
     \]
-    \textbf{Here comes the argumentation why \(Phi\) is a homotopy equivalence}
+    As both resolutions are free and, a fortiori, projective we can use the fact from homological algebra
+    that there exists a homotopy equivalence that induces identity on the zero-th homology groups.
+    As this map is then uniquely defined by skew linearity, we get that \(\Phi\) needs to be a homotopy equivalence.
+    \textbf{might be not so uniquely defined?}
     Hence, we have an isomorphism on the \(n\)-th cohomology,
     \[
-        \Phi_n*\colon \hom_{\mathcal{O}[[\underline{X}]]}(K^n(\underline{g}), \mathcal{O}[[\underline{X}]]) 
-        \to \hom_{\mathcal{O}[[\underline{X}]]}(K^n(\underline{f}), \mathcal{O}[[\underline{X}]]).
+        \Phi_n^*\colon \hom_{\mathcal{O}[[\underline{X}]]}(K^n(\underline{g}), \mathcal{O}[[\underline{X}]])/(\im d_n^*)
+        \to \hom_{\mathcal{O}[[\underline{X}]]}(K^n(\underline{f}), \mathcal{O}[[\underline{X}]])/(\im d_n^*).
     \]
-    We know that \(H_n(\underline{g})\cong\)
+    We know that 
+    \begin{alignat*}{3}
+        &K^n(\underline{f}) &&= \bigoplus_{i = 1}^n \mathcal{O}[[\underline{X}]] \cdot u_1\wedge\dots\wedge u_n
+        &&\cong \mathcal{O}[[\underline{X}]]\qquad\text{ and}\\
+        &K^n(\underline{g}) &&= \bigoplus_{i = 1}^n A[[\underline{X}]] \cdot u_1\wedge\dots\wedge u_n 
+        &&\cong A[[\underline{X}]]. 
+    \end{alignat*}
+    Therefore, we can make the identification
+    \[
+        \hom_{\mathcal{O}[[\underline{X}]]}(K^n(\underline{f}), \mathcal{O}[[\underline{X}]])
+        \cong \hom_{\mathcal{O}[[\underline{X}]]}(\mathcal{O}[[\underline{X}]], \mathcal{O}[[\underline{X}]])
+        \cong \mathcal{O}[[\underline{X}]],
+    \]
+    where the second isomorphism sends \(f \mapsto f(1)\). The lift of \(1\) under the first isomorphism is 
+    \(u_1\wedge\dots\wedge u_n\). Therefore in total we send a map 
+    \(f\) to \(f(u_1\wedge\dots\wedge u_n)\).
+
 \end{proof}
 
 \end{document}
