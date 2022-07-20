@@ -588,7 +588,7 @@ Recall that the dimension of a ring is given by
     a system of parameters.
 \end{definition}
 
-\begin{lemma}
+\begin{lemma}\label{lem:sys_params}
     The sequence \((f_1, \dots, f_n, \lambda)\) is a system of parameters for \(U\) (cf. \cref{ex:last_1}).
 \end{lemma}
 \begin{proof}
@@ -657,6 +657,48 @@ Recall that the dimension of a ring is given by
     A fortiori, the sequence \((f_1, \dots, f_n)\) is also a regular sequence.
 \end{proof}
 
+\begin{corollary}
+    Let \(A \in \cob\) be finitely generated and of the form
+    \[
+        A \cong \mathcal{O}[[X_1, \dots, X_n]]/(f_1, \dots, f_n).  
+    \]
+    Then \(A\) is flat.
+\end{corollary}
+\begin{proof}
+    Assume that \(A\) is not flat, i.e. there is a \(\lambda^n u \in \mathcal{O}\) and a
+    \[0 \neq g(X_1, \dots, X_n) \in A \qquad \text{s.t. } \lambda^m u \cdot g(\underline{X}) = 0.\]
+    Consider \(g' = \lambda^{m-1}u g\). 
+    Either \(g' \neq 0\) s.t. \(\lambda \cdot g' = 0\) with \(g' \neq 0\) or \(g' = 0 \in A\).
+    Then repeat the last step with \(g'\) instead of \(g\). After finitely many steps we find a \(0 \neq g \in A\) s.t. 
+    \(\lambda g = 0\), i.e.
+    \[
+        \lambda \cdot g(\underline{X}) = c_1(\underline{X})f_1(\underline{X}) + \dots + c_n(\underline{X})f_n(\underline{X}). 
+    \]
+    Without loss of generality we can choose the \(c_i(\underline{X})\) in such a way that \(c_i(\underline{X})\) 
+    is never divisible by any of the \(f_{j}(\underline{X})\) for \(j < i\). 
+    (In such a case one would have to add a suitable multiple of \(f_i\) to \(c_j\).)
+    Furthermore, \(\exists i\colon\;0 \neq c_i \mod \lambda\). Otherwise we could divide the whole equation by
+    \(\lambda\) and obtain \(g = 0 \mod (f_1, \dots, f_n)\), a contradiction. Let \(i_0\) be the biggest such \(i\).
+    In the proof of \cref{lem:sys_params} we have never used that \(A\) is flat, 
+    only that it is finitely generated. Therefore we know that \(\lambda, f_1, \dots, f_n\) is a system of parameters
+    for \(U\). 
+    From the proof of \cref{lem:reg_seq} (where we also haven't used that \(A\) is flat) we can deduce that
+    \(\lambda, f_1, \dots, f_n\) is also a regular sequence for \(U\) and, a fortiori, \(f_{i_0}\) is not a 
+    zero-divisor in \(U/(\lambda, f_1, \dots, f_{i_0-1})\).
+    If we consider the equation
+    \[
+        \lambda \cdot g(\underline{X}) = c_1(\underline{X})f_1(\underline{X}) + \dots + c_n(\underline{X})f_n(\underline{X}). 
+    \]
+    \(\mod (\lambda, f_1, \dots, f_{i_0-1})\) we obtain
+    \[
+        0 = 0 + c_{i_0} f_{i_0} + 0,
+    \]
+    as all other terms are in the ideal \((\lambda, f_1, \dots, f_{i_0-1})\).
+    We know that \(c_{i_0}\) is not divisible by any of \(\lambda, f_1, \dots, f_{i_0}\).
+    Therefore \(f_{i_0}\) is a zero-divisor in \(U/(\lambda, f_1, \dots, f_{i_0-1})\). This is a contradiction,
+    so our assumption must be false.
+\end{proof}
+
 \subsection{Complete intersections and the Gorenstein condition}
 Let \(A\) be a finite flat complete intersection in \(\cob\). The goal of this section is to show that \(A\)
 satisfies a Gorenstein condition, i.e. a specific form of self-duality.
@@ -688,8 +730,10 @@ and let
 \[
     \beta \colon A[[\underline{X}]] \to A  
 \]
-be the natural map which sends \(X_i\) to \(a_i\). The sequence \(g_i =  (X_i - a_i)\) 
-generates the kernel of \(\beta\). \textbf{Why?}
+be the natural map which sends \(X_i\) to \(a_i\). 
+A polynomial \(f \in A[[\underline{X}]]\) is sent to \(0\) exactly when \(f(a_1, \dots, a_n) = 0\).
+Therefore, \(\exists i\colon\; (X_i - a_i)|f\) and hence, 
+the sequence \(g_i =  (X_i - a_i)\) generates the kernel of \(\beta\).
 View the \(f_i\) as polynomials in \(A[[\underline{X}]]\) via the inclusion \(O \hookrightarrow A\). Then \(\forall i = 1, \dots, n\colon\)
 \[
     \beta(f_i) = f_i(a_1, \dots, a_n) = 0 \in \mathcal{O}[[\underline{X}]]/(f_1, \dots, f_n).
