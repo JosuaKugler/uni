@@ -529,7 +529,7 @@ by investigating the invariants \(\phi_A\) and \(\eta_A\) that we defined last s
 \end{proof}
 
 \begin{lemma}\label{lem:standard_ineq}
-    Let \(A \in \co\). Then \[\#\phi_A \geq \#(\mathcal{O}/\eta_A).\]
+    Let \(A \in \co\) \textbf{s.t. \(\phi_A\) finite and \(\eta_A \neq 0\)}. Then \[\#\phi_A \geq \#(\mathcal{O}/\eta_A).\]
 \end{lemma}
 \begin{proof}
     As \(\mathcal{O} = A/\ker \pi_A\), we have
@@ -545,7 +545,6 @@ by investigating the invariants \(\phi_A\) and \(\eta_A\) that we defined last s
     \[
         \fitt_\mathcal{O}(\phi_A) \subset \pi_A(\ann_A(\ker \pi_A)) = \eta_A.
     \]
-    \textbf{Why is \(\phi_A\) finite?}
     As \(\phi_A\) is finite, we can apply \cref{cor:fitting_finite} to \(M = \phi_A\) and obtain
     \[
         \# \phi_A = \# (\mathcal{O}/\fitt_\mathcal{O}(\phi_A)) \geq \# (\mathcal{O}/\eta_A).
