@@ -438,7 +438,6 @@ by investigating the invariants \(\phi_A\) and \(\eta_A\) that we defined last s
     as desired.
 \end{proof}
 
-%TODO: insert some remarks on Fitting ideals
 \begin{definition}
     Let \(M\) be a finitely generated \(R\)-module. Then \(M\) is a quotient
     \[
@@ -589,12 +588,6 @@ Recall that the dimension of a ring is given by
     a system of parameters.
 \end{definition}
 
-\begin{definition}[regular sequence]
-    A sequence \((x_1, \dots, x_n)\) is said to be a regular sequence 
-    if \(\forall\; i = 1, \dots, n\colon\)
-    \[x_i \text{ is not a zero-divisor in } R/(x_1, \dots, x_{i-1}).\]
-\end{definition}
-
 \begin{lemma}
     The sequence \((f_1, \dots, f_n, \lambda)\) is a system of parameters for \(U\) (cf. \cref{ex:last_1}).
 \end{lemma}
@@ -622,8 +615,22 @@ Recall that the dimension of a ring is given by
     annihilates it). As \(A = U/(f_1, \dots, f_n)\) is a finitely generated \(\mathcal{O}\)-module, we can find
     \((x_1, \dots, x_N)\) that generate \(A\) as \(\mathcal{O}\)-module.
     These \(x_i\) then generate \(\tilde U\) as a \(k\)-vector space.
-    Every element in the maximal ideal of \(\tilde U\) is nilpotent \textbf{because ??}
+    As \(k\) is finite, the whole vector space is finite.
+    As a result, the chain of powers of \(\mathfrak{m}_{\tilde U}\) must stabilize,
+    \[
+        \mathfrak{m}_{\tilde U}^n = \mathfrak{m}_{\tilde U}^{n+1}
+    \]
+    By Nakayama's lemma it follows that \(\mathfrak{m}_{\tilde U}^n = 0\).
+    As a result, every element of the maximal ideal is nilpotent.
+    Zero-divisors are never units. Hence they are contained in the maximal ideal and, a fortiori, nilpotent.
+    In total, \(f_1, \dots, f_n, \lambda\) generate a primary ideal of \(U\).
 \end{proof}
+
+\begin{definition}[regular sequence]
+    A sequence \((x_1, \dots, x_n)\) is said to be a regular sequence 
+    if \(\forall\; i = 1, \dots, n\colon\)
+    \[x_i \text{ is not a zero-divisor in } R/(x_1, \dots, x_{i-1}).\]
+\end{definition}
 
 \begin{lemma}\label{lem:reg_seq}
     The sequence \((f_1, \dots, f_n)\) is a regular sequence for \(U\).
