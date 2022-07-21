@@ -42,8 +42,9 @@
 \section{An Overview of Wiles' proof}
 \newpage
 \section{Wiles' numerical criterion}
-Wiles has discovered a criterion for two rings in a specific category to be isomorphic that only depends on some numerical invariants
-of these rings. The aim of this section is to prove that criterion in its purely algebraic form. 
+Wiles has discovered a criterion for two rings in a specific category to be isomorphic 
+that only depends on some numerical invariants of these rings. 
+The aim of this section is to prove that criterion in its purely algebraic form. 
 %TODO: Explain how this fits into the rest of the proof.
 
 \subsection{Preliminaries and examples}
@@ -51,21 +52,25 @@ Let \(\mathcal{O}\) be the ring of integers of a finite extension \(K\) of \(\ma
 As \(K\) is a local field, its ring of integers is a discrete valutation ring (DVR), i.e. 
 \(\mathcal O\) is a local, noetherian Dedekind ring with maximal ideal \(\lambda\). 
 It is complete with resp server usedect to the \(\lambda\)-adic topology, a principal ideal domain (PID) 
-and has residue field \(k \coloneqq \mathcal{O}/\lambda\)  to name some properties that we will use in the course of the proof.
+and has residue field \(k \coloneqq \mathcal{O}/\lambda\) 
+to name some properties that we will use in the course of the proof.
 
-\(\mathbb Z_\ell\) is the ring of integers of \(\mathbb Q_\ell\) and \(\mathbb F_\ell = \mathbb Z_\ell/\ell \mathbb Z_\ell\) its residue field. 
-As \(K/\mathbb{Q}_\ell\) is finite, the residue field of \(\mathcal{O}\) is a finite extension of $\mathbb F_\ell$ and therefore finite. 
+\(\mathbb Z_\ell\) is the ring of integers of \(\mathbb Q_\ell\) and 
+\(\mathbb F_\ell = \mathbb Z_\ell/\ell \mathbb Z_\ell\) its residue field. 
+As \(K/\mathbb{Q}_\ell\) is finite, the residue field of \(\mathcal{O}\) 
+is a finite extension of $\mathbb F_\ell$ and therefore finite. 
 %Not entirely clear to me
 
 \paragraph{The categories \(\co\) and \(\cob\)}
-In this section, we will mostly deal with very specific rings. Therefore we define the category \(\co\) where objects of \(\co\) are
-local complete noetherian \(\mathcal O\)-algebras with residue field \(k\) and the morphisms are local \(\mathcal{O}\)-algebra morphisms.
+In this section, we will mostly deal with very specific rings. 
+Therefore we define the category \(\co\) where objects of \(\co\) are local complete noetherian \(\mathcal O\)-algebras 
+with residue field \(k\) and the morphisms are local \(\mathcal{O}\)-algebra morphisms.
 Often, we even need some extra structure. 
 We obtain the category \(\cob\) from \(\co\) by equipping an object \(A\) with an additional surjective map
 \[\pi_A \colon A \twoheadrightarrow \mathcal{O},\]
 the so-called augmentation map. Objects in \(\cob\) are often called \textit{augmented rings}.
-The morphisms in \(\cob\) are local \(\mathcal{O}\)-algebra morphisms that respect the augmentation map structure, i.e. for a morphism
-\(f \colon A \to B\) we have the commutative diagram
+The morphisms in \(\cob\) are local \(\mathcal{O}\)-algebra morphisms that respect the augmentation map structure, 
+i.e. for a morphism \(f \colon A \to B\) we have the commutative diagram
 \[
 \begin{tikzcd}[column sep=small]
     A \arrow[rr, "f"] \arrow [dr, "\pi_A", swap, twoheadrightarrow] & & B \arrow [dl, "\pi_B", twoheadrightarrow]\\
@@ -75,14 +80,17 @@ The morphisms in \(\cob\) are local \(\mathcal{O}\)-algebra morphisms that respe
 
 In order to state Wiles' criterion, we need some more definitions.
 \begin{definition}
-    \(A \in \co\) is \textit{finite flat}, if \(A\) is finitely generated and torsion-free as an \(\mathcal{O}\)-module.
-    Note that \(\mathcal{O}\) is a PID and therefore being torsion-free is equivalent to being flat as an \(\mathcal{O}\)-module.
+    \(A \in \co\) is \textit{finite flat}, if \(A\) is finitely generated 
+    and torsion-free as an \(\mathcal{O}\)-module.
+    Note that \(\mathcal{O}\) is a PID and therefore being torsion-free 
+    is equivalent to being flat as an \(\mathcal{O}\)-module.
 \end{definition}
 
 \begin{definition}[complete intersection]
-    A finite flat ring \(A \in \co\) is called a \textit{complete intersection}, if \(A\) is isomorphic as an \(\mathcal{O}\)-algebra
-    to a quotient
-    \[A \cong \mathcal{O}[[X_1, \dots, X_n]]/(f_1, \dots, f_n),\] where there are as many relations as there are variables.
+    A finite flat ring \(A \in \co\) is called a \textit{complete intersection}, 
+    if \(A\) is isomorphic as an \(\mathcal{O}\)-algebra to a quotient
+    \[A \cong \mathcal{O}[[X_1, \dots, X_n]]/(f_1, \dots, f_n),\] 
+    where there are as many relations as there are variables.
     %Why is this a good definition? Where does the name come from? see probably remark 5.2
 \end{definition}
 
@@ -98,16 +106,20 @@ Let's take a look at an example.
             f &\mapsto (f(0), f(\lambda^n)).
         \end{align*}
         \subparagraph*{\(\phi\) is welldefined and respects the \(\mathcal{O}\)-algebra structure:}
-        Let \(f_0\) be the constant term of a polynomial \(f\) and \(f_1 \coloneqq T^{-1}(f-f_0)\), s.t. \(f = f_0 + T\cdot f_1(T)\).
-        Because of
-        \[f(0) - f(\lambda^n) = (f_0 + 0\cdot f_1(0)) - (f_0 + \lambda^n \cdot f_1(\lambda^n)) = -\lambda^n \cdot f_1(\lambda^n),\]
+        Let \(f_0\) be the constant term of a polynomial \(f\) and \(f_1 \coloneqq T^{-1}(f-f_0)\), 
+        s.t. \(f = f_0 + T\cdot f_1(T)\). Because of
+        \[
+            f(0) - f(\lambda^n) 
+            = (f_0 + 0\cdot f_1(0)) - (f_0 + \lambda^n \cdot f_1(\lambda^n)) 
+            = -\lambda^n \cdot f_1(\lambda^n),
+        \]
         \(f(0) \equiv f(\lambda^n)\; (\operatorname{mod} \lambda^n)\) as required.
         Furthermore, \[\phi(T(T-\lambda^n)) = (0(-\lambda^n), \lambda^n(\lambda^n - \lambda^n)) = (0,0).\]
         Finally, we need to think about series in \(\mathcal{O}[[T]]\) with infinitely many terms.
         For the first component \(f(0)\) this doesn't matter, as \(\phi\) just takes the constant term. 
         As \(\mathcal{O}\) is complete with respect to the \(\lambda\)-adic topology, 
-        the map \(\tilde\phi_2\colon \mathcal{O}[[T]] \to \mathcal{O},\; f \mapsto f(\lambda^n)\) is clearly welldefined and thus \(\phi\)
-        is welldefined.
+        the map \(\tilde\phi_2\colon \mathcal{O}[[T]] \to \mathcal{O},\; f \mapsto f(\lambda^n)\) 
+        is clearly welldefined and thus \(\phi\) is welldefined.
         %O-algebra structure:
         Let \(o \in \mathcal{O}\). Then 
         \[\phi(of) = ((of)(0),(of)(\lambda^n)) = (of(0), of(\lambda^n)) = o(f(0), f(\lambda^n)) = o\phi(f)\]
@@ -184,8 +196,8 @@ Let's take a look at an example.
     \(U = \mathcal{O}[[X_1, \dots, X_n]]\) for suitable \(n\).
 \end{remark}
 \begin{proof}
-    As \(A\) is a noetherian ring and \(\ker \pi_A\) is an ideal in \(A\), it is finitely generated and therefore also finitely generated
-    as an \(A\)-module. Consider the map
+    As \(A\) is a noetherian ring and \(\ker \pi_A\) is an ideal in \(A\), it is finitely generated 
+    and therefore also finitely generated as an \(A\)-module. Consider the map
     \begin{align*}
         \Phi\colon U = \mathcal{O}[[X_1, \dots, X_n]] &\to A\\
         X_i &\mapsto a_i,
@@ -353,7 +365,8 @@ by investigating the invariants \(\phi_A\) and \(\eta_A\) that we defined last s
     for any \(x \in \ker \pi_A\).
 
     First, let us assume that \(A \to B\) is a surjective map.
-    In this case, every element \(x \in \ker \phi_B\) has a preimage in \(\ker \pi_A\). Indeed, \(\forall y \in f^{-1}(x)\subset A\colon\)
+    In this case, every element \(x \in \ker \phi_B\) has a preimage in \(\ker \pi_A\). 
+    Indeed, \(\forall y \in f^{-1}(x)\subset A\colon\)
     \[
         \pi_A(y) = \pi_B(f(y)) = \pi_B(x) = 0.
     \]
@@ -374,11 +387,16 @@ by investigating the invariants \(\phi_A\) and \(\eta_A\) that we defined last s
     Let \(x \in I\). Then \(x = \sum_i f(x_i) \cdot b_i\) for \(x_i \in \ker \pi_A\) and \(b_i \in B\).
     Remember the commutative diagram from the beginning of the proof,
     \[
-        \pi_B(x) = \pi_B\left(\sum_i f(x_i)\cdot b_i\right) = \sum_i \pi_B(f(x_i))\cdot \pi_B(b_i) = \sum_i\pi_A(x_i)\cdot \pi_B(b_i) = 0. 
+        \pi_B(x) = \pi_B\left(\sum_i f(x_i)\cdot b_i\right) 
+        = \sum_i \pi_B(f(x_i))\cdot \pi_B(b_i) 
+        = \sum_i\pi_A(x_i)\cdot \pi_B(b_i) = 0. 
     \]
     As a result, \(I \subset \ker \pi_B \subset \mathfrak{m}_B\).
     Note that
-    \[f(\ker \pi_A) \subset f(\ker \pi_A)\cdot B \implies f((\ker \pi_A)^n) = f(\ker \pi_A)^n \subset (f(\ker \pi_A)\cdot B)^n,\]
+    \[
+        f(\ker \pi_A) \subset f(\ker \pi_A)\cdot B \implies f((\ker \pi_A)^n) 
+        = f(\ker \pi_A)^n \subset (f(\ker \pi_A)\cdot B)^n,
+    \]
     so we have \(\phi((\ker \pi_A)^n)\cdot B \subset I^n\).
     As \(B\) is \(\mathfrak{m}_B\)-adically complete and therefore Hausdorff, we get
     \[
@@ -386,18 +404,22 @@ by investigating the invariants \(\phi_A\) and \(\eta_A\) that we defined last s
         \subset \bigcap_{n \in \mathbb N} \mathfrak{m}_b^n = 0,
     \]
     i.e. \(\!B\) is separated with respect to the \(I\)-adic topology.
-    Furthermore, \(\ker \pi_A\) is finitely generated as an \(A\)-module, \(\ker \pi_A = \langle a_1, \dots, a_m\rangle\) because \(A\) is noetherian. 
+    Furthermore, \(\ker \pi_A\) is finitely generated as an \(A\)-module, 
+    \(\ker \pi_A = \langle a_1, \dots, a_m\rangle\) because \(A\) is noetherian. 
     As \(\ker \pi_A \to (\ker \pi_B)/(\ker \pi_B)^2\) is surjective, we have 
     \[(\ker \pi_B)/(\ker \pi_B)^2 = \langle \overline{f(a_1)}, \dots, \overline{f(a_m)}\rangle_B.\]
-    \textbf{As \(A\) is complete} and \(I\) is separated with respect to the \(I\)-adic topology as a submodule of \(B\), 
-    we can apply Nakayama's Lemma as in Mat, 8.4. It follows that the images \(\langle f(a_1), \dots, f(a_m)\rangle\) generate \(\ker \pi_B\)
-    as a \(B\)-module. We already know that \(f(\ker \pi_A) \cdot B \subset \ker \pi_B\). Together we have
+    \textbf{As \(A\) is complete} and \(I\) is separated with respect to the \(I\)-adic topology 
+    as a submodule of \(B\), we can apply Nakayama's Lemma as in Mat, 8.4. 
+    It follows that the images \(\langle f(a_1), \dots, f(a_m)\rangle\) generate \(\ker \pi_B\)
+    as a \(B\)-module. We already know that \(f(\ker \pi_A) \cdot B \subset \ker \pi_B\). 
+    Together we have
     \[
         f(\ker \pi_A) \cdot B = \ker \pi_B.
     \]
     Now we conclude that \(1\) is a generator of \(B/I = B/f(\ker \pi_A) B = B/\ker \pi_B = \mathcal{O}\) as an 
     \(A/\ker \pi_A \cong \mathcal{O}\)-module.
-    Applying Nakayama's Lemma again, we get that \(1\) is a generator of \(B\) as an \(A\)-module and hence, \(f\colon A \to B\) is surjective.
+    Applying Nakayama's Lemma again, we get that \(1\) is a generator of \(B\) as an \(A\)-module 
+    and hence, \(f\colon A \to B\) is surjective.
 \end{proof}
 
 \begin{corollary}\label{cor:surjectivity_phi}
@@ -699,6 +721,37 @@ Recall that the dimension of a ring is given by
     so our assumption must be false.
 \end{proof}
 
+%The Koszul complex
+\begin{definition}[Koszul complex]
+    The Koszul complex associated to a sequence \(\underline{x} = (x_1, \dots, x_n)\) contained in the maximal ideal
+    of a local ring is given by the complex
+    \[
+        0 \to K_n(\underline{x}, R) \xrightarrow{d_n} K_{n-1}(\underline{x}, R) \to \dots \to K_{0}(\underline{x},R) \to 0,
+    \]
+    where 
+    \[
+        K_p(\underline{x}, R) \coloneqq \bigoplus_{i_1 < \dots < i_p} R \cdot u_{i_1}\wedge\dots\wedge u_{i_p}
+    \]
+    for symbols \(u_1, \dots, u_n\). The differential map \(d_p\colon K_p(\underline{x}, R) \to K_{p-1}(\underline{x}, R)\)
+    is given by
+    \[
+        d_p(u_{i_1}\wedge\dots\wedge u_{i_p}) = \sum_{t=1}^p(-1)^t x_{i_t} \cdot 
+        u_{i_1} \wedge \dots \wedge \widehat{u_{i_t}}\wedge \dots \wedge u_{i_p}.
+    \]
+    As usual, we denote by \(H_p(\underline{x}, R)\) the \(p\)-th homology group of this complex.
+\end{definition}
+
+\begin{remark}
+    We note \(K_0(\underline{x}, R) = R\) and therfore compute
+    \[
+        H_0(\underline{x}, R) = K_0(\underline{x}, R)/(\im d_1) \cong R/(x_1, \dots, x_n) = R/(\underline{x}).
+    \]
+    Furthermore, one can show that if \((\underline{x})\) is a regular sequence, then the complex is exact.
+    As it consists of free \(R\)-modules, homological algebra shows that we then get a resolution of
+    \(H_0(\underline{x}, R) = R/(\underline{x})\) by free \(R\)-modules. 
+    %if I have time and motivation I can probably give some more proofs here
+\end{remark}
+
 \subsection{Complete intersections and the Gorenstein condition}
 Let \(A\) be a finite flat complete intersection in \(\cob\). The goal of this section is to show that \(A\)
 satisfies a Gorenstein condition, i.e. a specific form of self-duality.
@@ -734,7 +787,8 @@ be the natural map which sends \(X_i\) to \(a_i\).
 A polynomial \(f \in A[[\underline{X}]]\) is sent to \(0\) exactly when \(f(a_1, \dots, a_n) = 0\).
 Therefore, \(\exists i\colon\; (X_i - a_i)|f\) and hence, 
 the sequence \(g_i =  (X_i - a_i)\) generates the kernel of \(\beta\).
-View the \(f_i\) as polynomials in \(A[[\underline{X}]]\) via the inclusion \(O \hookrightarrow A\). Then \(\forall i = 1, \dots, n\colon\)
+View the \(f_i\) as polynomials in \(A[[\underline{X}]]\) via the inclusion \(O \hookrightarrow A\). 
+Then \(\forall i = 1, \dots, n\colon\)
 \[
     \beta(f_i) = f_i(a_1, \dots, a_n) = 0 \in \mathcal{O}[[\underline{X}]]/(f_1, \dots, f_n).
 \]
@@ -745,13 +799,6 @@ an \(A[[X]]\)-linear combination of the \(g_i\),
 \]
 where \(M\) is an \(n \times n\) matrix with coefficients in \(A[[\underline{X}]]\). 
 Let \(D = \det(M) \in A[[\underline{X}]]\).
-
-%unnecessary:
-%We begin by constructing a surjective (\(\mathcal{O}\)-linear) map
-%\[
-%    \hom_\mathcal{O}[[\underline{X}]](A[[\underline{X}]], \mathcal{O}[[\underline{X}]]) \to A.
-%\]
-
 The projection \(\mathcal{O}[[\underline{X}]] \to A\) induces an \(\mathcal{O}[[\underline{X}]]\)-module 
 structure on \(A\).
 
@@ -811,10 +858,6 @@ structure on \(A\).
         (\Phi_1(u_1), \dots, \Phi_1(u_n)) = (v_1, \dots, v_n)M. %probably explain this in greater detail
     \]
     By skew-linearity this can be extended to a map of exterior algebras. %What exactly is an exterior algebra?
-    %Check the following facts
-    %- this is a map of complexes
-    %- it induces the identity map A -> A
-    %- it satisfies phi(u_1 /\ ... /\ u_n) = D (v_1 /\ ... /\ v_n)
     In the following we proof that \(\Phi\)
     \begin{enumerate}
         \item is a morphism of complexes,
@@ -842,7 +885,8 @@ structure on \(A\).
         \[
             \begin{tikzcd}
                 \bigoplus_{i=1}^n u_i \mathcal{O}[[\underline{X}]] = K_1(\underline{f}, \mathcal{O}[[\underline{X}]]) 
-                \arrow[r, "d_1"] \arrow[d, "\Phi_1"] & K_0(\underline{f}, \mathcal{O}[[\underline{X}]]) \arrow[r, "d_0"] \arrow[d, hook, "\Phi_0"] = \mathcal{O}[[\underline{X}]] & 0\\
+                \arrow[r, "d_1"] \arrow[d, "\Phi_1"] & K_0(\underline{f}, \mathcal{O}[[\underline{X}]]) \arrow[r, "d_0"] 
+                \arrow[d, hook, "\Phi_0"] = \mathcal{O}[[\underline{X}]] & 0\\
                 \bigoplus_{i=1}^n v_i A[[\underline{X}]] = K_1(\underline{g}, A[[\underline{X}]]) 
                 \arrow[r, "d_1"] & K_0(\underline{g}, A[[\underline{X}]]) = A[[\underline{X}]] \arrow[r, "d_0"] & 0
             \end{tikzcd}.
@@ -872,28 +916,29 @@ structure on \(A\).
         \begin{align*}
             \Phi_n(u_1 \wedge \dots \wedge u_n) &= \Phi(u_1) \wedge \dots \wedge \Phi(u_n)\\
             &= \sum_{j=1}^n v_jM_{j,1} \wedge \dots \wedge \sum_{j=1}^n v_jM_{j,n}\\
-            &= \underbrace{\sum_{\sigma \in \mathfrak{S}(n)} (-1)^{\operatorname{sgn}(\sigma)} \prod_{i=1}^n M_{i,\sigma(i)}}_{= \det M} \cdot v_1 \wedge \dots \wedge v_n\\
+            &= \underbrace{\sum_{\sigma \in \mathfrak{S}(n)} (-1)^{\operatorname{sgn}(\sigma)} 
+            \prod_{i=1}^n M_{i,\sigma(i)}}_{= \det M} \cdot v_1 \wedge \dots \wedge v_n\\
             &= D \cdot v_1 \wedge \dots \wedge v_n,
         \end{align*}
         where \(\mathfrak{S}(n)\) may denote the group of permutations.
     \end{enumerate}
     In the following we write 
-    \(K^\bullet(\underline{f}) = K^\bullet(\underline{f}, \mathcal{O}[[\underline{X}]])\)
+    \(K_\bullet(\underline{f}) = K_\bullet(\underline{f}, \mathcal{O}[[\underline{X}]])\)
     and 
-    \(K^\bullet(\underline{g}) = K^\bullet(\underline{g}, A[[\underline{X}]])\)
+    \(K_\bullet(\underline{g}) = K_\bullet(\underline{g}, A[[\underline{X}]])\)
     By applying the functor \(\hom_{\mathcal{O}[[\underline{X}]]}(-, \mathcal{O}[[\underline{X}]])\)
     to the two free resolutions, we get the following commutative diagram
     \[
         \begin{tikzcd}[column sep=2.2em]
             \arrow[r, "d_{n-1}^*"] & 
-            \hom_{\mathcal{O}[[\underline{X}]]}(K^{n-1}(\underline{f}), \mathcal{O}[[\underline{X}]]) 
+            \hom_{\mathcal{O}[[\underline{X}]]}(K_{n-1}(\underline{f}), \mathcal{O}[[\underline{X}]]) 
             \arrow[r, "d_n^*"] &
-            \hom_{\mathcal{O}[[\underline{X}]]}(K^n(\underline{f}), \mathcal{O}[[\underline{X}]]) 
+            \hom_{\mathcal{O}[[\underline{X}]]}(K_n(\underline{f}), \mathcal{O}[[\underline{X}]]) 
             \arrow[r] & 0\\
             \arrow[r, "d_{n-1}^*"] & 
-            \hom_{\mathcal{O}[[\underline{X}]]}(K^{n-1}(\underline{g}), \mathcal{O}[[\underline{X}]])
+            \hom_{\mathcal{O}[[\underline{X}]]}(K_{n-1}(\underline{g}), \mathcal{O}[[\underline{X}]])
             \arrow[r, "d_n^*"] \arrow[u, "\Phi_{n-1}^*"] &
-            \hom_{\mathcal{O}[[\underline{X}]]}(K^n(\underline{g}), \mathcal{O}[[\underline{X}]]) 
+            \hom_{\mathcal{O}[[\underline{X}]]}(K_n(\underline{g}), \mathcal{O}[[\underline{X}]]) 
             \arrow[r] \arrow[u, "\Phi_{n}^*"] & 0
         \end{tikzcd}.
     \]
@@ -903,19 +948,19 @@ structure on \(A\).
     \textbf{might be not so uniquely defined?}
     Hence, we have an isomorphism on the \(n\)-th cohomology,
     \[
-        \Phi_n^*\colon \hom_{\mathcal{O}[[\underline{X}]]}(K^n(\underline{g}), \mathcal{O}[[\underline{X}]])/(\im d_n^*)
-        \to \hom_{\mathcal{O}[[\underline{X}]]}(K^n(\underline{f}), \mathcal{O}[[\underline{X}]])/(\im d_n^*).
+        \Phi_n^*\colon \hom_{\mathcal{O}[[\underline{X}]]}(K_n(\underline{g}), \mathcal{O}[[\underline{X}]])/(\im d_n^*)
+        \to \hom_{\mathcal{O}[[\underline{X}]]}(K_n(\underline{f}), \mathcal{O}[[\underline{X}]])/(\im d_n^*).
     \]
     We know that 
     \begin{alignat*}{3}
-        &K^n(\underline{f}) &&= \bigoplus_{i = 1}^n \mathcal{O}[[\underline{X}]] \cdot u_1\wedge\dots\wedge u_n
+        &K_n(\underline{f}) &&= \bigoplus_{i = 1}^n \mathcal{O}[[\underline{X}]] \cdot u_1\wedge\dots\wedge u_n
         &&\cong \mathcal{O}[[\underline{X}]]\qquad\text{ and}\\
-        &K^n(\underline{g}) &&= \bigoplus_{i = 1}^n A[[\underline{X}]] \cdot u_1\wedge\dots\wedge u_n 
+        &K_n(\underline{g}) &&= \bigoplus_{i = 1}^n A[[\underline{X}]] \cdot u_1\wedge\dots\wedge u_n 
         &&\cong A[[\underline{X}]]. 
     \end{alignat*}
     Therefore, we can make the identification
     \[
-        \hom_{\mathcal{O}[[\underline{X}]]}(K^n(\underline{f}), \mathcal{O}[[\underline{X}]])
+        \hom_{\mathcal{O}[[\underline{X}]]}(K_n(\underline{f}), \mathcal{O}[[\underline{X}]])
         \cong \hom_{\mathcal{O}[[\underline{X}]]}(\mathcal{O}[[\underline{X}]], \mathcal{O}[[\underline{X}]])
         \cong \mathcal{O}[[\underline{X}]],
     \]
@@ -923,10 +968,10 @@ structure on \(A\).
     \(u_1\wedge\dots\wedge u_n\). Hence in total we send a map 
     \(f\) to \(f(u_1\wedge\dots\wedge u_n)\).
     As a next step, we compute the image of \(d_n^*\) in \(\mathcal{O}[[\underline{X}]]\).
-    Let \(\varphi \in \hom_{\mathcal{O}[[\underline{X}]]}(K^{n-1}(\underline{f}), \mathcal{O}[[\underline{X}]])\).
+    Let \(\varphi \in \hom_{\mathcal{O}[[\underline{X}]]}(K_{n-1}(\underline{f}), \mathcal{O}[[\underline{X}]])\).
     Then we have
     \[
-        d_n^*(\varphi) = \varphi \circ d_n \colon K^n(\underline{f}) \xrightarrow{d_n} K^{n-1}(g) \xrightarrow{\varphi} 
+        d_n^*(\varphi) = \varphi \circ d_n \colon K_n(\underline{f}) \xrightarrow{d_n} K_{n-1}(g) \xrightarrow{\varphi} 
         \mathcal{O}[[\underline{X}]],  
     \]
     where the composition is given by 
@@ -942,27 +987,29 @@ structure on \(A\).
     \]
     The image of \(d_n^*\) is therefore generated by the \(f_t\) and we get 
     \[
-        \hom_{\mathcal{O}[[\underline{X}]]}(K^n(\underline{f}), \mathcal{O}[[\underline{X}]])/(\im d_n^*) 
+        \hom_{\mathcal{O}[[\underline{X}]]}(K_n(\underline{f}), \mathcal{O}[[\underline{X}]])/(\im d_n^*) 
         \cong \mathcal{O}[[\underline{X}]]/(f_1, \dots, f_n) = A.
     \]
     As a result, \(\Phi_n^*\) induces a \(\mathcal{O}[[\underline{X}]]\)-linear surjection
     \[
         \Phi\colon \hom_{\mathcal{O}[[\underline{X}]]}(A[[\underline{X}]], \mathcal{O}[[\underline{X}]]) \cong 
-        \hom_{\mathcal{O}[[\underline{X}]]}(K^n(\underline{g}), \mathcal{O}[[\underline{X}]]) \twoheadrightarrow A.
+        \hom_{\mathcal{O}[[\underline{X}]]}(K_n(\underline{g}), \mathcal{O}[[\underline{X}]]) \twoheadrightarrow A.
     \]
     \(\Phi\) takes a \(\mathcal{O}[[\underline{X}]]\)-linear map and applies \(\Phi_n^*\) to \(f\), resulting in 
     \[
-        f \circ \Phi_n\colon \mathcal{O}[[\underline{X}]] \xrightarrow{\Phi_n} K^n(g) 
+        f \circ \Phi_n\colon \mathcal{O}[[\underline{X}]] \xrightarrow{\Phi_n} K_n(g) 
         \xrightarrow{f} \mathcal{O}[[\underline{X}]].
     \]
-    After that it uses our previous identification \(\hom_{\mathcal{O}[[\underline{X}]]}(\mathcal{O}[[\underline{X}]], \mathcal{O}[[\underline{X}]])
-    \cong \mathcal{O}[[\underline{X}]]\) and sends \(f \circ \Phi_n\) to its value on \(1\). Using the identifications 
-    \(K^n(\underline{f})\cong \mathcal{O}[[\underline{X}]]\) and \(K^n(\underline{g})\cong A[[\underline{X}]]\), we obtain
+    After that it uses our previous identification 
+    \(\hom_{\mathcal{O}[[\underline{X}]]}(\mathcal{O}[[\underline{X}]], \mathcal{O}[[\underline{X}]])
+    \cong \mathcal{O}[[\underline{X}]]\) 
+    and sends \(f \circ \Phi_n\) to its value on \(1\). Using the identifications 
+    \(K_n(\underline{f})\cong \mathcal{O}[[\underline{X}]]\) and \(K_n(\underline{g})\cong A[[\underline{X}]]\), we obtain
     \[
         f \circ \Phi_n(1) = f \circ \Phi_n(u_1\wedge\dots\wedge u_n) = f(D\cdot v_1\wedge\dots\wedge v_n) = f(D).
     \]
-    Finally we have to take the residue class \(\!\!\!\mod (f_1, \dots, f_n)\). That is done by applying the projection map \(\alpha\).
-    In total we get
+    Finally we have to take the residue class \(\!\!\!\mod (f_1, \dots, f_n)\). 
+    That is done by applying the projection map \(\alpha\). In total we get
     \[
         \Phi(f) = \alpha(f(D)),  
     \]
