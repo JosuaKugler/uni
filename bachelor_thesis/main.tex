@@ -805,7 +805,7 @@ structure on \(A\).
 \begin{lemma}
     The map
     \begin{align*}
-        \Phi\colon \hom_\mathcal{O}[[\underline{X}]](A[[\underline{X}]], \mathcal{O}[[\underline{x}]]) &\to A\\
+        \Phi\colon \hom_{\mathcal{O}[[\underline{X}]]}(A[[\underline{X}]], \mathcal{O}[[\underline{x}]]) &\to A\\
         f &\mapsto \alpha(f(D))
     \end{align*}
     is an \(\mathcal{O}[[\underline{X}]]\)-linear surjection.
@@ -1014,6 +1014,93 @@ structure on \(A\).
         \Phi(f) = \alpha(f(D)),  
     \]
     as desired.
+\end{proof}
+
+\begin{lemma}
+    Let 
+    \[
+        \!\tilde{\cdot}\colon \hom_\mathcal{O}(A, \mathcal{O}) \to 
+        \hom_{\mathcal{O}[[\underline{X}]]}(A[[\underline{X}]], \mathcal{O}[[\underline{X}]])
+    \]
+    be the map that assigns an \(\mathcal{O}[[\underline{X}]]\)-homomorphism
+    \(\tilde f\colon A[[\underline{X}]] \to \mathcal{O}[[\underline{X}]]\) to the \(\mathcal{O}\)-homomorphism
+    \(f \colon A \to \mathcal{O}\) by extending it with \(X \mapsto X\).
+    Then define
+    \[
+        \Psi \colon \hom_\mathcal{O}(A, \mathcal{O}) \to A  
+    \]
+    via \(\Psi(f) = \alpha(\tilde{f}(D))\).
+    This is an \(A\)-module isomorphism where the \(A\)-module structure on \(\hom_\mathcal{O}(A, \mathcal{O})\)
+    is given by \(a \cdot f = (x \mapsto f(ax))\).
+    In total we get that \(A\) is Gorenstein.
+\end{lemma}
+\begin{proof}
+    \begin{enumerate}
+        \item \(\Psi\) is \(A\)-linear.
+        For any \(a \in A, a' \in \mathcal{O}[[\underline{X}]]\) we have by definition of \(\Psi\)
+        \[
+            \Psi(af) = \alpha(\tilde f(aD)) = \alpha(\tilde f((a - a')D + a'D))
+            = \alpha(\tilde f((a-a')D)) + \alpha(\tilde f(a'D)),
+        \]
+        where in the last step we have used the linearity of \(\tilde f\) and \(\alpha\).
+        Now choose \(a' \in \alpha^{-1}(a) \subset \mathcal{O}[[\underline{X}]]\), as \(\alpha\) is surjective.
+        We can also understand \(a'\) as an element of \(A[[\underline{X}]]\) via the inclusion
+        \(\iota\colon\mathcal{O}[[\underline{X}]] \hookrightarrow A[[\underline{X}]]\).
+        It follows \(\beta(\iota(a')) = \alpha(a') = a = \beta(a)\). Therefore, \(a - \iota(a') \in \ker \beta\).
+        By definition of the \(g_i\) as generators of \(\ker \beta\), we can write \(a - \iota(a')\) as an 
+        \(A[[\underline{X}]]\)-linear combination of the \(g_i\).
+        We further have
+        \[
+            (f_1, \dots, f_n) = (g_1, \dots, g_n) \cdot M.
+        \]
+        Multiplying with the adjugate matrix \(M'\) we get
+        \[  
+            (f_1, \dots, f_n) \cdot M' = (g_1, \dots, g_n) \cdot \underbrace{M \cdot M'}_{= D \cdot I_{n\times n}}.
+        \]
+        Hence, we can write \(g_i \cdot D\) (and therefore also \((a - \iota(a'))\cdot D\)) 
+        as an \(A[[\underline{X}]]\)-linear combination of the \(f_i\),
+        \[
+            (a - \iota(a'))\cdot D = \sum_{i=1}^n a_i f_i.
+        \]
+        Using the \(\mathcal{O}[[\underline{X}]]\)-linearity of \(\tilde f\), we compute
+        \begin{multline*}
+            \alpha(\tilde f((a-a')D)) = \alpha\left(\tilde{f}\left(\sum_{i=1}^n a_i f_i\right)\right)\\
+            = \alpha\left(\sum_{i=1}^n f_i \tilde{f}(a_i)\right) = \sum_{i=1}^n \alpha(f_i \cdot \tilde{f}(a_i)) = 0,
+        \end{multline*}
+        as \(f_i \in \ker \alpha\).
+        Putting our results together, we obtain
+        \[
+            \Psi(af) = \alpha(\tilde f((a-a')D)) + \alpha(\tilde f(a'D)) = \alpha(\tilde f(a'D)),
+        \]
+        and again by \(\mathcal{O}[[\underline{X}]]\)-linearity of \(\tilde f\) we conclude
+        \[
+            \Psi(af) = \alpha(a'\tilde f(D)) = a \alpha(\tilde f(D)) = a \Psi(f).
+        \]
+        \item \(\Psi\) is surjective.
+        Let \(f_1, \dots, f_r\) be a \(\mathcal{O}\)-basis of \(\hom_\mathcal{O}(A, \mathcal{O})\). 
+        \textbf{Why is that a free module?}
+        Then, the extended maps \(\tilde f_1, \dots \tilde f_r\) form a basis for
+        \(\hom_{\mathcal{O}[[X]]}(A[[\underline{X}]], \mathcal{O}[[\underline{X}]]).\)
+        We have seen that the map 
+        \[
+            \Phi\colon \hom_{\mathcal{O}[[\underline{X}]]}(A[[\underline{X}]], \mathcal{O}[[\underline{x}]]) \to A
+        \] 
+        is surjective.
+        Therefore, \(\forall a \in A\colon \exists p_1, \dots, p_r \in \mathcal{O}[[\underline{X}]]\) s.t.
+        \[
+            a = \Phi(p_1 \tilde f_1 + \dots + p_r \tilde f_r).
+        \]
+        Now we can use the linearity of the involved maps,
+        \begin{align*} 
+                a &= \alpha((p_1 \tilde f_1 + \dots + p_r \tilde f_r)(D))
+                = \Psi(\alpha(p_1) f_1 + \dots + \alpha(p_r) f_r)
+        \end{align*}
+        by using linearity multiple times.%Explain in greater detail
+        \item \(\Psi\) is injective.
+        Analogous to the theorem for vector spaces, we know that a surjective homomorphism between two free modules 
+        of the same finite rank is also injective.
+        As this condition is satisfied by \(\hom_\mathcal{O}(A, \mathcal{O})\) and \(A\) (\textbf{Why?}), the lemma follows.
+    \end{enumerate}
 \end{proof}
 
 \end{document}
