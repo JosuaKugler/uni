@@ -553,7 +553,7 @@ by investigating the invariants \(\phi_A\) and \(\eta_A\) that we defined last s
 \end{proof}
 
 \begin{lemma}\label{lem:standard_ineq}
-    Let \(A \in \co\) \textbf{s.t. \(\phi_A\) finite and \(\eta_A \neq 0\)}. Then \[\#\phi_A \geq \#(\mathcal{O}/\eta_A).\]
+    Let \(A \in \co\) s.t. \(\phi_A\) finite and \(\eta_A \neq 0\). Then \[\#\phi_A \geq \#(\mathcal{O}/\eta_A).\]
 \end{lemma}
 \begin{proof}
     As \(\mathcal{O} = A/\ker \pi_A\), we have
@@ -583,6 +583,7 @@ by investigating the invariants \(\phi_A\) and \(\eta_A\) that we defined last s
     With \cref{cor:surjectivity_phi} it follows that \(\#\phi_R \geq \#\phi_T\).
     \cref{lem:standard_ineq} tells us that \(\#\phi_T \geq \#(\mathcal{O}/\eta_T)\).
     The inequalities combine to \[\#\phi_R \geq \#(\mathcal{O}/\eta_T).\]
+    In both cases we have the finiteness of \(\#\phi_T\). \textbf{Sanity check!}
     \begin{itemize}
         \item[(a)\(\implies\)(b)] (a) gives us \(\#\phi_R \leq \#(\mathcal{O}/\eta_T)\), so combined with the 
         inequality \(\#\phi_R \geq \#(\mathcal{O}/\eta_T)\) we have just proven we conclude that (b) must hold.
@@ -1080,8 +1081,18 @@ structure on \(A\).
             \Psi(af) = \alpha(a'\tilde f(D)) = a \alpha(\tilde f(D)) = a \Psi(f).
         \]
         \item \(\Psi\) is surjective.
+        As \(A\) is a finite flat \(O\)-algebra, we know by the classification of finitely generated modules
+        over principal ideal domains that \(A\) consists of a free part and a torsion part. Because it is flat,
+        however, the torsion part is 0 and therefore \(A\) is a free \(O\)-module.
+        Therefore we have \(\mathcal{O}\)-module-isomorphisms
+        \[
+            \hom_\mathcal{O}(A, \mathcal{O}) \cong \hom_\mathcal{O}(\mathcal{O}^r, \mathcal{O})
+            \cong \mathcal{O}^r,
+        \]
+        where \(r\) may denote the rank of \(\mathcal{O}\). 
+        Therefore \(A\) and \(\hom_\mathcal{O}(A, \mathcal{O})\) are both free \(A\)-modules of the 
+        same finite rank \(r\).
         Let \(f_1, \dots, f_r\) be a \(\mathcal{O}\)-basis of \(\hom_\mathcal{O}(A, \mathcal{O})\). 
-        \textbf{Why is that a free module?}
         Then, the extended maps \(\tilde f_1, \dots \tilde f_r\) form a basis for
         \(\hom_{\mathcal{O}[[X]]}(A[[\underline{X}]], \mathcal{O}[[\underline{X}]]).\)
         We have seen that the map 
@@ -1102,7 +1113,7 @@ structure on \(A\).
         \item \(\Psi\) is injective.
         Analogous to the theorem for vector spaces, we know that a surjective homomorphism between two free modules 
         of the same finite rank is also injective.
-        As this condition is satisfied by \(\hom_\mathcal{O}(A, \mathcal{O})\) and \(A\) (\textbf{Why?}), 
+        As this condition is satisfied by \(\hom_\mathcal{O}(A, \mathcal{O})\) and \(A\), 
         the lemma follows.
     \end{enumerate}
 \end{proof}
