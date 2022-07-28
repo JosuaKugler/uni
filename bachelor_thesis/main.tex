@@ -5,6 +5,9 @@
 \usepackage{enumerate}
 \usepackage[hidelinks]{hyperref}
 \usepackage{cleveref}
+\usepackage[style=alphabetic]{biblatex}
+
+\addbibresource{bibliography.bib}
 
 \theoremstyle{plain}% default
 \newtheorem{theorem}{Theorem}[section]
@@ -159,7 +162,7 @@ Let's take a look at an example.
         \]
         %Theorem 10.26 in Atiyah-MacDonald
         As \(\mathcal{O}[T]/(T(T-\lambda^n))\) is noetherian, its \((\lambda, T)\)-completion \(\mathcal{O}[[T]]/(T(T-\lambda^n))\)
-        is again noetherian.
+        is again noetherian (cf. \cite{Atiyah1969}).
 
         In total, we get that \(A \cong \mathcal{O}[[T]]/(T(T-\lambda^n))\) is a local, complete, noetherian \(\mathcal{O}\)-algebra 
         with residue field \(k\; \implies A \in \co\). 
@@ -1099,8 +1102,11 @@ structure on \(A\).
         \item \(\Psi\) is injective.
         Analogous to the theorem for vector spaces, we know that a surjective homomorphism between two free modules 
         of the same finite rank is also injective.
-        As this condition is satisfied by \(\hom_\mathcal{O}(A, \mathcal{O})\) and \(A\) (\textbf{Why?}), the lemma follows.
+        As this condition is satisfied by \(\hom_\mathcal{O}(A, \mathcal{O})\) and \(A\) (\textbf{Why?}), 
+        the lemma follows.
     \end{enumerate}
 \end{proof}
+
+\printbibliography
 
 \end{document}

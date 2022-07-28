@@ -26,6 +26,7 @@ seminar/figures/full_real_value_contour.tex
 .*.lb
 
 ## Intermediate documents:
+*.tmp
 *.dvi
 *.xdv
 *-converted-to.*
