@@ -35,7 +35,7 @@
 \newcommand{\fitt}{\operatorname{Fitt}}
 \renewcommand{\hom}{\operatorname{Hom}}
 
-\title{Fermat's Last Theorem}
+\title{Wiles' numerical criterion}
 \author{Josua Kugler}
 
 \begin{document}
@@ -49,6 +49,7 @@ Wiles has discovered a criterion for two rings in a specific category to be isom
 that only depends on some numerical invariants of these rings. 
 The aim of this section is to prove that criterion in its purely algebraic form. 
 %TODO: Explain how this fits into the rest of the proof.
+In our presentation, we closely follow \cite[5.1 - 5.8]{darmon1995fermat}.
 
 \subsection{Preliminaries and examples}
 Let \(\mathcal{O}\) be the ring of integers of a finite extension \(K\) of \(\mathbb Q_\ell\). 
@@ -89,7 +90,7 @@ In order to state Wiles' criterion, we need some more definitions.
     is equivalent to being flat as an \(\mathcal{O}\)-module.
 \end{definition}
 
-\begin{definition}[complete intersection]
+\begin{definition}[complete intersection]\cite[see][Def. 5.1]{darmon1995fermat}
     A finite flat ring \(A \in \co\) is called a \textit{complete intersection}, 
     if \(A\) is isomorphic as an \(\mathcal{O}\)-algebra to a quotient
     \[A \cong \mathcal{O}[[X_1, \dots, X_n]]/(f_1, \dots, f_n),\] 
@@ -98,7 +99,7 @@ In order to state Wiles' criterion, we need some more definitions.
 \end{definition}
 
 Let's take a look at an example.
-\begin{example}\label{ex:first_1}
+\begin{example}\label{ex:first_1}\cite[cf.][example 1]{darmon1995fermat}
     \(A = \{(a,b) \in \mathcal{O}\times\mathcal{O},\; a \equiv b\; (\operatorname{mod} \lambda^n)\} 
     \cong \mathcal{O}[[T]]/(T(T-\lambda^n))\) is a finite flat complete intersection in \(\cob\).
     The projection \(\pi_A\) is given by \(\pi_A(a,b) = a\).
@@ -162,7 +163,7 @@ Let's take a look at an example.
         \]
         %Theorem 10.26 in Atiyah-MacDonald
         As \(\mathcal{O}[T]/(T(T-\lambda^n))\) is noetherian, its \((\lambda, T)\)-completion \(\mathcal{O}[[T]]/(T(T-\lambda^n))\)
-        is again noetherian (cf. \cite{Atiyah1969}).
+        is again noetherian \cite[cf.][theorem 10.26]{Atiyah1969}.
 
         In total, we get that \(A \cong \mathcal{O}[[T]]/(T(T-\lambda^n))\) is a local, complete, noetherian \(\mathcal{O}\)-algebra 
         with residue field \(k\; \implies A \in \co\). 
@@ -178,7 +179,7 @@ Let's take a look at an example.
 
 %probably add more examples
 
-\begin{example}\label{ex:last_1}
+\begin{example}\label{ex:last_1}\cite[cf.][example 5]{darmon1995fermat}
     \(U = \mathcal{O}[[X_1, \dots, X_n]]\) with projection \(\pi_U\colon U \to \mathcal{O},\; f \mapsto f(0)\) lies in \(\cob\).
     \begin{proof}
         \(\mathcal{O}\) is noetherian, so \(\mathcal{O}[X_1, \dots, X_{n}]\) is noetherian as well.
@@ -323,7 +324,7 @@ Let's take a look at an example.
 \end{example}
 
 With these results at hand, we can state 
-\begin{theorem}[Wiles' numerical criterion]\label{thm:wiles_numerical_criterion}
+\begin{theorem}\textup{\cite[theorem 5.3]{darmon1995fermat}}\label{thm:wiles_numerical_criterion}
     Let \(R \twoheadrightarrow T\) a surjective morphism of augmented rings, \(T\) finite flat and \(\eta_T \neq 0\) 
     (i.e. \(\mathcal{O}/\eta_T\) finite).
     Then the following are equivalent
@@ -342,6 +343,7 @@ by investigating the invariants \(\phi_A\) and \(\eta_A\) that we defined last s
     A morphism \(f\colon A \to B \in \cob\) induces a homomorphism \(\phi_A \to \phi_B\) of \(\mathcal{O}\)-modules.
     This induced map is surjective if and only if the morphism \(A \to B\) is surjective.
 \end{lemma}
+For the 'only if'-part, see \cites[lemma 5.5]{darmon1995fermat}[theorem 8.4]{Matsumura1986}[ch. II, lemma 7.4]{Hartshorne1977}
 \begin{proof}
     We have the commutative diagram
     \[
@@ -426,13 +428,14 @@ by investigating the invariants \(\phi_A\) and \(\eta_A\) that we defined last s
 \end{proof}
 
 \begin{corollary}\label{cor:surjectivity_phi}
-    \(A \to B\) is surjective if and only if \[\phi_A \geq \phi_B.\]
+    Let \(A, B\in \cob\) and \(\phi_A\) be finite. Then \(\phi_B\) is finite as well
+    and \(A \to B\) is surjective if and only if \[\# \phi_A \geq \# \phi_B.\]
 \end{corollary}
 
 \begin{lemma}
     If \(f \colon A \to B\) is surjective, then
     \begin{equation}
-        \eta_A \subset \eta_B, \quad \text{i.e.,}\quad \#(\mathcal{O}/\eta_A) \geq \#(\mathcal{O}/\eta_B).  
+        \eta_A \subset \eta_B, \quad \text{i.e. if \(\eta_A \neq 0\),}\quad \#(\mathcal{O}/\eta_A) \geq \#(\mathcal{O}/\eta_B).  
     \end{equation}
 \end{lemma}
 \begin{proof}
@@ -575,15 +578,16 @@ by investigating the invariants \(\phi_A\) and \(\eta_A\) that we defined last s
     \]
 \end{proof}
 
-\begin{proposition}
+\begin{proposition}\textup{\cite[cf.][corollary 5.6]{darmon1995fermat}}
     (a) \(\Leftrightarrow\) (b) in \cref{thm:wiles_numerical_criterion}.
 \end{proposition}
 \begin{proof}
     By assumption, \(R \to T\) is a surjective morphism in \(\cob\).
-    With \cref{cor:surjectivity_phi} it follows that \(\#\phi_R \geq \#\phi_T\).
-    \cref{lem:standard_ineq} tells us that \(\#\phi_T \geq \#(\mathcal{O}/\eta_T)\).
+    With \cref{cor:surjectivity_phi} it follows that \(\#\phi_R \geq \#\phi_T\). \Cref{lem:standard_ineq} 
+    tells us that \(\#\phi_T \geq \#(\mathcal{O}/\eta_T)\).
     The inequalities combine to \[\#\phi_R \geq \#(\mathcal{O}/\eta_T).\]
-    In both cases we have the finiteness of \(\#\phi_T\). \textbf{Sanity check!}
+    In both cases the finiteness of \(\mathcal{O}/\eta_T\) implies the finiteness of \(\phi_R\)
+    and from that we obtain the finiteness of \(\#\phi_T\).
     \begin{itemize}
         \item[(a)\(\implies\)(b)] (a) gives us \(\#\phi_R \leq \#(\mathcal{O}/\eta_T)\), so combined with the 
         inequality \(\#\phi_R \geq \#(\mathcal{O}/\eta_T)\) we have just proven we conclude that (b) must hold.
@@ -598,7 +602,7 @@ The goal of this section is to prove some technical lemmata and to introduce
 the Koszul complex that we will use to construct two \(\mathcal{O}[[X]]\)-free resolutions for \(A\).
 This will turn out to be crucial in the next section.
 
-We start with a few definitions from commutative algebra.
+We start with a few definitions from commutative algebra, closely following \cite[sec. 5.3]{darmon1995fermat}
 \begin{definition}[primary ideal]
     Let \(R\) be a local ring and \(\mathfrak{a} \subsetneq R\) an ideal. 
     \(\mathfrak{a}\) is said to be primary if every zero divisor in \(R/\mathfrak{a}\) is nilpotent.
@@ -614,7 +618,7 @@ Recall that the dimension of a ring is given by
     a system of parameters.
 \end{definition}
 
-\begin{lemma}\label{lem:sys_params}
+\begin{lemma}\label{lem:sys_params}\cite[lemma 5.10]{darmon1995fermat}
     The sequence \((f_1, \dots, f_n, \lambda)\) is a system of parameters for \(U\) (cf. \cref{ex:last_1}).
 \end{lemma}
 \begin{proof}
@@ -652,13 +656,13 @@ Recall that the dimension of a ring is given by
     In total, \(f_1, \dots, f_n, \lambda\) generate a primary ideal of \(U\).
 \end{proof}
 
-\begin{definition}[regular sequence]
+\begin{definition}[regular sequence]\cite[cf.][\S 16]{Matsumura1986}
     A sequence \((x_1, \dots, x_n)\) is said to be a regular sequence 
     if \(\forall\; i = 1, \dots, n\colon\)
     \[x_i \text{ is not a zero-divisor in } R/(x_1, \dots, x_{i-1}).\]
 \end{definition}
 
-\begin{lemma}\label{lem:reg_seq}
+\begin{lemma}\label{lem:reg_seq}\cite[lemma 5.11]{darmon1995fermat}
     The sequence \((f_1, \dots, f_n)\) is a regular sequence for \(U\).
 \end{lemma}
 \begin{proof}
@@ -683,7 +687,7 @@ Recall that the dimension of a ring is given by
     A fortiori, the sequence \((f_1, \dots, f_n)\) is also a regular sequence.
 \end{proof}
 
-\begin{corollary}
+\begin{corollary}\cite[corollary 5.12]{darmon1995fermat}
     Let \(A \in \cob\) be finitely generated and of the form
     \[
         A \cong \mathcal{O}[[X_1, \dots, X_n]]/(f_1, \dots, f_n).  
@@ -726,7 +730,7 @@ Recall that the dimension of a ring is given by
 \end{proof}
 
 %The Koszul complex
-\begin{definition}[Koszul complex]
+\begin{definition}[Koszul complex]\cites[ch. 5.3]{darmon1995fermat}[\S 16]{Matsumura1986}
     The Koszul complex associated to a sequence \(\underline{x} = (x_1, \dots, x_n)\) contained in the maximal ideal
     of a local ring is given by the complex
     \[
@@ -745,7 +749,7 @@ Recall that the dimension of a ring is given by
     As usual, we denote by \(H_p(\underline{x}, R)\) the \(p\)-th homology group of this complex.
 \end{definition}
 
-\begin{remark}
+\begin{remark}\textup{\cites[proposition 5.13]{darmon1995fermat}[theorem 16.5 (i)]{Matsumura1986}}
     We note \(K_0(\underline{x}, R) = R\) and therfore compute
     \[
         H_0(\underline{x}, R) = K_0(\underline{x}, R)/(\im d_1) \cong R/(x_1, \dots, x_n) = R/(\underline{x}).
@@ -806,7 +810,7 @@ Let \(D = \det(M) \in A[[\underline{X}]]\).
 The projection \(\mathcal{O}[[\underline{X}]] \to A\) induces an \(\mathcal{O}[[\underline{X}]]\)-module 
 structure on \(A\).
 
-\begin{lemma}
+\begin{lemma}\cite[see][lemma 5.14]{darmon1995fermat}
     The map
     \begin{align*}
         \Phi\colon \hom_{\mathcal{O}[[\underline{X}]]}(A[[\underline{X}]], \mathcal{O}[[\underline{x}]]) &\to A\\
@@ -1020,7 +1024,7 @@ structure on \(A\).
     as desired.
 \end{proof}
 
-\begin{lemma}
+\begin{lemma}\cite[lemma 5.15]{darmon1995fermat}
     Let 
     \[
         \!\tilde{\cdot}\colon \hom_\mathcal{O}(A, \mathcal{O}) \to 
@@ -1095,6 +1099,7 @@ structure on \(A\).
         Let \(f_1, \dots, f_r\) be a \(\mathcal{O}\)-basis of \(\hom_\mathcal{O}(A, \mathcal{O})\). 
         Then, the extended maps \(\tilde f_1, \dots \tilde f_r\) form a basis for
         \(\hom_{\mathcal{O}[[X]]}(A[[\underline{X}]], \mathcal{O}[[\underline{X}]]).\)
+        \textbf{How?}
         We have seen that the map 
         \[
             \Phi\colon \hom_{\mathcal{O}[[\underline{X}]]}(A[[\underline{X}]], \mathcal{O}[[\underline{x}]]) \to A
@@ -1107,9 +1112,8 @@ structure on \(A\).
         Now we can use the linearity of the involved maps,
         \begin{align*} 
                 a &= \alpha((p_1 \tilde f_1 + \dots + p_r \tilde f_r)(D))
-                = \Psi(\alpha(p_1) f_1 + \dots + \alpha(p_r) f_r)
+                = \Psi(\alpha(p_1) f_1 + \dots + \alpha(p_r) f_r).
         \end{align*}
-        by using linearity multiple times.%Explain in greater detail
         \item \(\Psi\) is injective.
         Analogous to the theorem for vector spaces, we know that a surjective homomorphism between two free modules 
         of the same finite rank is also injective.
