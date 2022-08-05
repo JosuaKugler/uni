@@ -1,9 +1,10 @@
 \documentclass{article}
+\usepackage[utf8]{inputenc}
 \usepackage{amsmath, amsthm, amsfonts, amssymb}
 \usepackage{mathtools}
 \usepackage{tikz-cd}
 \usepackage{enumerate}
-\usepackage[hidelinks]{hyperref}
+\usepackage[hidelinks, unicode]{hyperref}
 \usepackage{cleveref}
 \usepackage[style=alphabetic]{biblatex}
 
@@ -41,17 +42,16 @@
 \begin{document}
 \maketitle
 \tableofcontents
-\section{Introduction}
-\section{An Overview of Wiles' proof}
+
 \newpage
-\section{Wiles' numerical criterion}
+\section{Introduction}
 Wiles has discovered a criterion for two rings in a specific category to be isomorphic 
 that only depends on some numerical invariants of these rings. 
 The aim of this section is to prove that criterion in its purely algebraic form. 
 %TODO: Explain how this fits into the rest of the proof.
 In our presentation, we closely follow \cite[5.1 - 5.8]{darmon1995fermat}.
 
-\subsection{Preliminaries and examples}
+\section{Preliminaries and examples}
 Let \(\mathcal{O}\) be the ring of integers of a finite extension \(K\) of \(\mathbb Q_\ell\). 
 As \(K\) is a local field, its ring of integers is a discrete valutation ring (DVR), i.e. 
 \(\mathcal O\) is a local, noetherian Dedekind ring with maximal ideal \(\lambda\). 
@@ -335,7 +335,7 @@ With these results at hand, we can state
     \end{enumerate}
 \end{theorem}
 
-\subsection{Basic properties of the invariants}
+\section{Basic properties of the invariants}
 In this subsection we prove the equivalence (a) \(\Leftrightarrow\) (b) in \cref{thm:wiles_numerical_criterion}
 by investigating the invariants \(\phi_A\) and \(\eta_A\) that we defined last section.
 
@@ -595,7 +595,7 @@ For the 'only if'-part, see \cites[lemma 5.5]{darmon1995fermat}[theorem 8.4]{Mat
     \end{itemize}      
 \end{proof}
 
-\subsection{Regular sequences and the Koszul complex}
+\section{Regular sequences and the Koszul complex}
 Let \(A\) be a finite flat complete intersection. Hence we can write 
 \[A = \mathcal{O}[[X_1, \dots, X_n]]/(f_1, \dots, f_n).\]
 The goal of this section is to prove some technical lemmata and to introduce
@@ -618,7 +618,7 @@ Recall that the dimension of a ring is given by
     a system of parameters.
 \end{definition}
 
-\begin{lemma}\label{lem:sys_params}\cite[lemma 5.10]{darmon1995fermat}
+\begin{lemma}\label{lem:sys_params}\textup{\cite[lemma 5.10]{darmon1995fermat}}
     The sequence \((f_1, \dots, f_n, \lambda)\) is a system of parameters for \(U\) (cf. \cref{ex:last_1}).
 \end{lemma}
 \begin{proof}
@@ -662,7 +662,7 @@ Recall that the dimension of a ring is given by
     \[x_i \text{ is not a zero-divisor in } R/(x_1, \dots, x_{i-1}).\]
 \end{definition}
 
-\begin{lemma}\label{lem:reg_seq}\cite[lemma 5.11]{darmon1995fermat}
+\begin{lemma}\label{lem:reg_seq}\textup{\cite[lemma 5.11]{darmon1995fermat}}
     The sequence \((f_1, \dots, f_n)\) is a regular sequence for \(U\).
 \end{lemma}
 \begin{proof}
@@ -687,7 +687,7 @@ Recall that the dimension of a ring is given by
     A fortiori, the sequence \((f_1, \dots, f_n)\) is also a regular sequence.
 \end{proof}
 
-\begin{corollary}\cite[corollary 5.12]{darmon1995fermat}
+\begin{corollary}\textup{\cite[corollary 5.12]{darmon1995fermat}}
     Let \(A \in \cob\) be finitely generated and of the form
     \[
         A \cong \mathcal{O}[[X_1, \dots, X_n]]/(f_1, \dots, f_n).  
@@ -760,7 +760,7 @@ Recall that the dimension of a ring is given by
     %if I have time and motivation I can probably give some more proofs here
 \end{remark}
 
-\subsection{Complete intersections and the Gorenstein condition}
+\section{Complete intersections and Gorenstein rings}
 Let \(A\) be a finite flat complete intersection in \(\cob\). The goal of this section is to show that \(A\)
 satisfies a Gorenstein condition, i.e. a specific form of self-duality.
 This fact can then be used to show (c) \(\implies\) (b) in \cref{thm:wiles_numerical_criterion}.
@@ -810,7 +810,7 @@ Let \(D = \det(M) \in A[[\underline{X}]]\).
 The projection \(\mathcal{O}[[\underline{X}]] \to A\) induces an \(\mathcal{O}[[\underline{X}]]\)-module 
 structure on \(A\).
 
-\begin{lemma}\cite[see][lemma 5.14]{darmon1995fermat}
+\begin{lemma}\textup{\cite[see][lemma 5.14]{darmon1995fermat}}
     The map
     \begin{align*}
         \Phi\colon \hom_{\mathcal{O}[[\underline{X}]]}(A[[\underline{X}]], \mathcal{O}[[\underline{x}]]) &\to A\\
@@ -914,7 +914,7 @@ structure on \(A\).
         \]
         This map sends \(X_i\) to \(a_i \in A\).
         By definition of \(A = \mathcal{O}[[\underline{X}]]/(f_1, \dots, f_n)\) and \(a_i\) as image of \(X_i\)
-        under \(\alpha\) this is exactly the map \(\alpha\). \textbf{Really?} Hence, the induced map
+        under \(\alpha\) this is exactly the map \(\alpha\). Hence, the induced map
         \[
             A = \mathcal{O}[[\underline{X}]]/(f_1, \dots, f_n) \to 
             \frac{A[[\underline{X}]]}{(X_1 - a_1, \dots, X_n - a_n)} = A
@@ -952,8 +952,30 @@ structure on \(A\).
     \]
     As both resolutions are free and, a fortiori, projective we can use the fact from homological algebra
     that there exists a homotopy equivalence that induces identity on the zero-th homology groups.
-    As this map is then uniquely defined by skew linearity, we get that \(\Phi\) needs to be a homotopy equivalence.
-    \textbf{might be not so uniquely defined?}
+    Consider the following commutative diagram with exact rows
+    \[
+            \begin{tikzcd}
+                \bigoplus_{i=1}^n u_i \mathcal{O}[[\underline{X}]] \arrow[r, "d_1"] \arrow[d, dashed] 
+                &\mathcal{O}[[\underline{X}]]  \arrow[r, "\alpha"] \arrow[d, dashed] & A \arrow[r] \arrow[d, "\mathrm{id}"] & 0\\
+                \bigoplus_{i=1}^n v_i A[[\underline{X}]] \arrow[r, "d_1"] 
+                & A[[\underline{X}]] \arrow[r, "X_i \mapsto a_i"] & A \arrow[r] & 0
+            \end{tikzcd}.
+        \]
+    From projectiveness we can conclude that there is a lift of the map \(\mathrm{id} \circ \alpha\) to a map 
+    \(\mathcal{O}[[\underline{X}]] \to A[[\underline{X}]]\) along the map \(X_i \mapsto a_i\). 
+    As both maps send \(X_i \mapsto a_i\), our lift is given by \(X_i \mapsto X_i\), i.e. it is exactly \(\Phi_0\).
+    By commutativity, \((f_1, \dots, f_n) = \im d_1 = \ker \alpha\) maps to the kernel of \(X_i \mapsto a_i\). Therefore, we can lift the map
+    \(\Phi_0 \circ d_1\) along the surjective map 
+    \[
+        d_1 \colon \bigoplus_{i=1}^n v_i A[[\underline{X}]] \to \im d_1 = \ker(X_i \mapsto a_i) = (g_1, \dots, g_n).
+    \]
+    Using \((f_1, \dots, f_n) = (g_1, \dots, g_n)M\), we obtain for the induced map \(f\)
+    \begin{multline*}
+        d_1(f(u_i)) = \Phi_0(d_1(u_i)) = \Phi_0(-f_i) = - \sum_{j=1}^n g_jm_{ji}\\
+        = \sum_{j=1}^n d_1(v_j)m_{j_i} = d_1\left(\sum_{j=1}^n v_j m_j\right).
+    \end{multline*}
+    We note that \(f = \Phi_1\). 
+    As the higher maps are then uniquely defined by skew linearity, we get that \(\Phi\) needs to be a homotopy equivalence.
     Hence, we have an isomorphism on the \(n\)-th cohomology,
     \[
         \Phi_n^*\colon \hom_{\mathcal{O}[[\underline{X}]]}(K_n(\underline{g}), \mathcal{O}[[\underline{X}]])/(\im d_n^*)
@@ -1024,7 +1046,7 @@ structure on \(A\).
     as desired.
 \end{proof}
 
-\begin{lemma}\cite[lemma 5.15]{darmon1995fermat}
+\begin{lemma}\textup{\cite[lemma 5.15]{darmon1995fermat}}
     Let 
     \[
         \!\tilde{\cdot}\colon \hom_\mathcal{O}(A, \mathcal{O}) \to 
@@ -1122,6 +1144,18 @@ structure on \(A\).
     \end{enumerate}
 \end{proof}
 
+\section{Explicit computation of \texorpdfstring{\(\eta\)}{η} for complete intersections}
+
+\section{Isomorphism theorems}
+
+\section{A resolution lemma}
+
+\section{A criterion for complete intersections}
+
+\section{Proof of Wiles' numerical criterion}
+
+
+\newpage
 \printbibliography
 
 \end{document}
