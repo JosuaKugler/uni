@@ -1046,7 +1046,7 @@ structure on \(A\).
     as desired.
 \end{proof}
 
-\begin{lemma}\textup{\cite[lemma 5.15]{darmon1995fermat}}
+\begin{lemma}\textup{\cite[lemma 5.15]{darmon1995fermat}}\label{lem:gorenstein}
     Let 
     \[
         \!\tilde{\cdot}\colon \hom_\mathcal{O}(A, \mathcal{O}) \to 
@@ -1145,6 +1145,98 @@ structure on \(A\).
 \end{proof}
 
 \section{Explicit computation of \texorpdfstring{\(\eta\)}{η} for complete intersections}
+
+The goal of this section is to find explicit 
+We closely follow \cite[chapter 5.4]{darmon1995fermat}.
+
+In this section, \(A\) is always a finite flat complete intersection \(\in \cob\), 
+i.e. \(A \cong \mathcal{O}[[X_1, \dots, X_n]]/(f_1, \dots, f_n)\).
+\begin{notation}
+    \(A^\vee \coloneqq \hom_\mathcal{O}(A, \mathcal{O})\) and similarly, \(\pi_A^\vee \colon \mathcal{O}^\vee \to A^\vee\) 
+    may denote the dual map associated to \(\pi_A\colon A \to \mathcal{O}\).
+\end{notation}
+As we have seen in the last section, \(A^\vee \cong A\) as \(A\) is a complete intersection.
+We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
+\begin{lemma}
+    Any two \(A\)-module isomorphisms \(\Psi, \Psi' \colon A^\vee \to A\) differ by a unit.
+\end{lemma}
+\begin{proof}
+    The composition \(\Psi' \circ \Psi^{-1} \colon A \to A\) is an \(A\)-module isomorphism from \(A\) to \(A\).
+    Such an isomorphism is uniquely defined by its value on \(1\),
+    \[
+        \Psi' \circ \Psi^{-1}(x) = x \cdot \Psi' \circ \Psi^{-1}(1).
+    \]
+    As we have the same fact for the inverse map, we find that \(\Psi' \circ \Psi^{-1}(1) \in A^\times\).
+    \(\Psi \circ \Psi^{-1}(1) = 1\), so \(\Psi' \circ \Psi^{-1} = x \cdot \Psi \circ \Psi^{-1}\).
+    We conclude \(\Psi = x \cdot \Psi'\).
+\end{proof}
+
+\begin{lemma}
+    \(\Psi \pi_A^\vee(\mathcal{O}^\vee) = \ann_A \ker \pi_A\) and, a fortiori
+    \[
+        \eta_A = \pi_A \Psi \pi_A^\vee(\mathcal{O}^\vee).  
+    \]
+\end{lemma}
+\begin{proof}
+    We first show \(\Psi \pi_A^\vee(\mathcal{O}^\vee) \subset \ann_A \ker \pi_A\).
+    Let therefore \(\phi\colon \mathcal{O} \to \mathcal{O} \in \mathcal{O}^\vee\) and \(x \in \ker \pi_A\).
+    It suffices to show that \(\Psi \pi_A^\vee(\phi) \cdot x = 0\).
+    Taking into account the \(A\)-module structure of \(\hom_\mathcal{O}(A, \mathcal{O})\) 
+    and the fact that \(\Psi\) is an \(A\)-module-isomorphism, we obtain
+    \[
+        \Psi \pi_A^\vee(\phi) \cdot x = \Psi(\phi \circ \pi_A) \cdot x = \Psi(x \cdot \phi \circ \pi_A) 
+        = \Psi((y \mapsto \phi \circ \pi_A(x\cdot y))) = 0,
+    \]
+    as \(x \in \ker \pi_A\).
+    In order to prove  \(\Psi \pi_A^\vee(\mathcal{O}^\vee) \supset \ann_A \ker \pi_A\), let \(a \in \ann_A \ker \pi_A\)
+    and \(f \in \hom_\mathcal{O}(A, \mathcal{O})\) s.t. \(\Psi(f) = a\). Then \(\forall x \in \ker \pi_A\),
+    \[
+        0 = \Psi(f) \cdot x = \Psi((y \mapsto f(x\cdot y))) \implies f(x\cdot y) = 0 \forall y \in A \implies f(x) = 0.
+    \]
+    A fortiori, \(\ker \pi_A \subset \ker f\) and we get an induced map \(\tilde f\colon \mathcal{O} \cong A/\ker \pi_A \to \mathcal{O}\)
+    s.t. \(f = \tilde f \circ \pi_A\). As a result, we can write
+    \[
+        a = \Psi(f) = \Psi(\tilde f \circ \pi_A) = \Psi(\pi_A^\vee(\tilde f)) \in \Psi(\pi_A^\vee(\mathcal{O}^\vee)).  
+    \]
+\end{proof}
+
+\begin{lemma}
+    Let 
+    \[
+        \!\tilde{\cdot}\colon \hom_\mathcal{O}(A, \mathcal{O}) \to 
+        \hom_{\mathcal{O}[[\underline{X}]]}(A[[\underline{X}]], \mathcal{O}[[\underline{X}]])
+    \]
+    be the map known from \cref{lem:gorenstein} and \(D = \det M\) as defined in the previous section.
+    Then,
+    \[
+        \pi_A \Psi \pi_A^\vee(\mathcal{O}^\vee) = \pi\alpha \tilde \pi(D).
+    \]
+\end{lemma}
+\begin{proof}
+    clear.
+\end{proof}
+
+\begin{proposition}\cite[proposition 5.19]{darmon1995fermat}
+    \[
+        \eta_A = (\det(\partial f_i/\partial X_j(0))).
+    \]
+\end{proposition}
+\begin{proof}
+    We have \[
+        \eta_A = \pi_A \Psi \pi_A^\vee(\mathcal{O}^\vee) = \pi\alpha \tilde \pi(D).
+    \]
+\end{proof}
+
+\begin{corollary}\cite[corollary 5.20]{darmon1995fermat}
+    Remembering that we assumed \(A\) to be a finite flat complete intersection \(\in \cob\), we obtain
+    \[
+        \# \Phi_A = \# (\mathcal{O}/\eta_A),
+    \]
+    i.e. (c)\(\implies\)(b) in \cref{thm:wiles_numerical_criterion}.
+\end{corollary}
+\begin{proof}
+    
+\end{proof}
 
 \section{Isomorphism theorems}
 
