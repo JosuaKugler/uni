@@ -1353,7 +1353,7 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
     \[
         \#(\mathcal{O}/\eta_A) \geq \#\phi_A = \#\phi_{\tilde{A}} \geq \#(\mathcal{O}/\eta_{\tilde{A}}).
     \]
-    As \(tilde{A} \twoheadrightarrow A\) is surjective, we apply \cref{lem:surjectivity_eta} 
+    As \(\tilde{A} \twoheadrightarrow A\) is surjective, we apply \cref{lem:surjectivity_eta} 
     and deduce 
     \[
         \eta_{\tilde{A}} \subset \eta_A, \;\; \#(\mathcal{O}/\eta_{\tilde{A}}) \geq \#(\mathcal{O}/\eta_A).
@@ -1366,6 +1366,25 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
 
 \section{Proof of Wiles' numerical criterion}
 
+\begin{proposition}
+    Let \(R, T \in \cob\) such that \(T\) is finite flat and 
+    \(\phi\colon R \twoheadrightarrow T\) is a surjective \(\cob\)-morphism.
+    If \(\# \phi_R \leq \#(\mathcal{O}/\eta_T) < \infty\), then \(R\) and \(T\) are complete intersections,
+    and \(\phi\) is an isomorphism.
+\end{proposition}
+\begin{proof}
+    Concatenating the inequalities from \cref{lem:standard_ineq}, 
+    \cref{cor:surjectivity_phi} which is applicable because of the surjectivity of \(\phi\)
+    and from the assumption, we obtain
+    \[
+        \#(\mathcal{O}/\eta_T) \leq \#\phi_T \leq \#\phi_R \leq \#(\mathcal{O}/\eta_T).
+    \]
+    All inequalities must be equalities and from \(\#\phi_T = \#(\mathcal{O}/\eta_T)\)
+    we conclude with \cref{prop:criterionCI} that \(T\) is a complete intersection.
+    From \(\#\phi_T = \#\phi_R \) we see that \(\phi\) induces an isomorphism on the tangent spaces.
+    From \textbf{add reference here} it follows that \(\phi\colon R \to T\) is an isomorphism and, 
+    a fortiori \(R\) is a complete intersection as well.
+\end{proof}
 
 \newpage
 \printbibliography
