@@ -1217,24 +1217,22 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
     be the maps known from \cref{lem:gorenstein} and \(D = \det M\) as defined in the previous section.
     Then,
     \[
-        \pi_A \Psi \pi_A^\vee(\mathcal{O}^\vee) = \pi\alpha \tilde \pi(D).
+        \pi_A \Psi \pi_A^\vee(\mathcal{O}^\vee) = \langle\pi_A\alpha \tilde \pi_A(D)\rangle_\mathcal{O}.
     \]
 \end{lemma}
 \begin{proof}
-    Consider the commutative diagram where \(u, v\) give the \(\mathcal{O}\)-algebra structure of \(\mathcal{O}\)
+    Let \(\phi \in \mathcal{O}^\vee = \hom_\mathcal{O}(\mathcal{O}, \mathcal{O})\).
+    Then \(\phi(x) = x \cdot\phi(1) \in \mathcal{O}\). Therefore 
     \[
-        \begin{tikzcd}
-            \mathcal{O} \arrow[rr] & & \mathcal{O}\\
-            &\mathcal{O} \arrow[ul, "u"] \arrow[ur, "v", swap]&
-        \end{tikzcd}.
+        \Psi(\pi_A^\vee(\phi)) = \Psi(\phi \circ \pi_A) = \alpha(\tilde{\phi} \circ \tilde{\pi_A}(D)) = \alpha(\phi(1)\cdot \tilde{\pi_A}(D)).
     \]
-    \(u\) and \(v\) are ring homomorphisms, so \(u(1) = v(1) = 1\).
-    Therefore, any \(\phi \in \hom_\mathcal{O}(\mathcal{O}, \mathcal{O})\) has \(phi(1) = \phi(u(1)) = v(1) = 1\).
-    Together with the \(\mathcal{O}\)-linearity we find that \(\mathcal{O}^\vee = \{\mathrm{id}\}\).
-    As a result,
+    Using the \(\mathcal{O}\)-linearity of \(\alpha\) and \(\pi_A\), we get
     \[
-        \pi_A\Psi\pi_a^\vee(\mathcal{O}^\vee) = \pi_A\Psi(\mathrm{id} \circ \pi_A) = \pi_A \alpha \tilde{\pi_A}(D).  
+        \pi_A(\Psi(\pi_A^\vee(\phi))) = \phi(1) \cdot \pi_A \alpha \tilde{\pi_A}(D) \in \langle\pi_A\alpha \tilde \pi_A(D)\rangle_\mathcal{O}.
     \]
+    For the other inclusion, let \(x\cdot \pi_A\alpha\tilde \pi_A \in \langle\pi_A\alpha \tilde \pi_A(D)\rangle_\mathcal{O}\) 
+    with \(x \in \mathcal{O}\). Then define \(phi(y) = y \cdot x \in \mathcal{O}^\vee\).
+    By the calculations we have done so far it becomes clear that this is the required preimage.
 \end{proof}
 
 \begin{proposition}\cite[proposition 5.19]{darmon1995fermat}
