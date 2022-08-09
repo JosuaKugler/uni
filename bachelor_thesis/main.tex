@@ -1231,7 +1231,7 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
         \pi_A(\Psi(\pi_A^\vee(\phi))) = \phi(1) \cdot \pi_A \alpha \tilde{\pi_A}(D) \in \langle\pi_A\alpha \tilde \pi_A(D)\rangle_\mathcal{O}.
     \]
     For the other inclusion, let \(x\cdot \pi_A\alpha\tilde \pi_A \in \langle\pi_A\alpha \tilde \pi_A(D)\rangle_\mathcal{O}\) 
-    with \(x \in \mathcal{O}\). Then define \(phi(y) = y \cdot x \in \mathcal{O}^\vee\).
+    with \(x \in \mathcal{O}\). Then define \(\phi(y) = y \cdot x \in \mathcal{O}^\vee\).
     By the calculations we have done so far it becomes clear that this is the required preimage.
 \end{proof}
 
@@ -1242,9 +1242,29 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
 \end{proposition}
 \begin{proof}
     We have \[
-        \eta_A = \pi_A \Psi \pi_A^\vee(\mathcal{O}^\vee) = \pi\alpha \tilde \pi(D).
+        \eta_A = \pi_A \Psi \pi_A^\vee(\mathcal{O}^\vee) = \pi_A\alpha \tilde \pi_A(D).
     \]
-    The rest of the proof is not so clear.
+    Consider the equation
+    \[
+        (f_1, \dots, f_n) = (X_1 - [X_1], \dots, X_n - [X_n]) \cdot (m_{i,j})_{i,j}.
+    \]
+    Applying \(\tilde \pi_A\) to the whole equation leaves the \(f_i\) unchanged because \(\tilde \pi_A(X_i) = X_i\)
+    and the coefficients of the \(f_i\) are elements of \(\mathcal{O}\) that are not affected by \(\pi_A\).
+    On the RHS, we get \(\tilde \pi_A(X_i - [X_i]) = X_i - \pi_A([X_i]) = X_i\), as \(\pi_A\) 
+    is the evaluation at \(0\) for preimages of \(A\) in \(\mathcal{O}[[X_1, \dots, X_n]]\).
+    Denote the image of \(m_{i,j}\) under \(\tilde \pi_A\) with \(\tilde m_{i,j} \in \mathcal{O}[[X_1, \dots, X_n]]\).
+    Now compute
+    \[
+        \frac{\partial f_i}{\partial X_j}(0) = \frac{\partial \sum_{k=1}^n X_k\tilde m_{k,i}}{\partial X_j}(0) 
+        = \tilde m_{j,i}(0) + \sum_{k=1}^n X_k \frac{\partial \tilde m_{k,i}}{\partial X_j}\bigg|_{0} 
+        = \tilde m_{j,i}(0).
+    \]
+    The composition \(\pi_A \circ \alpha\) is given by the evaluation at \(0\).
+    Because computing the determinant is a linear operation, we get
+    \[
+        \pi_A \alpha \tilde \pi_A(D) = \det(\pi_A\alpha \tilde m_{i,j})_{i,j} = \det(\tilde m_{i,j}(0))_{i,j}
+        = \det \frac{\partial f_i}{\partial X_j}(0).
+    \]
 \end{proof}
 
 \begin{corollary}\cite[corollary 5.20]{darmon1995fermat}
@@ -1255,7 +1275,7 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
     i.e. (c)\(\implies\)(b) in \cref{thm:wiles_numerical_criterion}.
 \end{corollary}
 \begin{proof}
-    unclear
+    Should be true and mostly linear algebra, we will look up a reference.
 \end{proof}
 
 \section{Isomorphism theorems}
