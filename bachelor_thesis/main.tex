@@ -1152,11 +1152,11 @@ structure on \(A\).
 
 \section{Explicit computation of \texorpdfstring{\(\eta\)}{η} for complete intersections}
 
-The goal of this section is to find explicit 
-We closely follow \cite[chapter 5.4]{darmon1995fermat}.
-
 In this section, \(A\) is always a finite flat complete intersection \(\in \cob\), 
 i.e. \(A \cong \mathcal{O}[[X_1, \dots, X_n]]/(f_1, \dots, f_n)\).
+The goal of this section is to find explicit formulas for \(\eta_A\) and \(\phi_A\) using
+the relations \(f_i\). This allows us to show that (c) \(\implies\) (b) in \cref{thm:wiles_numerical_criterion}.
+We closely follow \cite[chapter 5.4]{darmon1995fermat}.
 \begin{notation}
     \(A^\vee \coloneqq \hom_\mathcal{O}(A, \mathcal{O})\) and similarly, \(\pi_A^\vee \colon \mathcal{O}^\vee \to A^\vee\) 
     may denote the dual map associated to \(\pi_A\colon A \to \mathcal{O}\).
@@ -1287,7 +1287,36 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
     then \(f\) is an isomorphism.
 \end{proposition}
 \begin{proof}
+    Consider the following commutative diagram
+    \[
+        \begin{tikzcd}
+             & A \arrow[dd, "f", two heads] \arrow[rd, "\pi_A", two heads] 
+             & \arrow[l, hook]\ker \pi_A \arrow[r, two heads]
+             & \phi_A \arrow[dd, hook, two heads, "\tilde f"]\\
+            U \arrow[ru, "\nu_A"]\arrow[rd, "\nu_B"'] & & \mathcal{O}&\\
+             & B \arrow[ru, "\pi_B"', two heads] & \arrow[l, hook]\ker \pi_B \arrow[r, two heads] & \phi_B.
+        \end{tikzcd}
+    \]
+    The projection \(\nu_B\) arises from the fact that we can write every object in \(\cob\)
+    as a quotient of \(U\) (\cref{rem:quotientofU}).
+    As \(B\) is a complete intersection, we find \(n\) generators \(f_i \in U\) s.t. \(\ker \nu_B = (f_1, \dots, f_n)\).
+    Define \(b_i \coloneqq \nu_B(X_i) \in \ker \pi_B\) and choose preimages \(a_i \in A\) s.t. \(f(a_i) = b_i\).
+    As the triangle involving \(A, B\) and \(\mathcal{O}\) commutes, we conclude that \(\pi_A(a_i) = \pi_B(b_i) = 0\),
+    i.e. \(a_i \in \ker \pi_A\).
     
+    As \(X_1, \dots, X_n\) generate \(\phi_U\) and \(\nu_B\) is surjective, it is easy to see that 
+    \(b_1, \dots, b_n\) generate \(\phi_B\).
+    We know that \(\tilde f\) is an isomorphism, so \(a_1, \dots, a_n\) generate \(\phi_A\).
+    Define
+    \[
+        \nu_A \colon \mathcal{O}[[X_1, \dots, X_n]] \to A
+    \] via \(\nu_A(X_i) = a_i\).
+    As all generators lie in the image of \(\nu_A\), this induces a surjection on \(\phi_A\).
+    By \cref{lem:surjectivity_phi} it follows that \(\phi\) is surjective.
+    %kernel containments => well defined inverse => \phi is an iso
+    
+    Finally, we want to show that \(\ker \nu_A = \ker \nu_B\).
+    The inclusion \(\ker \nu_A \subset \ker \nu_B\) follows
 \end{proof}
 
 \section{A resolution lemma}
