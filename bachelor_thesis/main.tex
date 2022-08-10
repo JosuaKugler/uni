@@ -1361,7 +1361,6 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
     \[
         \ker \nu_A = \langle f_1, \dots, f_n\rangle_U \subset \ker \nu_B.
     \]
-    
     In total we obtain \(\ker \nu_A = \ker \nu_B\) and we can define the map 
     \[
         \nu_A\nu_B^{-1}\colon B \to A.  
@@ -1371,6 +1370,157 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
     Then \(\nu_A(y') = \nu_A(y'-y) + \nu_A(y) = 0 + \nu_A(y)\) because \(\ker \nu_A = \ker \nu_B\).
     From the commutativity of the above diagram we get that this is indeed an inverse for \(f\) and
     hence, \(f\) is an isomorphism.
+\end{proof}
+
+\begin{lemma}\label{lem:pontryagininjectivity}
+    Let \(A \in \cob\) be finite flat. Then the canonical map
+    \[
+        A \to A^{\vee\vee}
+    \]
+    is injective. As a corollary we have
+    \[
+        A \neq 0 \implies A^\vee \neq 0.  
+    \]
+\end{lemma}
+\begin{proof}
+    As \(\mathcal{O}\) is local, every finitely generated torsion-free \(\mathcal{O}\)-module is free and, 
+    a fortiori projective. For projective modules we have the existence of a dual basis, i.e. a set of functions
+    \[
+        \{f_i \colon i \in I, f_i \in A^\vee = \hom_\mathcal{O}(A, \mathcal{O})\}  
+    \]
+    together with a set of of elements
+    \[
+        \{a_i \colon i \in I, a_i \in A\}  
+    \]
+    satisfying the properties
+    \begin{enumerate}
+        \item \(\forall a \in A\colon \quad \# \{i\in I\colon f_i(a) \neq 0\} < \infty\) and
+        \item \(\forall a \in A\colon \quad a = \sum_{i \in I} f(a)\cdot a_i\).
+    \end{enumerate}
+    Now let \(0 = (\phi \mapsto \phi(a))\), i.e. \(\phi(a) = 0 \forall \phi \in A^\vee\).
+    Then, a fortiori, \(f_i(a) = 0 \forall i \in I\).
+    We conclude
+    \[
+        a = \sum_{i \in I} f_i(a)\cdot a_i = 0
+    \]
+    and hence, \(A \to A^{\vee\vee}\) is injective. If \(A^\vee = 0\) then obviously any homomorphism from \(A^\vee\)
+    is \(0\), a fortiori, \(A^\vee\vee = 0\). By the injectivity of \(A \to A^{\vee\vee}\) this yields \(A = 0\)
+    and we have proved the second part of the lemma.
+\end{proof}
+
+\begin{lemma}\label{lem:intersectionzero}
+    Let \(A \in \cob\) be finite flat. Then
+    \[
+        \ker \pi_A \cap \ann_A \ker \pi_A = 0.  
+    \]
+\end{lemma}
+\begin{proof}
+    Let \(0 \neq x \in \eta_A\) and \(x' \in \ann_A \ker \pi_A\) s.t. \(\pi_A(x') = x\).
+    Interpret \(x \cdot 1\) as an element of the \(\mathcal{O}\)-module \(A\). Then,
+    \[
+        \pi_A(x \cdot 1 - x') = x\cdot \pi_A(1) - \pi_A(x') = x - x = 0 \implies x \cdot 1 - x' \in \ker \pi_A
+    \]
+    Take \(a \in \ker \pi_A \cap \ann_A \ker \pi_A\). Then \(ax' = 0\), because \(a\in \ker \pi_A\) 
+    and \(x' \in \ann_A \ker \pi_A\). Together we obtain
+    \[
+        0 = a \cdot (x\cdot 1 - x') = x \cdot a,
+    \]
+    i.e. \(a\) is \(\mathcal{O}\)-torsion. However, \(A\) is flat and, a fortiori, torsion-free. Hence,
+    \(a\) is 0.
+\end{proof}
+
+\begin{proposition}
+    Let \(f\colon A \twoheadrightarrow B\) be a \(\cob\)-morphism, \(A\) and \(B\) finite flat and \(B\) a 
+    complete intersection. If \(\eta_A = \eta_B \neq 0\), then \(f\) is an isomorphism.
+\end{proposition}
+\begin{proof}
+    By \cref{lem:gorenstein}, \(A\) is Gorenstein, i.e.
+    \[
+        A^\vee = \hom_\mathcal{O}(A, \mathcal{O}) \cong A \quad \text{as \(A\)-modules,} 
+    \]
+    where the \(A\)-module structure is given via \(a \cdot \phi = (x \mapsto \phi(a\cdot x))\).
+    By \cref{lem:intersectionzero} \(\ker \pi_A \cap \ann_A \ker \pi_A = 0\) and likewise for \(B\).
+    The fundamental theorem of homomorphisms gives us an isomorphism
+    \[
+        \ann_A \ker \pi_A = \ann_A \ker \pi_A/(\ker \pi_A \cap \ann_A \ker \pi_A) \xrightarrow[\sim]{\pi_A} \eta_A
+    \]
+    respectively
+    \[
+        \ann_B \ker \pi_B = \ann_B \ker \pi_B/(\ker \pi_B\cap \ann_B \ker \pi_B) \xrightarrow[\sim]{\pi_B} \eta_B.
+    \]
+    In total we obtain
+    \[
+        \ann_A \ker \pi_A \cong \eta_A \xrightarrow{f} \eta_B \cong \ann_B \ker \pi_B.  
+    \]
+    As \(f\) is a \(\cob\)-map, we have the commutativity \(\pi_A = \pi_Bf\). Hence, for all \(x\in \ker f\)
+    we compute \(\pi_A(x) = \pi_B(f(x)) = \pi_B(0) = 0\), i.e. \(x \in \ker \pi_A\). We thereby have shown 
+    that \(\ker f \subset \ker \pi_A\) and with \cref{lem:intersectionzero} we conclude
+    \[
+        \ker f \cap \ann_A \ker \pi_A \subset \ker \pi_A \cap \ann_A \ker \pi_A = 0.
+    \]
+    A fortiori, we get an exact sequence of \(A\)-modules
+    \[
+        0 \longrightarrow \ker f \oplus \ann_A \ker \pi_A \longrightarrow A 
+        \longrightarrow A/\ker f \oplus \ann_A \ker \pi_A  \longrightarrow 0.
+        \tag{\textasteriskcentered} \label{eq:ses}
+    \]
+    We have
+    \[
+        A/\ker f \oplus \ann_A \ker \pi_A \xrightarrow[\sim]{f} B/f(\ann_A \ker \pi_A) \cong B/\ann_B \ker \pi_B
+    \]
+    and via \([b] \mapsto (x \mapsto b\cdot x)\) we get a canonical injection
+    \[
+        B/\ann_B \ker \pi_B \hookrightarrow \operatorname{End}_\mathcal{O}(\ker \pi_B) 
+    \]
+    As \(B\) and therefore \(\ker \pi_B\) are torsion-free, we show that \(\operatorname{End}_\mathcal{O}(\ker \pi_B)\)
+    is torsion-free as well. For, let \(0 \neq \phi \in \operatorname{End}_\mathcal{O}(\ker \pi_B)\) and 
+    \(x \in \mathcal{O}\) s.t. \(0 = x \cdot \phi = (y \mapsto x \cdot \phi(y))\).
+    As \(\phi \neq 0\), there is at least one \(\tilde y \in \ker \pi_B\) s.t. \(\phi(\tilde y) \neq 0\).
+    As \(\ker \pi_B\) is torsion-free and \(x \cdot \phi(\tilde y) = 0\) it follows that \(x = 0\), i.e.
+    \(\operatorname{End}_\mathcal{O}(\ker \pi_B)\) is torsion-free.
+    As \(O\) is a Dedekind ring, torsion-freeness implies flatness. Over any local ring, finitely generated flat
+    modules are free and a fortiori projective. Hence, the short exact sequence \eqref{eq:ses} splits.
+    Functors preserve split exact sequences and therefore applying the contravariant functor
+    \(\hom_\mathcal{O}(-, \mathcal{O})\) yields
+    \[
+        0 \longrightarrow (A/\ker f \oplus \ann_A \ker \pi_A)^\vee  \longrightarrow A^\vee
+        \longrightarrow (\ker f \oplus \ann_A \ker \pi_A)^\vee \longrightarrow 0.
+    \]
+    The direct sum of modules is a colimit, so it commutes with the 
+    \(\hom_\mathcal{O}(-, \mathcal{O})\)-functor and becomes a limit, in this case a product.
+    However, a finite product is isomorphic to the finite coproduct in the category of \(\mathcal{O}\)-modules
+    and together with the fact that \(A\) is Gorenstein, we obtain
+    \[
+        A \longrightarrow (\ker f)^\vee \oplus (\ann_A \ker \pi_A)^\vee \longrightarrow 0.
+    \]
+    The functor \(- \otimes_A k\) (where we interpret \(k\) as an \(A\)-module via the canonical projection
+    \(A \xrightarrow{\pi_A} \mathcal{O} \twoheadrightarrow \mathcal{O}/\lambda = k\)) 
+    is right exact (because it's left adjoint to the corresponding \(\hom\)-functor).
+    Taking the dimension of the resulting exact sequence gives us 
+    \[
+        1 = \dim_k(A\otimes_A k) \geq \dim_k ((\ker f)^\vee \otimes_A k)
+        + \dim_k ((\ann_A \ker \pi_A)^\vee\otimes_A k),
+        \tag{\textasteriskcentered\textasteriskcentered} \label{eq:dimineq}
+    \]
+    because taking the dimension commutes with direct sums.
+    It is clear that 
+    \[
+        \eta_A = \pi_A \ann_A \ker \pi_A \neq 0 \implies \ann_A \ker \pi_A \neq 0.
+    \]
+    By \cref{lem:pontryagininjectivity}, \((\ann_A\ker \pi_A)^\vee \neq 0\).
+    Now let's assume \((\ann_A\ker \pi_A)^\vee \otimes_A k = 0\), i.e.
+    \[
+        0 = (\ann_A\ker \pi_A)^\vee \otimes_A A/\lambda = (\ann_A\ker \pi_A)^\vee/\lambda (\ann_A\ker \pi_A)^\vee,
+    \]
+    which is equivalent to \((\ann_A\ker \pi_A)^\vee = \lambda (\ann_A\ker \pi_A)^\vee\) and
+    by Nakayama's lemma for the local ring \(\mathcal{O}\) we could conclude that \((\ann_A\ker \pi_A)^\vee = 0\),
+    contradiction. Therefore \(\dim_k (\ann_A\ker \pi_A)^\vee > 0\) and by \eqref{eq:dimineq} 
+    we have \((\ker f)^\vee \otimes_A k = 0\).
+    Again,
+    \[
+        0 = (\ker f)^\vee \otimes_A A/\lambda = (\ker f)^\vee/\lambda(\ker f)^\vee \xRightarrow{Nakayama} (\ker f)^\vee = 0.
+    \]
+    Taking the dual and applying \cref{lem:pontryagininjectivity} finally yields \(\ker f = 0\).
 \end{proof}
 
 \section{A resolution lemma}
