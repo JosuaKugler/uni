@@ -581,7 +581,7 @@ For the 'only if'-part, see \cites[lemma 5.5]{darmon1995fermat}%
     \]
 \end{proof}
 
-\begin{proposition}\textup{\cite[cf.][corollary 5.6]{darmon1995fermat}}
+\begin{proposition}\textup{\cite[cf.][corollary 5.6]{darmon1995fermat}}\label{prop:aequalsb}
     (a) \(\Leftrightarrow\) (b) in \cref{thm:wiles_numerical_criterion}.
 \end{proposition}
 \begin{proof}
@@ -1270,7 +1270,7 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
     \]
 \end{proof}
 
-\begin{corollary}\cite[corollary 5.20]{darmon1995fermat}
+\begin{corollary}\cite[corollary 5.20]{darmon1995fermat}\label{cor:cimpliesb}
     Remembering that we assumed \(A\) to be a finite flat complete intersection \(\in \cob\), we obtain
     \[
         \# \Phi_A = \# (\mathcal{O}/\eta_A),
@@ -1619,11 +1619,12 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
 
 \section{Proof of Wiles' numerical criterion}
 
-\begin{proposition}
+\begin{proposition}\cite[theorem 5.28]{darmon1995fermat}\label{prop:aimpliesc}
     Let \(R, T \in \cob\) such that \(T\) is finite flat and 
     \(\phi\colon R \twoheadrightarrow T\) is a surjective \(\cob\)-morphism.
     If \(\# \phi_R \leq \#(\mathcal{O}/\eta_T) < \infty\), then \(R\) and \(T\) are complete intersections,
     and \(\phi\) is an isomorphism.
+    A fortiori, (a) \(\implies\) (c) in \cref{thm:wiles_numerical_criterion}.
 \end{proposition}
 \begin{proof}
     Concatenating the inequalities from \cref{lem:standard_ineq}, 
@@ -1637,6 +1638,13 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
     From \(\#\phi_T = \#\phi_R \) we see that \(\phi\) induces an isomorphism on the tangent spaces.
     From \cref{prop:phi_iso} it follows that \(\phi\colon R \to T\) is an isomorphism and, 
     a fortiori \(R\) is a complete intersection as well.
+\end{proof}
+
+Now we can put all results together and complete the proof of \cref{thm:wiles_numerical_criterion}.
+\begin{proof}
+    The equivalence of (a) and (b) has been established in \cref{prop:aequalsb}.
+    \Cref{cor:cimpliesb} shows that (c) \(\implies\) (b) in \cref{thm:wiles_numerical_criterion}.
+    Finally, \cref{prop:aimpliesc} gives us the implication (a) \(\implies\) (c).
 \end{proof}
 
 \newpage
