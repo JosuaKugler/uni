@@ -349,7 +349,8 @@ by investigating the invariants \(\phi_A\) and \(\eta_A\) that we defined last s
     A morphism \(f\colon A \to B \in \cob\) induces a homomorphism \(\phi_A \to \phi_B\) of \(\mathcal{O}\)-modules.
     This induced map is surjective if and only if the morphism \(A \to B\) is surjective.
 \end{lemma}
-For the 'only if'-part, see \cites[lemma 5.5]{darmon1995fermat}[theorem 8.4]{Matsumura1986}[ch. II, lemma 7.4]{Hartshorne1977}
+For the 'only if'-part, see \cites[lemma 5.5]{darmon1995fermat}%
+[theorem 8.4]{Matsumura1986}[ch. II, lemma 7.4]{Hartshorne1977}[\href{https://stacks.math.columbia.edu/tag/090T}{Tag 090T}]{stacks-project}
 \begin{proof}
     We have the commutative diagram
     \[
@@ -386,14 +387,6 @@ For the 'only if'-part, see \cites[lemma 5.5]{darmon1995fermat}[theorem 8.4]{Mat
     In total, we obtain a surjective homomorphism \(\tilde f\colon \phi_A \to \phi_B\).
     
     Now, let the induced map \(\phi_A \to \phi_B\) be surjective. 
-
-    %We know that \(\ker \pi_A\) is an ideal in \(A\), hence \(\ker \pi_A \subset \mathfrak{m}_A\).
-    %As \(A\) is complete, we have \(A \cong \varprojlim A/\mathfrak{m}_A^n\).
-    %Now consider the map
-    %\[
-    %    A \to \varprojlim A/(\ker \pi_A)^n = \hat A.
-    %\]
-    \textbf{Why is \(A\) complete with respect to the \(\ker \pi_A\)-adic topology?}
     Consider the ideal \(I = f(\ker \pi_A) \cdot B\) in \(B\).
     Let \(x \in I\). Then \(x = \sum_i f(x_i) \cdot b_i\) for \(x_i \in \ker \pi_A\) and \(b_i \in B\).
     Remember the commutative diagram from the beginning of the proof,
@@ -419,11 +412,15 @@ For the 'only if'-part, see \cites[lemma 5.5]{darmon1995fermat}[theorem 8.4]{Mat
     \(\ker \pi_A = \langle a_1, \dots, a_m\rangle\) because \(A\) is noetherian. 
     As \(\ker \pi_A \to (\ker \pi_B)/(\ker \pi_B)^2\) is surjective, we have 
     \[(\ker \pi_B)/(\ker \pi_B)^2 = \langle \overline{f(a_1)}, \dots, \overline{f(a_m)}\rangle_B.\]
-    \textbf{As \(A\) is complete} and \(I\) is separated with respect to the \(I\)-adic topology 
-    as a submodule of \(B\), we can apply Nakayama's Lemma as in Mat, 8.4. 
+    As \(A\) is \(\mathfrak{m}_A\)-adically complete, \(\ker \pi_A\) is finitely generated over \(A\)
+    and \(\ker \pi_A \subset \mathfrak{m}_A\), \(A\) is \(\ker \pi_A\)-adically complete as well
+    (see \cite[\href{https://stacks.math.columbia.edu/tag/090T}{lemma 10.96.8}]{stacks-project}).
+    Furthermore, \(I\) is separated with respect to the \(I\)-adic topology 
+    as a submodule of \(B\). Together with the fact that \(A\) is \(\ker \pi_A\)-adically complete,
+    we can apply Nakayama's Lemma as in Mat, 8.4. 
     It follows that the images \(\langle f(a_1), \dots, f(a_m)\rangle\) generate \(\ker \pi_B\)
     as a \(B\)-module. We already know that \(f(\ker \pi_A) \cdot B \subset \ker \pi_B\). 
-    Together we have
+    In total we have
     \[
         f(\ker \pi_A) \cdot B = \ker \pi_B.
     \]
