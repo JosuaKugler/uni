@@ -208,6 +208,26 @@ Let's take a look at an example.
     This is possible in a more general setting, in fact every \(A \in \co\) can be written as a quotient of
     \(U = \mathcal{O}[[X_1, \dots, X_n]]\) for suitable \(n\).
 \end{remark}
+
+%#Assumption could also be implemented here. Maybe that is even the best idea.
+\begin{remark}\label{rem:noconstant}
+    For a finite flat complete intersection \(A \in \cob\) we can even choose the quotient
+    \[
+        U \xrightarrow{\alpha} U/(f_1, \dots, f_n) \cong A  
+    \]
+    in such a way that the augmentation map \(\pi_A\) is induced by 
+    \[
+        \pi_U\colon \mathcal{O}[[X_1, \dots, X_n]] \to \mathcal{O},\qquad f(X_1, \dots, X_n) \mapsto f(0,\dots, 0).  
+    \]
+    %add some note on the f_i not having constant term or so
+    %in order to be surjective, the relations f_i can't have a constant term, because otherwise two polynomials with different constant term had the same residue class mod f_i => pi_A wouldn't be surjective
+\end{remark}
+\begin{proof}
+    %TODO
+\end{proof}
+Note that whenever we write a complete intersection \(A\) as a quotient of \(U\), without loss of generality
+we can choose polynomials without constant term and assume that \(\pi_A\) is induced by evaluation at 0 on \(U\).
+
 \begin{proof}
     As \(A\) is a noetherian ring and \(\ker \pi_A\) is an ideal in \(A\), it is finitely generated 
     and therefore also finitely generated as an \(A\)-module. Consider the map
@@ -231,6 +251,8 @@ Let's take a look at an example.
     \(\Phi\) by definition induces an equality on the first component, 
     a surjection on the second and therefore is surjective on the direct sum.
 \end{proof}
+
+
 
 \begin{definition}
     Let \(A \in \cob\). Then
@@ -357,8 +379,8 @@ by investigating the invariants \(\phi_A\) and \(\eta_A\) that we defined last s
     A morphism \(f\colon A \to B \in \cob\) induces a homomorphism \(\phi_A \to \phi_B\) of \(\mathcal{O}\)-modules.
     This induced map is surjective if and only if the morphism \(A \to B\) is surjective.
 \end{lemma}
-For the 'only if'-part, see \cites[lemma 5.5]{darmon1995fermat}%
-[theorem 8.4]{Matsumura1986}[ch. II, lemma 7.4]{Hartshorne1977}[\href{https://stacks.math.columbia.edu/tag/090T}{Tag 090T}]{stacks-project}
+For the 'only if'-part, see \cites[lemma 5.5]{darmon1995fermat}[theorem 8.4]{Matsumura1986}%
+[ch. II, lemma 7.4]{Hartshorne1977}[\href{https://stacks.math.columbia.edu/tag/090T}{Tag 090T}]{stacks-project}.
 \begin{proof}
     We have the commutative diagram
     \[
@@ -422,7 +444,7 @@ For the 'only if'-part, see \cites[lemma 5.5]{darmon1995fermat}%
     \[(\ker \pi_B)/(\ker \pi_B)^2 = \langle \overline{f(a_1)}, \dots, \overline{f(a_m)}\rangle_B.\]
     As \(A\) is \(\mathfrak{m}_A\)-adically complete, \(\ker \pi_A\) is finitely generated over \(A\)
     and \(\ker \pi_A \subset \mathfrak{m}_A\), \(A\) is \(\ker \pi_A\)-adically complete as well
-    (see \cite[\href{https://stacks.math.columbia.edu/tag/090T}{lemma 10.96.8}]{stacks-project}).
+    \cite[cf.][\href{https://stacks.math.columbia.edu/tag/090T}{lemma 10.96.8}]{stacks-project}.
     Furthermore, \(I\) is separated with respect to the \(I\)-adic topology 
     as a submodule of \(B\). Together with the fact that \(A\) is \(\ker \pi_A\)-adically complete,
     we can apply Nakayama's Lemma as in Mat, 8.4. 
@@ -793,7 +815,6 @@ We start with some useful constructions and conventions.
 \begin{notation}
     For any ring \(R\) write \(R[[\underline{X}]] \coloneqq R[[X_1, \dots, X_n]]\).
 \end{notation}
-
 Let \(a_1, \dots, a_n\) be the images in \(A\) of \(X_1, \dots, X_n\) by the natural map
 \[
     \alpha \colon \mathcal{O}[[\underline{X}]] \to A = \mathcal{O}[[\underline{X}]]/(f_1, \dots, f_n),
@@ -1209,7 +1230,7 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
     In order to prove  \(\Psi \pi_A^\vee(\mathcal{O}^\vee) \supset \ann_A \ker \pi_A\), let \(a \in \ann_A \ker \pi_A\)
     and \(f \in \hom_\mathcal{O}(A, \mathcal{O})\) s.t. \(\Psi(f) = a\). Then \(\forall x \in \ker \pi_A\),
     \[
-        0 = \Psi(f) \cdot x = \Psi((y \mapsto f(x\cdot y))) \implies f(x\cdot y) = 0 \forall y \in A \implies f(x) = 0.
+        0 = \Psi(f) \cdot x = \Psi((y \mapsto f(x\cdot y))) \implies f(x\cdot y) = 0\quad \forall y \in A \implies f(x) = 0.
     \]
     A fortiori, \(\ker \pi_A \subset \ker f\) and we get an induced map \(\tilde f\colon \mathcal{O} \cong A/\ker \pi_A \to \mathcal{O}\)
     s.t. \(f = \tilde f \circ \pi_A\). As a result, we can write
@@ -1260,7 +1281,9 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
         (f_1, \dots, f_n) = (X_1 - [X_1], \dots, X_n - [X_n]) \cdot (m_{i,j})_{i,j}.
     \]
     Applying \(\tilde \pi_A\) to the whole equation leaves the \(f_i\) unchanged because \(\tilde \pi_A(X_i) = X_i\)
-    and the coefficients of the \(f_i\) are elements of \(\mathcal{O}\) that are not affected by \(\pi_A\).
+    and the coefficients of the \(f_i\) are elements of \(\mathcal{O}\) that are not affected by \(\pi_A\)
+    because of its \(\mathcal{O}\)-linearity.
+    In the following we make use of \cref{rem:noconstant}.
     On the RHS, we get \(\tilde \pi_A(X_i - [X_i]) = X_i - \pi_A([X_i]) = X_i\), as \(\pi_A\) 
     is the evaluation at \(0\) for preimages of \(A\) in \(\mathcal{O}[[X_1, \dots, X_n]]\).
     Denote the image of \(m_{i,j}\) under \(\tilde \pi_A\) with \(\tilde m_{i,j} \in \mathcal{O}[[X_1, \dots, X_n]]\).
@@ -1311,8 +1334,7 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
     The projection \(\nu_B\) arises from the fact that we can write every object in \(\cob\)
     as a quotient of \(U\) (\cref{rem:quotientofU}).
     As \(B\) is a complete intersection, we find \(n\) generators \(f_i \in U\) s.t. \(\ker \nu_B = (f_1, \dots, f_n)\).
-    Note that we need to choose the \(f_i\) in such a way that they have no constant term. 
-    \textbf{Probably add general remark for this topic because its used several times.}
+    Note that we need to choose the \(f_i\) in such a way that they have no constant term (cf. \cref{rem:noconstant})
     Define \(b_i \coloneqq \nu_B(X_i) \in \ker \pi_B\) and choose preimages \(a_i \in A\) s.t. \(f(a_i) = b_i\).
     As the triangle involving \(A, B\) and \(\mathcal{O}\) commutes, we conclude that \(\pi_A(a_i) = \pi_B(b_i) = 0\),
     i.e. \(a_i \in \ker \pi_A\).
