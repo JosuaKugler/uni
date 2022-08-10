@@ -1124,10 +1124,16 @@ structure on \(A\).
         where \(r\) may denote the rank of \(\mathcal{O}\). 
         Therefore \(A\) and \(\hom_\mathcal{O}(A, \mathcal{O})\) are both free \(A\)-modules of the 
         same finite rank \(r\).
-        Let \(f_1, \dots, f_r\) be a \(\mathcal{O}\)-basis of \(\hom_\mathcal{O}(A, \mathcal{O})\). 
-        Then, the extended maps \(\tilde f_1, \dots \tilde f_r\) form a basis for
-        \(\hom_{\mathcal{O}[[X]]}(A[[\underline{X}]], \mathcal{O}[[\underline{X}]]).\)
-        \textbf{How?}
+        Let \(f_1, \dots, f_r\) be a generating system of \(\hom_\mathcal{O}(A, \mathcal{O})\) over
+        \(\mathcal{O}\). Then, the extended maps \(\tilde f_1, \dots \tilde f_r\) form a generating
+        system of \(\hom_{\mathcal{O}[[X]]}(A[[\underline{X}]], \mathcal{O}[[\underline{X}]])\) over
+        \(\mathcal{O}\). Indeed, let 
+        \(f \in \hom_{\mathcal{O}[[X]]}(A[[\underline{X}]], \mathcal{O}[[\underline{X}]])\).
+        Then
+        \[ 
+            f(X_i) = X_i \cdot f(1) = X_i \cdot \sum_{i=1}^nf_i(1) = \sum_{i=1}^n X_i \cdot f_i(1) 
+            = \sum_{i=1}^n \tilde f_i(X_i).
+        \]
         We have seen that the map 
         \[
             \Phi\colon \hom_{\mathcal{O}[[\underline{X}]]}(A[[\underline{X}]], \mathcal{O}[[\underline{x}]]) \to A
@@ -1280,7 +1286,7 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
 
 \section{Isomorphism theorems}
 
-\begin{proposition}
+\begin{proposition}\cite[theorem 5.21]{darmon1995fermat}\label{prop:phi_iso}
     Let \(f\colon A \twoheadrightarrow B\) be a \(\cob\)-morphism and \(B\) a finite flat complete intersection.
     If the tangent spaces \(\phi_A, \phi_B\) are finite and 
     the induced morphism \(\tilde f\colon \phi_A \to \phi_B\) is an isomorphism,
@@ -1429,7 +1435,7 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
     \(a\) is 0.
 \end{proof}
 
-\begin{proposition}
+\begin{proposition}\cite[theorem 5.24]{darmon1995fermat}\label{prop:eta_iso}
     Let \(f\colon A \twoheadrightarrow B\) be a \(\cob\)-morphism, \(A\) and \(B\) finite flat and \(B\) a 
     complete intersection. If \(\eta_A = \eta_B \neq 0\), then \(f\) is an isomorphism.
 \end{proposition}
@@ -1594,7 +1600,6 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
     Let \(A \in \cob\) be finite flat. If \(\# \phi_A \leq \#(\mathcal{O}/\eta_A) < \infty\), 
     then \(A\) is a complete intersection.
 \end{proposition}
-    
 \begin{proof}
     Take the morphism \(\phi\colon \tilde{A} \to A\) from \cref{lem:resolution}.
     As \(\# \phi_A\) is finite, we can apply \cref{cor:surjectivity_phi} and because \(\phi\)
@@ -1611,7 +1616,7 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
     \]
     All in all, we have \(\#(\mathcal{O}/\eta_A) = \#(\mathcal{O}/\eta_{\tilde{A}})\) and because of
     \(\eta_{\tilde{A}} \subset \eta_A\) we conclude \(\eta_{\tilde{A}} = \eta_A\).
-    By \textbf{add reference here} it follows that \(\phi\) is an isomorphism.
+    By \cref{prop:eta_iso} it follows that \(\phi\) is an isomorphism.
     Since \(\tilde{A}\) is a complete intersection, so is \(A\).
 \end{proof}
 
@@ -1633,7 +1638,7 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
     All inequalities must be equalities and from \(\#\phi_T = \#(\mathcal{O}/\eta_T)\)
     we conclude with \cref{prop:criterionCI} that \(T\) is a complete intersection.
     From \(\#\phi_T = \#\phi_R \) we see that \(\phi\) induces an isomorphism on the tangent spaces.
-    From \textbf{add reference here} it follows that \(\phi\colon R \to T\) is an isomorphism and, 
+    From \cref{prop:phi_iso} it follows that \(\phi\colon R \to T\) is an isomorphism and, 
     a fortiori \(R\) is a complete intersection as well.
 \end{proof}
 
