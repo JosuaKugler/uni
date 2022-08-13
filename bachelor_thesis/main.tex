@@ -217,9 +217,10 @@ However, the only newform of weight \(2\) and level \(2\) is 0, so we obtain the
 
 \subsection{Wiles' proof of modularity: The 3-5 trick}
 What remains now for the proof of FLT is the proof of the modularity theorem, i.e. that every semistable
-elliptic curve is modular.
-Wiles chose to proof version \textbf{add number from equivalent modularity definition} of modularity.
-Therefore we take a closer look at the \(p\)-adic representation \(\rho_{E,p} \colon G_\mathbb{Q} \to \GL_2(\mathbb{Z}_p)\)
+elliptic curve is modular.  
+Wiles chose to proof version 1 of modularity as defined in \cref{th:eqcondmodularity}
+Therefore we take a closer look at the \(p\)-adic representation 
+\(\rho_{E,p} \colon G_\mathbb{Q} \to \GL_2(\mathbb{Z}_p)\)
 associated to an elliptic curve \(E/\mathbb{Q}\).
 First we prove several properties of the \(\mod p\)-reduction,
 \begin{lemma}
@@ -232,16 +233,37 @@ First we prove several properties of the \(\mod p\)-reduction,
         \item \(\det \overline{\rho}_{E,p} = \chi_p\)
         \item \(\overline{\rho}_{E,p}\) is semistable
         \item \(\overline{\rho}_{E,p}\) is absolutely irreducible
-        \item \(\overline{\rho}_{E,p}\) is modular, and \(\overline{\rho}_{E,p}|_{G_\mathbb{Q}(\sqrt(-3))}\) is absolutely irreducible
+        \item \(\overline{\rho}_{E,p}\) is modular, and \(\overline{\rho}_{E,p}|_{G_\mathbb{Q}(\sqrt{-3})}\) is absolutely irreducible
     \end{enumerate}
 \end{lemma}
 \begin{proof}
-    We have seen in %add reference
-    that \(\rho_{E, p}\) has determinant \(\chi_p\). \textbf{Is \(\chi_p\) invariant under reduction?}
+    We have seen in \cref{prop:rhoEpproperties} that \(\rho_{E, p}\) has determinant \(\chi_p\). %we need it for the reduction
     As \(E\) is semistable we know that \(\rho_{E, p}\) is semistable %again, why is this true for the reduction?
-    We now need to prove that there is a \(p\) s.t. \(\overline{\rho}_{E,p}\) is absolutely irreducible and modular.
-    %here comes the 3-5 trick
-    %cite langlands-tunnell?
+    We now need to prove that there is a \(p\) s.t. \(\overline{\rho}_{E,p}\) is irreducible and modular.
+    %Moreover, by a theorem of Serre ([15], prop. 21, and [17], §3.1), the
+    %semistability of E guarantees that \(\overline{\rho}_{E,p}\) is either surjective or reducible
+    %for every prime \(p \geq 3\). Hence for \(p \geq 3\), absolute irreducibility of \(\overline \rho_{E,p}\) is
+    %equivalent to irreducibility of \(\overline \rho_{E,p}\), and if \(p = 3\) this is equivalent to absolute
+    %irreducibility of \(\overline{\rho}_{E,3}|_{G_{\mathbb{Q}(\sqrt{3})}}\)
+    \textbf{Explain why absolute irreducibility of rhobar and of rhobarsqrt-3 
+    are clear once modularity and irreducibility are shown.}
+    Wiles proved the following
+    \begin{proposition}
+        Let \(E/\mathbb{Q}\) be a semistable elliptic curve. Then at least one of 
+        \(\overline \rho_{E,3}\) or  \(\overline \rho_{E,5}\) is irreducible.
+    \end{proposition}
+    This allows us to make a case distinction.
+    \begin{itemize}
+        \item If \(\overline \rho_{E,3}\) is irreducible, then by some group theoretical considerations 
+        we can apply the Langlands-Tunnel-theorem and conclude that \(\overline{\rho}_{E, 3}\) is modular.
+        \item If \(\overline \rho_{E,5}\) is irreducible, then Wiles has shown that there is another 
+        semistable elliptic curve \(E'/\mathbb{Q}\) s.t.\(\overline{\rho}_{E',3}\) 
+        is irreducible and \(\overline{\rho}_{E', 5} \cong \overline{\rho}_{E', 5}\).
+        Hence, we can apply the first case for \(E'\) and obtain that \(\overline{\rho}_{E',3}\) is modular.
+        However, by \cref{th:eqcondmodularity}, then \(\overline{\rho}_{E',5}\) and thereby also 
+        the equivalent representation \(\overline{\rho}_{E,5}\) are modular.
+    \end{itemize}
+    In either case we have found a \(p\) s.t. \(\overline{\rho}_{E,p}\) is irreducible and modular.
 \end{proof}
 
 \subsection{Wiles' proof of modularity: The main theorem}
