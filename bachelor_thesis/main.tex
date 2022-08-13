@@ -7,6 +7,7 @@
 \usepackage[hidelinks, unicode]{hyperref}
 \usepackage{cleveref}
 \usepackage[style=alphabetic]{biblatex}
+\usepackage{xcolor}
 
 \addbibresource{bibliography.bib}
 
@@ -45,7 +46,7 @@
 \tableofcontents
 \newpage
 \section{A brief sketch of the proof of Fermat's Last Theorem}
-\subsection{Fermat's Last Theorem and the Modularity conjecture}
+\subsection{Fermat's Last Theorem and the modularity conjecture}
 \begin{theorem}[Fermat's Last Theorem]
     There are no \(a, b, c \in \mathbb{Z}\) with \(abc \neq 0\) and \(n \in \mathbb{N}, n \geq 3\) such that
     \[
@@ -91,17 +92,19 @@ It was finally proved by Andrew Wiles and Richard Taylor in 1995.
 (In the years until 1999 the semistability condition could be removed, so that
 the theorem holds for all elliptic curves.)
 
-\subsection{Modular forms, elliptic curves and modularity}
-The term "modularity" comes from modular forms, so lets start with a
-\begin{definition}[Modular form]
+\subsection{Galois representations and modularity}
+%\color{gray}
+%The term "modularity" comes from modular forms, so lets start with a
+%\begin{definition}[Modular form]
     %give a standard definition here, in particular mention the a_n values!
-\end{definition}
+%\end{definition}
 %Show the different equivalent conditions for modularity
-\paragraph{Modularity as an isogeny/ a morphism}
+%\paragraph{Modularity as an isogeny/ a morphism}
 
-\paragraph{Modularity for L-functions}
-
-\paragraph{Modularity of galois representations}
+%\paragraph{Modularity for L-functions}
+%Use the a_n values, introduce the L-function of an elliptic curve
+%\color{black}
+\paragraph{Galois representations for elliptic curves}
 As it is very difficult to come from an elliptic curve to a modular form directly, 
 Wiles chose an indirect way via Galois representations.
 For each elliptic curve \(E\) over \(\mathbb{Q}\), we have an associated galois representation.
@@ -120,7 +123,7 @@ and in the limit we obtain a Galois representation
     \rho_{E, p} \colon G_\mathbb{Q} \to \GL_2(\mathbb{Z}_p).
 \]
 
-\begin{proposition}%probably cite Cornell silverman stevens on this matter 
+\begin{proposition}\cite[chapter 1, theorem 2.11]{Cornell1997}\label{prop:rhoEpproperties} 
     Let \(N_E\) be the conductor of \(E\) and \(\rho_{E,p}\) the representation described above.
     Then
     \begin{itemize}
@@ -128,26 +131,42 @@ and in the limit we obtain a Galois representation
         \item \(\rho_{E,p}\) is unramified at primes not dividing \(pN_E\)
         \item \(\rho_{E, p}\) is odd
     \end{itemize}
+    If \(E\) is semistable and \(\Delta_E\) its minimal discriminant, we can further conclude that for
+    \[
+        \overline{\rho_{E,p}}\colon G_Q \to \GL_2(\mathbb{Z}/p\mathbb{Z})  
+    \]
+    the following equivalences hold.
+    \begin{itemize}
+        \item \(\overline{\rho_{E,p}}\) is flat at \(p\) \(\Leftrightarrow p| \operatorname{ord}_p(\Delta_E)\).
+        \item For any prime \(\ell \neq p\): 
+        \(\overline{\rho_{E,p}}\) is unramified at \(\ell\) \(\Leftrightarrow p| \operatorname{ord}_\ell(\Delta_E)\).
+    \end{itemize}
 \end{proposition}
-
-%analogously, we can associate a galois representation to each newform/modular form/whatever form
+%analogously, we can associate a galois representation to each newform
+\paragraph{Galois representations for modular forms}
 Now that we have seen how to associate a Galois representation to an elliptic curve, we want to
 do the same thing for a modular form. However, this is far more difficult and therefore beyond 
-the scope of this thesis. For a reference, see %diamond & shurman section 9.5
+the scope of this thesis.
+The result that we need is that to a new cuspform \(f\) of weight \(2\) we can associate a 
+Galois representation \(\rho_f\) \cite[see][section 9.5]{Diamond2007}.
 
-A Galois representation \(\rho\) is modular if there is a new cuspform \(f\) of weight \(2\) such that
+\paragraph{Modularity}
+A Galois representation \(\rho\) is modular if there is a newform \(f\) of weight \(2\) such that
 \[
-    \overline{\rho_{E, p}} \cong \overline{\rho_f}.  
+    \rho \cong \rho_f. 
 \]
-In particular, an elliptic curve is modular if the associated Galois representation is modular.
-
-%zusammenfassung modularität (siehe Satz 5.1 Theorem Cornell )
-In total we have
-\begin{theorem}
-    An elliptic curve \(E/\mathbb{Q}\) is modular if it satisfies one of the following equivalent conditions.
-    \begin{itemize}
-        \item \dots
-    \end{itemize}
+For elliptic curves \(E/\mathbb{Q}\) we have the following
+\begin{theorem}\cite[chapter 1, theorem 5.1]{Cornell1997}\label{th:eqcondmodularity}
+    An elliptic curve \(E/\mathbb{Q}\) with conductor \(N_E\) is modular if it satisfies the following equivalent conditions.
+    \begin{enumerate}
+        \item For some prime \(p\), \(\rho_{E,p}\) is modular.
+        \item For all primes \(p\), \(\rho_{E,p}\) is modular.
+        \item There is a newform \(f\) of weight \(2\) and level \(N_E\) s.t. \(L(f, s) = L(E, s)\).
+        \item There is a non-constant morphism \(\pi\colon X_0(N_E) \to E\) of algebraic curves over \(\mathbb{Q}\).
+        \item There is an isogeny \(E \to A_f\), where \(A_f\) is the modular abelian variety associated to a
+        weight \(2\) newform \(f\) of conductor \(N_E\).
+    \end{enumerate}
+    The last three equivalences are of no further relevance to the thesis but might be of interest to the reader.
 \end{theorem}
 
 \subsection{Ribet's theorem and the contradiction}
@@ -242,7 +261,7 @@ Wiles has discovered a criterion for two rings in a specific category to be isom
 that only depends on some numerical invariants of these rings. 
 The aim of this section is to prove that criterion in its purely algebraic form. 
 %TODO: Explain how this fits into the rest of the proof.
-In our presentation, we closely follow \cite[5.1 - 5.8]{darmon1995fermat}.
+In our presentation, we closely follow \cite[5.1 - 5.8]{Darmon1995}.
 
 \subsection{Preliminaries and examples}
 Let \(\mathcal{O}\) be the ring of integers of a finite extension \(K\) of \(\mathbb Q_\ell\). 
@@ -284,7 +303,7 @@ In order to state Wiles' criterion, we need some more definitions.
     is equivalent to being flat as an \(\mathcal{O}\)-module.
 \end{definition}
 
-\begin{definition}[complete intersection]\cite[see][Def. 5.1]{darmon1995fermat}
+\begin{definition}[complete intersection]\cite[see][Def. 5.1]{Darmon1995}
     A finite flat ring \(A \in \co\) is called a \textit{complete intersection}, 
     if \(A\) is isomorphic as an \(\mathcal{O}\)-algebra to a quotient
     \[A \cong \mathcal{O}[[X_1, \dots, X_n]]/(f_1, \dots, f_n),\] 
@@ -293,7 +312,7 @@ In order to state Wiles' criterion, we need some more definitions.
 \end{definition}
 
 Let's take a look at an example.
-\begin{example}\label{ex:first_1}\cite[cf.][example 1]{darmon1995fermat}
+\begin{example}\label{ex:first_1}\cite[cf.][example 1]{Darmon1995}
     \(A = \{(a,b) \in \mathcal{O}\times\mathcal{O},\; a \equiv b\; (\operatorname{mod} \lambda^n)\} 
     \cong \mathcal{O}[[T]]/(T(T-\lambda^n))\) is a finite flat complete intersection in \(\cob\).
     The projection \(\pi_A\) is given by \(\pi_A(a,b) = a\).
@@ -381,7 +400,7 @@ Let's take a look at an example.
 
 %probably add more examples
 
-\begin{example}\label{ex:last_1}\cite[cf.][example 5]{darmon1995fermat}
+\begin{example}\label{ex:last_1}\cite[cf.][example 5]{Darmon1995}
     \(U = \mathcal{O}[[X_1, \dots, X_n]]\) with projection \(\pi_U\colon U \to \mathcal{O},\; f \mapsto f(0)\) lies in \(\cob\).
     \begin{proof}
         \(\mathcal{O}\) is noetherian, so \(\mathcal{O}[X_1, \dots, X_{n}]\) is noetherian as well.
@@ -563,7 +582,7 @@ we can choose polynomials without constant term and assume that \(\pi_A\) is ind
 \end{example}
 
 With these results at hand, we can state 
-\begin{theorem}\textup{\cite[theorem 5.3]{darmon1995fermat}}\label{thm:wiles_numerical_criterion}
+\begin{theorem}\textup{\cite[theorem 5.3]{Darmon1995}}\label{thm:wiles_numerical_criterion}
     Let \(R \twoheadrightarrow T\) a surjective morphism of augmented rings, \(T\) finite flat and \(\eta_T \neq 0\) 
     (i.e. \(\mathcal{O}/\eta_T\) finite).
     Then the following are equivalent
@@ -582,7 +601,7 @@ by investigating the invariants \(\phi_A\) and \(\eta_A\) that we defined last s
     A morphism \(f\colon A \to B \in \cob\) induces a homomorphism \(\phi_A \to \phi_B\) of \(\mathcal{O}\)-modules.
     This induced map is surjective if and only if the morphism \(A \to B\) is surjective.
 \end{lemma}
-For the 'only if'-part, see \cites[lemma 5.5]{darmon1995fermat}[theorem 8.4]{Matsumura1986}%
+For the 'only if'-part, see \cites[lemma 5.5]{Darmon1995}[theorem 8.4]{Matsumura1986}%
 [ch. II, lemma 7.4]{Hartshorne1977}[\href{https://stacks.math.columbia.edu/tag/090T}{Tag 090T}]{stacks-project}.
 \begin{proof}
     We have the commutative diagram
@@ -814,7 +833,7 @@ For the 'only if'-part, see \cites[lemma 5.5]{darmon1995fermat}[theorem 8.4]{Mat
     \]
 \end{proof}
 
-\begin{proposition}\textup{\cite[cf.][corollary 5.6]{darmon1995fermat}}\label{prop:aequalsb}
+\begin{proposition}\textup{\cite[cf.][corollary 5.6]{Darmon1995}}\label{prop:aequalsb}
     (a) \(\Leftrightarrow\) (b) in \cref{thm:wiles_numerical_criterion}.
 \end{proposition}
 \begin{proof}
@@ -838,7 +857,7 @@ The goal of this section is to prove some technical lemmata and to introduce
 the Koszul complex that we will use to construct two \(\mathcal{O}[[X]]\)-free resolutions for \(A\).
 This will turn out to be crucial in the next section.
 
-We start with a few definitions from commutative algebra, closely following \cite[sec. 5.3]{darmon1995fermat}
+We start with a few definitions from commutative algebra, closely following \cite[sec. 5.3]{Darmon1995}
 \begin{definition}[primary ideal]
     Let \(R\) be a local ring and \(\mathfrak{a} \subsetneq R\) an ideal. 
     \(\mathfrak{a}\) is said to be primary if every zero divisor in \(R/\mathfrak{a}\) is nilpotent.
@@ -854,7 +873,7 @@ Recall that the dimension of a ring is given by
     a system of parameters.
 \end{definition}
 
-\begin{lemma}\label{lem:sys_params}\textup{\cite[lemma 5.10]{darmon1995fermat}}
+\begin{lemma}\label{lem:sys_params}\textup{\cite[lemma 5.10]{Darmon1995}}
     The sequence \((f_1, \dots, f_n, \lambda)\) is a system of parameters for \(U\) (cf. \cref{ex:last_1}).
 \end{lemma}
 \begin{proof}
@@ -898,7 +917,7 @@ Recall that the dimension of a ring is given by
     \[x_i \text{ is not a zero-divisor in } R/(x_1, \dots, x_{i-1}).\]
 \end{definition}
 
-\begin{lemma}\label{lem:reg_seq}\textup{\cite[lemma 5.11]{darmon1995fermat}}
+\begin{lemma}\label{lem:reg_seq}\textup{\cite[lemma 5.11]{Darmon1995}}
     The sequence \((f_1, \dots, f_n)\) is a regular sequence for \(U\).
 \end{lemma}
 \begin{proof}
@@ -923,7 +942,7 @@ Recall that the dimension of a ring is given by
     A fortiori, the sequence \((f_1, \dots, f_n)\) is also a regular sequence.
 \end{proof}
 
-\begin{corollary}\textup{\cite[corollary 5.12]{darmon1995fermat}}\label{cor:flatness}
+\begin{corollary}\textup{\cite[corollary 5.12]{Darmon1995}}\label{cor:flatness}
     Let \(A \in \cob\) be finitely generated and of the form
     \[
         A \cong \mathcal{O}[[X_1, \dots, X_n]]/(f_1, \dots, f_n).  
@@ -966,7 +985,7 @@ Recall that the dimension of a ring is given by
 \end{proof}
 
 %The Koszul complex
-\begin{definition}[Koszul complex]\cites[ch. 5.3]{darmon1995fermat}[\S 16]{Matsumura1986}
+\begin{definition}[Koszul complex]\cites[ch. 5.3]{Darmon1995}[\S 16]{Matsumura1986}
     The Koszul complex associated to a sequence \(\underline{x} = (x_1, \dots, x_n)\) contained in the maximal ideal
     of a local ring is given by the complex
     \[
@@ -985,7 +1004,7 @@ Recall that the dimension of a ring is given by
     As usual, we denote by \(H_p(\underline{x}, R)\) the \(p\)-th homology group of this complex.
 \end{definition}
 
-\begin{remark}\textup{\cites[proposition 5.13]{darmon1995fermat}[theorem 16.5 (i)]{Matsumura1986}}
+\begin{remark}\textup{\cites[proposition 5.13]{Darmon1995}[theorem 16.5 (i)]{Matsumura1986}}
     We note \(K_0(\underline{x}, R) = R\) and therfore compute
     \[
         H_0(\underline{x}, R) = K_0(\underline{x}, R)/(\im d_1) \cong R/(x_1, \dots, x_n) = R/(\underline{x}).
@@ -1045,7 +1064,7 @@ Let \(D = \det(M) \in A[[\underline{X}]]\).
 The projection \(\mathcal{O}[[\underline{X}]] \to A\) induces an \(\mathcal{O}[[\underline{X}]]\)-module 
 structure on \(A\).
 
-\begin{lemma}\textup{\cite[see][lemma 5.14]{darmon1995fermat}}
+\begin{lemma}\textup{\cite[see][lemma 5.14]{Darmon1995}}
     The map
     \begin{align*}
         \Phi\colon \hom_{\mathcal{O}[[\underline{X}]]}(A[[\underline{X}]], \mathcal{O}[[\underline{x}]]) &\to A\\
@@ -1281,7 +1300,7 @@ structure on \(A\).
     as desired.
 \end{proof}
 
-\begin{lemma}\textup{\cite[lemma 5.15]{darmon1995fermat}}\label{lem:gorenstein}
+\begin{lemma}\textup{\cite[lemma 5.15]{Darmon1995}}\label{lem:gorenstein}
     Let 
     \[
         \!\tilde{\cdot}\colon \hom_\mathcal{O}(A, \mathcal{O}) \to 
@@ -1391,7 +1410,7 @@ In this section, \(A\) is always a finite flat complete intersection \(\in \cob\
 i.e. \(A \cong \mathcal{O}[[X_1, \dots, X_n]]/(f_1, \dots, f_n)\).
 The goal of this section is to find explicit formulas for \(\eta_A\) and \(\phi_A\) using
 the relations \(f_i\). This allows us to show that (c) \(\implies\) (b) in \cref{thm:wiles_numerical_criterion}.
-We closely follow \cite[chapter 5.4]{darmon1995fermat}.
+We closely follow \cite[chapter 5.4]{Darmon1995}.
 \begin{notation}
     \(A^\vee \coloneqq \hom_\mathcal{O}(A, \mathcal{O})\) and similarly, \(\pi_A^\vee \colon \mathcal{O}^\vee \to A^\vee\) 
     may denote the dual map associated to \(\pi_A\colon A \to \mathcal{O}\).
@@ -1470,7 +1489,7 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
     By the calculations we have done so far it becomes clear that this is the required preimage.
 \end{proof}
 
-\begin{proposition}\cite[proposition 5.19]{darmon1995fermat}
+\begin{proposition}\cite[proposition 5.19]{Darmon1995}
     \[
         \eta_A = (\det(\partial f_i/\partial X_j(0))).
     \]
@@ -1504,7 +1523,7 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
     \]
 \end{proof}
 
-\begin{corollary}\cite[corollary 5.20]{darmon1995fermat}\label{cor:cimpliesb}
+\begin{corollary}\cite[corollary 5.20]{Darmon1995}\label{cor:cimpliesb}
     Remembering that we assumed \(A\) to be a finite flat complete intersection \(\in \cob\), we obtain
     \[
         \# \Phi_A = \# (\mathcal{O}/\eta_A),
@@ -1517,7 +1536,7 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
 
 \subsection{Isomorphism theorems}
 
-\begin{proposition}\cite[theorem 5.21]{darmon1995fermat}\label{prop:phi_iso}
+\begin{proposition}\cite[theorem 5.21]{Darmon1995}\label{prop:phi_iso}
     Let \(f\colon A \twoheadrightarrow B\) be a \(\cob\)-morphism and \(B\) a finite flat complete intersection.
     If the tangent spaces \(\phi_A, \phi_B\) are finite and 
     the induced morphism \(\tilde f\colon \phi_A \to \phi_B\) is an isomorphism,
@@ -1665,7 +1684,7 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
     \(a\) is 0.
 \end{proof}
 
-\begin{proposition}\cite[theorem 5.24]{darmon1995fermat}\label{prop:eta_iso}
+\begin{proposition}\cite[theorem 5.24]{Darmon1995}\label{prop:eta_iso}
     Let \(f\colon A \twoheadrightarrow B\) be a \(\cob\)-morphism, \(A\) and \(B\) finite flat and \(B\) a 
     complete intersection. If \(\eta_A = \eta_B \neq 0\), then \(f\) is an isomorphism.
 \end{proposition}
@@ -1765,7 +1784,7 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
     
 \end{lemma}
 
-\begin{lemma}\label{lem:resolution}\cite[theorem 5.26]{darmon1995fermat}
+\begin{lemma}\label{lem:resolution}\cite[theorem 5.26]{Darmon1995}
     Let \(A \in \cob\) be finite flat. Then there is a \(\cob\)-morphism \(f\colon \tilde A \to A\) 
     where \(\tilde A\) is a finite flat complete intersection and \(f\) induces an isomorphism on the tangent spaces,
     \(\tilde f \colon \phi_{\tilde{A}} \xrightarrow{\sim} \phi_A\).
@@ -1853,7 +1872,7 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
 
 \subsection{A criterion for complete intersections}
 
-\begin{proposition}\cite[theorem 5.27]{darmon1995fermat}\label{prop:criterionCI}
+\begin{proposition}\cite[theorem 5.27]{Darmon1995}\label{prop:criterionCI}
     Let \(A \in \cob\) be finite flat. If \(\# \phi_A \leq \#(\mathcal{O}/\eta_A) < \infty\), 
     then \(A\) is a complete intersection.
 \end{proposition}
@@ -1879,7 +1898,7 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
 
 \subsection{Proof of Wiles' numerical criterion}
 
-\begin{proposition}\cite[theorem 5.28]{darmon1995fermat}\label{prop:aimpliesc}
+\begin{proposition}\cite[theorem 5.28]{Darmon1995}\label{prop:aimpliesc}
     Let \(R, T \in \cob\) such that \(T\) is finite flat and 
     \(\phi\colon R \twoheadrightarrow T\) is a surjective \(\cob\)-morphism.
     If \(\# \phi_R \leq \#(\mathcal{O}/\eta_T) < \infty\), then \(R\) and \(T\) are complete intersections,
