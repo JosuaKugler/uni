@@ -93,17 +93,7 @@ It was finally proved by Andrew Wiles and Richard Taylor in 1995.
 the theorem holds for all elliptic curves.)
 
 \subsection{Galois representations and modularity}
-%\color{gray}
-%The term "modularity" comes from modular forms, so lets start with a
-%\begin{definition}[Modular form]
-    %give a standard definition here, in particular mention the a_n values!
-%\end{definition}
-%Show the different equivalent conditions for modularity
-%\paragraph{Modularity as an isogeny/ a morphism}
 
-%\paragraph{Modularity for L-functions}
-%Use the a_n values, introduce the L-function of an elliptic curve
-%\color{black}
 \paragraph{Galois representations for elliptic curves}
 As it is very difficult to come from an elliptic curve to a modular form directly, 
 Wiles chose an indirect way via Galois representations.
@@ -118,10 +108,19 @@ a Galois operation on \(E[p]\), i.e. a morphism
     \operatorname{Gal}(\mathbb{Q}(E[p])/\mathbb{Q}) \to \GL_2(\mathbb{Z}/p\mathbb{Z}).  
 \]
 Completely analogous, we can construct compatible morphisms for \(E[p^n]\) 
-and in the limit we obtain a Galois representation
+and in the limit we obtain a map.
 \[
     \rho_{E, p} \colon G_\mathbb{Q} \to \GL_2(\mathbb{Z}_p).
 \]
+One can show that \(\rho_{E,p}\) is also continuous with respect to the Krull- resp. \(p\)-adic topology,
+i.e. \(\rho_{E,p}\) is a Galois representation.
+
+%some definitions of important terms, including
+%- unramified
+%- odd
+%- flat
+%- equivalence of Galois representations
+%- deformations?
 
 \begin{proposition}\cite[chapter 1, theorem 2.11]{Cornell1997}\label{prop:rhoEpproperties} 
     Let \(N_E\) be the conductor of \(E\) and \(\rho_{E,p}\) the representation described above.
@@ -142,7 +141,7 @@ and in the limit we obtain a Galois representation
         \(\overline{\rho_{E,p}}\) is unramified at \(\ell\) \(\Leftrightarrow p| \operatorname{ord}_\ell(\Delta_E)\).
     \end{itemize}
 \end{proposition}
-%analogously, we can associate a galois representation to each newform
+
 \paragraph{Galois representations for modular forms}
 Now that we have seen how to associate a Galois representation to an elliptic curve, we want to
 do the same thing for a modular form. However, this is far more difficult and therefore beyond 
@@ -173,31 +172,44 @@ For elliptic curves \(E/\mathbb{Q}\) we have the following
 For a moment, let's believe that every elliptic curve is modular.
 In order to prove FLT, we need one more deep ingredient, namely
 \begin{theorem}[Ribet's theorem]
-    Let \(f\) be a newform of weight \(2\) and level \(N\ell\) for a prime \(\ell\) s.t. \(\ell\not | N\).%what is a newform
-    Suppose that the associated Galois representation \(\overline{\rho_f}\) is absolutely irreducible%how does this association work?
+    Let \(f\) be a newform of weight \(2\) and level \(N\ell\) for a prime \(\ell\) s.t. \(\ell\not | N\).
+    Suppose that the associated Galois representation \(\overline{\rho_f}\) is absolutely irreducible
     and satisfies one of the following conditions.
     \begin{itemize}
         \item \(\overline{\rho_f}\) is unramified at \(\ell\)
         \item \(\ell = p\) and \(\overline{\rho_f}\) is flat at \(p\).
     \end{itemize}
-    Then there is a newform of weight \(2\) and level \(N\) s.t.
+    Then there is a newform of weight \(2\) and level \(N\) such that
     \[
-        \overline{\rho_f} \cong \overline{\rho_g} %in what exact sence are they equivalent?
+        \overline{\rho_f} \cong \overline{\rho_g}.
     \]    
 \end{theorem}
-
-By the modularity theorem we find a newform \(f\) of weight \(2\) such that
+By the modularity theorem \textbf{reference} we find a newform \(f\) of weight \(2\) such that
 \[
-    \overline{\rho_{E_{a,b,c}, p}} \cong \overline{\rho_f} %equality or equivalence?
+    \overline{\rho_{E_{a,b,c}, p}} \cong \overline{\rho_f}
 \]
-We need the semistability of \(E_{a,b,c}\) and the properties shown in %give reference
-Also, for \(\rho_{E_{a,b,c}, p}\) we have the following additional results by %give reference
+We need the semistability of \(E_{a,b,c}\) and the properties shown in \cref{prop:rhoEpproperties}.
+Because of the specific properties of the Frey curve we have the following finer results for \(\rho_{E_{a,b,c}, p}\) 
+\cite[see][chapter 1, theorem 3.1]{Cornell1997}.
 \begin{itemize}
     \item \(\rho_{E_{a,b,c}, p}\) is absolutely irreducible
-    \item \(\rho_{E_{a,b,c}, p}\) is unramified outside \(2p\), it is flat at \(p\) and semistable at \(2\).
-\end{itemize}
-Therefore, we can apply Ribets theorem %give the details?
- and finally find a newform \(g\) of weight \(2\) and level \(2\) such that
+    \item \(\rho_{E_{a,b,c}, p}\) is unramified outside \(2p\) and flat at \(p\) %and semistable at \(2\).
+\end{itemize} %TODO: We need these results for the reduction!
+As \(E\) is semistable, the conductor is squarefree,
+\[ 
+    N_E = 2 \cdot p \cdot \prod_{\ell\in S \text{ prime}} \ell
+\]
+for a finite set \(S\) of primes \(\neq 2, p\).
+Let \(\ell_0 \in S\). As \(\overline{\rho_{E_{a,b,c}, p}}\) is unramified at \(\ell_0\), 
+by Ribet's theorem we find a newform \(f'\) of weight \(2\) and level
+\[
+    2 \cdot p \cdot \prod_{\ell\in S\setminus\{\ell_0\} \text{ prime}} \ell
+\]
+such that \(\overline{\rho_{f'}} \cong \overline{\rho_{E_{a,b,c}, p}}\).
+By repeating this step, we obtain a newform \(g'\) of weight 2 and level \(2p\) whose reduced 
+Galois representation is still equivalent to \(\overline{\rho_{E_{a,b,c}, p}}\). 
+As \(\overline{\rho_{E_{a,b,c}, p}}\) is flat at \(p\), 
+we find a newform \(g\) of weight \(2\) and level \(2\) such that
 \[
     \overline{\rho_{E_{a,b,c}, p}} \cong \overline{\rho_g}.    
 \]
