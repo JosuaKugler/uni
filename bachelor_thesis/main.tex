@@ -94,6 +94,22 @@ the theorem holds for all elliptic curves.)
 
 \subsection{Galois representations and modularity}
 
+\paragraph{Definitions}
+Let \(A\) be coefficient ring, i.e. a complete noetherian local ring with finite residue field \(k\).
+A continuous map of the form
+\[
+    G_\mathbb{Q} \to \GL_2(A)
+\]
+is called a Galois representation, where \(G_\mathbb{Q}\) is endowed with the Krull topology.
+By reducing to the residue field, we obtain the residual representation
+\[
+    G_\mathbb{Q} \to \GL_2(k),
+\]
+where the topology on \(k\) is the discrete topology.
+A residual representation can have multiple lifts. Two such lifts \(\rho, \rho'\) are called equivalent
+if \(\rho = M\rho M^{-1}\) for \(M \in \GL_2(A)\) s.t. \(M \equiv \mathrm{id}_{2} \mod \mathfrak{m}_A\).
+An equivalence class of lifts of \(\rho_0\) is called deformation of \(\rho\).
+
 \paragraph{Galois representations for elliptic curves}
 As it is very difficult to come from an elliptic curve to a modular form directly, 
 Wiles chose an indirect way via Galois representations.
@@ -224,7 +240,7 @@ Therefore we take a closer look at the \(p\)-adic representation
 associated to an elliptic curve \(E/\mathbb{Q}\).
 First we prove several properties of the \(\mod p\)-reduction,
 \begin{lemma}
-    There is a prime \(p\) such that the \(\mod p\) reduction of the galois representation \(\rho_{E,p}\)
+    There is a prime \(p\) such that the \(\operatorname{mod} p\) reduction of the galois representation \(\rho_{E,p}\)
     \[
         \overline{\rho}_{E,p} \colon G_\mathbb{Q} \to \GL_2(\mathbb{F}_p)
     \]
@@ -289,6 +305,7 @@ with a universal deformation
 \subsection{Wiles' proof of modularity: \texorpdfstring{\(R = T\)}{R = T} and the numerical criterion}
 
 \newpage
+
 \section{Wiles' numerical criterion}
 \subsection{Introduction}
 Wiles has discovered a criterion for two rings in a specific category to be isomorphic 
