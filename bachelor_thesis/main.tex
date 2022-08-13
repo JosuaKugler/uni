@@ -35,6 +35,7 @@
 \newcommand{\im}{\operatorname{im}}
 \newcommand{\fitt}{\operatorname{Fitt}}
 \renewcommand{\hom}{\operatorname{Hom}}
+\newcommand{\GL}{\operatorname{GL}}
 
 \title{Wiles' numerical criterion}
 \author{Josua Kugler}
@@ -42,16 +43,211 @@
 \begin{document}
 \maketitle
 \tableofcontents
+\newpage
+\section{A brief sketch of the proof of Fermat's Last Theorem}
+The goal of this part is to give a brief overview of the proof of Fermat's Last Theorem and to explain where Wiles'
+numerical criterion enters the game.
+
+\subsection{Fermat's Last Theorem and the Modularity conjecture}
+\begin{theorem}[Fermat's Last Theorem]
+    There are no \(a, b, c \in \mathbb{Z}\) with \(abc \neq 0\) and \(n \in \mathbb{N}, n \geq 3\) such that
+    \[
+        a^n + b^n = c^n.  
+    \]
+\end{theorem}
+Actually this is equivalent to
+\begin{theorem}
+    There are no \(a, b, c \in \mathbb{Z}\) with \(abc \neq 0\) and a prime number \(p \geq 5\) such that
+    \[
+        a^p + b^p = c^p.  
+    \]
+\end{theorem}
+Indeed, let \(a^n + b^n = c^n\) be a solution of the Fermat equation where \(n \geq 3\).
+In the latter case, \(n\) is always divided by a prime number \(\geq 3\) or by \(4\).
+We can then write \(n = \tilde{p} \cdot m\) where \(\tilde p \in \{4\} \cup \{p | p \text{odd prime}\}\)
+and obtain 
+\[
+    a^n + b^n = c^n \Leftrightarrow (a^m)^{\tilde p} + (b^m)^{\tilde p} = (c^m)^{\tilde p}.  
+\]
+The case \(\tilde p = 4\) has been ruled out by Fermat himself and the case \(\tilde p = 3\)
+was shown soon after, so any solution of the Fermat equation of exponent \(n\) 
+induces a solution of the Fermat equation for some prime number \(p\geq 5\).
+
+\paragraph{Elliptic curves and Modularity}
+One of the key breakthroughs in the proof of FLT was to consider the
+\begin{definition}[Frey-Hellegouarch-Curve]
+    From a solution of the Fermat equation we can with little technical modifications obtain a triple \((a,b,c)\) 
+    such that \(a^p + b^p + c^p = 0\), \(a \cong -1 \mod 4, 2|b\). Then define the elliptic curve
+    \[
+        E_{a,b,c}\colon y^2 = x(x-a^p)(x+b^p).
+    \]
+\end{definition}
+This curve has weird properties (in a sence that numerical invariants of this curve contradict several well-known 
+conjectures with good evidential and theoretical support) and Frey conjectured that such a curve couldn't exist.
+He suggested to prove this by associating a modular form to this curve and showing that this modular form couldn't exist.
+The fact (back then still a conjecture) that one could "associate" a modular form to every elliptic curve over \(Q\) is known as
+\begin{theorem}[Modularity]
+    Every semistable elliptic curve over \(\mathbb Q\) is modular, i.e. there is a modular form \(f\) "associated" to \(E\)
+    in a sence that will be made precise in the next sections.
+\end{theorem}
+This conjecture is what was proven by Wiles in his famous proof.
+(In the years until 1999 the semistability condition could be removed, so that nowadays
+the theorem holds for all elliptic curves.)
+
+\subsection{Modular forms, elliptic curves and modularity}
+The term "modularity" comes from modular forms, so lets start with a
+\begin{definition}[Modular form]
+    %give a standard definition here, in particular mention the a_n values!
+\end{definition}
+%Show the different equivalent conditions for modularity
+\paragraph{Modularity as an isogeny/ a morphism}
+
+\paragraph{Modularity for L-functions}
+
+\paragraph{Modularity of galois representations}
+As it is very difficult to come from an elliptic curve to a modular form directly, 
+Wiles chose an indirect way via Galois representations.
+For each elliptic curve \(E\) over \(\mathbb{Q}\), we have an associated galois representation.
+%explain how we get an operation of G_Q on the Tate-module
+Take the \(p\)-torsion subgroup \(E[p]\) of \(E\) (i.e. the kernel of \(p\)-multiplication on \(E\)).
+It is well known that we can choose a generating system \(P, Q\) for \(E[p]\) and 
+obtain an isomorphism \(E[p] \cong (\mathbb{Z}/p \mathbb{Z})^2\).
+As \(\mathbb{Q}(E[p])\) is a Galois number field, it is not hard to see that we have
+a Galois operation on \(E[p]\), i.e. a morphism
+\[
+    \operatorname{Gal}(\mathbb{Q}(E[p])/\mathbb{Q}) \to \GL_2(\mathbb{Z}/p\mathbb{Z}).  
+\]
+Completely analogous, we can construct compatible morphisms for \(E[p^n]\) 
+and in the limit we obtain a Galois representation
+\[
+    \rho_{E, p} \colon G_\mathbb{Q} \to \GL_2(\mathbb{Z}_p).
+\]
+
+\begin{proposition}%probably cite Cornell silverman stevens on this matter 
+    Let \(N_E\) be the conductor of \(E\) and \(\rho_{E,p}\) the representation described above.
+    Then
+    \begin{itemize}
+        \item \(\det \circ \rho_{E,p} = \chi_p\)
+        \item \(\rho_{E,p}\) is unramified at primes not dividing \(pN_E\)
+        \item \(\rho_{E, p}\) is odd
+    \end{itemize}
+\end{proposition}
+
+%analogously, we can associate a galois representation to each newform/modular form/whatever form
+Now that we have seen how to associate a Galois representation to an elliptic curve, we want to
+do the same thing for a modular form. However, this is far more difficult and therefore beyond 
+the scope of this thesis. For a reference, see %diamond & shurman section 9.5
+
+A Galois representation \(\rho\) is modular if there is a new cuspform \(f\) of weight \(2\) such that
+\[
+    \overline{\rho_{E, p}} \cong \overline{\rho_f}.  
+\]
+In particular, an elliptic curve is modular if the associated Galois representation is modular.
+
+%zusammenfassung modularität (siehe Satz 5.1 Theorem Cornell )
+In total we have
+\begin{theorem}
+    An elliptic curve \(E/\mathbb{Q}\) is modular if it satisfies one of the following equivalent conditions.
+    \begin{itemize}
+        \item \dots
+    \end{itemize}
+\end{theorem}
+
+\subsection{Ribet's theorem and the contradiction}
+For a moment, let's believe that every elliptic curve is modular.
+In order to prove FLT, we need one more deep ingredient, namely
+\begin{theorem}[Ribet's theorem]
+    Let \(f\) be a newform of weight \(2\) and level \(N\ell\) for a prime \(\ell\) s.t. \(\ell\not | N\).%what is a newform
+    Suppose that the associated Galois representation \(\overline{\rho_f}\) is absolutely irreducible%how does this association work?
+    and satisfies one of the following conditions.
+    \begin{itemize}
+        \item \(\overline{\rho_f}\) is unramified at \(\ell\)
+        \item \(\ell = p\) and \(\overline{\rho_f}\) is flat at \(p\).
+    \end{itemize}
+    Then there is a newform of weight \(2\) and level \(N\) s.t.
+    \[
+        \overline{\rho_f} \cong \overline{\rho_g} %in what exact sence are they equivalent?
+    \]    
+\end{theorem}
+
+By the modularity theorem we find a newform \(f\) of weight \(2\) such that
+\[
+    \overline{\rho_{E_{a,b,c}, p}} \cong \overline{\rho_f} %equality or equivalence?
+\]
+We need the semistability of \(E_{a,b,c}\) and the properties shown in %give reference
+Also, for \(\rho_{E_{a,b,c}, p}\) we have the following additional results by %give reference
+\begin{itemize}
+    \item \(\rho_{E_{a,b,c}, p}\) is absolutely irreducible
+    \item \(\rho_{E_{a,b,c}, p}\) is unramified outside \(2p\), it is flat at \(p\) and semistable at \(2\).
+\end{itemize}
+Therefore, we can apply Ribets theorem %give the details?
+ and finally find a newform \(g\) of weight \(2\) and level \(2\) such that
+\[
+    \overline{\rho_{E_{a,b,c}, p}} \cong \overline{\rho_g}.    
+\]
+However, the only newform of weight \(2\) and level \(2\) is 0, so we obtain the desired contradiction.
+
+\subsection{Wiles' proof of modularity: The 3-5 trick}
+What remains now for the proof of FLT is the proof of the modularity theorem, i.e. that every semistable
+elliptic curve is modular.
+Wiles chose to proof version \textbf{add number from equivalent modularity definition} of modularity.
+Therefore we take a closer look at the \(p\)-adic representation \(\rho_{E,p} \colon G_\mathbb{Q} \to \GL_2(\mathbb{Z}_p)\)
+associated to an elliptic curve \(E/\mathbb{Q}\).
+First we prove several properties of the \(\mod p\)-reduction,
+\begin{lemma}
+    There is a prime \(p\) such that the \(\mod p\) reduction of the galois representation \(\rho_{E,p}\)
+    \[
+        \overline{\rho_{E,p}} \colon G_\mathbb{Q} \to \GL_2(\mathbb{F}_p)
+    \]
+    satisfies the following properties.
+    \begin{enumerate}[(A)]
+        \item \(\det \overline{\rho_{E,p}} = \chi_p\)
+        \item \(\overline{\rho_{E,p}}\) is semistable
+        \item \(\overline{\rho_{E,p}}\) is absolutely irreducible
+        \item \(\overline{\rho_{E,p}}\) is modular, and \(\overline{\rho_{E,p}}|_{G_\mathbb{Q}(\sqrt(-3))}\) is absolutely irreducible
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    We have seen in %add reference
+    that \(\rho_{E, p}\) has determinant \(\chi_p\). \textbf{Is \(\chi_p\) invariant under reduction?}
+    As \(E\) is semistable we know that \(\rho_{E, p}\) is semistable %again, why is this true for the reduction?
+    We now need to prove that there is a \(p\) s.t. \(\overline{\rho_{E,p}}\) is absolutely irreducible and modular.
+    %here comes the 3-5 trick
+    %cite langlands-tunnell?
+\end{proof}
+
+\subsection{Wiles' proof of modularity: The main theorem}
+
+Let \(A\) be a ring of coefficients \textbf{i.e. noetherian, local, Dedekind, ...?} and \(k\) its quotient field.
+The goal of this part of the proof is to show that all lifts
+\[
+    \rho\colon G_\mathbb{Q} \to \GL_2(A)  
+\]
+of any galois representations \(\rho_0\colon G_\mathbb{Q} \to \GL_2(k)\) satisfying certain conditions are modular.
+
+%deformations in general, deformation types
+
+%universal deformation ring
+For each deformation type \(\mathcal{D}\), we can define a universal deformation ring \(R_\mathcal{D}\) together
+with a universal deformation 
+\[ 
+    \rho_\mathcal{D}\colon G_\mathbb{Q} \to \GL_2(R_\mathcal{D}).
+\]
+%universal modular deformation ring
+%once we've proven R = T, the result follows
+
+\subsection{Wiles' proof of modularity: \texorpdfstring{\(R = T\)}{R = T} and the numerical criterion}
 
 \newpage
-\section{Introduction}
+\section{Wiles' numerical criterion}
+\subsection{Introduction}
 Wiles has discovered a criterion for two rings in a specific category to be isomorphic 
 that only depends on some numerical invariants of these rings. 
 The aim of this section is to prove that criterion in its purely algebraic form. 
 %TODO: Explain how this fits into the rest of the proof.
 In our presentation, we closely follow \cite[5.1 - 5.8]{darmon1995fermat}.
 
-\section{Preliminaries and examples}
+\subsection{Preliminaries and examples}
 Let \(\mathcal{O}\) be the ring of integers of a finite extension \(K\) of \(\mathbb Q_\ell\). 
 As \(K\) is a local field, its ring of integers is a discrete valutation ring (DVR), i.e. 
 \(\mathcal O\) is a local, noetherian Dedekind ring with maximal ideal \(\lambda\). 
@@ -381,7 +577,7 @@ With these results at hand, we can state
     \end{enumerate}
 \end{theorem}
 
-\section{Basic properties of the invariants}
+\subsection{Basic properties of the invariants}
 In this subsection we prove the equivalence (a) \(\Leftrightarrow\) (b) in \cref{thm:wiles_numerical_criterion}
 by investigating the invariants \(\phi_A\) and \(\eta_A\) that we defined last section.
 
@@ -638,7 +834,7 @@ For the 'only if'-part, see \cites[lemma 5.5]{darmon1995fermat}[theorem 8.4]{Mat
     \end{itemize}      
 \end{proof}
 
-\section{Regular sequences and the Koszul complex}
+\subsection{Regular sequences and the Koszul complex}
 Let \(A\) be a finite flat complete intersection. Hence we can write 
 \[A = \mathcal{O}[[X_1, \dots, X_n]]/(f_1, \dots, f_n).\]
 The goal of this section is to prove some technical lemmata and to introduce
@@ -803,7 +999,7 @@ Recall that the dimension of a ring is given by
     %if I have time and motivation I can probably give some more proofs here
 \end{remark}
 
-\section{Complete intersections and Gorenstein rings}
+\subsection{Complete intersections and Gorenstein rings}
 Let \(A\) be a finite flat complete intersection in \(\cob\). The goal of this section is to show that \(A\)
 satisfies a Gorenstein condition, i.e. a specific form of self-duality.
 This fact can then be used to show (c) \(\implies\) (b) in \cref{thm:wiles_numerical_criterion}.
@@ -1192,7 +1388,7 @@ structure on \(A\).
     \end{enumerate}
 \end{proof}
 
-\section{Explicit computation of \texorpdfstring{\(\eta\)}{η} for complete intersections}
+\subsection{Explicit computation of \texorpdfstring{\(\eta\)}{η} for complete intersections}
 
 In this section, \(A\) is always a finite flat complete intersection \(\in \cob\), 
 i.e. \(A \cong \mathcal{O}[[X_1, \dots, X_n]]/(f_1, \dots, f_n)\).
@@ -1220,7 +1416,7 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
 \end{proof}
 
 \begin{lemma}
-    Independent of the choice of \(\Psi,\) we have 
+    Regardless of the choice of \(\Psi,\) we have 
     \(\Psi \pi_A^\vee(\mathcal{O}^\vee) = \ann_A \ker \pi_A\) and, a fortiori
     \[
         \eta_A = \pi_A \Psi \pi_A^\vee(\mathcal{O}^\vee).  
@@ -1322,7 +1518,7 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
     Should be true and mostly linear algebra, we will look up a reference.
 \end{proof}
 
-\section{Isomorphism theorems}
+\subsection{Isomorphism theorems}
 
 \begin{proposition}\cite[theorem 5.21]{darmon1995fermat}\label{prop:phi_iso}
     Let \(f\colon A \twoheadrightarrow B\) be a \(\cob\)-morphism and \(B\) a finite flat complete intersection.
@@ -1566,7 +1762,7 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
     Taking the dual and applying \cref{lem:pontryagininjectivity} finally yields \(\ker f = 0\).
 \end{proof}
 
-\section{A resolution lemma}
+\subsection{A resolution lemma}
 
 \begin{lemma}
     
@@ -1658,7 +1854,7 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
     as desired.
 \end{proof}
 
-\section{A criterion for complete intersections}
+\subsection{A criterion for complete intersections}
 
 \begin{proposition}\cite[theorem 5.27]{darmon1995fermat}\label{prop:criterionCI}
     Let \(A \in \cob\) be finite flat. If \(\# \phi_A \leq \#(\mathcal{O}/\eta_A) < \infty\), 
@@ -1684,7 +1880,7 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
     Since \(\tilde{A}\) is a complete intersection, so is \(A\).
 \end{proof}
 
-\section{Proof of Wiles' numerical criterion}
+\subsection{Proof of Wiles' numerical criterion}
 
 \begin{proposition}\cite[theorem 5.28]{darmon1995fermat}\label{prop:aimpliesc}
     Let \(R, T \in \cob\) such that \(T\) is finite flat and 
