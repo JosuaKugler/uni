@@ -45,9 +45,6 @@
 \tableofcontents
 \newpage
 \section{A brief sketch of the proof of Fermat's Last Theorem}
-The goal of this part is to give a brief overview of the proof of Fermat's Last Theorem and to explain where Wiles'
-numerical criterion enters the game.
-
 \subsection{Fermat's Last Theorem and the Modularity conjecture}
 \begin{theorem}[Fermat's Last Theorem]
     There are no \(a, b, c \in \mathbb{Z}\) with \(abc \neq 0\) and \(n \in \mathbb{N}, n \geq 3\) such that
@@ -73,7 +70,6 @@ The case \(\tilde p = 4\) has been ruled out by Fermat himself and the case \(\t
 was shown soon after, so any solution of the Fermat equation of exponent \(n\) 
 induces a solution of the Fermat equation for some prime number \(p\geq 5\).
 
-\paragraph{Elliptic curves and Modularity}
 One of the key breakthroughs in the proof of FLT was to consider the
 \begin{definition}[Frey-Hellegouarch-Curve]
     From a solution of the Fermat equation we can with little technical modifications obtain a triple \((a,b,c)\) 
@@ -85,13 +81,14 @@ One of the key breakthroughs in the proof of FLT was to consider the
 This curve has weird properties (in a sence that numerical invariants of this curve contradict several well-known 
 conjectures with good evidential and theoretical support) and Frey conjectured that such a curve couldn't exist.
 He suggested to prove this by associating a modular form to this curve and showing that this modular form couldn't exist.
-The fact (back then still a conjecture) that one could "associate" a modular form to every elliptic curve over \(Q\) is known as
+The key point in this strategy was the following
 \begin{theorem}[Modularity]
     Every semistable elliptic curve over \(\mathbb Q\) is modular, i.e. there is a modular form \(f\) "associated" to \(E\)
     in a sence that will be made precise in the next sections.
 \end{theorem}
-This conjecture is what was proven by Wiles in his famous proof.
-(In the years until 1999 the semistability condition could be removed, so that nowadays
+When Frey had the idea of using this to prove FLT, it still was a conjecture.
+It was finally proved by Andrew Wiles and Richard Taylor in 1995.
+(In the years until 1999 the semistability condition could be removed, so that
 the theorem holds for all elliptic curves.)
 
 \subsection{Modular forms, elliptic curves and modularity}
