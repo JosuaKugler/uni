@@ -83,7 +83,7 @@ This curve has weird properties (in a sence that numerical invariants of this cu
 conjectures with good evidential and theoretical support) and Frey conjectured that such a curve couldn't exist.
 He suggested to prove this by associating a modular form to this curve and showing that this modular form couldn't exist.
 The key point in this strategy was the following
-\begin{theorem}[Modularity]
+\begin{theorem}[Modularity]\label{th:modularity}
     Every semistable elliptic curve over \(\mathbb Q\) is modular, i.e. there is a modular form \(f\) "associated" to \(E\)
     in a sence that will be made precise in the next sections.
 \end{theorem}
@@ -132,13 +132,13 @@ i.e. \(\rho_{E,p}\) is a Galois representation.
     \end{itemize}
     If \(E\) is semistable and \(\Delta_E\) its minimal discriminant, we can further conclude that for
     \[
-        \overline{\rho_{E,p}}\colon G_Q \to \GL_2(\mathbb{Z}/p\mathbb{Z})  
+        \overline{\rho}_{E,p}\colon G_Q \to \GL_2(\mathbb{Z}/p\mathbb{Z})  
     \]
     the following equivalences hold.
     \begin{itemize}
-        \item \(\overline{\rho_{E,p}}\) is flat at \(p\) \(\Leftrightarrow p| \operatorname{ord}_p(\Delta_E)\).
+        \item \(\overline{\rho}_{E,p}\) is flat at \(p\) \(\Leftrightarrow p| \operatorname{ord}_p(\Delta_E)\).
         \item For any prime \(\ell \neq p\): 
-        \(\overline{\rho_{E,p}}\) is unramified at \(\ell\) \(\Leftrightarrow p| \operatorname{ord}_\ell(\Delta_E)\).
+        \(\overline{\rho}_{E,p}\) is unramified at \(\ell\) \(\Leftrightarrow p| \operatorname{ord}_\ell(\Delta_E)\).
     \end{itemize}
 \end{proposition}
 
@@ -173,20 +173,20 @@ For a moment, let's believe that every elliptic curve is modular.
 In order to prove FLT, we need one more deep ingredient, namely
 \begin{theorem}[Ribet's theorem]
     Let \(f\) be a newform of weight \(2\) and level \(N\ell\) for a prime \(\ell\) s.t. \(\ell\not | N\).
-    Suppose that the associated Galois representation \(\overline{\rho_f}\) is absolutely irreducible
+    Suppose that the associated Galois representation \(\overline{\rho}_f\) is absolutely irreducible
     and satisfies one of the following conditions.
     \begin{itemize}
-        \item \(\overline{\rho_f}\) is unramified at \(\ell\)
-        \item \(\ell = p\) and \(\overline{\rho_f}\) is flat at \(p\).
+        \item \(\overline{\rho}_f\) is unramified at \(\ell\)
+        \item \(\ell = p\) and \(\overline{\rho}_f\) is flat at \(p\).
     \end{itemize}
     Then there is a newform of weight \(2\) and level \(N\) such that
     \[
-        \overline{\rho_f} \cong \overline{\rho_g}.
+        \overline{\rho}_f \cong \overline{\rho}_g.
     \]    
 \end{theorem}
-By the modularity theorem \textbf{reference} we find a newform \(f\) of weight \(2\) such that
+By the modularity theorem \cref{th:modularity} we find a newform \(f\) of weight \(2\) such that
 \[
-    \overline{\rho_{E_{a,b,c}, p}} \cong \overline{\rho_f}
+    \overline{\rho}_{E_{a,b,c}, p} \cong \overline{\rho}_f
 \]
 We need the semistability of \(E_{a,b,c}\) and the properties shown in \cref{prop:rhoEpproperties}.
 Because of the specific properties of the Frey curve we have the following finer results for \(\rho_{E_{a,b,c}, p}\) 
@@ -200,18 +200,18 @@ As \(E\) is semistable, the conductor is squarefree,
     N_E = 2 \cdot p \cdot \prod_{\ell\in S \text{ prime}} \ell
 \]
 for a finite set \(S\) of primes \(\neq 2, p\).
-Let \(\ell_0 \in S\). As \(\overline{\rho_{E_{a,b,c}, p}}\) is unramified at \(\ell_0\), 
+Let \(\ell_0 \in S\). As \(\overline{\rho}_{E_{a,b,c}, p}\) is unramified at \(\ell_0\), 
 by Ribet's theorem we find a newform \(f'\) of weight \(2\) and level
 \[
     2 \cdot p \cdot \prod_{\ell\in S\setminus\{\ell_0\} \text{ prime}} \ell
 \]
-such that \(\overline{\rho_{f'}} \cong \overline{\rho_{E_{a,b,c}, p}}\).
+such that \(\overline{\rho}_{f'} \cong \overline{\rho}_{E_{a,b,c}, p}\).
 By repeating this step, we obtain a newform \(g'\) of weight 2 and level \(2p\) whose reduced 
-Galois representation is still equivalent to \(\overline{\rho_{E_{a,b,c}, p}}\). 
-As \(\overline{\rho_{E_{a,b,c}, p}}\) is flat at \(p\), 
+Galois representation is still equivalent to \(\overline{\rho}_{E_{a,b,c}, p}\). 
+As \(\overline{\rho}_{E_{a,b,c}, p}\) is flat at \(p\), 
 we find a newform \(g\) of weight \(2\) and level \(2\) such that
 \[
-    \overline{\rho_{E_{a,b,c}, p}} \cong \overline{\rho_g}.    
+    \overline{\rho}_{E_{a,b,c}, p} \cong \overline{\rho}_g.    
 \]
 However, the only newform of weight \(2\) and level \(2\) is 0, so we obtain the desired contradiction.
 
@@ -225,21 +225,21 @@ First we prove several properties of the \(\mod p\)-reduction,
 \begin{lemma}
     There is a prime \(p\) such that the \(\mod p\) reduction of the galois representation \(\rho_{E,p}\)
     \[
-        \overline{\rho_{E,p}} \colon G_\mathbb{Q} \to \GL_2(\mathbb{F}_p)
+        \overline{\rho}_{E,p} \colon G_\mathbb{Q} \to \GL_2(\mathbb{F}_p)
     \]
     satisfies the following properties.
     \begin{enumerate}[(A)]
-        \item \(\det \overline{\rho_{E,p}} = \chi_p\)
-        \item \(\overline{\rho_{E,p}}\) is semistable
-        \item \(\overline{\rho_{E,p}}\) is absolutely irreducible
-        \item \(\overline{\rho_{E,p}}\) is modular, and \(\overline{\rho_{E,p}}|_{G_\mathbb{Q}(\sqrt(-3))}\) is absolutely irreducible
+        \item \(\det \overline{\rho}_{E,p} = \chi_p\)
+        \item \(\overline{\rho}_{E,p}\) is semistable
+        \item \(\overline{\rho}_{E,p}\) is absolutely irreducible
+        \item \(\overline{\rho}_{E,p}\) is modular, and \(\overline{\rho}_{E,p}|_{G_\mathbb{Q}(\sqrt(-3))}\) is absolutely irreducible
     \end{enumerate}
 \end{lemma}
 \begin{proof}
     We have seen in %add reference
     that \(\rho_{E, p}\) has determinant \(\chi_p\). \textbf{Is \(\chi_p\) invariant under reduction?}
     As \(E\) is semistable we know that \(\rho_{E, p}\) is semistable %again, why is this true for the reduction?
-    We now need to prove that there is a \(p\) s.t. \(\overline{\rho_{E,p}}\) is absolutely irreducible and modular.
+    We now need to prove that there is a \(p\) s.t. \(\overline{\rho}_{E,p}\) is absolutely irreducible and modular.
     %here comes the 3-5 trick
     %cite langlands-tunnell?
 \end{proof}
