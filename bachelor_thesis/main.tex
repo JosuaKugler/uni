@@ -79,9 +79,9 @@ One of the key breakthroughs in the proof of FLT was to consider the
         E_{a,b,c}\colon y^2 = x(x-a^p)(x+b^p).
     \]
 \end{definition}
-This curve has weird properties (in a sence that numerical invariants of this curve contradict several well-known 
-%add something on this weird properties
-conjectures with good evidential and theoretical support) and Frey conjectured that such a curve couldn't exist.
+This curve has weird properties in a sence that numerical invariants of this curve contradict several well-known 
+conjectures (such as Serre's conjecture that was actually proved in 2008. See next section) 
+and Frey conjectured that such a curve couldn't exist.
 He suggested to prove this by associating a modular form to this curve and showing that this modular form couldn't exist.
 The key point in this strategy was the following
 \begin{theorem}[Modularity]\label{th:modularity}
@@ -121,9 +121,6 @@ An equivalence class of lifts of \(\rho_0\) is called deformation of \(\rho\).
     \(I_\ell\) is contained in the kernel of \(\rho\).
     Being \textbf{flat} is a condition of similar nature, though considerably more technical.
 \end{definition}
-%\begin{definition}
-%    A Galois representation \(\rho\) is \textbf{irreducible}
-%\end{definition}
 
 \paragraph{Galois representations for elliptic curves}
 As it is very difficult to come from an elliptic curve to a modular form directly, 
@@ -172,6 +169,20 @@ do the same thing for a modular form. However, this is far more difficult and th
 the scope of this thesis.
 The result that we need is that to a new cuspform \(f\) of weight \(2\) we can associate a 
 Galois representation \(\rho_f\) \cite[see][section 9.5]{Diamond2007}.
+Now we can state Serre's conjecture that was mentioned in the introduction.
+Let
+\[
+    \rho\colon G_\mathbb{Q} \to \GL_2(\mathbb{F}_p)
+\]
+be a continuous, odd, irreducible Galois representation. 
+Then there exists a cuspidal eigenform \(f\) , such that 
+\[
+    \rho \cong \rho_f
+\]
+the Galois representation associated to \(f\).
+Serre even gives detailed formulas that assert a certain weight and level for \(f\).
+In the case of \(\rho_{E_{a,b,c},p}\) it predicts level two and weight two, a contradiction.
+That might be one of the reasons why Frey  considered they Frey curve \(E_{a,b,c}\) to be strange.
 
 \paragraph{Modularity}
 A Galois representation \(\rho\) is modular if there is a newform \(f\) of weight \(2\) such that
@@ -1617,11 +1628,15 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
     \[
         V = SDT  
     \]
-    for some diagonal matrix \(D = \begin{pmatrix}
-        d_1&&\\
-        &\ddots&\\
-        &&d_n
-    \end{pmatrix}\) (Smith normal form).
+    for some diagonal matrix 
+    \[
+        D = \begin{pmatrix}
+            d_1&&\\
+            &\ddots&\\
+            &&d_n
+        \end{pmatrix}
+    \]
+    (Smith normal form).
     As the endomorphisms enduced by \(S\) and \(T\) are isomorphisms, we compute
     \[
         \mathcal{O}^n/(SDT)\mathcal{O}^n = \mathcal{O}^n/D\mathcal{O}^n = 
