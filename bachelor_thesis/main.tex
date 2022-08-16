@@ -298,6 +298,7 @@ associated to an elliptic curve \(E/\mathbb{Q}\).
     \end{itemize}
     In either case we have found a \(p\) s.t. \(\overline{\rho}_{E,p}\) is irreducible and modular.
 \end{proof}
+\newpage
 
 \subsection{Wiles' proof of modularity: The modularity lifting theorem}
  
@@ -307,9 +308,11 @@ The goal of this part of the proof is to show that all lifts
 \[
     \rho\colon G_\mathbb{Q} \to \GL_2(A)  
 \]
-of any galois representations \(\rho_0\colon G_\mathbb{Q} \to \GL_2(k)\) satisfying certain conditions are modular.
+of any galois representations \(\rho_0\colon G_\mathbb{Q} \to \GL_2(k)\) are modular 
+if the lifts satisfy certain conditions.
 
 %deformations in general, deformation types
+\begin{definition}\cite[see][chapter 1, paragraph 7.2]{Cornell1997}
 We say that a deformation of \(\overline{\rho}\) is of type \(\Sigma\), if
 \begin{itemize}
     \item \(\det \rho = \chi_p\)
@@ -318,7 +321,7 @@ We say that a deformation of \(\overline{\rho}\) is of type \(\Sigma\), if
     \item \(\rho\) is semistable outside \(\Sigma\)
     \item if \(p \not \in \Sigma\) and \(\overline{\rho}\) is flat at \(p\), then \(\rho\) is flat at \(p\).
 \end{itemize}
-For a reference, \cite[see][chapter 1, paragraph 7.2]{Cornell1997}
+\end{definition}
 
 %universal deformation ring
 \paragraph{The universal deformation ring}
@@ -2058,9 +2061,9 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
     \[
         \phi_A = \phi_{V/(f_1, \dots, f_n)} = \phi_V/(\overline{f_1}, \dots, \overline{f_n}).
     \]
-    As \(\overline{f_1}, \dots, \overline{f_n}\) generate \(\ker \phi_V \to \phi_A\), they also generate 
-    the completion \(\ker \phi_U \to \phi_A\) (Analogous to the above argumentation \textbf{provide details}). Therefore, using \cref{rem:tangentspace}, 
-    we have an isomorphism of the tangent spaces 
+    \(\overline{f_1}, \dots, \overline{f_n}\) generate \(\ker \phi_V \to \phi_A\). Hence, analogous to the
+    above argumentation, they also generate the completion \(\ker \phi_U \to \phi_A\). 
+    Therefore, using \cref{rem:tangentspace}, we have an isomorphism of the tangent spaces 
     \[
         \phi_{\tilde{A}} = \phi_U/(\overline{f_1}, \dots, \overline{f_n}) \to \phi_A,
     \]
