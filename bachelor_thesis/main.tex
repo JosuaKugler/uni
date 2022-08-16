@@ -274,13 +274,12 @@ associated to an elliptic curve \(E/\mathbb{Q}\).
     We have seen in \cref{prop:rhoEpproperties} that \(\rho_{E, p}\) has determinant \(\chi_p\). %we need it for the reduction
     As \(E\) is semistable we know that \(\rho_{E, p}\) is semistable %again, why is this true for the reduction?
     We now need to prove that there is a \(p\) s.t. \(\overline{\rho}_{E,p}\) is irreducible and modular.
+    In fact, it can be shown that once irreducibility and modularity are clear, all conditions A-D hold.
     %Moreover, by a theorem of Serre ([15], prop. 21, and [17], §3.1), the
     %semistability of E guarantees that \(\overline{\rho}_{E,p}\) is either surjective or reducible
     %for every prime \(p \geq 3\). Hence for \(p \geq 3\), absolute irreducibility of \(\overline \rho_{E,p}\) is
     %equivalent to irreducibility of \(\overline \rho_{E,p}\), and if \(p = 3\) this is equivalent to absolute
     %irreducibility of \(\overline{\rho}_{E,3}|_{G_{\mathbb{Q}(\sqrt{3})}}\)
-    \textbf{Explain why absolute irreducibility of rhobar and of rhobarsqrt-3 
-    are clear once modularity and irreducibility are shown.}
     Wiles proved the following
     \begin{proposition}
         Let \(E/\mathbb{Q}\) be a semistable elliptic curve. Then at least one of 
@@ -302,7 +301,8 @@ associated to an elliptic curve \(E/\mathbb{Q}\).
 
 \subsection{Wiles' proof of modularity: The modularity lifting theorem}
 
-Let \(A\) be a ring of coefficients \textbf{i.e. noetherian, local, Dedekind, ...?} and \(k\) its quotient field.
+Define the category \(\co\) as in section 2.1. (i.e. local complete noetherian \(\mathcal{O}\)-algbras with residue field \(k\)) 
+and let \(A \in \co\).
 The goal of this part of the proof is to show that all lifts
 \[
     \rho\colon G_\mathbb{Q} \to \GL_2(A)  
@@ -317,7 +317,7 @@ We say that a deformation of \(\overline{\rho}\) is of type \(\Sigma\), if
 
 
 %universal deformation ring
-Define the category \(\co\) as in section 2.1. Then consider the functor
+Consider the functor
 \[
     \mathcal{R}_\Sigma \colon \co \to \mathrm{\mathbf{FiniteSets}}  
 \]
