@@ -62,7 +62,7 @@ Actually this is equivalent to
 \end{theorem}
 Indeed, let \(a^n + b^n = c^n\) be a solution of the Fermat equation where \(n \geq 3\).
 In the latter case, \(n\) is always divided by a prime number \(\geq 3\) or by \(4\).
-We can then write \(n = \tilde{p} \cdot m\) where \(\tilde p \in \{4\} \cup \{p | p \text{odd prime}\}\)
+We can then write \(n = \tilde{p} \cdot m\) where \(\tilde p \in \{4\} \cup \{p | p \text{ odd prime}\}\)
 and obtain 
 \[
     a^n + b^n = c^n \Leftrightarrow (a^m)^{\tilde p} + (b^m)^{\tilde p} = (c^m)^{\tilde p}.  
@@ -79,9 +79,9 @@ One of the key breakthroughs in the proof of FLT was to consider the
         E_{a,b,c}\colon y^2 = x(x-a^p)(x+b^p).
     \]
 \end{definition}
-This curve has weird properties in a sence that numerical invariants of this curve contradict several well-known 
-conjectures (such as Serre's conjecture that was actually proved in 2008. See next section) 
-and Frey conjectured that such a curve couldn't exist.
+The existence of such a curve contradicts several well-known 
+conjectures (such as Serre's conjecture, cf. next section) 
+and Frey therefore conjectured that such a curve couldn't exist.
 He suggested to prove this by associating a modular form to this curve and showing that this modular form couldn't exist.
 The key point in this strategy was the following
 \begin{theorem}[Modularity]\label{th:modularity}
@@ -219,7 +219,7 @@ In order to prove FLT, we need one more deep ingredient, namely
         \overline{\rho}_f \cong \overline{\rho}_g.
     \]    
 \end{theorem}
-By the modularity theorem \cref{th:modularity} we find a newform \(f\) of weight \(2\) such that
+By the modularity \cref{th:modularity} we find a newform \(f\) of weight \(2\) such that
 \[
     \overline{\rho}_{E_{a,b,c}, p} \cong \overline{\rho}_f
 \]
@@ -253,7 +253,7 @@ However, the only newform of weight \(2\) and level \(2\) is 0, so we obtain the
 \subsection{Wiles' proof of modularity: The 3-5 trick}
 What remains now for the proof of FLT is the proof of the modularity theorem, i.e. that every semistable
 elliptic curve is modular.  
-Wiles chose to proof version 1 of modularity as defined in \cref{th:eqcondmodularity}
+Wiles chose to proof version 1 of modularity as defined in \cref{th:eqcondmodularity}.
 Therefore we take a closer look at the \(p\)-adic representation 
 \(\rho_{E,p} \colon G_\mathbb{Q} \to \GL_2(\mathbb{Z}_p)\)
 associated to an elliptic curve \(E/\mathbb{Q}\).
@@ -272,7 +272,7 @@ associated to an elliptic curve \(E/\mathbb{Q}\).
 \end{lemma}
 \begin{proof}
     We have seen in \cref{prop:rhoEpproperties} that \(\rho_{E, p}\) has determinant \(\chi_p\). %we need it for the reduction
-    As \(E\) is semistable we know that \(\rho_{E, p}\) is semistable %again, why is this true for the reduction?
+    As \(E\) is semistable we know that \(\rho_{E, p}\) is semistable. %again, why is this true for the reduction?
     We now need to prove that there is a \(p\) s.t. \(\overline{\rho}_{E,p}\) is irreducible and modular.
     In fact, it can be shown that once irreducibility and modularity are clear, all conditions A-D hold.
     %Moreover, by a theorem of Serre ([15], prop. 21, and [17], §3.1), the
@@ -284,7 +284,7 @@ associated to an elliptic curve \(E/\mathbb{Q}\).
     \begin{proposition}
         Let \(E/\mathbb{Q}\) be a semistable elliptic curve. Then at least one of 
         \(\overline \rho_{E,3}\) or  \(\overline \rho_{E,5}\) is irreducible.
-    \end{proposition}
+    \end{proposition}%
     This allows us to make a case distinction.
     \begin{itemize}
         \item If \(\overline \rho_{E,3}\) is irreducible, then by some group theoretical considerations 
