@@ -302,8 +302,8 @@ associated to an elliptic curve \(E/\mathbb{Q}\).
 
 \subsection{Wiles' proof of modularity: The modularity lifting theorem}
  
-Define the category \(\co\) as in section 2.2. (i.e. local complete noetherian \(\mathcal{O}\)-algbras with residue field \(k\)) 
-and let \(A \in \co\).
+Define the category \(\mathcal{C}\) as the category of local complete noetherian rings with residue field \(k\) 
+and let \(A \in \mathcal{C}\).
 The goal of this part of the proof is to show that all lifts
 \[
     \rho\colon G_\mathbb{Q} \to \GL_2(A)  
@@ -327,9 +327,9 @@ We say that a deformation of \(\overline{\rho}\) is of type \(\Sigma\), if
 \paragraph{The universal deformation ring}
 Consider the functor
 \[
-    \mathcal{R}_\Sigma \colon \co \to \mathrm{\mathbf{FiniteSets}}  
+    \mathcal{R}_\Sigma \colon \mathcal{C} \to \mathrm{\mathbf{FiniteSets}}  
 \]
-that sends \(A \in \co\) to the set of deformations of \(\overline{\rho}\) of type \(\Sigma\).
+that sends \(A \in \mathcal{C}\) to the set of deformations of \(\overline{\rho}\) of type \(\Sigma\).
 Deformation theory by Mazur tells us that this functor is representable and we 
 denote the representing object \(R_\Sigma\).
 Furthermore, we have the existence of a universal representation
@@ -347,9 +347,9 @@ by sending \(\phi \colon R_\Sigma \to R\) to the composition
 \paragraph{The universal modular deformation ring}
 Fix a number field \(K\) and consider the functor
 \[
-    \mathcal{T}_\Sigma \colon \co \to \mathrm{\mathbf{FiniteSets}}  
+    \mathcal{T}_\Sigma \colon \mathcal{C} \to \mathrm{\mathbf{FiniteSets}}  
 \]
-that sends \(A \in \co\) to the set of cuspidal eigenforms \(f\) over \(K\)
+that sends \(A \in \mathcal{C}\) to the set of cuspidal eigenforms \(f\) over \(K\)
 such that \(\rho_f\) is a deformation of type \(\Sigma\). %equivalent to the a_p = tr rhobar(frob) condition?
 We can explicitly construct the representing object that we will denote \(\mathbb{T}_\Sigma\).
 
@@ -407,7 +407,7 @@ In our presentation, we closely follow \cite[5.1 - 5.8]{Darmon1995}.
 Let \(\mathcal{O}\) be the ring of integers of a finite extension \(K\) of \(\mathbb Q_\ell\). 
 As \(K\) is a local field, its ring of integers is a discrete valutation ring (DVR), i.e. 
 \(\mathcal O\) is a local, noetherian Dedekind ring with maximal ideal \(\lambda\). 
-It is complete with resp server usedect to the \(\lambda\)-adic topology, a principal ideal domain (PID) 
+It is complete with respect to the \(\lambda\)-adic topology, a principal ideal domain (PID) 
 and has residue field \(k \coloneqq \mathcal{O}/\lambda\) 
 to name some properties that we will use in the course of the proof.
 
@@ -620,10 +620,10 @@ we can choose polynomials without constant term and assume that \(\pi_A\) is ind
     Let \(A \in \cob\). Then
     \[\phi_A \coloneqq (\ker \pi_A)/(\ker \pi_A)^2.\]
     %is the following helpful?
-    The reader with background in algebraic geometry might notice that this can be thought of as a tangent space, 
-    in particular it is the cotangent space of the scheme \(\operatorname{spec}(A)\) at the point \(\ker \pi_A\).
-    However this point of view is not necessary in the following, 
-    it might be more a hint of how Wiles came to investigate this specific invariant.
+    %The reader with background in algebraic geometry might notice that this can be thought of as a tangent space, 
+    %in particular it is the cotangent space of the scheme \(\operatorname{spec}(A)\) at the point \(\ker \pi_A\).
+    %However this point of view is not necessary in the following, 
+    %it might be more a hint of how Wiles came to investigate this specific invariant.
 \end{definition}
 
 \begin{example}\label{ex:last_phi}
@@ -723,7 +723,7 @@ we can choose polynomials without constant term and assume that \(\pi_A\) is ind
 
 With these results at hand, we can state 
 \begin{theorem}\textup{\cite[theorem 5.3]{Darmon1995}}\label{thm:wiles_numerical_criterion}
-    Let \(R \twoheadrightarrow T\) a surjective morphism of augmented rings, \(T\) finite flat and \(\eta_T \neq 0\) 
+    Let \(R \twoheadrightarrow T\) a surjective morphism in \(\cob\), \(T\) finite flat and \(\eta_T \neq 0\) 
     (i.e. \(\mathcal{O}/\eta_T\) finite).
     Then the following are equivalent
     \begin{enumerate}[(a)]
@@ -823,8 +823,8 @@ For the 'only if'-part, see \cites[lemma 5.5]{Darmon1995}[theorem 8.4]{Matsumura
 \end{proof}
 
 \begin{corollary}\label{cor:surjectivity_phi}
-    Let \(A, B\in \cob\) and \(\phi_A\) be finite. Then \(\phi_B\) is finite as well
-    and \(A \to B\) is surjective if and only if \[\# \phi_A \geq \# \phi_B.\]
+    Let \(A, B\in \cob\) and \(\phi_A\) be finite. %Then \(\phi_B\) is finite as well
+    Then \(A \to B\) is surjective if and only if \[\# \phi_A \geq \# \phi_B.\]
 \end{corollary}
 
 \begin{lemma}\label{lem:surjectivity_eta}
@@ -956,7 +956,7 @@ For the 'only if'-part, see \cites[lemma 5.5]{Darmon1995}[theorem 8.4]{Matsumura
 \begin{proof}
     As \(\mathcal{O} = A/\ker \pi_A\), we have
     \[
-        \ker \pi_A \otimes_A \mathcal{O} = \ker \pi_A \otimes_A A/\ker \pi_A \cong \ker \pi_A/(\ker \pi_A) \ker \pi_A = \phi_A.
+        \ker \pi_A \otimes_A \mathcal{O} = \ker \pi_A \otimes_A A/\ker \pi_A \cong \ker \pi_A/(\ker \pi_A)^2 = \phi_A.
     \]
     We therefore have
     \[
@@ -1092,10 +1092,8 @@ Recall that the dimension of a ring is given by
 \begin{proof}
     Assume that \(A\) is not flat, i.e. there is a \(\lambda^n u \in \mathcal{O}\) and a
     \[0 \neq g(X_1, \dots, X_n) \in A \qquad \text{s.t. } \lambda^m u \cdot g(\underline{X}) = 0.\]
-    Consider \(g' = \lambda^{m-1}u g\). 
-    Either \(g' \neq 0\) s.t. \(\lambda \cdot g' = 0\) with \(g' \neq 0\) or \(g' = 0 \in A\).
-    Then repeat the last step with \(g'\) instead of \(g\). After finitely many steps we find a \(0 \neq g \in A\) s.t. 
-    \(\lambda g = 0\), i.e.
+    Consider \(g' = \lambda^{m-1}u g\). If \(g'\) is still zero, repeat the last step with \(g'\) instead of \(g\). 
+    After finitely many steps we find a \(0 \neq g \in A\) s.t. \(\lambda g = 0\), i.e.
     \[
         \lambda \cdot g(\underline{X}) = c_1(\underline{X})f_1(\underline{X}) + \dots + c_n(\underline{X})f_n(\underline{X}). 
     \]
@@ -1239,7 +1237,7 @@ structure on \(A\).
 
     In the following, we want to construct a map of complexes
     \[\Phi\colon K(\underline{f}, \mathcal{O}[[\underline{X}]]) \to K(\underline{g}, A[[\underline{X}]]).\]
-    On the 0-th level, we define 
+    On level 0, we define 
     \[
         \phi_0 \colon K_0(\underline{f}, \mathcal{O}[[\underline{X}]]) = \mathcal{O}[[\underline{X}]] 
         \to 
@@ -1519,8 +1517,8 @@ structure on \(A\).
         \(f \in \hom_{\mathcal{O}[[X]]}(A[[\underline{X}]], \mathcal{O}[[\underline{X}]])\).
         Then
         \[ 
-            f(X_i) = X_i \cdot f(1) = X_i \cdot \sum_{i=1}^nf_i(1) = \sum_{i=1}^n X_i \cdot f_i(1) 
-            = \sum_{i=1}^n \tilde f_i(X_i).
+            f(X_i) = X_i \cdot f(1) = X_i \cdot \sum_{i=1}^r f_i(1) = \sum_{i=1}^r X_i \cdot f_i(1) 
+            = \sum_{i=1}^r \tilde f_i(X_i).
         \]
         We have seen that the map 
         \[
@@ -1863,8 +1861,8 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
         a = \sum_{i \in I} f_i(a)\cdot a_i = 0
     \]
     and hence, \(A \to A^{\vee\vee}\) is injective. If \(A^\vee = 0\) then obviously any homomorphism from \(A^\vee\)
-    is \(0\), a fortiori, \(A^\vee\vee = 0\). By the injectivity of \(A \to A^{\vee\vee}\) this yields \(A = 0\)
-    and we have proved the second part of the lemma.
+    is \(0\), a fortiori, \(A^{\vee\vee} = 0\). By the injectivity of \(A \to A^{\vee\vee}\) this yields \(A = 0\)
+    and we have proved the second part of the lemma.    
 \end{proof}
 
 \begin{lemma}\label{lem:intersectionzero}
@@ -1889,7 +1887,7 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
 \end{proof}
 
 \begin{proposition}\cite[theorem 5.24]{Darmon1995}\label{prop:eta_iso}
-    Let \(f\colon A \twoheadrightarrow B\) be a \(\cob\)-morphism, \(A\) and \(B\) finite flat and \(B\) a 
+    Let \(f\colon A \twoheadrightarrow B\) be a \(\cob\)-morphism, \(A\) and \(B\) finite flat and \(A\) a 
     complete intersection. If \(\eta_A = \eta_B \neq 0\), then \(f\) is an isomorphism.
 \end{proposition}
 \begin{proof}
@@ -2077,8 +2075,8 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
     then \(A\) is a complete intersection.
 \end{proposition}
 \begin{proof}
-    Take the morphism \(\phi\colon \tilde{A} \to A\) from \cref{lem:resolution}.
-    As \(\# \phi_A\) is finite, we can apply \cref{cor:surjectivity_phi} and because \(\phi\)
+    Take the morphism \(f\colon \tilde{A} \to A\) from \cref{lem:resolution}.
+    As \(\# \phi_A\) is finite, we can apply \cref{cor:surjectivity_phi} and because \(f\)
     induces an isomorphism on the tangent spaces, i.e. \(\# \phi_{\tilde{A}} = \#\phi_A\), it is surjective.
     By \cref{lem:standard_ineq} we also now that \(\#\phi_{\tilde{A}} \geq \#(\mathcal{O}/\eta_{\tilde{A}})\).
     Starting with the assumption and then using both of the previous facts, we obtain
@@ -2092,7 +2090,7 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
     \]
     All in all, we have \(\#(\mathcal{O}/\eta_A) = \#(\mathcal{O}/\eta_{\tilde{A}})\) and because of
     \(\eta_{\tilde{A}} \subset \eta_A\) we conclude \(\eta_{\tilde{A}} = \eta_A\).
-    By \cref{prop:eta_iso} it follows that \(\phi\) is an isomorphism.
+    By \cref{prop:eta_iso} it follows that \(f\) is an isomorphism.
     Since \(\tilde{A}\) is a complete intersection, so is \(A\).
 \end{proof}
 
