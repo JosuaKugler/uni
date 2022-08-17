@@ -182,7 +182,7 @@ Then there exists a cuspidal eigenform \(f\) , such that
 the Galois representation associated to \(f\).
 Serre even gives detailed formulas that assert a certain weight and level for \(f\).
 In the case of \(\rho_{E_{a,b,c},p}\) it predicts level two and weight two, a contradiction.
-That might be one of the reasons why Frey  considered they Frey curve \(E_{a,b,c}\) to be strange.
+That might be one of the reasons why Frey  conjectured that they Frey curve \(E_{a,b,c}\) couldn't exist.
 
 \paragraph{Modularity}
 A Galois representation \(\rho\) is modular if there is a newform \(f\) of weight \(2\) such that
@@ -257,7 +257,7 @@ Wiles chose to proof version 1 of modularity as defined in \cref{th:eqcondmodula
 Therefore we take a closer look at the \(p\)-adic representation 
 \(\rho_{E,p} \colon G_\mathbb{Q} \to \GL_2(\mathbb{Z}_p)\)
 associated to an elliptic curve \(E/\mathbb{Q}\).
-\begin{lemma}
+\begin{lemma}\label{lem:ADproperties}
     There is a prime \(p\) such that the \(\operatorname{mod} p\) reduction of the galois representation \(\rho_{E,p}\)
     \[
         \overline{\rho}_{E,p} \colon G_\mathbb{Q} \to \GL_2(\mathbb{F}_p)
@@ -290,7 +290,7 @@ associated to an elliptic curve \(E/\mathbb{Q}\).
         \item If \(\overline \rho_{E,3}\) is irreducible, then by some group theoretical considerations 
         we can apply the Langlands-Tunnel-theorem and conclude that \(\overline{\rho}_{E, 3}\) is modular.
         \item If \(\overline \rho_{E,5}\) is irreducible, then Wiles has shown that there is another 
-        semistable elliptic curve \(E'/\mathbb{Q}\) s.t.\(\overline{\rho}_{E',3}\) 
+        semistable elliptic curve \(E'/\mathbb{Q}\) s.t. \(\overline{\rho}_{E',3}\) 
         is irreducible and \(\overline{\rho}_{E', 5} \cong \overline{\rho}_{E', 5}\).
         Hence, we can apply the first case for \(E'\) and obtain that \(\overline{\rho}_{E',3}\) is modular.
         However, by \cref{th:eqcondmodularity}, then \(\overline{\rho}_{E',5}\) and thereby also 
@@ -304,16 +304,20 @@ associated to an elliptic curve \(E/\mathbb{Q}\).
  
 Define the category \(\mathcal{C}\) as the category of local complete noetherian rings with residue field \(k\) 
 and let \(A \in \mathcal{C}\).
-The goal of this part of the proof is to show that all lifts
+Let
+\[
+    \overline{\rho}\colon G_\mathbb{Q} \to \GL_2(k)
+\]
+be a reduced Galois representation satisfying conditions A-D from \cref{lem:ADproperties}.
+The goal of this part of the proof is to show that all \(\overline{\rho}\)-deformations
 \[
     \rho\colon G_\mathbb{Q} \to \GL_2(A)  
 \]
-of any galois representations \(\rho_0\colon G_\mathbb{Q} \to \GL_2(k)\) are modular 
-if the lifts satisfy certain conditions.
+ of type \(\Sigma\) are modular.
 
 %deformations in general, deformation types
 \begin{definition}\cite[see][chapter 1, paragraph 7.2]{Cornell1997}
-We say that a deformation of \(\overline{\rho}\) is of type \(\Sigma\), if
+We say that a deformation \(\rho\) of \(\overline{\rho}\) is of type \(\Sigma\), if
 \begin{itemize}
     \item \(\det \rho = \chi_p\)
     \item \(\rho\) is unramified outside \(S \cup \{p\} \cup \Sigma\) where \(S\) 
