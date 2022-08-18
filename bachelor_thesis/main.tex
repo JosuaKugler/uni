@@ -828,7 +828,7 @@ For the 'only if'-part, see \cites[lemma 5.5]{Darmon1995}[theorem 8.4]{Matsumura
 
 \begin{corollary}\label{cor:surjectivity_phi}
     Let \(A, B\in \cob\) and \(\phi_A\) be finite. %Then \(\phi_B\) is finite as well
-    Then \(A \to B\) is surjective if and only if \[\# \phi_A \geq \# \phi_B.\]
+    If \(A \to B\) is surjective, then \[\# \phi_A \geq \# \phi_B.\]
 \end{corollary}
 
 \begin{lemma}\label{lem:surjectivity_eta}
@@ -2080,8 +2080,8 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
 \end{proposition}
 \begin{proof}
     Take the morphism \(f\colon \tilde{A} \to A\) from \cref{lem:resolution}.
-    As \(\# \phi_A\) is finite, we can apply \cref{cor:surjectivity_phi} and because \(f\)
-    induces an isomorphism on the tangent spaces, i.e. \(\# \phi_{\tilde{A}} = \#\phi_A\), it is surjective.
+    As \(f\) induces an isomorphism on the tangent spaces, i.e. \(\phi_{\tilde{A}} = \phi_A\), 
+    we can apply \cref{lem:surjectivity_phi} and conclude that \(f\) is surjective.
     By \cref{lem:standard_ineq} we also now that \(\#\phi_{\tilde{A}} \geq \#(\mathcal{O}/\eta_{\tilde{A}})\).
     Starting with the assumption and then using both of the previous facts, we obtain
     \[
