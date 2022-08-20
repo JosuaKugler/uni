@@ -250,66 +250,29 @@ we find a newform \(g\) of weight \(2\) and level \(2\) such that
 \]
 However, the only newform of weight \(2\) and level \(2\) is 0, so we obtain the desired contradiction.
 
-\subsection{Wiles' proof of modularity: The 3-5 trick}
-What remains now for the proof of FLT is the proof of the modularity theorem, i.e. that every semistable
-elliptic curve is modular.  
-Wiles chose to proof version 1 of modularity as defined in \cref{th:eqcondmodularity}.
-Therefore we take a closer look at the \(p\)-adic representation 
-\(\rho_{E,p} \colon G_\mathbb{Q} \to \GL_2(\mathbb{Z}_p)\)
-associated to an elliptic curve \(E/\mathbb{Q}\).
-\begin{lemma}\label{lem:ADproperties}
-    There is a prime \(p\) such that the \(\operatorname{mod} p\) reduction of the galois representation \(\rho_{E,p}\)
-    \[
-        \overline{\rho}_{E,p} \colon G_\mathbb{Q} \to \GL_2(\mathbb{F}_p)
-    \]
-    satisfies the following properties.
-    \begin{enumerate}[(A)]
-        \item \(\det \overline{\rho}_{E,p} = \chi_p\)
-        \item \(\overline{\rho}_{E,p}\) is semistable
-        \item \(\overline{\rho}_{E,p}\) is absolutely irreducible
-        \item \(\overline{\rho}_{E,p}\) is modular, and \(\overline{\rho}_{E,p}|_{G_\mathbb{Q}(\sqrt{-3})}\) is absolutely irreducible
-    \end{enumerate}
-\end{lemma}
-\begin{proof}
-    We have seen in \cref{prop:rhoEpproperties} that \(\rho_{E, p}\) has determinant \(\chi_p\). %we need it for the reduction
-    As \(E\) is semistable we know that \(\rho_{E, p}\) is semistable. %again, why is this true for the reduction?
-    We now need to prove that there is a \(p\) s.t. \(\overline{\rho}_{E,p}\) is irreducible and modular.
-    In fact, it can be shown that once irreducibility and modularity are clear, all conditions A-D hold.
-    %Moreover, by a theorem of Serre ([15], prop. 21, and [17], §3.1), the
-    %semistability of E guarantees that \(\overline{\rho}_{E,p}\) is either surjective or reducible
-    %for every prime \(p \geq 3\). Hence for \(p \geq 3\), absolute irreducibility of \(\overline \rho_{E,p}\) is
-    %equivalent to irreducibility of \(\overline \rho_{E,p}\), and if \(p = 3\) this is equivalent to absolute
-    %irreducibility of \(\overline{\rho}_{E,3}|_{G_{\mathbb{Q}(\sqrt{3})}}\)
-    Wiles proved the following
-    \begin{proposition}
-        Let \(E/\mathbb{Q}\) be a semistable elliptic curve. Then at least one of 
-        \(\overline \rho_{E,3}\) or  \(\overline \rho_{E,5}\) is irreducible.
-    \end{proposition}%
-    This allows us to make a case distinction.
-    \begin{itemize}
-        \item If \(\overline \rho_{E,3}\) is irreducible, then by some group theoretical considerations 
-        we can apply the Langlands-Tunnel-theorem and conclude that \(\overline{\rho}_{E, 3}\) is modular.
-        \item If \(\overline \rho_{E,5}\) is irreducible, then Wiles has shown that there is another 
-        semistable elliptic curve \(E'/\mathbb{Q}\) s.t. \(\overline{\rho}_{E',3}\) 
-        is irreducible and \(\overline{\rho}_{E', 5} \cong \overline{\rho}_{E', 5}\).
-        Hence, we can apply the first case for \(E'\) and obtain that \(\overline{\rho}_{E',3}\) is modular.
-        However, by \cref{th:eqcondmodularity}, then \(\overline{\rho}_{E',5}\) and thereby also 
-        the equivalent representation \(\overline{\rho}_{E,5}\) are modular.
-    \end{itemize}
-    In either case we have found a \(p\) s.t. \(\overline{\rho}_{E,p}\) is irreducible and modular.
-\end{proof}
-\newpage
 
-\subsection{Wiles' proof of modularity: The modularity lifting theorem}
- 
-Let \(K\) be a number field and \(\mathcal{O}\) its ring of integers with residue field \(k\).
+\subsection{Wiles' proof: A modularity lifting theorem}
+What remains now for the proof of FLT is the proof of the modularity theorem, i.e. that every semistable
+elliptic curve is modular.
+The goal of this section is to sketch the proof of theorem that allows us to deduce modularity for
+a Galois representation from modularity of its reduction.
+In this and in the next section, we follow \cite[chapter 1, \S 7]{Cornell1997}.
+
+Let \(K\) be a finite extension of \(\mathbb{Q}_\ell\) and \(\mathcal{O}\) its ring of integers with residue field \(k\).
 Then define the category \(\co\) as the category of local complete noetherian \(\mathcal{O}\)-algebras 
 with residue field \(k\).
 Let
 \[
     \overline{\rho}\colon G_\mathbb{Q} \to \GL_2(k)
 \]
-be a reduced Galois representation satisfying conditions A-D from \cref{lem:ADproperties}.
+be a reduced Galois representation satisfying the conditions
+\begin{enumerate}[(A)]
+    \item \(\det \overline{\rho}_{E,p} = \chi_p\)
+    \item \(\overline{\rho}_{E,p}\) is semistable
+    \item \(\overline{\rho}_{E,p}\) is absolutely irreducible
+    \item \(\overline{\rho}_{E,p}\) is modular, and \(\overline{\rho}_{E,p}|_{G_\mathbb{Q}(\sqrt{-3})}\) is absolutely irreducible
+\end{enumerate}
+
 The goal of this part of the proof is to show that all \(\overline{\rho}\)-deformations
 \[
     \rho\colon G_\mathbb{Q} \to \GL_2(\mathcal{O})
@@ -345,18 +308,8 @@ such that we obtain a 1:1 correspondence
 \[
     \hom(R_\Sigma, R) = \left\{\text{deformations } \rho \colon G_\mathbb{Q} \to \GL_2(R) \text{ of type }\Sigma\right\}  
 \]
-by sending \(\phi \colon R_\Sigma \to R\) to the composition 
+by sending \(\phi \colon R_\Sigma \to R\) to the composition
 \(\phi \circ \rho_\Sigma^\mathrm{univ}\colon G_\mathbb{Q} \to \GL_2(R)\).
-
-%universal modular deformation ring
-%\paragraph{The universal modular deformation ring}
-%Fix a number field \(K\) and consider the functor
-%\[
-%    \mathcal{T}_\Sigma \colon \mathcal{C} \to \mathrm{\mathbf{FiniteSets}}  
-%\]
-%that sends \(A \in \mathcal{C}\) to the set of cuspidal eigenforms \(f\) over \(K\)
-%such that \(\rho_f\) is a deformation of type \(\Sigma\). %equivalent to the a_p = tr rhobar(frob) condition?
-%We can explicitly construct the representing object that we will denote \(\mathbb{T}_\Sigma\).
 
 %Hecke algebra T
 Let \(f\) be a cuspidal eigenform \(f\) over \(K\). Regard \(K\) as a subfield of \(\overline{\mathbb{Q}}_\ell\) 
@@ -394,23 +347,70 @@ is a Galois representation with the following properties.
     s.t. \(\phi \circ \rho^{\mathrm{mod}}_{\Sigma} = \rho\), it follows that \(\rho\) is modular.
 \end{itemize}
 
-\paragraph{Proving R = T}
+\paragraph{R = T and the numerical criterion}
 In order to show that \(R_\Sigma \cong \mathbb{T}_\Sigma\) for all \(\Sigma\), we need a special argument for
 \(\Sigma = \emptyset\). However, from then on we can continue by an induction argument that mainly consists of 
 computing the cardinality of some invariants and then applying Wiles' numerical criterion.
 This criterion tells us that if a certain inequality is satisfied, the surjection 
 \(R_\Sigma \twoheadrightarrow \mathbb{T}_\Sigma\) is an isomorphism (cf. \cref{prop:aimpliesc}).
 
-Now that we know that \(R_\Sigma = \mathbb{T}_\Sigma\), consider a representation 
-\(\rho \colon G_\mathbb{Q} \to \GL_2(\mathcal{O})\) and its reduction \(\overline{\rho}\).
+\paragraph{Proof of modularity lifting}
+Consider a representation \(\rho \colon G_\mathbb{Q} \to \GL_2(\mathcal{O})\) and its reduction \(\overline{\rho}\).
 Suppose that \(\overline{\rho}\) satisfies properties A - D from \cref{lem:ADproperties}.
-Then by the universal property of \(R_\Sigma\) we get an \(\mathcal{O}\)-algebra morphism
+By the universal property of \(R_\Sigma\) we get an \(\mathcal{O}\)-algebra morphism \(\phi\) and 
+because we know that \(R_\Sigma = \mathbb{T}_\Sigma\), we obtain
 \[
     \mathbb{T}_\Sigma \xrightarrow[\sim]{\phi_\Sigma^{-1}} R_\Sigma \xrightarrow{\phi} \mathcal{O}  
 \]
-s.t. \(\rho_\Sigma^\mathrm{mod} \cong \phi_\Sigma^{-1} \circ \phi \circ \rho\).
+s.t. \(\phi \circ \phi_\Sigma^{-1} \circ \rho_\Sigma^\mathrm{mod} = \rho\).
 Because of the third property of \(\mathbb{T}_\Sigma\) stated above,
-one can now deduce that \(\rho\) must be modular and the modularity lifting lemma follows.
+one can now deduce that \(\rho\) must be modular and the modularity lifting theorem follows.
+
+\subsection{Wiles' proof of modularity: The 3-5 trick}
+
+In order to finish the proof of the modularity theorem, we now need to show that
+the Galois representation \(\overline{\rho}_{E,p}\) associated to an elliptic curve \(E\)
+is a deformation of type \(\Sigma\) of its reduction \(\overline{\rho}\).
+\begin{lemma}\label{lem:ADproperties}
+    There is a prime \(p\) such that the \(\operatorname{mod} p\) reduction of the galois representation \(\rho_{E,p}\)
+    \[
+        \overline{\rho}_{E,p} \colon G_\mathbb{Q} \to \GL_2(\mathbb{F}_p)
+    \]
+    satisfies the following properties.
+    \begin{enumerate}[(A)]
+        \item \(\det \overline{\rho}_{E,p} = \chi_p\)
+        \item \(\overline{\rho}_{E,p}\) is semistable
+        \item \(\overline{\rho}_{E,p}\) is absolutely irreducible
+        \item \(\overline{\rho}_{E,p}\) is modular, and \(\overline{\rho}_{E,p}|_{G_\mathbb{Q}(\sqrt{-3})}\) is absolutely irreducible
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    We have seen in \cref{prop:rhoEpproperties} that \(\rho_{E, p}\) has determinant \(\chi_p\). %we need it for the reduction
+    As \(E\) is semistable we know that \(\rho_{E, p}\) is semistable. %again, why is this true for the reduction?
+    We now need to prove that there is a \(p\) s.t. \(\overline{\rho}_{E,p}\) is irreducible and modular.
+    In fact, it can be shown that once irreducibility and modularity are clear, all conditions A-D hold.
+    Wiles proved the following
+    \begin{proposition}
+        Let \(E/\mathbb{Q}\) be a semistable elliptic curve. Then at least one of 
+        \(\overline \rho_{E,3}\) or  \(\overline \rho_{E,5}\) is irreducible.
+    \end{proposition}%
+    This allows us to make a case distinction.
+    \begin{itemize}
+        \item If \(\overline \rho_{E,3}\) is irreducible, then by some group theoretical considerations 
+        we can apply the Langlands-Tunnel-theorem and conclude that \(\overline{\rho}_{E, 3}\) is modular.
+        \item If \(\overline \rho_{E,5}\) is irreducible, then Wiles has shown that there is another 
+        semistable elliptic curve \(E'/\mathbb{Q}\) s.t. \(\overline{\rho}_{E',3}\) 
+        is irreducible and \(\overline{\rho}_{E', 5} \cong \overline{\rho}_{E', 5}\).
+        Hence, we can apply the first case for \(E'\) and obtain that \(\overline{\rho}_{E',3}\) is modular.
+        However, by modularity lifting \(\rho_{E', 3}\) is modular and by \cref{th:eqcondmodularity}
+        then \(\rho_{E', 5}\) is modular. Therefore its reduction \(\overline{\rho}_{E',5}\) and also 
+        the equivalent representation \(\overline{\rho}_{E,5}\) are modular.
+    \end{itemize}
+    In either case we have found a \(p\) s.t. \(\overline{\rho}_{E,p}\) is irreducible and modular.
+\end{proof}
+By modularity lifting all deformations of type \(\Sigma\) are modular. As the equivalence class of a 
+Galois representation associated to a semistable elliptic curve satisfies the conditions required to be of type \(\Sigma\),
+we conclude that all Galois representations associated to a semistable elliptic curve are modular.
 
 \newpage
 
