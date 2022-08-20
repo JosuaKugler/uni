@@ -15,7 +15,6 @@
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{remark}[theorem]{Remark}
 \newtheorem{corollary}[theorem]{Corollary}
 
 \theoremstyle{definition}
@@ -24,6 +23,7 @@
 \newtheorem{example}[theorem]{Example}
 
 \theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
 \newtheorem*{note}{Note}
 \newtheorem{case}[theorem]{Case}
 \newtheorem*{notation}{Notation}
@@ -736,7 +736,7 @@ we can choose polynomials without constant term and assume that \(\pi_A\) is ind
     \end{align*}
 \end{example}
 
-\begin{example}\cite[cf.][example 3]{Darmon1995}
+\begin{example}\label{ex:ddt3}\cite[cf.][example 3]{Darmon1995}
     \(A = \mathcal{O}[[X]]/(X^2)\) with augmentation \(\pi_A\colon A \to \mathcal{O},\; f \mapsto f(0)\) 
     is a finite flat complete intersection in \(\cob\).
     Furthermore, \(\phi_A = \mathcal{O}\) and \(\eta_A = 0\).
@@ -1904,6 +1904,16 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
     From the commutativity of the above diagram we get that this is indeed an inverse for \(f\) and
     hence, \(f\) is an isomorphism.
 \end{proof}
+
+\begin{remark}\cite[remark 5.22, remark 5.23]{Darmon1995}
+    Let \(A = \mathcal{O}[[X,Y]]/(X(X-\lambda), Y(Y-\lambda))\) be the ring from \cref{ex:ddt4} and 
+    \(B = \mathcal{O}[[X,Y]]/(X(X-\lambda), Y(Y-\lambda)), XY\) be the ring from \cref{ex:ddt2} and 
+    \(f\colon A \to B\) the canonical projection. Then \(f\) induces an isomorphism on the tangent spaces,
+    but is not an isomorphism. The assumption that \(B\) is a complete intersection is necessary.
+    However, let \(A = A[[X]]/(X^3)\), \(B = A[[X]]/(X^2)\) and \(f \colon A \to B\) the canonical projection.
+    Then \(\phi_A \cong \mathcal{O} \cong \phi_B\) (cf. \cref{ex:ddt3}), even though \(f\) is not an isomorphism:
+    the tangent spaces aren't finite.
+\end{remark}
 
 \begin{lemma}\label{lem:pontryagininjectivity}
     Let \(A \in \cob\) be finite flat. Then the canonical map
