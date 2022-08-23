@@ -1069,7 +1069,7 @@ The goal of this section is to prove some technical lemmata and to introduce
 the Koszul complex that we will use to construct two \(\mathcal{O}[[X]]\)-free resolutions for \(A\).
 This will turn out to be crucial in the next section.
 
-We start with a few definitions from commutative algebra, closely following \cite[sec. 5.3]{Darmon1995}
+We start with a few definitions from commutative algebra, closely following \cite[section 5.3]{Darmon1995}
 \begin{definition}[primary ideal]
     Let \(R\) be a local ring and \(\mathfrak{a} \subsetneq R\) an ideal. 
     \(\mathfrak{a}\) is said to be primary if every zero divisor in \(R/\mathfrak{a}\) is nilpotent.
@@ -1118,8 +1118,8 @@ Recall that the dimension of a ring is given by
         \mathfrak{m}_{\tilde U}^n = \mathfrak{m}_{\tilde U}^{n+1}
     \]
     By Nakayama's lemma it follows that \(\mathfrak{m}_{\tilde U}^n = 0\).
-    As a result, every element of the maximal ideal is nilpotent.
-    Zero-divisors are never units. Hence they are contained in the maximal ideal and, a fortiori, nilpotent.
+    Hence, every element of the maximal ideal is nilpotent.
+    As zero-divisors are never units, they are contained in the maximal ideal and, a fortiori, nilpotent.
     In total, \(f_1, \dots, f_n, \lambda\) generate a primary ideal of \(U\).
 \end{proof}
 
@@ -1137,7 +1137,7 @@ Recall that the dimension of a ring is given by
     \(U/\lambda = k[[X_1, \dots, X_n]]\) and \(U/(\lambda, X_1, \dots, X_{i-1}) = k[[X_i, \dots, X_n]]\) 
     are integral domains (hence obviously \(X_i\) can't be a zero-divisor in these rings).
     As we have seen in the previous lemma, it's as well a system of parameters.
-    Therefore, the depth of \(U\) (i.e. the maximal lenth of any regular sequence in \(U\)) is bigger than
+    Therefore, the depth of \(U\) (i.e. the maximal length of any regular sequence in \(U\)) is bigger than
     the length of the particular regular sequence \((\lambda, X_1, \dots, X_n)\).
     In total we get \(\operatorname{depth} U \geq \dim U\), because \((\lambda, X_1, \dots, X_n)\) 
     is a system of parameters as well.
@@ -1150,7 +1150,7 @@ Recall that the dimension of a ring is given by
     and hence, \(U\) is Cohen-Macaulay.
     %Matsumura, Theorem 17.4
     As \((f_1, \dots, f_n, \lambda)\) is a system of parameters and \(U\) is Cohen-Macaulay
-    it follows by [Matsumura, Theorem 17.4] that \((f_1, \dots, f_n, \lambda)\) is a regular sequence.
+    it follows that \((f_1, \dots, f_n, \lambda)\) is a regular sequence \cite[theorem 17.4]{Matsumura1986}.
     A fortiori, the sequence \((f_1, \dots, f_n)\) is also a regular sequence.
 \end{proof}
 
@@ -1162,7 +1162,7 @@ Recall that the dimension of a ring is given by
     Then \(A\) is flat.
 \end{corollary}
 \begin{proof}
-    Assume that \(A\) is not flat, i.e. there is a \(\lambda^n u \in \mathcal{O}\) and a
+    Assume that \(A\) is not flat, i.e. there is a \(\lambda^m u \in \mathcal{O}\) and a
     \[0 \neq g(X_1, \dots, X_n) \in A \qquad \text{s.t. } \lambda^m u \cdot g(\underline{X}) = 0.\]
     Consider \(g' = \lambda^{m-1}u g\). If \(g'\) is still zero, repeat the last step with \(g'\) instead of \(g\). 
     After finitely many steps we find a \(0 \neq g \in A\) s.t. \(\lambda g = 0\), i.e.
