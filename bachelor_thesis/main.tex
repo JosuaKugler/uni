@@ -87,7 +87,7 @@ The key point in this strategy was the following
     Every semistable elliptic curve over \(\mathbb Q\) is modular, i.e. there is a modular form \(f\) "associated" to \(E\)
     in a sence that will be made precise in the next sections.
 \end{theorem}
-When Frey had the idea of using this to prove FLT, it still was a conjecture.
+When Frey had the idea of using this to prove FLT, \cref{th:modularity} still was a conjecture.
 It was finally proved by Andrew Wiles and Richard Taylor in 1995.
 (In the years until 1999 the semistability condition could be removed, so that
 the theorem holds for all elliptic curves.)
@@ -96,7 +96,7 @@ the theorem holds for all elliptic curves.)
 
 \paragraph{Definitions}
 Let \(A\) be a complete noetherian local ring with finite residue field \(k\).
-A continuous map
+A continuous group homomorphism
 \[
     \rho\colon G_\mathbb{Q} \to \GL_2(A)
 \]
@@ -166,7 +166,7 @@ i.e. \(\rho_{E,p}\) is a Galois representation.
 Now that we have seen how to associate a Galois representation to an elliptic curve, we want to
 do the same thing for a modular form. However, this is far more difficult and therefore beyond 
 the scope of this thesis.
-The result that we need is that to a new cuspform \(f\) of weight \(2\) we can associate a 
+The result that we need is that to a new cuspform \(f\) of weight \(2\) we can associate a p-adic 
 Galois representation \(\rho_f\) \cite[see][section 9.5]{Diamond2007}.
 Now we can state Serre's conjecture that was mentioned in the introduction.
 Let
@@ -179,7 +179,8 @@ Then there exists a cuspidal eigenform \(f\) such that
     \rho \cong \rho_f.
 \]
 Serre even gives detailed formulas that assert a certain weight and level for \(f\).
-In the case of \(\rho_{E_{a,b,c},p}\) it predicts level two and weight two, a contradiction.
+In the case of \(\rho_{E_{a,b,c},p}\) it predicts level two and weight two, a contradiction 
+because the space of weight 2 modular forms of level 2 is zero.
 That might be one of the reasons why Frey  conjectured that they Frey curve \(E_{a,b,c}\) couldn't exist.
 
 \paragraph{Modularity}
@@ -317,7 +318,7 @@ Define
 \[
     \tilde{\mathbb{T}}_\Sigma = \prod_{f \in \mathcal{N}_\Sigma} \mathcal{O}_f',
 \]
-where \(\mathcal{N}_\Sigma\) is a set of newforms satisfying certain conditions \cite[see][lemma 3.26]{Darmon1995}.
+where \(\mathcal{N}_\Sigma\) is a finite set of newforms satisfying certain conditions \cite[see][lemma 3.26]{Darmon1995}.
 For all but finitely many primes (e.g. \(p \in \Sigma\) is not allowed), we define
 \[
     T_p = (a_p(f))_{f} \in \tilde{\mathbb{T}}_\Sigma.
@@ -422,9 +423,8 @@ It is complete with respect to the \(\lambda\)-adic topology, a principal ideal 
 and has residue field \(k \coloneqq \mathcal{O}/\lambda\).
 \(\mathbb Z_\ell\) is the ring of integers of \(\mathbb Q_\ell\) and 
 \(\mathbb F_\ell = \mathbb Z_\ell/\ell \mathbb Z_\ell\) its residue field. 
-As \(K/\mathbb{Q}_\ell\) is a finite extension, the residue field of \(\mathcal{O}\) 
+As \(K/\mathbb{Q}_\ell\) is a finite extension, the residue field \(k\) of \(\mathcal{O}\) 
 is a finite extension of $\mathbb F_\ell$ and therefore finite.
-%Not entirely clear to me
 
 \paragraph{The categories \(\co\) and \(\cob\)}
 In this section, we will mostly deal with very specific rings. 
@@ -446,7 +446,7 @@ i.e. for a morphism \(f \colon A \to B\) we have the commutative diagram
 
 In order to state Wiles' criterion, we need some more definitions.
 \begin{definition}
-    \(A \in \co\) is \textit{finite flat}, if \(A\) is finitely generated 
+    \(A \in \co\) is called \textit{finite flat}, if \(A\) is finitely generated 
     and torsion-free as an \(\mathcal{O}\)-module.
     Note that \(\mathcal{O}\) is a PID and therefore being torsion-free 
     is equivalent to being flat as an \(\mathcal{O}\)-module.
@@ -474,7 +474,7 @@ Let's take a look at an example.
         \begin{itemize}
             \item \textbf{\(\phi\) is welldefined and respects the \(\mathcal{O}\)-algebra structure:}
                 Let \(f_0\) be the constant term of a polynomial \(f\) and \(f_1 \coloneqq T^{-1}(f-f_0)\), 
-                s.t. \(f = f_0 + T\cdot f_1(T)\). Because of
+                so that \(f = f_0 + T\cdot f_1(T)\). Because of
                 \[
                     f(0) - f(\lambda^n) 
                     = (f_0 + 0\cdot f_1(0)) - (f_0 + \lambda^n \cdot f_1(\lambda^n)) 
@@ -492,7 +492,7 @@ Let's take a look at an example.
                 \[\phi(of) = (of(0), of(\lambda^n)) = o(f(0), f(\lambda^n)) = o\phi(f)\]
             \item \textbf{Injectivity:}
                 Let \(\phi(f) = 0\). Then \(f(0) = 0 \implies T | f\) and \(f(\lambda^n) = 0 \implies (T - \lambda) | f\).
-                As a result, \(f \in T(T-\lambda)\).
+                As a result, \(f \in T(T-\lambda^n)\).
             \item \textbf{Surjectivity:}
                 Let \((a,b) \in A\).
                 As \(a \equiv b \operatorname{mod} \lambda^n,\) we can write \(b = a + b' \cdot \lambda^n\). 
@@ -580,7 +580,9 @@ Let's take a look at an example.
         \Phi\colon U = \mathcal{O}[[X_1, \dots, X_n]] &\to A\\
         X_i &\mapsto a_i,
     \end{align*}
-    where \(\ker \pi_A = (a_1, \dots, a_n)\) and \(\pi_U\) is given by \(f \mapsto f(0)\). 
+    where \(\ker \pi_A = (a_1, \dots, a_n)\) and \(\pi_U\) is given by \(f \mapsto f(0)\).
+    That \(\pi_U\) is welldefined follows from the universal property of the ring of formal power series
+    because the target ring \(\mathcal{O}\) is complete.
     As \((X_1, \dots, X_n)\) generate the kernel of \(\pi_U\), this is a map in \(\cob\).
     We have the short exact sequences
     \[
@@ -1094,7 +1096,10 @@ Recall that the dimension of a ring is given by
     \[
         (0) \subsetneq (\lambda) \subsetneq \dots \subsetneq (\lambda, X_1, \dots, X_n),  
     \]
-    so by definition of the dimension we get \(\dim U \geq n + 1\).
+    so by definition of the dimension we get 
+    \begin{equation}
+        \dim U \geq n + 1.\label{eq:gnp1}
+    \end{equation}
     %Corollary 26.18 of Prof. Schmidt's Algebra script
     Let \(\mathfrak{m} = (\lambda, X_1, \dots, X_n)\). We have seen that this is the maximal ideal in \(U\).
     Now we can conclude
@@ -1102,8 +1107,11 @@ Recall that the dimension of a ring is given by
         \dim U \leq \dim_{U/\mathfrak{m}}(\mathfrak{m}/\mathfrak{m}^2) 
         = \dim_k(\lambda/\lambda^2 \oplus k X_1 \oplus \dots \oplus k X_n).
     \]
-    As \(\lambda/\lambda^2 \cong k\) (cf. \cref{lem:ideals}), the above expression evaluates to \(n+1\) and
-    taking both inequalities together we obtain \(\dim U = n + 1\).
+    As \(\lambda/\lambda^2 \cong k\) (cf. \cref{lem:ideals}), the above expression evaluates to \(n+1\) and we have
+    \begin{equation}
+        \dim U \leq n + 1.\label{eq:lnp1}
+    \end{equation}
+    Taking the inequalities \ref{eq:gnp1} and \ref{eq:lnp1} together, we obtain \(\dim U = n + 1\).
     It remains to show that \((f_1, \dots, f_n, \lambda)\) generate a primary ideal of \(U\).
     \(U\) is local and therefore the quotient ring 
     \[\tilde{U} \coloneqq U/(f_1, \dots, f_n, \lambda)\] 
@@ -1127,6 +1135,22 @@ Recall that the dimension of a ring is given by
     A sequence \((x_1, \dots, x_n)\) is said to be a regular sequence 
     if \(\forall\; i = 1, \dots, n\colon\)
     \[x_i \text{ is not a zero-divisor in } R/(x_1, \dots, x_{i-1}).\]
+\end{definition}
+
+\begin{definition}[depth]
+    The depth of a local noetherian ring \(R\) is defined as the maximum length of
+    a regular sequences in \(R\).(in m?)
+\end{definition}
+
+\begin{theorem}%cite bruns herzog
+    All maximal regular sequences have the same length.
+\end{theorem}
+
+\begin{definition}[Cohen-Macaulay]
+    A local ring \(R\) is called Cohen-Macaulay if 
+    \[
+        \operatorname{depth} R = \operatorname{dim} R.  
+    \]
 \end{definition}
 
 \begin{lemma}\label{lem:reg_seq}\textup{\cite[lemma 5.11]{Darmon1995}}
@@ -1164,7 +1188,7 @@ Recall that the dimension of a ring is given by
 \begin{proof}
     Assume that \(A\) is not flat, i.e. there is a \(\lambda^m u \in \mathcal{O}\) and a
     \[0 \neq g(X_1, \dots, X_n) \in A \qquad \text{s.t. } \lambda^m u \cdot g(\underline{X}) = 0.\]
-    Consider \(g' = \lambda^{m-1}u g\). If \(g'\) is still zero, repeat the last step with \(g'\) instead of \(g\). 
+    Consider \(g' = \lambda^{m-1}u g\). If \(g'\) is still zero, define \(g''\coloneqq \lambda^{m-2}u g\).
     After finitely many steps we find a \(0 \neq g \in A\) s.t. \(\lambda g = 0\), i.e.
     \[
         \lambda \cdot g(\underline{X}) = c_1(\underline{X})f_1(\underline{X}) + \dots + c_n(\underline{X})f_n(\underline{X}). 
@@ -1211,11 +1235,11 @@ Recall that the dimension of a ring is given by
         d_p(u_{i_1}\wedge\dots\wedge u_{i_p}) = \sum_{t=1}^p(-1)^t x_{i_t} \cdot 
         u_{i_1} \wedge \dots \wedge \widehat{u_{i_t}}\wedge \dots \wedge u_{i_p}.
     \]
-    As usual, we denote by \(H_p(\underline{x}, R)\) the \(p\)-th homology group of this complex.
+    We denote the \(p\)-th homology group of this complex as \(H_p(\underline{x}, R)\).
 \end{definition}
 
 \begin{remark}\textup{\cites[proposition 5.13]{Darmon1995}[theorem 16.5 (i)]{Matsumura1986}}
-    We note \(K_0(\underline{x}, R) = R\) and therfore compute
+    We note that \(K_0(\underline{x}, R) = R\) and therefore compute
     \[
         H_0(\underline{x}, R) = K_0(\underline{x}, R)/(\im d_1) \cong R/(x_1, \dots, x_n) = R/(\underline{x}).
     \]
@@ -1255,7 +1279,7 @@ and let
 \[
     \beta \colon A[[\underline{X}]] \to A  
 \]
-be the natural map which sends \(X_i\) to \(a_i\). 
+be the map which sends \(X_i\) to \(a_i\). 
 A polynomial \(f \in A[[\underline{X}]]\) is sent to \(0\) exactly when \(f(a_1, \dots, a_n) = 0\).
 Therefore, \(\exists i\colon\; (X_i - a_i)|f\) and hence, 
 the sequence \(g_i =  (X_i - a_i)\) generates the kernel of \(\beta\).
@@ -1274,7 +1298,7 @@ Let \(D = \det(M) \in A[[\underline{X}]]\).
 The projection \(\mathcal{O}[[\underline{X}]] \to A\) induces an \(\mathcal{O}[[\underline{X}]]\)-module 
 structure on \(A\).
 
-\begin{lemma}\textup{\cite[see][lemma 5.14]{Darmon1995}}
+\begin{lemma}\textup{\cite[see][lemma 5.14]{Darmon1995}}\label{lem:surjectivity}
     The map
     \begin{align*}
         \Phi\colon \hom_{\mathcal{O}[[\underline{X}]]}(A[[\underline{X}]], \mathcal{O}[[\underline{x}]]) &\to A\\
@@ -1531,7 +1555,7 @@ structure on \(A\).
 \end{lemma}
 \begin{proof}
     \begin{enumerate}
-        \item \(\Psi\) is \(A\)-linear.
+        \item \(\Psi\) is \(A\)-linear. This is the key point of this proof.
         For any \(a \in A, a' \in \mathcal{O}[[\underline{X}]]\) we have by definition of \(\Psi\)
         \[
             \Psi(af) = \alpha(\tilde f(aD)) = \alpha(\tilde f((a - a')D + a'D))
@@ -1582,23 +1606,39 @@ structure on \(A\).
         \]
         where \(r\) may denote the rank of \(\mathcal{O}\). 
         Therefore \(A\) and \(\hom_\mathcal{O}(A, \mathcal{O})\) are both free \(A\)-modules of the 
-        same finite rank \(r\).
-        Let \(f_1, \dots, f_r\) be a generating system of \(\hom_\mathcal{O}(A, \mathcal{O})\) over
-        \(\mathcal{O}\). Then, the extended maps \(\tilde f_1, \dots \tilde f_r\) form a generating
-        system of \(\hom_{\mathcal{O}[[X]]}(A[[\underline{X}]], \mathcal{O}[[\underline{X}]])\) over
-        \(\mathcal{O}\). Indeed, let 
-        \(f \in \hom_{\mathcal{O}[[X]]}(A[[\underline{X}]], \mathcal{O}[[\underline{X}]])\).
-        Then
-        \[ 
-            f(X_i) = X_i \cdot f(1) = X_i \cdot \sum_{i=1}^r f_i(1) = \sum_{i=1}^r X_i \cdot f_i(1) 
-            = \sum_{i=1}^r \tilde f_i(X_i).
-        \]
-        We have seen that the map 
+        same finite rank \(r\). Now let us consider base change from \(\mathcal{O}\) to \(\mathcal{O}[[\underline{X}]]\).
+        We have \cite[cf.][\href{https://stacks.math.columbia.edu/tag/05G3}{lemma 10.14.3}]{stacks-project}
         \[
-            \Phi\colon \hom_{\mathcal{O}[[\underline{X}]]}(A[[\underline{X}]], \mathcal{O}[[\underline{x}]]) \to A
-        \] 
+            \hom_\mathcal{O}(A, \mathcal{O}[[\underline{X}]])
+            \cong \hom_{\mathcal{O}[[\underline{X}]]}(A[[\underline{X}]], \mathcal{O}[[\underline{X}]])  
+        \]
+        as \(\mathcal{O}[[\underline{X}]]\)-modules.
+        Because of
+        \[
+            \hom_\mathcal{O}(A, \mathcal{O}[[\underline{X}]]) 
+            \cong \hom_\mathcal{O}(A, \mathcal{O}) \otimes_\mathcal{O}\mathcal{O}[[\underline{X}]]
+        \]
+        \cite[chapter I, \S 2, section 9]{Bourbaki1989}, 
+        an \(\mathcal{O}\)-basis \(f_1, \dots, f_r\) of \(\hom_\mathcal{O}(A, \mathcal{O})\) is 
+        an \(\mathcal{O}[[\underline{X}]]\)-basis of \(\hom_\mathcal{O}(A, \mathcal{O}[[\underline{X}]])\).
+        By base change, the extended maps \(\tilde f_1, \dots \tilde f_r\) form an \(\mathcal{O}[[\underline{X}]]\)-basis
+        of \(\hom_{\mathcal{O}[[X]]}(A[[\underline{X}]], \mathcal{O}[[\underline{X}]])\).
+        %Indeed, let 
+        %\(f \in \hom_{\mathcal{O}[[X]]}(A[[\underline{X}]], \mathcal{O}[[\underline{X}]])\).
+        %We give the argument for one variable, however for more variables the proof is completely
+        %analogous.
+        %Using \(\mathcal{O}[[\underline{X}]]\)-linearity, we have
+        %\[
+        %    f(X) = X \cdot f(1) = X \cdot \sum_{i=1}^r \alpha_i f_i(1) = \sum_{i=1}^r X \alpha_i \cdot f_i(1) 
+        %    = \sum_{i=1}^r \alpha_i \tilde f_i(X),
+        %\]
+        %\(\alpha_i \in \mathcal{O}\).
+        From \cref{lem:surjectivity} we know that the map 
+        \[
+            \Phi\colon \hom_{\mathcal{O}[[\underline{X}]]}(A[[\underline{X}]], \mathcal{O}[[\underline{X}]]) \to A
+        \]
         is surjective.
-        Therefore, \(\forall a \in A\colon \exists p_1, \dots, p_r \in \mathcal{O}[[\underline{X}]]\) s.t.
+        Therefore, \(\forall a \in A\colon \exists p_1, \dots, p_r \in \mathcal{O}[[X]]\) s.t.
         \[
             a = \Phi(p_1 \tilde f_1 + \dots + p_r \tilde f_r).
         \]
@@ -1610,6 +1650,8 @@ structure on \(A\).
         \item \(\Psi\) is injective.
         Analogous to the theorem for vector spaces, we know that a surjective homomorphism between two free modules 
         of the same finite rank is also injective.
+        (Note that the reverse implication doesn't hold, injective homomorphisms between free modules of the same
+        finite rank are not necessarily surjective.)
         As this condition is satisfied by \(\hom_\mathcal{O}(A, \mathcal{O})\) and \(A\), 
         the lemma follows.
     \end{enumerate}
@@ -1629,7 +1671,7 @@ We closely follow \cite[chapter 5.4]{Darmon1995}.
 As we have seen in the last section, \(A^\vee \cong A\) as \(A\) is a complete intersection.
 We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
 \begin{lemma}
-    Any two \(A\)-module isomorphisms \(\Psi, \Psi' \colon A^\vee \to A\) differ by a unit.
+    Any two \(A\)-module isomorphisms \(\Psi, \Psi' \colon A^\vee \to A\) differ by a unit in \(A\).
 \end{lemma}
 \begin{proof}
     The composition \(\Psi' \circ \Psi^{-1} \colon A \to A\) is an \(A\)-module isomorphism from \(A\) to \(A\).
