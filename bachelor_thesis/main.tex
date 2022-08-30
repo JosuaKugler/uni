@@ -1232,7 +1232,7 @@ Recall that the dimension of a ring is given by
     We denote the \(p\)-th homology group of this complex as \(H_p(\underline{x}, R)\).
 \end{definition}
 
-\begin{remark}\textup{\cites[proposition 5.13]{Darmon1995}[theorem 16.5 (i)]{Matsumura1986}}
+\begin{remark}\textup{\cites[proposition 5.13]{Darmon1995}[theorem 16.5 (i)]{Matsumura1986}}\label{rem:koszul}
     We note that \(K_0(\underline{x}, R) = R\) and therefore compute
     \[
         H_0(\underline{x}, R) = K_0(\underline{x}, R)/(\im d_1) \cong R/(x_1, \dots, x_n) = R/(\underline{x}).
@@ -1245,7 +1245,7 @@ Recall that the dimension of a ring is given by
 
 \subsection{Complete intersections and Gorenstein rings}
 The goal of this section is to show that finite flat complete intersections
-satisfie a Gorenstein condition, i.e. a specific form of self-duality.
+satisfy a Gorenstein condition, i.e. a specific form of self-duality.
 This fact can then be used to show (c) \(\implies\) (b) in \cref{thm:wiles_numerical_criterion}.
 Although there is a very general notion of Gorenstein rings, for
 the purpose of this proof we only need a special case,
@@ -1258,7 +1258,7 @@ the purpose of this proof we only need a special case,
 Let from now on in this subsection \(A\) be a finite flat complete intersection in \(\cob\). 
 Fix a presentation \(A = \mathcal{O}[[X_1,\dots,X_n]]/(f_1,\dots,f_n)\) for a suitable \(n\)
 and suitable \(f_i\).
-Our goal therefore reduces to constructing an \(A\)-module isomorphism
+Our goal is to find an \(A\)-module isomorphism
 \[
     \hom_\mathcal{O}(A, \mathcal{O}) \to A.
 \]
@@ -1312,7 +1312,7 @@ structure on \(A\).
     Let now \(K(\underline{f}, \mathcal{O}[[\underline{X}]])\) and \(K(\underline{g}, A[[\underline{X}]])\)
     be the associated Koszul complexes. 
     %Koszul complex property 1:
-    We have that \(K(\underline{f}, \mathcal{O}[[\underline{X}]])\) is a resolution of 
+    By \cref{rem:koszul}, we deduce that \(K(\underline{f}, \mathcal{O}[[\underline{X}]])\) is a resolution of 
     \[
         A = H_0(\underline{f}, \mathcal{O}[[\underline{X}]]) = \mathcal{O}[[\underline{X}]]/(f_1, \dots, f_n)
     \]
@@ -1350,7 +1350,7 @@ structure on \(A\).
         (\Phi_1(u_1), \dots, \Phi_1(u_n)) = (v_1, \dots, v_n)M. %probably explain this in greater detail
     \]
     By skew-linearity this can be extended to a map of exterior algebras. %What exactly is an exterior algebra?
-    In the following we proof that \(\Phi\)
+    In the following we show that \(\Phi\)
     \begin{enumerate}
         \item is a morphism of complexes,
         \item induces the identity on \(A = H_0(\underline{f}, \mathcal{O}[[\underline{X}]])\)
@@ -1417,7 +1417,7 @@ structure on \(A\).
     In the following we write 
     \(K_\bullet(\underline{f}) = K_\bullet(\underline{f}, \mathcal{O}[[\underline{X}]])\)
     and 
-    \(K_\bullet(\underline{g}) = K_\bullet(\underline{g}, A[[\underline{X}]])\)
+    \(K_\bullet(\underline{g}) = K_\bullet(\underline{g}, A[[\underline{X}]])\).
     By applying the functor \(\hom_{\mathcal{O}[[\underline{X}]]}(-, \mathcal{O}[[\underline{X}]])\)
     to the two free resolutions, we get the following commutative diagram
     \[
@@ -1436,6 +1436,7 @@ structure on \(A\).
     \]
     As both resolutions are free and, a fortiori, projective we can use the fact from homological algebra
     that there exists a homotopy equivalence that induces identity on the zero-th homology groups.
+    We just follow the construction in the proof and therefore obtain a homotopy equivalence.
     Consider the following commutative diagram with exact rows
     \[
             \begin{tikzcd}
@@ -1458,7 +1459,7 @@ structure on \(A\).
         d_1(f(u_i)) = \Phi_0(d_1(u_i)) = \Phi_0(-f_i)\\ = - \sum_{j=1}^n g_jm_{ji}
         = \sum_{j=1}^n d_1(v_j)m_{ji} = d_1\left(\sum_{j=1}^n v_j m_{ji}\right).
     \end{multline*}
-    We note that \(f = \Phi_1\). 
+    Choosing \(f = \Phi_1\) satisfies the above equation.
     As the higher maps are then uniquely defined by skew linearity,  \(\Phi\) extends to a homotopy equivalence.
     As \(\hom_{\mathcal{O}[[\underline{X}]]}(-, \mathcal{O}[[\underline{X}]])\) is an additive functor, 
     \(\Phi^*\) is also a homotopy equivalence. Hence,we have an isomorphism on the \(n\)-th cohomology,
@@ -1622,7 +1623,7 @@ structure on \(A\).
         \[ 
             \hom_{\mathcal{O}[[X]]}(A[[\underline{X}]], \mathcal{O}[[\underline{X}]]).
         \]
-        From \cref{lem:surjectivity} we know that the map 
+        \Cref{lem:surjectivity} tells us that the map 
         \[
             \Phi\colon \hom_{\mathcal{O}[[\underline{X}]]}(A[[\underline{X}]], \mathcal{O}[[\underline{X}]]) \to A
         \]
@@ -1650,8 +1651,8 @@ structure on \(A\).
 
 \subsection{Explicit computation of \texorpdfstring{\(\eta\)}{η} for complete intersections}
 
-In this section, \(A\) is always a finite flat complete intersection \(\in \cob\), 
-i.e. \(A \cong \mathcal{O}[[X_1, \dots, X_n]]/(f_1, \dots, f_n)\).
+In this section, \(A\) is always a finite flat complete intersection in \(\cob\), 
+i.e. we can fix a presentation \(A \cong \mathcal{O}[[X_1, \dots, X_n]]/(f_1, \dots, f_n)\).
 The goal of this section is to find explicit formulas for \(\eta_A\) and \(\phi_A\) using
 the relations \(f_i\). This allows us to show that (c) \(\implies\) (b) in \cref{thm:wiles_numerical_criterion}.
 We closely follow \cite[chapter 5.4]{Darmon1995}.
@@ -1659,7 +1660,7 @@ We closely follow \cite[chapter 5.4]{Darmon1995}.
     \(A^\vee \coloneqq \hom_\mathcal{O}(A, \mathcal{O})\) and similarly, \(\pi_A^\vee \colon \mathcal{O}^\vee \to A^\vee\) 
     may denote the dual map associated to \(\pi_A\colon A \to \mathcal{O}\).
 \end{notation}
-As we have seen in the last section, \(A^\vee \cong A\) as \(A\) is a complete intersection.
+As \(A\) is a complete intersection, \cref{lem:gorenstein} tells us that \(A^\vee \cong A\).
 We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
 \begin{lemma}
     Any two \(A\)-module isomorphisms \(\Psi, \Psi' \colon A^\vee \to A\) differ by a unit in \(A\).
@@ -1670,7 +1671,9 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
     \[
         \Psi' \circ \Psi^{-1}(x) = x \cdot \Psi' \circ \Psi^{-1}(1).
     \]
-    As we have the same fact for the inverse map, we find that \(\Psi' \circ \Psi^{-1}(1) \in A^\times\).
+    Analogously, the inverse map is also just multiplication with some element of \(A\).
+    Multiplication with these two elements then is identity, so they are inverse and
+    \(\Psi' \circ \Psi^{-1}(1) \in A^\times\).
     \(\Psi \circ \Psi^{-1}(1) = 1\), so \(\Psi' \circ \Psi^{-1} = x \cdot \Psi \circ \Psi^{-1}\).
     We conclude \(\Psi = x \cdot \Psi'\).
 \end{proof}
@@ -1712,7 +1715,7 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
         \hom_{\mathcal{O}[[\underline{X}]]}(A[[\underline{X}]], \mathcal{O}[[\underline{X}]])
     \]
     and \(\Psi\)
-    be the maps known from \cref{lem:gorenstein} and \(D = \det M\) as defined in the previous section.
+    be the maps known from \cref{lem:gorenstein} and \(D = \det M\) as defined in the previous subsection.
     Then,
     \[
         \pi_A \Psi \pi_A^\vee(\mathcal{O}^\vee) = \langle\pi_A\alpha \tilde \pi_A(D)\rangle_\mathcal{O}.
@@ -1733,7 +1736,7 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
     By the calculations we have done so far it becomes clear that this is the required preimage.
 \end{proof}
 
-\begin{proposition}\cite[proposition 5.19]{Darmon1995}
+\begin{proposition}\textup{\cite[proposition 5.19]{Darmon1995}}
     \[
         \eta_A = (\det(\partial f_i/\partial X_j(0))).
     \]
@@ -1767,7 +1770,7 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
     \]
 \end{proof}
 
-\begin{corollary}\cite[corollary 5.20]{Darmon1995}\label{cor:cimpliesb}
+\begin{corollary}\textup{\cite[corollary 5.20]{Darmon1995}}\label{cor:cimpliesb}
     Remembering that we assumed \(A\) to be a finite flat complete intersection \(\in \cob\), we obtain
     \[
         \# \Phi_A = \# (\mathcal{O}/\eta_A),
@@ -1790,15 +1793,15 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
         \Phi_A \cong \mathcal{O}^n/(v_1, \dots, v_n),
     \]
     where \(v_i \coloneqq (a_{f_i, 1}, \dots, a_{f_i, n})\).
-    If we interpret \(V = [v_i]_i\) as a matrix and hence an \(\mathcal{O}^n\)-endomorphism, 
-    then \(\im V = (v_1, \dots, v_n)\).
-    Clearly
+    If we interpret \(V = [v_i]_i\) as a matrix and thereby as an \(\mathcal{O}^n\)-endomorphism, 
+    we have \(\im V = (v_1, \dots, v_n)\).
+    Clearly,
     \[
         a_{f_i, j} = \frac{\partial f_i}{\partial X_j}(0)  
     \]
-    and hence 
+    and hence,
     \[
-        V = (\frac{\partial f_i}{\partial X_j}(0))_{i, j}.
+        V = \left(\frac{\partial f_i}{\partial X_j}(0)\right)_{i, j}.
     \]
     As \(\mathcal{O}\) is a PID, we know that there exist invertible \(\mathcal{O}\)-matrices \(S,T\) s.t.
     \[
@@ -1830,16 +1833,16 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
     \[
         \# \mathcal{O}^n/D\mathcal{O}^n 
         = \# \mathcal{O}/d_1\mathcal{O} \cdot \dots \cdot \# \mathcal{O}/d_n\mathcal{O}
-        = \# \mathcal{O}/d_1\cdot \dots \cdot d_n\mathcal{O} = \# \mathcal{O}/\det D\mathcal{O}
+        = \# \mathcal{O}/(d_1\cdot \dots \cdot d_n)\mathcal{O} = \# \mathcal{O}/(\det D)\mathcal{O}
     \]
-    As the ideal generated by units is the whole ring, this is the same as \(\# \mathcal{O}/\det V\mathcal{O}\).
-    However, we compute
+    With \(\# \mathcal{O}/(\det D)\mathcal{O} = \# \mathcal{O}/(\det V)\mathcal{O}\)
+    and
     \[
-        \det V \mathcal{O} = \det (\frac{\partial f_i}{\partial X_j}(0)) \mathcal{O} = \eta_A.
+        (\det V) \mathcal{O} = \det (\frac{\partial f_i}{\partial X_j}(0)) \mathcal{O} = \eta_A,
     \]
-    We conclude
+    we conclude
     \[
-        \# \Phi_A = \# \mathcal{O}^n/V\mathcal{O}^n \# \mathcal{O}/\det V\mathcal{O} = \# \mathcal{O}/\eta_A.
+        \# \Phi_A = \# \mathcal{O}^n/V\mathcal{O}^n =  \# \mathcal{O}/\det V\mathcal{O} = \# \mathcal{O}/\eta_A.
     \]
 \end{proof}
 
