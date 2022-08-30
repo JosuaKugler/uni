@@ -1848,7 +1848,7 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
 
 \subsection{Isomorphism theorems}
 
-\begin{proposition}\cite[theorem 5.21]{Darmon1995}\label{prop:phi_iso}
+\begin{proposition}\textup{\cite[theorem 5.21]{Darmon1995}}\label{prop:phi_iso}
     Let \(f\colon A \twoheadrightarrow B\) be a \(\cob\)-morphism and \(B\) a finite flat complete intersection.
     If the tangent spaces \(\phi_A, \phi_B\) are finite and 
     the induced morphism \(\tilde f\colon \phi_A \to \phi_B\) is an isomorphism,
@@ -1868,20 +1868,20 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
     The projection \(\nu_B\) arises from the fact that we can write every object in \(\cob\)
     as a quotient of \(U\) (\cref{rem:quotientofU}).
     As \(B\) is a complete intersection, we find \(n\) generators \(f_i \in U\) s.t. \(\ker \nu_B = (f_1, \dots, f_n)\).
-    Note that we need to choose the \(f_i\) in such a way that they have no constant term (cf. \cref{rem:noconstant})
+    Note that we need to choose the \(f_i\) in such a way that they have no constant term (cf. \cref{rem:noconstant}).
     Define \(b_i \coloneqq \nu_B(X_i) \in \ker \pi_B\) and choose preimages \(a_i \in A\) s.t. \(f(a_i) = b_i\).
     As the triangle involving \(A, B\) and \(\mathcal{O}\) commutes, we conclude that \(\pi_A(a_i) = \pi_B(b_i) = 0\),
     i.e. \(a_i \in \ker \pi_A\).
     
-    As \(X_1, \dots, X_n\) generate \(\phi_U\) and \(\nu_B\) is surjective, it is easy to see that 
-    \(b_1, \dots, b_n\) generate \(\phi_B\).
+    As \(X_1, \dots, X_n\) generate \(\phi_U\) and \(\nu_B\) is surjective, it follows from \cref{lem:surjectivity_phi}
+    that \(b_1, \dots, b_n\) generate \(\phi_B\).
     We know that \(\tilde f\) is an isomorphism, so \(a_1, \dots, a_n\) generate \(\phi_A\).
     Define
     \[
         \nu_A \colon \mathcal{O}[[X_1, \dots, X_n]] \to A
     \] via \(\nu_A(X_i) = a_i\).
     As all generators lie in the image of \(\nu_A\), this induces a surjection on \(\phi_A\).
-    By \cref{lem:surjectivity_phi} it follows that \(\phi\) is surjective.
+    By \cref{lem:surjectivity_phi} it follows that \(\nu_A\) is surjective.
     %kernel containments => well defined inverse => \phi is an iso
     
     Finally, we want to show that \(\ker \nu_A = \ker \nu_B\).
@@ -1892,7 +1892,7 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
     \[
         \overline{\nu_A} \colon \phi_U \to \phi_A  
     \]
-    is a submodule of the finitely generated \(\mathcal{O}\)-module of rank \(n\) \(\phi_U\).
+    is a submodule of the finitely generated \(\mathcal{O}\)-module \(\phi_U\) that has rank \(n\).
     As \(\mathcal{O}\) is a PID, we know that any submodule is finitely generated of rank \(n' \leq n\).
     Independent of \(n'\), we can choose \(n\) possibly linear dependent generators 
     \(\overline{g_1}, \dots \overline{g_n}\) of the above kernel and then extend these generators to 
@@ -1905,16 +1905,18 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
     \]
     where \(M\) is a \(n \times n\) matrix with entries in \(U\).
     The \(g_i\) and the \(f_i\) both have no constant terms. Hence, forgetting all monomials 
-    of degree bigger than one (equivalently considering the residue classes \(\mod\;\ker \pi_A^2\) 
+    of degree bigger than one (equivalently considering the residue classes mod \(\ker \pi_A^2\) 
     resp. \(\ker \pi_B^2\), denoted by \(\overline{\cdot}\)) forces us to take the constant terms \(\overline{M}\) of \(M\),
     \[
         (\overline{g_1}, \dots, \overline{g_n}) = (\overline{f_1}, \dots, \overline{f_n})\overline{M}.
     \]
-    As the tangent spaces are isomorphic, both \((\overline{g_1}, \dots, \overline{g_n})\) and 
-    \((\overline{f_1}, \dots, \overline{f_n})\) generate the same \(\mathcal{O}\)-submodule of
-    \(\phi_U\).
-    Indeed, 
-    \(\overline{f_1}, \dots, \overline{f_n} = \ker( \ker \pi_U/\ker \pi_U^2 \to \ker \pi_B/\ker \pi_B^2)\).
+    As \(\phi_A\) and \(\phi_B\) are isomorphic,
+    \[ 
+        (\overline{f_1}, \dots, \overline{f_n}) = \ker(\phi_U \xrightarrow{\overline{\nu}_B} \phi_B)
+        \cong \ker(\phi_U \xrightarrow{\overline{\nu}_A} \phi_A) = (\overline{g_1}, \dots, \overline{g_n}),
+    \]
+    i.e. both \((\overline{g_1}, \dots, \overline{g_n})\) and \((\overline{f_1}, \dots, \overline{f_n})\) 
+    generate the same \(\mathcal{O}\)-submodule of \(\phi_U\).
     As a result, we can express each of the \(\overline{f_1}, \dots, \overline{f_n}\) as a 
     \(\mathcal{O}\)-linear combination of \((\overline{g_1}, \dots, \overline{g_n})\).
     This gives us an inverse to \(\overline{M}\) and we deduce that \(\det \overline{M}\) is invertible
@@ -1928,20 +1930,21 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
     \[
         \ker \nu_A = \langle f_1, \dots, f_n\rangle_U \subset \ker \nu_B.
     \]
-    In total we obtain \(\ker \nu_A = \ker \nu_B\) and we can define the map 
+    In total we obtain \(\ker \nu_A = \ker \nu_B\) and we define the map 
     \[
         \nu_A\nu_B^{-1}\colon B \to A.  
     \]
-    This is indeed welldefined: For a given \(x \in B\) choose \(y, y' \in U\) s.t. 
+    This is welldefined: For a given \(x \in B\) choose \(y, y' \in U\) s.t. 
     \(\nu_B(y) = \nu_B(y') = x\). It follows \(y' - y \in \ker \nu_B\). 
     Then \(\nu_A(y') = \nu_A(y'-y) + \nu_A(y) = 0 + \nu_A(y)\) because \(\ker \nu_A = \ker \nu_B\).
-    From the commutativity of the above diagram we get that this is indeed an inverse for \(f\) and
+    
+    From the commutativity of the above diagram we get that this is an inverse for \(f\) and
     hence, \(f\) is an isomorphism.
 \end{proof}
 
 \begin{remark}\cite[remark 5.22, remark 5.23]{Darmon1995}
     Let \(A = \mathcal{O}[[X,Y]]/(X(X-\lambda), Y(Y-\lambda))\) be the ring from \cref{ex:ddt4} and 
-    \(B = \mathcal{O}[[X,Y]]/(X(X-\lambda), Y(Y-\lambda)), XY\) be the ring from \cref{ex:ddt2} and 
+    \(B = \mathcal{O}[[X,Y]]/(X(X-\lambda), Y(Y-\lambda), XY)\) be the ring from \cref{ex:ddt2} and 
     \(f\colon A \to B\) the canonical projection. Then \(f\) induces an isomorphism on the tangent spaces,
     but is not an isomorphism. The assumption that \(B\) is a complete intersection is necessary.
     However, let \(A = A[[X]]/(X^3)\), \(B = A[[X]]/(X^2)\) and \(f \colon A \to B\) the canonical projection.
@@ -1972,10 +1975,11 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
     satisfying the properties
     \begin{enumerate}
         \item \(\forall a \in A\colon \quad \# \{i\in I\colon f_i(a) \neq 0\} < \infty\) and
-        \item \(\forall a \in A\colon \quad a = \sum_{i \in I} f(a)\cdot a_i\).
+        \item \(\forall a \in A\colon \quad a = \sum_{i \in I} f_i(a)\cdot a_i\).
     \end{enumerate}
-    Now let \(0 = (\phi \mapsto \phi(a))\), i.e. \(\phi(a) = 0 \forall \phi \in A^\vee\).
-    Then, a fortiori, \(f_i(a) = 0 \forall i \in I\).
+    The canonical map from \(A\) to \(A^{\vee\vee}\) sends \(a\) to \(\operatorname{eval}_a\).
+    Now let \(a\) in the kernel of this canonical map. Then, \(\phi(a) = 0\; \forall \phi \in A^\vee\)
+    and, a fortiori, \(f_i(a) = 0\; \forall i \in I\).
     We conclude
     \[
         a = \sum_{i \in I} f_i(a)\cdot a_i = 0
@@ -1995,7 +1999,7 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
     Let \(0 \neq x \in \eta_A\) and \(x' \in \ann_A \ker \pi_A\) s.t. \(\pi_A(x') = x\).
     Interpret \(x \cdot 1\) as an element of the \(\mathcal{O}\)-module \(A\). Then,
     \[
-        \pi_A(x \cdot 1 - x') = x\cdot \pi_A(1) - \pi_A(x') = x - x = 0 \implies x \cdot 1 - x' \in \ker \pi_A
+        \pi_A(x \cdot 1 - x') = x\cdot \pi_A(1) - \pi_A(x') = x - x = 0 \implies x \cdot 1 - x' \in \ker \pi_A.
     \]
     Take \(a \in \ker \pi_A \cap \ann_A \ker \pi_A\). Then \(ax' = 0\), because \(a\in \ker \pi_A\) 
     and \(x' \in \ann_A \ker \pi_A\). Together we obtain
@@ -2006,7 +2010,7 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
     \(a\) is 0.
 \end{proof}
 
-\begin{proposition}\cite[theorem 5.24]{Darmon1995}\label{prop:eta_iso}
+\begin{proposition}\textup{\cite[theorem 5.24]{Darmon1995}}\label{prop:eta_iso}
     Let \(f\colon A \twoheadrightarrow B\) be a \(\cob\)-morphism, \(A\) and \(B\) finite flat and \(A\) a 
     complete intersection. If \(\eta_A = \eta_B \neq 0\), then \(f\) is an isomorphism.
 \end{proposition}
@@ -2017,7 +2021,7 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
     \]
     where the \(A\)-module structure is given via \(a \cdot \phi = (x \mapsto \phi(a\cdot x))\).
     By \cref{lem:intersectionzero} \(\ker \pi_A \cap \ann_A \ker \pi_A = 0\) and likewise for \(B\).
-    The fundamental theorem of homomorphisms gives us an isomorphism
+    The fundamental theorem of homomorphisms gives us a \(\mathcal{O}\)-linear isomorphisms
     \[
         \ann_A \ker \pi_A = \ann_A \ker \pi_A/(\ker \pi_A \cap \ann_A \ker \pi_A) \xrightarrow[\sim]{\pi_A} \eta_A
     \]
@@ -2027,8 +2031,9 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
     \]
     In total we obtain
     \[
-        \ann_A \ker \pi_A \cong \eta_A \xrightarrow{f} \eta_B \cong \ann_B \ker \pi_B.  
+        \ann_A \ker \pi_A \cong \eta_A \xhookrightarrow{f} \eta_B \cong \ann_B \ker \pi_B,
     \]
+    where \(f\) is the inclusion by \cref{lem:surjectivity_eta}.
     As \(f\) is a \(\cob\)-map, we have the commutativity \(\pi_A = \pi_Bf\). Hence, for all \(x\in \ker f\)
     we compute \(\pi_A(x) = \pi_B(f(x)) = \pi_B(0) = 0\), i.e. \(x \in \ker \pi_A\). We thereby have shown 
     that \(\ker f \subset \ker \pi_A\) and with \cref{lem:intersectionzero} we conclude
@@ -2038,17 +2043,19 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
     A fortiori, we get an exact sequence of \(A\)-modules
     \[
         0 \longrightarrow \ker f \oplus \ann_A \ker \pi_A \longrightarrow A 
-        \longrightarrow A/\ker f \oplus \ann_A \ker \pi_A  \longrightarrow 0.
+        \longrightarrow A/(\ker f \oplus \ann_A \ker \pi_A)  \longrightarrow 0.
         \tag{\textasteriskcentered} \label{eq:ses}
     \]
     We have
     \[
-        A/\ker f \oplus \ann_A \ker \pi_A \xrightarrow[\sim]{f} B/f(\ann_A \ker \pi_A) \cong B/\ann_B \ker \pi_B
+        A/(\ker f \oplus \ann_A \ker \pi_A) \xrightarrow[\sim]{f} B/f(\ann_A \ker \pi_A) \cong B/\ann_B \ker \pi_B
     \]
     and via \([b] \mapsto (x \mapsto b\cdot x)\) we get a canonical injection
     \[
-        B/\ann_B \ker \pi_B \hookrightarrow \operatorname{End}_\mathcal{O}(\ker \pi_B) 
+        B/\ann_B \ker \pi_B \hookrightarrow \operatorname{End}_\mathcal{O}(\ker \pi_B).
     \]
+    This is a welldefined injection because any element in the annulator of \(\ker \pi_B\) is the zero map
+    in \(\operatorname{End}_\mathcal{O}(\ker \pi_B)\) and the zero map always comes from an element in the annulator.
     As \(B\) and therefore \(\ker \pi_B\) are torsion-free, we show that \(\operatorname{End}_\mathcal{O}(\ker \pi_B)\)
     is torsion-free as well. For, let \(0 \neq \phi \in \operatorname{End}_\mathcal{O}(\ker \pi_B)\) and 
     \(x \in \mathcal{O}\) s.t. \(0 = x \cdot \phi = (y \mapsto x \cdot \phi(y))\).
@@ -2085,13 +2092,17 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
         \eta_A = \pi_A \ann_A \ker \pi_A \neq 0 \implies \ann_A \ker \pi_A \neq 0.
     \]
     By \cref{lem:pontryagininjectivity}, \((\ann_A\ker \pi_A)^\vee \neq 0\).
-    Now let's assume \((\ann_A\ker \pi_A)^\vee \otimes_A k = 0\), i.e.
+    Now let's assume 
+    \[
+        \dim_k(\ann_A\ker \pi_A)^\vee \otimes_A k = 0.
+    \]
+    That would imply
     \[
         0 = (\ann_A\ker \pi_A)^\vee \otimes_A A/\lambda = (\ann_A\ker \pi_A)^\vee/\lambda (\ann_A\ker \pi_A)^\vee,
     \]
     which is equivalent to \((\ann_A\ker \pi_A)^\vee = \lambda (\ann_A\ker \pi_A)^\vee\) and
     by Nakayama's lemma for the local ring \(\mathcal{O}\) we could conclude that \((\ann_A\ker \pi_A)^\vee = 0\),
-    contradiction. Therefore \(\dim_k (\ann_A\ker \pi_A)^\vee > 0\) and by \eqref{eq:dimineq} 
+    contradiction. Therefore \(\dim_k (\ann_A\ker \pi_A)^\vee \otimes_A k > 0\) and by \eqref{eq:dimineq} 
     we have \((\ker f)^\vee \otimes_A k = 0\).
     Again,
     \[
