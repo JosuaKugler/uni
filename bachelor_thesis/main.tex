@@ -647,12 +647,31 @@ we can choose polynomials without constant term and assume that \(\pi_A\) is ind
 \begin{definition}
     Let \(A \in \cob\). Then
     \[\phi_A \coloneqq (\ker \pi_A)/(\ker \pi_A)^2.\]
-    %is the following helpful?
-    %The reader with background in algebraic geometry might notice that this can be thought of as a tangent space, 
-    %in particular it is the cotangent space of the scheme \(\operatorname{spec}(A)\) at the point \(\ker \pi_A\).
-    %However this point of view is not necessary in the following, 
-    %it might be more a hint of how Wiles came to investigate this specific invariant.
 \end{definition}
+\begin{lemma}\label{lem:functoriality_phi}
+    This assignment is functorial, i.e. for a map \(f\colon A \to B\) in \(\cob\),
+    we get a map \(\tilde f\colon \phi_A \to \phi_B\) and this is compatible with
+    concatenation of maps.
+\end{lemma}
+\begin{proof}
+    The image of the restriction of \(f\) to \(\ker \phi_A\) is contained in \(\ker \phi_B\), 
+    because \(\forall x \in \ker \phi_A\colon\; \pi_B(f(x)) = \pi_A(x) = 0\).
+    Concatenating this with the projection to \(\phi_B\), we get a map
+    \[
+        \tilde f\colon \ker \pi_A \to \ker \pi_B/(\ker \pi_B)^2 = \phi_B.
+    \]
+    In order to see that \(\tilde f\colon \phi_A \to \phi_B\) is welldefined, we need to show 
+    \[
+        f(\ker \pi_A)^2 \subset (\ker \pi_B)^2.
+    \]
+    However, this follows from the fact that \(f(\ker \pi_A) \subset \ker \pi_B\) and that \(f\) is an algebra
+    homomorphism:
+    \[
+        f(x^2) = \underbrace{f(x)}_{\in \ker \pi_B}\underbrace{f(x)}_{\in \ker \pi_B} \in (\ker \pi_B)^2 
+    \]
+    for any \(x \in \ker \pi_A\).
+    We don't show the compatibilty with concatenation here, but we also won't use in the following.
+\end{proof}
 
 \begin{example}\label{ex:last_phi}
     Remember the definition of \(U\) in \cref{ex:last_1}.
@@ -825,37 +844,14 @@ In this subsection we prove the equivalence (a) \(\Leftrightarrow\) (b) in \cref
 by investigating the invariants \(\phi_A\) and \(\eta_A\) that we defined last section.
 
 \begin{lemma}\label{lem:surjectivity_phi}
-    A morphism \(f\colon A \to B \in \cob\) induces a homomorphism \(\phi_A \to \phi_B\) of \(\mathcal{O}\)-modules.
-    This induced map is surjective if and only if the morphism \(A \to B\) is surjective.
+    For a morphism \(f\colon A \to B \in \cob\), by functoriality (\cref{lem:functoriality_phi}) we
+    have an induced homomorphism \(\tilde f\colon\phi_A \to \phi_B\) of \(\mathcal{O}\)-modules.
+    \(f\) is surjective if and only if \(\tilde f\) is surjective.
 \end{lemma}
-For the 'only if'-part, see \cites[lemma 5.5]{Darmon1995}[theorem 8.4]{Matsumura1986}%
+For the 'if'-part, see \cites[lemma 5.5]{Darmon1995}[theorem 8.4]{Matsumura1986}%
 [ch. II, lemma 7.4]{Hartshorne1977}[\href{https://stacks.math.columbia.edu/tag/090T}{tag 090T}]{stacks-project}.
 \begin{proof}
-    We have the commutative diagram
-    \[
-    \begin{tikzcd}[column sep=small]
-        A \arrow[rr, "f"] \arrow [dr, "\pi_A", swap, twoheadrightarrow] & & B \arrow [dl, "\pi_B", twoheadrightarrow]\\
-        & \mathcal{O} &
-    \end{tikzcd}.
-    \]
-    It follows from the diagram that the restriction of \(f\) to \(\ker \phi_A\) maps to \(\ker \phi_B\),
-    because \(\forall x \in \ker \phi_A\colon\; \pi_B(f(x)) = \pi_A(x) = 0\).
-    Concatenating this with the projection to the tangent space, we get a map
-    \[
-        \tilde f\colon \ker \pi_A \to \ker \pi_B/(\ker \pi_B)^2 = \phi_B.
-    \]
-    In order to see that \(\tilde f\colon \phi_A \to \phi_B\) is welldefined, we need to show 
-    \[
-        f(\ker \pi_A)^2 \subset (\ker \pi_B)^2.
-    \]
-    However, this follows from the fact that \(f(\ker \pi_A) \subset \ker \pi_B\) and that \(f\) is an algebra
-    homomorphism:
-    \[
-        f(x^2) = \underbrace{f(x)}_{\in \ker \pi_B}\underbrace{f(x)}_{\in \ker \pi_B} \in (\ker \pi_B)^2 
-    \]
-    for any \(x \in \ker \pi_A\).
-
-    First, let us assume that \(A \to B\) is a surjective map.
+    First, let us assume that \(f\colon A \to B\) is a surjective map.
     In this case, every element \(x \in \ker \phi_B\) has a preimage in \(\ker \pi_A\). 
     Indeed, \(\forall y \in f^{-1}(x)\subset A\colon\)
     \[
@@ -865,10 +861,17 @@ For the 'only if'-part, see \cites[lemma 5.5]{Darmon1995}[theorem 8.4]{Matsumura
     the projection to \(\phi_B\), \(\tilde f\colon \ker \pi_A \to \ker \pi_B/(\ker \pi_B)^2\) are both surjective.
     In total, we obtain a surjective homomorphism \(\tilde f\colon \phi_A \to \phi_B\).
     
-    Now, let the induced map \(\phi_A \to \phi_B\) be surjective. 
+    Now, let \(\tilde f\colon \phi_A \to \phi_B\) be surjective. 
     Consider the ideal \(I = f(\ker \pi_A) \cdot B\) in \(B\).
     Let \(x \in I\). Then \(x = \sum_i f(x_i) \cdot b_i\) for \(x_i \in \ker \pi_A\) and \(b_i \in B\).
-    Remember the commutative diagram from the beginning of the proof,
+    We have the commutative diagram
+    \[
+    \begin{tikzcd}[column sep=small]
+        A \arrow[rr, "f"] \arrow [dr, "\pi_A", swap, twoheadrightarrow] & & B \arrow [dl, "\pi_B", twoheadrightarrow]\\
+        & \mathcal{O} &
+    \end{tikzcd}.
+    \]
+    Therefore,
     \[
         \pi_B(x) = \pi_B\left(\sum_i f(x_i)\cdot b_i\right) 
         = \sum_i \pi_B(f(x_i))\cdot \pi_B(b_i) 
@@ -1116,7 +1119,7 @@ Recall that the dimension of a ring is given by
     \end{equation}
     %Corollary 26.18 of Prof. Schmidt's Algebra script
     Let \(\mathfrak{m} = (\lambda, X_1, \dots, X_n)\). We have seen that this is the maximal ideal in \(U\).
-    Now we can conclude
+    Using \cite[corollary 11.15]{Atiyah1969}, we can conclude 
     \[
         \dim U \leq \dim_{U/\mathfrak{m}}(\mathfrak{m}/\mathfrak{m}^2) 
         = \dim_k(\lambda/\lambda^2 \oplus k X_1 \oplus \dots \oplus k X_n).
@@ -1145,20 +1148,23 @@ Recall that the dimension of a ring is given by
     In total, \(f_1, \dots, f_n, \lambda\) generate a primary ideal of \(U\).
 \end{proof}
 
-\begin{definition}[regular sequence]\cite[cf.][\S 16]{Matsumura1986}
+\begin{definition}[regular sequence]\cite[cf.][definition 1.1.1]{Bruns1998}
     A sequence \((x_1, \dots, x_n)\) is said to be a regular sequence 
     if \(\forall\; i = 1, \dots, n\colon\)
     \[x_i \text{ is not a zero-divisor in } R/(x_1, \dots, x_{i-1}).\]
 \end{definition}
 
-\begin{definition}[depth]
-    The depth of a local noetherian ring \(R\) is defined as the maximum length of
-    a regular sequences in \(R\).(in m?)
-\end{definition}
-
-\begin{theorem}%cite bruns herzog
+\begin{theorem}\cite[theorem 1.2.5]{Bruns1998}
+    Let \(R\) be a local noetherian ring with maximal ideal \(\mathfrak{m}\).
+    A regular sequence \((x_1, \dots, x_n)\) is maximal, if \((x_1, \dots, x_{n+1})\)
+    is not regular for any \(x_{n+1} \in \mathfrak{m}\).
     All maximal regular sequences have the same length.
 \end{theorem}
+
+\begin{definition}[depth]\cite[definition 1.2.6, 1.2.7]{Bruns1998}
+    The depth of a local noetherian ring \(R\) with maximal ideal \(\mathfrak{m}\) is 
+    defined as the length of a (any) maximal regular sequence in \(\mathfrak{m}\).
+\end{definition}
 
 \begin{definition}[Cohen-Macaulay]
     A local ring \(R\) is called Cohen-Macaulay if 
@@ -1904,11 +1910,13 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
         (g_1, \dots, g_n) = (f_1, \dots, f_n) \cdot M,
     \]
     where \(M\) is a \(n \times n\) matrix with entries in \(U\).
-    The \(g_i\) and the \(f_i\) both have no constant terms. Hence, forgetting all monomials 
-    of degree bigger than one (equivalently considering the residue classes mod \(\ker \pi_A^2\) 
-    resp. \(\ker \pi_B^2\), denoted by \(\overline{\cdot}\)) forces us to take the constant terms \(\overline{M}\) of \(M\),
+    The \(g_i\) and the \(f_i\) both have no constant terms. If we forget all monomials 
+    of degree bigger than one (or equivalently consider the residue classes mod \(\ker \pi_A^2\) 
+    resp. \(\ker \pi_B^2\), denoted by \(\overline{\cdot}\)), the resulting polynomials
+    \(\overline{f_i}, \overline{g_i}\) are sums of monomials of degree 1.
+    Therefore, only the constant terms \(M^\mathrm{const}\) of \(M\) influence the \(\overline{g_i}\) and we get
     \[
-        (\overline{g_1}, \dots, \overline{g_n}) = (\overline{f_1}, \dots, \overline{f_n})\overline{M}.
+        (\overline{g_1}, \dots, \overline{g_n}) = (\overline{f_1}, \dots, \overline{f_n})M^\mathrm{const}.
     \]
     As \(\phi_A\) and \(\phi_B\) are isomorphic,
     \[ 
@@ -1919,9 +1927,9 @@ We choose one \(A\)-module isomorphism \(\Psi\colon A^\vee \to A\).
     generate the same \(\mathcal{O}\)-submodule of \(\phi_U\).
     As a result, we can express each of the \(\overline{f_1}, \dots, \overline{f_n}\) as a 
     \(\mathcal{O}\)-linear combination of \((\overline{g_1}, \dots, \overline{g_n})\).
-    This gives us an inverse to \(\overline{M}\) and we deduce that \(\det \overline{M}\) is invertible
+    This gives us an inverse to \(M^\mathrm{const}\) and we deduce that \(\det M^\mathrm{const}\) is invertible
     in \(\mathcal{O}\).
-    A power series is invertible if its constant term is invertible so as a result \(\det M\) is invertible
+    A power series is invertible if its constant term is invertible, so \(\det M\) is invertible
     as well and we conclude that 
     \[ 
         f_1, \dots, f_n \in \langle g_1, \dots, g_n\rangle_U = \ker \nu_B
