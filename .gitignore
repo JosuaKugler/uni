@@ -11,6 +11,8 @@ seminar/figures/full_real_value_contour.tex
 ## Python files
 *__pycache__*
 
+#xopp
+*.autosave.xopp
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
