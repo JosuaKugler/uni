@@ -1,14 +1,4 @@
-showFigs = True
 # This script visualizes the influence of the choice of the preconditioner, the step length rule and the initial values when solving an spd quadratic optimization problem via the preconditioned steepest descent method
-
-# Decide whether figures are to be shown or saved
-try:
-	if showFigs:
-		saveFigs = False
-	else:
-		saveFigs = True
-except:
-		saveFigs = True
 
 import numpy as np
 from gradient_descent_quadratic import *
@@ -109,12 +99,11 @@ stepFig = plot_step_sizes(list(out["history"] for out in outputs), labels)
 gradNormFig = plot_grad_norms(list(out["history"] for out in outputs), labels)
 
 # Save figures
-if saveFigs:
-	for fig, name in zip([iterFig, convFig, stepFig, gradNormFig],['iterates', 'convergence', 'step_sizes', 'grad_norms']):
-		figName = '../figures/ex_008_gradient_descent_quadratic_precon_visualization_' + name + '.png'
-		print('driver_ex_008 is saving figure: ' + figName)
-		plt.figure(fig)
-		plt.savefig(figName)
+for fig, name in zip([iterFig, convFig, stepFig, gradNormFig],['iterates', 'convergence', 'step_sizes', 'grad_norms']):
+	figName = '../figures/ex_008_gradient_descent_quadratic_precon_visualization_' + name + '.png'
+	print('driver_ex_008 is saving figure: ' + figName)
+	plt.figure(fig)
+	plt.savefig(figName)
 
 
 ### Visualize initial guess effects
@@ -151,12 +140,11 @@ convFig = plot_f_val_diffs(list(out["history"] for out in outputs),
 				title = 'Convergence from various initializations (cauchy step)')
 
 # Save figures
-if saveFigs:
-	for fig, name in zip([iterFig, convFig, stepFig, gradNormFig],['iterates', 'convergence']):
-		figName = '../figures/ex_008_gradient_descent_quadratic_init_visualization_cauchy_' + name + '.png'
-		print('driver_ex_008 is saving figure: ' + figName)
-		plt.figure(fig)
-		plt.savefig(figName)
+for fig, name in zip([iterFig, convFig, stepFig, gradNormFig],['iterates', 'convergence']):
+	figName = '../figures/ex_008_gradient_descent_quadratic_init_visualization_cauchy_' + name + '.png'
+	print('driver_ex_008 is saving figure: ' + figName)
+	plt.figure(fig)
+	plt.savefig(figName)
 
 ### Visualize fixed step length effects
 # Create a new container
@@ -188,15 +176,8 @@ for t in ts:
 						title = 'Convergence from various initializations (t = {:1.1e})'.format(t))
 
 	# Save figures
-	if saveFigs:
-		for fig, name in zip([iterFig, convFig, stepFig, gradNormFig],['iterates', 'convergence', 'step_sizes', 'grad_norms']):
-			figName = '../figures/ex_008_gradient_descent_quadratic_init_visualization_fixed_' + '{:1.1e}_'.format(t) + name + '.png'
-			print('driver_ex_008 is saving figure: ' + figName)
-			plt.figure(fig)
-			plt.savefig(figName)
-
-try:
-	if showFigs:
-		plt.show()
-except:
-	pass
+	for fig, name in zip([iterFig, convFig, stepFig, gradNormFig],['iterates', 'convergence', 'step_sizes', 'grad_norms']):
+		figName = '../figures/ex_008_gradient_descent_quadratic_init_visualization_fixed_' + '{:1.1e}_'.format(t) + name + '.png'
+		print('driver_ex_008 is saving figure: ' + figName)
+		plt.figure(fig)
+		plt.savefig(figName)

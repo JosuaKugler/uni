@@ -68,22 +68,6 @@
 \end{enumerate}
 
 \section*{Exercise 3}
-W.l.o.g. we assume that the quantities involved are $\neq 0$ (otherwise, the inequalities are always true).
-\begin{enumerate}
-    \item Using the generalized Raleigh quotient inequality twice, we obtain
-    \[
-        \frac{r^{0,\top}M^{-1}r^{0} \cdot r^{k,\top}A^{-1}r^k}{r^{k,\top}M^{-1}r^{k} \cdot r^{0,\top}A^{-1}r^0} \leq \frac{\lambda_{\max}(A, M)}{\lambda_{\min}(A,M)} = \kappa.  
-    \]
-    Multiplying with that, we can deduce
-    \begin{align*}
-        r^{k, \top}M^{-1}r^k 
-        &\leq \epsilon_{\operatorname*{rel}}^2 \cdot r^{0,\top}M^{-1}r^{0}\\
-        \frac{r^{0,\top}M^{-1}r^{0} \cdot r^{k,\top}A^{-1}r^k}{r^{0,\top}A^{-1}r^0} 
-        &\leq \epsilon_{\operatorname*{rel}}^2 \cdot r^{0,\top}M^{-1}r^{0} \cdot \kappa\\
-        r^{k,\top}A^{-1}r^k &\leq r^{0,\top}A^{-1}r^0 \cdot \epsilon_{\operatorname*{rel}}^2  \cdot \kappa.
-        \intertext{Taking the square root yields}
-        \lVert x^{(k)} - x^*\rVert _A \leq \sqrt{\kappa} \epsilon_{\operatorname*{rel}} \lVert x^{(0)} - x^*\rVert _A.
-    \end{align*}
     As shown in the lecture, we have the generalized spectral decomposition
     \[ A = MV\Lambda V^\top M, \]
     s.t. $V^\top M V = \operatorname*{Id}$. This implies $VV^\top = M^{-1}$. 
@@ -128,7 +112,6 @@ W.l.o.g. we assume that the quantities involved are $\neq 0$ (otherwise, the ine
     Then, we use the given inequality and finally apply $(*)$.
     The second case in bracket (1) works analogously.
     Brackets (3) and (4) can be shown by the exact same procedure as bracket (1).
-\end{enumerate}
 \section*{Exercise 4}
 \lstinputlisting[language=python,breaklines=true]{4.py}
 \begin{figure}
