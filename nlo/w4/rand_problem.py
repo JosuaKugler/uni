@@ -7,6 +7,7 @@ class rand_problem():
         self.b = np.random.rand(n)
         self.c = np.random.rand()
         self.f = self.quadratic_function()
+        self.f_prime = lambda x : self.A @ x - self.b
         self.Pinv = np.identity(n)
 
         self.x0 = np.random.rand(n)
@@ -17,7 +18,7 @@ class rand_problem():
         return np.dot(M, M.T)
     
     def quadratic_function(self):
-        f = lambda x : x.T @ self.A @ x + self.b.T @ x + self.c
+        f = lambda x : 0.5 * x.T @ self.A @ x - self.b.T @ x + self.c
         return f
     
 if __name__ == "main":
