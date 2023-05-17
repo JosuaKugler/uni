@@ -8,8 +8,8 @@ from visualization_functions import (
     plot_grad_norms,
 )
 from gradient_descent_UP import gradient_descent_UP
-from rand_problem import rand_problem
-from example_functions import rosenbrock
+from globalized_newton_UP import globalized_newton_UP
+from example_functions import rand_problem, rosenbrock
 
 
 # compare gradient norms
@@ -25,19 +25,25 @@ for problem in problems:
 
 histories = []
 # labels = []
-for problem in problems:
-    histories.append(
-        gradient_descent_UP(
-            problem.x0,
-            problem.f,
-            problem.f_prime,
-            problem.Pinv,
-            sigma=1e-3,
-            alpha_lower_bound=10,
-            beta=0.5,
-            #beta_upper=0.9,
+if False:
+    for problem in problems:
+        histories.append(
+            gradient_descent_UP(
+                problem.x0,
+                problem.f,
+                problem.f_prime,
+                problem.Pinv,
+                sigma=1e-3,
+                alpha_lower_bound=10,
+                beta=0.5,
+                #beta_upper=0.9,
+            )
         )
-    )
+
+problem = rand_problem(2)
+
+histories = [globalized_newton_UP(problem.x0, problem.f, problem.f_prime, lambda xx: problem.A @ xx, )]
+
 
 plot_grad_norms(
    histories=histories, labels=range(len(histories))

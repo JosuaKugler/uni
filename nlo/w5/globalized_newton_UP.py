@@ -7,6 +7,7 @@ def globalized_newton_UP(
     """
     Implements Algorithm 5.30
     """
+    debug = False
     M_inv = np.linalg.inv(M)
 
     k = 0
@@ -24,6 +25,8 @@ def globalized_newton_UP(
     while delta > eps**2 and k < max_iter:
         solvable = True
         try:
+            if debug == True:
+                print(f'solve {f_two_prime(x)} * x = {-r}')
             d_N = np.linalg.solve(f_two_prime(x), -r)
         except:
             solvable = False
@@ -38,13 +41,24 @@ def globalized_newton_UP(
         phi_0 = f_k  # f(x + 0*d) = f(x)
         phi_prime_0 = -delta
         
+        if debug == True:
+            case = ''
+            if not solvable:
+                case = 'unsolvable -> gradient'
+            elif np.array_equiv(d, d_G):
+                case = 'solvable -> gradient'
+            elif np.array_equiv(d, d_N):
+                case = 'solvable -> newton'
+            else:
+                case = 'bug!'
+            print(f'{case}, phi_0={phi_0}, phi_prime_0={phi_prime_0} at x={x} and d={d}')
         alpha = armijo_backtracking(1, phi, phi_0, phi_prime_0, sigma, beta) #initial trial step size is 1
 
         x = x + alpha * d
         f_k = f(x)
         r = f_prime(x)
-        d = -M_inv @ r
-        delta = -r.transpose() @ d
+        d_G = -M_inv @ r
+        delta = -r.transpose() @ d_G
         k = k + 1
 
         history["step_lengths"].append(alpha)
