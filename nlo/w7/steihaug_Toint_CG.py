@@ -12,7 +12,6 @@ def steihaug_Toint_CG(H, b, Minv, eps_rel, Delta):
     xi = 0
     omega = 0
     while delta >= eps_rel**2 * delta_0:
-        #TODO: edit
         q = H @ p
         theta = np.dot(q, p)
         M = np.linalg.inv(Minv)
@@ -24,7 +23,7 @@ def steihaug_Toint_CG(H, b, Minv, eps_rel, Delta):
                 alpha_star = - xi/(2 * gamma) + 1/(2*gamma) * np.sqrt((xi**2 - 4*gamma*(omega - Delta**2)))
                 s = s + alpha_star * p #in the 0-th iteration, alpha_star will be Delta/sqrt(gamma)
                 #at this point, the norm of s should be Delta
-                #print("here", alpha_star, s, p, s.T @ M @ s, Delta)
+                #print("here", alpha_star, s, p, s.T @ M @ s, Delta**2)
                 pred = b @ s - .5 * s.T @ H @ s
                 
                 return s, pred #add s_m_norm
@@ -43,7 +42,11 @@ def steihaug_Toint_CG(H, b, Minv, eps_rel, Delta):
                 p = new_p + beta*p
                 
         else:
-            alpha_star = - xi/(2 * gamma) + xi/(2*gamma) * np.sqrt((1 - 4*gamma*(omega - Delta**2)))
+            if 1 - 4*gamma*(omega - Delta**2) > 0:
+                alpha_star = - xi/(2 * gamma) + xi/(2*gamma) * np.sqrt((1 - 4*gamma*(omega - Delta**2)))
+            else:
+                print('warning: alpha_star discriminant was negative')
+                alpha_star = - xi/(2 * gamma)
             s = s + alpha_star * p
             pred = b @ s - .5 * s.T @ H @ s
             return s, pred #add s_m_norm
