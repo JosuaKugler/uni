@@ -2,6 +2,7 @@ newton's method can be motivated in two ways, cf. page 78
 probably Lemma 5.48
 Sherman-Morrison-Woodbury formula (Lemma 5.50)
 compare gradient descent and quasi newton method
-prove theorem 7.4
 
 Prof. Herzog likes proofs that combine a lot of things
+quiz questions in chapter 13.2
+check if LICQ holds as subtask
