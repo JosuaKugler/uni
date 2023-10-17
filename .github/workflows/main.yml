@@ -4,6 +4,7 @@ jobs:
   xopp-to-pdf:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "job started"
+      - name: checkout repo
+        uses: actions/checkout@v2.3.4
       - run: sudo apt install xournalpp
       - run: xournalpp -p contact_geometry/definitions.pdf contact_geometry/definitions.xopp
