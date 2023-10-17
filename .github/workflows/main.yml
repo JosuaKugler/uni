@@ -1,0 +1,8 @@
+name: xournalpp-tools
+on: push
+jobs:
+  xopp-to-pdf:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "job started"
+      - run: xournalpp -p contact_geometry/definitions.pdf contact_geometry/definitions.xopp
