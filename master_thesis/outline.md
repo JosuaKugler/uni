@@ -13,4 +13,7 @@ introduction refers back to chapter 4.4 for the 3-dim case
 What is a contact submanifold?
 What is the definition of an open book supporting a contact structure?
 - 7.5
-2. Learn Bourgeois construction
+2. Bourgeois construction
+- seee geiges 7.3
+2.1 Bourgeois construction yields tight mfd.
+- BGM22

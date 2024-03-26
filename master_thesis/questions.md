@@ -1,4 +1,4 @@
-# Questions
+# Questions/Notes
 
 ## What is an almost contact structure?
 see Geiges, p. 64, Rmk 2.4.7
@@ -41,3 +41,22 @@ The U(n) part transforms different frames of the hyperplane into each other. Usi
 ## Why does the definition of weak filling make sense?
 What does it mean for a symplectic form to be restricted to a contact structure?
 A symplectic form on a mfd associates a skew-symmetric bilinear form to every point of the manifold. The contact structure on the boundary manifold associates a plane to every point. Therefore, at each point we have to consider the restriction of the form to the 2-d subvectorspace of the 4-d tangent space.
+
+## Why is the Bourgeois construction tight?
+
+This is difficult, it involves holomorphic curves etc. and I'm not sure if I'll be able to cover all that in my thesis.
+
+### What is an abstract open book?
+It consists of a manifold and a map. The mapping torus glued together at the boundary with a suitable other manifold gives the manifold we want to decompose.
+Using the first manifold as binding, there is a natural open book fibration using the mapping torus properties.
+However, I don't fully understand all the details and, in particular, as of now I don't see why this is so useful tbh.
+
+### Why does universal tightness follow from tightness?
+"The fact that 5-dimensional Bourgeois contact structures are universally tight is a simple consequence of the fact that they are tight and that finite covers of either factor of the product again yield Bourgeois contact structures."
+- Every finite cover of a torus is again a torus
+- How do finite covers of abstract open books look like?
+- the following should be true: covering of products is product of coverings
+-> at least smoothly, it definitely is a product with a torus. Why, however, is the contact structure also given by the respective Bourgeois construction?
+Even when that is clear, why does universal tightness follow from tightness of all finite coverings?
+
+### Are branched coverings important?
