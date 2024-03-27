@@ -14,6 +14,15 @@ What is a contact submanifold?
 What is the definition of an open book supporting a contact structure?
 - 7.5
 2. Bourgeois construction
-- seee geiges 7.3
-2.1 Bourgeois construction yields tight mfd.
-- BGM22
+- see geiges 7.3
+- Bourgeois construction yields tight mfd. -> BGM22, complicated
+3. Overtwisted
+- Plastikstufe (Niederkrüger)
+- OT disk (BEM15)
+- geometric criteria (CMP19). Tfae: Y
+    - is overtwisted (according to BEM15)
+    - contains R^3 X C^n-2
+    - unknot is loose
+    - contains plastikstufe (doesn't need further technical conditions according to Huang17)
+    - can be obtained by (+1)-surgery
+    - is supported by a negatively stabilized open book

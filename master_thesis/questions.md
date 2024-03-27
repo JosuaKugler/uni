@@ -4,7 +4,7 @@
 see Geiges, p. 64, Rmk 2.4.7
 almost contact structure is a cooriented hyperplane field eta with a complex bundle structure J and a oriented line-bundle complementary to eta that defines the coorientation
 The difference to a contact structure is: The contact structure doesn't just need a bundle structure on eta, it needs an associated form alpha that fulfills the contact condition.
-However it has been showed that every almost contact manifold is actually (overtwisted) contact (see [Agustin's slides](./papers/Moreno24_slides.pdf))
+However it has been proved that every almost contact manifold is actually (overtwisted) contact (see [Agustin's slides](./papers/Moreno24_slides.pdf))
 
 ### What is a bundle metric?
 Let E -> M a bundle. A bundle metric is a bundle map from the fibre product of E with itself to M x \R
@@ -60,3 +60,45 @@ However, I don't fully understand all the details and, in particular, as of now 
 Even when that is clear, why does universal tightness follow from tightness of all finite coverings?
 
 ### Are branched coverings important?
+
+## What is a Plastikstufe?
+
+The existence of a plastikstufe implies that the contact manifold does not have a (semipositive) symplectic filling. (Thm1, Niederkrueger06)
+The proof of this is difficult, as it uses holomorphic curves etc.
+
+### What is a maximally foliated submanifold?
+- (M, alpha) (2n - 1)-dim contact mfd. (e.g. n = 2 -> dim = 3)
+- L submfd of dimension n (e.g. n = 2, surface)
+- the kernel of alpha restricted to TL defines a possibly singular foliation
+ - the kernel of alpha is the contact structure hyperplane distribution
+ - restriction to TL: at every point p of L, consider the intersection of ker alpha_p with T_p L. (for n = 2 this yields the characteristic foliation)
+
+### What does Frobenius' theorem say?
+In this context, the only relevant statement really is what Niederkrüger writes in his paper.
+
+### elliptic singular set
+closed, codim 2 mfd. inside L with a tubular neighborhood D^2 x S -> L (coordinates x,y,s)
+alpha restricted to TL is represented by xdy - ydx on this neighborhood
+    this somehow is related to open books, at least that is how one can find an easy example in Example 1 of Niederkrueger06
+
+### Definition: A plastikstufe with singular set S
+see Niederkrueger06
+in dim 5, a plastikstufe can be easily visualized (see Niederkrueger06)
+
+
+## What is a (parametric) h-principle?
+As customary in the h-principle type framework, a parametric h-principle yields results about leafwise structures on foliations, see e.g. [28]. (BEM15)
+
+### h-principle
+h is for homotopy
+I think an h-principle says that in every homotopy class of a topological kind of objects there exists a geometric object
+
+
+## What is a Milnor open book?
+Given an analytic function f : (X, x) → (C, 0) vanishing at x, with an isolated singularity at x, the open book decomposition OB_f of the boundary M of (X, x) with binding L = M cap f^-1(0) and projection pi = f/|f|: M \ L -> S^1 subset C is called the Milnor open book induced by f 
+
+## What is an A_k-singularity?
+
+## What is a Briescorn manifold?
+
+## What is 1-ADC?
