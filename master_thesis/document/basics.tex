@@ -1,5 +1,88 @@
 \section*{Preliminaries}
 \subsection*{The Bourgeois construction}
-Let $(M, \xi)$ be a contact manifold that is supported by an open book.
-Then, according to Bourgeois \cite{Bourgeois02} we can find a contact structure on $M \times T^2$.
-We follow the explanation bei Geiges \cite{Geiges08}.
+
+
+\begin{definition}\label{def:support}
+    Let $M$ be an odd-iented manifold with an open book decomposition $(B,p)$ with oriented binding $B$.
+    The pages are oriented by the requirement that the induced orientation on the boundary of (the closure) of each page coincides with the orientation of $B$.\underline{Question: I don't understand Geiges remark there.}
+
+    A contact structure $\xi = \ker \alpha$ on $M$ is said to be \textbf{supported} by the open book decomposition $(B,p)$ of $M$ if
+    \begin{enumerate}[(i)]
+        \item the contact form $\alpha$ induces the positive orientation of $M$ ($\alpha \wedge (\d \alpha)^n > 0$).
+        \item the 2-form $\d \alpha$ induces a symplectic form on each page, defining its positive orientation
+        \item the 1-form $\alpha$ induces a positive contact form on $B$, i.e. $\alpha \wedge (\d \alpha)^{(n-2)} > 0$ on $B$. \underline{Question: Is that i.e.-part correct?}
+    \end{enumerate}
+\end{definition}
+
+\begin{theorem}\label{thm:bourgeois}
+    Let $(M, \xi = \ker \alpha )$ be a closed contact manifold of dimension $2n - 1, n \geq 2$. One con find an open book decomposition $(B,p)$ of $M$ supporting $\xi$. According to Bourgeois, (\cite{Bourgeois02}) there is a contact structure $\tilde{\xi}$ on $M \times T^2$ (where $\tilde \xi$ massively depends on the choice of open book).
+\end{theorem}
+\begin{proof}
+    We follow the proof of \cite[Thm 7.3.6]{Geiges08}.
+    Wlog let $M$ be connected.
+    The existence of an open book decomposition for $M$ is the theorem of Giroux-Mohsen as in \cite[Thm 7.3.5]{Geiges08}.
+    By definition of an open book, there exists a tubular neighborhood $B \times D^2$ with polar coordinates $(r, \phi)$ on the $D^2$-part of the binding $B$ s.t. $p: M \setminus B \to S^1$ is givenby $\phi$ in that neighborhood.
+    Now, we want to define smooth functions $x_1, x_2$ on $M$ that coincide with the cartesian coordinate functions on $D^2$ close to the binding $B$. In order to do that, choose a smooth function $\rho(r)$ on $B \times D^2$, s.t. 
+    \begin{itemize}
+        \item $\rho = r$ near the binding $B$,
+        \item $\rho'(r) \geq 0$ \textbf{Question: Why is this necessary?}
+        \item $\rho \equiv 1$ near $B \times \partial D^2$.
+    \end{itemize}
+    We extend this function to a smooth function $\rho: M \to [0,1]$
+    by setting $\rho \equiv 1$ outside $B\times D^2$.
+    Now, $x_1 \coloneqq \rho \cos \phi$ and $x_2 \coloneqq \rho \sin \phi$ are the desired smooth functions on $M$ that coincide with the Cartesian coordinate functions on the $D^2$-factor near $B$.
+    We compute
+    \begin{align*}
+        x_1 \d x_2 - x_2 \d x_1 &= \rho^2 \cos^2 \phi \d \phi + \rho \cos \phi \sin \phi \d \rho + \rho^2 \sin^2 \phi \d \phi - \rho \cos \phi \sin \phi \d \rho\\
+        &= \rho^2 (\cos^2 \phi + \sin^2 \phi) \d \phi\\
+        &= \rho^2 \d \phi
+    \end{align*}
+    and, analogously,
+    \begin{align*}
+        \d x_1 \wedge \d x_2 = \rho \d \rho \wedge \d \phi.
+    \end{align*}
+    On $M\times T^2$, choose coordinates $(\theta_1, \theta_2)$ on the torus part of the manifold.
+    Now we have all ingredients together to construct our contact form.
+    Let
+    \[
+        \tilde \alpha \coloneqq x_1 \d \theta_1 - x_2 \d \theta_2 + \alpha.
+    \]
+    This is a well-defined 1-form on $M \times T^2$ ($\alpha$ is extended to $M\times T^2$ in the obvious way) and we can compute the derivative
+    \[
+        \d \tilde \alpha = \d x_1 \wedge \d \theta_1 - \d x_2 \wedge \d \theta_2 + \d \alpha,
+    \]
+    hence
+    \begin{align*}
+        (\d \tilde \alpha)^n =& (n-1)(\d \alpha)^{n-1}\wedge (\d x_1 \wedge \d \theta_1 - \d x_2 \wedge \d \theta_2)\\
+        &- n(n-1)(\d \alpha)^{n-2}\wedge \d x_1 \wedge \d \theta_1 \wedge \d x_2 \wedge \d \theta_2.
+    \end{align*}
+    In order to verify the contact condition, we compute
+    \begin{align*}
+        \tilde \alpha \wedge (\d \tilde \alpha)^n =& (x_1 \d \theta_1 - x_2 \d \theta_2 + \alpha) \wedge (n-1)(\d \alpha)^{n-1}\!\wedge (\d x_1 \wedge \d \theta_1 - \d x_2 \wedge \d \theta_2)\\
+        &- (x_1 \d \theta_1 - x_2 \d \theta_2 + \alpha) \wedge n(n-1)(\d \alpha)^{n-2}\wedge \d x_1 \wedge \d \theta_1 \wedge \d x_2 \wedge \d \theta_2\\
+        =& (n-1)(\d \alpha)^{n-1}\wedge(x_1\d x_2 - x_2 \d x_1)\wedge \d \theta_1 \wedge \d \theta_2\\
+        &+\underbrace{\alpha\wedge(n-1)(\d \alpha)^{n-1}\!\wedge \d x_1}_{2n-\text{form on } M} \wedge \d \theta_1 - \underbrace{\alpha \wedge (n-1)(\d \alpha)^{n-1}\!\wedge\d x_2}_{2n-\text{form on } M} \wedge \d \theta_2\\
+        & + n(n-1)\alpha\wedge(\d \alpha)^{n-2}\wedge \d x_1 \wedge \d \theta_1 \wedge \d x_2 \wedge \d \theta_2\\
+        \intertext{$M$ has dimension $2n-1$, i.e. the middle term is 0}
+        =& (n-1)(\d \alpha)^{n-1}\wedge \rho^2 \d\phi \wedge \d \theta_1 \wedge \d \theta_2\\
+        & + n(n-1)\alpha \wedge (\d \alpha)^{n-2}\wedge \rho \d\rho \wedge \d \phi \wedge \d \theta_1 \wedge \d \theta_2\\
+    \end{align*}
+    By condition (ii) of \cref{def:support}, $(\d \alpha)^{n-1}$ must be a positive volume form on the pages. As explained in that definition, the orientation on $M$ is given by $\partial_\phi$ and the orientation of the page. In particular, $(\d \alpha)^{n-1} \wedge \rho \d \phi$ is a positive volume form on $M$. Multiplied with a second $\rho$-factor, it vanishes along $B$. As $\theta_1 \wedge \theta_2$ is a positive volume form on $T^2$, the first term is non-negative everywhere and positive away from 
+    \[
+        \underbrace{B \times 0}_{\subset B \times D^2 \subset M} \times T^2.
+    \]
+    Let $\mathfrak{b}$ be a basis of the binding $B$ that is positively ordered. Then, $- \partial_r, \mathfrak{b}$ and (because the binding is odd-dimensional) $\mathfrak{b}, \partial_r$ are positive bases of the page. Clearly, then, 
+    \[ 
+        \mathfrak{a} \coloneqq \mathfrak{b}, \partial_r, \partial_\phi, \partial_{\theta_1}, \partial_{\theta_2}
+    \] 
+    is an ordered basis of $M\times T^2$.
+    Using $\rho'(r) \geq 0$ everywhere, we deduce that $\d \rho(\partial_r)$ is non-negative.
+    Hence, plugging $\mathfrak{a}$ into the second term, we conclude
+    \begin{align*}
+        &\left(n(n-1)\alpha \wedge (\d \alpha)^{n-2}\wedge \rho \d\rho \wedge \d \phi \wedge \d \theta_1 \wedge \d \theta_2\right)(\mathfrak{a})\\
+        =& n(n-1) \rho \cdot (\alpha \wedge (\d \alpha)^{n-2})(\mathfrak{b}) \cdot d\rho(\partial_r) \cdot \d \phi(\partial_\phi) \cdot \d \theta_1(\partial_{\theta_1}) \cdot \d \theta_2(\partial_{\theta_2})\\
+        \geq& 0.
+    \end{align*}
+    By condition (iii) of \cref{def:support}, $\alpha \wedge (\d \alpha)^{n-2}$ is positive on $B$. Therefore, the second term is positive on $B \times 0 \times T^2$ (hence also on a neighborhood) and non-negative everywhere else.
+    In total, we have checked the contact condition and $\tilde \alpha$ is indeed a contact form on $M\times T^2$.
+\end{proof}
