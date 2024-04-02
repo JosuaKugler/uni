@@ -96,9 +96,39 @@ I think an h-principle says that in every homotopy class of a topological kind o
 
 ## What is a Milnor open book?
 Given an analytic function f : (X, x) → (C, 0) vanishing at x, with an isolated singularity at x, the open book decomposition OB_f of the boundary M of (X, x) with binding L = M cap f^-1(0) and projection pi = f/|f|: M \ L -> S^1 subset C is called the Milnor open book induced by f 
+(Definition 5, [Milnor open books of links of some rational surface singularities](https://arxiv.org/pdf/0912.4275.pdf))
 
-## What is an A_k-singularity?
 
-## What is a Briescorn manifold?
+### What is the link of a singularity?
+Let (X,x) be a normal complex surface singularity embedded into (C^n,0).
+The manifold M that is obtained by intersection of X with a small ball around the singularity is called the link of the singularity
+Together with the induced canonical contact structure, this is the contact boundary of the singularity.
 
-## What is 1-ADC?
+
+### What is an A_k-singularity?
+exist local coordinates, s.t. the function can be written as
+x_0^2 + x_1^2 + ... + x_n^{k+1}
+
+
+### What is a Briescorn manifold?
+See Geiges 7.1
+- intersection of two complex mfd., the first one being S^(2n+1)
+- the second one is given as the 0-set of z^a_0 + z^a_1 + ... + z^a_n
+- this is a smooth complex mfd.
+- the standard contact structure on S^(2n+1) induces a c.s. on this mfd.
+
+
+### What is k-ADC?
+Definition 2.5 in [BGMZ24]
+- exists a sequence alpha_1 >= alpha_2 >= ... of contact forms
+    - what is this relation between contact forms?
+- all contractible periodic orbits of alpha_i-action <= D_i are non-degenerate and have degree > k
+    - what is this action?
+    - D_i is a sequence that goes to infinity
+    - how can an action be <= some number?
+
+### Conclusion
+Ok I feel like these concepts somewhat fit together even if I don't understand the details.
+As of right now, I don't think it's necessary to get all of the details in order to understand the paper.
+
+## Next question
