@@ -49,7 +49,17 @@ This is difficult, it involves holomorphic curves etc. and I'm not sure if I'll 
 ### What is an abstract open book?
 It consists of a manifold and a map. The mapping torus glued together at the boundary with a suitable other manifold gives the manifold we want to decompose.
 Using the first manifold as binding, there is a natural open book fibration using the mapping torus properties.
-However, I don't fully understand all the details and, in particular, as of now I don't see why this is so useful tbh.
+It provides a different viewpoint that focusses on the shape of the page and
+the monodromy map.
+
+### How does the BGMZ definition of open book fit with the Geiges definition?
+Consider a closed, oriented, connected smooth manifold M^(2n+1) and an open book decomposition that we denote (B, θ), together with a defining map Φ : M -> R^2 so that each z in int(D^2) is a regular value.
+Here, B subset M is a closed codimension-2 submanifold, θ : M\B -> S^1 is a fiber bundle, and Φ is such that Φ^-1(0) = B and θ = Φ/|Φ|. Let us also denote by ρ the norm |Φ|.
+
+I think the condition that every z in int(D^2) is a regular value corresponds to the tubular neighborhood around B in M where p is just the angular coordinate (somehow).
+
+Also, theorem 2.1 in BGMZ24 needs to fit to the proof from geiges that I wrote down. However, the details aren't clear to me.
+I also can't look up which approach Bourgeois took in his paper because it's not accessible.
 
 ### Why does universal tightness follow from tightness?
 "The fact that 5-dimensional Bourgeois contact structures are universally tight is a simple consequence of the fact that they are tight and that finite covers of either factor of the product again yield Bourgeois contact structures."
@@ -131,4 +141,12 @@ Definition 2.5 in [BGMZ24]
 Ok I feel like these concepts somewhat fit together even if I don't understand the details.
 As of right now, I don't think it's necessary to get all of the details in order to understand the paper.
 
-## Next question
+## What is a Liouville domain?
+- source: [Ideal Liouville domains - a cool gadget](https://arxiv.org/pdf/1708.08855.pdf)
+- domain = compact manifold with boundary
+- Liouville domain: domain F with 1-form λ s.t.
+    - ω := dλ is a symplectic form on F
+    - λ induces a contact form on K := ∂F orienting K as the boundary of (F, ω). 
+
+
+## What is the first Chern class?
