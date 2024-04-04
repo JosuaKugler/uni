@@ -6,13 +6,16 @@
     Let $M$ be an oriented manifold with an open book decomposition $(B,p)$ with oriented binding $B$.
     The pages are oriented by the requirement that the induced orientation on the boundary of (the closure) of each page coincides with the orientation of $B$.
     
-    \underline{Question: I don't fully understand Geiges remark there.}
+    \underline{Question: I don't fully understand Geiges remark there (in Def 4.4.7).}
 
     A contact structure $\xi = \ker \alpha$ on $M$ is said to be \textbf{supported} by the open book decomposition $(B,p)$ of $M$ if
     \begin{enumerate}[(i)]
         \item the contact form $\alpha$ induces the positive orientation of $M$ ($\alpha \wedge (\d \alpha)^n > 0$).
         \item the 2-form $\d \alpha$ induces a symplectic form on each page, defining its positive orientation
-        \item the 1-form $\alpha$ induces a positive contact form on $B$, i.e. $\alpha \wedge (\d \alpha)^{(n-2)} > 0$ on $B$. \underline{Question: Is that i.e.-part correct?}
+        \item the 1-form $\alpha$ induces a positive contact form on $B$, i.e. 
+        \[ 
+            \alpha|_{TB} \wedge (\d \alpha|_{TB})^{(n-2)} > 0.
+        \]
     \end{enumerate}
 \end{definition}
 
@@ -88,6 +91,3 @@
     By condition (iii) of \cref{def:support}, $\alpha \wedge (\d \alpha)^{n-2}$ is positive on $B$. Therefore, the second term is positive on $B \times 0 \times T^2$ (hence also on a neighborhood) and non-negative everywhere else.
     In total, we have checked the contact condition and $\tilde \alpha$ is indeed a contact form on $M\times T^2$.
 \end{proof}
-
-In the following, we want to apply this construction to a sphere $S^{2n+1}$
-with respect to a specific Milnor open book decomposition, defining a Briescorn manifold.
