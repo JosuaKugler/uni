@@ -2,9 +2,25 @@
 
 ## What is an almost contact structure?
 see Geiges, p. 64, Rmk 2.4.7
-almost contact structure is a cooriented hyperplane field eta with a complex bundle structure J and a oriented line-bundle complementary to eta that defines the coorientation
+An almost contact structure is a cooriented hyperplane field eta with a complex bundle structure J and a oriented line-bundle complementary to eta that defines the coorientation
 The difference to a contact structure is: The contact structure doesn't just need a bundle structure on eta, it needs an associated form alpha that fulfills the contact condition.
 However it has been proved that every almost contact manifold is actually (overtwisted) contact (see [Agustin's slides](./papers/Moreno24_slides.pdf))
+
+
+### What does "up to homotopy" mean?
+I think for hyperplane fields A and B over a mfd C it means that the maps f, g: C -> TC with im f = A and im g = B are homotopic.
+Is that correct?
+
+### How does (xi, dalpha) define an almost contact structure?
+technically, this is just a symplectic vector bundle over the manifold.
+However, Geiges, Prop 2.4.5 tells us that the space of dalpha-compatible
+complex bundle structures is non-empty and contractible.
+Also, the space of trivial line bundles complementary to ξ is non-empty and
+contractible. (see Prop 2.4.8.)
+Idea: That the space of these objects is contractible implies that they are homotopic.
+I think any map to that space will be nullhomotopic then, and in particular any two objects (as the image of maps to that space) will be homotopic.
+
+
 
 ### What is a bundle metric?
 Let E -> M a bundle. A bundle metric is a bundle map from the fibre product of E with itself to M x \R
@@ -150,3 +166,7 @@ As of right now, I don't think it's necessary to get all of the details in order
 
 
 ## What is the first Chern class?
+representatives of the class are differential forms.
+They are only determined up to addition with an exact form.
+That's where the connection to de Rham cohomology comes from.
+Is it important to fully understand that?
