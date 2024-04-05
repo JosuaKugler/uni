@@ -91,3 +91,35 @@
     By condition (iii) of \cref{def:support}, $\alpha \wedge (\d \alpha)^{n-2}$ is positive on $B$. Therefore, the second term is positive on $B \times 0 \times T^2$ (hence also on a neighborhood) and non-negative everywhere else.
     In total, we have checked the contact condition and $\tilde \alpha$ is indeed a contact form on $M\times T^2$.
 \end{proof}
+
+
+\subsection*{The Thurston-Winkelnkemper construction}
+\begin{definition}[mapping torus]
+    Let $\Sigma$ be a smooth manifold with boundary $\partial \Sigma$ and $\phi: \Sigma \to \Sigma$ a diffeomorphism that is equal to the identity close to $\partial \Sigma$.
+    The mapping torus $\Sigma(\phi)$ is given by
+     $\Sigma \times [0,2\pi]/\sim$ where
+     \[
+        (x, 2\pi) \sim (\phi(x), 0). 
+     \]
+     The generalized mapping torus requires as additional data a smooth function $\overline{\varphi}: \Sigma \to \mathbb R^+$ that is constant near $\partial \Sigma$. Then,
+     \[
+        \Sigma_{\overline{\varphi}}(\phi) \coloneqq \Sigma \times \mathbb R/\sim \quad \text{where} \quad  (x, \theta) \sim (\phi(x), \theta - \overline{\varphi}(x)).
+     \]
+\end{definition}
+
+\paragraph*{Abstract open books}
+Starting with a mapping torus $\Sigma(\phi)$, we can construct an abstract open book $M(\phi)$ with binding $\partial \Sigma$ (see \cref{fig:abstract_open_book})
+\begin{figure}[h]
+    \includegraphics*[width=\textwidth]{images/abstract_open_book.png}
+    \caption[abstract open book]{professional drawing of an abstract open book}
+    \label{fig:abstract_open_book}
+\end{figure}
+
+We define
+\[
+    M(\phi) \coloneqq \left(\Sigma(\phi) \cup \partial \Sigma \times D^2\right)/\sim
+\]
+where we identify
+\[
+    [x \in \partial \Sigma, \theta] \sim (x, r=1, \varphi = \theta)  
+\]
