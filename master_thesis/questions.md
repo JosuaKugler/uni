@@ -8,8 +8,10 @@ However it has been proved that every almost contact manifold is actually (overt
 
 
 ### What does "up to homotopy" mean?
-I think for hyperplane fields A and B over a mfd C it means that the maps f, g: C -> TC with im f = A and im g = B are homotopic.
-Is that correct?
+I think for hyperplane fields A and B over a mfd C it means that the maps f, g: C -> TC (actually you would need the Grassmannian) with im f = A and im g = B are homotopic.
+Is that correct? technically yes, but generally you think about it as "there exists a continuous interpolation between the two"
+
+homotopy of all the information that you have
 
 ### How does (xi, dalpha) define an almost contact structure?
 technically, this is just a symplectic vector bundle over the manifold.
@@ -20,6 +22,8 @@ contractible. (see Prop 2.4.8.)
 Idea: That the space of these objects is contractible implies that they are homotopic.
 I think any map to that space will be nullhomotopic then, and in particular any two objects (as the image of maps to that space) will be homotopic.
 
+### What is a conformal class of riemannian metric
+I allow the metric to be multiplied with a positive-valued function.
 
 
 ### What is a bundle metric?
