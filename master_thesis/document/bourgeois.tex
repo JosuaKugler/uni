@@ -1,15 +1,33 @@
 \subsection*{The Bourgeois construction}
 
-\begin{definition}
-    An open book decomposition of a manifold $M$ is a pair $(B,p)$ where the binding $B$ is a codim-2-submanifold of $M$ and the map $p$ is a smooth, locally trivial fibration \underline{a fiber bundle?}
+\begin{definition}\label{def:open_book_1}
+    An open book decomposition of a manifold $M$ is a pair $(B,p)$ where the binding $B$ is a codim-2-submanifold of $M$ and the map $p$ is a smooth, locally trivial fibration \underline{i.e. a fiber bundle?}
     \[
         p: M\setminus B \to S^1.
     \]
     The fibres $p^{-1}(\varphi), \varphi \in S^1$ are called the pages.
-    Moreover, it is required that the binding $B$ have a trivial tubular neighbourhood $B\times D^2$ in which $p$ is given by the angular coordinate in the $D^2$-factor.
+    Moreover, it is required that the binding $B$ have a trivial tubular neighborhood $B\times D^2$ in which $p$ is given by the angular coordinate in the $D^2$-factor.
 \end{definition}
 
-\underline{Maybe give the definition from the paper here, too, and show that they are equivalent?}
+\begin{definition}[another definition of open book]\label{def:open_book_2}
+    An open book decomposition of a manifold $M$ is a pair $(B, p)$, together with a defining map $\Phi:M \to \mathbb R^2$ so that each $z \in \operatorname{int}(D^2)$ is a regular value.
+    Here, $B \subset M$ is a closed codimension-2 submanifold, $p: M\setminus B \to S^1$ is a fiber bundle, and $\Phi$ is such that $\Phi^{-1}(0) = B$ and $p =  \Phi / |\Phi|$.
+\end{definition}
+
+\begin{lemma}
+    \Cref{def:open_book_1} and \cref{def:open_book_2} are equivalent.
+\end{lemma}
+\begin{proof}
+\ 
+    \begin{itemize}
+        \item["$\implies$"] First, we need to construct a defining map $\Phi$. On the trivial tubular neighborhood take $\Phi$ to be the $D^2$-component. Outside this neighborhood, just set $\Phi = p$.
+        Then, $\Phi^{-1}(0) = B, p = \Phi/|\Phi|$ and for all $z \in \operatorname{int}(D^2)$, there is always a small neighborhood s.t. $\Phi$ is just a projection map and hence, $z$ is a regular value.
+        \item["$\impliedby$"] We need to show the existence of the trivial tubular neighborhood of $B$.
+        According to the regular value theorem, the preimages of $z\in \operatorname{int}(D^2)$ are codim-2-submanifolds.
+
+        As the map is smooth, together they form a trivial tubular neighborhood of $B$. \underline{Why?}
+    \end{itemize}
+\end{proof}
 
 \begin{remark}
     Let $M$ be an oriented manifold with an open book decomposition $(B,p)$.
