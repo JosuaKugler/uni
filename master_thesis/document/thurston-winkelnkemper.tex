@@ -31,14 +31,7 @@ where we identify
 
 
 \paragraph*{The construction}
-Roadmap: 
-\begin{itemize}
-    \item Let 1-form on $\Sigma$ descend to mapping torus and add $+ \d \varphi$
-    \item Extend this 1-form over the binding neighborhood of the open book
-    \item Check that this actually gives a contact form with the desired properties
-\end{itemize}
 
-\paragraph*{Creating a contact form $\alpha$ on the mapping torus}
 Let $\Sigma^{2n}$ be a compact manifold admitting an exact symplectic form $\omega = \d \beta$ s.t. on the boundary $\partial \Sigma$, a contact form $\beta_\partial$ is induced (this follows from the conditions requested in Geiges).
 Let the boundary be connected (i.e. the binding is also connected).
 Let the monodromy map $\phi$ be an exact symplectomorphism of $(\Sigma, \omega)$,
@@ -74,9 +67,7 @@ The 1-form $\alpha$ is invariant under this transformation:
 \end{align*}
 It follows that $\alpha$ descends to a contact form on $\Sigma_{\overline{\varphi}}(\phi)$. 
 
-\paragraph*{Extending $\alpha$ to the whole abstract open book}
-
-First, we describe a gluing construction for the abstract open book.
+Now, we describe an adapted gluing construction for the abstract open book coming from a generalized mapping torus.
 Therefore, we construct a collar neighborhood on the generalized mapping torus s.t. on $[-1,0] \times \partial \Sigma$, the symplectic form is given by $\d \left(e^s\beta_\partial\right)$ where $s$ is the collar parameter, d.h. $\beta = e^s\beta_\partial$.
 \underline{Why does such a neighborhood exist?}
 
@@ -151,6 +142,7 @@ Figure 4.7 in \cite{Geiges08} proves the existence of such a pair of functions $
     \end{pmatrix} > 0 \qquad \forall r \in [0,2].
 \]
 (Close to zero, the determinant is given by $2 \cdot 2 - 0 \cdot 0 = 4 > 0$).
-In total, we obtain that $\alpha_\text{ext}$ induces the correct orientation on the extension.
-Does the orientation on the mapping torus agree with the orientation on the extension?
-How is the orientation on the mapping torus defined?
+In total, we obtain that $\alpha_\text{ext}$ induces the correct orientation on the extension and,
+as $M$ is connected and orientable \underline{Why?}, on all of $M$.
+In particular, condition (i) of \cref{def:support} holds and $\alpha \wedge (\d \alpha)^n = \d \varphi \wedge \Omega$ is a positive volume form on the mapping torus. As $\Omega = (\d \beta)^n = \omega^n$ for $\omega$ the symplectic form on $\Sigma$, it is a $2n$-form and we see that $\Omega$ is a positive volume form on $\Sigma$. Thus, on $\Sigma$, $\d \alpha = \d \beta = \omega$ is a symplectic form that induces the positive orientation of $\Sigma$. As $\Sigma$ is connected and orientable, this implies condition (ii).
+Condition (iii) follows from the fact that on $B$, $\alpha_\text{ext} = 2 \beta_\partial$ which is a positive contact form on $\partial \Sigma$ and therefore also on $B$.

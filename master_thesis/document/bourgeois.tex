@@ -1,13 +1,31 @@
 \subsection*{The Bourgeois construction}
 
+\begin{definition}
+    An open book decomposition of a manifold $M$ is a pair $(B,p)$ where the binding $B$ is a codim-2-submanifold of $M$ and the map $p$ is a smooth, locally trivial fibration \underline{a fiber bundle?}
+    \[
+        p: M\setminus B \to S^1.
+    \]
+    The fibres $p^{-1}(\varphi), \varphi \in S^1$ are called the pages.
+    Moreover, it is required that the binding $B$ have a trivial tubular neighbourhood $B\times D^2$ in which $p$ is given by the angular coordinate in the $D^2$-factor.
+\end{definition}
+
+\underline{Maybe give the definition from the paper here, too, and show that they are equivalent?}
+
+\begin{remark}
+    Let $M$ be an oriented manifold with an open book decomposition $(B,p)$.
+    Choose a parametrization of $S^1$ (i.e. the direction of $\partial_\varphi$).
+    Then, there are two equivalent ways of defining the orientation of $B$ and the pages.
+    \begin{itemize}
+        \item Via the orientation of the pages: The orientation of $M$ is the same as the orientation of the page together with $\partial_\varphi$.
+        \item Via the orientation of the binding: $B \times D^2$ is an embedded submanifold of the same dimension as $M$. Therefore, it inherits the orientation. As $B \times D^2$ carries the product orientation and the orientation of $D^2$ is given by $r \d r \wedge \d \varphi$, we can deduce the orientation of $B$ from the orientation of $M$.
+    \end{itemize}
+    In both cases, the orientation of the pages and the binding have to agree in the sense that the induced orientation on the boundary of (the closure) of each page coincides with the orientation of $B$.
+    To see that both options are in fact equivalent, choose a positive basis $\mathfrak{b}$ of the binding $B$. Then, $\mathfrak{b}, \partial_r, \partial_\varphi$ is a positive basis for $M$ at that point according to the first option.
+    As $- \partial_r$ is the outer normal vector of the page at this point, $-\partial_r, \mathfrak{b}$ is a positive basis of the page and so we get $-\partial_r, \mathfrak{b}, \partial_\varphi$ as a positive basis for $M$, which agrees with option 1 because $B$ is odd-dimensional.
+\end{remark}
 
 \begin{definition}\label{def:support}
-    Let $M$ be an oriented manifold with an open book decomposition $(B,p)$ with oriented binding $B$.
-    The pages are oriented by the requirement that the induced orientation on the boundary of (the closure) of each page coincides with the orientation of $B$.
-    
-    \underline{Question: I don't fully understand Geiges remark there (in Def 4.4.7).} 
-    See Agustins remarks in workflowy notes.
-
+    Let $(B,p)$ be an oriented open book decomposition of the oriented manifold $M$.
     A contact structure $\xi = \ker \alpha$ on $M$ is said to be \textbf{supported} by the open book decomposition $(B,p)$ of $M$ if
     \begin{enumerate}[(i)]
         \item the contact form $\alpha$ induces the positive orientation of $M$ ($\alpha \wedge (\d \alpha)^n > 0$).
