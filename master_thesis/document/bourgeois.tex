@@ -88,7 +88,7 @@
     \[
         \tilde \alpha \coloneqq x_1 \d \theta_1 - x_2 \d \theta_2 + \alpha.
     \]
-    This is a well-defined 1-form on $M \times T^2$ ($\alpha$ is extended to $M\times T^2$ in the obvious way) and we can compute the derivative
+    This is a well-defined 1-form on $M \times T^2$ ($\alpha$ is extended to $M\times T^2$ as the pullback $\pi_1^*\alpha$) and we can compute the derivative
     \[
         \d \tilde \alpha = \d x_1 \wedge \d \theta_1 - \d x_2 \wedge \d \theta_2 + \d \alpha,
     \]
@@ -127,3 +127,19 @@
     By condition (iii) of \cref{def:support}, $\alpha \wedge (\d \alpha)^{n-2}$ is positive on $B$. Therefore, the second term is positive on $B \times 0 \times T^2$ (hence also on a neighborhood) and non-negative everywhere else.
     In total, we have checked the contact condition and $\tilde \alpha$ is indeed a contact form on $M\times T^2$.
 \end{proof}
+\begin{definition}
+    An almost contact structure is a cooriented hyperplane field $\eta$ (with an oriented trivial line bundle complementary to $\eta$ defining the coorientation) and a complex bundle structure $J$ on $\eta$.
+    According to \cite[Prop 2.4.5]{Geiges08}, the space of complex bundle structures compatible to a symplectic form on $\eta$ is non-empty and contractible. Thus, the almost contact structure can (up to homotopy) be defined by equipping $\eta$ with a symplectic form.
+
+    \underline{If we don't care about the coorientation}, we can therefore talk of the almost contact structure $(\eta, \omega)$ where $\omega$ is a symplectic form on $\eta$.
+\end{definition}
+\begin{remark}
+    Let $\epsilon > 0$. The, $\tilde \alpha_\epsilon \coloneqq \epsilon x_1 \d \theta_1 - \epsilon x_2 \d \theta_2 + \alpha$ is a contact form.
+    By Gray stability, all these contact structures are isotopic, so the underlying almost contact structures are homotopic, too. 
+    For $\epsilon = 0$, we have the almost contact structure $\xi \oplus TT^2, \d \alpha \wedge \Omega$ where $\Omega$ is a volume form on $T^2$.
+    This is homotopic to the almost contact structures for $\epsilon > 0$.
+    Thus, up to homotopy, the almost contact structure of the Bourgeois form is given by 
+    \[
+        \xi \oplus TT^2, \d \alpha \wedge \Omega.
+    \]
+\end{remark}
