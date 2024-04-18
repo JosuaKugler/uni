@@ -62,7 +62,7 @@
     We follow the proof of \cite[Thm 7.3.6]{Geiges08}.
     Wlog let $M$ be connected.
     The existence of an open book decomposition for $M$ is the theorem of Giroux-Mohsen as in \cite[Thm 7.3.5]{Geiges08}.
-    By definition of an open book, there exists a tubular neighborhood $B \times D^2$ with polar coordinates $(r, \phi)$ on the $D^2$-part of the binding $B$ s.t. $p: M \setminus B \to S^1$ is givenby $\phi$ in that neighborhood.
+    By definition of an open book, there exists a tubular neighborhood $B \times D^2$ with polar coordinates $(r, p)$ on the $D^2$-part of the binding $B$, i.e. the angular coordinate is simply given by $p: M \setminus B \to S^1$ in that neighborhood.
     Now, we want to define smooth functions $x_1, x_2$ on $M$ that coincide with the cartesian coordinate functions on $D^2$ close to the binding $B$. In order to do that, choose a smooth function $\rho(r)$ on $B \times D^2$, s.t. 
     \begin{itemize}
         \item $\rho = r$ near the binding $B$,
@@ -71,16 +71,16 @@
     \end{itemize}
     We extend this function to a smooth function $\rho: M \to [0,1]$
     by setting $\rho \equiv 1$ outside $B\times D^2$.
-    Now, $x_1 \coloneqq \rho \cos \phi$ and $x_2 \coloneqq \rho \sin \phi$ are the desired smooth functions on $M$ that coincide with the Cartesian coordinate functions on the $D^2$-factor near $B$.
+    Now, $x_1 \coloneqq \rho \cos p$ and $x_2 \coloneqq \rho \sin p$ are the desired smooth functions on $M$ that coincide with the Cartesian coordinate functions on the $D^2$-factor near $B$.
     We compute
     \begin{align*}
-        x_1 \d x_2 - x_2 \d x_1 &= \rho^2 \cos^2 \phi \d \phi + \rho \cos \phi \sin \phi \d \rho + \rho^2 \sin^2 \phi \d \phi - \rho \cos \phi \sin \phi \d \rho\\
-        &= \rho^2 (\cos^2 \phi + \sin^2 \phi) \d \phi\\
-        &= \rho^2 \d \phi
+        x_1 \d x_2 - x_2 \d x_1 &= \rho^2 \cos^2 p \d p + \rho \cos p \sin p \d \rho + \rho^2 \sin^2 p \d p - \rho \cos p \sin p \d \rho\\
+        &= \rho^2 (\cos^2 p + \sin^2 p) \d p\\
+        &= \rho^2 \d p
     \end{align*}
     and, analogously,
     \begin{align*}
-        \d x_1 \wedge \d x_2 = \rho \d \rho \wedge \d \phi.
+        \d x_1 \wedge \d x_2 = \rho \d \rho \wedge \d p.
     \end{align*}
     On $M\times T^2$, choose coordinates $(\theta_1, \theta_2)$ on the torus part of the manifold.
     Now we have all ingredients together to construct our contact form.

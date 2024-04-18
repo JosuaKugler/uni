@@ -76,7 +76,7 @@ Parametrize the neighborhood so that $\overline{\varphi}$ is constant on $[-1,0]
 
 Now, take a look at
 \[
-    \left(\Sigma_{\overline{\varphi}}(\phi)\; \dot\cup\; \left(\partial \Sigma \times D_2^2\right)\right)/\sim.
+    M \coloneqq \left(\Sigma_{\overline{\varphi}}(\phi)\; \dot\cup\; \left(\partial \Sigma \times D_2^2\right)\right)/\sim.
 \]
 \begin{figure}
     \includegraphics[width=\textwidth]{images/abstract_open_book_gluing.png}
@@ -91,7 +91,7 @@ Then we identify
 \]
 with
 \[
-    (\theta, s = 1-r, \varphi) \in \partial \Sigma \times D_2^2
+    (\theta, s = 1-r, \varphi) \in \partial \Sigma \times D_2^2 \eqqcolon \mathcal{N}
 \]
 where $(r, \varphi)$ are polar coordinates on $D_2^2$, i.e. we identify a collar neighborhood of $\Sigma$ with an annulus in $D_2^2$.
 (See \cref{fig:abstract_open_book_gluing})
@@ -101,15 +101,15 @@ Now we choose the ansatz
 \[
     \alpha_\text{ext} \coloneqq h_1(r) \beta_\partial + h_2(r) \d\varphi.
 \]
-for the extension of the contact form over $\partial \Sigma \times D^2$.
+for the extension of the contact form over $\mathcal{N}$.
 On the gluing area (i.e. $1 \le r \le 2$), $\alpha_\text{ext}$ has to agree with $\alpha = \beta + \d \varphi = e^s \beta_\partial + \d \varphi$,
-d.h.
+i.e.
 \[
     h_1(r) = e^s = e^{1-r} \qquad h_2(r) = 1.
 \]
-In order to ensure smoothness at $r=0$, in a small neighborhood of $r = 0$ we set $h_1(r) = 2$ and $h_2(r) = r^2$, obtaining
+In order to ensure smoothness at $r=0$, in a small neighborhood of $r = 0$ we set $h_1(r) = 2 - r^2$ and $h_2(r) = r^2$, obtaining
 \[
-    \alpha_\text{ext} = 2\beta_\partial + r^2\d \varphi.
+    \alpha_\text{ext}|_0 = 2\beta_\partial
 \] 
 We compute
 \[
@@ -132,9 +132,8 @@ Finally,
         h_1'(r) & h_2'(r)/r
     \end{pmatrix} \cdot &&\beta_\partial \wedge (\d\beta_\partial)^{n-1} \wedge r \d r \wedge \d \varphi\\
 \end{align*}
-As $\beta_\partial$ is a contact form on $\partial \Sigma$, $\beta_\partial \wedge (\d\beta_\partial)^{n-1}$ is a positive volume form on $\partial \Sigma$. Furthermore, $r \d r\wedge \d \varphi$ is a positive volume form on the disk $D_2^2$. As a result, the right term of our result is a volume form on $\partial \Sigma \times D_2^2$.
-The left term tells us that $h_1(r)$ musn't have any zeros for $r \in [0,2]$ and that $(h_1(r), h_2(r))$ must never be parallel to $(h_1'(r), h_2'(r))$.
-Figure 4.7 in \cite{Geiges08} proves the existence of such a pair of functions $h_1$ and $h_2$ such that 
+As $\beta_\partial$ is a contact form on $\partial \Sigma$, $\beta_\partial \wedge (\d\beta_\partial)^{n-1}$ is a positive volume form on $\partial \Sigma$. Furthermore, $r \d r\wedge \d \varphi$ is a positive volume form on the disk $D_2^2$. As a result, the right term of our result is a volume form on $\mathcal{N} = \partial \Sigma \times D_2^2$.
+The left term tells us that $h_1(r)$ musn't have any zeros for $r \in [0,2]$ and that $(h_1(r), h_2(r))$ must never be parallel to $(h_1'(r), h_2'(r))$, i.e.
 \[
     h_1(r)^{n-1}\det \begin{pmatrix}
         h_1(r) & h_2(r)/r\\
@@ -142,7 +141,27 @@ Figure 4.7 in \cite{Geiges08} proves the existence of such a pair of functions $
     \end{pmatrix} > 0 \qquad \forall r \in [0,2].
 \]
 (Close to zero, the determinant is given by $2 \cdot 2 - 0 \cdot 0 = 4 > 0$).
+Figure 4.7 in \cite{Geiges08} proves the existence of such a pair of functions $h_1$ and $h_2$.
+
+
 In total, we obtain that $\alpha_\text{ext}$ induces the correct orientation on the extension and,
 as $M$ is connected and orientable \underline{Why?}, on all of $M$.
-In particular, condition (i) of \cref{def:support} holds and $\alpha \wedge (\d \alpha)^n = \d \varphi \wedge \Omega$ is a positive volume form on the mapping torus. As $\Omega = (\d \beta)^n = \omega^n$ for $\omega$ the symplectic form on $\Sigma$, it is a $2n$-form and we see that $\Omega$ is a positive volume form on $\Sigma$. Thus, on $\Sigma$, $\d \alpha = \d \beta = \omega$ is a symplectic form that induces the positive orientation of $\Sigma$. As $\Sigma$ is connected and orientable, this implies condition (ii).
+In particular, condition (i) of \cref{def:support} holds and $\alpha \wedge (\d \alpha)^n = \d \varphi \wedge \Omega$ is a positive volume form on the mapping torus. As $\Omega = (\d \beta)^n = \omega^n$ for $\omega$ the symplectic form on $\Sigma$, it is a $2n$-form and we see that $\Omega$ is a positive volume form on $\Sigma$. Thus, on $\Sigma$, $\d \alpha = \d \beta = \omega$ is a symplectic form that induces the positive orientation of $\Sigma$. 
+On $\mathcal{N}$, we need to check that the form induced by $\d \alpha_\text{ext}$ on the pages is symplectic with the right orientation.
+Inside $\mathcal{N}$, a page is given by the condition $\varphi = \mathrm{const}$, i.e. $\d \varphi = 0$.
+We have
+\begin{align*}
+    (\d \alpha_\text{ext})^n &= n\cdot \d r\wedge (h_1'(r) \beta_\partial + h_2'(r) \d\varphi) \cdot h_1(r)^{n-1}(\d \beta_\partial)^{n-1}\\
+    &= n h_1'(r)h_1(r)^{n-1} \d r \wedge \beta_\partial \wedge (\d \beta_\partial)^{n-1}
+\end{align*}
+
+A positive volume form on $\Sigma$ must be positive on $- \partial_r, \mathfrak{b}$ where $\mathfrak{b}$ is a positive basis of a point in $\partial \Sigma$.
+As $\beta_\partial \wedge (\d \beta_\partial)^{n-1}$ is a positive volume form on $\partial \Sigma$, we obtain
+\begin{align*}
+    (\d \alpha_\text{ext})^n(- \partial_r, \mathfrak{b}) &= \underbrace{n h_1(r)^{n-1}}_{\eqqcolon A > 0} \cdot h_1'(r) \d r(-\partial_r) \wedge \underbrace{\left[\beta_\partial \wedge (\d \beta_\partial)^{n-1}\right](\mathfrak{b})}_{\eqqcolon B > 0}\\
+    &= AB \cdot h_1'(r) \cdot -1\\
+    &> 0,
+\end{align*}
+where in the last line we've used $h_1'(r) = \frac{\d}{\d r}(2 - r^2) = -2r < 0$.
+We have thus verified condition (ii) inside $\mathcal{N}$ and outside $\mathcal{N}$, on $\Sigma$. As a result, is must hold on the whole page.
 Condition (iii) follows from the fact that on $B$, $\alpha_\text{ext} = 2 \beta_\partial$ which is a positive contact form on $\partial \Sigma$ and therefore also on $B$.
