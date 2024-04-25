@@ -99,8 +99,25 @@ We now define two functions $\mu, \nu: M \to \mathbb R$ as follows:
     \end{align*}
 \end{proof}
 A computation in \cite{Bourgeois02} \underline{(look up the computation)}
-shows that, in order for $\alpha$ to be a contact form in the neighborhood $\mathcal{U}$ of $B \times T^2$ where 
+shows that, in order for $\tilde \alpha$ to be a contact form in the neighborhood $\mathcal{U}$ of $B \times T^2$ where 
 $\alpha = h_1(r) \beta_\partial + h_2(r) \d p$, it is in fact enough that $h_1(h_1 - h_1') > 0$, a condition which only depends on $h_1$.
+
+We need that $(\d \alpha)^n$ is a positive volume form on the pages and
+$\alpha \wedge (\d \alpha)^{n-1}$ must be a positive volume form on $B$.
+We have seen that
+\[
+    \d \alpha = h_1'(r)\d r\wedge \beta_\partial + h_1(r) \d \beta_\partial + h_2'(r) \d r \wedge \d\varphi.
+\]
+and 
+\[
+    (\d \alpha_\text{ext})^n = n\cdot \d r\wedge (h_1'(r) \beta_\partial + h_2'(r) \d\varphi) \cdot h_1(r)^{n-1}(\d \beta_\partial)^{n-1}
+\]
+In order for the latter to be a positive volume form on the pages, the $\phi$ coordinate doesn't matter. As a result, it is enough that $h_1'(r) \cdot h_1(r)^{n-1}$ is positive.
+Further, we compute
+\[
+    (\d \alpha_\text{ext})^{n-1} = .
+\]
+
 In particular, one can homotope the pair $(h_1 , h_2)$ in a compactly supported way \underline{Why compactly supported?} among pairs of functions satisfying this condition, 
 and this will result in a homotopy of contact forms (hence isotopy by Gray's stability) on $M \times T^2$, 
 independently of the fact that the resulting $\alpha$ on M might not be adapted to the open book or even a contact form. 
