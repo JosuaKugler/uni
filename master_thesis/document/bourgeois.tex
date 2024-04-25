@@ -1,7 +1,7 @@
 \subsection*{The Bourgeois construction}
 
 \begin{definition}\label{def:open_book_1}
-    An open book decomposition of a manifold $M$ is a pair $(B,p)$ where the binding $B$ is a codim-2-submanifold of $M$ and the map $p$ is a smooth, locally trivial fibration \underline{i.e. a fiber bundle?}
+    An open book decomposition of a manifold $M$ is a pair $(B,p)$ where the binding $B$ is a closed codim-2-submanifold of $M$ and the map $p$ is a smooth, locally trivial fibration \underline{i.e. a fiber bundle?}
     \[
         p: M\setminus B \to S^1.
     \]
@@ -23,9 +23,16 @@
         \item["$\implies$"] First, we need to construct a defining map $\Phi$. On the trivial tubular neighborhood take $\Phi$ to be the $D^2$-component. Outside this neighborhood, just set $\Phi = p$.
         Then, $\Phi^{-1}(0) = B, p = \Phi/|\Phi|$ and for all $z \in \operatorname{int}(D^2)$, there is always a small neighborhood s.t. $\Phi$ is just a projection map and hence, $z$ is a regular value.
         \item["$\impliedby$"] We need to show the existence of the trivial tubular neighborhood of $B$.
-        According to the regular value theorem, the preimages of $z\in \operatorname{int}(D^2)$ are codim-2-submanifolds.
-
-        As the map is smooth, together they form a trivial tubular neighborhood of $B$. \underline{Why?}
+        $\Phi^{-1}(D^2) \to D^2$ is a smooth submersion, as all points are regular points. 
+        According to the rank theorem, we can choose local coordinates for a neighborhood of any $x \in B$ s.t. $\Phi$  is just a projection to the $D^2$-component. Due to the compactness of $B$, finitely many such neighborhoods suffice to cover $B$.
+        Moreover, the coordinate maps can be chosen in a compatible way and glued together.
+        In total, we find a chart $\psi$ of a neighborhood $U$ of $B$ s.t.
+        \[
+            \psi(U) \subset \psi(B) \times D^2.
+        \]
+        As there are only finitely many neighborhoods involved, we find an $\epsilon > 0$ s.t. $\Phi^{-1}(D_\epsilon^2) \subset \psi(U)$.
+        Therefore, $U$ contains a neighborhood of the form $B \times D^2$.
+        This is the desired trivial tubular neighborhood.
     \end{itemize}
 \end{proof}
 
