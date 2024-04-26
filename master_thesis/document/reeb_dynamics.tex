@@ -50,7 +50,16 @@ We now define two functions $\mu, \nu: M \to \mathbb R$ as follows:
         1 &\text{outside } \mathcal{U}
     \end{cases}.
 \]
-\underline{They are smooth etc.}
+Both $\mu$ and $\nu$ are smooth.
+First of all, we note that both are quotients of smooth functions.
+We have to make sure that $\rho'h_1 \neq \rho h_1'$.
+All of the involved functions are non-negative except for $h_1'$, which is constantly negative ($h_1$ needs to be chosen in such a way that $h_1'$ is nonzero). As a result,
+\[
+    \rho'h_1 > 0 > \rho h_1',
+\]
+so the denominator is always nonzero.
+As $\rho$ is constantly 1 for $r \geq 1$, we see that $\mu$ is 0 for $r \geq 1$.
+In particular, it is smooth everywhere. For $\nu$, setting $\rho \equiv 1$ implies $\rho' = 0$ on $r \geq 1$. Therefore, the denominator simplifies to 1 and $\nu$ is smooth, too.
 \begin{lemma}
     The Reeb vector field of the contact form $\tilde \alpha$ is given by
     \[
@@ -98,25 +107,31 @@ We now define two functions $\mu, \nu: M \to \mathbb R$ as follows:
         &= 0
     \end{align*}
 \end{proof}
-A computation in \cite{Bourgeois02} \underline{(look up the computation)}
+\paragraph*{Claim:}
+The computation in \cite{Bourgeois02}
 shows that, in order for $\tilde \alpha$ to be a contact form in the neighborhood $\mathcal{U}$ of $B \times T^2$ where 
 $\alpha = h_1(r) \beta_\partial + h_2(r) \d p$, it is in fact enough that $h_1(h_1 - h_1') > 0$, a condition which only depends on $h_1$.
-
-We need that $(\d \alpha)^n$ is a positive volume form on the pages and
-$\alpha \wedge (\d \alpha)^{n-1}$ must be a positive volume form on $B$.
-We have seen that
-\[
-    \d \alpha = h_1'(r)\d r\wedge \beta_\partial + h_1(r) \d \beta_\partial + h_2'(r) \d r \wedge \d\varphi.
-\]
-and 
-\[
-    (\d \alpha_\text{ext})^n = n\cdot \d r\wedge (h_1'(r) \beta_\partial + h_2'(r) \d\varphi) \cdot h_1(r)^{n-1}(\d \beta_\partial)^{n-1}
-\]
-In order for the latter to be a positive volume form on the pages, the $\phi$ coordinate doesn't matter. As a result, it is enough that $h_1'(r) \cdot h_1(r)^{n-1}$ is positive.
-Further, we compute
-\[
-    (\d \alpha_\text{ext})^{n-1} = .
-\]
+\begin{proof}
+    From our computations for the Bourgeois construction, we see that $(\d \alpha)^n$ must be a positive volume form on the pages and
+    $\alpha \wedge (\d \alpha)^{n-1}$ must be a positive volume form on $B$ for $\alpha$ to be a contact form. (The first condition is needed for the first term and the second condition for the second term in \cite[Equation (6)]{Bourgeois02}).
+    We have seen that
+    \[
+        \d \alpha = h_1'(r)\d r\wedge \beta_\partial + h_1(r) \d \beta_\partial + h_2'(r) \d r \wedge \d p.
+    \]
+    and 
+    \[
+        (\d \alpha)^n = n\cdot \d r\wedge (h_1'(r) \beta_\partial + h_2'(r) \d\varphi) \cdot h_1(r)^{n-1}(\d \beta_\partial)^{n-1}
+    \]
+    In order for the latter to be a positive volume form on the pages, the $\phi$ coordinate doesn't matter. As a result, it is enough that $h_1'(r) \cdot h_1(r)^{n-1}$ is positive.
+    Under the pullback to $B$, $\d r$ and $\d p$-components vanish. Therefore,
+    \[
+        i^*\left(\alpha \wedge (\d \alpha)^{n-1}\right) = h_1(r)^n\beta_\partial \wedge (\d \beta_\partial)^{n-1}. 
+    \]
+    In order for this to be a positive volume form, we need $h_1(r)^n > 0$.
+    Clearly, $h_1(r)^{2k}$ is always positive. Therefore, if $n$ is odd, we need
+    $h_1(r) > 0$ and $h_1'(r) > 0$. If $n$ is even, we only need $h_1'(r)\cdot h_1(r) > 0$.
+    In fact, these conditions only depend on $h_1$. However, it is not the same condition as claimed.
+\end{proof}
 
 In particular, one can homotope the pair $(h_1 , h_2)$ in a compactly supported way \underline{Why compactly supported?} among pairs of functions satisfying this condition, 
 and this will result in a homotopy of contact forms (hence isotopy by Gray's stability) on $M \times T^2$, 
@@ -131,6 +146,5 @@ will be useful below: \underline{Where?}
         \item $h_1(h_1 - h_1') > 0$ everywhere
         \item $h_2(r) = 0$ for $r \le 3\delta/2$ 
     \end{itemize}
-    \underline{weird diffeo with cotangent bundle here}
     Our description of the Reeb vector field also holds for the deformed contact form; in particular, it coincides with $R_B$ for $r\le \delta$.
 \end{lemma}
