@@ -174,3 +174,6 @@ representatives of the class are differential forms.
 They are only determined up to addition with an exact form.
 That's where the connection to de Rham cohomology comes from.
 Is it important to fully understand that?
+
+## What is a stabilization of an open book?
+Given an open book with a Legendrian disk L in the page W s.t. \partial L is a Legendrian sphere in W, we get the stabilization by attaching a symplectic handle to W along \partial L. Then we change the monodromy by composing it with a Dehn twist.
