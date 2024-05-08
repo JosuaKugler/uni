@@ -140,7 +140,7 @@ exist local coordinates, s.t. the function can be written as
 x_0^2 + x_1^2 + ... + x_n^{k+1}
 
 
-### What is a Briescorn manifold?
+### What is a Brieskorn manifold?
 See Geiges 7.1
 - intersection of two complex mfd., the first one being S^(2n+1)
 - the second one is given as the 0-set of z^a_0 + z^a_1 + ... + z^a_n
@@ -177,3 +177,11 @@ Is it important to fully understand that?
 
 ## What is a stabilization of an open book?
 Given an open book with a Legendrian disk L in the page W s.t. \partial L is a Legendrian sphere in W, we get the stabilization by attaching a symplectic handle to W along \partial L. Then we change the monodromy by composing it with a Dehn twist.
+
+## Why are the two descriptions of the open book in Section 5.1 equal?
+In the paper [Open books for Boothby-Wang bundles, fibered Dehn twists and the mean Euler characteristic](https://arxiv.org/pdf/1211.0201),
+the statement is made that OB(T^∗S^n, τ^N ) is isomorphic to Σ(N, 2, . . . , 2). This is said to be proven in [Open book decompositions for contact structures on Brieskorn manifolds](https://arxiv.org/pdf/math/0405029).
+
+## How can we kill generators of fundamental groups with surgery?
+According to \url{https://www.maths.ed.ac.uk/~v1ranick/papers/milnorsurg.pdf},
+this works for all homotopy groups as long as 
