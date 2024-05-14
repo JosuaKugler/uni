@@ -185,3 +185,14 @@ the statement is made that OB(T^∗S^n, τ^N ) is isomorphic to Σ(N, 2, . . . ,
 ## How can we kill generators of fundamental groups with surgery?
 According to \url{https://www.maths.ed.ac.uk/~v1ranick/papers/milnorsurg.pdf},
 this works for all homotopy groups as long as 
+
+## Why does contact surgery give us a Liouville cobordism with the correct orientation?
+
+### What is a Liouville cobordism?
+see [this talk](https://www.math.ucla.edu/~honda/Joe%20Breen%20talk.pdf)
+section 4: A Liouville cobordism is a compact symplectic manifold where
+the globally defined Liouville vector field X is negatively transverse 
+along ∂W_- (concave side) and positively transverse along ∂W_+ (convex side).
+
+### What is the concave / convex boundary of a cobordism?
+see question above.

@@ -2,5 +2,20 @@
 Our goal is to construct a contact structure on $S^{2n+1}$. 
 Currently, we have a contact structure on $S^{2n-1} \times T^2$.
 Therefore, we perform multiple contact surgeries.
+First, we construct the necessary smooth surgeries. 
+Then we will show that by some $h$-principle they can be realized as contact surgeries.
 
 \paragraph*{Smooth}
+According to the paper by John Milnor, we can kill $p$-homotopy classes
+if $2n + 1 \geq 2p + 2$  (i.e. $n > p$) and there exists an embedding $f: S^p \times D^{2n+1-p} \to W$ 
+representing the homotopy class we wish to kill, where $W$ is the manifold under consideration.
+When does such an embedding exist?
+Let $TW$ be the tangent bundle of $W$ and $f_0\colon S^p \to W$ a representative of the homotopy class $\lambda$. Consider the induced bundle $f_0^*(TW)$ over $S^p$.
+\begin{lemma} %cite milnor, lemma 3 here
+    Assume that $n \coloneqq \dim W \geq 2p+1$. Then there exists an imbedding
+    \[
+        S^p \times D^{n-p} \to W
+    \]
+    which represents $\lambda$ if and only if the induced bundle $f_0^*(TW)$ is trivial.
+\end{lemma}
+Why does this hold?
