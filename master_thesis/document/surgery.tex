@@ -18,4 +18,49 @@ Let $TW$ be the tangent bundle of $W$ and $f_0\colon S^p \to W$ a representative
     \]
     which represents $\lambda$ if and only if the induced bundle $f_0^*(TW)$ is trivial.
 \end{lemma}
-Why does this hold?
+
+If the induced bundle were nontrivial, we would have an embedding of a Mobius strip into the manifold (\underline{really?}).
+Therefore, it has to be trivial. After killing the first generator of $H_1$,
+the manifold is still orientable, so that we can perform another $1$-surgery
+to kill the second generator of $H_1$.
+
+$1$-surgery doesn't affect $H_2$ (by general position?), so therefore we
+have $\pi_2 = H_2 = \mathbb Z$ (by the Hurewicz theorem?).
+
+%use the künneth formula
+
+
+\begin{lemma}
+    A simply connected homology sphere is homeomorphic to the sphere.
+\end{lemma}
+\begin{proof}
+    Let $M^n$ be a simply connected CW-complex that is a homology sphere, i.e. $H^1(M) = \mathbb Z$ and $H^n(M) = \mathbb Z$. 
+    As $M$ is simply connected, i.e. $\pi_1(M) = 0$, we can apply the Hurewicz theorem, which in turn tells us that
+    \[
+    \pi_k(M) = 0 \; \forall 1 < k < n\text{ and }\pi_n(M) = H^n(M) = \mathbb Z.
+    \]
+    As a result, $M$ is a homotopy sphere.
+    Consider a generator $f: S^n \to M$ of $\pi_n(M)$.
+    On $\pi_0$ level, we map one connected component to one connected component, so here the induced map is obviously bijective.
+    On $\pi_k$ level with $0 < k < n$, we just map $0$ to $0$ which is an isomorphism.
+    On $\pi_n$ level, we need to show that 
+    \[
+        f_*: \mathbb Z = \pi_n(S^n) \to \pi_n(M) = \mathbb Z 
+    \]
+    is an isomorphism. The identity map is a generator for $\pi_n(S^n)$. Now $f_*(\mathrm{id}) = f$, so we obtain a generator of $\pi_n(M)$. A map from $\mathbb Z \to \mathbb Z$ that sends $1$ to $1$ is a group isomorphism. These considerations show that $f$ is a weak homotopy equivalence.
+    As a smooth manifold, $M$ is a CW-complex. By Whiteheads theorem we conclude that $f$ is a homotopy equivalence, so together with the generalized Poincar\'e conjecture, we have shown that $M$ is homeomorphic to the sphere.
+\end{proof}
+
+\begin{lemma}
+    A simply connected homology sphere that bounds a homology ball is diffeomorphic to the sphere.
+\end{lemma}
+\begin{proof}
+    According to the last lemma, the homology sphere $M$ is homotopy equivalent to a sphere.
+
+    As $W$ is a zimply connected homology ball, all homotopy groups $\pi_{\ge 1}$ are 0 by the Hurewicz theorem.
+    Taking any constant map on $W$ therefore is a homotopy equivalence by Whiteheads theorem, i.e. $W$ is contractible. 
+    Then, cut out a ball inside $W$, s.t. we obtain a cobordism $W'$ from a sphere to $M$.
+    Prove that $W'$ is an $h$-cobordism.
+    Thus, by the $h$-cobordism theorem (Ranicki, Theorem 1.9), we conclude that
+    $M$ is diffeomorphic to a sphere.
+\end{proof}

@@ -196,3 +196,13 @@ along ∂W_- (concave side) and positively transverse along ∂W_+ (convex side)
 
 ### What is the concave / convex boundary of a cobordism?
 see question above.
+
+## Does surgery preserve orientation?
+It depends. In all scenarios considered in the masters thesis I think the answer is yes. (see [Ranicki](https://www.maths.ed.ac.uk/~v1ranick/books/surgery.pdf), Prop. 4.24)
+
+## What is the Conley-Zehnder-index?
+See https://arxiv.org/abs/1201.3728 and https://arxiv.org/abs/1307.7239
+
+## What is plumbing?
+If you glue two cotangent bundles in such a way that you change the manifold part
+and the cotangent part (looks like a cross on a nbhd).
