@@ -206,3 +206,8 @@ See https://arxiv.org/abs/1201.3728 and https://arxiv.org/abs/1307.7239
 ## What is plumbing?
 If you glue two cotangent bundles in such a way that you change the manifold part
 and the cotangent part (looks like a cross on a nbhd).
+
+## Some remarks on effects of stabilizing open books
+positive stabilization doesn't change the contact structure
+there is a one-to-one correspondence between oriented contact structures up to isotopy
+and open book decompositions up to positive stabilization

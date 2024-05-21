@@ -1,0 +1,78 @@
+\documentclass{amsart}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{enumerate}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{remark}{Remark}
+\newtheorem{definition}{Definition}
+\renewcommand*{\d}{\mathrm{d}}
+
+
+
+\begin{document}
+\title{Classifying Contact Structures on the Sphere}
+\address{}
+\date{}
+\keywords{Contact geometry, symplectic geometry, open books, h-principle, }
+
+\begin{abstract}
+We show that for all $n \ge 3$, any $(2n -1)$-dimensional manifold that admits a tight contact
+structure, also admits a tight but non-fillable contact structure, in the same almost contact class.
+For $n = 2$, we obtain the same result, provided that the first Chern class vanishes. 
+We further construct Liouville but not Weinstein fillable contact structures on any Weinstein fillable contact manifold of dimension at least 7 with torsion first Chern class.
+\end{abstract}
+
+\maketitle
+\section*{Introduction}
+Contact geometry is the study of odd-dimensional smooth manifolds equipped with contact structures, i.e.\ hyperplane distributions $\xi = \ker \alpha$ satisfying the contact condition
+\[
+    \alpha \wedge (\d \alpha)^n \neq 0.
+\]
+While they originally arise in the study of ODEs and in classical mechanics, the topological study of contact manifolds is a more recent and very active field of research.
+
+A manifold can have multiple different contact structures, which can be either rigid (in which case one speaks of a "tight" manifold) or flexible (in the sense that they satisfy an h-principle). The latter contact manifolds are then called overtwisted. A foundational result of Eliashberg \cite{Eliashberg89} and Borman--Eliashberg--Murphy \cite{BEM15}, roughly speaking, states that overtwisted contact manifolds exist in abundance, namely whenever the manifold admits the topological version of a contact structure (an \emph{almost} contact structure), which is a first obvious obstruction. In dimension three, an almost contact structure is simply an oriented $2$-plane field.
+
+To illustrate this dichotomy, consider the sphere $S^3$. By a result of Eliashberg, it has precisely one tight contact structure. On the other hand, it has infinitely many overtwisted contact structures, corresponding to the infinitely many homotopy classes of 2-plane fields on the 3-sphere. There are other examples where there are infinitely many or no tight contact structures on a contact manifold.
+
+A further interesting property of contact manifolds comes from the fact that contact geometry is the odd-dimensional counterpart to symplectic geometry. Often, it is possible to view a contact manifold as the boundary of a symplectic manifold. Manifolds that are in this sense "fillable" are always tight. The contrary, however, doesn't need to hold and one can ask the question under which conditions such tight, but non-fillable manifolds exist. The first examples of tight and non-fillable contact manifolds were constructed by Etnyre--Honda \cite{EH02} in dimension three, and by Massot--Niederkrueger--Wendl \cite{MNW13} in higher dimensions.
+
+
+More recently, Bowden--Gironella--Moreno--Zhou \cite{BGMZ22} have proved the existence of homotopically standard, non-fillable but tight contact structures on all spheres $S^{2n+1}$ with $n >= 2$. Starting with a specific open book decomposition of $S^{2n-1}$, one can construct a contact form on this manifold using a well-known construction by Thurston--Winkelnkemper. Then, according to Bourgeois, this contact structure can be extended to a tight contact structure on $S^{2n-1}\times T^2$.
+Applying subcritical surgery (preserving the tightness), one can kill the topology of the $T^2$-factor and obtain a tight contact structure on $S^{2n+1}$. Because of the special way of constructing it, one can show that it is non-fillable, but still homotopically standard.
+
+In the following, I will start with the results and methods of my Master's thesis.
+Then, I give a brief overview of the current research status in the area and
+finally state and explain some open questions that I plan to work on in the dissertation.
+
+\section*{Tight non-fillable contact structures of the sphere}
+explain the results in my masters thesis, especially with a view toward the open research questions in the final section. (for details see the resumee)
+\section*{Current research status}
+
+\section*{Open questions}
+\begin{itemize}
+    \item The classification of almost contact structures on $S^{2n+1}$ is well-known (see \cite{Harris63} for the computation of the homotopy group)
+    \[
+        \operatorname{Acont}\left(S^{2n+1}\right) = \pi_{2n+1}(\operatorname{SO}(2n + 2)/\operatorname{U}(n + 1)) = \begin{cases}
+            \mathbb Z_{n!} &n = 0 \operatorname{mod} 4\\
+            \mathbb Z &n = 1 \operatorname{mod} 4\\
+            \mathbb Z_{n!/2} &n = 2 \operatorname{mod} 4\\
+            \mathbb Z \oplus \mathbb Z_2 &n = 3 \operatorname{mod} 4
+        \end{cases}
+    \]
+    It is possible to choose the first identification in such a way that $\xi_{\mathrm{standard}}$ corresponds to $0$.
+    There is a one-to-one correspondence between oriented contact structures up to isotopy
+    and open book decompositions up to positive stabilization \cite{Giroux02}.
+    Therefore, the standard open book corresponds to $0$ in the groups mentioned above.
+    Taking the negative stabilization of that open book, we obtain a contact structure $\xi_\mathrm{neg}$. Which element does $\xi_\mathrm{neg}$ correspond to?
+    \item Is there a Liouville but not Weinstein fillable contact structure on $S^5$?
+    \item Is there a strong but not Liouville fillable structure on $S^{2n+1}$, $n \ge 2$?
+\end{itemize}
+\newpage
+\bibliographystyle{alpha}
+\bibliography{../document/bibliography}
+\end{document}
