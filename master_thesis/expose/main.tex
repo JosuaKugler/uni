@@ -29,6 +29,7 @@ We further construct Liouville but not Weinstein fillable contact structures on 
 
 \maketitle
 \section*{Introduction}
+Maybe add some cool, more accessible facts here.
 Contact geometry is the study of odd-dimensional smooth manifolds equipped with contact structures, i.e.\ hyperplane distributions $\xi = \ker \alpha$ satisfying the contact condition
 \[
     \alpha \wedge (\d \alpha)^n \neq 0.
@@ -39,11 +40,7 @@ A manifold can have multiple different contact structures, which can be either r
 
 To illustrate this dichotomy, consider the sphere $S^3$. By a result of Eliashberg, it has precisely one tight contact structure. On the other hand, it has infinitely many overtwisted contact structures, corresponding to the infinitely many homotopy classes of 2-plane fields on the 3-sphere. There are other examples where there are infinitely many or no tight contact structures on a contact manifold.
 
-A further interesting property of contact manifolds comes from the fact that contact geometry is the odd-dimensional counterpart to symplectic geometry. Often, it is possible to view a contact manifold as the boundary of a symplectic manifold. Manifolds that are in this sense "fillable" are always tight. The contrary, however, doesn't need to hold and one can ask the question under which conditions such tight, but non-fillable manifolds exist. The first examples of tight and non-fillable contact manifolds were constructed by Etnyre--Honda \cite{EH02} in dimension three, and by Massot--Niederkrueger--Wendl \cite{MNW13} in higher dimensions.
-
-
-More recently, Bowden--Gironella--Moreno--Zhou \cite{BGMZ22} have proved the existence of homotopically standard, non-fillable but tight contact structures on all spheres $S^{2n+1}$ with $n >= 2$. Starting with a specific open book decomposition of $S^{2n-1}$, one can construct a contact form on this manifold using a well-known construction by Thurston--Winkelnkemper. Then, according to Bourgeois, this contact structure can be extended to a tight contact structure on $S^{2n-1}\times T^2$.
-Applying subcritical surgery (preserving the tightness), one can kill the topology of the $T^2$-factor and obtain a tight contact structure on $S^{2n+1}$. Because of the special way of constructing it, one can show that it is non-fillable, but still homotopically standard.
+A further interesting property of contact manifolds comes from the fact that contact geometry is the odd-dimensional counterpart to symplectic geometry. Often, it is possible to view a contact manifold as the boundary of a symplectic manifold. Manifolds that are in this sense "fillable" are always tight \cite{Gromov85,Eliashberg91}. The contrary, however, doesn't need to hold and one can ask the question under which conditions such tight, but non-fillable manifolds exist. The first examples of tight and non-fillable contact manifolds were constructed by Etnyre--Honda \cite{EH02} in dimension three, and by Massot--Niederkrueger--Wendl \cite{MNW13} in higher dimensions.
 
 In the following, I will start with the results and methods of my Master's thesis.
 Then, I give a brief overview of the current research status in the area and
@@ -51,23 +48,26 @@ finally state and explain some open questions that I plan to work on in the diss
 
 \section*{Tight non-fillable contact structures of the sphere}
 explain the results in my masters thesis, especially with a view toward the open research questions in the final section. (for details see the resumee)
+Mention the Giroux correspondence!
+
+Recently, Bowden--Gironella--Moreno--Zhou \cite{BGMZ22} have proved the existence of homotopically standard, non-fillable but tight contact structures on all spheres $S^{2n+1}$ with $n >= 2$. Starting with a specific open book decomposition of $S^{2n-1}$, one can construct a contact form on this manifold using a well-known construction by Thurston--Winkelnkemper. Then, according to Bourgeois, this contact structure can be extended to a tight contact structure on $S^{2n-1}\times T^2$.
+Applying subcritical surgery (preserving the tightness), one can kill the topology of the $T^2$-factor and obtain a tight contact structure on $S^{2n+1}$. Because of the special way of constructing it, one can show that it is non-fillable, but still homotopically standard.
 \section*{Current research status}
 
 \section*{Open questions}
 \begin{itemize}
-    \item The classification of almost contact structures on $S^{2n+1}$ is well-known (see \cite{Harris63} for the computation of the homotopy group)
+    \item The classification of almost contact structures on $S^{2n+1}$ is well-known (see \cite{Harris63} for the computation of the homotopy group),
     \[
         \operatorname{Acont}\left(S^{2n+1}\right) = \pi_{2n+1}(\operatorname{SO}(2n + 2)/\operatorname{U}(n + 1)) = \begin{cases}
             \mathbb Z_{n!} &n = 0 \operatorname{mod} 4\\
             \mathbb Z &n = 1 \operatorname{mod} 4\\
             \mathbb Z_{n!/2} &n = 2 \operatorname{mod} 4\\
             \mathbb Z \oplus \mathbb Z_2 &n = 3 \operatorname{mod} 4
-        \end{cases}
+        \end{cases}.
     \]
     It is possible to choose the first identification in such a way that $\xi_{\mathrm{standard}}$ corresponds to $0$.
-    There is a one-to-one correspondence between oriented contact structures up to isotopy
-    and open book decompositions up to positive stabilization \cite{Giroux02}.
-    Therefore, the standard open book corresponds to $0$ in the groups mentioned above.
+    Under the a one-to-one correspondence between oriented contact structures up to isotopy
+    and open book decompositions up to positive stabilization according to \cite{Giroux02}, the standard open book corresponds to a contact structure that maps to $0$ in the identification mentioned above.
     Taking the negative stabilization of that open book, we obtain a contact structure $\xi_\mathrm{neg}$. Which element does $\xi_\mathrm{neg}$ correspond to?
     \item Is there a Liouville but not Weinstein fillable contact structure on $S^5$?
     \item Is there a strong but not Liouville fillable structure on $S^{2n+1}$, $n \ge 2$?
