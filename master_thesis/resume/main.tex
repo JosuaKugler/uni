@@ -64,20 +64,74 @@ For concreteness, we start with a very specific open book, the Milnor open book
 \[
     B = .  
 \]
-(Other choices would work, too).
+(As will be mentioned in the paragraph on tightness, other choices of open book would work, too).
 By the Thurston-Winkelnkemper construction, we explicitly construct a contact form supported
 this open book decomposition of $S^{2n-1}$.
 By a construction due to Bourgeois \cite{Bourgeois02}, we use this contact form to 
 build a contact form on $S^{2n-1} \times T^2$.
-Next, 
-- subcritical contact surgery
+What we really want, however, is a contact structure on $S^{2n+1}$. Therefore,
+we perform several surgeries on $S^{2n-1}\times T^2$ to correct that.
+By two $1$-surgeries we kill the two homotopy classes in $\pi_1$.
+As $1$-surgery doesn't change the higher homotopy groups by a general position argument,
+we can then proceed with a $2$-surgery to kill the one homotopy class in $\pi_2$
+and obtain a homology sphere $M$ that bounds a homology ball $\partial W = M$.
+Using the Whitehead theorem we obtain that $M$ is homotopy equivalent to a sphere 
+and with the $h$-cobordism theorem we conclude that $M$ is diffeomorphic to a sphere.
+By so called $h$-principles, the three surgeries can be realized as contact surgeries.
+Therefore, we obtain a contact manifold that is smoothly diffeomorphic to a sphere.
+The underlying almost contact structure can also be shown to coincide with the standard almost
+contact structure on $S^{2n+1}$, so that in total we have constructed a
+homotopically standard contact structure on the sphere.
+This is what I am working on currently. For the next months, I plan to cover the remaining
+two parts of the proof:
 
-\subsection*{Tightness of $\xi$}
+\subsection*{Tightness}
 
-\subsection*{$\xi$ is not symplectically fillable}
+In order to prove tightness, we use the concept of algebraic tightness which implies tightness,
+but is preserved under surgery.
+(Algebraic tightness is a statement about a certain contact homology algebra being nonzero).
+We need the following lemma.
+\begin{lemma}
+    The Bourgeois construction starting from our Milnor open book
+    (or any open book with a binding that is $-1$-asymptotically dynamically convex) 
+    is algebraically tight.
+\end{lemma}
+The surgeries don't affect algebraic tightness, so the resulting
+contact manifold $(S^{2n+1}, \xi_\mathrm{ex})$ is algebraically tight, hence tight.
 
+%\begin{itemize}
+    %    \item Algebraically tight $\implies$ tight
+    %    \item Algebraically fillable $\implies$ algebraically tight
+    %    \item Algebraically non-fillable $\implies$ non-fillable
+    %    \item $1$-ADC $\implies$ algebraically tight
+    %\end{itemize}
+%\begin{definition}
+%A contact structure $(M, \xi)$ is called $k$ asymptotically dynamically convex (k-ADC) if there
+%is a sequence of contact forms $\alpha_1 \ge \alpha_2 \ge \dots \ge \alpha_i \ge \dots$ so that 
+%all contractible periodic orbits of $\alpha_i$-action $\le D_i$
+%are non-degenerate and have degree $> k$, with $D_i \to \infty$.
+%\end{definition}
+%If the binding of an open book is $n$-ADC, then the corresponding Bourgeois manifold
+%(applying the Thurston-Winkelnkemper construction and then the Bourgeois construction)
+%is $(n+2)$-ADC. In particular it suffices to show that the binding of our Milnor open book
+%is in fact $-1$-ADC.
 
-\newpage
+\subsection*{Obstructions to symplectic fillability}
+We use the fact that Bourgeois manifolds have a convex decomposition
+\[
+    M \times T^2 = (M \times S^1) \times S^1 = V_+ \times S^1 \cup_\phi \overline{V_-} \times S^1,  
+\]
+with $V_{\pm} = \Sigma \times D*S^1$ where $\Sigma$ is the page of our Milnor open book.
+The dividing set is $N \coloneqq \partial V_{\pm}$.
+For the sake of contradiction, assume that there exists a symplectic filling $W$ of $(S^{2n+1}, \xi)$.
+It can then be shown via symplectic cohomology that $H_n(N) \hookrightarrow H_n(W)$.
+By clever construction of a certain symplectic cobordism, this turns out to factor
+as $H_n(N) \to H_n(S^{2n+1}) \to H_n(W)$.
+As $H_n(S^{2n+1}) = 0$, together with the injectivity of the first map,
+this implies that $H_n(N) = 0$.
+However, in the case under consideration one can construct a nontrivial homology class
+in $H_n(N)$, contradiction.
+
 \bibliographystyle{alpha}
 \bibliography{../document/bibliography}
 \end{document}
