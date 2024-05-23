@@ -10,6 +10,7 @@
 \newtheorem{lemma}{Lemma}
 \newtheorem{remark}{Remark}
 \newtheorem{definition}{Definition}
+\newtheorem{question}{Question}
 \renewcommand*{\d}{\mathrm{d}}
 
 
@@ -44,15 +45,18 @@ Recently, Bowden--Gironella--Moreno--Zhou \cite{BGMZ22} have proved the existenc
 One fundamental ingredient of the work is the Giroux correspondence \cite{Giroux02}.
 There is a one to one correspondence between oriented contact structures up to isotopy
 and open book decompositions up to positive stabilization.
-Starting with a specific open book decomposition of $S^{2n-1}$, one can, as an instance of the Giroux correspondence, construct a contact form on this manifold using a well-known construction by Thurston--Winkelnkemper. Then, according to Bourgeois, this contact structure can be extended to a tight contact structure on $S^{2n-1}\times T^2$ that is homotopically standard.
+Starting with a specific open book decomposition of $S^{2n-1}$, one can, as an instance of the Giroux correspondence, construct a contact form on this manifold using a well-known construction by Thurston--Winkelnkemper. 
+Then, according to Bourgeois, this contact structure can be extended to a contact structure on $S^{2n-1}\times T^2$ that is $T^2$-invariant.
+More recent results by \cite{BGM22} and \cite{AZ24} show that this contact structure is tight.
 Applying subcritical surgery (preserving the tightness), one can kill the topology of the $T^2$-factor and obtain a tight contact structure on $S^{2n+1}$.
-The symplectic fillability fails for homological reasons as can be exhibited by clever use of a certain strong cobordism.
+The symplectic fillability fails for homological reasons as can be shown via holomorphic curves.
+
 
 \section*{Fillability hierarchy}
 As explained above, the notion of fillability is crucial in understanding tight contact structures. However, there are actually a lot of different notions of fillability in symplectic geometry.
 
 \begin{definition}[weak and strong filling]
-    Let $(M, \xi)$ be a contact manifold and $(W, \omega)$ a symplectic manifold s.t. $\partial W = M$.
+    Let $(M, \xi)$ be a contact manifold and $(W, \omega)$ a symplectic manifold s.t. $\partial W = M$ (as oriented manifolds).
     \begin{itemize}
         \item $(W, \omega)$ is a weak filling of $(M, \xi)$ iff $\omega|_\xi > 0$
         \item $(W, \omega)$ is a strong filling of $(M, \xi)$ iff $\omega = \d \alpha$ near the boundary.
@@ -61,7 +65,7 @@ As explained above, the notion of fillability is crucial in understanding tight 
 
 
 \begin{definition}[Liouville filling]
-    A Liouville cobordism is a compact symplectic manifold where the globally defined Liouville vector field $X$ is negatively transverse  along $\partial W_-$ (concave side) and positively transverse along $\partial W_+$ (convex side).
+    A Liouville cobordism is a compact oriented symplectic manifold where the globally defined Liouville vector field $X$ is negatively transverse  along $\partial W_-$ (concave side) and positively transverse along $\partial W_+$ (convex side).
     If $\partial W_- = \emptyset$, we call it a Liouville domain.
     A Liouville filling of a contact manifold $(M, \xi = ker \alpha)$ is a Liouville domain $(W, \lambda)$ such that $(\partial W, ker \lambda|\partial W)$ is contactomorphic to $(M, ker \alpha)$.
 \end{definition}
@@ -70,23 +74,23 @@ As explained above, the notion of fillability is crucial in understanding tight 
     A Weinstein filling is a Liouville filling such that the Liouville vector field $X$ is gradient-like for a Morse function which is locally constant on the boundary.
 \end{definition}
 
-In general, we have the following sequence of proper inclusions (we abbreviate e.g. "Weinstein" for "Weinstein fillable contact manifold")
+In general, we have the following sequence of strict inclusions (we abbreviate e.g. "Weinstein" for "Weinstein fillable contact manifold")
 \[
       \{\text{Weinstein}\} \overset{1}{\subsetneq} \{\text{Liouville}\} \overset{2}{\subsetneq} \{\text{strong}\} \overset{3}{\subsetneq} \{\text{weak}\} \overset{4}{\subsetneq} \{\text{tight}\}
 \]
 In dimension $\ge 5$, 1 was proved by\cite[Theorem 1.5]{BCS14}, 2 by \cite{Zhou21}, 3 by \cite{BGM22} and 4 by \cite{MNW13} (in dimension 3, they have been known for a while).
-All of the above examples where such an inclusion is proper rely on special geometric
+All of the above examples where such an inclusion is strict rely on special geometric
 constructions. 
-Now, due to \cite{BGMZ22}, the last inclusion is known to be proper for all contact manifolds (of course only if there are tight contact structures at all).
+Now, due to \cite{BGMZ22}, the last inclusion is known to be strict for all contact manifolds (of course only if there are tight contact structures at all).
 In the same spirit, they proof that for any $n \geq 3$, there exist homotopically standard 
 Liouville fillable contact structures on $S^{2n+1}$ that are not Weinstein fillable.
 
 
 
 \section*{Open questions}
-\begin{itemize}
-    \item For being able to further classify contact structures on the sphere, it is certainly interesting to better understand the underlying almost contact structures.
-    Using the fact that $S^{2n+1}$ is stably trivial, we can show that an almost contact structure on $S^{2n+1}$ corresponds to a map that associates an almost complex structure on $R^{2n+2}$
+\begin{question}
+    For being able to further classify contact structures on the sphere, it is certainly interesting to better understand the underlying almost contact structures.
+    Using the fact that $S^{2n+1}$ is stably parallelizable, we can show that an almost contact structure on $S^{2n+1}$ corresponds to a map that associates an almost complex structure on $R^{2n+2}$
     to every point of the sphere.
     Almost complex structures on $R^{2n+2}$ are given by $\operatorname{SO}(2n + 2)/\operatorname{U}(n + 1)$, so we have the following correspondence
     \[
@@ -101,11 +105,16 @@ Liouville fillable contact structures on $S^{2n+1}$ that are not Weinstein filla
             \mathbb Z \oplus \mathbb Z_2 &n = 3 \operatorname{mod} 4
         \end{cases}.
     \]
-    It is possible to choose the first identification in such a way that $\xi_{\mathrm{standard}}$ corresponds to $0$.
+    It is possible to choose the first identification in such a way that $\xi_{\mathrm{std}}$ corresponds to $0$.
     Taking the negative stabilization of that open book, we obtain a contact structure $\xi_\mathrm{neg}$. Which element does $\xi_\mathrm{neg}$ correspond to?
-    \item Is there a Liouville but not Weinstein fillable contact structure on $S^5$? 
-    \item Is there a strong but not Liouville fillable structure on $S^{2n+1}$, $n \ge 2$?
-\end{itemize}
+
+\end{question}
+\begin{question}    
+Is there a Liouville but not Weinstein fillable contact structure on $S^5$? 
+\end{question}
+\begin{question}
+Is there a strong but not Liouville fillable structure on $S^{2n+1}$, $n \ge 2$?
+\end{question}
 \newpage
 \nocite{*}
 \bibliographystyle{alpha}

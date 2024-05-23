@@ -17,8 +17,8 @@
 \begin{document}
 \title[Homotopically Standard Tight Non-fillable Contact Structures]{Homotopically Standard Tight Non-fillable Contact Structures on the Sphere}
 \maketitle
-\section*{Introduction and Results}
-Contact topology is the study of contact manifolds up to isotopy. It can be viewed as the
+\section*{Introduction and Background}
+\noindent Contact topology is the study of contact manifolds up to isotopy. It can be viewed as the
 odd-dimensional counterpart to symplectic topology.
 In fact, many contact manifolds are fillable, i.e. they are the (contact) boundary of a 
 corresponding symplectic  manifold. This is an important tool in constructing and 
@@ -26,20 +26,18 @@ classifying contact structures.
 For the general question of existence and classification, the dichotomy between tight and 
 overtwisted contact manifolds is essential \cite{Eliashberg89,BEM15}.
 It turns out that overtwisted contact structures are very much topological objects:
-The topological obstruction for the existence of a contact structure is the (non-)existence of
+The topological obstruction for the existence of a contact structure is the existence of
 an almost contact structure (which can be described as reduction of the structure group to 
 $\mathrm U(n) \times \mathrm{id}$). 
-In any such almost contact class there is a overtwisted contact structure.
-
-\underline{Are overtwisted contact structures up to isotopy the same as 
-almost contact structures up to homotopy?}
+In any such almost contact class (almost contact structures up to homotopy) 
+there is precisely one overtwisted contact structure up to isotopy.
 
 However, it is much harder to understand tight manifolds.
 Thanks to groundbreaking work by Gromov and Eliashberg \cite{Gromov85,Eliashberg91} 
 We know that fillable contact manifolds are tight. The standard contact structure 
-$\xi_\mathrm{std}$ on $S^{2n+1}$ is just the contact boundary of $B^{2n+2}, \omega_\mathrm{std}$.
+$\xi_\mathrm{std}$ on $S^{2n+1}$ is just the contact boundary of $(B^{2n+2}, \omega_\mathrm{std})$.
 On $S^3$, this is the unique tight contact structure, so there are no tight but non-fillable 
-contact structures on $S^3$. However, this is not true in general:
+contact structures on $S^3$ \cite{Eliashberg89}. However, this is not true in general:
 The first examples of non-fillable tight contact structures were provided by
 Etnyre-Honda ($\dim = 3$, \cite{EH02}) and Massot-Niederkrueger-Wendl ($\dim \ge 5$, \cite{MNW13}).
 More recently, Bowden--Gironella--Moreno--Zhou \cite{BGMZ22} have shown that for any
@@ -48,21 +46,22 @@ the same almost contact class (for $\dim = 5$ if the first Chern class vanishes)
 The first step towards this result is to construct a tight non-fillable contact structure
 on $S^{2n+1}$ that is homotopically standard, i.e. in the same almost contact class
 as the standard contact structure $\xi_\mathrm{std}$.
-The goal of my Master's thesis is to give a streamlined explanation of the proof for that.
+The goal of my Master's thesis is to give a streamlined explanation of the proof of this result.
 
 \section*{Sketch of proof}
 The proof consists of mainly 3 steps:
 \begin{itemize}
-    \item Construction of the contact structure $\xi$ on $S^{2n+1}$
-    \item Establishing tightness of $\xi$
-    \item Showing that $\xi$ is not symplectically fillable
+    \item Construction of the contact structure $\xi$ on $S^{2n+1}$,
+    \item Establishing tightness of $\xi$,
+    \item and showing that $\xi$ is not symplectically fillable.
 \end{itemize}
 \subsection*{Construction}
 According to \cite{Giroux02}, there is a correspondence between open books up to positive
 stabilization and contact structures that are supported by the open book, up to isotopy.
-For concreteness, we start with a very specific open book, the Milnor open book
+For concreteness, we start with a very specific open book, the Milnor open book coming from
+the $A_{k-1}$-singularity, i.e. the binding is given by the Brieskorn sphere 
 \[
-    B = .  
+    B = \Sigma_{n-1}(k,2,\dots,2).
 \]
 (As will be mentioned in the paragraph on tightness, other choices of open book would work, too).
 By the Thurston-Winkelnkemper construction, we explicitly construct a contact form supported
@@ -93,7 +92,6 @@ but is preserved under surgery.
 We need the following lemma.
 \begin{lemma}
     The Bourgeois construction starting from our Milnor open book
-    (or any open book with a binding that is $-1$-asymptotically dynamically convex) 
     is algebraically tight.
 \end{lemma}
 The surgeries don't affect algebraic tightness, so the resulting
