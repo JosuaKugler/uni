@@ -61,9 +61,10 @@ stabilization and contact structures that are supported by the open book, up to 
 For concreteness, we start with a very specific open book, the Milnor open book coming from
 the $A_{k-1}$-singularity, i.e. the binding is given by the Brieskorn sphere 
 \[
-    B = \Sigma_{n-1}(k,2,\dots,2).
+    B = \Sigma_{n-1}(k,2,\dots,2),
 \]
-(As will be mentioned in the paragraph on tightness, other choices of open book would work, too).
+i.e. $f^{-1}(0) \cap S^{2n-1} \subset \mathbb C^n$ for $f(z_1, \dots, z_n) = z_1^k + z_2^2 + \dots + $.
+
 By the Thurston-Winkelnkemper construction, we explicitly construct a contact form supported
 this open book decomposition of $S^{2n-1}$.
 By a construction due to Bourgeois \cite{Bourgeois02}, we use this contact form to 
@@ -77,7 +78,8 @@ and obtain a homology sphere $M$ that bounds a homology ball $\partial W = M$.
 Using the Whitehead theorem we obtain that $M$ is homotopy equivalent to a sphere 
 and with the $h$-cobordism theorem we conclude that $M$ is diffeomorphic to a sphere.
 By so called $h$-principles, the three surgeries can be realized as contact surgeries.
-Therefore, we obtain a contact manifold that is smoothly diffeomorphic to a sphere.
+Therefore, we obtain a contact manifold that is smoothly diffeomorphic to a sphere (by the
+h-cobordism theorem).
 The underlying almost contact structure can also be shown to coincide with the standard almost
 contact structure on $S^{2n+1}$, so that in total we have constructed a
 homotopically standard contact structure on the sphere.
@@ -95,7 +97,7 @@ We need the following lemma.
     is algebraically tight.
 \end{lemma}
 The proof is quite technical, so we don't go into details here.
-The surgeries don't affect algebraic tightness, so the resulting
+The surgeries from part one of the proof don't affect algebraic tightness, so the resulting
 contact manifold $(S^{2n+1}, \xi_\mathrm{ex})$ is algebraically tight, hence tight.
 
 %\begin{itemize}
@@ -120,7 +122,7 @@ We use the fact that Bourgeois manifolds have a convex decomposition
 \[
     M \times T^2 = (M \times S^1) \times S^1 = V_+ \times S^1 \cup_\phi \overline{V_-} \times S^1,  
 \]
-with $V_{\pm} = \Sigma \times D*S^1$ where $\Sigma$ is the page of our Milnor open book.
+with $V_{\pm} = \Sigma \times D^*S^1$ where $\Sigma$ is the page of our Milnor open book.
 The dividing set is $N \coloneqq \partial V_{\pm}$.
 For the sake of contradiction, assume that there exists a symplectic filling $W$ of $(S^{2n+1}, \xi)$.
 It can then be shown via symplectic cohomology that $H_n(N) \hookrightarrow H_n(W)$.

@@ -11,6 +11,7 @@
 \newtheorem{remark}{Remark}
 \newtheorem{definition}{Definition}
 \newtheorem{question}{Question}
+\newtheorem{fact}{Fact}
 \renewcommand*{\d}{\mathrm{d}}
 
 
@@ -39,13 +40,45 @@ In the following, I will start with a brief overview of the results and methods 
 Then, I give a brief overview of the current research status in the area and
 finally state and explain some open questions that I plan to work on in the dissertation.
 
+\section*{Open books and the Giroux correspondence}
+\begin{definition}
+    An open book decomposition of a manifold $M$ is a pair $(B, p)$, together with a defining map $\Phi:M \to \mathbb R^2$ so that each $z \in \operatorname{int}(D^2)$ is a regular value.
+    Here, $B \subset M$ is a closed codimension-2 submanifold, $p: M\setminus B \to S^1$ is a fiber bundle, and $\Phi$ is such that $\Phi^{-1}(0) = B$ and $p =  \Phi / |\Phi|$.
+\end{definition}
+We will typically assume that the pages are Weinstein, i.e. there exists a Morse-function on the page that is gradient-like for the radial direction.
+
+
+\begin{figure}
+    \includegraphics*[width=\textwidth]{../document/images/abstract_open_book.pdf}
+    \caption{An abstract open book in $\dim = 3$}
+    \label{fig:abstract_open_book}
+\end{figure}
+
+Also, we will often use the notion of an abstract open book $(\Sigma, \phi)$
+where $\Sigma$ denotes the page and $\phi: \Sigma \to \Sigma$ the monodromy.
+Then, by taking the binding to be $\partial \Sigma$ we can glue together the 
+mapping torus $\Sigma \times [0,1] / (x, 0) \sim (\phi(x), 1)$
+with $\partial \Sigma \times D^2$ (see \cref{fig:abstract_open_book})
+
+Positive (resp. negative) \textit{stabilization of open books} is an important procedure where
+one attaches a handle to a page and then composes the monodromy with 
+a positive (resp. negative) Dehn-Seidel twist along the \underline{co-core} of the handle.
+
+\begin{fact}\cite{Giroux02}
+There is a one to one correspondence between oriented contact structures up to isotopy
+and open book decompositions up to positive stabilization.
+\end{fact}
+
+One direction of this correspondence can (partially) be established by means of the 
+Thurston-Winkelnkemper construction.
+We need a few additional assumptions on the open book (see \cite[Theorem 7.3.3]{Geiges08}), but then following the construction in Geiges we can construct a contact form first
+on the mapping torus and the binding. Finally we can glue it together on the $\partial \Sigma \times D^2$-part.
+
 \section*{Tight non-fillable contact structures on the sphere}
 
 Recently, Bowden--Gironella--Moreno--Zhou \cite{BGMZ22} have proved the existence of homotopically standard, non-fillable but tight contact structures on all spheres $S^{2n+1}$ with $n >= 2$. 
 One fundamental ingredient of the work is the Giroux correspondence \cite{Giroux02}.
-There is a one to one correspondence between oriented contact structures up to isotopy
-and open book decompositions up to positive stabilization.
-Starting with a specific open book decomposition of $S^{2n-1}$, one can, as an instance of the Giroux correspondence, construct a contact form on this manifold using a well-known construction by Thurston--Winkelnkemper. 
+Starting with a specific open book decomposition of $S^{2n-1}$, one can construct a contact form on this manifold using the construction by Thurston--Winkelnkemper. 
 Then, according to Bourgeois, this contact structure can be extended to a contact structure on $S^{2n-1}\times T^2$ that is $T^2$-invariant.
 More recent results by \cite{BGM22} and \cite{AZ24} show that this contact structure is tight.
 Applying subcritical surgery (preserving the tightness), one can kill the topology of the $T^2$-factor and obtain a tight contact structure on $S^{2n+1}$.
@@ -84,6 +117,12 @@ constructions.
 Now, due to \cite{BGMZ22}, the last inclusion is known to be strict for all contact manifolds (of course only if there are tight contact structures at all).
 In the same spirit, they proof that for any $n \geq 3$, there exist homotopically standard 
 Liouville fillable contact structures on $S^{2n+1}$ that are not Weinstein fillable.
+For $S^3$, this is not the case as the only homotopically standard contact structure is
+Stein fillable, hence Weinstein fillable \underline{cite Cieliebak-Eliashberg}.
+The only remaining case, therefore, is $S^5$.
+
+As strong and weak fillability are equivalent on the sphere \underline{cite someone},
+the next question would be to ask if there are strongly fillable contact structures on the sphere that are not Liouville fillable.
 
 
 
