@@ -30,9 +30,15 @@ Contact geometry is the study of odd-dimensional smooth manifolds equipped with 
 \]
 While they originally arise in the study of ODEs and in classical mechanics, the topological study of contact manifolds is a more recent and very active field of research.
 
-A manifold can have multiple different contact structures, which can be either rigid (in which case one speaks of a "tight" manifold) or flexible (in the sense that they satisfy an h-principle). The latter contact manifolds are then called overtwisted. A foundational result of Eliashberg \cite{Eliashberg89} and Borman--Eliashberg--Murphy \cite{BEM15}, roughly speaking, states that overtwisted contact manifolds exist in abundance, namely whenever the manifold admits the topological version of a contact structure (an \emph{almost} contact structure), which is a first obvious obstruction. In dimension three, an almost contact structure is simply an oriented $2$-plane field.
+A manifold can have multiple different contact structures, which can be either rigid (in which case one speaks of a "tight" manifold) or flexible (in the sense that they satisfy an h-principle). The latter contact manifolds are then called overtwisted. A foundational result of Eliashberg \cite{Eliashberg89} and Borman--Eliashberg--Murphy \cite{BEM15}, roughly speaking, states that overtwisted contact manifolds exist in abundance, namely whenever the manifold admits the topological version of a contact structure.
+This topological version of a contact structure is called an \emph{almost} contact structure, and it is a first obvious obstruction to the existence of a (geometric) contact structure. 
+In dimension three, an almost contact structure is simply an oriented $2$-plane field,
+in general, it is a hyperplane distribution with an almost complex structure
+and an oriented complementary line bundle.
+Due to the topological nature of almost contact structures, they can be classified
+by methods of algebraic topology and are hence comparably well-understood.
 
-To illustrate this dichotomy, consider the sphere $S^3$. By a result of Eliashberg \cite{Eliashberg92}, it has precisely one tight contact structure. On the other hand, it has infinitely many overtwisted contact structures, corresponding to the infinitely many homotopy classes of 2-plane fields on the 3-sphere. There are other examples where there are infinitely many or no tight contact structures on a contact manifold.
+To illustrate the abovementioned dichotomy between tight and overtwisted contact structures, consider the sphere $S^3$. By a result of Eliashberg \cite{Eliashberg92}, it has precisely one tight contact structure. On the other hand, it has infinitely many overtwisted contact structures, corresponding to the infinitely many homotopy classes of 2-plane fields on the 3-sphere. There are other examples where there are infinitely many or no tight contact structures on a contact manifold.
 For example, Ustilovsky \cite{Ustilovsky99} showed that, for $n \geq 2$, the sphere 
 $S^{2n+1}$ admits infinitely many non-isomorphic tight contact structures in each almost 
 contact class (Uebele \cite{Uebele16} extended this result to $S^7, S^{11}$ and $S^{15}$)
@@ -41,16 +47,18 @@ A further interesting property of contact manifolds comes from the fact that con
 The contrary, however, doesn't need to hold and one can ask the question under which conditions such tight, but non-fillable manifolds exist. The first examples of tight and non-fillable contact manifolds were constructed by Etnyre--Honda \cite{EH02} in dimension three, and by Massot--Niederkrueger--Wendl \cite{MNW13} in higher dimensions.
 
 
-In the following, I will start with a brief overview of the results and methods of my Master's thesis (for more details see the summary of the thesis).
-Then, I give a brief overview of the current research status in the area and
-finally state and explain some open questions that I plan to work on in the dissertation.
+In the following, I will give some of the necessary background.
+Then, I give a brief overview of the current research status in the area, which leads
+to an explanation of the results in \cite{BGMZ22}, where a sketch the part
+that I explain in my Master's thesis. 
+Finally, I state and explain some open questions that I plan to work on in the dissertation.
 
 \section*{Open books and the Giroux correspondence}
 \begin{definition}
     An open book decomposition of a manifold $M$ is a pair $(B, p)$, together with a defining map $\Phi:M \to \mathbb R^2$ so that each $z \in \operatorname{int}(D^2)$ is a regular value.
     Here, $B \subset M$ is a closed codimension-2 submanifold, $p: M\setminus B \to S^1$ is a fiber bundle, and $\Phi$ is such that $\Phi^{-1}(0) = B$ and $p =  \Phi / |\Phi|$.
 \end{definition}
-We will typically assume that the pages are Weinstein, i.e. there exists a Morse-function on the page that is gradient-like for the radial direction.
+We will typically view a page as a Liouville domain that is Weinstein, i.e. the Liouville vector field is gradient like for a Morse-function on the page (\cite[Def 1.1.2]{BHH23}).
 
 
 \begin{figure}
@@ -65,30 +73,41 @@ Then, by taking the binding to be $\partial \Sigma$ we can glue together the
 mapping torus $\Sigma \times [0,1] / (x, 0) \sim (\phi(x), 1)$
 with $\partial \Sigma \times D^2$ (see \cref{fig:abstract_open_book})
 
-Positive (resp. negative) \textit{stabilization of open books} is an important procedure where
-one attaches a handle to a page and then composes the monodromy with 
-a positive (resp. negative) Dehn-Seidel twist along the \underline{co-core} of the handle.
+As a first step of describing the connection between open book decompositions and 
+contact structures on a certain manifold, we define what it means for a contact structure to be
+supported by an open book decomposition.
+\begin{definition}\label{def:support}\cite{Geiges08}
+    Let $(B,p)$ be an oriented open book decomposition of the oriented manifold $M$.
+    A contact structure $\xi = \ker \alpha$ on $M$ is said to be \textbf{supported} by the open book decomposition $(B,p)$ of $M$ if
+    \begin{enumerate}[(i)]
+        \item the contact form $\alpha$ induces the positive orientation of $M$ ($\alpha \wedge (\d \alpha)^n > 0$).
+        \item the 2-form $\d \alpha$ induces a symplectic form on each page, defining its positive orientation
+        \item the 1-form $\alpha$ induces a positive contact form on $B$, i.e. 
+        \[ 
+            \alpha|_{TB} \wedge (\d \alpha|_{TB})^{(n-2)} > 0.
+        \]
+    \end{enumerate}
+\end{definition}
+
+A further ingredient of the Giroux correspondence is the following operation on open books.
+\begin{definition}\cite{Koert17}
+    Positive (resp. negative) \textit{stabilization of open books} is the procedure where
+    one attaches a handle to a page $W$ along the boundary $\partial L$ of a Lagrangian disk $L\subset W$ and then composes the monodromy with
+    a positive (resp. negative) Dehn-Seidel twist along the Lagrangian sphere formed by $L$ 
+    and the core of the handle.
+    This produces a new open book decomposition of the same manifold.
+\end{definition}
 
 \begin{fact}\cite{Giroux02}
-There is a one to one correspondence between oriented contact structures up to isotopy
+For 3-manifolds, there is a one to one correspondence between oriented contact structures up to isotopy
 and open book decompositions up to positive stabilization.
 \end{fact}
 
-One direction of this correspondence can (partially) be established by means of the 
-Thurston-Winkelnkemper construction.
-We need a few additional assumptions on the open book (see \cite[Theorem 7.3.3]{Geiges08}), but then following the construction in Geiges we can construct a contact form first
-on the mapping torus and the binding. Finally we can glue it together on the $\partial \Sigma \times D^2$-part.
-
-\section*{Tight non-fillable contact structures on the sphere}
-
-Recently, Bowden--Gironella--Moreno--Zhou \cite{BGMZ22} have proved the existence of homotopically standard, non-fillable but tight contact structures on all spheres $S^{2n+1}$ with $n >= 2$. 
-One fundamental ingredient of the work is the Giroux correspondence \cite{Giroux02}.
-Starting with a specific open book decomposition of $S^{2n-1}$, one can construct a contact form on this manifold using the construction by Thurston--Winkelnkemper. 
-Then, according to Bourgeois, this contact structure can be extended to a contact structure on $S^{2n-1}\times T^2$ that is $T^2$-invariant.
-More recent results by \cite{BGM22} and \cite{AZ24} show that this contact structure is tight.
-Applying subcritical surgery (preserving the tightness), one can kill the topology of the $T^2$-factor and obtain a tight contact structure on $S^{2n+1}$.
-The symplectic fillability fails for homological reasons as can be shown via holomorphic curves.
-
+Part of the Giroux correspondence in higher dimensions can be established by means 
+of the generalized Thurston-Winkelnkemper construction.
+We need a few additional assumptions on the open book (see \cite[Theorem 7.3.3]{Geiges08}), but then we can construct a contact form on the manifold that is supported by the open book.
+Following the construction in Geiges, we first define it on the mapping torus and the binding, then we can glue it together on the $\partial \Sigma \times D^2$-part and finally check
+the orientation conditions.
 
 \section*{Fillability hierarchy}
 As explained above, the notion of fillability is crucial in understanding tight contact structures. However, there are actually a lot of different notions of fillability in symplectic geometry.
@@ -112,52 +131,69 @@ As explained above, the notion of fillability is crucial in understanding tight 
     A Weinstein filling is a Liouville filling such that the Liouville vector field $X$ is gradient-like for a Morse function which is locally constant on the boundary.
 \end{definition}
 
-In general, we have the following sequence of strict inclusions (we abbreviate e.g. "Weinstein" for "Weinstein fillable contact manifold")
+We have the following sequence of strict inclusions (we abbreviate e.g. "Weinstein" for "Weinstein fillable contact manifold")
 \[
       \{\text{Weinstein}\} \overset{1}{\subsetneq} \{\text{Liouville}\} \overset{2}{\subsetneq} \{\text{strong}\} \overset{3}{\subsetneq} \{\text{weak}\} \overset{4}{\subsetneq} \{\text{tight}\}
 \]
-In dimension $\ge 5$, 1 was proved by\cite[Theorem 1.5]{BCS14}, 2 by \cite{Zhou21}, 3 by \cite{BGM22} and 4 by \cite{MNW13} (in dimension 3, they have been known for a while).
-All of the above examples where such an inclusion is strict rely on special geometric
-constructions. 
-Now, due to \cite{BGMZ22}, the last inclusion is known to be strict for all contact manifolds (of course only if there are tight contact structures at all).
-In the same spirit, they proof that for any $n \geq 3$, there exist homotopically standard 
-Liouville fillable contact structures on $S^{2n+1}$ that are not Weinstein fillable.
-For $S^3$, this is not the case as the only homotopically standard contact structure is
-Stein fillable, hence Weinstein fillable \underline{cite Cieliebak-Eliashberg}.
-The only remaining case, therefore, is $S^5$.
-
-As strong and weak fillability are equivalent on the sphere \underline{cite someone},
-the next question would be to ask if there are strongly fillable contact structures on the sphere that are not Liouville fillable.
+In dimension $\ge 5$, 1 was proved by \cite[Theorem 1.5]{BCS14}, 2 by \cite{Zhou21}, 3 by \cite{BGM22} and 4 by \cite{MNW13}.
 
 
+
+\section*{Tight non-fillable contact structures on the sphere}
+
+All of the above examples where an inclusion is strict rely on special geometric
+constructions, that is, special manifolds have been constructed where a specific
+contact structure is fillable in one sense, but not in the other.
+One might wonder if the strictness in these inclusions therefore is limited
+to specific manifolds. 
+Recently, Bowden--Gironella--Moreno--Zhou \cite{BGMZ22} have given a negative answer to this question by proving the existence of homotopically standard, non-fillable but tight contact structures on all spheres $S^{2n+1}$ with $n >= 2$.
+By taking the connected sum of a manifold with the sphere, it can be shown that the last inclusion (4) is known to be strict for all contact manifolds (of course only if there are tight contact structures at all).
+
+In my master's thesis, I explain the proof of the existence of such tight non-fillable contact structures on the sphere.
+Start with a specific open book decomposition of $S^{2n-1}$.
+Then construct a contact form on this manifold using the construction by Thurston--Winkelnkemper. 
+Next, according to Bourgeois, this contact structure can be extended to a contact structure on $S^{2n-1}\times T^2$ that is $T^2$-invariant.
+Recent results by \cite{BGM22} and \cite{AZ24} show that this contact structure is tight.
+Applying subcritical surgery (preserving the tightness), one can kill the topology of the $T^2$-factor and obtain a tight contact structure on $S^{2n+1}$.
+This uses standard surgery techniques and the $h$-cobordism-theorem.
+The symplectic fillability fails for homological reasons as can be shown via holomorphic curves. 
 
 \section*{Open questions}
+For being able to further classify contact structures on the sphere, it is certainly interesting to better understand the underlying almost contact structures.
+Using the fact that $S^{2n+1}$ is stably parallelizable, we can show that an almost contact structure on $S^{2n+1}$ corresponds to a map that associates an almost complex structure on $R^{2n+2}$
+to every point of the sphere.
+Almost complex structures on $R^{2n+2}$ are given by $\operatorname{SO}(2n + 2)/\operatorname{U}(n + 1)$, so we have the following correspondence
+\[
+    \operatorname{Acont}\left(S^{2n+1}\right) = \pi_{2n+1}(\operatorname{SO}(2n + 2)/\operatorname{U}(n + 1)).
+\]
+This homotopy group has been computed by Harris \cite{Harris63} and we obtain
+\[
+    \operatorname{Acont}\left(S^{2n+1}\right) = \pi_{2n+1}(\operatorname{SO}(2n + 2)/\operatorname{U}(n + 1)) = \begin{cases}
+        \mathbb Z_{n!} &n = 0 \operatorname{mod} 4\\
+        \mathbb Z &n = 1 \operatorname{mod} 4\\
+        \mathbb Z_{n!/2} &n = 2 \operatorname{mod} 4\\
+        \mathbb Z \oplus \mathbb Z_2 &n = 3 \operatorname{mod} 4
+    \end{cases}.
+\]
+It is possible to choose the first identification in such a way that $\xi_{\mathrm{std}}$ corresponds to $0$.
+According to \cite{Giroux02}, positive stabilization results in a contactomorphic
+contact structure. In particular, it doesn't change the almost contact class.
+Taking the negative stabilization of that open book, we obtain a contact structure $\xi_\mathrm{neg}$ that might be different (i.e. not contactomorphic).
 \begin{question}
-    For being able to further classify contact structures on the sphere, it is certainly interesting to better understand the underlying almost contact structures.
-    Using the fact that $S^{2n+1}$ is stably parallelizable, we can show that an almost contact structure on $S^{2n+1}$ corresponds to a map that associates an almost complex structure on $R^{2n+2}$
-    to every point of the sphere.
-    Almost complex structures on $R^{2n+2}$ are given by $\operatorname{SO}(2n + 2)/\operatorname{U}(n + 1)$, so we have the following correspondence
-    \[
-        \operatorname{Acont}\left(S^{2n+1}\right) = \pi_{2n+1}(\operatorname{SO}(2n + 2)/\operatorname{U}(n + 1)).
-    \]
-    This fundamental group has been computed by Harris \cite{Harris63} and we obtain
-    \[
-        \operatorname{Acont}\left(S^{2n+1}\right) = \pi_{2n+1}(\operatorname{SO}(2n + 2)/\operatorname{U}(n + 1)) = \begin{cases}
-            \mathbb Z_{n!} &n = 0 \operatorname{mod} 4\\
-            \mathbb Z &n = 1 \operatorname{mod} 4\\
-            \mathbb Z_{n!/2} &n = 2 \operatorname{mod} 4\\
-            \mathbb Z \oplus \mathbb Z_2 &n = 3 \operatorname{mod} 4
-        \end{cases}.
-    \]
-    It is possible to choose the first identification in such a way that $\xi_{\mathrm{std}}$ corresponds to $0$.
-    Taking the negative stabilization of that open book, we obtain a contact structure $\xi_\mathrm{neg}$. Which element does $\xi_\mathrm{neg}$ correspond to?
-
+     Which element of $\pi_{2n+1}](\operatorname{SO}(2n + 2)/\operatorname{U}(n + 1))$ does $\xi_\mathrm{neg}$ correspond to?
 \end{question}
-\begin{question}    
+
+For the next question, we consider another result by \cite{BGMZ22}: For any $n \geq 3$, there exist homotopically standard Liouville fillable contact structures on $S^{2n+1}$ that are not Weinstein fillable.
+For $S^3$, this is not the case as the only homotopically standard contact structure is
+Stein fillable, hence Weinstein fillable \cite{CE12}.
+The only remaining case in inclusion 1, therefore, is $S^5$.
+\begin{question}
 Is there a Liouville but not Weinstein fillable contact structure on $S^5$? 
 \end{question}
+Finally, as strong and weak fillability are equivalent on the sphere,
+the last question of this type is whether there are strongly fillable contact structures on the sphere that are not Liouville fillable.
 \begin{question}
-Is there a strong but not Liouville fillable structure on $S^{2n+1}$, $n \ge 2$?
+    Is there a strong but not Liouville fillable structure on $S^{2n+1}$, $n \ge 2$?
 \end{question}
 \newpage
 \nocite{*}
