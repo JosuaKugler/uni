@@ -211,3 +211,34 @@ and the cotangent part (looks like a cross on a nbhd).
 positive stabilization doesn't change the contact structure
 there is a one-to-one correspondence between oriented contact structures up to isotopy
 and open book decompositions up to positive stabilization
+
+## Convex decomposition & principal circle bundles
+see [GD12: Contact structures on principal circle bundles](https://arxiv.org/pdf/1107.4948), especially section 6.
+
+
+### What is a principal circle bundle?
+An oriented fiber bundle, where the fiber is a circle.
+Also: A fiber bundle with a continuos right action by S^1 = U(1)
+that preserves the fibers.
+
+### What is an ideal Liouville domain
+In the above-mentioned paper, it's Definition 6.1:
+An ideal Liouville domain is a triple (Σ, ω_Int , η) consisting of a compact oriented 2n-manifold Σ with boundary, a symplectic form ω_Int on the interior Int(Σ), and a contact structure η on the boundary ∂Σ, such that there is an auxiliary 1-form λ on Int(Σ) with the following properties:
+(i) dλ = ωInt ;
+(ii) for some (and hence any) smooth function u : Σ → R^+_0 with ∂Σ as its regular zero set, the 1-form β := uλ on Int(Σ) extends to ∂Σ as a contact form for η.
+if there is an additional cohomology class mentioned, see Def 6.2
+
+### What is a Lioville splitting?
+Definition 6.3
+
+### How can it be constructed?
+In the Bourgeois case, everything is of course crossed with
+one S^1 factor. Apart from that, take two opposite pages of
+the open book to form the dividing set. The two halves of 
+the open book are then the B_- resp. B_+-part.
+
+### What does convex mean in this context?
+
+
+
+## What is the blow down construction in MNW13?
