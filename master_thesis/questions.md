@@ -227,6 +227,12 @@ An ideal Liouville domain is a triple (Σ, ω_Int , η) consisting of a compact 
 (i) dλ = ωInt ;
 (ii) for some (and hence any) smooth function u : Σ → R^+_0 with ∂Σ as its regular zero set, the 1-form β := uλ on Int(Σ) extends to ∂Σ as a contact form for η.
 if there is an additional cohomology class mentioned, see Def 6.2
+see also MNW13, section 4.1
+
+### What is a Giroux domain?
+See MNW13, section 4 for an explanation of this
+together with blow-down, we get a different construction of a
+contact structure on an open book.
 
 ### What is a Lioville splitting?
 Definition 6.3
@@ -242,3 +248,5 @@ the open book are then the B_- resp. B_+-part.
 
 
 ## What is the blow down construction in MNW13?
+See Notes 2024_06_05 in arxive for a drawing
+or consult MNW13, section 4 for details.
