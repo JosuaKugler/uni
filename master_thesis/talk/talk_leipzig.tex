@@ -191,7 +191,6 @@ Converse is false (Etnyre--Honda, Massot--Niederkrueger--Wendl).
 
 \end{frame}
 
-\begin{comment}
 \begin{frame}{Existence and classification}
 
 \emph{Topological} obstruction: \emph{almost} contact structure, i.e.\ reduction of structure group to $U(n)\times \mathds 1$.
@@ -205,11 +204,10 @@ Almost contact manifolds are contact, where the contact structure is \emph{overt
 \pause
 
 \begin{exampleblock}{Tight manifolds}
-How can we understand \textbf{tight} contact manifolds?
+How can \textbf{tight} contact manifolds be understood?
 \end{exampleblock}
     
 \end{frame}
-\end{comment}
 
 \begin{frame}{Contact structures on spheres}
 
@@ -246,7 +244,7 @@ In particular, no tight and non-fillable contact structures on $S^3$.
 
 \pause
 \vspace*{1cm}
-By connected sum with such an ``exotic'' sphere, we conclude
+By connected sum with such an ``exotic'' sphere, it can be concluded
 \begin{theorem}[Bowden--Gironella--Moreno--Zhou '22-'24]
 In $\dim \geq 7$, if $M$ admits a tight structure, it also admits a tight and non strongly-fillable structure, in the same almost contact class.
 \pause
@@ -263,7 +261,6 @@ In $\dim=5$, the same holds, if the first Chern class vanishes.
 \end{tcolorbox}
 \end{frame}
 
-\begin{comment}
 \begin{frame}{Giroux correspondence}
 
 \begin{tcolorbox}
@@ -278,9 +275,7 @@ In $\dim=5$, the same holds, if the first Chern class vanishes.
 \end{figure}
 
 \end{frame}
-\end{comment}
 
-\begin{comment}
 \begin{frame}{Bourgeois contact structures}
     \begin{theorem}[Bourgeois '02]
     Open book supporting $(M,\xi)\rightsquigarrow$ contact structure on $M\times \mathbb T^2$.
@@ -289,20 +284,19 @@ In $\dim=5$, the same holds, if the first Chern class vanishes.
  These are $\mathbb T^2$-equivariant.   
     
 \end{frame}
-\end{comment}
 
 \begin{frame}{Geometric construction}
     
-    \textbf{Geometric construction:} We now construct a tight and non-fillable contact structure on $\mathbb S^{2n+1}$.
+    \textbf{Geometric construction:} Construct a tight and non-fillable contact structure on $\mathbb S^{2n+1}$:
     
     \medskip
     
     \pause
 
     \begin{itemize}
-        \item Milnor $A_k$ open book on $\mathbb S^{2n-1}\rightsquigarrow$ Bourgeois manifold on $\mathbb S^{2n-1}\times \mathbb T^2$
-    $\rightsquigarrow $ two $1$-surgeries = $\mathbb S^{2n-1}\times \mathbb S^2 \rightsquigarrow$ one $2$-surgery = $\mathbb S^{2n+1}.$
-    
+        \item Milnor open book on $\mathbb S^{2n-1}\overset{\text{Bourgeois}}{\rightsquigarrow}$ contact structure on $\mathbb S^{2n-1}\times \mathbb T^2$
+    $\rightsquigarrow$ two $1$-surgeries = $\mathbb S^{2n-1}\times \mathbb S^2 \rightsquigarrow$ one $2$-surgery = $\mathbb S^{2n+1}.$
+
     \medskip
 
     \pause
@@ -324,12 +318,10 @@ In $\dim=5$, the same holds, if the first Chern class vanishes.
 \begin{frame}{Tightness}
 
 \textbf{Facts:} \begin{enumerate}
-    \item $1$-ADC binding of open book $\Rightarrow$  algebraically tight Bourgeois manifold.
+    \item Milnor open book $\Rightarrow$  algebraically tight Bourgeois manifold.
     \pause
     \begin{itemize}
-        \item  $1$-ADC is an \emph{index-positivity} condition (Lazarev, Zhou).
-        \pause
-        \item E.g.\ Milnor $A_k$ open book has $1$-ADC binding.
+        \item Algebraic tightness is vanishing of a certain contact homology group.
     \end{itemize}
     \pause
     \item Algebraic tightness is preserved under surgeries.
@@ -342,14 +334,15 @@ In $\dim=5$, the same holds, if the first Chern class vanishes.
 \vspace*{1cm}
 
 \begin{tcolorbox}
-    Milnor $A_k$ open book is $1$-ADC $\Rightarrow (\mathbb S^{2n+1},\xi_{ex})$ is \emph{tight}.
+    Milnor open book $\Rightarrow (\mathbb S^{2n+1},\xi_{ex})$ is \emph{tight}.
     \end{tcolorbox}
 
 \end{frame}
 
 \begin{frame}{Fillability}
 
-\textbf{Observation:} Bourgeois manifolds have convex decomposition $$M\times \mathbb T^2=(M\times \mathbb S^1)\times \mathbb S^1= V_+\times \mathbb S^1 \cup_\phi \overline{V}_-\times \mathbb S^1,$$ with $V_\pm=\Sigma \times D^*\mathbb S^1$, $\Sigma=$ page of the open book, $\phi=$ monodromy.
+\textbf{Observation:} Bourgeois manifolds have convex decomposition 
+$$\mathrm{OB}(\Sigma, \phi) \times \mathbb T^2=(\mathrm{OB}(\Sigma, \phi)\times \mathbb S^1)\times \mathbb S^1= V_+\times \mathbb S^1 \cup_\phi \overline{V}_-\times \mathbb S^1,$$ with $V_\pm=\Sigma \times D^*\mathbb S^1$, $\Sigma=$ page of the open book, $\phi=$ monodromy.
 
 \pause
 
@@ -366,6 +359,7 @@ Namely, if a homology class in $N$ survives in $V_\pm$, then it survives in the 
     
 \end{frame}
 
+\begin{comment}
 \begin{frame}{Fillability}
 
 \textbf{Fact:} 
@@ -390,17 +384,18 @@ with $H_n(N)\neq 0$.
 \end{figure}
 
 \end{frame}
+\end{comment}
 
 \begin{frame}
 
-\textbf{End of the proof:} $W$ filling of $(\mathbb S^{2n+1},\xi_{ex}) \Rightarrow$ Homological obstruction: 
+\textbf{Proof:} $W$ filling of $(\mathbb S^{2n+1},\xi_{ex})$:
 
 $$
-0\neq H_n(N) \hookrightarrow H_n(W).
+0\neq H_n(N) \xrightarrow{\text{nontrivial}} H_n(W).
 $$
 However, this factors as
 $$
-0\neq H_n(N) \rightarrow H_n(\mathbb S^{2n+1})=0 \rightarrow H_n(W),
+0\neq H_n(N) \rightarrow H_n(\partial W = \mathbb S^{2n+1})=0 \rightarrow H_n(W),
 $$
 contradiction.
 \end{frame}
