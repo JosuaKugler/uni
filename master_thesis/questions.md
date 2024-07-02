@@ -250,3 +250,29 @@ the open book are then the B_- resp. B_+-part.
 ## What is the blow down construction in MNW13?
 See Notes 2024_06_05 in arxive for a drawing
 or consult MNW13, section 4 for details.
+
+## Understanding a sentence in BGMZ24
+The following special case of [MNW13, Theorem 6.1] then says that this is achievable through a cobordism:
+
+Theorem 5.1 in the arxive is Theorem 6.1 in the published version.
+In the paper, they not only consider a Giroux domain of the form Sigma x S^1,
+but they also allow for Giroux domains with already blown down boundary components B.
+These yield the BxS^2 components in the cobordism.
+As in our case there are no such boundary components, we in fact get a
+strong symplectic cobordism from M to M_bd, where M_bd is obtained by
+blow-down of the boundary of Sigma x S^1.
+
+## Why does the blow down of V_- x S^1 give us an open book OB(V_+, id)?
+
+Topologically, the blow down is removing the interior of V_- x S^1
+and then capping the remaining boundary circle fibers with D^2s, i.e.
+with \partial V_- x D^2 = \partial V_+ x D^2. 
+This is the binding of the open book whose pages 
+are given by V_+ x S^1.
+
+Equivalently, this is the contact boundary of V_+ x D^2:
+Topologically, this boundary is given by V_+ x S^1 \cup \partial V_+ x D^2, 
+this is exactly the same as the open book described above.
+
+## How does the Chern class of M carry over to the cobordism in Corollary 2.12?
+
