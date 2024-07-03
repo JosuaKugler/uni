@@ -10,6 +10,19 @@ the product $u\lambda$ extends to a smooth 1-form on $F$ which
 induces a contact form on $\partial F$.
 \end{definition}
 
+\begin{definition}[corresponding Giroux domain]\cite[Section 5.3]{MNW13}\label{def:giroux_domain}
+    Given an ideal Liouville domain $(F, \omega)$ with primitive $\lambda$
+    and function $u \colon F \to \mathbb R_{\geq 0}$ as above,
+    the corresponding Giroux domain is given by
+    \[
+        F \times S^1_\theta
+    \]
+    endowed with contact structure
+    \[
+        \ker(u \d \theta + u \lambda)
+    \]
+\end{definition}
+
 Start with a Bourgeois manifold $\operatorname{BO}(\Sigma,\dots)$.
 Smoothly, we have
 \[
@@ -22,23 +35,43 @@ According to \cite[Section 6]{DG12} we obtain a convex decomposition of the firs
     V = V_+ \bigcup_\Gamma \overline{V}_-,
 \]
 where $V_\pm$ are ideal Liouville domains and $\Gamma$ is the dividing set.
-In \cite[Section 5.3]{DG12}, the authors explicitly compute $V_\pm$ for the Bourgeois
+In \cite[Section 5.3]{DG12}, the authors explicitly compute $\Gamma$ and $V_\pm$ for the Bourgeois
 construction and obtain %maybe make a picture here?
+\[
+    \Gamma = \{y = 0\} = p^{-1}(\{0\}) \cup_B p^{-1}(\{\pi\})
+\]
+and
 \[
     V_+ = p^{-1}([0, \pi]) \times S^1, \qquad V_- = p^{-1}([\pi, 2\pi]) \times S^1,
 \]
 i.e. topologically we get $V_\pm = \Sigma \times D^*S_1$.
+If $\alpha + x \d \phi + y \d \theta$ is the contact structure on $\operatorname{OB}(\Sigma, \dots)$,
+then as explained in \cite[Section 5.3]{DG12}, $\alpha + x \d \phi$ is a 
+$S^1_\phi$-invariant contact form on $\Gamma$,
+\[
+    \omega_\pm = \pm \d \left(\frac{\alpha}{y} + \frac{x}{y}\d \phi\right) 
+\]
+is an $S^1_\phi$-invariant symplectic form on $V_\pm$ and
+$y$ is a function with zero level set $\pm \Gamma = \partial V_\pm$.
+Hence, $(V_\pm, \omega_\pm)$ is an ideal Liouville domain with Liouville form
+\[
+    \beta_\pm = \pm \left(\frac{\alpha}{y} + \frac{x}{y}\d \phi\right).
+\]
+According to \cref{def:giroux_domain}, $V_\pm \times S^1_\theta$
+endowed with the contact structure 
+\[
+    \ker(y \d \theta + y \beta_\pm) = \alpha + x \d \phi + y \d \theta
+\]
+is the corresponding Giroux domain. Clearly, this is just the restriction
+of the open book contact structure. Hence, the whole procedure actually yields a
+splitting into two Giroux domains
+\[
+    \operatorname{OB}(\Sigma, \dots) = V_+ \times S^1_\theta 
+    \bigcup_{\Gamma \times S^1_\theta} V_- \times S^1_\theta
+\]
 
-We know that $V_\pm$ are ideal Liouville domains.
-But why are $V_\pm \times S^1$ with the induced contact structure
-round contactizations of $V_\pm$ and hence Giroux domains? -> see DG12, section 6
-Is it important that they are Giroux domains?
+\subsection*{Blowdown of embedded Giroux domains}
+Given a embedded Giroux domain, this section describes a
+so called "blowdown" operation.
 
-The products $V_\pm \times S^1$ are Giroux domains, 
-    as they are round contactizations of ideal Liouville domains.
-    My guess would be that a contactization works similar to a symplectization:
-    One takes a symplectic manifold $\times \mathbb R$ and it becomes a contact manifold.
-    A round contactization takes a manifold $\times S^1$.
-
-What is the effect of the blowdown?
 The blowdown is applied to the boundary components of the Giroux domain.
