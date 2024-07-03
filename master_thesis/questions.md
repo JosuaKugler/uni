@@ -276,3 +276,7 @@ this is exactly the same as the open book described above.
 
 ## How does the Chern class of M carry over to the cobordism in Corollary 2.12?
 
+## Proposition 2.13
+### What do we do with surgeries that touch the boundary?
+Maybe they can be perturbed to not touch it.
+I don't understand the proof of the second part.

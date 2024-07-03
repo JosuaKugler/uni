@@ -1,29 +1,44 @@
 \section*{Convex decomposition}
 
-Start with a Bourgeois manifold $\operatorname{BO}(V,\dots)$.
-Smoothly, this is $\operatorname{OB}(\Sigma, \dots) \times T^2$.
-Viewing this as $(\operatorname{OB}(\Sigma, \dots) \times S^1) \times S^1$,
-we obtain a decomposition $V_+ \times S^1 \bigcup \overline{V}_- \times S^1$,
-where $V_\pm$ are ideal Liouville domains.
-The details of the proof of 3.16 in DG12 reveal that $V_\pm = \Sigma \times D^*S^1$.
-Also, $\operatorname{OB}(\Sigma, \dots) \times S^1 = V_+\bigcup \overline{V}_-$
-is a convex decomposition (why is that necessary/interesting?).
+\begin{definition}[ideal Liouville domain] \cite[Definition 1]{Giroux20}
+An ideal Liouville domain
+$(F, \omega)$ is a domain $F$ endowed with an ideal Liouville structure $\omega$. This
+ideal Liouville structure is an exact symplectic form on $\operatorname{int} F$
+admitting a primitive $\lambda$ such that: for some (and then any) function 
+$u \colon F \to \mathbb R_{\geq 0}$  with regular level set $\partial F = \{u = 0\}$,
+the product $u\lambda$ extends to a smooth 1-form on $F$ which 
+induces a contact form on $\partial F$.
+\end{definition}
 
-Where does the decomposition come from? What is the effect of the blowdown?
-The blowdown is applied to the boundary components of the Giroux domain.
+Start with a Bourgeois manifold $\operatorname{BO}(\Sigma,\dots)$.
+Smoothly, we have
+\[
+    \operatorname{BO}(\Sigma,\dots) = \operatorname{OB}(\Sigma, \dots) \times T^2 
+    = \big[\operatorname{OB}(\Sigma, \dots) \times S^1\big] \times S^1 
+    \eqqcolon V \times S^1
+\]
+According to \cite[Section 6]{DG12} we obtain a convex decomposition of the first factor
+\[
+    V = V_+ \bigcup_\Gamma \overline{V}_-,
+\]
+where $V_\pm$ are ideal Liouville domains and $\Gamma$ is the dividing set.
+In \cite[Section 5.3]{DG12}, the authors explicitly compute $V_\pm$ for the Bourgeois
+construction and obtain %maybe make a picture here?
+\[
+    V_+ = p^{-1}([0, \pi]) \times S^1, \qquad V_- = p^{-1}([\pi, 2\pi]) \times S^1,
+\]
+i.e. topologically we get $V_\pm = \Sigma \times D^*S_1$.
 
+We know that $V_\pm$ are ideal Liouville domains.
+But why are $V_\pm \times S^1$ with the induced contact structure
+round contactizations of $V_\pm$ and hence Giroux domains? -> see DG12, section 6
+Is it important that they are Giroux domains?
 
-
-\begin{itemize}
-    \item $S^1$-invariant contact structure on $V^{2n} \times S^1$ induces a decomposition
-    of the $V$-part into ideal Liouville domains $V = V_+ \cup V_-$. \underline{Details}
-    \item The products $V_\pm \times S^1$ are Giroux domains, 
+The products $V_\pm \times S^1$ are Giroux domains, 
     as they are round contactizations of ideal Liouville domains.
     My guess would be that a contactization works similar to a symplectization:
     One takes a symplectic manifold $\times \mathbb R$ and it becomes a contact manifold.
     A round contactization takes a manifold $\times S^1$.
-    \item In the Bourgeois case we have $V^{2n} = \operatorname{OB}(\Sigma) \times S^1$.
-    Then, $V_\pm = \Sigma \times D^*S^1$. \underline{Where does the binding go?}
-    Maybe into the boundary in the middle (= the convex hypersurface)?
-\end{itemize}
 
+What is the effect of the blowdown?
+The blowdown is applied to the boundary components of the Giroux domain.
