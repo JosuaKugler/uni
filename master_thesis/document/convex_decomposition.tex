@@ -71,21 +71,20 @@ splitting into two Giroux domains
     \bigcup_{\Gamma \times S^1_\theta} V_- \times S^1_\theta
 \]
 
-\subsection*{Blowdown of embedded Giroux domains}
-Given a embedded Giroux domain, this section describes a operation that is often 
-called "blowdown".
+\subsection*{Surgery along embedded Giroux domains}
+Given a embedded Giroux domain, this section describes a procedure
+to remove its interior and "blow down" the resulting boundary. 
 
-Technically, it is not the Giroux domain itself that is blown down, but one or more 
-of its boundary components. 
 These boundary components are always of the form $B = M \times S^1$.
-Topologically, we can simply glue in $M \times D^2$.
+Topologically, blowing down is equivalent to simply gluing in $M \times D^2$.
 
 This operation can be performed in a way that respects the contact structure,
 provided that $S^1 \times M$ has a neighborhood
 of the form $[0, \epsilon)_s \times S^1_t \times M$ where $\alpha_M + s \d t$
 defines a contact form.
 In general this holds by \cite[Lemma 5.1]{MNW13} if the boundary components 
-are $\xi$-round hypersurfaces, but it is also possible to show this directly.
+are $\xi$-round hypersurfaces, but it is also possible to show the existence 
+of that neighborhood directly.
 
 Let $D$ be the disk of radius $\epsilon$ in $\mathbb R^2$. The map 
 \[
@@ -100,12 +99,47 @@ we can glue $D \times M$ to $V \setminus B$ to get a new contact manifold
 in which $B$ has been replaced by $M$.
 %add image here!
 
-Now there is a further procedure which we will also call blow-down and
-which can be realized by a cobordism: Given an embedded Giroux domain,
-remove its interior and blow down the resulting boundary components.
+The goal of this section is to describe a procedure that removes the interior of a
+Giroux domain and blows down its boundary components. The blowdown is possible
+in general because boundary components of Giroux domains are 
+$\xi$-round hypersurfaces (\cite[Section 5.3]{MNW13}).
+In the specific case that we will apply the procedure to, however, we can check 
+directly that the boundary has the required neighborhood. \underline{Really?}
 
-In our situation, we want to blow down the Giroux domain $V_- \times S^1$.
+In \cite[Section 6]{MNW13}, the desired procedure is explained and it is shown
+that it corresponds to a symplectic cobordism.
+The setting there is actually more general: The authors consider a Giroux
+domain where already some of the boundary components have been blown down.
+In our case, the situation is simpler: The Giroux domain 
+$V_- \times S^1 \subset \operatorname{BO}(\Sigma, \dots)$
+is directly obtained from the corresponding ideal Liouville domain $V_-$ by 
+round contactization.
 Its boundary is given by 
 \[
     \partial V_- \times S^1 = \Gamma \times S^1.
 \]
+We want a cobordism from $\operatorname{BO}(\Sigma, \dots)$ to
+$\operatorname{BO}(\Sigma, \dots)\setminus V_- \times S^1$ where the resulting boundary
+$\Gamma \times S^1$ is blown down.
+Topologically, the cobordism
+\[
+    W \coloneqq [0,1] \times \operatorname{BO}(\Sigma, \dots) \bigcup_{\{1\} \times \left(V_- \times S^1\right)} V_- \times D^2.
+\]
+fulfills the requirements: One boundary is simply 
+$\operatorname{BO}(\Sigma, \dots)$.
+The other boundary is 
+\[
+    \left[\operatorname{BO}(\Sigma, \dots) \setminus \left(V_- \times S^1\right)\right] 
+    \cup_{\Gamma \times S^1} \Gamma \times D^2,
+\]
+which is homeomorphic to 
+$\operatorname{BO}(\Sigma, \dots) \setminus \left(V_- \times S^1\right)$
+with blown down boundary.
+Using the more general \cite[Theorem 6.1]{MNW13}, one can realize 
+$W$ as a strong symplectic cobordism.
+\underline{Why is it strong?}
+
+Next, we compute the contact structure on $\operatorname{BO}(\Sigma, \dots) \setminus \left(V_- \times S^1\right)$
+with blown down boundary $\partial V_- \times S^1 = \Gamma \times S^1$.
+
+This should be the contact boundary of $\Sigma \times D^2$?
