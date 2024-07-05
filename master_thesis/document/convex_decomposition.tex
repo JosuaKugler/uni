@@ -73,7 +73,8 @@ splitting into two Giroux domains
 
 \subsection*{Surgery along embedded Giroux domains}
 Given a embedded Giroux domain, this section describes a procedure
-to remove its interior and "blow down" the resulting boundary. 
+to remove its interior and "blow down" the resulting boundary.
+We will refer to the procedure as "clean cut-out" of the Giroux domain.
 
 These boundary components are always of the form $B = M \times S^1$.
 Topologically, blowing down is equivalent to simply gluing in $M \times D^2$.
@@ -99,15 +100,14 @@ we can glue $D \times M$ to $V \setminus B$ to get a new contact manifold
 in which $B$ has been replaced by $M$.
 %add image here!
 
-The goal of this section is to describe a procedure that removes the interior of a
-Giroux domain and blows down its boundary components. The blowdown is possible
-in general because boundary components of Giroux domains are 
-$\xi$-round hypersurfaces (\cite[Section 5.3]{MNW13}).
-In the specific case that we will apply the procedure to, however, we can check 
-directly that the boundary has the required neighborhood. \underline{Really?}
+Boundary components of Giroux domains are 
+$\xi$-round hypersurfaces (\cite[Section 5.3]{MNW13}),
+Therefore, after removal of a Giroux domain, we can blow down
+its boundary components.
+These two steps together form the clean cut-out.
 
-In \cite[Section 6]{MNW13}, the desired procedure is explained and it is shown
-that it corresponds to a symplectic cobordism.
+In \cite[Section 6]{MNW13}, where the clean cut-out is first introduced,
+it is shown that it corresponds to a symplectic cobordism.
 The setting there is actually more general: The authors consider a Giroux
 domain where already some of the boundary components have been blown down.
 In our case, the situation is simpler: The Giroux domain 
@@ -119,8 +119,7 @@ Its boundary is given by
     \partial V_- \times S^1 = \Gamma \times S^1.
 \]
 We want a cobordism from $\operatorname{BO}(\Sigma, \dots)$ to
-$\operatorname{BO}(\Sigma, \dots)\setminus V_- \times S^1$ where the resulting boundary
-$\Gamma \times S^1$ is blown down.
+the same manifold after clean cut-out of $V_- \times S^1$.
 Topologically, the cobordism
 \[
     W \coloneqq [0,1] \times \operatorname{BO}(\Sigma, \dots) \bigcup_{\{1\} \times \left(V_- \times S^1\right)} V_- \times D^2.
@@ -134,12 +133,32 @@ The other boundary is
 \]
 which is homeomorphic to 
 $\operatorname{BO}(\Sigma, \dots) \setminus \left(V_- \times S^1\right)$
-with blown down boundary.
+with blown down boundary, which is exactly the desired clean cut-out.
 Using the more general \cite[Theorem 6.1]{MNW13}, one can realize 
 $W$ as a strong symplectic cobordism.
-\underline{Why is it strong?}
+
+\underline{Why is it strong? What would be the Liouville vector field?}
+Maybe the reasoning is as follows: Start with the symplectization
+of $\operatorname{BO}(\Sigma, \dots)$. This clearly is a strong cobordism.
+Maybe the handle attachment can be done in a strong way?
 
 Next, we compute the contact structure on $\operatorname{BO}(\Sigma, \dots) \setminus \left(V_- \times S^1\right)$
 with blown down boundary $\partial V_- \times S^1 = \Gamma \times S^1$.
 
-This should be the contact boundary of $\Sigma \times D^2$?
+This should be the contact boundary of $V_+ \times D^2$.
+Topologically of course that all makes sense,
+\[
+    \partial (V_+ \times D^2) = V_+ \times S^1 \cup \partial V_+ \times D^2 = V_+ \times S^1 \cup_{\Gamma \times S^1} \Gamma \times D^2.
+\]
+However, it is unclear to me why $V_+ \times D^2$ should carry a \underline{symplectic structure}.
+
+It should also be supported by the open book $\operatorname{OB}(V_+, \operatorname{id})$,
+which, again, topologically, makes perfect sense, but I don't understand the
+\underline{contact side of things}.
+
+\subsection*{Subcritical surgery and blowdown in one big symplectic cobordism}
+Now we apply subcritical surgery in the complement of $\overline{V}_- \times S^1$ and
+remove the Giroux domain $V_- \times S^1$.
+
+
+% How is this cobordism (2.13) used in the rest of the paper?

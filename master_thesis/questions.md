@@ -280,3 +280,7 @@ this is exactly the same as the open book described above.
 ### What do we do with surgeries that touch the boundary?
 Maybe they can be perturbed to not touch it.
 I don't understand the proof of the second part.
+
+
+### What is a domain?
+Typically, a smooth compact manifold with boundary.
