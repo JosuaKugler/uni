@@ -151,11 +151,11 @@ See Geiges 7.1
 ### What is k-ADC?
 Definition 2.5 in [BGMZ24]
 - exists a sequence alpha_1 >= alpha_2 >= ... of contact forms
-    - what is this relation between contact forms?
+    - what is this relation between contact forms -> there exists
+    a smooth function f >= 1 s.t. alpha_1 = f \cdot alpha_2 (Lazarev20, Section 3.1)
 - all contractible periodic orbits of alpha_i-action <= D_i are non-degenerate and have degree > k
-    - what is this action?
+    - what is this action? -> integrating once over gamma*(alpha) (Lazarev20)
     - D_i is a sequence that goes to infinity
-    - how can an action be <= some number?
 
 ### Conclusion
 Ok I feel like these concepts somewhat fit together even if I don't understand the details.
