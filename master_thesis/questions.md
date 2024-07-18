@@ -284,3 +284,15 @@ I don't understand the proof of the second part.
 
 ### What is a domain?
 Typically, a smooth compact manifold with boundary.
+
+
+### How do I know that homology classes in H_n(N) survive under N -> V_+?
+maybe this is an explicit calculation?
+
+
+### Maybe also consider Prop. 2.13
+The inclusion of H_n(V_+) -> H_n(M_+') is injective
+
+### How does the proof work?
+The filling needs to have sufficient homology to exist,
+at least the homology of the dividing set
