@@ -296,3 +296,5 @@ The inclusion of H_n(V_+) -> H_n(M_+') is injective
 ### How does the proof work?
 The filling needs to have sufficient homology to exist,
 at least the homology of the dividing set
+
+for the first variant see theorem 32 in version 1 on arxiv
