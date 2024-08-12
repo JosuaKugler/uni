@@ -1,0 +1,82 @@
+It is not very hard to construct a contact structure on the three-torus. When Lutz \cite{Lutz79} discovered a contact structure on $T^5$, however,
+it was natural to wonder whether there exists a contact struture on $T^{2n+1}$ for all $n \in \mathbb N$.
+In order to answer this long-standing question, Bourgeois \cite{Bourgeois02} came up with a construction that takes as input a contact structure on $M$ 
+and as output returns a contact structure on $M\times T^2$.
+To be more precise, it requires a contact structure that is supported by an open book decomposition as an input.
+However, a result by Giroux and Mohsen \cite[Theorem 7.3.5]{Geiges08} shows that to every contact structure one can find such an open book decomposition,
+so that is not an obstruction, but rather part of the construction data.
+
+\subsection{General construction}
+Let $\operatorname{dim} M \geq 3$ and $(B, \pi)$ an open book decomposition of $M$ supporting $(M, \xi = \ker \alpha)$.
+By definition of an open book, there is a trivial tubular neighborhood $B \times D^2$ around $B$ and there exist a radial coordinate $r$ with $r = 0$ precisely on $B$
+s.t. $(r, \pi)$ form polar coordinates on this neighborhood.
+Choose a smooth function $\rho$ of $r$ s.t. $\rho = r$ close to $r = 0$, $\rho'(r) > 0$ and $\rho = 1$ at $\partial D$.
+Extend this function to $M$ by setting $\rho = 1$ on $M \setminus B \times D$ (see \cref{fig:rho}).
+\begin{figure}
+    \includegraphics*[width=\textwidth]{images/rho.pdf}
+    \caption{Onedimensional sketch of $\rho$}
+    \label{fig:rho}
+\end{figure}
+As $\pi$ and $\rho$ are smooth functions on $M$, one can define the smooth functions $x_1 \coloneqq \rho \cos \pi$ and $x_2 \coloneqq \rho \sin \pi$ on all of $M$. 
+On $B \times D^2$, they coincide with the Cartesian coordinate functions near $B$.
+As always with corresponding polar- and cartesian coordinates, they satisfy
+\begin{align*}
+    x_1 \d x_2 - x_2 \d x_1 &= \rho^2 \cos^2 \pi \d \pi + \rho \cos \pi \sin \pi \d \rho + \rho^2 \sin^2 \pi \d \pi - \rho \cos \pi \sin \pi \d \rho\\
+    &= \rho^2 (\cos^2 \pi + \sin^2 \pi) \d \pi\\
+    &= \rho^2 \d \pi
+\end{align*}
+and, analogously,
+\begin{align*}
+    \d x_1 \wedge \d x_2 = \rho \d \rho \wedge \d \pi.
+\end{align*}
+
+On $M\times T^2$, choose coordinates $(\theta_1, \theta_2)$ on the torus part of the manifold.
+Define
+\[
+    \tilde \alpha \coloneqq x_1 \d \theta_1 - x_2 \d \theta_2 + \alpha.
+\]
+to be a $1$-form on $M$ (where $\alpha$ is extended in the obvious way to $M\times T^2$ as the pullback $\pi_1^*\alpha$).
+This is the candidate for the contact form on $M\times T^2$.
+Having computed the exterior derivative and its n-th power
+\begin{align*}
+    \d \tilde \alpha &= \d x_1 \wedge \d \theta_1 - \d x_2 \wedge \d \theta_2 + \d \alpha,\\
+    (\d \tilde \alpha)^n =& (n-1)(\d \alpha)^{n-1}\wedge (\d x_1 \wedge \d \theta_1 - \d x_2 \wedge \d \theta_2)\\
+    &- n(n-1)(\d \alpha)^{n-2}\wedge \d x_1 \wedge \d \theta_1 \wedge \d x_2 \wedge \d \theta_2,
+\end{align*}
+one can check the contact condition:
+\begin{align*}
+    \tilde \alpha \wedge (\d \tilde \alpha)^n =& (x_1 \d \theta_1 - x_2 \d \theta_2 + \alpha) \wedge (n-1)(\d \alpha)^{n-1}\!\wedge (\d x_1 \wedge \d \theta_1 - \d x_2 \wedge \d \theta_2)\\
+    &- (x_1 \d \theta_1 - x_2 \d \theta_2 + \alpha) \wedge n(n-1)(\d \alpha)^{n-2}\wedge \d x_1 \wedge \d \theta_1 \wedge \d x_2 \wedge \d \theta_2\\
+    =& (n-1)(\d \alpha)^{n-1}\wedge(x_1\d x_2 - x_2 \d x_1)\wedge \d \theta_1 \wedge \d \theta_2\\
+    &+\underbrace{\alpha\wedge(n-1)(\d \alpha)^{n-1}\!\wedge \d x_1}_{2n-\text{form on } M} \wedge \d \theta_1 - \underbrace{\alpha \wedge (n-1)(\d \alpha)^{n-1}\!\wedge\d x_2}_{2n-\text{form on } M} \wedge \d \theta_2\\
+    & + n(n-1)\alpha\wedge(\d \alpha)^{n-2}\wedge \d x_1 \wedge \d \theta_1 \wedge \d x_2 \wedge \d \theta_2\\
+    \intertext{$M$ has dimension $2n-1$, i.e. the middle term is 0}
+    =& (n-1)(\d \alpha)^{n-1}\wedge \rho^2 \d\phi \wedge \d \theta_1 \wedge \d \theta_2\\
+    & + n(n-1)\alpha \wedge (\d \alpha)^{n-2}\wedge \rho \d\rho \wedge \d \phi \wedge \d \theta_1 \wedge \d \theta_2.
+\end{align*}
+As this expression is a top-dimensional form, it suffices to show that its nowhere zero.
+For that, one needs to employ the fact that $\alpha$ is supported by $(B, \pi)$.
+By condition (ii) of \cref{def:support}, $(\d \alpha)^{n-1}$ must be a positive volume form on the pages. 
+As explained in that definition, the orientation on $M$ is given by $\partial_\phi$ and the orientation of the page. 
+In particular, $(\d \alpha)^{n-1} \wedge \rho \d \phi$ is a positive volume form on $M$. 
+Multiplied with a second $\rho$-factor, it vanishes along $B$. 
+As $\theta_1 \wedge \theta_2$ is a positive volume form on $T^2$, the first term is non-negative everywhere and positive away from 
+\[
+    \underbrace{B \times 0}_{\subset B \times D^2 \subset M} \times T^2.
+\]
+Let $\mathfrak{b}$ be a basis of the binding $B$ that is positively ordered. 
+Then, $- \partial_r, \mathfrak{b}$ and (because the binding is odd-dimensional) $\mathfrak{b}, \partial_r$ are positive bases of the page. Clearly, then, 
+\[ 
+    \mathfrak{a} \coloneqq \mathfrak{b}, \partial_r, \partial_\phi, \partial_{\theta_1}, \partial_{\theta_2}
+\] 
+is an ordered basis of $M\times T^2$.
+Using $\rho'(r) \geq 0$ everywhere, it follows that $\d \rho(\partial_r)$ is non-negative.
+Hence, plugging $\mathfrak{a}$ into the second term,
+\begin{align*}
+    &\left(n(n-1)\alpha \wedge (\d \alpha)^{n-2}\wedge \rho \d\rho \wedge \d \phi \wedge \d \theta_1 \wedge \d \theta_2\right)(\mathfrak{a})\\
+    =& n(n-1) \rho \cdot (\alpha \wedge (\d \alpha)^{n-2})(\mathfrak{b}) \cdot d\rho(\partial_r) \cdot \d \phi(\partial_\phi) \cdot \d \theta_1(\partial_{\theta_1}) \cdot \d \theta_2(\partial_{\theta_2})\\
+    \geq& 0.
+\end{align*}
+By condition (iii) of \cref{def:support}, $\alpha \wedge (\d \alpha)^{n-2}$ is positive on $B$. 
+Therefore, the second term is positive on $B \times 0 \times T^2$ (hence also on a neighborhood) and non-negative everywhere else.
+This proves the contact condition and $\tilde \alpha$ is indeed a contact form on $M\times T^2$.

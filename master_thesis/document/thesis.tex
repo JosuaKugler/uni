@@ -1,0 +1,42 @@
+\documentclass[oneside]{amsbook}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{cleveref}
+\usepackage{enumerate}
+\usepackage{subcaption}
+\usepackage{comment}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{remark}{Remark}
+\newtheorem{definition}{Definition}
+\renewcommand*{\d}{\mathrm{d}}
+
+\begin{document}
+\input{abstract.tex}
+\chapter{Introduction}
+
+\chapter[Construction]{The Construction: A homotopically standard contact structure on the Sphere}
+\section{Outline}
+\input{2_overview.tex}
+\section[The Milnor open book]{Raw material for the construction: The Milnor open book}
+\input{2_milnor_open_book.tex}
+\section[The Thurston-Winkelnkemper-construction]{From open books to contact structures: The Thurston-Winkelnkemper construction}
+\input{2_thurston_winkelnkemper.tex}
+\section[The Bourgeois construction]{From $M$ to $M\times T^2$: The Bourgeois construction}
+\input{2_bourgeois_general.tex}
+\input{2_bourgeois_specific_example.tex}
+\section{Surgery}
+\input{2_surgery_intro.tex}
+
+\section[Homotopically standard]{Homotopy Class of the Contact Structure}
+\input{2_homotopically_standard.tex}
+\chapter{Tightness}
+
+\chapter{Non-Fillability}
+\input{convex_decomposition.tex}
+\newpage
+\bibliographystyle{alpha}
+\bibliography{bibliography}
+\end{document}
