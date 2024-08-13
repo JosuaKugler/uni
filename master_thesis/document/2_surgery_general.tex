@@ -1,0 +1,57 @@
+% Explain surgery in general and cite the relevant lemmas from mil61
+
+\subsection{Smooth surgery}
+For the details of how to realize surgery in a smooth way, consult \cite[paragraph 1]{Milnor61}.
+Surgery is a quite general operation, in fact \cite[Theorem 1]{Milnor61} states that two manifolds can be transferred 
+into one another by a sequence of surgeries if and only if they belong to the same cobordism class.
+In particular, the Stiefel-Whitney numbers (and hence orientability) are preserved under surgery.
+
+Let $W^n$ be a manifold, $\lambda \in \pi_p(W)$ a homotopy class and $f_0: S^p \to W \in \lambda$. When can $\lambda$ be killed?
+According to \cite[Lemma 3]{Milnor61}, a homotopy group can be killed if $n \geq 2p+1$ and the induced $S^p$-bundle $f_0^*(TW)$ is trivial.
+In this case, all homotopy groups $\pi_i(W)$ for $i < p$ stay unchanged, but $\pi_p(W)$ changes to $\pi_p(W)/G$ where $G$ is a subgroup containing $\lambda$.
+
+Pick any base point $x \in M \times S^1$ and then embed $x \times S^1 \hookrightarrow M \times T^2$.
+As the normal bundle to $S^1 \hookrightarrow T^2$ is trivial, it follows that also the normal bundle to $S^1 \hookrightarrow M \times T^2$ is trivial.
+This gives us the desired embedding and so we can kill the respective homotopy class 
+(which in this case is the same as a homology class because $\pi_1 = \mathbb Z^2$ is already an abelian group).
+It turns out that the second generator in $H_1$ can be killed like that, too.
+$H_2$ is then isomorphic to $\pi_2$ by the Hurewicz theorem.
+After proving that the respective 2-surgery is possible, we have therefore created a manifold whose $H_1$ and $H_2$ homology groups are zero.
+In fact, one can prove that all homology groups are zero after the described surgery operations.
+FInally, the following two lemmata conclude the proof that the resulting manifold is diffeomorphic to a sphere.
+
+\begin{lemma}
+    A simply connected homology sphere is homeomorphic to the sphere.
+\end{lemma}
+\begin{proof}
+    Let $M^n$ be a simply connected CW-complex that is a homology sphere, i.e. $H^0(M) = \mathbb Z$ and $H^n(M) = \mathbb Z$. 
+    As $M$ is simply connected, i.e. $\pi_1(M) = 0$, the Hurewicz theorem states that
+    \[
+    \pi_k(M) = 0 \; \forall 1 < k < n\text{ and }\pi_n(M) = H^n(M) = \mathbb Z.
+    \]
+    As a result, $M$ is a homotopy sphere.
+    Consider a generator $f: S^n \to M$ of $\pi_n(M)$.
+    On $\pi_0$ level, it maps one connected component to one connected component, so here the induced map is obviously bijective.
+    On $\pi_k$ level with $0 < k < n$, it just maps $0$ to $0$ which is an isomorphism.
+    On $\pi_n$ level, one needs to show that 
+    \[
+        f_*: \mathbb Z = \pi_n(S^n) \to \pi_n(M) = \mathbb Z 
+    \]
+    is an isomorphism. The identity map is a generator for $\pi_n(S^n)$. Now $f_*(\mathrm{id}) = f$, so one obtains a generator of $\pi_n(M)$. 
+    A map from $\mathbb Z \to \mathbb Z$ that sends $1$ to $1$ is a group isomorphism. These considerations show that $f$ is a weak homotopy equivalence.
+    As a smooth manifold, $M$ is a CW-complex. By Whiteheads theorem it follows that $f$ is a homotopy equivalence, so the generalized Poincar\'e conjecture 
+    shows that $M$ is homeomorphic to the sphere.
+\end{proof}
+
+\begin{lemma}
+    A simply connected homology sphere that bounds a homology ball is diffeomorphic to the sphere.
+\end{lemma}
+\begin{proof}
+    According to the last lemma, the homology sphere $M$ is homotopy equivalent to a sphere.
+
+    As $W$ is a simply connected homology ball, all homotopy groups $\pi_{\ge 1}$ are 0 by the Hurewicz theorem.
+    Taking any constant map on $W$ therefore is a homotopy equivalence by Whiteheads theorem, i.e. $W$ is contractible. 
+    Then, cut out a ball inside $W$ and obtain a cobordism $W'$ from a sphere to $M$.
+    One can prove, then, that $W'$ is an $h$-cobordism.
+    Thus, by the $h$-cobordism theorem (Ranicki, Theorem 1.9), $M$ is diffeomorphic to a sphere.
+\end{proof}
