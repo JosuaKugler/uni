@@ -1,0 +1,22 @@
+For a given contact manifold, one can define a partial order by the following relation
+\[
+    \alpha \geq \beta \Leftrightarrow \exists \text{ smooth function } f: M \to \mathbb R_{\geq 1} \text{ s.t. } \alpha = f \cdot \beta.
+\]
+\begin{definition}[k-ADC]\cite[cf. Definition 2.5]{BGMZ22}
+    A contact structure $(M, \xi)$ is called asymptotically dynamically convex, if there is an ordered sequence of contact forms 
+    $\alpha_1 \geq \alpha_2 \geq \dots \geq \alpha_i \geq \dots$ and a sequence of real numbers $D_i \to \infty$
+    with the following property:
+    All contractible periodic orbits of the Reeb vector field $R_{\alpha_i}$ with $\alpha_i$-action $\leq D_i$ are non-degenerate
+    and have degree $> k$.
+\end{definition}
+
+Let $n \geq 4$ (for $n = 3$, a similar but more complicated argument gives the same result).
+According to \cite{vK08}, the Brieskorn sphere $\Sigma_{n-1}$ is index-positive, i.e. for a given contact form $\alpha$, all contractible periodic orbits
+are non-degenerate and have positive degree.
+In particular, by choosing $\alpha_i = \alpha$ and $D_i$ to be any ascending sequence, $\Sigma_{n-1}$ is 0-ADC.
+Then, by \cite[Lemma 2.8]{BGMZ22}, the Bourgeois manifold $S^{2n-1} \times T^2$ is 1-ADC (in this case it actually shows that it's 2-ADC but we only need 1-ADC).
+According to \cite[Proposition 3.2 5 (c)]{BGMZ22}, 1-ADC contact manifolds are algebraically tight.
+A manifold is algebraically tight if the contact homology doesn't vanish, i.e. this is the step where the holomorphic curves are hidden.
+
+As algebraic tightness is preserved under contact surgery, the contact structure on $S^{2n+1}$ is algebraically tight, too.
+Finally, algebraic tightness implies tightness.

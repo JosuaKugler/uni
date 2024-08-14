@@ -20,7 +20,7 @@
 	- source: https://projecteuclid.org/journals/acta-mathematica/volume-215/issue-2/Existence-and-classification-of-overtwisted-contact-structures-in-all-dimensions/10.1007/s11511-016-0134-4.full
 	- filename: [BEM15_existence_and_classification_of_overtwisted_contact_structures_in_all_dimensions.pdf](BEM15_existence_and_classification_of_overtwisted_contact_structures_in_all_dimensions.pdf)
 - Geometric criteria for overtwistedness
-	- authors: Casals, Murph, Presas
+	- authors: Casals, Murphy, Presas
 	- source: https://www.ams.org/journals/jams/2019-32-02/S0894-0347-2019-00917-3/
 	- filename (download from arxive): [CMP19_geometric_criteria_for_overtwistedness.pdf](CMP19_geometric_criteria_for_overtwistedness.pdf)
 - The plastikstufe - a generalization of the overtwisted disk to higher dimensions
