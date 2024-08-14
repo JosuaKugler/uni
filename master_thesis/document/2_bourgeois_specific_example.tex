@@ -3,22 +3,22 @@ Applying the Thurston--Winkelnkemper construction yields a contact form $\alpha_
 \[
     M = \left(\Sigma_{\overline{\varphi}}(\phi)\; \dot\cup\; \mathcal{N}\right)/\sim.
 \]
-Now, we apply the Bourgeois construction to it and obtain a contact form
+Now, carry out the Bourgeois construction and obtain a contact form
 \[
     \tilde \alpha_\text{ext} = \alpha_\text{ext} + x_1 \d \theta_1 - x_2 \d\theta_2
 \]
 on $M \times T^2$ where $\theta_1, \theta_2$ are coordinates on $T^2$
 and $x_1, x_2$ are coordinates as described in the section on the Bourgeois construction, 
-i.e. there is a function $\rho: M \to [0,1]$ that agrees with $r$ near the binding $B$ and we define
+i.e. there is a function $\rho: M \to [0,1]$ that agrees with $r$ near the binding $B$ and define
 \[
     x_1 \coloneqq \rho \cos(p);\qquad x_2 \coloneqq \rho \sin(p).
 \]
 
-Inside $\mathcal{N}$, our projection map $p$ is given by the angular coordinate $\varphi$. Therefore,
+Inside $\mathcal{N}$, the projection map $p$ is given by the angular coordinate $\varphi$. Therefore,
 \[
     \alpha|_\mathcal{N} = \alpha_\text{ext} = h_1(r)\beta_\partial + h_2(r)\d \varphi = h_1(r)\beta_\partial + h_2(r)\d p.
 \]
-In total, we obtain for the contact form on $\mathcal{U} \coloneqq \mathcal{N}\times T^2$
+In total, the contact form on $\mathcal{U} \coloneqq \mathcal{N}\times T^2$ is
 \[
     \tilde \alpha = h_1(r)\beta_\partial + h_2(r)\d p + \rho(r)(\cos(p) \d \theta_1 - \sin(p) \d \theta_2)
 \]
@@ -27,7 +27,7 @@ Outside $\mathcal{U}$, the form is given by
     \tilde \alpha = \beta + \d p + \cos(p) \d\theta_1 - \sin(p) \d \theta_2,
 \]
 as $\rho(r) = 1\; \forall r \geq 1$.
-Collecting all the conditions on $h_1$ and $h_2$ from the last section, we require that
+Collecting all the conditions on $h_1$ and $h_2$ from the last section, the requirements are
 \begin{itemize}
     \item $h_1(r) = e^s = e^{1-r}, h_2(r) = 1$ in the gluing area ($ 1 \le r \le 2$).
     \item Smoothness around the binding and contact condition on the binding: $h_1(r) = 2 - r^2$ and $h_2(r) = r^2$ around $r = 0$.
@@ -40,7 +40,7 @@ Collecting all the conditions on $h_1$ and $h_2$ from the last section, we requi
     \]
 \end{itemize}
 
-\subsection{Reeb dynamics}
+\subsection{Reeb dynamics}\label{reeb_dynamics}
 We now define two functions $\mu, \nu: M \to \mathbb R$ as follows:
 \[
     \mu = \begin{cases}
@@ -54,14 +54,14 @@ We now define two functions $\mu, \nu: M \to \mathbb R$ as follows:
     \end{cases}.
 \]
 Both $\mu$ and $\nu$ are smooth.
-First of all, we note that both are quotients of smooth functions.
+First of all, note that both are quotients of smooth functions.
 We have to make sure that $\rho'h_1 \neq \rho h_1'$.
 All of the involved functions are non-negative except for $h_1'$, which is constantly negative ($h_1$ needs to be chosen in such a way that $h_1'$ is nonzero). As a result,
 \[
     \rho'h_1 > 0 > \rho h_1',
 \]
 so the denominator is always nonzero.
-As $\rho$ is constantly 1 for $r \geq 1$, we see that $\mu$ is 0 for $r \geq 1$.
+As $\rho$ is constantly 1 for $r \geq 1$, $\mu$ must be 0 for $r \geq 1$.
 In particular, it is smooth everywhere. For $\nu$, setting $\rho \equiv 1$ implies $\rho' = 0$ on $r \geq 1$. Therefore, the denominator simplifies to 1 and $\nu$ is smooth, too.
 \begin{lemma}
     The Reeb vector field of the contact form $\tilde \alpha$ is given by
@@ -71,7 +71,7 @@ In particular, it is smooth everywhere. For $\nu$, setting $\rho \equiv 1$ impli
     where $R_B$ is the Reeb vector field of $\beta_\partial$, the contact form on $\partial \Sigma$.
 \end{lemma}
 \begin{proof}
-    Inside $\mathcal{U}$, we compute
+    Inside $\mathcal{U}$,
     \begin{align*}
         \tilde\alpha(R) &= h_1(r)\beta_\partial(R) + h_2(r)\d p(R) + \rho(r)(\cos(p) \d \theta_1 - \sin(p) \d \theta_2)(R)\\
         \intertext{$\beta_\partial$ and $\d p$ are 0 on $\partial_{\theta_i}$, $p$ and $\theta_i$ are constant on $R_B$}
@@ -80,7 +80,7 @@ In particular, it is smooth everywhere. For $\nu$, setting $\rho \equiv 1$ impli
         &= \frac{h_1\rho'}{\rho'h_1 - \rho h_1'} + \frac{- \rho h_1'}{\rho'h_1 - \rho h_1'}\\
         &= 1.
     \end{align*}
-    Computing $\d \tilde\alpha$, we immediately drop the $\d r$-terms, as they evaluate to $0$ on $R$.
+    Computing $\d \tilde\alpha$, one can immediately drop the $\d r$-terms, as they evaluate to $0$ on $R$.
     \begin{align*}
         \d\tilde \alpha(R, \cdot) &= h_1(r)\d \beta_\partial(R, \cdot) - \rho(r)[\sin(p)\d p \wedge \d \theta_1 + \cos(p) \d p\wedge \d \theta_2](R, \cdot)
         \intertext{$\beta_\partial$ and $\d p$ are 0 on $\partial_{\theta_i}$, $\d \beta_\partial(R_B) = 0$, $p$ is 0 on $R_B$}
@@ -89,7 +89,7 @@ In particular, it is smooth everywhere. For $\nu$, setting $\rho \equiv 1$ impli
         &= \rho(r)\nu(r)\left[\sin(p)\cos(p) - \cos(p)\sin(p)\right]\d p\\
         &= 0
     \end{align*}
-    Outside $\mathcal{U}$, we have
+    Outside $\mathcal{U}$,
     \[
         R = \cos(p)\partial_{\theta_1} - \sin(p)\partial_{\theta_2}.  
     \]
@@ -111,5 +111,4 @@ In particular, it is smooth everywhere. For $\nu$, setting $\rho \equiv 1$ impli
     \end{align*}
 \end{proof}
 
-From here on, one can compute the Conley-Zehnder-index of the periodic orbits etc. - lots of things that are blackboxed later.
-Maybe state the results here for transparency.
+This computation is needed in the proof of \cref{binding_adc}, cf.~\cite[Lemma 2.8]{BGMZ22}

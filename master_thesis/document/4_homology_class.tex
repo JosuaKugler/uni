@@ -1,0 +1,40 @@
+The obstruction theorem says that any homology class in the dividing set that dies in the filling $W$, will also
+die in $V_{\pm}$.
+The goal is to prove that there is a nontrivial homology class $\beta \subset V_\pm$ that
+comes from $\Gamma$, but dies in $W$. This contradicts the obstruction theorem and shows that there can be no filling.
+
+\begin{lemma}
+    There exists a homology class in $\Gamma$ that survives in $V_\pm$.
+\end{lemma}
+\begin{proof}
+    First, take a closer look at $V_\pm$. By construction,
+    \[
+        V_\pm = \Sigma \times D^*S^1.
+    \]
+    Now, the Künneth-formula for coefficient ring $\mathbb Z$ shows that
+    \begin{multline}
+        0 \to \bigoplus_{i+j = n} H_i(\Sigma) \otimes_{\mathbb Z} H_j(D^* S^1) \to  H_n(\Sigma \times D^*S^1)\\
+        \to \bigoplus_{i+j = n-1} \operatorname{Tor}^\mathbb{Z}_1\left(H_i(\Sigma), H_j(D^* S^1)\right) \to 0
+    \end{multline}
+    is an exact split sequence.
+    Consequently,
+    \[
+        H_n(V_\pm) \cong \bigoplus_{i+j = n} H_i(\Sigma) \otimes_{\mathbb Z} H_j(D^* S^1) \oplus \bigoplus_{i+j = n-1} \operatorname{Tor}^\mathbb{Z}_1\left(H_i(\Sigma), H_j(D^* S^1)\right).
+    \]
+    As $\Sigma^{2n-2}$ is a Milnor page, homology doesn't vanish in degree $n-1$.
+    Also $H_1(D^*S^1) \neq 0$, too. Therefore, the term $H_{n-1}(\Sigma) \otimes_{\mathbb Z} H_1(D^*S^1)$ is nonzero and as a result, 
+    there is a nonzero homology class in $H_n(V_\pm)$.
+    As 
+    \[
+        \Gamma = \partial V_\pm = \partial \Sigma \times D^*S^1 \cup \Sigma \times \left(S^1 \sqcup S^1\right),
+    \]
+    the exact same argument also applies to the second term of $\Gamma$ and proves the existence of a
+    nontrivial homology class in $\Gamma$ that survives in $V_\pm$.
+\end{proof}
+
+Now, in the surgery case, with several modifications the inclusion
+$V_+ \to W$ factors via $V_+ \hookrightarrow \partial W = S^{2n+1} \hookrightarrow W$.
+On homology level, one gets
+$H_n(V_+) \hookrightarrow H_n(S^{2n+1}) \hookrightarrow H_n(W)$.
+As the middle term is $0$, any homology class coming from $V_+$ dies in the filling $W$.
+This is the desired contradiction.

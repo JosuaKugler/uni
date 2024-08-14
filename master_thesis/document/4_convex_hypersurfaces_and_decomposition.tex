@@ -1,0 +1,86 @@
+\begin{definition}[Convex hypersurface]cf.~\cite[Definition 1.1.4]{HH19}
+    A hypersurface $\Sigma \subset (M, \xi)$ is convex if there exists a contact
+    vector field $v$, i.e., a vector field whose flow preserves $\xi$, which is transverse to $\Sigma$
+    everywhere.
+\end{definition}
+
+\begin{definition}[Dividing set]cf.~\cite[Definition 1.2.1]{HH19}
+    With notation as above, define the dividing set $\Gamma(\Sigma) \coloneqq \{\alpha(v) = 0\}$ and $R_\pm(\Sigma) \coloneqq \{\pm \alpha(v) > 0\}$ 
+    as subsets of $\Sigma$.
+\end{definition}
+It turns out that this is a codimension 2 submanifold and $R_\pm(\Sigma)$ are Liouville manifolds. 
+
+
+
+\begin{definition}[ideal Liouville domain] \cite[Definition 1]{Giroux20}
+An ideal Liouville domain
+$(F, \omega)$ is a domain $F$ endowed with an ideal Liouville structure $\omega$. This
+ideal Liouville structure is an exact symplectic form on $\operatorname{int} F$
+admitting a primitive $\lambda$ such that: for some (and then any) function 
+$u \colon F \to \mathbb R_{\geq 0}$  with regular level set $\partial F = \{u = 0\}$,
+the product $u\lambda$ extends to a smooth 1-form on $F$ which 
+induces a contact form on $\partial F$.
+\end{definition}
+
+\begin{definition}[corresponding Giroux domain]\cite[Section 5.3]{MNW13}
+    \label{def:giroux_domain}
+    Given an ideal Liouville domain $(F, \omega)$ with primitive $\lambda$
+    and function $u \colon F \to \mathbb R_{\geq 0}$ as above,
+    the corresponding Giroux domain is given by
+    \[
+        F \times S^1_\theta
+    \]
+    endowed with contact structure
+    \[
+        \ker(u \d \theta + u \lambda)
+    \]
+\end{definition}
+$\partial_\theta$ is a contact vector field, as it doesn't change the contact structure. 
+Also, it is transversal to $F$. Hence, $F$ is a convex surface and there always is a convex decomposition.
+
+Start with a Bourgeois manifold $\operatorname{BO}(\Sigma,\dots)$.
+Smoothly,
+\[
+    \operatorname{BO}(\Sigma,\dots) = \operatorname{OB}(\Sigma, \dots) \times T^2 
+    = \big[\operatorname{OB}(\Sigma, \dots) \times S^1\big] \times S^1 
+    \eqqcolon V \times S^1.
+\]
+In the convex decomposition of the first factor
+\[
+    V = V_+ \bigcup_\Gamma \overline{V}_-,
+\]
+where $\Gamma$ is the dividing set, $V_\pm$ turn out to be ideal Liouville domains according to \cite[Section 6]{DG12}.
+In \cite[Section 5.3]{DG12}, the authors explicitly compute $\Gamma$ and 
+$V_\pm$ for the Bourgeois construction and obtain %maybe make a picture here?
+\[
+    \Gamma = \{y = 0\} = p^{-1}(\{0\}) \cup_B p^{-1}(\{\pi\})
+\]
+and
+\[
+    V_+ = p^{-1}([0, \pi]) \times S^1, \qquad V_- = p^{-1}([\pi, 2\pi]) \times S^1,
+\]
+i.e. topologically $V_\pm = \Sigma \times D^*S_1$.
+If $\alpha + x \d \phi + y \d \theta$ is the contact structure on $\operatorname{OB}(\Sigma, \dots)$,
+then as explained in \cite[Section 5.3]{DG12}, $\alpha + x \d \phi$ is a 
+$S^1_\phi$-invariant contact form on $\Gamma$,
+\[
+    \omega_\pm = \pm \d \left(\frac{\alpha}{y} + \frac{x}{y}\d \phi\right) 
+\]
+is an $S^1_\phi$-invariant symplectic form on $V_\pm$ and
+$y$ is a function with zero level set $\pm \Gamma = \partial V_\pm$.
+Hence, $(V_\pm, \omega_\pm)$ is an ideal Liouville domain with Liouville form
+\[
+    \beta_\pm = \pm \left(\frac{\alpha}{y} + \frac{x}{y}\d \phi\right).
+\]
+According to \cref{def:giroux_domain}, $V_\pm \times S^1_\theta$
+endowed with the contact structure 
+\[
+    \ker(y \d \theta + y \beta_\pm) = \alpha + x \d \phi + y \d \theta
+\]
+is the corresponding Giroux domain. Clearly, this is just the restriction
+of the open book contact structure. Hence, the whole procedure actually yields a
+splitting into two Giroux domains
+\[
+    \operatorname{OB}(\Sigma, \dots) = V_+ \times S^1_\theta 
+    \bigcup_{\Gamma \times S^1_\theta} V_- \times S^1_\theta
+\]

@@ -7,6 +7,7 @@
 \usepackage{enumerate}
 \usepackage{subcaption}
 \usepackage{comment}
+\usepackage{parskip}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}{Lemma}
 \newtheorem{remark}{Remark}
@@ -14,6 +15,7 @@
 \renewcommand*{\d}{\mathrm{d}}
 
 \begin{document}
+\tableofcontents
 \input{abstract.tex}
 \chapter{Introduction}
 \begin{itemize}
@@ -48,7 +50,14 @@ Maybe copy things from the Expose for the scholarship application.
 \input{3_tightness_specific.tex}
 
 \chapter{Non-Fillability}
-\input{convex_decomposition.tex}
+\section{Convex hypersurfaces and convex decompositions}
+\input{4_convex_hypersurfaces_and_decomposition.tex}
+\section{Surgery along embedded Giroux domains}
+\input{4_blowdown.tex}
+\section{Stable Hamiltonian structures without additional surgery}
+\section{How to generalize the obstruction theorem to the case with surgery}
+\section{Existence of the required homology class}
+\input{4_homology_class.tex}
 
 % add a short intro to convex hypersurfaces and convex decompositions in general
 \newpage

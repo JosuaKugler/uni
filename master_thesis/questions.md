@@ -49,7 +49,7 @@ I think the point is that there exist local trivializations s.t. all transition 
 
 ### A 2n-dim vector bundle with a complex structure and an arbitrary hermitian metric can locally be trivialised by n sections that are orthonormal
 Locally, it's isomorphic to U x C^n. Under the isomorphism, the hermitian metric stays a hermitian metric. For any metric, we can find n orthonormal vectors.
-Because U x C^n is a product space, we can just use these vectors and take them as sections.
+Because U x C^n is a product space,can just use these vectors and take them as sections.
 
 
 ### What does reduction of structure group to U(n)x 1 mean?
