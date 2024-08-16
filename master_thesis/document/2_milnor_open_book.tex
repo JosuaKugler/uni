@@ -9,13 +9,21 @@ On the complement $S^{2n-1} \setminus B$, the map
     \pi_f\colon S^{2n-1}\setminus B \to S^1\colon (z_0, \dots, z_{n-1}) \mapsto \frac{f(z_0, \dots, z_{n-1})}{|f(z_0, \dots, z_{n-1})|}
 \]
 is a fibration over $S^1$, the Milnor fibration.
-According to \cref{def:open_book_2}, this is an open book where the fibers of the Milnor fibration (i.e. the Milnor fibers) form the pages.
-%We only need to show that all points with $|f(x)| < 1$ are regular points.
-%This is easy to see for all points except $0$. 
-%At $0$, however, I don't think it's true as $Tf_0 = 0$.
+According to \cite[Lemma 6.1]{Milnor69}, the fibers are smooth $2n-2$-dimensional manifolds with boundary $B$.
+It is well-known that such a fibration is precisely an open book decomposition (of $S^{2n-1}$).
 
+If the dimension is high enough, the Brieskorn sphere is not just connected, but actually a topological sphere.
+
+According to \cite[Thm 6.5]{Milnor69}, the pages of this open book (i.e. the Milnor fibers) have the homotopy type of a bouquet of spheres 
+$S^{n-1} \vee \dots \vee S^{n-1}$.
+It follows from the Hurewicz theorem that 
+\[
+    H_0 = \mathbb Z, \qquad H_i = 0, \; 0 < i < n \qquad \text{and } H_n = \pi_n.
+\]
+\cite[Theorem 9.1]{Milnor69} implies that $H_n = \pi_n = \mathbb Z^{k-1}$.
 
 %Mention the properties that Agustin told me
 %- looks like spheres merged at one point
 %- homotopy of half-dimension CW complex
 %- homology properties?
+% -> for all of this see Milnor hypersurface singularities

@@ -7,29 +7,33 @@ comes from $\Gamma$, but dies in $W$. This contradicts the obstruction theorem a
     There exists a homology class in $\Gamma$ that survives in $V_\pm$.
 \end{lemma}
 \begin{proof}
-    First, take a closer look at $V_\pm$. By construction,
+    By construction,
     \[
-        V_\pm = \Sigma \times D^*S^1.
+        V_\pm = \Sigma \times D^*S^1
     \]
-    Now, the Künneth-formula for coefficient ring $\mathbb Z$ shows that
+    and
+    \[
+        \Gamma = \partial V_\pm = \partial \Sigma \times D^*S^1 \cup \textcolor{blue}{\Sigma} \times \left(\textcolor{blue}{S^1} \sqcup S^1\right).
+    \]
+    First construct a homology class in $\Sigma \times S^1$.
+    The Künneth-formula for coefficient ring $\mathbb Z$ shows that
     \begin{multline}
-        0 \to \bigoplus_{i+j = n} H_i(\Sigma) \otimes_{\mathbb Z} H_j(D^* S^1) \to  H_n(\Sigma \times D^*S^1)\\
-        \to \bigoplus_{i+j = n-1} \operatorname{Tor}^\mathbb{Z}_1\left(H_i(\Sigma), H_j(D^* S^1)\right) \to 0
+        0 \to \bigoplus_{i+j = n} H_i(\Sigma) \otimes_{\mathbb Z} H_j(S^1) \to  H_n(\Sigma \times S^1)\\
+        \to \bigoplus_{i+j = n-1} \operatorname{Tor}^\mathbb{Z}_1\left(H_i(\Sigma), H_j(S^1)\right) \to 0
     \end{multline}
     is an exact split sequence.
     Consequently,
     \[
-        H_n(V_\pm) \cong \bigoplus_{i+j = n} H_i(\Sigma) \otimes_{\mathbb Z} H_j(D^* S^1) \oplus \bigoplus_{i+j = n-1} \operatorname{Tor}^\mathbb{Z}_1\left(H_i(\Sigma), H_j(D^* S^1)\right).
+        H_n(V_\pm) \cong \bigoplus_{i+j = n} H_i(\Sigma) \otimes_{\mathbb Z} H_j(S^1) \oplus 
+        \bigoplus_{i+j = n-1} \operatorname{Tor}^\mathbb{Z}_1\left(H_i(\Sigma), H_j(S^1)\right).
     \]
-    As $\Sigma^{2n-2}$ is a Milnor page, homology doesn't vanish in degree $n-1$.
-    Also $H_1(D^*S^1) \neq 0$, too. Therefore, the term $H_{n-1}(\Sigma) \otimes_{\mathbb Z} H_1(D^*S^1)$ is nonzero and as a result, 
-    there is a nonzero homology class in $H_n(V_\pm)$.
-    As 
-    \[
-        \Gamma = \partial V_\pm = \partial \Sigma \times D^*S^1 \cup \Sigma \times \left(S^1 \sqcup S^1\right),
-    \]
-    the exact same argument also applies to the second term of $\Gamma$ and proves the existence of a
-    nontrivial homology class in $\Gamma$ that survives in $V_\pm$.
+    In \cref{sec:milnor}, homotopy and homology properties of $\Sigma$ (the Milnor fiber) were described.
+    In particular, $H_{n-1}(\Sigma^{2n-2}) \neq 0$, as this is precisely half the dimension of the page.
+    Together with $H_1(S^1) \neq 0$, this proves that the term $H_{n-1}(\Sigma) \otimes_{\mathbb Z} H_1(S^1)$ is nonzero. As a result, 
+    there is a nonzero homology class in $H_n(\Sigma \times S^1) \hookrightarrow H_n(\Gamma)$.
+    Inlusion into $V_\pm$ doesn't kill this homology group, as $S^1 \hookrightarrow D^*S^1$ is a homotopy equivalence,
+    i.e. induces an isomorphism on homology level. 
+    This proves the existence of a nontrivial homology class in $\Gamma$ that survives in $V_\pm$.
 \end{proof}
 
 Now, in the surgery case, with several modifications the inclusion
