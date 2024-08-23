@@ -1,3 +1,16 @@
+\begin{definition}\label{def:support}
+    Let $(B,p)$ be an oriented open book decomposition of the oriented manifold $M$.
+    A contact structure $\xi = \ker \alpha$ on $M$ is said to be \textbf{supported} by the open book decomposition $(B,p)$ of $M$ if
+    \begin{enumerate}[(i)]
+        \item the contact form $\alpha$ induces the positive orientation of $M$ ($\alpha \wedge (\d \alpha)^n > 0$).
+        \item the 2-form $\d \alpha$ induces a symplectic form on each page, defining its positive orientation
+        \item the 1-form $\alpha$ induces a positive contact form on $B$, i.e. 
+        \[ 
+            \alpha|_{TB} \wedge (\d \alpha|_{TB})^{(n-2)} > 0.
+        \]
+    \end{enumerate}
+\end{definition}
+
 \begin{definition}[mapping torus]
     Let $\Sigma$ be a smooth manifold with boundary $\partial \Sigma$ and $\phi: \Sigma \to \Sigma$ a diffeomorphism that is equal to the identity close to $\partial \Sigma$.
     The mapping torus $\Sigma(\phi)$ is given by

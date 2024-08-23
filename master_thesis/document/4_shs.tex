@@ -1,0 +1,106 @@
+\begin{comment}
+In \cite[Section 6]{MNW13}, where the clean cut-out is first introduced,
+it is shown that it corresponds to a symplectic cobordism.
+The setting there is actually more general: The authors consider a Giroux
+domain where already some of the boundary components have been blown down.
+In this case, the situation is simpler: The Giroux domain 
+$V_- \times S^1 \subset \operatorname{BO}(\Sigma, \dots)$
+is directly obtained from the corresponding ideal Liouville domain $V_-$ by 
+round contactization.
+Its boundary is given by 
+\[
+    \partial V_- \times S^1 = \Gamma \times S^1.
+\]
+We want a cobordism from $\operatorname{BO}(\Sigma, \dots)$ to
+the same manifold after clean cut-out of $V_- \times S^1$.
+Topologically, the cobordism
+\[
+    W \coloneqq [0,1] \times \operatorname{BO}(\Sigma, \dots) \bigcup_{\{1\} \times \left(V_- \times S^1\right)} V_- \times D^2.
+\]
+fulfills the requirements: One boundary is simply 
+$\operatorname{BO}(\Sigma, \dots)$.
+The other boundary is 
+\[
+    \left[\operatorname{BO}(\Sigma, \dots) \setminus \left(V_- \times S^1\right)\right] 
+    \cup_{\Gamma \times S^1} \Gamma \times D^2,
+\]
+which is homeomorphic to 
+$\operatorname{BO}(\Sigma, \dots) \setminus \left(V_- \times S^1\right)$
+with blown down boundary, which is exactly the desired clean cut-out.
+
+Next, compute the contact structure on $\operatorname{BO}(\Sigma, \dots) \setminus \left(V_- \times S^1\right)$
+with blown down boundary $\partial V_- \times S^1 = \Gamma \times S^1$.
+
+This should be the contact boundary of $V_+ \times D^2$.
+Topologically, that makes sense,
+\[
+    \partial (V_+ \times D^2) = V_+ \times S^1 \cup \partial V_+ \times D^2 = V_+ \times S^1 \cup_{\Gamma \times S^1} \Gamma \times D^2.
+\]
+However, it is unclear to me why $V_+ \times D^2$ should carry a \underline{symplectic structure}.
+
+It should also be supported by the open book $\operatorname{OB}(V_+, \operatorname{id})$,
+which, again, topologically, makes perfect sense, but I don't understand the
+\underline{contact side of things}.
+\end{comment}
+
+For now, consider the easier case where no additional surgery is carried out on the Bourgeois manifold.
+That makes the proof for the homological obstruction theorem easier to understand.
+It can be generalized to the case with surgery later.
+The idea is to cap off both sides (i.e. $V_+$ and $V_-$) of the convex decomposition
+using the surgery procedure introduced in the last section.
+Topologically, this will result in $\Gamma \times S^2$ and 
+it will turn out to carry a stable Hamiltonian structure.
+
+In \cite[Section 6]{MNW13}, where the clean cut-out is first introduced,
+it is shown that it corresponds to a symplectic cobordism.
+The setting there is actually more general: The authors consider a Giroux
+domain where already some of the boundary components have been blown down.
+In this case, the situation is simpler: The Giroux domain 
+$V_\pm \times S^1 \subset \operatorname{BO}(\Sigma, \dots)$
+is directly obtained from the corresponding ideal Liouville domain $V_\pm$ by 
+round contactization.
+Its boundary is given by 
+\[
+    \partial V_\pm \times S^1 = \Gamma \times S^1.
+\]
+
+Now, considering the manifold $(V_+ \cup_\Gamma V_-)\times S^1$, perform a clean cut-out
+on both ends, i.e. remove the interior of $V_\pm \times S^1$ and blow down the boundary $\Gamma \times S^1$.
+In order to do this properly, it is necessary to consider a neighborhood 
+$\Gamma \times (-\delta, \delta)$ around the dividing set and 
+instead of $V_\pm$ take $V_\pm' \coloneqq V_\pm \setminus \Gamma \times [0, \pm \delta]$.
+Topologically, blowing down $\Gamma \times S^1$ yields $\Gamma \times D^2$.
+As this is done on both sides, the result is 
+\[
+    \Gamma \times D^2 \cup_{\Gamma \times S^1 \times -\delta} \Gamma \times (-\delta,\delta) 
+    \cup_{\Gamma \times S^1 \times +\delta} \Gamma \times D^2 \cong \Gamma \times S^2.
+\]
+
+%add picture here from drawing_capping_cobordism.xournal
+
+This whole surgery procedure can be realized as applying a certain symplectic cobordism.
+This is made precise in the following
+\begin{lemma}(follows from \cite[Theorem 6.1]{MNW13}, cf. \cite[Lemma 6.1]{BGM22})
+    There is a symplectic cobordism $(W, \omega)$ with negative (i.e. concave) 
+    contact boundary $\partial_-W = V \times S^1$ and weakly convex positive boundary
+    $\partial_+ W = \Gamma \times S^2$ where $\Gamma = \partial V$. 
+    Moreover, there is a tubular neighborhood $(-\delta, 0] \times \partial_+ W$
+    such that $\omega$ is of the form $d(e^t \alpha_\Gamma) + \omega_S$, 
+    where $t \in (-\delta, 0]$ and 
+    \begin{itemize}
+        \item $\omega_S$ is an area form on $S^2$,
+        \item $\alpha_\Gamma$ is a contact form on $\Gamma$.
+    \end{itemize}
+    Lastly, there are symplectic submanifolds $W_\pm$ , diffeomorphic to $V_\pm$, 
+    such that $W\setminus W_\pm$ deformation retracts onto its negative boundary, 
+    and such that $W_\pm$ intersect transversely, positively and in exactly one point, 
+    each symplectic sphere in the previously described neighborhood 
+    of the positive boundary $\partial_+ W$.
+\end{lemma}
+
+The submanifolds $W_\pm$ are basically $V_\pm \times 0 \subset V_\pm \times D^2$.
+If these submanifolds are taken out, the effect of the capping is topologically trivial.
+Therefore, the remaning cobordism is topologically just $\partial_- W\times [0,1]$.
+This clearly deformation retracts to the negative boundary.
+
+Now there is a moduli space of holomorphic curves
