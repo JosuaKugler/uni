@@ -1,0 +1,51 @@
+The homology obstruction theorem states that any homology class in the dividing set $\Gamma$ that dies in the filling $W$,
+will also die in $V_\pm$.
+In order to make this more precise, define the inclusion maps
+$i'\colon \Gamma \to \Gamma \times \{\operatorname{pt}\} \subset \Gamma \times S^2$ where $\operatorname{pt}$ is a point on the equator of $S^2$
+and $i$ as the composition of $i'$ with the inclusion $\Gamma \times S^2 \hookrightarrow \partial W \hookrightarrow W$. 
+
+Now, consider a homology class $z \in H_*(\Gamma, \mathbb{Q})$ such that $i_*(z) = 0 \in H_*(W, \mathbb{Q})$.
+Then the obstruction theorem states that already $f_{\pm,*}(z) = 0$.
+
+
+Start with a cycle $z \in H_*(\Gamma, \mathbb Q)$ with $i_*(z) = 0 \in H_*(W, \mathbb{Q})$.
+Consequently, there is a homology class $\sigma \in H_*(W, \mathbb Q)$ with boundary $i_*(z) = \partial \sigma$.
+Any homology class in $\Gamma$ that dies in $W$ can be described in this way.
+Intuitively, $\sigma$ can be pushed into $W_\pm$ in order to kill $z$ in $H_*(W_\pm, \mathbb{Q}) = H_*(V_\pm, \mathbb{Q})$.
+
+More precisely, consider the commutative diagram
+\[
+\begin{tikzcd}
+    \Gamma \arrow[r, hook, "i'"] \arrow[rrrr, bend left, "i"] \arrow[rrrdd, hook, "f_\pm"]
+        & \Gamma \times S^2  = \partial W  \arrow[r, "\operatorname{ev}_\partial^{-1}", "\sim" below]
+        & \partial \overline{\mathcal M}_* \arrow[r, hook, "j"]
+        & \overline{\mathcal M}_*          \arrow[r, "\operatorname{ev}"] \arrow[d, twoheadrightarrow, "\pi"] \arrow[dd, bend right, "\mathcal I_\pi^\pm" left]
+        & W \\
+    &&& \overline{\mathcal M} \arrow[d, "\mathcal{I}^\pm"]  &   \\
+    &&& W_\pm \simeq V_\pm                                  &   
+\end{tikzcd}
+\]
+where $j$ and $\pi$ are the obvious inclusion respectively forgetful maps.
+Recall that $\operatorname{ev}_\partial$ is the evaluation map restricted to the boundary of the moduli space. 
+As proved in the last section, this map is a diffeomorphism close to the boundary and in particular on the boundary.
+$\mathcal{I}^\pm\colon \overline{\mathcal{M}} \to W_\pm$ is the intersection map defined in the last section.
+Finally, choose $\mathcal I_\pi^\pm$ and $f_\pm$ such that the diagram commutes.
+
+Consider the set preimage $\operatorname{ev}^{-1}(\sigma) \subset \overline{\mathcal M}_*$.
+As the boundary $\partial \sigma$ is contained in $\partial W$, the evaluation map is a diffeomorphism
+and a neighborhood of $\partial \sigma$ is preserved under taking the preimage.
+Away from this neighborhood, a slight perturbation might be necessary to make the resulting set a cycle in $\overline{\mathcal M}_*$.
+%How does this work?
+Clearly, the resulting cycle $\tau$ has boundary $\partial \tau \cong b$ and $\partial \tau$ is contained in the boundary $\partial \overline{\mathcal M}_*$.
+
+%As $\pi$ maps $\partial \overline{\mathcal M}_*$ to $\partial \overline{\mathcal M}$, $\pi_*(\partial \tau)$ is contained in $\partial \overline{\mathcal M}$.
+The following equation holds:
+\begin{align*}
+    \partial I_{\pi,*}^\pm(\tau) &= I_{\pi,*}^\pm(\partial \tau)\\
+    &= I_{\pi, *}^\pm(\operatorname{ev}_{\partial, *}^{-1}(\partial \sigma))\\
+    &= I_{\pi, *}^\pm(\operatorname{ev}_\partial^{-1}(i_*(z)))\\
+    &= I_{\pi, *}^\pm\left((j \circ \operatorname{ev}_\partial^{-1} \circ i')_*(z)\right)\\
+    &= f^\pm(z)
+\end{align*}
+
+As a result, $\left[f^\pm(z)\right] = \left[\partial I_{\pi,*}^\pm(\tau)\right] = 0 \in H_*(W_\pm, \mathbb Q)$.

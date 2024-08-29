@@ -45,19 +45,11 @@ This gives rise to an intersection map
     \mathcal{I}^\pm\colon \overline{\mathcal{M}} \to W_\pm.
 \]
 
-A collar neighborhood of $\partial W_\pm$ is contained in a collar neighborhood of $\partial W$.
-Therefore, the uniqueness lemma applies: 
-Any curve with image $\mathcal{I}^\pm(u)$ in this neighborhood is a reparametrization of a curve $u_{t,q}$.
-Here, again, it turns out that this map is a diffeomorphism: We skip the smoothness and show that it's bijective.
-Surjectivity is clear: For $x \in W_\pm$, we have 
-
-%Again, this is a diffeomorphism close to the boundary because of a certain local uniqueness lemma.
-
-
-The homology obstruction theorem states that any homology class in the dividing set $\Gamma$ that dies in the filling $W$,
-will also die in $V_\pm$.
-
-Start with a cycle $\sigma \subset W$ with boundary $\partial \sigma \subset \Gamma$.
-Then, $\partial \sigma$ is a homology class in $\Gamma$ that dies in $W$.
-The goal is now to push $\sigma$ into $V_\pm$.
-This can be done by applying $\mathcal{I}^\pm\operatorname{ev}^{-1}\colon W \to V_\pm$ to it.
+As $\partial W_\pm \subset \partial W$, a collar neighborhood of $\partial W_\pm$ is contained in a collar neighborhood of $\partial W$.
+Therefore, the uniqueness lemma applies and it turns out that this map is a diffeomorphism close to the boundary $\partial \overline{\mathcal M}$.
+We skip the smoothness and show that it's bijective.
+\begin{itemize}
+    \item Surjectivity: For $x \in W_\pm \cap (-\epsilon, 0] \times \Gamma \times S^2$, consider the coordinate representation $x = (t, q, y)$.
+    Clearly, a preimage is given by $u_{t,q} \in \overline{\mathcal M_*}$ with marked point $x$. 
+    \item Injectivity: The preimage is unique due to the uniqueness lemma.
+\end{itemize}
