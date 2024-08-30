@@ -75,8 +75,30 @@ As this is done on both sides, the result is
     \Gamma \times D^2 \cup_{\Gamma \times S^1 \times -\delta} \Gamma \times (-\delta,\delta) 
     \cup_{\Gamma \times S^1 \times +\delta} \Gamma \times D^2 \cong \Gamma \times S^2.
 \]
+For an example, see \cref{fig:cap_cobordism}.
 
-%add picture here from drawing_capping_cobordism.xournal
+\begin{figure}[h!]
+    \begin{subfigure}[t]{.6\linewidth}
+        \includegraphics[trim=-.5cm -.5cm -.5cm -.5cm, width=\linewidth]{images/convex_decomposition_of_s1.pdf}
+        \subcaption{The convex decomposition of $V = S^1$ 
+        where the dividing set $\Gamma$ consists of two points is homotopic to a rectangle.}
+    \end{subfigure}\hspace*{.1\linewidth}
+    \begin{subfigure}[t]{.3\linewidth}
+        \includegraphics[trim=-.5cm -.5cm -.5cm -.5cm, width=\linewidth]{images/v_times_s1.pdf}
+        \subcaption{Taking the product with $S^1$ yields this torus. This is now $V \times S^1$.}
+    \end{subfigure}
+    \begin{subfigure}{.9\linewidth}
+        \includegraphics[trim=-.5cm -.5cm -.5cm -.5cm, width=\linewidth]{images/v_times_s1_with_caps.pdf}
+        \subcaption{On the upper boundary of the capping cobordism, one adds $V_\pm \times D^2$-caps to the torus.}
+    \end{subfigure}
+    \begin{subfigure}{.9\linewidth}
+        \centering
+        \includegraphics[trim=-.5cm -.5cm -.5cm -.5cm, width=.5\linewidth]{images/gamma_times_s2.pdf}
+        \subcaption{As a result, the upper boundary of the cobordism is $\Gamma \times S^2$. In this case that amounts to an outer (gray) and an inner (green) sphere.}
+    \end{subfigure}
+    \caption[short]{The upper boundary of the capping cobordism.}
+    \label{fig:cap_cobordism}
+\end{figure}
 
 This whole surgery procedure can be realized as applying a certain symplectic cobordism.
 This is made precise in the following
