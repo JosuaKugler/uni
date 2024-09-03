@@ -1,0 +1,68 @@
+Contact topology is the study of contact manifolds up to isotopy. 
+Early in the development of the field, Eliashberg discovered the "overtwisted disk".
+If a threedimensional contact manifold admits an embedding of such a special disk, it is called overtwisted.
+As mentioned in the abstract, such contact structures satisfy an $h$-principle.
+The term $h$-principle describes a situation where every element of an underlying set is homotopic to an
+element in a subset of more special, "geometric" objects (see \cref{sec:h_principle}).
+In this case, the more general set are almost contact structures, where an almost contact structure
+is simply the underlying topological structure of a contact structure.
+Any such almost contact structure is homotopic to an overtwisted contact structure.
+This is why overtwisted contact structures are comparably uninteresting: They exist
+in abundance and can be classified by purely topological methods.
+
+Tightness, another property of contact structures, was soon proved to be equivalent to "not overtwisted".
+Tight contact structures, however, are far more difficult to classify or even find than overtwisted ones.
+Understanding tightness has since been a big motivating question in contact geometry.
+
+The first systematic step in the direction of understanding tightness was the seminal work
+by Eliashberg--Gromov \cite{Gromov85, Eliashberg91}. In order to understand their work,
+one needs to consider a second important aspect of contact geometry:
+
+While contact manifolds are always odd-dimensional, there is a corresponding idea in even dimensions.
+Manifolds that are equipped with a closed nondegenerate 2-form are called symplectic. They are related
+to contact manifolds in many ways.
+For example, a hypersurface in a contact manifold with a transversal contact vector field
+induces a convex splitting of this hypersurface: There is the so-called dividing set (a contact submanifold)
+which divides the hypersurface into Liouville domains, i.e. exact symplectic manifolds (cf. \cref{sec:convex_decomposition}).
+
+The main connection between symplectic and contact manifolds, however, is the concept of fillability.
+A contact manifold is (strongly) fillable if it is the smooth boundary of a symplectic manifold and
+near the boundary, the symplectic form $\omega$ is equal to $\d \alpha$.
+For example, the standard contact structure on the sphere $(S^3, \xi)$ is fillable
+by the standard symplectic structure on the ball $(B^4, \omega)$.
+
+Now, as the word "strongly" already suggests, there are several variants of fillability:
+A contact manifold can be weakly fillable, (strongly) fillable, Liouville fillable or (Wein-)Stein fillable.
+From left to right, there are more and more conditions to be satisfied, i.e. we have a sequence
+of implications from the right to the left.
+
+Now, all components to understand the work of Eliashberg--Gromov are introduced:
+They showed that any kind of fillability implies tightness.
+This was the first general way to approach tightness.
+For the proof, they used the technique of holomorphic curves. Until today, holomorphic curves techniques are
+the only general approach to proving tightness.
+
+In three dimensions, these inclusions were all proven to be strict, see \cref{fig:fillability}.
+\begin{figure}
+    \begin{align*}
+        \{\text{Weinstein fillable}\} \stackrel{\text{\cite{Bowden12}}}{\subsetneq} 
+        \{\text{Liouville fillable}\} \stackrel{\text{\cite{Ghiggini05}}}{\subsetneq} 
+        \{\text{Strongly  fillable}\}\\ \stackrel{\text{\cite{Eliashberg96}}}{\subsetneq}
+        \{\text{Weakly    fillable}\} \stackrel{\text{\cite{EH02}}}{\subsetneq}
+        \{\text{Tight}\}
+    \end{align*}
+    \caption{Hierarchy of fillability in three dimensions}
+    \label{fig:fillability}
+\end{figure}
+
+Basically all of the concepts explained before have been generalized to higher dimensions.
+One example where this was not straightforward is the generalization of overtwistedness: 
+After a long process, multiple potential definitions were shown to be equivalent in arbitrary dimensions in \cite{BEM15}.
+
+In particular, there is a similar hierarchy of fillabilities in higher dimensions.
+
+%create similar figure or find another good solution 
+%Explain where Agustins papers come in
+%Explain what I will do
+%- open books and giroux correspondence
+%- rough sketch of how the proof works -> shorten proof sketch in abstract
