@@ -42,16 +42,17 @@ This was the first general way to approach tightness.
 For the proof, they used the technique of holomorphic curves. Until today, holomorphic curves techniques are
 the only general approach to proving tightness.
 
+As a result of their work, there is a chain of inclusions from Weinstein- and Liouville- over strongly and weakly fillable to tight.
 In three dimensions, these inclusions were all proven to be strict, see \cref{fig:fillability}.
 \begin{figure}
     \begin{align*}
-        \{\text{Weinstein fillable}\} \stackrel{\text{\cite{Bowden12}}}{\subsetneq} 
-        \{\text{Liouville fillable}\} \stackrel{\text{\cite{Ghiggini05}}}{\subsetneq} 
-        \{\text{Strongly  fillable}\}\\ \stackrel{\text{\cite{Eliashberg96}}}{\subsetneq}
-        \{\text{Weakly    fillable}\} \stackrel{\text{\cite{EH02}}}{\subsetneq}
+        \{\text{Weinstein fillable}\} \stackrel{\text{\cite{Bowden12}, \cite{BCS14}}}{\subsetneq} 
+        \{\text{Liouville fillable}\} \stackrel{\text{\cite{Ghiggini05}, \cite{Zhou21}}}{\subsetneq}\\
+        \{\text{Strongly  fillable}\} \stackrel{\text{\cite{Eliashberg96}, \cite{BGM22}}}{\subsetneq}
+        \{\text{Weakly    fillable}\} \stackrel{\text{\cite{EH02}, \cite{MNW13}}}{\subsetneq}
         \{\text{Tight}\}
     \end{align*}
-    \caption{Hierarchy of fillability in three dimensions}
+    \caption{Hierarchy of fillability in three dimensions (first citation) and in higher dimensions (second citation)}
     \label{fig:fillability}
 \end{figure}
 
@@ -59,10 +60,65 @@ Basically all of the concepts explained before have been generalized to higher d
 One example where this was not straightforward is the generalization of overtwistedness: 
 After a long process, multiple potential definitions were shown to be equivalent in arbitrary dimensions in \cite{BEM15}.
 
-In particular, there is a similar hierarchy of fillabilities in higher dimensions.
+Another example is that there is a similar hierarchy of fillabilities in higher dimensions. 
+Most definitions generalize to higher dimensions in a straightforward way. Tightness can just be defined as \textit{not overtwisted}.
+It turns out that the same chain of inclusions is true in higher dimensions, too.
+Proving the strictness of these inclusions took another few years, but now all inclusions are known to be strict also in higher dimensions, 
+see \cref{fig:fillability}.
 
-%create similar figure or find another good solution 
-%Explain where Agustins papers come in
-%Explain what I will do
-%- open books and giroux correspondence
-%- rough sketch of how the proof works -> shorten proof sketch in abstract
+Often, however, these counterexamples are manifolds where the underlying smooth manifold is very specific.
+This leads to the question whether the strictness of these inclusions is due to specific geometric properties of the counterexamples.
+In order to answer this question, Bowden--Gironella--Moreno--Zhou \cite{BGMZ22} have shown that tight but
+non-fillable contact structures exist in every almost contact class that admits a tight structure (in $\dim = 5$, there is a small technical assumption).
+This proves that there really is a inherently contact geometric difference 
+that can't be attributed to specific properties of the underlying smooth topology.
+They prove that result by first showing that there are homotopically standard, tight, but non-fillable contact structures on the sphere.
+Then, by so called "contact connected sum" (a connected sum operation that respects the contact structure),
+the more general result follows.
+
+Also, they prove that any sphere in $\dim \geq 7$ admits homotopically standard Liouville- but not Weinstein-fillable contact structures
+and, analogously, deduce a more general statement from this.
+As weak and strong fillability are equivalent on the sphere, the remaining question along this line of research is
+whether there is a Liouville- but not Weinstein-fillable contact structure on $S^5$ and if
+a higherdimensional sphere admits strongly, but not Liouville-fillable contact structures.
+
+This thesis focuses on the first theorem of \cite{BGMZ22}: $S^{2n+1}$ admits a homotopically standard, tight, but non-fillable contact structure
+for any $n \geq 2$. In fact, as the case for $n = 2$ is similar, but technically more difficult, it is omitted.
+
+The chapters of this thesis correspond to the three main steps of the proof. First, one constructs a homotopically standard contact structure on $S^{2n+1}$.
+This contact structure is then, secondly, shown to be tight.
+Thirdly, non-fillability is deduced.
+
+The starting point of \cref{chap:construction} is the famous Giroux-correspondence.
+Giroux disvovered that contact structures are closely related with open book decomposition.
+An open book decomposition really is a very intuitive concept: In a manifold $M^n$, find a codimension two submanifold $B^{n-2}$
+s.t. there is a fibration $p\colon M\setminus B \to S^1$. $B$ is then called "binding" and the fibers $p^{-1}(\theta)$ are the pages of the open book
+(see the figure that I will create next week).
+
+The Giroux correspondence states that in 3 dimensions, there is a (more or less) a bijection between contact structures
+and open book decompositions.
+In higher dimensions, similar statements hold, in particular any open book decomposition leads to a corresponding supported
+contact structure via the Thurston-Winkelnkemper-construction.
+This is used in the proof in order to construct a contact structure that is hopefully different from the standard contact structure on $S^{2n+1}$.
+
+Constructing a tight contact structure is not so easy: The standard way would be to take the boundary of some symplectic manifold,
+but then it is of course fillable, so this approach can't be used here.
+Even though there are many procedures that make a contact structure overtwisted (e.g. adding a Lutz twist), tightening procedures are very rare.
+Only the Bourgeois construction was known to often yield tight contact structures. 
+A recent preprint by Avdek and Zhou now proves that, in fact, Bourgeois manifolds are always tight \cite{AZ24}.
+Therefore, the next step in the proof is to apply the Bourgeois construction, resulting in a Bourgeois manifold $S^{2n-1} \times T^2$.
+Clearly, this has the wrong topology, so the final step in the construction is to kill the $T^2$-factor with
+subcricital contact surgeries, establishing a homotopically standard contact structure on the sphere $(S^{2n+1},\xi_\text{new}$.
+
+In \cref{chap:tightness}, one uses Reeb dynamics and holomorphic curves hidden in the framework of contact homology to prove that $\xi_\text{new}$
+is really tight.
+
+Finally, \cref{chap:nonfillable} finds a contradiction if the manifold was fillable. So first, assume it is fillable.
+The largest part then is devoted to proving that fillability implies a certain property for specific homology classes
+(homological obstruction theorem).
+Then, in the final section, such a homology class is constructed.
+However, it doesn't satisfy the required property, establishing the desired contradiction.
+The proof for the homological obstruction theorem is only sketched here.
+Also as it is easier to prove for $S^{2n-1} \times T^2$ instead of the surgered manifold $S^{2n+1}$,
+this thesis covers only the proof for $S^{2n-1} \times T^2$ according to \cite{BGM22}. 
+The proof in the general case is similar.
