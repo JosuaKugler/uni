@@ -1,8 +1,15 @@
-The homology obstruction theorem states that any homology class in the dividing set $\Gamma$ that dies in the filling $W$,
+The current situation is that $M\times T^2 = V_- \times S_1 \bigcup_\Gamma V_+\times S_1$ has a cobordism to $\Gamma \times S^2$.
+The surgeries that turn $M\times T^2$ into $S^{2n+1}$ can be made disjoint from the dividing set, so it makes sense to talk about $\Gamma \subset S^{2n+1}$.
+The full homology obstruction theorem states that any homology class in the dividing set $\Gamma$ that dies in a filling $W_\text{surg}$ of $S^{2n+1}$,
 will also die in $V_\pm$.
+
+For simplicity, in this thesis only a partial homology obstruction theorem will be proved, starting from a filling $W_\text{Bourgeois}$
+of the Bourgeois manifold $M\times T^2$. What will be proved is that any homology class in the dividing set $\Gamma$ that dies in
+$W_\text{Bourgeois}$ (all the more in $W$), will also die in $V_\pm$.
+
 In order to make this more precise, define the inclusion maps
 $i'\colon \Gamma \to \Gamma \times \{\operatorname{pt}\} \subset \Gamma \times S^2$ where $\operatorname{pt}$ is a point on the equator of $S^2$
-and $i$ as the composition of $i'$ with the inclusion $\Gamma \times S^2 \hookrightarrow \partial W \hookrightarrow W$. 
+and $i$ as the composition of $i'$ with the inclusion $\Gamma \times S^2 = \partial_+ C \hookrightarrow \partial W \hookrightarrow W$. 
 
 Now, consider a homology class $z \in H_*(\Gamma, \mathbb{Q})$ such that $i_*(z) = 0 \in H_*(W, \mathbb{Q})$.
 Then the obstruction theorem states that already $f_{\pm,*}(z) = 0$.
@@ -11,7 +18,7 @@ Then the obstruction theorem states that already $f_{\pm,*}(z) = 0$.
 Start with a cycle $z \in H_*(\Gamma, \mathbb Q)$ with $i_*(z) = 0 \in H_*(W, \mathbb{Q})$.
 Consequently, there is a homology class $\sigma \in H_*(W, \mathbb Q)$ with boundary $i_*(z) = \partial \sigma$.
 Any homology class in $\Gamma$ that dies in $W$ can be described in this way.
-Intuitively, $\sigma$ can be pushed into $W_\pm$ in order to kill $z$ in $H_*(W_\pm, \mathbb{Q}) = H_*(V_\pm, \mathbb{Q})$.
+Intuitively, $\sigma$ can be pushed into $C_\pm$ in order to kill $z$ in $H_*(C_\pm, \mathbb{Q}) = H_*(V_\pm, \mathbb{Q})$.
 
 More precisely, consider the commutative diagram
 \[
@@ -22,7 +29,7 @@ More precisely, consider the commutative diagram
         & \overline{\mathcal M}_*          \arrow[r, "\operatorname{ev}"] \arrow[d, twoheadrightarrow, "\pi"] \arrow[dd, bend right, "\mathcal I_\pi^\pm" left]
         & W \\
     &&& \overline{\mathcal M} \arrow[d, "\mathcal{I}^\pm"]  &   \\
-    &&& W_\pm \simeq V_\pm                                  &   
+    &&& C_\pm \simeq V_\pm                                  &   
 \end{tikzcd}
 \]
 where $j$ and $\pi$ are the obvious inclusion respectively forgetful maps.
@@ -48,4 +55,4 @@ The following equation holds:
     &= f^\pm(z)
 \end{align*}
 
-As a result, $\left[f^\pm(z)\right] = \left[\partial I_{\pi,*}^\pm(\tau)\right] = 0 \in H_*(W_\pm, \mathbb Q)$.
+As a result, $\left[f^\pm(z)\right] = \left[\partial I_{\pi,*}^\pm(\tau)\right] = 0 \in H_*(C_\pm, \mathbb Q) = H_*(V_\pm, \mathbb Q)$.

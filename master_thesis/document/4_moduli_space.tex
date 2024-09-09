@@ -1,9 +1,31 @@
+\begin{definition}
+    Let $(\Sigma, j)$ be a Riemann surface and $(M, J)$ an almost-complex manifold. Then a smooth map
+    \[
+        u \colon \Sigma \to M
+    \]
+    is called $J$-holomorphic (or pseudoholomorphic) if its differential at every point is complex-linear, i.e.
+    \[
+        Tu \circ j = J \circ Tu.
+    \]
+\end{definition}
 
+Pseudoholomorphic curves are used because holomorphic curves (where $M$ has to be a complex manifold) are to specific: 
+A lot of manifolds don't even have a complex structure, whereas all symplectic manifolds admit an almost-complex structure.
+
+%section 2.2.: Tameness and compatibility of almost complex structures on symplectic manifolds. Non-emptiness and contractibility of the total space
+%
+%4: We investigate the moduli space of holomorphic curves. The point is that parametrization shouldn't matter to a holomorphic curve.
+%Therefore, one takes the space of all curves modulo reparametrization diffeos.
+%Then, one tries to understand the resulting spaces. They are in some sense finite-dimensional (if Fredholm-regularity holds).
+%This can be ensured in various ways. The goal, however, is always to understand the structure of these moduli spaces
+
+Last section, a cobordism from $M\times T^2$ to $\Gamma \times S^2$ was constructed.
+Stacked on top of a hypothetical filling $W_\text{Bourgeois}$ of $M\times T^2$, this is a symplectic filling $W$ of $\Gamma \times S^2$.
 $W$, like any symplectic manifold, admits a compatible almost complex structure $J$.
 Now, the maps
 \begin{align*}
     u_{(t,q)} \colon S^2 &\to W,\\
-    y &\mapsto (t, q, y) \in (-\delta, 0] \times \underbrace{\Gamma \times S^2}_{= \partial_+ W}.
+    y &\mapsto (t, q, y) \in (-\delta, 0] \times \underbrace{\Gamma \times S^2}_{= \partial_+ C}.
 \end{align*}
 are $J$-holomorphic curves.
 %Why are they holomorphic?
@@ -13,10 +35,10 @@ and denote with $\mathcal{M}_*$ the corresponding marked moduli space with evalu
 \[
     \operatorname{ev}\colon \mathcal{M}_* \to W.
 \]
-Define the respective Gromov compactifications $\overline{\mathcal{M}}$ and $\overline{\mathcal{M}_*}$.
+Define the respective Gromov compactifications $\overline{\mathcal{M}}$ and $\overline{\mathcal{M}}_*$.
 Gromov proved that any sequence of holomorphic curves with finite energy bound converges to a
 holomorphic curve that possibly has nodes or bubbles.
-For now, just think of the Gromov compactification as adding all such limits of sequences in our moduli space to the space.
+For now, just think of the Gromov compactification as adding all such limits of sequences to the space.
 The finite energy bound follows from the fact that the homology class of the curve doesn't change.
 \[
     E(u_k) = \int_{S^2} u_k^*(\omega) = \langle [u_k], [\omega] \rangle = \langle [S^2], [\omega]\rangle = \operatorname{const}.
@@ -25,31 +47,31 @@ The finite energy bound follows from the fact that the homology class of the cur
 
 The following lemma describes the compactified moduli space close to the boundary.
 \begin{lemma}(\cite[Lemma 6.3]{BGM22}, cf. \cite[page 334]{MNW13})\label{lem:local_uniqueness}
-    Any curve in $\overline{\mathcal M_*}$ that intersects a small enough collar neighborhood
+    Any curve in $\overline{\mathcal M}_*$ that intersects a small enough collar neighborhood
     \[
         (-\epsilon, 0] \times \Gamma \times S^2
     \]
     is already a reparametrization of a sphere $u_{t,q}$ (i.e. equivalent in the moduli space).
 \end{lemma}
 
-Now consider the evaluation map $\operatorname{ev}\colon \overline{\mathcal M_*} \to W$ close to the boundary (in the neighborhood of \cref{lem:local_uniqueness}).
+Now consider the evaluation map $\operatorname{ev}\colon \overline{\mathcal M}_* \to W$ close to the boundary (in the neighborhood of \cref{lem:local_uniqueness}).
 There, the map is a diffeomorphism: Take any point $p  = (t, q, y) \in (-\epsilon, 0] \times \Gamma \times S^2$. 
 Then, by construction there exists at least one holomorphic sphere ($u_{t,q}$) that intersects this point
 and even has this point as marked point.
-Now take any such curve. By the lemma, it is equivalent in the moduli space $\overline{\mathcal M_*}$ to $u_{t,q}$, hence the map is bijective.
-The proof of smoothness is skipped here.
+By \cref{lem:local_uniqueness}, any such curve is equivalent (as an element of the moduli space $\overline{\mathcal M}_*$) to $u_{t,q}$, hence the map is bijective.
+The proof of smoothness is omitted here.
 
-According to \cref*{lem:capping_cobordism}, any such curve intersects $W_\pm$ transversely, positively and in exactly one point.
+According to \cref{lem:capping_cobordism}, any such curve intersects $C_\pm$ transversely, positively and in exactly one point.
 This gives rise to an intersection map
 \[
-    \mathcal{I}^\pm\colon \overline{\mathcal{M}} \to W_\pm.
+    \mathcal{I}^\pm\colon \overline{\mathcal{M}} \to C_\pm.
 \]
 
-As $\partial W_\pm \subset \partial W$, a collar neighborhood of $\partial W_\pm$ is contained in a collar neighborhood of $\partial W$.
+As $\partial C_\pm \subset \partial C$, a collar neighborhood of $\partial C_\pm$ is contained in a collar neighborhood of $\partial C$.
 Therefore, the uniqueness lemma applies and it turns out that this map is a diffeomorphism close to the boundary $\partial \overline{\mathcal M}$.
-We skip the smoothness and show that it's bijective.
+We skip the smoothness and show that it is bijective.
 \begin{itemize}
-    \item Surjectivity: For $x \in W_\pm \cap (-\epsilon, 0] \times \Gamma \times S^2$, consider the coordinate representation $x = (t, q, y)$.
-    Clearly, a preimage is given by $u_{t,q} \in \overline{\mathcal M_*}$ with marked point $x$. 
+    \item Surjectivity: For $x \in C_\pm \cap (-\epsilon, 0] \times \Gamma \times S^2$, consider the coordinate representation $x = (t, q, y)$.
+    Clearly, a preimage is given by $u_{t,q} \in \overline{\mathcal M}_*$ with marked point $x$. 
     \item Injectivity: The preimage is unique due to the uniqueness lemma.
 \end{itemize}

@@ -1,13 +1,13 @@
 Given a embedded Giroux domain, this section describes a procedure
 to remove its interior and "blow down" the resulting boundary.
-We will refer to the procedure as blown down surgery of the Giroux domain.
+We will refer to the procedure as blow down surgery of the Giroux domain.
 
-These boundary components are always of the form $B = S^1 \times M$.
-Topologically, blowing down is equivalent to simply gluing in $D^2 \times M$.
+These boundary components are always of the form $B = M \times S^1$.
+Topologically, blowing down is equivalent to simply gluing in $M\times D^2$.
 
 This operation can be performed in a way that respects the contact structure,
-provided that $S^1 \times M$ has a neighborhood
-of the form $[0, \epsilon)_s \times S^1_t \times M$ where $\alpha_M + s \d t$
+provided that $M \times S^1$ has a neighborhood
+of the form $M \times S^1_t \times [0, \epsilon)_s$ where $\alpha_M + s \d t$
 defines a contact form.
 In general this holds by \cite[Lemma 5.1]{MNW13} if the boundary components 
 are $\xi$-round hypersurfaces, but it is also possible to show the existence 
@@ -15,18 +15,18 @@ of that neighborhood directly.
 
 Let $D$ be the disk of radius $\epsilon$ in $\mathbb R^2$. The map 
 \[
-    \Psi \colon (re^{i\theta} , m) \mapsto (s = r^2, t = \theta, m)
+    \Psi \colon (m, re^{i\theta}) \mapsto (m, t = \theta, s = r^2)
 \]
-is a diffeomorphism from $(D \setminus \{0\}) \times M$ to 
-$(0, \epsilon)_s \times S^1_t \times M$ s.t.
+is a diffeomorphism from $M \times (D \setminus \{0\})$ to 
+$M \times S^1_t \times (0, \epsilon)_s$ s.t.
 \[
     \Psi^*(\alpha_M + s \d t) = \Psi^*(\alpha_M) + \Psi^*(s\d t) 
     = \alpha_M + r^2 \d \theta,
 \]
-where the latter contact form can be extended to all of $D^2 \times M$.
+where the latter contact form can be extended to all of $M \times D^2$.
 In summary: If there is such a neighborhood of $M \times S^1$ as described above, 
-we can glue $D \times M$ to $V \setminus B$ to get a new contact manifold 
-in which $B$ has been replaced by $M$.
+we can glue $M \times D$ to $V \setminus B$ to get a new contact manifold 
+in which $B$ has been replaced by $M$, \cref{fig:blowdown}.
 
 \begin{figure}
     \begin{subfigure}[t]{.293\linewidth}
@@ -47,6 +47,7 @@ in which $B$ has been replaced by $M$.
         The blowdown effectively reduces the inner blue surface $M \times S^1$ to $M = M \times \{0\} \subset M \times D^2$.}
     \end{subfigure}
     \caption{Visualization of the blowdown.}
+    \label{fig:blowdown}
 \end{figure}
 
 Boundary components of Giroux domains are 

@@ -1,17 +1,16 @@
 For now, consider the easier case where no additional surgery is carried out on the Bourgeois manifold.
 That makes the proof for the homological obstruction theorem easier to understand.
-It can be generalized to the case with surgery later.
+It can be generalized to the case with surgery, but this is omitted here.
 The idea is to cap off both sides (i.e. $V_+$ and $V_-$) of the convex decomposition
 using the surgery procedure introduced in the last section.
-Topologically, this will result in $\Gamma \times S^2$ and 
-it will turn out to carry a stable Hamiltonian structure.
+Topologically, this will result in a cobordism from $M\times T^2$ to $\Gamma \times S^2$.
 
 In \cite[Section 6]{MNW13}, where blowdown surgery of a Giroux domain is first introduced,
 it is shown that it corresponds to a symplectic cobordism.
 The setting there is actually more general: The authors consider a Giroux
 domain where already some of the boundary components have been blown down.
 In this case, the situation is simpler: The Giroux domain 
-$V_\pm \times S^1 \subset \operatorname{BO}(\Sigma, \dots)$
+$V_\pm \times S^1 \subset V \times S^1 = M \times T^2$
 is directly obtained from the corresponding ideal Liouville domain $V_\pm$ by 
 round contactization.
 Its boundary is given by 
@@ -58,29 +57,29 @@ For an example, see \cref{fig:cap_cobordism}.
 This whole surgery procedure can be realized as applying a certain symplectic cobordism.
 This is made precise in the following
 \begin{lemma}(follows from \cite[Theorem 6.1]{MNW13}, cf. \cite[Lemma 6.1]{BGM22})\label{lem:capping_cobordism}
-    There is a symplectic cobordism $(W, \omega)$ with negative (i.e. concave) 
-    contact boundary $\partial_-W = V \times S^1$ and weakly convex positive boundary
-    $\partial_+ W = \Gamma \times S^2$ where $\Gamma = \partial V$. 
-    Moreover, there is a tubular neighborhood $(-\delta, 0] \times \partial_+ W$
+    There is a symplectic cobordism $(C, \omega)$ with negative (i.e. concave) 
+    contact boundary $\partial_-C = V \times S^1$ and weakly convex positive boundary
+    $\partial_+ C = \Gamma \times S^2$ where $\Gamma = \partial V$. 
+    Moreover, there is a tubular neighborhood $(-\delta, 0] \times \partial_+ C$
     such that $\omega$ is of the form $d(e^t \alpha_\Gamma) + \omega_S$, 
     where $t \in (-\delta, 0]$ and 
     \begin{itemize}
         \item $\omega_S$ is an area form on $S^2$,
         \item $\alpha_\Gamma$ is a contact form on $\Gamma$.
     \end{itemize}
-    Lastly, there are symplectic submanifolds $W_\pm$ , diffeomorphic to $V_\pm$, 
-    such that $W\setminus W_\pm$ deformation retracts onto its negative boundary, 
-    and such that $W_\pm$ intersect transversely, positively and in exactly one point, 
+    Lastly, there are symplectic submanifolds $C_\pm$ , diffeomorphic to $V_\pm$, 
+    such that $C\setminus C_\pm$ deformation retracts onto its negative boundary, 
+    and such that $C_\pm$ intersect transversely, positively and in exactly one point, 
     each symplectic sphere in the previously described neighborhood 
-    of the positive boundary $\partial_+ W$.
+    of the positive boundary $\partial_+ C$.
 \end{lemma}
 
-The submanifolds $W_\pm$ are basically $V_\pm \times 0 \subset V_\pm \times D^2$, i.e. 
+The submanifolds $C_\pm$ are basically $V_\pm \times 0 \subset V_\pm \times D^2$, i.e. 
 the co-cores of the attached handles.
 If these submanifolds are taken out, the effect of the capping is topologically trivial.
-Therefore, the remaning cobordism is topologically just $\partial_- W\times [0,1]$.
+Therefore, the remaning cobordism is topologically just $\partial_- C\times [0,1]$.
 This clearly deformation retracts to the negative boundary.
 One can also construct a slightly modified deformation retract where instead 
-of removing the co-cores, we remove slight push-offs 
-(i.e. submanifolds that are obtained by shifting $W_\pm$ aside by a section of its normal bundle).
-Then, $W_\pm$ retracts to $V_\pm$.
+of removing the co-cores, one removes slight push-offs 
+(i.e. submanifolds that are obtained by shifting $C_\pm$ aside by a section of its normal bundle).
+Then, $C_\pm$ retracts to $V_\pm$.

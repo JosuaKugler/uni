@@ -1,7 +1,9 @@
-The obstruction theorem says that any homology class in the dividing set that dies in the filling $W$, will also
+The full obstruction theorem says that any homology class in the dividing set that dies in the filling $W_\text{surg}$, will also
 die in $V_{\pm}$.
+Note that, in this thesis, only the partial obstruction theorem was proved ($W_\text{Bourgeois}$ instead of $W_\text{surg}$).
+Nonetheless, the full obstruction theorem is used here.
 The goal is to prove that there is a nontrivial homology class $\beta \subset V_\pm$ that
-comes from $\Gamma$, but dies in $W$. This contradicts the obstruction theorem and shows that there can be no filling.
+comes from $\Gamma$, but dies in $W_\text{surg}$. This contradicts the obstruction theorem and shows that there can be no filling.
 
 \begin{lemma}
     There exists a homology class in $\Gamma$ that survives in $V_\pm$.
@@ -37,8 +39,8 @@ comes from $\Gamma$, but dies in $W$. This contradicts the obstruction theorem a
 \end{proof}
 
 Now, in the surgery case, with several modifications the inclusion
-$V_+ \to W$ factors via $V_+ \hookrightarrow \partial W = S^{2n+1} \hookrightarrow W$.
+$V_+ \to W_\text{surg}$ factors via $V_+ \hookrightarrow \partial W_\text{surg} = S^{2n+1} \hookrightarrow W_\text{surg}$.
 On homology level, one gets
-$H_n(V_+) \hookrightarrow H_n(S^{2n+1}) \hookrightarrow H_n(W)$.
-As the middle term is $0$, any homology class coming from $V_+$ dies in the filling $W$, contradiction.
+$H_n(V_+) \hookrightarrow H_n(S^{2n+1}) \hookrightarrow H_n(W_\text{surg})$.
+As the middle term is $0$, any homology class coming from $V_+$ dies in the filling $W_\text{surg}$, contradiction.
 This finishes the proof.

@@ -1,3 +1,9 @@
+The main ingredients for the next section come from the theory of convex hypersurfaces.
+Convex hypersurfaces were one of the main tools to classify tight contact structures in 3 dimensions.
+The following generalization to higher dimensions is generally still interesting, but doesn't have the same
+significance that it has in 3 dimensions. For this proof, however, it is useful as it helps provide
+the geometric situation where holomorphic curves can be used.
+
 \begin{definition}[Convex hypersurface]cf.~\cite[Definition 1.1.4]{HH19}
     A hypersurface $\Sigma \subset (M, \xi)$ is convex if there exists a contact
     vector field $v$, i.e., a vector field whose flow preserves $\xi$, which is transverse to $\Sigma$
@@ -8,9 +14,7 @@
     With notation as above, define the dividing set $\Gamma(\Sigma) \coloneqq \{\alpha(v) = 0\}$ and $R_\pm(\Sigma) \coloneqq \{\pm \alpha(v) > 0\}$ 
     as subsets of $\Sigma$.
 \end{definition}
-It turns out that this is a codimension 2 submanifold and $R_\pm(\Sigma)$ are Liouville manifolds. 
-
-
+It turns out that the dividing set is a codimension 2 submanifold and $R_\pm(\Sigma)$ are Liouville manifolds.
 
 \begin{definition}[ideal Liouville domain] \cite[Definition 1]{Giroux20}
 An ideal Liouville domain
@@ -35,14 +39,14 @@ induces a contact form on $\partial F$.
         \ker(u \d \theta + u \lambda)
     \]
 \end{definition}
-$\partial_\theta$ is a contact vector field, as it doesn't change the contact structure. 
-Also, it is transversal to $F$. Hence, $F$ is a convex surface and there always is a convex decomposition.
+As it doesn't change the contact structure, $\partial_\theta$ is a contact vector field.
+Also, it is transversal to $F$. Hence, $F$ is a convex surface and there exists a convex decomposition.
 
-Start with a Bourgeois manifold $\operatorname{BO}(\Sigma,\dots)$.
+Start with a Bourgeois manifold $M \times T^2$ where the open book decomposition of $M$ has pages $\Sigma$.
 Smoothly,
 \[
-    \operatorname{BO}(\Sigma,\dots) = \operatorname{OB}(\Sigma, \dots) \times T^2 
-    = \big[\operatorname{OB}(\Sigma, \dots) \times S^1\big] \times S^1 
+    M \times T^2 
+    = \big(M \times S^1\big) \times S^1 
     \eqqcolon V \times S^1.
 \]
 In the convex decomposition of the first factor
@@ -60,14 +64,18 @@ and
     V_+ = p^{-1}([0, \pi]) \times S^1, \qquad V_- = p^{-1}([\pi, 2\pi]) \times S^1,
 \]
 i.e. topologically $V_\pm = \Sigma \times D^*S_1$.
-If $\alpha + x \d \phi + y \d \theta$ is the contact structure on $\operatorname{OB}(\Sigma, \dots)$,
-then as explained in \cite[Section 5.3]{DG12}, $\alpha + x \d \phi$ is a 
+If $\alpha + x \d \phi + y \d \theta$ is the contact structure on $M\times S^1_\phi \times S^1_\theta$,
+then as explained in \cite[Section 5.3]{DG12}, 
+\[ 
+\alpha + x \d \phi
+\] 
+is a 
 $S^1_\phi$-invariant contact form on $\Gamma$,
 \[
     \omega_\pm = \pm \d \left(\frac{\alpha}{y} + \frac{x}{y}\d \phi\right) 
 \]
 is an $S^1_\phi$-invariant symplectic form on $V_\pm$ and
-$y$ is a function with zero level set $\pm \Gamma = \partial V_\pm$.
+$y$ is a function with zero level set $\Gamma = \partial V_\pm$.
 Hence, $(V_\pm, \omega_\pm)$ is an ideal Liouville domain with Liouville form
 \[
     \beta_\pm = \pm \left(\frac{\alpha}{y} + \frac{x}{y}\d \phi\right).
@@ -81,6 +89,6 @@ is the corresponding Giroux domain. Clearly, this is just the restriction
 of the open book contact structure. Hence, the whole procedure actually yields a
 splitting into two Giroux domains
 \[
-    \operatorname{OB}(\Sigma, \dots) = V_+ \times S^1_\theta 
+    M\times T^2 = V_+ \times S^1_\theta 
     \bigcup_{\Gamma \times S^1_\theta} V_- \times S^1_\theta
 \]
