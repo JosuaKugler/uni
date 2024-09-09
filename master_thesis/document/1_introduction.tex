@@ -1,5 +1,6 @@
-Contact topology is the study of contact manifolds up to isotopy. 
-Early in the development of the field, Eliashberg discovered the "overtwisted disk".
+As mentioned in the abstract, the dichotomy between tight and overtwisted is a fundamental concept in contact geometry.
+First insights about these attributes were gained when, early in the development of the field, 
+Eliashberg discovered the "overtwisted disk".
 If a threedimensional contact manifold admits an embedding of such a special disk, it is called overtwisted.
 As mentioned in the abstract, such contact structures satisfy an $h$-principle.
 The term $h$-principle describes a situation where every element of an underlying set is homotopic to an
@@ -15,34 +16,38 @@ Tight contact structures, however, are far more difficult to classify or even fi
 Understanding tightness has since been a big motivating question in contact geometry.
 
 The first systematic step in the direction of understanding tightness was the seminal work
-by Eliashberg--Gromov \cite{Gromov85, Eliashberg91}. In order to understand their work,
-one needs to consider a second important aspect of contact geometry:
+by Eliashberg--Gromov \cite{Gromov85, Eliashberg91}. Using holomorphic curves, they proved that any type of fillability implies tightness.
+Before moving on to the explanation of fillability, it is worth saying a few words on holomorphic curves.
+Gromovs idea to use that technique for the proof was really visionary. 
+Until today, all approaches for proving tightness are based on holomorphic curves 
+The rough idea of Gromov--Eliashberg was to assume that there is a holomorphic disk, 
+and then find a contradiction by constructing a suitable moduli space of holomorphic disks.
+Nowadays, tools like contact homology (or similar homology theories) are all based on holomorphic curves, too.
+In fact, it is an open question whether tightness can be understood fully on the basis of holomorphic curves 
+or if other tools will be necessary in some cases to detect tightness.
 
-While contact manifolds are always odd-dimensional, there is a corresponding idea in even dimensions.
+Fillability is another important aspect of contact geometry, based on its relation to symplectic geometry.
+While contact manifolds are always odd-dimensional, symplectic geometry is the corresponding concept in even dimensions.
 Manifolds that are equipped with a closed nondegenerate 2-form are called symplectic. They are related
 to contact manifolds in many ways.
 For example, a hypersurface in a contact manifold with a transversal contact vector field
 induces a convex splitting of this hypersurface: There is the so-called dividing set (a contact submanifold)
 which divides the hypersurface into Liouville domains, i.e. exact symplectic manifolds (cf. \cref{sec:convex_decomposition}).
 
-The main connection between symplectic and contact manifolds, however, is the concept of fillability.
+The main connection between symplectic and contact manifolds, however, is the concept of fillability:
 A contact manifold is (strongly) fillable if it is the smooth boundary of a symplectic manifold and
 near the boundary, the symplectic form $\omega$ is equal to $\d \alpha$.
 For example, the standard contact structure on the sphere $(S^3, \xi)$ is fillable
 by the standard symplectic structure on the ball $(B^4, \omega)$.
 
 Now, as the word "strongly" already suggests, there are several variants of fillability:
-A contact manifold can be weakly fillable, (strongly) fillable, Liouville fillable or (Wein-)Stein fillable.
-From left to right, there are more and more conditions to be satisfied, i.e. we have a sequence
-of implications from the right to the left.
+A contact manifold can be (Wein-)Stein fillable, Liouville fillable, (strongly) fillable or weakly fillable.
+From left to right, there are less and less conditions to be satisfied, i.e. there is a sequence
+of implications from the left to the right. 
+Eliashberg--Gromovs result adds tightness to the right end of these implications.
 
-Now, all components to understand the work of Eliashberg--Gromov are introduced:
-They showed that any kind of fillability implies tightness.
-This was the first general way to approach tightness.
-For the proof, they used the technique of holomorphic curves. Until today, holomorphic curves techniques are
-the only general approach to proving tightness.
-
-As a result of their work, there is a chain of inclusions from Weinstein- and Liouville- over strongly and weakly fillable to tight.
+In other words, there is a chain of inclusions from 
+Weinstein- and Liouville- over strongly and weakly fillable to tight contact manifolds.
 In three dimensions, these inclusions were all proven to be strict, see \cref{fig:fillability}.
 \begin{figure}
     \begin{align*}
@@ -66,21 +71,24 @@ It turns out that the same chain of inclusions is true in higher dimensions, too
 Proving the strictness of these inclusions took another few years, but now all inclusions are known to be strict also in higher dimensions, 
 see \cref{fig:fillability}.
 
-Often, however, these counterexamples are manifolds where the underlying smooth manifold is very specific.
+Often, however, these proofs of strictness simply construct very specific counterexamples with a very specific underlying smooth manifold.
 This leads to the question whether the strictness of these inclusions is due to specific geometric properties of the counterexamples.
-In order to answer this question, Bowden--Gironella--Moreno--Zhou \cite{BGMZ22} have shown that tight but
-non-fillable contact structures exist in every almost contact class that admits a tight structure (in $\dim = 5$, there is a small technical assumption).
-This proves that there really is a inherently contact geometric difference 
+Bowden--Gironella--Moreno--Zhou \cite{BGMZ22} provide a negative answer to this question by showing that tight but
+non-fillable contact structures exist in every almost contact class that admits a tight structure (in $\dim = 5$, there is an additional assumption, namely $c_1\neq 0$).
+This proves that there really is a inherently contact geometric difference between tightness and fillability
 that can't be attributed to specific properties of the underlying smooth topology.
-They prove that result by first showing that there are homotopically standard, tight, but non-fillable contact structures on the sphere.
+
+The proof starts with first establishing a more specific theorem: There are homotopically standard, tight, but non-fillable contact structures on the sphere.
 Then, by so called "contact connected sum" (a connected sum operation that respects the contact structure),
-the more general result follows.
+the general result follows.
 
 Also, they prove that any sphere in $\dim \geq 7$ admits homotopically standard Liouville- but not Weinstein-fillable contact structures
-and, analogously, deduce a more general statement from this.
-As weak and strong fillability are equivalent on the sphere, the remaining question along this line of research is
-whether there is a Liouville- but not Weinstein-fillable contact structure on $S^5$ and if
-a higherdimensional sphere admits strongly, but not Liouville-fillable contact structures.
+and, analogously, deduce a more general statement from this via contact connected sum.
+As weak and strong fillability are equivalent on the sphere, there are two remaining questions along this line of research:
+\begin{itemize}
+    \item Is there a Liouville- but not Weinstein-fillable contact structure on $S^5$?
+    \item Does a higherdimensional sphere admit strongly, but not Liouville-fillable contact structures?
+\end{itemize}
 
 This thesis focuses on the first theorem of \cite{BGMZ22}: $S^{2n+1}$ admits a homotopically standard, tight, but non-fillable contact structure
 for any $n \geq 2$. In fact, as the case for $n = 2$ is similar, but technically more difficult, it is omitted.
@@ -93,13 +101,13 @@ The starting point of \cref{chap:construction} is the famous Giroux-corresponden
 Giroux disvovered that contact structures are closely related with open book decomposition.
 An open book decomposition really is a very intuitive concept: In a manifold $M^n$, find a codimension two submanifold $B^{n-2}$
 s.t. there is a fibration $p\colon M\setminus B \to S^1$. $B$ is then called "binding" and the fibers $p^{-1}(\theta)$ are the pages of the open book
-(see the figure that I will create next week).
+(see the figure that I will plan to create later this week).
 
-The Giroux correspondence states that in 3 dimensions, there is a (more or less) a bijection between contact structures
+The Giroux correspondence states that in 3 dimensions, there is a bijection (modulo technical details) between contact structures
 and open book decompositions.
 In higher dimensions, similar statements hold, in particular any open book decomposition leads to a corresponding supported
 contact structure via the Thurston-Winkelnkemper-construction.
-This is used in the proof in order to construct a contact structure that is hopefully different from the standard contact structure on $S^{2n+1}$.
+This is used in the proof in order to construct a contact structure that is different from the standard contact structure on $S^{2n+1}$.
 
 Constructing a tight contact structure is not so easy: The standard way would be to take the boundary of some symplectic manifold,
 but then it is of course fillable, so this approach can't be used here.
@@ -108,17 +116,16 @@ Only the Bourgeois construction was known to often yield tight contact structure
 A recent preprint by Avdek and Zhou now proves that, in fact, Bourgeois manifolds are always tight \cite{AZ24}.
 Therefore, the next step in the proof is to apply the Bourgeois construction, resulting in a Bourgeois manifold $S^{2n-1} \times T^2$.
 Clearly, this has the wrong topology, so the final step in the construction is to kill the $T^2$-factor with
-subcricital contact surgeries, establishing a homotopically standard contact structure on the sphere $(S^{2n+1},\xi_\text{new}$.
+subcricital contact surgeries, establishing a homotopically standard contact structure on the sphere $(S^{2n+1},\xi_\text{new})$.
 
 In \cref{chap:tightness}, one uses Reeb dynamics and holomorphic curves hidden in the framework of contact homology to prove that $\xi_\text{new}$
 is really tight.
 
 Finally, \cref{chap:nonfillable} finds a contradiction if the manifold was fillable. So first, assume it is fillable.
 The largest part then is devoted to proving that fillability implies a certain property for specific homology classes
-(homological obstruction theorem).
-Then, in the final section, such a homology class is constructed.
-However, it doesn't satisfy the required property, establishing the desired contradiction.
-The proof for the homological obstruction theorem is only sketched here.
-Also as it is easier to prove for $S^{2n-1} \times T^2$ instead of the surgered manifold $S^{2n+1}$,
-this thesis covers only the proof for $S^{2n-1} \times T^2$ according to \cite{BGM22}. 
+(the homological obstruction theorem).
+As the theorem is easier to prove for $S^{2n-1} \times T^2$ instead of the surgered manifold $S^{2n+1}$,
+this thesis covers only the proof for the homological obstruction theorem for $S^{2n-1} \times T^2$ according to \cite{BGM22}. 
 The proof in the general case is similar.
+Then, in the final section, a homology class as described in the homological obstruction theorem is constructed.
+However, it doesn't satisfy the required property, thus establishing the desired contradiction.
