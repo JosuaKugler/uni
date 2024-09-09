@@ -6,7 +6,7 @@ Surgery is a quite general operation, in fact \cite[Theorem 1]{Milnor61} states 
 into one another by a sequence of surgeries if and only if they belong to the same cobordism class.
 In particular, the Stiefel-Whitney numbers (and hence orientability) are preserved under surgery.
 
-Let $W^n$ be a manifold, $\lambda \in \pi_p(W)$ a homotopy class and $f_0: S^p \to W \in \lambda$. When can $\lambda$ be killed?
+Let $W^n$ be a manifold, $\lambda \in \pi_p(W)$ a homotopy class and $(f_0: S^p \to W)\in \lambda$. When can $\lambda$ be killed?
 According to \cite[Lemma 3]{Milnor61}, a homotopy group can be killed if $n \geq 2p+1$ and the induced $S^p$-bundle $f_0^*(TW)$ is trivial.
 In this case, all homotopy groups $\pi_i(W)$ for $i < p$ stay unchanged, but $\pi_p(W)$ changes to $\pi_p(W)/G$ where $G$ is a subgroup containing $\lambda$.
 
@@ -18,7 +18,7 @@ It turns out that the second generator in $H_1$ can be killed like that, too.
 $H_2$ is then isomorphic to $\pi_2$ by the Hurewicz theorem.
 After proving that the respective 2-surgery is possible, one has created a manifold whose $H_1$ and $H_2$ homology groups are zero.
 In fact, one can prove that all homology groups are zero after the described surgery operations.
-FInally, the following two lemmata conclude the proof that the resulting manifold is diffeomorphic to a sphere.
+Finally, the following two lemmata conclude the proof that the resulting manifold is diffeomorphic to a sphere.
 
 \begin{lemma}
     A simply connected homology sphere is homeomorphic to the sphere.
@@ -44,14 +44,12 @@ FInally, the following two lemmata conclude the proof that the resulting manifol
 \end{proof}
 
 \begin{lemma}
-    A simply connected homology sphere that bounds a homology ball is diffeomorphic to the sphere.
+    A topological sphere that bounds a homology ball is diffeomorphic to the standard smooth sphere.
 \end{lemma}
 \begin{proof}
-    According to the last lemma, the homology sphere $M$ is homotopy equivalent to a sphere.
-
     As $W$ is a simply connected homology ball, all homotopy groups $\pi_{\ge 1}$ are 0 by the Hurewicz theorem.
     Taking any constant map on $W$ therefore is a homotopy equivalence by Whiteheads theorem, i.e. $W$ is contractible. 
-    Then, cut out a ball inside $W$ and obtain a cobordism $W'$ from a sphere to $M$.
+    Hence, cut out a ball inside $W$ and obtain a cobordism $W'$ from a sphere to $M$.
     One can prove, then, that $W'$ is an $h$-cobordism.
-    Thus, by the $h$-cobordism theorem (Ranicki, Theorem 1.9), $M$ is diffeomorphic to a sphere.
+    Thus, by the $h$-cobordism theorem \cite[Theorem 1.9]{Ranicki02}, $M$ is diffeomorphic to a sphere.
 \end{proof}

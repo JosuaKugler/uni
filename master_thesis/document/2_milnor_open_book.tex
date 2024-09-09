@@ -1,8 +1,21 @@
+The whole construction starts with an open book.
+
+\begin{definition}\label{def:open_book_1}
+    An open book decomposition of a manifold $M$ is a pair $(B,p)$ where the binding $B$ is a closed codim-2-submanifold of $M$ and the map $p$ is a smooth, locally trivial fibration
+    \[
+        p: M\setminus B \to S^1.
+    \]
+    The fibres $p^{-1}(\varphi), \varphi \in S^1$ are called the pages.
+    Moreover, it is required that the binding $B$ has a trivial tubular neighborhood $B\times D^2$ in which $p$ is given by the angular coordinate in the $D^2$-factor.
+    In this thesis, open books will also have Weinstein pages unless stated otherwise.
+\end{definition}
+
+In general, many open books would work, but for concreteness the following Milnor open book is chosen.
 Define $f\colon \mathbb C^n \to \mathbb C$ by
 \[
-    (z_0, \dots, z_{n-1}) \mapsto z_0^k + z_1^2 + \dots z_{n-1}^2.  
+    (z_0, \dots, z_{n-1}) \mapsto z_0^k + z_1^2 + \dots z_{n-1}^2
 \]
-Consider the sphere $S^{2n-1} \subset \mathbb C^n$.
+and consider the sphere $S^{2n-1} \subset \mathbb C^n$.
 The intersection $f^{-1}(0) \cap S^{2n-1}$ is the so called Brieskorn sphere $B = \Sigma_{n-1}(k,2,\dots,2)$.
 On the complement $S^{2n-1} \setminus B$, the map
 \[
@@ -12,18 +25,13 @@ is a fibration over $S^1$, the Milnor fibration.
 According to \cite[Lemma 6.1]{Milnor69}, the fibers are smooth $2n-2$-dimensional manifolds with boundary $B$.
 It is well-known that such a fibration is precisely an open book decomposition (of $S^{2n-1}$).
 
-If the dimension is high enough, the Brieskorn sphere is not just connected, but actually a topological sphere.
+For $\dim B \geq 3$, the Brieskorn sphere is (simply) connected \cite[Lemma 2]{Brieskorn66}.
 
 According to \cite[Thm 6.5]{Milnor69}, the pages of this open book (i.e. the Milnor fibers) have the homotopy type of a bouquet of spheres 
-$S^{n-1} \vee \dots \vee S^{n-1}$.
+$S^{n-1} \vee \dots \vee S^{n-1}$ (it can be proved that the pages are Weinstein).
 It follows from the Hurewicz theorem that 
 \[
     H_0 = \mathbb Z, \qquad H_i = 0, \; 0 < i < n \qquad \text{and } H_n = \pi_n.
 \]
 \cite[Theorem 9.1]{Milnor69} implies that $H_n = \pi_n = \mathbb Z^{k-1}$.
-
-%Mention the properties that Agustin told me
-%- looks like spheres merged at one point
-%- homotopy of half-dimension CW complex
-%- homology properties?
-% -> for all of this see Milnor hypersurface singularities
+This will be useful to find specific homology classes later in the thesis.
