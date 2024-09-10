@@ -16,7 +16,7 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns:ns1="http://www.iki.fi/pav/software/textext/">
+   xmlns:ns8="http://www.iki.fi/pav/software/textext/">
   <sodipodi:namedview
      id="namedview1"
      pagecolor="#ffffff"
@@ -27,12 +27,12 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
-     inkscape:zoom="0.85107639"
-     inkscape:cx="600.41614"
-     inkscape:cy="392.44421"
+     inkscape:zoom="4.4361876"
+     inkscape:cx="442.8352"
+     inkscape:cy="190.47887"
      inkscape:window-width="1920"
      inkscape:window-height="1016"
-     inkscape:window-x="1920"
+     inkscape:window-x="0"
      inkscape:window-y="27"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer1" />
@@ -115,35 +115,30 @@
        d="m 99.333426,46.040618 c 0.441617,-12.659901 2.135704,-14.690382 8.238084,-19.062427 13.89213,-9.952981 44.36455,0.573345 43.45071,12.283867"
        id="path113"
        sodipodi:nodetypes="csc" />
+    <path
+       style="fill:#00b5ff;fill-opacity:1;stroke:#000000;stroke-width:0.230727px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 99.348691,45.270061 c 1.224949,43.371657 54.634799,3.060715 51.844119,-6.538206"
+       id="path111"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:#00b5ff;fill-opacity:1;stroke:#000000;stroke-width:0.143886;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:0.575545, 0.575545;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 99.304327,46.23893 c 0.57109,-8.732669 6.620223,-11.705196 9.123493,-13.472442 2.68559,-1.895953 14.94271,-9.276696 33.43881,-1.218277 5.73853,2.500179 9.44493,7.628837 9.44493,7.628837"
+       id="path112"
+       sodipodi:nodetypes="cssc" />
     <g
-       id="g113"
-       style="fill:#abb8ed;fill-opacity:1"
-       transform="matrix(0.49113359,0,0,0.49113359,37.673127,25.182553)">
+       id="g114"
+       style="fill:#ffffff;fill-opacity:1"
+       transform="matrix(0.87203888,0,0,0.87203888,-1.5680264,-16.238303)">
       <path
-         style="fill:#a3b6f5;fill-opacity:1;stroke:#000000;stroke-width:0.469784px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         d="m 125.57798,40.900294 c 2.49413,88.309286 111.24224,6.23194 105.56011,-13.31248"
-         id="path111"
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.109776px;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:0.439104, 0.439104;stroke-dashoffset:0;stroke-opacity:1"
+         d="m 133.41126,70.801758 c 0.54939,21.890694 22.23782,0.710439 20.9862,-4.134364"
+         id="path111-6"
          sodipodi:nodetypes="cc" />
       <path
-         style="fill:#a3b6f5;fill-opacity:1;stroke:#000000;stroke-width:0.292968;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:1.17187, 1.17187;stroke-dashoffset:0;stroke-opacity:1"
-         d="m 125.48765,42.873014 c 1.1628,-17.78064 13.47948,-23.83302 18.57639,-27.43132 5.46815,-3.86036 30.42495,-18.8883343 68.08496,-2.48054 11.68426,5.09063 19.23088,15.53312 19.23088,15.53312"
-         id="path112"
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.068;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:0.272, 0.272;stroke-dashoffset:0;stroke-opacity:1"
+         d="m 133.39136,70.816548 c 0.25614,-4.407576 2.96916,-5.907887 4.09187,-6.799854 1.20448,-0.956941 6.70178,-4.682195 14.99724,-0.614898 2.57372,1.261905 1.598,4.060125 1.598,4.060125"
+         id="path112-2"
          sodipodi:nodetypes="cssc" />
-      <g
-         id="g114"
-         style="fill:#ffffff;fill-opacity:1"
-         transform="matrix(1.7755635,0,0,1.7755635,-79.899144,-84.33725)">
-        <path
-           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.109776px;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:0.439104, 0.439104;stroke-dashoffset:0;stroke-opacity:1"
-           d="m 133.41126,70.801758 c 0.54939,21.890694 22.23782,0.710439 20.9862,-4.134364"
-           id="path111-6"
-           sodipodi:nodetypes="cc" />
-        <path
-           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.068;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:0.272, 0.272;stroke-dashoffset:0;stroke-opacity:1"
-           d="m 133.39136,70.816548 c 0.25614,-4.407576 2.96916,-5.907887 4.09187,-6.799854 1.20448,-0.956941 6.70178,-4.682195 14.99724,-0.614898 2.57372,1.261905 1.598,4.060125 1.598,4.060125"
-           id="path112-2"
-           sodipodi:nodetypes="cssc" />
-      </g>
     </g>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.0957287px;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:0.382916, 0.382916;stroke-dashoffset:0;stroke-opacity:1"
@@ -152,17 +147,17 @@
        sodipodi:nodetypes="csc" />
     <g
        transform="matrix(0.62637973,0,0,0.62637973,42.842158,67.922117)"
-       ns1:version="1.10.2"
-       ns1:texconverter="pdflatex"
-       ns1:pdfconverter="inkscape"
-       ns1:text="$M \\times S^1 \\times [0, \\epsilon)$"
-       ns1:preamble="/home/josua/.config/inkscape/extensions/textext/default_packages.tex"
-       ns1:scale="1.0"
-       ns1:alignment="middle center"
-       ns1:stroke-to-path="0"
-       ns1:inkscapeversion="1.3.2"
+       ns8:version="1.10.2"
+       ns8:texconverter="pdflatex"
+       ns8:pdfconverter="inkscape"
+       ns8:text="$M \\times S^1 \\times [0, \\epsilon)$"
+       ns8:preamble="/home/josua/.config/inkscape/extensions/textext/default_packages.tex"
+       ns8:scale="1.0"
+       ns8:alignment="middle center"
+       ns8:stroke-to-path="0"
+       ns8:inkscapeversion="1.3.2"
        id="g8894"
-       ns1:jacobian_sqrt="0.352778"
+       ns8:jacobian_sqrt="0.352778"
        style="fill:#868686;fill-opacity:1;stroke:#cccccc;stroke-opacity:1">
       <defs
          id="id-1f960a75-1f8b-46e4-bd3d-601d36e5448f">
@@ -408,17 +403,17 @@
     </g>
     <g
        transform="matrix(0.62637973,0,0,0.62637973,139.55749,68.306921)"
-       ns1:version="1.10.2"
-       ns1:texconverter="pdflatex"
-       ns1:pdfconverter="inkscape"
-       ns1:text="$M \\times D^2$"
-       ns1:preamble="/home/josua/.config/inkscape/extensions/textext/default_packages.tex"
-       ns1:scale="1.0"
-       ns1:alignment="middle center"
-       ns1:stroke-to-path="0"
-       ns1:inkscapeversion="1.3.2"
+       ns8:version="1.10.2"
+       ns8:texconverter="pdflatex"
+       ns8:pdfconverter="inkscape"
+       ns8:text="$M \\times D^2$"
+       ns8:preamble="/home/josua/.config/inkscape/extensions/textext/default_packages.tex"
+       ns8:scale="1.0"
+       ns8:alignment="middle center"
+       ns8:stroke-to-path="0"
+       ns8:inkscapeversion="1.3.2"
        id="g4581"
-       ns1:jacobian_sqrt="0.352778"
+       ns8:jacobian_sqrt="0.352778"
        style="fill:#868686;fill-opacity:1">
       <defs
          id="id-f94f2f70-fcdb-4e9c-a7fc-cd54053cad15">
@@ -550,57 +545,51 @@
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="Layer 2">
-    <g
-       id="g109"
-       transform="matrix(1.7755635,0,0,1.7755635,-58.117032,-67.722828)"
-       inkscape:label="giroux domain">
-      <path
-         style="fill:none;stroke:#000000;stroke-width:0.165;stroke-dasharray:none;stroke-opacity:1"
-         id="path7"
-         sodipodi:type="arc"
-         sodipodi:cx="71.181763"
-         sodipodi:cy="40.031956"
-         sodipodi:rx="4.9179664"
-         sodipodi:ry="5.8443103"
-         sodipodi:start="0"
-         sodipodi:end="6.274476"
-         sodipodi:arc-type="arc"
-         d="m 76.099729,40.031956 a 4.9179664,5.8443103 0 0 1 -4.907258,5.844296 4.9179664,5.8443103 0 0 1 -4.928628,-5.818846 4.9179664,5.8443103 0 0 1 4.885796,-5.869636 4.9179664,5.8443103 0 0 1 4.949904,5.793286"
-         sodipodi:open="true"
-         transform="rotate(22.407689)" />
-      <path
-         style="fill:none;stroke:#000000;stroke-width:0.171811;stroke-dasharray:none;stroke-opacity:1"
-         id="path8"
-         sodipodi:type="arc"
-         sodipodi:cx="71.256775"
-         sodipodi:cy="39.948154"
-         sodipodi:rx="11.208045"
-         sodipodi:ry="11.811443"
-         sodipodi:start="0"
-         sodipodi:end="6.274476"
-         sodipodi:open="true"
-         sodipodi:arc-type="arc"
-         d="M 82.46482,39.948154 A 11.208045,11.811443 0 0 1 71.281178,51.75957 11.208045,11.811443 0 0 1 60.048836,39.999589 11.208045,11.811443 0 0 1 71.183565,28.136963 11.208045,11.811443 0 0 1 82.464395,39.845286"
-         transform="rotate(22.407689)" />
-      <path
-         style="fill:#a2b5f5;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.977481"
-         d="m 185.55254,285.77571 c -6.19472,-0.76852 -13.14694,-3.34845 -18.07673,-6.70817 -12.4093,-8.45712 -19.68322,-24.55781 -17.92544,-39.67767 2.33691,-20.10145 16.69578,-36.30537 35.52156,-40.08593 5.05679,-1.0155 13.9536,-0.69134 18.6991,0.68131 22.63155,6.54624 35.08437,31.2634 27.54711,54.67728 -4.39774,13.66123 -15.48061,24.92883 -28.79677,29.27676 -5.23939,1.71074 -12.04502,2.44727 -16.96883,1.83642 z m 8.96346,-22.2496 c 9.42143,-3.17386 15.98466,-12.6974 16.06275,-23.30779 0.0627,-8.52092 -3.4261,-14.949 -9.8207,-18.09449 -2.78616,-1.3705 -3.25838,-1.46075 -7.64315,-1.46075 -4.31379,0 -4.89937,0.10702 -7.60782,1.39035 -4.4338,2.10085 -8.86109,6.49722 -11.08314,11.00574 -3.72546,7.55889 -4.02808,14.77447 -0.89999,21.45904 3.83155,8.18784 12.44922,11.88576 20.99205,9.0079 z"
-         id="path108"
-         transform="scale(0.26458333)" />
-    </g>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.292968;stroke-dasharray:none;stroke-opacity:1"
+       id="path7"
+       sodipodi:type="arc"
+       sodipodi:cx="46.843277"
+       sodipodi:cy="30.623762"
+       sodipodi:rx="8.7321615"
+       sodipodi:ry="10.376945"
+       sodipodi:start="0"
+       sodipodi:end="6.274476"
+       sodipodi:arc-type="arc"
+       d="M 55.575438,30.623762 A 8.7321615,10.376945 0 0 1 46.86229,41.000682 8.7321615,10.376945 0 0 1 38.111198,30.66895 8.7321615,10.376945 0 0 1 46.786239,20.247039 8.7321615,10.376945 0 0 1 55.575107,30.533387"
+       sodipodi:open="true"
+       transform="rotate(22.407689)" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.305061;stroke-dasharray:none;stroke-opacity:1"
+       id="path8"
+       sodipodi:type="arc"
+       sodipodi:cx="46.976467"
+       sodipodi:cy="30.474966"
+       sodipodi:rx="19.900597"
+       sodipodi:ry="20.971968"
+       sodipodi:start="0"
+       sodipodi:end="6.274476"
+       sodipodi:open="true"
+       sodipodi:arc-type="arc"
+       d="M 66.877064,30.474966 A 19.900597,20.971968 0 0 1 47.019797,51.446884 19.900597,20.971968 0 0 1 27.076059,30.566291 19.900597,20.971968 0 0 1 46.846478,9.5034458 19.900597,20.971968 0 0 1 66.876309,30.292317"
+       transform="rotate(22.407689)" />
+    <path
+       style="fill:#00b5fe;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.977481"
+       d="m 29.052675,66.530171 c -2.910183,-0.361039 -6.176228,-1.57305 -8.492167,-3.151394 -5.829697,-3.973024 -9.246872,-11.536879 -8.421094,-18.639955 1.097844,-9.443349 7.843418,-17.0557 16.687478,-18.831748 2.375602,-0.477066 6.555185,-0.324781 8.784547,0.320069 10.631952,3.075322 16.482094,14.68706 12.941206,25.686538 -2.06599,6.417834 -7.272551,11.711178 -13.528276,13.753768 -2.461385,0.80368 -5.658564,1.14969 -7.971694,0.862722 z M 33.26357,56.077654 c 4.426042,-1.49103 7.509345,-5.965042 7.546031,-10.949639 0.02945,-4.002996 -1.609529,-7.022808 -4.613613,-8.500511 -1.308895,-0.643839 -1.530736,-0.686237 -3.590633,-0.686237 -2.026552,0 -2.301648,0.05028 -3.574036,0.653165 -2.082931,0.986946 -4.162803,3.052293 -5.206688,5.170326 -1.750163,3.551049 -1.892329,6.940817 -0.422801,10.081124 1.800003,3.84652 5.848451,5.583746 9.86174,4.231772 z"
+       id="path108" />
     <g
        transform="matrix(0.62637973,0,0,0.62637973,43.002348,46.819818)"
-       ns1:version="1.10.2"
-       ns1:texconverter="pdflatex"
-       ns1:pdfconverter="inkscape"
-       ns1:text="$M$"
-       ns1:preamble="/home/josua/.config/inkscape/extensions/textext/default_packages.tex"
-       ns1:scale="1.0"
-       ns1:alignment="middle center"
-       ns1:stroke-to-path="0"
-       ns1:inkscapeversion="1.3.2"
+       ns8:version="1.10.2"
+       ns8:texconverter="pdflatex"
+       ns8:pdfconverter="inkscape"
+       ns8:text="$M$"
+       ns8:preamble="/home/josua/.config/inkscape/extensions/textext/default_packages.tex"
+       ns8:scale="1.0"
+       ns8:alignment="middle center"
+       ns8:stroke-to-path="0"
+       ns8:inkscapeversion="1.3.2"
        id="g5193"
-       ns1:jacobian_sqrt="0.352778"
+       ns8:jacobian_sqrt="0.352778"
        inkscape:label="M">
       <defs
          id="id-d487b1ae-57ab-49a2-956d-22a663fc169d">
