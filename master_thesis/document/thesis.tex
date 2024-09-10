@@ -13,10 +13,12 @@
 \usepackage{tikz-cd}
 \usepackage{tcolorbox}
 \newtheorem{theorem}{Theorem}
-\newtheorem{lemma}{Lemma}
-\newtheorem{remark}{Remark}
-\newtheorem{definition}{Definition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{definition}[theorem]{Definition}
 \renewcommand*{\d}{\mathrm{d}}
+
+\renewcommand{\thesection}{\thechapter.\arabic{section}}
 
 \begin{document}
 \tableofcontents

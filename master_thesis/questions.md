@@ -298,3 +298,7 @@ The filling needs to have sufficient homology to exist,
 at least the homology of the dividing set
 
 for the first variant see theorem 32 in version 1 on arxiv
+
+## Question for Agustin
+The Thurston-Winkelnkemper construction requires that the monodromy has to be the identity close to the boundary.
+Why is this the case for the Milnor open book?
