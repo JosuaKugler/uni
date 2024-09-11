@@ -20,7 +20,7 @@ Later, it will be important that the resulting contact structure is supported by
 
 \subsection*{Abstract open books}
 Instead of defining an open book via a map that induces binding and pages, one can also define it by starting from the page and defining
-a "monodromy" map, i.e. a map that determines how the page changes if one follows the page $360^\circ$ around the binding.
+a ``monodromy" map, i.e. a map that determines how the page changes if one follows the page $360^\circ$ around the binding.
 This is based on the concept of a mapping torus.
 
 \begin{definition}[mapping torus]
@@ -99,30 +99,29 @@ This vector field induces a coordinate $s$ on a collar neighborhood of the bound
 Then, the symplectic form is given by $\d \left(e^s\beta_\partial\right)$ where $s$ is the collar parameter, i.e. $X = \partial s$.
 
 Close to $\partial \Sigma$, $\phi$ is equal to the identity and therefore $\d \overline{\varphi}$ is locally constant (hence constant, as $\partial \Sigma$ is connected).
-Parametrize the neighborhood so that $\overline{\varphi}$ is constant on $[-1,0]\times \partial \Sigma$.
+If necessary, reparametrize the neighborhood so that $\overline{\varphi}$ is constant on $[-1,0]\times \partial \Sigma$.
 
 Now, take a look at
 \[
     M \coloneqq \left(\Sigma_{\overline{\varphi}}(\phi)\; \dot\cup\; \left(\partial D_2^2 \times \Sigma\right)\right)/\sim.
 \]
 \begin{figure}
-    \includegraphics[width=\textwidth]{images/abstract_open_book_gluing.png}
+    \includegraphics[width=\textwidth]{images/abstract_open_book_gluing.pdf}
     \caption[Gluing an abstract open book]{Detailled gluing process of the generalized abstract open book}
     \label{fig:abstract_open_book_gluing}
 \end{figure}
 
 A simple linear reparametrization will make the notation a lot easier: As $\overline{\varphi}$ is constant on the neighborhood under consideration, just pretend that $\overline{\varphi} = 2\pi$.
-Furthermore, parametrize the boundary $\partial \Sigma$ with $\theta \in S^1$.
 Then identify 
 \[
-    (s, \theta, \varphi) \in [-1,0] \times \partial \Sigma \times S^1 \subset \Sigma_{\overline{\varphi}}(\phi)
+    (s, x, \varphi) \in [-1,0] \times \partial \Sigma \times S^1 \subset \Sigma_{\overline{\varphi}}(\phi)
 \]
 with
 \[
-    (\theta, s = 1-r, \varphi) \in \partial \Sigma \times D_2^2 \eqqcolon \mathcal{N}
+    (x, s = 1-r, \varphi) \in \partial \Sigma \times D_2^2 \eqqcolon \mathcal{N}
 \]
-where $(r, \varphi)$ are polar coordinates on $D_2^2$, i.e. a collar neighborhood of $\Sigma$ is identified with an annulus in $D_2^2$.
-(See \cref{fig:abstract_open_book_gluing})
+where $(r, \varphi)$ are polar coordinates on $D_2^2$, i.e. a collar neighborhood of $\Sigma$ is identified with an annulus in $D_2^2$
+(See \cref{fig:abstract_open_book_gluing} for a drawing in three dimensions).
 
 Now choose the ansatz
 \[
