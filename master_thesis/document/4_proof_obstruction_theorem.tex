@@ -1,4 +1,8 @@
-The current situation is that $M\times T^2 = V_- \times S_1 \bigcup_\Gamma V_+\times S_1$ has a cobordism to $\Gamma \times S^2$.
+The current situation is that 
+\[
+    M\times T^2 = V_- \times S_1 \bigcup_\Gamma V_+\times S_1
+\] 
+has a cobordism to $\Gamma \times S^2$.
 The surgeries that turn $M\times T^2$ into $S^{2n+1}$ can be made disjoint from the dividing set, so it makes sense to talk about $\Gamma \subset S^{2n+1}$.
 The full homology obstruction theorem states that any homology class in the dividing set $\Gamma$ that dies in a filling $W_\text{surg}$ of $S^{2n+1}$,
 will also die in $V_\pm$.
@@ -10,10 +14,6 @@ $W_\text{Bourgeois}$ (all the more in $W$), will also die in $V_\pm$.
 In order to make this more precise, define the inclusion maps
 $i'\colon \Gamma \to \Gamma \times \{\operatorname{pt}\} \subset \Gamma \times S^2$ where $\operatorname{pt}$ is a point on the equator of $S^2$
 and $i$ as the composition of $i'$ with the inclusion $\Gamma \times S^2 = \partial_+ C \hookrightarrow \partial W \hookrightarrow W$. 
-
-Now, consider a homology class $z \in H_*(\Gamma, \mathbb{Q})$ such that $i_*(z) = 0 \in H_*(W, \mathbb{Q})$.
-Then the obstruction theorem states that already $f_{\pm,*}(z) = 0$.
-
 
 Start with a cycle $z \in H_*(\Gamma, \mathbb Q)$ with $i_*(z) = 0 \in H_*(W, \mathbb{Q})$.
 Consequently, there is a homology class $\sigma \in H_*(W, \mathbb Q)$ with boundary $i_*(z) = \partial \sigma$.
@@ -38,6 +38,8 @@ As proved in the last section, this map is a diffeomorphism close to the boundar
 $\mathcal{I}^\pm\colon \overline{\mathcal{M}} \to W_\pm$ is the intersection map defined in the last section.
 Finally, choose $\mathcal I_\pi^\pm$ and $f_\pm$ such that the diagram commutes.
 
+The obstruction theorem states that already $f_{\pm,*}(z) = 0 \in H_*(C_\pm = V_\pm, \mathbb{Q})$.
+
 Consider the set preimage $\operatorname{ev}^{-1}(\sigma) \subset \overline{\mathcal M}_*$.
 As the boundary $\partial \sigma$ is contained in $\partial W$, the evaluation map is a diffeomorphism
 and a neighborhood of $\partial \sigma$ is preserved under taking the preimage.
@@ -56,3 +58,10 @@ The following equation holds:
 \end{align*}
 
 As a result, $\left[f^\pm(z)\right] = \left[\partial I_{\pi,*}^\pm(\tau)\right] = 0 \in H_*(C_\pm, \mathbb Q) = H_*(V_\pm, \mathbb Q)$.
+For a sketch of the proof, see \cref{fig:obstruction_proof_sketch}.
+
+\begin{figure}
+    \includegraphics{images/obstruction_proof_sketch.pdf}
+    \caption{Sketch of $W$ with the two handles. The homology class $\sigma \in H_*(W)$ with boundary $z \in H_*(\Gamma)$ is pushed to $H_*(C_\pm)$.}
+    \label{fig:obstruction_proof_sketch}
+\end{figure}
