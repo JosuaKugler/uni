@@ -25,9 +25,9 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      showgrid="true"
-     inkscape:zoom="3.9557653"
-     inkscape:cx="297.28761"
-     inkscape:cy="546.29126"
+     inkscape:zoom="0.86113342"
+     inkscape:cx="572.5013"
+     inkscape:cy="321.66908"
      inkscape:window-width="1920"
      inkscape:window-height="1016"
      inkscape:window-x="0"
@@ -200,7 +200,10 @@
      id="layer1">
     <g
        id="g5"
-       transform="matrix(1.5690666,0,0,1.5690666,-26.269512,-14.249362)">
+       transform="matrix(1.5690666,0,0,1.5690666,-26.269512,-14.249362)"
+       inkscape:export-filename="obstruction_proof_sketch_no_homology.pdf"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
       <rect
          style="fill:#dcdcdc;fill-opacity:1;stroke:#000000;stroke-width:0.165;stroke-dasharray:none;stroke-opacity:1"
          id="rect1"
