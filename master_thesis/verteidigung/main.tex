@@ -10,7 +10,7 @@
 \newtheorem{conjeorem}{Conjeorem}
 \usepackage{mathabx,epsfig}
 \usepackage{tcolorbox}
-\usepackage[document]{ragged2e}
+%\usepackage[document]{ragged2e}
 \def\acts{\mathrel{\reflectbox{$\righttoleftarrow$}}}
 
 \newcommand*\circled[1]{\tikz[baseline=(char.base)]{        \node[shape=circle,draw,inner sep=0.8pt] (char) {#1};}}
@@ -360,62 +360,29 @@ The general theorem follows by connected sum with an ``exotic'' sphere:
     
 \end{frame}
 
-\begin{frame}{Tightness and fillability from algebraic perspective}
-
-Contact homology algebra $CHA(Y)$ (homology well-defined by Pardon).
-
-\begin{definition}
-
-\begin{enumerate}
-    \item $Y$ is \emph{algebraically} tight if $CHA(Y)\neq 0$.
-    \item $Y$ is \emph{algebraically} fillable if there is a DGA augmentation of $CHA(Y)$ at the chain level.
-\end{enumerate} 
-Similarly for \emph{algebraically} overtwisted/non-fillable.
-\end{definition}
-
-\textbf{Note:} This definition is well-defined, due to functoriality of the DGA, even though homotopy type of chain level is not.
-\end{frame}
-
-\begin{frame}{Formal algebraic properties}
-
-\begin{lemma}
-    \begin{enumerate}
-        \item Algebraically tight $\Rightarrow$ tight.
-        \item Algebraically fillable $\Rightarrow$ algebraically tight.
-        \item Algebraically non-fillable $\Rightarrow$ non-fillable.
-        \item $1$-ADC $\Rightarrow$ algebraically tight.
-    \end{enumerate}
-\end{lemma}
-
-$1$-ADC is an \emph{index-positivity} condition (Lazarev, Zhou).
-
-%there exists a decreasing sequence of contact forms so that contractible orbits below an action window (going to infinity) have \emph{degree} less than 1. 
-
-\medskip
-
-\pause
-
-\textbf{Facts:} \begin{enumerate}
-    \item (Advek '22) tight contact manifolds can be algebraically overtwisted, in dim 3.
-    \item Algebraic tightness is preserved under surgeries. Tightness is also, in dim $3$ (Wand '14).
-    \item $1$-ADC binding of fillable open book $\Rightarrow$ $1$-ADC algebraically fillable Bourgeois manifold $\Rightarrow$ algebraically tight. 
-    \item E.g.\ Milnor $A_k$-singularity open book has $1$-ADC binding.
-\end{enumerate}
-
-\end{frame}
 
 \begin{frame}{Tightness}
 
-\begin{tcolorbox}
-Milnor $A_k$ open book $\Rightarrow (\mathbb S^{2n+1},\xi_{ex})$ is \emph{tight}.
-\end{tcolorbox}
-
-\pause
-
-\begin{tcolorbox}
-\textbf{Note:} Heuristically, there is a priori \emph{many} choices of open book. This suggests \emph{many} non-standard structures. However, distinguishing is subtle.
-\end{tcolorbox}
-
+    \textbf{Facts:} \begin{enumerate}
+        \item Milnor open book $\Rightarrow$  algebraically tight Bourgeois manifold.
+        \pause
+        \begin{itemize}
+            \item Algebraic tightness is vanishing of a certain contact homology algebra.
+        \end{itemize}
+        \pause
+        \item Algebraic tightness is preserved under surgeries.
+        \pause
+        \item Algebraically tight $\implies$ tight.
+    \end{enumerate}
+    
+    \pause
+    
+    \vspace*{1cm}
+    
+    \begin{tcolorbox}
+        Milnor open book $\Rightarrow (\mathbb S^{2n+1},\xi_{ex})$ is \emph{tight}.
+    \end{tcolorbox}
+    
 \end{frame}
 
 \begin{frame}{Non-fillability}
