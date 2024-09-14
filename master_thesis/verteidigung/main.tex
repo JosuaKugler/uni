@@ -405,12 +405,33 @@ The general theorem follows by connected sum with an ``exotic'' sphere:
 
 \end{frame}
 
+\begin{frame}{Convex Decomposition and Capping Cobordism}
+
+\textbf{Observations:} 
+\begin{itemize}
+    \item Bourgeois manifolds have convex decomposition $$M\times \mathbb T^2=(M\times \mathbb S^1)\times \mathbb S^1= V_+\times \mathbb S^1 \cup_\phi \overline{V}_-\times \mathbb S^1,$$ with $V_\pm=\Sigma \times D^*\mathbb S^1$, $\Sigma=$ page of the open book, $\phi=$ monodromy.
+    
+    \pause
+    
+    \item Capping cobordism from $M\times T^2$ to $\Gamma\times \mathbb S^2$, via handles $V_\pm \times D^2$ with co-core $C_\pm \simeq V_\pm$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Capping Cobordism: Example}
+    \begin{figure}
+        \begin{subfigure}[t]{.54\linewidth}
+            \includegraphics[trim=-.3cm -.5cm -.3cm -.5cm, width=\linewidth]{../images/convex_decomposition_of_s1.pdf}
+        \end{subfigure}
+        \begin{subfigure}[t]{.35\linewidth}
+            \includegraphics[trim=-.5cm -.5cm -.5cm -.5cm, width=\linewidth]{../images/v_times_s1.pdf}
+        \end{subfigure}
+        \begin{subfigure}{.8\linewidth}
+            \includegraphics[trim=-.5cm -.5cm -.5cm -.5cm, width=\linewidth]{../images/capping_cobordism_talk.pdf}
+        \end{subfigure}
+    \end{figure}
+\end{frame}
+
 \begin{frame}{Homological obstructions}
-
-\textbf{Observation:} Bourgeois manifolds have convex decomposition $$M\times \mathbb T^2=(M\times \mathbb S^1)\times \mathbb S^1= V_+\times \mathbb S^1 \cup_\phi \overline{V}_-\times \mathbb S^1,$$ with $V_\pm=\Sigma \times D^*\mathbb S^1$, $\Sigma=$ page of the open book, $\phi=$ monodromy.
-
-\pause
-
 \begin{theorem}[Bowden--Gironella--Moreno]
 
 $M \times T^2 =V\times \mathbb S^1=V_+\times \mathbb S^1\cup_\phi \overline{V_-}\times \mathbb S^1$ with convex decomposition, 
@@ -429,21 +450,9 @@ Namely, if a homology class in $\Gamma$ survives in $V_\pm$, then it survives in
 \begin{frame}{Idea of proof}
 \begin{itemize}
 \item Capping cobordism from $M\times T^2$ to $\Gamma\times \mathbb S^2$, via handles $V_\pm \times D^2$ with co-core $C_\pm \simeq V_\pm$. 
+\pause
+\item Second factor gives moduli space of spheres $\mathcal M_*$ with evaluation map $ev: \mathcal M_*\rightarrow W$. 
 \end{itemize}
-\end{frame}
-
-\begin{frame}{Idea of proof}
-    \begin{figure}
-        \begin{subfigure}[t]{.54\linewidth}
-            \includegraphics[trim=-.3cm -.5cm -.3cm -.5cm, width=\linewidth]{../images/convex_decomposition_of_s1.pdf}
-        \end{subfigure}
-        \begin{subfigure}[t]{.35\linewidth}
-            \includegraphics[trim=-.5cm -.5cm -.5cm -.5cm, width=\linewidth]{../images/v_times_s1.pdf}
-        \end{subfigure}
-        \begin{subfigure}{.8\linewidth}
-            \includegraphics[trim=-.5cm -.5cm -.5cm -.5cm, width=\linewidth]{../images/capping_cobordism_talk.pdf}
-        \end{subfigure}
-    \end{figure}
 \end{frame}
 
 \begin{frame}{Idea of proof}
@@ -458,12 +467,6 @@ Namely, if a homology class in $\Gamma$ survives in $V_\pm$, then it survives in
     \item Capping cobordism from $M\times T^2$ to $\Gamma\times \mathbb S^2$, via handles $V_\pm \times D^2$ with co-core $C_\pm \simeq V_\pm$. 
     \item Second factor gives moduli space of spheres $\mathcal M_*$ with evaluation map $ev: \mathcal M_*\rightarrow W$. 
     \item Spheres intersect $C_\pm$ precisely once $\rightsquigarrow$ intersection map $\mathcal I_\pm:\mathcal M_*\rightarrow C_\pm$.
-    
-    \pause 
-
-    \item If $\sigma \subset W$ satisfies $\partial \sigma=z$ with $z$ cycle in $\Gamma$, 
-    then $z$ also bounds $b=\mathcal I_\pm ev^{-1}(\sigma) \subset V_\pm$. $\hfill\square$ 
-    
     \end{itemize}
 \end{frame}
 
@@ -472,8 +475,19 @@ Namely, if a homology class in $\Gamma$ survives in $V_\pm$, then it survives in
         \centering
         \includegraphics[trim=0cm 2.5cm 0cm 0cm, clip]{../images/obstruction_proof_sketch.pdf}
     \end{figure}
-    \end{frame}
+\end{frame}
 
+\begin{frame}{Idea of proof}
+    \begin{itemize}
+        \item Capping cobordism from $M\times T^2$ to $\Gamma\times \mathbb S^2$, via handles $V_\pm \times D^2$ with co-core $C_\pm \simeq V_\pm$. 
+        \item Second factor gives moduli space of spheres $\mathcal M_*$ with evaluation map $ev: \mathcal M_*\rightarrow W$. 
+        \item Spheres intersect $C_\pm$ precisely once $\rightsquigarrow$ intersection map $\mathcal I_\pm:\mathcal M_*\rightarrow C_\pm$.
+        \item If $\sigma \subset W$ satisfies $\partial \sigma=z$ with $z$ cycle in $\Gamma$, 
+        then $z$ also bounds $b=\mathcal I_\pm ev^{-1}(\sigma) \subset V_\pm$. $\hfill\square$ 
+        
+    \end{itemize}
+\end{frame}
+    
 \begin{frame}{Homological obstructions}
 
 \textbf{Fact:} 
@@ -501,16 +515,19 @@ with $H_n(\Gamma)\neq 0$.
 
 \begin{frame}
 
-\textbf{End of the proof:} $W$ filling of $(\mathbb S^{2n+1},\xi_{ex}) \Rightarrow$ Homological obstruction: 
+\textbf{End of the proof:} Assume $W$ filling of $(\mathbb S^{2n+1},\xi_{ex})$.
 
-$$
-0\neq H_n(N) \hookrightarrow H_n(W).
-$$
-However, this factors as
-$$
-0\neq H_n(N) \rightarrow H_n(\mathbb S^{2n+1})=0 \rightarrow H_n(W),
-$$
-contradiction.
+\begin{itemize}
+    \item $\exists$ homology class $z\subset \Gamma$ s.t. $z$ survives in $V_\pm$.
+    \pause
+    \item Homological obstruction theorem: $H_n(\Gamma) \to H_n(W) \neq 0$.
+    \pause
+    \item  However, this factors as
+    $$
+    0\neq H_n(\Gamma) \rightarrow H_n(\mathbb S^{2n+1})=0 \rightarrow H_n(W),
+    $$
+    contradiction.
+\end{itemize}
 \end{frame}
 
 \begin{frame}
