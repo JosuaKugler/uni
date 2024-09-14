@@ -160,6 +160,18 @@
 \end{frame}
 
 \begin{frame}{Contact topology}
+    \textbf{Contact manifold:}
+    \begin{itemize}
+        \item odd-dimensional smooth manifold
+        \item codim-1 hyperplane distribution $\ker \alpha$
+        \item contact condition: 
+        \[ 
+            \alpha \wedge \mathrm{d} \alpha \neq 0
+        \]
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Contact topology}
 
 \textbf{Contact topology:} The study of contact manifolds, up to isotopy.
 
@@ -263,7 +275,21 @@ In particular, no tight and non-fillable contact structures on $S^3$.
 
 \end{frame}
 
+\begin{frame}{Exotic spheres}
+    
+    \begin{theorem}[Bowden--Gironella--Moreno--Zhou '22-'24]
+        For every $n \geq 2$, the sphere $\mathbb S^{2n+1}$ admits a tight, non-fillable contact structure that is homotopically standard.
+    \end{theorem}
+        
+\end{frame}
+
 \begin{frame}{Tight and non-fillable structures in $\dim \geq 5$}
+
+$M$ tight contact manifold. 
+
+\pause 
+
+Then connected sum with an ``exotic'' sphere yields:
 
 \begin{theorem}[Bowden--Gironella--Moreno--Zhou '22-'24]
 In $\dim \geq 7$, if $M$ admits a tight structure, it also admits a tight and non strongly-fillable structure, in the same almost contact class. 
@@ -277,15 +303,7 @@ In $\dim=5$, the same holds, if the first Chern class vanishes.
     
 \end{frame}
 
-\begin{frame}{Case of spheres}
 
-The general theorem follows by connected sum with an ``exotic'' sphere:
-
-\begin{theorem}[Bowden--Gironella--Moreno--Zhou '22-'24]
-    For every $n \geq 2$, the sphere $\mathbb S^{2n+1}$ admits a tight, non-fillable contact structure that is homotopically standard.
-\end{theorem}
-    
-\end{frame}
 
 \begin{frame}{General remarks}
 
@@ -348,15 +366,14 @@ The general theorem follows by connected sum with an ``exotic'' sphere:
     \pause
 
     \begin{itemize}
-        \item Milnor open book on $\mathbb S^{2n-1}\rightsquigarrow$ Bourgeois manifold on $\mathbb S^{2n-1}\times \mathbb T^2$
-    $\rightsquigarrow $ two $1$-surgeries = $\mathbb S^{2n-1}\times \mathbb S^2 \rightsquigarrow$ one $2$-surgery = $\mathbb S^{2n+1}.$
-    
-    \medskip
-
-    \pause
-    
-    \item If $n\geq 3,$ surgeries are \emph{subcritical} $\rightsquigarrow$ by 'Eliashberg's' h-pple, Weinstein cobordism $\rightsquigarrow$ contact manifold $(\mathbb S^{2n+1},\xi_{ex})$.
-
+    \item Milnor open book on $\mathbb S^{2n-1}$
+    \medskip \pause
+    \item $\rightsquigarrow$ Bourgeois manifold on $\mathbb S^{2n-1}\times \mathbb T^2$
+    \medskip \pause
+    \item $\rightsquigarrow $ two $1$-surgeries = $\mathbb S^{2n-1}\times \mathbb S^2 \rightsquigarrow$ one $2$-surgery = $\mathbb S^{2n+1}.$ 
+    \medskip \pause   
+    \item If $n\geq 3,$ surgeries are \emph{subcritical} $\rightsquigarrow$ by 'Eliashberg's' h-pple, 
+    Weinstein cobordism $\rightsquigarrow$ contact manifold $(\mathbb S^{2n+1},\xi_{ex})$.
     \end{itemize}
 
     \pause
@@ -364,11 +381,25 @@ The general theorem follows by connected sum with an ``exotic'' sphere:
     \medskip
 
     \begin{tcolorbox}
-    \textbf{Claim:} $(\mathbb S^{2n+1},\xi_{ex})$ is tight and non-fillable.
+    \textbf{Claim:} $(\mathbb S^{2n+1},\xi_{ex})$ is homotopically standard, tight and non-fillable.
     \end{tcolorbox}
     
 \end{frame}
 
+
+\begin{frame}{Homotopically standard}
+    almost contact str. on $S^{2n-1}$ $\leftrightsquigarrow$ almost complex str. on $B^{2n}$
+    \pause 
+    \begin{itemize}
+        \item[$\rightsquigarrow$] extend almost complex str. from contact hypersurfaces on $S^{2n-1}$ to $TB^{2n}$
+        \pause
+        \item[$\leftsquigarrow$] field of complex tangencies $TS \cap J(TS)$ induces almost contact str. on $S^{2n-1}$.
+    \end{itemize}
+
+    \medskip \pause
+
+    All almost complex structures on the ball are homotopic
+\end{frame}
 
 \begin{frame}{Tightness}
 
