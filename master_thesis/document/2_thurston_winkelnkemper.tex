@@ -1,5 +1,6 @@
 An open book in itself is of no use to the proof - a contact structure is needed! 
-This section makes the Giroux correspondence explicit by providing a construction that takes an open book as input
+This section makes a special case of one direction of the Giroux correspondence explicit 
+by providing a construction that takes an open book as input
 and returns a contact structure as output.
 
 Later, it will be important that the resulting contact structure is supported by the open book decomposition.
@@ -8,7 +9,7 @@ Later, it will be important that the resulting contact structure is supported by
     A contact structure $\xi = \ker \alpha$ on $M$ is said to be \textbf{supported} by the open book decomposition $(B,p)$ of $M$ if
     \begin{enumerate}[(i)]
         \item the contact form $\alpha$ induces the positive orientation of $M$ ($\alpha \wedge (\d \alpha)^n > 0$).
-        \item the 2-form $\d \alpha$ induces a symplectic form on each page, defining its positive orientation
+        \item the 2-form $\d \alpha$ induces a symplectic form on the interior of each page, defining its positive orientation
         \item the 1-form $\alpha$ induces a positive contact form on $B$, i.e. 
         \[ 
             \alpha|_{TB} \wedge (\d \alpha|_{TB})^{(n-2)} > 0.
@@ -38,10 +39,10 @@ This is based on the concept of a mapping torus.
 \end{definition}
 
 Starting with a mapping torus $\Sigma(\phi)$, one can construct an abstract open book $M(\phi)$ with binding $\partial \Sigma$ (see \cref{fig:open_book}),
-where the page $p^{-1}(\theta) = \Sigma$ and $B = \partial \Sigma$.
+where the page $\overline{p^{-1}(\theta)} = \Sigma$ and $B = \partial \Sigma$.
 Define
 \[
-    M(\phi) \coloneqq \left(\Sigma(\phi) \cup \partial D^2 \times \Sigma\right)/\sim
+    M(\phi) \coloneqq \left(\Sigma(\phi) \cup D^2 \times \partial \Sigma\right)/\sim
 \]
 and identify
 \[
@@ -99,11 +100,11 @@ If necessary, reparametrize the neighborhood so that $\overline{\varphi}$ is con
 
 Now, take a look at
 \[
-    M \coloneqq \left(\Sigma_{\overline{\varphi}}(\phi)\; \dot\cup\; \left(\partial D_2^2 \times \Sigma\right)\right)/\sim.
+    M \coloneqq \left(\Sigma_{\overline{\varphi}}(\phi)\; \dot\cup\; \left(D_2^2 \times \partial \Sigma\right)\right)/\sim.
 \]
 \begin{figure}
     \includegraphics[width=\textwidth]{../images/abstract_open_book_gluing.pdf}
-    \caption[Gluing an abstract open book]{Detailled gluing process of the generalized abstract open book}
+    \caption[Gluing an abstract open book]{Detailled gluing process of a generalized abstract open book decomposition for $S^3$}
     \label{fig:abstract_open_book_gluing}
 \end{figure}
 

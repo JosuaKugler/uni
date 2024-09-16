@@ -50,7 +50,7 @@ In three dimensions, these inclusions were all proven to be strict, see \cref{fi
 \begin{figure}
     \begin{align*}
         \{\text{Weinstein fillable}\} \stackrel{\text{\cite{Bowden12}, \cite{BCS14}}}{\subsetneq} 
-        \{\text{Liouville fillable}\} \stackrel{\text{\cite{Ghiggini05}, \cite{Zhou21}}}{\subsetneq}\\
+        \{\text{Liouville fillable}\} \stackrel{\text{\cite{Ghiggini05}, \cite{Zhou21a}}}{\subsetneq}\\
         \{\text{Strongly  fillable}\} \stackrel{\text{\cite{Eliashberg96}, \cite{BGM22}}}{\subsetneq}
         \{\text{Weakly    fillable}\} \stackrel{\text{\cite{EH02}, \cite{MNW13}}}{\subsetneq}
         \{\text{Tight}\}
@@ -98,7 +98,7 @@ Thirdly, non-fillability is deduced.
 The starting point of \cref{chap:construction} is the famous Giroux-correspondence.
 Giroux disvovered that contact structures are closely related with open book decomposition.
 An open book decomposition really is a very intuitive concept: In a manifold $M^n$, find a codimension two submanifold $B^{n-2}$
-s.t. there is a fibration $p\colon M\setminus B \to S^1$. $B$ is then called ``binding" and the fibers $p^{-1}(\theta)$ are the pages of the open book 
+s.t. there is a fibration $p\colon M\setminus B \to S^1$. $B$ is then called ``binding" and the closure of the fibers $p^{-1}(\theta)$ are the ``pages" of the open book 
 (see \cref{fig:open_book}).
 
 \begin{figure}
@@ -107,9 +107,10 @@ s.t. there is a fibration $p\colon M\setminus B \to S^1$. $B$ is then called ``b
     \label{fig:open_book}
 \end{figure}
 
-The Giroux correspondence states that in 3 dimensions, there is a bijection (modulo technical details) between contact structures
-and open book decompositions.
-In higher dimensions, similar statements hold, in particular any open book decomposition leads to a corresponding supported
+The Giroux correspondence states that in 3 dimensions, there is a bijection between contact structures modulo isotopy
+and open book decompositions modulo stabilization.
+In higher dimensions, the same statement holds \cite{BHH23}. 
+In particular, any open book decomposition leads to a corresponding supported
 contact structure via the Thurston-Winkelnkemper-construction.
 This is used in the proof in order to construct a contact structure that is different from the standard contact structure on $S^{2n+1}$.
 
@@ -117,7 +118,7 @@ Constructing a tight contact structure is not so easy: The standard way would be
 but then it is of course fillable, so this approach can't be used here.
 Even though there are many procedures that make a contact structure overtwisted (e.g. adding a Lutz twist), tightening procedures are very rare.
 Only the Bourgeois construction was known to often yield tight contact structures. 
-A recent preprint by Avdek and Zhou now proves that, in fact, Bourgeois manifolds are always tight \cite{AZ24}.
+A recent preprint by Avdek and Zhou now proves that, in fact, Bourgeois manifolds are always tight \cite{BGM22, AZ24}.
 Therefore, the next step in the proof is to apply the Bourgeois construction, resulting in a Bourgeois manifold $S^{2n-1} \times T^2$.
 Clearly, this has the wrong topology, so the final step in the construction is to kill the $T^2$-factor with
 subcricital contact surgeries, establishing a homotopically standard contact structure on the sphere $(S^{2n+1},\xi_\text{new})$.
@@ -127,7 +128,7 @@ is really tight.
 
 Finally, \cref{chap:nonfillable} finds a contradiction if the manifold was fillable. So first, assume it is fillable.
 The largest part then is devoted to proving that fillability implies a certain property for specific homology classes
-(the homological obstruction theorem).
+(the homological obstruction theorem, see \cref{th:homological_obstruction}).
 As the theorem is easier to prove for $S^{2n-1} \times T^2$ instead of the surgered manifold $S^{2n+1}$,
 this thesis covers only the proof for the homological obstruction theorem for $S^{2n-1} \times T^2$ according to \cite{BGM22}. 
 The proof in the general case is similar.
