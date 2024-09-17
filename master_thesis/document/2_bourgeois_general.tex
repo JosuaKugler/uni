@@ -20,7 +20,7 @@ Extend this function to $M$ by setting $\rho = 1$ on $M \setminus B \times D$ (s
 \end{figure}
 As $\pi$ and $\rho$ are smooth functions on $M$, one can define the smooth functions $x_1 \coloneqq \rho \cos \pi$ and $x_2 \coloneqq \rho \sin \pi$ on all of $M$. 
 On $B \times D^2$, they coincide with the Cartesian coordinate functions near $B$.
-As always with corresponding polar- and cartesian coordinates, they satisfy
+As always with corresponding polar- and Cartesian coordinates, they satisfy
 \begin{align*}
     x_1 \d x_2 - x_2 \d x_1 &= \rho^2 \cos^2 \pi \d \pi + \rho \cos \pi \sin \pi \d \rho + \rho^2 \sin^2 \pi \d \pi - \rho \cos \pi \sin \pi \d \rho\\
     &= \rho^2 (\cos^2 \pi + \sin^2 \pi) \d \pi\\
@@ -34,11 +34,11 @@ and, analogously,
 On $M\times T^2$, choose coordinates $(\theta_1, \theta_2)$ on the torus part of the manifold.
 Define
 \[
-    \tilde \alpha \coloneqq x_1 \d \theta_1 - x_2 \d \theta_2 + \alpha.
+    \tilde \alpha \coloneqq x_1 \d \theta_1 - x_2 \d \theta_2 + \alpha
 \]
 to be a $1$-form on $M$ (where $\alpha$ is extended in the obvious way to $M\times T^2$ as the pullback $\pi_1^*\alpha$).
 This is the candidate for the contact form on $M\times T^2$.
-Having computed the exterior derivative and its n-th power
+Having computed the exterior derivative and its nth power
 \begin{align*}
     \d \tilde \alpha &= \d x_1 \wedge \d \theta_1 - \d x_2 \wedge \d \theta_2 + \d \alpha,\\
     (\d \tilde \alpha)^n =& (n-1)(\d \alpha)^{n-1}\wedge (\d x_1 \wedge \d \theta_1 - \d x_2 \wedge \d \theta_2)\\
@@ -55,7 +55,7 @@ one can check the contact condition:
     =& (n-1)(\d \alpha)^{n-1}\wedge \rho^2 \d\phi \wedge \d \theta_1 \wedge \d \theta_2\\
     & + n(n-1)\alpha \wedge (\d \alpha)^{n-2}\wedge \rho \d\rho \wedge \d \phi \wedge \d \theta_1 \wedge \d \theta_2.
 \end{align*}
-As this expression is a top-dimensional form, it suffices to show that its nowhere zero.
+As this expression is a top-dimensional form, it suffices to show that it's nowhere zero.
 For that, one needs to employ the fact that $\alpha$ is supported by $(B, \pi)$.
 By condition (ii) of \cref{def:support}, $(\d \alpha)^{n-1}$ must be a positive volume form on the pages. 
 As explained in that definition, the orientation on $M$ is given by $\partial_\phi$ and the orientation of the page. 
